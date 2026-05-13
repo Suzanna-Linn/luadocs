@@ -4,9 +4,11 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'suzanna-linn.github.io', 
+  base: '/luadocs', 
 	integrations: [
 		starlight({
-			title: 'My Docs',
+			title: 'Lua docs',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 			sidebar: [
 				{
