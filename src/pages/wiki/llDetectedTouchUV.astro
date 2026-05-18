@@ -1,0 +1,280 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.DetectedTouchUV(Index: number): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llDetectedTouchUV(integer Index);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a vector that is the texture coordinates for where the prim was touched. The <b>x</b> & <b>y</b> vector positions contain the horizontal (<b>u</b>) & vertical (<b>v</b>) texture coordinates respectively (`<<b>u</b>, <b>v</b>, 0.0>`). Like <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchST" target="_blank">llDetectedTouchST</a>, the interval of each component will be [0.0, 1.0] unless the texture repeats are set to a non-default value. Increasing or decreasing the texture repeats of the face will change this interval accordingly. Additionally, unlike with <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchST" target="_blank">llDetectedTouchST</a>, changing a texture's rotation will change the results of this function.</p>
+  <p><a href="https://wiki.secondlife.com/wiki/TOUCH_INVALID_TEXCOORD" target="_blank">TOUCH_INVALID_TEXCOORD</a> is returned when the touch UV coordinates cannot be determined. See <a href="#Caveats" target="_blank">Caveats</a> for further details.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Index / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/index" target="_blank">index</a></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Index of detection information</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>detected</li>
+        <li>touch</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">337</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-detected">Detected Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>index</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>For the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> category of events only. The prim that was touched may not be the prim receiving the event, use <a href="https://wiki.secondlife.com/wiki/LlDetectedLinkNumber" target="_blank">llDetectedLinkNumber</a> to check for this; likewise you can use <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a> to determine which face was touched.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>index</b> is out of bounds the script continues to execute without an error message.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/TOUCH_INVALID_TEXCOORD" target="_blank">TOUCH_INVALID_TEXCOORD</a> is returned when...
+    <ul>
+      <li>The avatar's viewer does not support face touch detection.
+      <ul>
+        <li>To check if face touch detection is supported check the return of <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a>.</li>
+      </ul>
+    
+      </li>
+      <li>The touch has moved off the surface of the prim.</li>
+      <li>The touch happened too close to the edge of the face to determine a location.</li>
+      <li>The event triggered is not a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> event.</li>
+    </ul>
+  
+    </li>
+    <li>The vertical coordinate is flipped on a glTF mesh.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local face = ll.DetectedTouchFace(0)
+    local touchUV = ll.DetectedTouchUV(0)
+
+    --      ZERO_VECTOR (<0.0, 0.0, 0.0> ... the origin) is in the bottom left corner of the texture
+    --      touchUV.x goes across the texture from left to right
+    --      touchUV.y goes up the texture from bottom to top
+
+    if face == TOUCH_INVALID_FACE then
+        ll.Whisper(PUBLIC_CHANNEL, "Sorry, your viewer doesn't support touched faces.")
+    elseif touchUV == TOUCH_INVALID_TEXCOORD then
+        ll.Whisper(PUBLIC_CHANNEL, "Sorry, the touch position upon the texture could not be determined.")
+    else
+        ll.Say(PUBLIC_CHANNEL, "llDetectedTouchUV(" .. tostring(touchUV) .. ")" .. "\ntouchUV.x = " .. tostring(touchUV.x) .. "\ntouchUV.y = " .. tostring(touchUV.y))
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        integer face = llDetectedTouchFace(0);
+        vector  touchUV   = llDetectedTouchUV(0);
+
+//      ZERO_VECTOR (<0.0, 0.0, 0.0> ... the origin) is in the bottom left corner of the texture
+//      touchUV.x goes across the texture from left to right
+//      touchUV.y goes up the texture from bottom to top
+
+        if (face == TOUCH_INVALID_FACE)
+            llWhisper(PUBLIC_CHANNEL, "Sorry, your viewer doesn't support touched faces.");
+        else if (touchUV == TOUCH_INVALID_TEXCOORD)
+            llWhisper(PUBLIC_CHANNEL, "Sorry, the touch position upon the texture could not be determined.");
+        else
+            llSay(PUBLIC_CHANNEL, "llDetectedTouchUV(" + (string)touchUV + ")"
+                    + "\ntouchUV.x = " + (string)touchUV.x
+                    + "\ntouchUV.y = " + (string)touchUV.y);
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+local numberOfRows = 12
+local numberOfColumns = 12
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local touchUV = ll.DetectedTouchUV(0)
+
+    --      ZERO_VECTOR (<0.0, 0.0, 0.0> ... the origin) is in the bottom left corner of the texture
+    --      touchUV.x goes across the texture from left to right
+    --      touchUV.y goes up the texture from bottom to top
+
+    local columnIndex = integer(touchUV.x * numberOfColumns)
+    local rowIndex = integer(touchUV.y * numberOfRows)
+    local cellIndex = rowIndex * numberOfColumns + columnIndex
+
+    ll.Say(PUBLIC_CHANNEL, "UV grid (" .. tostring(columnIndex) .. ", " .. tostring(rowIndex) .. ") --> cell " .. tostring(cellIndex))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer numberOfRows    = 12;
+integer numberOfColumns = 12;
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        vector touchUV = llDetectedTouchUV(0);
+
+//      ZERO_VECTOR (<0.0, 0.0, 0.0> ... the origin) is in the bottom left corner of the texture
+//      touchUV.x goes across the texture from left to right
+//      touchUV.y goes up the texture from bottom to top
+
+        integer columnIndex = (integer) (touchUV.x * numberOfColumns);
+        integer rowIndex    = (integer) (touchUV.y * numberOfRows);
+        integer cellIndex   = rowIndex * numberOfColumns + columnIndex;
+
+        llSay(PUBLIC_CHANNEL, "UV grid (" + (string)columnIndex + ", " + (string)rowIndex + ") --> cell " + (string)cellIndex);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedLinkNumber" target="_blank">llDetectedLinkNumber</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchST" target="_blank">llDetectedTouchST</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchPos" target="_blank">llDetectedTouchPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchNormal" target="_blank">llDetectedTouchNormal</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchBinormal" target="_blank">llDetectedTouchBinormal</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">Detected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Introduced in <a href="http://svn.secondlife.com/trac/linden/changeset/870?new_path=%2F#file14" target="_blank">SVN:870 r92872 Trunk&#32;Wednesday, 23 July 2008</a>.</li>
+    <li>Date of Release Server <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Beta_Server/1.24#Release_Notes_for_Second_Life_Beta_Server_1.24.3_.28August_29th.2C_2008.29" target="_blank"> 29-08-2008 </a></li>
+    <li>Date of Release Client <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.21" target="_blank"> 16-10-2008 </a></li>
+    <li>Server support available in Second Life Server 1.24.7.98039, client support in Release Candidate viewer 1.21.4 (98167).</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llDetectedTouchUV( integer index );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Early aurora</p>
+<p>A single face gently touched</p>
+<p>in front of a cube</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

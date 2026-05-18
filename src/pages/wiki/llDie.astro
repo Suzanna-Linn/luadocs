@@ -1,0 +1,137 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Die()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llDie();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Deletes the object. The object does <b>not</b> go to the owner's Inventory <a href="https://wiki.secondlife.com/wiki/Trash" target="_blank">🗑 Trash</a>.</p>
+  <p>If called in any prim in the <a href="https://wiki.secondlife.com/wiki/Link_set" target="_blank">link set</a> the result will be the deletion of the entire object.</p>
+  <p>To remove a single prim from an object, use <a href="https://wiki.secondlife.com/wiki/LlBreakLink" target="_blank">llBreakLink</a> first.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>rez</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">41</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The script may not stop executing immediately after this function is called (<a href="https://jira.secondlife.com/browse/SVC-7421" target="_blank">SVC-7421</a>).</li>
+    <li>After this function is called, there is no way to undo the deletion of the object.</li>
+    <li>Has no effect if called from within an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Attachment" target="_blank">attachment</a>; there is no way to delete an attachment.
+    <ul>
+      <li>To detach an object from the avatar, call <a href="https://wiki.secondlife.com/wiki/LlDetachFromAvatar" target="_blank">llDetachFromAvatar</a>.</li>
+      <li><a href="https://wiki.secondlife.com/wiki/LlDetachFromAvatar" target="_blank">Detaching</a> a <a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">temporary attachment</a> will cause the attachment to be deleted.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Useful Snippets</h2>
+  <p><a href="https://wiki.secondlife.com/wiki/LlRemoveInventory" target="_blank">llRemoveInventory</a> of <a href="https://wiki.secondlife.com/wiki/LlGetScriptName" target="_blank">llGetScriptName</a> deletes just the calling script, rather than all of the objects that the calling script contains. For instance, you can write a script that chats a little when dragged onto an object from inventory and then politely disappears itself, such as:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- http://wiki.secondlife.com/wiki/llDie
+local function main()
+    ll.OwnerSay("llGetRegionTimeDilation()")
+    ll.OwnerSay(tostring(ll.GetRegionTimeDilation()))
+    ll.RemoveInventory(ll.GetScriptName())
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// http://wiki.secondlife.com/wiki/llDie
+default
+{
+    state_entry()
+    {
+        llOwnerSay("llGetRegionTimeDilation()");
+        llOwnerSay((string) llGetRegionTimeDilation());
+        llRemoveInventory(llGetScriptName());
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetachFromAvatar" target="_blank">llDetachFromAvatar</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlBreakLink" target="_blank">llBreakLink</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Attachment" target="_blank">Attachment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+void
+ll.Die()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llDie();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Hey, where did it go?</p>
+<p>Assignment. Equality.</p>
+<p>Gee, thanks, K & R.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

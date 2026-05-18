@@ -1,0 +1,343 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestExperiencePermissions(AgentID: uuid, unused: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRequestExperiencePermissions(key AgentID, string unused);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Asks the agent for permission to participate in the script's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AgentID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/agent" target="_blank">agent</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">Key</a> of the agent to request permissions from</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>unused / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>Deprecated, no longer used</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>experience</li>
+        <li>permissions</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">384</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-experience">Experience</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This request is similar to <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> with all the following permissions: <a href="https://wiki.secondlife.com/wiki/PERMISSION_TAKE_CONTROLS" target="_blank">PERMISSION_TAKE_CONTROLS</a>, <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRIGGER_ANIMATION" target="_blank">PERMISSION_TRIGGER_ANIMATION</a>, <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a>, <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRACK_CAMERA" target="_blank">PERMISSION_TRACK_CAMERA</a>, <a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target="_blank">PERMISSION_CONTROL_CAMERA</a> and <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a>. However, unlike <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>, the decision to allow or block the request is persistent and applies to all scripts using the experience grid-wide.</p>
+  <p>Subsequent calls to llRequestExperiencePermissions from scripts in the experience will receive the same response automatically with no user interaction.</p>
+  <p>Either <a href="https://wiki.secondlife.com/wiki/Experience_permissions" target="_blank">experience_permissions</a> or <a href="https://wiki.secondlife.com/wiki/Experience_permissions_denied" target="_blank">experience_permissions_denied</a> will be generated in response to this call. If no response is given by the <a href="https://wiki.secondlife.com/wiki/Agent" target="_blank">agent</a>, the request will time out after at least 5 minutes. Multiple requests by the same <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a> can be made during this time out though the script can only have permission for one agent at a time.</p>
+  <p>Agents in <a href="https://wiki.secondlife.com/wiki/God_mode" target="_blank">god mode</a> will always see the permission dialog even if the experience has been previously approved.</p>
+  <p>Outstanding permission requests will be lost if the script is de-<a href="https://wiki.secondlife.com/wiki/Rez" target="_blank">rezzed</a>, moved to another <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>, or reset.</p>
+  <p>For this function to work, the script must be compiled into an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If you recompile a script that was previously associated with an Experience but do so with a client that lacks the ability to compile scripts into an experience the script will lose the associated Experience.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>This is a shell for a <a href="https://wiki.secondlife.com/wiki/HUD" target="_blank">HUD</a> Dispenser. It detects an <a href="https://wiki.secondlife.com/wiki/Avatar" target="_blank">avatar</a> by the <a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a> event, then rezzes an object that will request experience permissions and attach to the avatar:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.VolumeDetect(true)
+end
+
+function LLEvents.collision_start(events)
+    local NumberOfCollisions = #events
+    local i = 0
+    while i < NumberOfCollisions do
+        local channel = ll.Round(ll.Frand(-1000))
+        local give_to = ll.DetectedKey(i)
+        ll.Say(0, "Rezzing HUD for " .. tostring(give_to) .. " using channel " .. tostring(channel))
+        ll.RezObject(ll.GetInventoryName(INVENTORY_OBJECT, 0), ll.GetPos(), ZERO_VECTOR, ZERO_ROTATION, channel)
+        ll.RegionSay(channel, "ATTACH|" .. tostring(give_to))
+        i += 1
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llVolumeDetect(TRUE);
+    }
+    
+    collision_start(integer NumberOfCollisions)
+    {
+        integer i = 0;
+        for(; i < NumberOfCollisions; i++)
+        {
+            integer channel = llRound(llFrand(-1000));
+            key give_to = llDetectedKey(i);
+            llSay(0, "Rezzing HUD for " + (string)give_to + " using channel " + (string)channel);
+            llRezObject(llGetInventoryName(INVENTORY_OBJECT, 0), llGetPos(), ZERO_VECTOR, ZERO_ROTATION, channel);
+            llRegionSay(channel, "ATTACH|" + (string)give_to);
+        }
+    }
+}`} lang="lsl" /></div>
+  <p>This script is for the object that is rezzed. It requests experience permissions and then attaches itself to the avatar. It must check for various failures such as denied permissions and failure to attach, and deletes itself when there is an error.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+-- Example script for LSL Experience Tools attachment
+
+-- This script runs on an object that is rezzed in-world which gets
+-- an Experience permissions and then attaches to an AV.
+
+local listener = 0
+local msg_channel = 0
+
+local log_spam_channel = 0  -- Change this or remove llSay() commands
+local default, running = {}, {}
+
+function default.on_rez(start_parameter)
+    -- Start listening for a message from rezzer
+    msg_channel = start_parameter
+    ll.Say(log_spam_channel, "Test HUD has been rezzed")
+    listener = ll.Listen(start_parameter, "", NULL_KEY, "")
+end
+
+function default.listen(channel, name, id, text)
+    -- Listen for the message from the rezzer with the target agent key
+    if channel == msg_channel then
+        -- Ask for the experience permission
+        local msg = ll.ParseString2List(text, {"|"}, {})
+        ll.Say(log_spam_channel, "Trying experience permissions request to " .. ll.List2String(msg, 1))
+        ll.RequestExperiencePermissions(uuid(ll.List2String(msg, 1)), "")
+        ll.ListenRemove(listener)
+        ll.SetTimerEvent(60.0)
+    end
+end
+
+function default.experience_permissions(target_id)
+    -- Permissions granted, so attach to the AV
+    ll.Say(log_spam_channel, "Trying llAttachToAvatarTemp()")
+    ll.AttachToAvatarTemp(ATTACH_HUD_CENTER_1)
+    ll.Say(log_spam_channel, "After llAttachToAvatarTemp() with llGetAttached() returning " .. tostring(ll.GetAttached()))
+    ll.SetTimerEvent(0.0)
+    if ll.GetAttached() == 0 then
+        -- Attaching failed
+        ll.Die()
+    end
+end
+
+function default.experience_permissions_denied(agent_id, reason)
+    -- Permissions denied, so go away
+    ll.Say(log_spam_channel, "Denied experience permissions for " .. tostring(agent_id) .. " due to reason #" .. tostring(reason))
+    ll.Die()
+end
+
+function default.attach(id)
+    -- Attached or detached from the avatar
+    if id.istruthy then
+        ll.SetTimerEvent(0.0)
+        ll.Say(log_spam_channel, "Now attached with a key " .. tostring(id) .. " and llGetAttached() returning " .. tostring(ll.GetAttached()))
+        -- From this point, the object can start doing whatever it needs to do.
+        state(running)
+    else
+        ll.Say(log_spam_channel, "No longer attached")
+        ll.Die()
+    end
+end
+
+function default.timer()
+    -- Use a timer to catch no permissions response
+    ll.Say(log_spam_channel, "Permissions timer expired")
+    ll.Die()
+end
+
+-- This state starts when permissions are granted, and the object is properly attached
+function running.state_entry()
+    ll.Say(log_spam_channel, "off and running!")
+end
+
+function running.attach(id)
+    if id == NULL_KEY then
+        -- if the object ever un-attaches, make sure it deletes itself
+        ll.Say(log_spam_channel, "No longer attached")
+        ll.Die()
+    end
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Example script for LSL Experience Tools attachment
+
+// This script runs on an object that is rezzed in-world which gets
+// an Experience permissions and then attaches to an AV.
+
+integer listener;
+integer msg_channel;
+
+integer log_spam_channel = 0;       // Change this or remove llSay() commands
+
+default
+{
+    on_rez(integer start_parameter)
+    {   // Start listening for a message from rezzer
+        msg_channel = start_parameter;
+        llSay(log_spam_channel, "Test HUD has been rezzed");
+        listener = llListen(start_parameter, "", NULL_KEY, "");
+    }
+    
+    listen(integer channel, string name, key id, string text)
+    {   // Listen for the message from the rezzer with the target agent key
+        if (channel == msg_channel)
+        {   // Ask for the experience permission
+            list msg = llParseString2List(text, ["|"], []);
+            llSay(log_spam_channel, "Trying experience permissions request to " + llList2String(msg, 1));
+            llRequestExperiencePermissions((key)llList2String(msg, 1), "");
+            llListenRemove(listener);
+            llSetTimerEvent(60.0);
+        }
+    }
+
+    experience_permissions(key target_id)
+    {   // Permissions granted, so attach to the AV
+        llSay(log_spam_channel, "Trying llAttachToAvatarTemp()");
+        llAttachToAvatarTemp(ATTACH_HUD_CENTER_1);
+        llSay(log_spam_channel, "After llAttachToAvatarTemp() with llGetAttached() returning " + (string)llGetAttached());
+        llSetTimerEvent(0.0);
+        if (llGetAttached() == 0)
+        {   // Attaching failed
+            llDie();
+        }
+    }
+    
+    experience_permissions_denied( key agent_id, integer reason )
+    {   // Permissions denied, so go away
+        llSay(log_spam_channel, "Denied experience permissions for " + (string)agent_id + " due to reason #" + (string) reason);
+        llDie();
+    }
+    
+    attach( key id )
+    {   // Attached or detached from the avatar
+        if (id)
+        {
+            llSetTimerEvent(0.0);
+            llSay(log_spam_channel, "Now attached with a key " + (string)id + " and llGetAttached() returning " + (string)llGetAttached());
+            // From this point, the object can start doing whatever it needs to do.
+            state running;
+        }
+        else
+        {
+            llSay(log_spam_channel, "No longer attached");
+            llDie();
+        }
+    }
+    
+    timer()
+    {   // Use a timer to catch no permissions response
+        llSay(log_spam_channel, "Permissions timer expired");
+        llDie();
+    }
+}
+
+// This state starts when permissions are granted, and the object is properly attached
+state running
+{
+    state_entry()
+    {
+        llSay(log_spam_channel, "off and running!");
+    }
+    
+    attach(key id)
+    {
+        if (id == NULL_KEY)
+        {   // if the object ever un-attaches, make sure it deletes itself
+            llSay(log_spam_channel, "No longer attached");
+            llDie();
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Compiling</p>
+  <p>For a script to be associated with an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>...</p>
+  <ul>
+    <li>It must be compiled with a client that is Experience aware,</li>
+    <li>The "Use Experience" checkbox must be checked,</li>
+    <li>And one of the users Experience keys selected.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> Not all <a href="https://wiki.secondlife.com/wiki/TPV" target="_blank">TPVs</a> have this functionality.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Experience_permissions" target="_blank">experience_permissions</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/Experience_permissions_denied" target="_blank">experience_permissions_denied</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRequestExperiencePermissions( key agent, string name );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

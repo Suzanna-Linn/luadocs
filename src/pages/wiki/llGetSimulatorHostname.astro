@@ -1,0 +1,195 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetSimulatorHostname(): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetSimulatorHostname();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the hostname of the machine the script is running on (same as string in viewer Help dialog)</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">10s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">283</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 10.0 seconds.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- The beginnings of a region-info script.
+local region = ""
+local sim = ""
+
+local function main()
+    ll.SetTimerEvent(1.0)
+end
+function LLEvents.timer()
+    local here = ll.GetRegionName()
+    if region ~= here then
+        sim = ll.GetSimulatorHostname()
+        region = here
+    end
+    ll.SetText("   REGION NAME : " .. region .. "\n  SIM HOSTNAME : " .. sim .. "\nTIME DIALATION : " .. tostring(ll.GetRegionTimeDilation()) .. "\n    REGION FPS : " .. tostring(ll.GetRegionFPS()), vector(0, 1, 0), 1.0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// The beginnings of a region-info script.
+string region;
+string sim;
+
+default
+{
+    state_entry()
+    {
+        llSetTimerEvent(1.0);
+    }
+    timer()
+    {
+        string here = llGetRegionName();
+        if(region != here)
+        {
+            sim = llGetSimulatorHostname();
+            region = here;
+        }
+        llSetText(
+                "   REGION NAME : " + region + 
+              "\n  SIM HOSTNAME : " + sim + 
+              "\nTIME DIALATION : " + (string)llGetRegionTimeDilation() +
+              "\n    REGION FPS : " + (string)llGetRegionFPS(),
+            <0,1,0>, 1.0);
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- llGetEnv now offers an equivalent function without the 10 second delay.
+local function SaySimulatorHostname()
+    ll.OwnerSay("Simulator Hostname: " .. ll.GetEnv("simulator_hostname"))
+end
+
+function LLEvents.on_rez(start_param)
+    SaySimulatorHostname()
+end
+
+function LLEvents.changed(iChange)
+    if bit32.btest(iChange, bit32.bor(CHANGED_REGION_START, CHANGED_REGION)) then
+        SaySimulatorHostname()
+    end
+end
+
+local function main()
+    SaySimulatorHostname()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// llGetEnv now offers an equivalent function without the 10 second delay.
+SaySimulatorHostname()
+{ 
+    llOwnerSay("Simulator Hostname: " + llGetEnv("simulator_hostname") );
+}
+ 
+default
+{
+    on_rez(integer start_param)
+    {
+        SaySimulatorHostname();
+    }
+ 
+    changed(integer iChange)
+    {
+        if (iChange & (CHANGED_REGION_START|CHANGED_REGION))
+            SaySimulatorHostname();
+    }
+ 
+    state_entry()
+    {
+        SaySimulatorHostname();
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionFPS" target="_blank">llGetRegionFPS</a></td>
+        <td>–</td>
+        <td>Gets the region FPS</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionTimeDilation" target="_blank">llGetRegionTimeDilation</a></td>
+        <td>–</td>
+        <td>Gets the region time dilation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetEnv" target="_blank">llGetEnv</a>("simulator_hostname")</td>
+        <td>–</td>
+        <td>Equivalent function without the script delay</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Simulator_IP_Addresses" target="_blank">Simulator IP Addresses</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetSimulatorHostname()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetSimulatorHostname();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

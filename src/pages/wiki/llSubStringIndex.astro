@@ -1,0 +1,54 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SubStringIndex(Text: string, Sequence: string): number?`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llSubStringIndex(string Text, string Sequence);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>Returns the first index where Sequence appears in Text. Returns -1 if not found.</p>
+      <p><span class="lua-section"><span class="tag lua-tag">Lua</span>Returns nil when not found</span></p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Sequence</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>string</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">181</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</DocsLayout>
+      

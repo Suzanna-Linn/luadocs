@@ -1,0 +1,312 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_POINT_LIGHT: number = 23`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_POINT_LIGHT = 23;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_POINT_LIGHT has the value 23</p>
+  <p>PRIM_POINT_LIGHT is used to configure the point light configuration of the prim</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_POINT_LIGHT,&#32;[integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> linear_color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> intensity, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> radius, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> falloff ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> disables</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>linear_color</td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color#Light_colors" target="_blank">linear color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>intensity</td>
+        <td>–</td>
+        <td>ranges from 0.0 to 1.0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>radius</td>
+        <td>–</td>
+        <td>ranges from 0.1 to 20.0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>falloff</td>
+        <td>–</td>
+        <td>ranges from 0.0 to 2.0</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_POINT_LIGHT ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> linear_color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> intensity, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> radius, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> falloff ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> disables</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>linear_color</td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color#Light_colors" target="_blank">linear color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>intensity</td>
+        <td>–</td>
+        <td>ranges from 0.0 to 1.0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>radius</td>
+        <td>–</td>
+        <td>ranges from 0.1 to 20.0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>falloff</td>
+        <td>–</td>
+        <td>ranges from 0.0 to 2.0</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Viewers that do not have advanced lighting enabled can only render 6 lights at a time and projectors will be rendered as omnidirectional light sources. (OpenGL limitations allow for 8 light sources, SL appears to reserve one each for the Sun and Moon.)
+    <ul>
+      <li>Viewers that <b>do</b> have advanced lighting enabled can render as many lights as their graphics card allows; it is not hard-limited by the viewer.</li>
+    </ul>
+  
+    </li>
+    <li>Lights with a high intensity have a wash-out effect when overlapping. Keep this in mind when using multiple lights. <i><b>Never</b> create an abundance of lights to get around the 6 light maximum in basic lighting</i>, as viewers with advanced lighting will be washed out and may suffer from client lag.</li>
+    <li>Unlike most color in LSL, which expects a gamma-encoded value (sRGB), this expects a non-gamma-encoded value (linear RGB). This means that the value you set as the light color is not the same value you'd pass to make the source (e.g. filament ) glow the same color. You may wish to implement an <a href="https://wiki.secondlife.com/wiki/LlsRGB2Linear" target="_blank">sRGB Electro-Optical Transfer Function (EOTF)</a> to bypass this.</li>
+    <li>The <b>falloff</b> parameter is a bit of a misnomer. Instead of modifying the characteristics of light decay over distance, it instead acts as a modifier to a light's overall intensity value.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlsRGB2Linear" target="_blank">llsRGB2Linear</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color#Light_colors" target="_blank">Color in LSL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+  <p>Set the prim's color and the color of the light it emits to the same color:-</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local switch = false
+
+local gLampCol = vector(255, 190, 121)  --Light colour in regular (0-255) sRGB space. This will be converted to LSL later.
+
+local function main()
+    gLampCol /= 255  --Convert to LSL colour.
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    switch = not switch  --toggle the switch
+    --Convert colour to linear RGB as PRIM_POINT_LIGHT requires, using llsRGB2Linear
+    ll.SetLinkPrimitiveParamsFast(LINK_THIS, {PRIM_POINT_LIGHT, if switch then 1 else 0, ll.sRGB2Linear(gLampCol), 1, 20, 0, PRIM_COLOR, ALL_SIDES, gLampCol, 1, PRIM_GLOW, ALL_SIDES, if switch then 1 else 0, PRIM_FULLBRIGHT, ALL_SIDES, if switch then 1 else 0})
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer switch;
+
+vector gLampCol = <255,190,121>; //Light colour in regular (0-255) sRGB space. This will be converted to LSL later.
+
+default
+{
+    state_entry()
+    {
+        gLampCol /= 255; //Convert to LSL colour.
+    }
+
+    touch_start(integer total_number)
+    {
+        switch = !switch; //toggle the switch
+        llSetLinkPrimitiveParamsFast(LINK_THIS,[
+            PRIM_POINT_LIGHT,switch,llsRGB2Linear(gLampCol),1,20,0, //Convert colour to linear RGB as PRIM_POINT_LIGHT requires, using llsRGB2Linear
+            PRIM_COLOR,ALL_SIDES,gLampCol,1,
+            PRIM_GLOW,ALL_SIDES,switch,
+            PRIM_FULLBRIGHT,ALL_SIDES,switch]);
+    }
+}`} lang="lsl" /></div>
+  <p>Basic light script:-</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local isLightTurnedOn = false
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    --      toggle isLightTurnedOn between TRUE and FALSE
+    isLightTurnedOn = not isLightTurnedOn
+
+    if isLightTurnedOn then
+        ll.SetPrimitiveParams({PRIM_FULLBRIGHT, ALL_SIDES, if false then 1 else 0, PRIM_POINT_LIGHT, if false then 1 else 0, ZERO_VECTOR, 1.0, 10.0, 0.6})
+    else
+        local COLOR_ORANGE = vector(1.000, 0.522, 0.106)
+
+        ll.SetPrimitiveParams({PRIM_FULLBRIGHT, ALL_SIDES, if true then 1 else 0, PRIM_POINT_LIGHT, if true then 1 else 0, COLOR_ORANGE, 1.0, 10.0, 0.6})
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer isLightTurnedOn;
+
+default
+{
+    touch_start(integer total_number)
+    {
+//      toggle isLightTurnedOn between TRUE and FALSE
+        isLightTurnedOn = !isLightTurnedOn;
+
+        if (isLightTurnedOn)
+        {
+            llSetPrimitiveParams([
+                PRIM_FULLBRIGHT, ALL_SIDES, FALSE,
+                PRIM_POINT_LIGHT, FALSE, ZERO_VECTOR, 1.0, 10.0, 0.6]);
+        }
+        else
+        {
+            vector COLOR_ORANGE  = <1.000, 0.522, 0.106>;
+
+            llSetPrimitiveParams([
+                PRIM_FULLBRIGHT, ALL_SIDES, TRUE,
+                PRIM_POINT_LIGHT, TRUE, COLOR_ORANGE, 1.0, 10.0, 0.6]);
+        }
+    }
+}`} lang="lsl" /></div>
+  <p>A compact version of the above:-</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local switch = 0
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.SetPrimitiveParams({PRIM_FULLBRIGHT, ALL_SIDES, (function() switch = (if not (switch ~= 0) then 1 else 0) return switch end)(), PRIM_POINT_LIGHT, switch, vector(1, 0.5, 0.1) * switch, 1, 10, 0.6})
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer switch;
+default
+{
+    touch_start(integer total_number)
+    {
+        llSetPrimitiveParams(
+        [       PRIM_FULLBRIGHT, ALL_SIDES, switch = !switch,
+                PRIM_POINT_LIGHT, switch, <1, 0.5, 0.1> *  switch, 1, 10, 0.6 ] );      
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_POINT_LIGHT" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_POINT_LIGHT = 23
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_POINT_LIGHT = 23;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

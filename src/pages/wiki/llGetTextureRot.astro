@@ -1,0 +1,116 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetTextureRot(Face: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetTextureRot(integer Face);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the texture rotation, expressed as an <b>angle</b>, on <b>face</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">180</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function works on all sides.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>face</b> indicates a face that does not exist the return is 0.0</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Tells the owner the texture rotation on all sides
+local function main()
+    local i = 0
+    local max = ll.GetNumberOfSides()
+    while i < max do
+        ll.Say(0, "Face " .. tostring(i) .. " texture rotation is " .. tostring(ll.GetTextureRot(i)))
+        i += 1
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Tells the owner the texture rotation on all sides
+default
+{
+    state_entry()
+    {
+        integer i = 0;
+        integer max = llGetNumberOfSides();
+        while(i < max)
+        {
+            llSay(0,"Face "+(string)i+" texture rotation is " + (string)llGetTextureRot(i));
+            ++i;
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotateTexture" target="_blank">llRotateTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNumberOfSides" target="_blank">llGetNumberOfSides</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGetTextureRot( integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

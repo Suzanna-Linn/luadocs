@@ -1,0 +1,119 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.VecMag(Vector: vector): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llVecMag(vector Vector);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use vector.magnitude because It's a fastcall.</span></p>
+      <p>  <p>Returns a float that is the magnitude of the vector (the undirected non-negative distance from <b>vec</b> to <0.0, 0.0, 0.0>).</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Vector / vec</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_3d</li>
+        <li>vector</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">12</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local input = vector(1.0, 2.0, 3.0)
+    ll.Say(0, "The magnitude of " .. tostring(input) .. " is " .. tostring(ll.VecMag(input)) .. ".")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default {
+    state_entry()
+    {
+        vector input = <1.0,2.0,3.0>;
+        llSay(0,"The magnitude of "+(string)input+" is "+(string)llVecMag(input) + ".");
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>Mathematically the formula for vector magnitude is
+    <ul>
+      <li>`<a href="https://wiki.secondlife.com/wiki/LlSqrt" target="_blank">llSqrt</a>(vec.x <i> vec.x + vec.y </i> vec.y + vec.z * vec.z)`</li>
+    </ul>
+  
+    </li>
+    <li>Knowing this, there are ways to circumvent llVecMag for more efficient code.
+    <ul>
+      <li>vec*vec < 16.0 is over twice as fast as llVecMag(vec) < 4.0.</li>
+      <li>vec<i>vec < (dist</i>dist) is about twice as fast as llVecMag(vec) < dist.</li>
+      <li>This can work in many other ways, too, with other comparisons.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlVecNorm" target="_blank">llVecNorm</a></td>
+        <td>–</td>
+        <td>The vector normal</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlVecDist" target="_blank">llVecDist</a></td>
+        <td>–</td>
+        <td>The distance between two vectors</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llVecMag( vector vec );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,335 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestInventoryData(InventoryItem: string): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llRequestInventoryData(string InventoryItem);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests data about the item <b>name</b> in the prim's inventory. When data is available the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event will be raised.</p>
+  <p>Returns the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) that is used to identify the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event when it is raised.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InventoryItem / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>an item in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>dataserver</li>
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">156</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b>name</b>'s Inventory Type</th>
+        <th><a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td colspan="2">Landmark</td>
+        <td>(<a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a>)</td>
+        <td colspan="4">The vector <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">data</a> received by <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> is a global position <i>as an offset</i> from the current region's origin (<0,0,0>). To obtain the absolute <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Global" target="_blank">global</a> position of a landmark, add <a href="https://wiki.secondlife.com/wiki/LlGetRegionCorner" target="_blank">llGetRegionCorner</a>() to the vector.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 1.0 seconds.</li>
+    <li>If <b>name</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>This function only returns data for landmark items in inventory. Other item types are not supported.</li>
+    <li>The vector returned from landmarks is the distance in meters of the landmark's location relative to <0,0,0> in the region in which the script is running.
+    <ul>
+      <li>For a landmark pointing to a location in the current region, that's the same as a region coordinate; however, when used with a landmark pointing to a different region the vector's x and y values can be quite large (and/or negative).</li>
+      <li>The vector is suitable for use in calculating a global coordinate (as above) or a landmark's distance from the object containing the script in the current region or across the entire Second Life grid.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+---- Open map for owner to 1st landmark in object inventory on touch
+---- *MUST* be in an attached object (llMapDestination Requirement for non-touch use)
+local vgKeyOwner = NULL_KEY
+
+function LLEvents.touch_start(events)
+    local vIntNull = #events
+    if ll.DetectedKey(0) == vgKeyOwner then
+        local vIntLMcount = ll.GetInventoryNumber(INVENTORY_LANDMARK)
+        ---- make sure we have a landmark in invetory
+        if vIntLMcount ~= 0 then
+            ll.RequestInventoryData(ll.GetInventoryName(INVENTORY_LANDMARK, 0))
+        end
+    end
+end
+
+function LLEvents.dataserver(vKeyNull, vStrData)
+    ---- because we don't know who touched us in this event, this
+    ---- only works for the owner when called from the dataserver
+    ll.MapDestination(ll.GetRegionName(), tovector(vStrData), ZERO_VECTOR)
+end
+
+function LLEvents.on_rez(vIntNull)
+    ll.ResetScript()
+end
+
+local function main()
+    vgKeyOwner = ll.GetOwner()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- Open map for owner to 1st landmark in object inventory on touch
+//-- *MUST* be in an attached object (llMapDestination Requirement for non-touch use)
+key vgKeyOwner;
+
+default
+{
+  touch_start( integer vIntNull )
+  {
+    if (llDetectedKey( 0 ) == vgKeyOwner)
+    {
+      integer vIntLMcount = llGetInventoryNumber( INVENTORY_LANDMARK );
+       //-- make sure we have a landmark in invetory
+      if (vIntLMcount)
+      {
+        llRequestInventoryData( llGetInventoryName( INVENTORY_LANDMARK, 0 ) );
+      }
+    }
+  }
+
+  dataserver( key vKeyNull, string vStrData )
+  {
+     //-- because we don't know who touched us in this event, this
+     //-- only works for the owner when called from the dataserver
+    llMapDestination( llGetRegionName(), (vector)vStrData, ZERO_VECTOR );
+  }
+
+  on_rez( integer vIntNull )
+  {
+    llResetScript();
+  }
+
+  state_entry()
+  {
+    vgKeyOwner = llGetOwner();
+  }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--An easily-configurable teleporter that sets its destination by getting it from a landmark in the prim's inventory
+--Note: this teleporter is subject to the 300m distance limit for llSitTarget
+--by Ilse Mannonen
+
+--on state entry, request inventory data and set text for first landmark found in inventory.  
+--If none, complain
+--on getting data, set sit target
+--on change in inventory, reset script
+--on sit, TP the person and unsit
+
+--Thanks to Pol Tabla, who wrote the simple sit-teleport script I have adapted here
+
+local requestid = NULL_KEY
+
+local function main()
+    --complain if there are no landmarks
+    if ll.GetInventoryNumber(INVENTORY_LANDMARK) == 0 then
+        ll.Say(0, "There are no landmarks in me.  You need to put a landmark in me for me to work.")
+    else
+        --set floating text according to the LM name
+        ll.SetText("Teleport to " .. ll.GetInventoryName(INVENTORY_LANDMARK, 0), vector(1.0, 1.0, 1.0), 1.0)
+        --request the LM data
+        requestid = ll.RequestInventoryData(ll.GetInventoryName(INVENTORY_LANDMARK, 0))
+    end
+end
+
+function LLEvents.dataserver(id, data)
+    if id == requestid then
+        --data will be in vector format
+        local rot = ZERO_ROTATION / ll.GetRot()
+        local dest = tovector(data)
+        local offset = (dest - ll.GetPos()) * rot
+        ll.SitTarget(offset, rot)
+    end
+end
+
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_LINK) then
+        -- and it was a link change
+        ll.Sleep(0.5)  -- llUnSit works better with this delay
+        local user = ll.AvatarOnSitTarget()
+        if user.istruthy then  -- somebody is sitting on me
+            ll.UnSit(user)  -- unsit him
+        end
+    end
+    --when doing "ifs" on bitwise things, it's best to do them separate instead of using else..if,
+    --in case you hit the one in a billion chance when the inventory and link changes are reported in the same event.
+    if bit32.btest(change, CHANGED_INVENTORY) then
+        --reset on inventory change, so people don't have to manually reset when they add a new LM
+        ll.ResetScript()
+    end
+end
+
+function LLEvents.on_rez(param)
+    ll.ResetScript()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//An easily-configurable teleporter that sets its destination by getting it from a landmark in the prim's inventory
+//Note: this teleporter is subject to the 300m distance limit for llSitTarget
+//by Ilse Mannonen
+
+//on state entry, request inventory data and set text for first landmark found in inventory.  
+//If none, complain
+//on getting data, set sit target
+//on change in inventory, reset script
+//on sit, TP the person and unsit
+
+//Thanks to Pol Tabla, who wrote the simple sit-teleport script I have adapted here
+
+key requestid;
+
+default
+{
+    state_entry()
+    {
+        //complain if there are no landmarks
+        if (llGetInventoryNumber(INVENTORY_LANDMARK) == 0)
+        {
+            llSay(0, "There are no landmarks in me.  You need to put a landmark in me for me to work.");
+        }
+        else
+        {
+            //set floating text according to the LM name
+            llSetText("Teleport to " + llGetInventoryName(INVENTORY_LANDMARK, 0), <1.0, 1.0, 1.0>, 1.0);
+            //request the LM data
+            requestid = llRequestInventoryData(llGetInventoryName(INVENTORY_LANDMARK, 0));
+        }
+    }
+    
+    dataserver(key id, string data)
+    {
+        if (id == requestid)
+        {
+            //data will be in vector format
+            rotation rot = ZERO_ROTATION / llGetRot();
+            vector dest = (vector)data;
+            vector offset = (dest - llGetPos()) * rot;
+            llSitTarget(offset, rot);
+        }
+    }
+    
+    changed(integer change)
+    {
+        if (change & CHANGED_LINK) 
+        { // and it was a link change
+            llSleep(0.5); // llUnSit works better with this delay
+            key user = llAvatarOnSitTarget();
+            if (user) { // somebody is sitting on me
+                llUnSit(user); // unsit him
+            }
+        }
+        //when doing "ifs" on bitwise things, it's best to do them separate instead of using else..if,
+        //in case you hit the one in a billion chance when the inventory and link changes are reported in the same event.
+        if (change & CHANGED_INVENTORY)
+        {
+            //reset on inventory change, so people don't have to manually reset when they add a new LM
+            llResetScript();
+        }
+    }
+    
+    on_rez(integer param)
+    {
+        llResetScript();
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlMapDestination" target="_blank">llMapDestination</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Linden_Lab_Official:Map_API_Reference#Region_name_from_global_coordinates" target="_blank">Linden_Lab_Official:Map_API_Reference#Region_name_from_global_coordinates</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Landmark2slurl" target="_blank">landmark2slurl</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llRequestInventoryData( string name );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,222 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GiveAgentInventory(AgentID: uuid, FolderName: string, InventoryItems: {string}, Options: {any}): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGiveAgentInventory(key AgentID, string FolderName, list InventoryItems, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Gives <b>inventory</b> items to <b>agent</b>, creating a new <b>folder</b> to put them in.</p>
+  <p>Returns an integer</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AgentID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/agent" target="_blank">agent</a></td>
+          <td>agent to receive inventory offer.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>FolderName / folder</td>
+          <td>destination folder name to use.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{string}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>InventoryItems / inventory</td>
+          <td>list of inventory items to give to the agent</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/options" target="_blank">options</a></td>
+          <td>list of options for inventory transfer.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">3s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">517</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <ul>
+    <li>The target must be an avatar in the same region as the sending object, or must have recently been in the region.</li>
+    <li>Places the inventory items in a newly created folder in the avatar's inventory (even if there is a folder by the same name, a new one is created).</li>
+    <li>If a path of root folders has been specified, the function will ensure that those folders exist but will not recreate them if they already exist.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Flags</th>
+        <th></th>
+        <th>Parameters</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_DEST&action=edit&redlink=1" target="_blank">TRANSFER_DEST</a></td>
+        <td>0</td>
+        <td>[ TRANSFER_DEST, string ]</td>
+        <td><p>Sets a root path that will be used as the parent for folder. If the root path does not exist it will be created.
+If it already exists in the target inventory it will be reused. Path folders are separated by a "|" character. The path
+may have have up to 4 folders in it.
+Note that transfers to certain system folders (such as 'Trash') are disallowed.
+Examples:</p>
+<p>"Objects|Vehicles|My Motorcycle Company"</p>
+<p>"Clothing|Shoes|Breedables"</p>
+<p>"My Store|Home & Garden|"</p></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_FLAGS&action=edit&redlink=1" target="_blank">TRANSFER_FLAGS</a></td>
+        <td>1</td>
+        <td>[ TRANSFER_FLAGS, integer ]</td>
+        <td>There are no flags defined at this time.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_OK&action=edit&redlink=1" target="_blank">TRANSFER_OK</a></td>
+        <td>0</td>
+        <td>No error detected, inventory transferred</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_BAD_OPTS&action=edit&redlink=1" target="_blank">TRANSFER_BAD_OPTS</a></td>
+        <td>-1</td>
+        <td>A bad option was passed in the options list.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_NO_TARGET&action=edit&redlink=1" target="_blank">TRANSFER_NO_TARGET</a></td>
+        <td>-2</td>
+        <td>Could not find the receiving agent in the current region.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_THROTTLE&action=edit&redlink=1" target="_blank">TRANSFER_THROTTLE</a></td>
+        <td>-3</td>
+        <td>Transfer rate exceeded the inventory transfer throttle.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_NO_ITEMS&action=edit&redlink=1" target="_blank">TRANSFER_NO_ITEMS</a></td>
+        <td>-4</td>
+        <td>The list of items was empty or contained only non-transferable items.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_BAD_ROOT&action=edit&redlink=1" target="_blank">TRANSFER_BAD_ROOT</a></td>
+        <td>-5</td>
+        <td>The root path specified in TRANSFER_DEST contained an invalid directory or was reduced to nothing.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_NO_PERMS&action=edit&redlink=1" target="_blank">TRANSFER_NO_PERMS</a></td>
+        <td>-6</td>
+        <td>The object does not have transfer permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRANSFER_NO_ATTACHMENT&action=edit&redlink=1" target="_blank">TRANSFER_NO_ATTACHMENT</a></td>
+        <td>-7</td>
+        <td>Can not transfer ownership of an attached object.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 3.0 seconds.</li>
+    <li>Any no-copy items in <b>inventory</b> will be excluded from transfer.</li>
+    <li>Any no-transfer items in <b>inventory</b> will be excluded from transfer if <b>agent</b> is not the script owner.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>In this example, the object inventory needs to contain two objects named <i>Item 1</i> and <i>Item 2</i>. The destination folder will be named <i>Destination Folder</i> and will be created under the main folder <i>Objects</i>, in the sub-folder <i>Subfolder</i>. If <i>Subfolder</i> does not exist, it will be created.</p>
+  <p>If the object gets touched for a second time, the sub-folder <i>Subfolder</i> will <b>not</b> be duplicated, however the destination folder <i>Destination Folder</i> <b>will</b> be duplicated.</p>
+  <p>If <i>Item 1</i> and/or <i>Item 2</i> do not exist, the transfer will silently fail partially or completely.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.GiveAgentInventory(ll.DetectedKey(0), "Destination Folder", {"Item 1", "Item 2"}, {TRANSFER_DEST, "Objects|Subfolder"})
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        llGiveAgentInventory(llDetectedKey(0), "Destination Folder", ["Item 1","Item 2"], [TRANSFER_DEST, "Objects|Subfolder"] );
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveInventory" target="_blank">llGiveInventory</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveInventoryList" target="_blank">llGiveInventoryList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGiveAgentInventory( key agent, string folder, list inventory, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

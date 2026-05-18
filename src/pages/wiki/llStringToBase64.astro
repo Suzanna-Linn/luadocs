@@ -1,0 +1,109 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.StringToBase64(Text: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llStringToBase64(string Text);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use llbase64.encode</span></p>
+      <p>  <p>Returns the string <a href="https://wiki.secondlife.com/wiki/Category:LSL_Base64" target="_blank">Base64</a> representation of the <b>str</b> interpreted as an UTF-8 byte sequence</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / str</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">260</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If extra bits are needed to complete the last base64 symbol, those extra bits will be zero.</p>
+  <p>To go in the other direction, use <a href="https://wiki.secondlife.com/wiki/LlBase64ToString" target="_blank">llBase64ToString</a>.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function getStringBytes(msg)
+    return bit32.arshift(ll.StringLength(tostring(ll.ParseString2List(ll.StringToBase64(msg), {"="}, {}))) * 3, 2)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer getStringBytes(string msg) {
+    return (llStringLength((string)llParseString2List(llStringToBase64(msg), ["="], [])) * 3) >> 2;
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlBase64ToString" target="_blank">llBase64ToString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlBase64ToInteger" target="_blank">llBase64ToInteger</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlIntegerToBase64" target="_blank">llIntegerToBase64</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlXorBase64" target="_blank">llXorBase64</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llStringToBase64( string str );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

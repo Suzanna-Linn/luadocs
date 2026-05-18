@@ -1,0 +1,355 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_MATERIAL: number = 2`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_MATERIAL = 2;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p><a href="http://youtube.com/watch?v=6OXYO61kQCA" target="_blank">Video tutorial about material</a></p>
+  <p><videoflash>6OXYO61kQCA</videoflash></p>
+  <p>The integer constant PRIM_MATERIAL has the value 2</p>
+  <p>Sets the prim material. Material does not affect mass, but does affect friction, bounce (elasticity), and collision sound. On a wood incline of 33 degrees, the example script below gave the following results:</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_MATERIAL,&#32;[integer</a> material ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td>material</td>
+        <td>–</td>
+        <td>PRIM_MATERIAL_* flag</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_MATERIAL ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> material ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td>material</td>
+        <td>–</td>
+        <td>PRIM_MATERIAL_* flag</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>material Flags</th>
+        <th></th>
+        <th colspan="4">Description</th>
+        <th><a href="https://wiki.secondlife.com/w/index.php?title=FRICTION&action=edit&redlink=1" target="_blank">Friction</a></th>
+        <th><a href="https://wiki.secondlife.com/wiki/RESTITUTION" target="_blank">Restitution</a></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_STONE" target="_blank">PRIM_MATERIAL_STONE</a></td>
+        <td>0</td>
+        <td colspan="4">stone</td>
+        <td>0.8</td>
+        <td>0.4</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_METAL" target="_blank">PRIM_MATERIAL_METAL</a></td>
+        <td>1</td>
+        <td colspan="4">metal</td>
+        <td>0.3</td>
+        <td>0.4</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_GLASS" target="_blank">PRIM_MATERIAL_GLASS</a></td>
+        <td>2</td>
+        <td colspan="4">glass</td>
+        <td>0.2</td>
+        <td>0.7</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_WOOD" target="_blank">PRIM_MATERIAL_WOOD</a></td>
+        <td>3</td>
+        <td colspan="4">wood</td>
+        <td>0.6</td>
+        <td>0.5</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_FLESH" target="_blank">PRIM_MATERIAL_FLESH</a></td>
+        <td>4</td>
+        <td colspan="4">flesh</td>
+        <td>0.9</td>
+        <td>0.3</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_PLASTIC" target="_blank">PRIM_MATERIAL_PLASTIC</a></td>
+        <td>5</td>
+        <td colspan="4">plastic</td>
+        <td>0.4</td>
+        <td>0.7</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_RUBBER" target="_blank">PRIM_MATERIAL_RUBBER</a></td>
+        <td>6</td>
+        <td colspan="4">rubber</td>
+        <td>0.9</td>
+        <td>0.9</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_LIGHT" target="_blank">PRIM_MATERIAL_LIGHT</a></td>
+        <td>7</td>
+        <td colspan="6">light, <b>DEPRECATED</b>: Looks the same as <a href="https://wiki.secondlife.com/wiki/PRIM_FULLBRIGHT" target="_blank"> [PRIM_FULLBRIGHT</a>, <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a>, <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> ]</td>
+        <td>0.6</td>
+        <td>0.5</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- © 2008 by Karzita Zabaleta
+-- Author of Scripting Your World, Wiley, October 2008.
+
+local gMaterialTypes = {"STONE", "METAL", "GLASS", "WOOD", "FLESH", "PLASTIC", "RUBBER"}
+
+local gHomePosition = ZERO_VECTOR
+local gHomeRotation = ZERO_ROTATION
+local gWaitCount = 0
+local gMaxVelMag = 0
+local gPrimMaterial = 0
+
+local function moveTo(origin, destination)
+    local dist = ll.VecDist(origin, destination)
+    local passes = ll.Ceil(ll.Log(dist / 10.0) / ll.Log(2.0))
+    local i = 0
+    local params = {PRIM_POSITION, destination}
+    for i = 0, passes - 1 do
+        params = ll.ListInsertList(ll.ListInsertList(((function() params = {} return params end)()), params, #((function() params = {} return params end)())), params, #ll.ListInsertList(((function() params = {} return params end)()), params, #((function() params = {} return params end)())))
+    end
+    -- actually move the prim, now
+    ll.SetPrimitiveParams(params)
+end
+
+local function returnHome()
+    ll.SetStatus(STATUS_PHYSICS, false)
+    moveTo(ll.GetPos(), gHomePosition)
+    ll.SetTimerEvent(0)
+    ll.SetRot(gHomeRotation)
+end
+
+local function calculate_velocity()
+    local velMag = ll.VecMag(ll.GetVel())
+    if velMag > gMaxVelMag then
+        gMaxVelMag = velMag
+    end
+end
+
+local function main()
+    gHomePosition = ll.GetPos()
+    gHomeRotation = ll.GetRot()
+end
+function LLEvents.on_rez(_n)
+    ll.ResetScript()
+end
+function LLEvents.touch_start(events)
+    local n = #events
+    gMaxVelMag = 0
+    ll.SetPrimitiveParams({PRIM_MATERIAL, gPrimMaterial})
+    ll.SetStatus(STATUS_PHYSICS, true)
+    ll.SetTimerEvent(0.1)
+    ll.ResetTime()
+    gWaitCount = 0
+    gPrimMaterial += 1
+    if gPrimMaterial == 7 then
+        gPrimMaterial = 0
+    end
+end
+function LLEvents.timer()
+    calculate_velocity()
+    gWaitCount += 1
+    if gWaitCount > 100 then  -- 10 seconds
+        local type = ll.List2String(gMaterialTypes, gPrimMaterial - 1)
+        ll.OwnerSay(type .. " reached maximum velocity of " .. tostring(gMaxVelMag) .. " and traveled " .. tostring(ll.VecDist(ll.GetPos(), gHomePosition)) .. " meters.")
+        returnHome()
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// © 2008 by Karzita Zabaleta
+// Author of Scripting Your World, Wiley, October 2008.
+
+list gMaterialTypes = [
+  "STONE",
+  "METAL",
+  "GLASS",
+  "WOOD",
+  "FLESH",
+  "PLASTIC",
+  "RUBBER"
+];
+
+vector   gHomePosition;
+rotation gHomeRotation;
+integer  gWaitCount = 0; 
+float    gMaxVelMag;
+integer  gPrimMaterial;
+
+moveTo(vector origin, vector destination) {
+    float dist = llVecDist(origin, destination);
+    integer passes = llCeil( llLog(dist/10.0) / llLog(2.0) );
+    integer i;
+    list params = [PRIM_POSITION, destination];
+    for (i=0; i<passes; i++) {
+        params = (params=[]) + params + params;
+    }
+    // actually move the prim, now
+    llSetPrimitiveParams(params);
+}
+
+returnHome()
+{
+    llSetStatus(STATUS_PHYSICS, FALSE);
+    moveTo(llGetPos(),gHomePosition);
+    llSetTimerEvent(0);
+    llSetRot(gHomeRotation);
+}
+
+calculate_velocity()
+{
+    float velMag = llVecMag(llGetVel());
+    if (velMag > gMaxVelMag) {
+        gMaxVelMag = velMag;
+    }
+}
+
+default
+{
+    state_entry() {
+        gHomePosition = llGetPos();
+        gHomeRotation = llGetRot();
+    }
+    on_rez(integer _n) {
+        llResetScript();
+    }
+    touch_start(integer n) {
+        gMaxVelMag = 0;
+        llSetPrimitiveParams([PRIM_MATERIAL, gPrimMaterial]);
+        llSetStatus(STATUS_PHYSICS,TRUE);
+        llSetTimerEvent(0.1);
+        llResetTime();
+        gWaitCount=0;
+        gPrimMaterial++;
+        if (gPrimMaterial == 7 ) gPrimMaterial = 0;
+    }
+    timer() {
+        calculate_velocity();
+        gWaitCount++;
+        if (gWaitCount > 100) { // 10 seconds
+            string type = llList2String( gMaterialTypes, gPrimMaterial-1 );
+            llOwnerSay(type+" reached maximum velocity of "+(string)gMaxVelMag+
+                       " and traveled "+(string)llVecDist(llGetPos(), gHomePosition)+" meters.");
+            returnHome();
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_MATERIAL" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_MATERIAL = 2
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_MATERIAL = 2;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>The prims we conjure</p>
+<p>can have many qualities.</p>
+<p>There's more than plywood?</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

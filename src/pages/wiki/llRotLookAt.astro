@@ -1,0 +1,174 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RotLookAt(Rotation: rotation, Strength: number, Damping: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRotLookAt(rotation Rotation, float Strength, float Damping);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Causes an object to smoothly rotate to <b>target_direction</b> with <b>strength</b> resistance at <b>damping</b> force.</p>
+  <p>Maintains rotation <b>target_direction</b> until stopped with <a href="https://wiki.secondlife.com/wiki/LlStopLookAt" target="_blank">llStopLookAt</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>Rotation / target_direction</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Strength / strength</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Damping / damping</td>
+          <td>seconds to critically damp in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">127</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To change the position in the same manner, use <a href="https://wiki.secondlife.com/wiki/LlMoveToTarget" target="_blank">llMoveToTarget</a>. For physical objects a range between .2 and 1 is good for both parameters.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>In Non-Physical objects this function operates effectively the same as <a href="https://wiki.secondlife.com/wiki/LlSetLocalRot" target="_blank">llSetLocalRot</a>.</li>
+    <li><b>damping</b> seems to be capped at 1.0; greater values are reduced to 1.0 <i>(Tested 21 October 2010 on server version 10.10.18.212360)</i></li>
+    <li>The minimum value for <b>strength</b> seems to be 0.0445 for the function to have any effect.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Point the prim's positive y axis (<i><0.0, 1.0, 0.0></i>) towards a position on the sim</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- where vPosTarget is the global position of the object you want to "look" at
+llRotLookAt( llRotBetween( <0.0,1.0,0.0>, llVecNorm( vPosTarget - llGetPos() ) ), 1.0, 0.4 ); // Point +Y axis towards vPosTarget`} lang="lsl" /></div>
+  <ul>
+    <li><b>vPosTarget - llGetPos()</b> converts the global coordinates of the objects, to a local distance and direction from the object pointing</li>
+    <li>Per <a href="https://wiki.secondlife.com/wiki/LlRotBetween" target="_blank">llRotBetween</a> article:
+    <ul>
+      <li><b>llRotBetween</b> returns a scaled rotation, unless both inputs are equal magnitude (e.g. unit vector).</li>
+      <li>The use of <a href="https://wiki.secondlife.com/wiki/LlVecNorm" target="_blank">llVecNorm</a> reduces the magnitude to 1 (so that both are equal magnitude), preventing errors.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <p>Constraining the Rotation to One Axis</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local detected = ll.DetectedPos(0)
+local pos = ll.GetPos()
+ll.RotLookAt(ll.RotBetween(vector(0.0, 1.0, 0.0), ll.VecNorm(vector(detected.x, detected.y, pos.z) - pos)), 1.0, 0.4)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector detected = llDetectedPos( 0 );
+      vector pos = llGetPos();
+      llRotLookAt( llRotBetween( <0.0, 1.0, 0.0>, llVecNorm( <detected.x, detected.y, pos.z> - pos ) ), 1.0, 0.4 );`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <ul>
+    <li>If you want a (mostly) smooth <i>constant</i> (rather than damped) rate of motion in a non-physical object try this</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+---- Rotates Object to vRotTarget at vFltRate (in radians per second
+---- vFltRate < ~0.00000003rad/sec, (~0.00002deg/sec) will result in errors (and is just too slow anyway)
+---- vFltRate >= (PI * 5.0)rad/sec, (900deg/sec) will result in a single snap move to vRotTarget
+local function uSteppedRotLookAt(vRotTarget, vFltRate)
+    if (integer((function() vFltRate = (ll.AngleBetween(ll.GetLocalRot(), vRotTarget) / (vFltRate / 5.0)) return vFltRate end)())) ~= 0 then
+        local vRotStep = ll.AxisAngle2Rot(ll.Rot2Axis(vRotTarget / ll.GetLocalRot()), (1.0 / vFltRate) * ll.Rot2Angle(vRotTarget / ll.GetLocalRot()))
+        vFltRate = integer(vFltRate)
+        repeat
+            ll.SetLocalRot(vRotStep * ll.GetLocalRot())
+        until not (((function() vFltRate -= 1 return vFltRate end)() ~= 0))
+    end
+    ll.SetLocalRot(vRotTarget)
+end  ---- for fixed time on any rotation try llSetKeyframedMotion
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- Rotates Object to vRotTarget at vFltRate (in radians per second
+//-- vFltRate < ~0.00000003rad/sec, (~0.00002deg/sec) will result in errors (and is just too slow anyway)
+//-- vFltRate >= (PI * 5.0)rad/sec, (900deg/sec) will result in a single snap move to vRotTarget
+uSteppedRotLookAt( rotation vRotTarget, float vFltRate ){
+	if ((integer)(vFltRate = (llAngleBetween( llGetLocalRot(), vRotTarget ) / (vFltRate / 5.0)))){
+		rotation vRotStep = llAxisAngle2Rot( llRot2Axis( vRotTarget / llGetLocalRot() ),
+		                    (1.0 / vFltRate) * llRot2Angle( vRotTarget / llGetLocalRot() ) );
+		vFltRate = (integer)vFltRate;
+		do{
+			llSetLocalRot( vRotStep * llGetLocalRot() );
+		}while (--vFltRate);
+	}
+	llSetLocalRot( vRotTarget );
+} //-- for fixed time on any rotation try llSetKeyframedMotion`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLookAt" target="_blank">llLookAt</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStopLookAt" target="_blank">llStopLookAt</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPhysicsMaterial" target="_blank">llSetPhysicsMaterial</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetKeyframedMotion" target="_blank">llSetKeyframedMotion</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRotLookAt( rotation target_direction, float strength, float damping );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

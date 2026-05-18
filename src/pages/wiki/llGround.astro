@@ -1,0 +1,138 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Ground(Offset: vector): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGround(vector Offset);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the ground height directly below the <a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">prim position</a> + <b>offset</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Offset / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/offset" target="_blank">offset</a></td>
+          <td>offset relative to the prim's position and expressed in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">42</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The requested position needs to be in the same region.</p>
+  <p>Only the <b>x</b> and <b>y</b> coordinates in <b>offset</b> are important, the <b>z</b> component is ignored.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Makes the object land on ground or on water
+
+local function FindGroundOrWater()
+    local vTarget = ll.GetPos()
+    vTarget = vector(vTarget.x, vTarget.y, ll.Ground(ZERO_VECTOR))
+    local fWaterLevel = ll.Water(ZERO_VECTOR)
+    if vTarget.z < fWaterLevel then
+        vTarget = vector(vTarget.x, vTarget.y, fWaterLevel)
+    end
+    ll.SetRegionPos(vTarget)
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    FindGroundOrWater()
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Makes the object land on ground or on water
+ 
+FindGroundOrWater()
+{
+    vector vTarget = llGetPos();
+    vTarget.z = llGround( ZERO_VECTOR );
+    float fWaterLevel = llWater( ZERO_VECTOR );
+    if( vTarget.z < fWaterLevel )
+        vTarget.z = fWaterLevel;
+    llSetRegionPos(vTarget);
+}
+
+default
+{
+    touch_start(integer total_number)
+    {
+        FindGroundOrWater();
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGroundContour" target="_blank">llGroundContour</a></td>
+        <td>–</td>
+        <td>Gets the ground contour</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGroundNormal" target="_blank">llGroundNormal</a></td>
+        <td>–</td>
+        <td>Gets the ground normal</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGroundSlope" target="_blank">llGroundSlope</a></td>
+        <td>–</td>
+        <td>Gets the ground slope</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlEdgeOfWorld" target="_blank">llEdgeOfWorld</a></td>
+        <td>–</td>
+        <td>Returns existence of neighboring sims</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGround( vector offset );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,311 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.CreateLink(TargetPrim: uuid, Parent: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llCreateLink(key TargetPrim, integer Parent);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Attempt to link the script's object with <b>target</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>TargetPrim / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/target" target="_blank">target</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Parent / parent</td>
+          <td>If <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>, then <b>target</b> becomes the root. If <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, then the script's object becomes the root.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>linkset</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_CHANGE_LINKS</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">141</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_CHANGE_LINKS" target="_blank">PERMISSION_CHANGE_LINKS</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&#32;and it must be granted by the owner.</p>
+  <p><b>target</b> must be modifiable and have the same owner.</p>
+  <p>This object must also be modifiable.</p>
+  <h2>Specification</h2>
+  <p>The prims for the child object (<b>target</b> if <b>parent</b> is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, script's object if <b>parent</b> is <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>) are inserted into the parent object's link set starting at link number 2. For example, if the link order for the parent object is A1, A2, A3 and the link order of the child object is B1, B2, B3, then the link order of the resulting object will be A1, B1, B2, B3, A2, A3.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.1 seconds.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_CHANGE_LINKS" target="_blank">PERMISSION_CHANGE_LINKS</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+If <a href="https://wiki.secondlife.com/wiki/PERMISSION_CHANGE_LINKS" target="_blank">PERMISSION_CHANGE_LINKS</a> is granted by anyone other than the owner, then when the function is called an error will be shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_CHANGE_LINKS" target="_blank">PERMISSION_CHANGE_LINKS</a> permission is granted there is no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or the script is reset or deleted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>If <b>target</b> is not in the region, not a prim, or is attached to an avatar, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If either the object or the <b>target</b> are not modifiable or of different owners, then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If the the parent object and <b>target</b> are too far apart they will fail to link.
+    <ul>
+      <li>The maximum distance is further explained here: <a href="https://wiki.secondlife.com/wiki/Linkability_Rules" target="_blank">Linkability Rules</a></li>
+    </ul>
+  
+    </li>
+    <li>This function silently fails if called from a script inside an attachment.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Rez an object and link it as a child prim.
+local ObjectName = "Object Name Here"
+-- NOTE: must be a name of an object in this object's inventory.
+
+function LLEvents.touch_start(events)
+    local count = #events
+    -- When the object is touched, make sure we can do this before trying.
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_CHANGE_LINKS)
+end
+function LLEvents.run_time_permissions(perm)
+    -- Only bother rezzing the object if will be able to link it.
+    if bit32.btest(perm, PERMISSION_CHANGE_LINKS) then
+        ll.RezObject(ObjectName, ll.GetPos() + vector(0, 0, 0.5), ZERO_VECTOR, ll.GetRot(), 0)
+    else
+        ll.OwnerSay("Sorry, we can't link.")
+    end
+end
+function LLEvents.object_rez(id)
+    -- NOTE: under some conditions, this could fail to work.
+    -- This is the parent object.  Create a link to the newly-created child.
+    ll.CreateLink(id, true)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Rez an object and link it as a child prim.
+string ObjectName = "Object Name Here";
+// NOTE: must be a name of an object in this object's inventory.
+
+default
+{
+    touch_start(integer count)
+    {
+        // When the object is touched, make sure we can do this before trying.
+        llRequestPermissions(llGetOwner(), PERMISSION_CHANGE_LINKS);
+    }
+    run_time_permissions(integer perm)
+    {
+        // Only bother rezzing the object if will be able to link it.
+        if (perm & PERMISSION_CHANGE_LINKS)
+            llRezObject(ObjectName, llGetPos() + <0,0,0.5>, ZERO_VECTOR, llGetRot(), 0);
+        else
+            llOwnerSay("Sorry, we can't link.");
+    }
+    object_rez(key id)
+    {
+        // NOTE: under some conditions, this could fail to work.
+        // This is the parent object.  Create a link to the newly-created child.
+        llCreateLink(id, TRUE);
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- child prim key
+local kChild = NULL_KEY
+local bLink = true  -- we suppose this script is on a linked object
+
+local function main()
+    -- get the permission to change the link
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_CHANGE_LINKS)
+
+    -- get the child key
+    kChild = ll.GetLinkKey(2)
+end
+
+function LLEvents.touch_start(events)
+    local nTotalCliquor = #events
+    if bLink then
+        -- break all my links, wait 1.5 sec
+        ll.BreakAllLinks()
+        ll.Sleep(1.5)
+
+        -- i'm unlinked
+        ll.Say(0, "Unlinked, click to link")
+        bLink = false
+    else
+        -- redo my link
+        ll.CreateLink(kChild, true)
+        ll.Sleep(1.5)
+
+        -- i'm linked
+        ll.Say(0, "Linked, click to unlink")
+        bLink = true
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// child prim key
+key kChild = NULL_KEY;
+integer bLink = TRUE;       // we suppose this script is on a linked object
+default
+{
+    
+    state_entry()
+    {
+        // get the permission to change the link
+        llRequestPermissions(llGetOwner(), PERMISSION_CHANGE_LINKS);
+                
+        // get the child key
+        kChild = llGetLinkKey(2);
+    }
+    
+    
+    touch_start(integer nTotalCliquor)
+    {
+        if (bLink)
+        {
+            // break all my links, wait 1.5 sec
+            llBreakAllLinks();
+            llSleep(1.5);
+            
+            // i'm unlinked
+            llSay(0, "Unlinked, click to link");
+            bLink = FALSE;
+        }
+        else
+        {
+            // redo my link
+            llCreateLink(kChild, TRUE);   
+            llSleep(1.5);
+            
+            // i'm linked
+            llSay(0, "Linked, click to unlink");
+            bLink = TRUE;
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_LINK" target="_blank">CHANGED_LINK</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlBreakLink" target="_blank">llBreakLink</a></td>
+        <td>–</td>
+        <td>Break a link</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlBreakAllLinks" target="_blank">llBreakAllLinks</a></td>
+        <td>–</td>
+        <td>Break all links</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Linkability_Rules" target="_blank">Linkability Rules</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llCreateLink( key target, integer parent );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,154 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTexture(Texture: string|uuid, Face: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTexture(string Texture, integer Face);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> diffuse <b>texture</b> of this prim's <b>face</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Texture / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/texture" target="_blank">texture</a></td>
+          <td>a texture in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a texture</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.2s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">53</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function works on all sides.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.2 seconds.</li>
+    <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
+    <li>If <b>texture</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>texture</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li><a href="https://wiki.secondlife.com/w/index.php?title=Inspect&action=edit&redlink=1" target="_blank">Inspect</a> does not show texture information (like <a href="https://wiki.secondlife.com/wiki/LlGetInventoryCreator" target="_blank">creator</a>)</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    -- the first texture alphabetically inside the same prim's inventory
+    local texture = ll.GetInventoryName(INVENTORY_TEXTURE, 0)
+
+    -- set it on all sides of the prim containing the script
+    ll.SetTexture(texture, ALL_SIDES)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        // the first texture alphabetically inside the same prim's inventory
+        string texture = llGetInventoryName(INVENTORY_TEXTURE, 0);
+
+        // set it on all sides of the prim containing the script
+        llSetTexture(texture, ALL_SIDES);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkTexture" target="_blank">llSetLinkTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTexture" target="_blank">llGetTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Internal_Textures" target="_blank">Internal Textures</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetTexture( string texture, integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

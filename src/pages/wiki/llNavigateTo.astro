@@ -1,0 +1,178 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.NavigateTo(Location: vector, Options: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llNavigateTo(vector Location, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Directs an object to travel to a defined position in the region or adjacent regions.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Location / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;for the character to navigate to.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">options</a></td>
+          <td>List of parameters to control the type of pathfinding used.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>pathfinding</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">398</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Adjacent regions can be reached by extending the position vector into the nearby region.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Option</th>
+        <th>Value</th>
+        <th>Parameters</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/FORCE_DIRECT_PATH" target="_blank">FORCE_DIRECT_PATH</a></td>
+        <td>1</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank"> [FALSE</a> ]</td>
+        <td>Makes character navigate in a straight line toward <b>pos</b>. May be set to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Must use llCreateCharacter first or the function will fail with a viewer error.</li>
+    <li>Vertical positions specified for any vectors should be chosen to be as close as possible to the actual height of the surface requested. Large difference between the provided vertical position and the actual terrain/object will result in failure of the behavior.</li>
+    <li>If you want to chase an agent or object as per the example below, it's much more elegant and less sim resource intensive to use <a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a> instead.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local last_touched_pos = ZERO_VECTOR
+local last_touched_key = NULL_KEY
+
+local function main()
+    ll.CreateCharacter({CHARACTER_DESIRED_SPEED, 50.0})
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    last_touched_key = ll.DetectedKey(0)
+    last_touched_pos = ll.List2Vector(ll.GetObjectDetails(last_touched_key, {OBJECT_POS}), 0)
+    ll.NavigateTo(last_touched_pos, {})
+    ll.SetTimerEvent(0.2)
+end
+
+function LLEvents.timer()
+    local last_touched_pos_now = ll.List2Vector(ll.GetObjectDetails(last_touched_key, {OBJECT_POS}), 0)
+    if ll.VecDist(last_touched_pos_now, last_touched_pos) > 1 then
+        last_touched_pos = last_touched_pos_now
+        ll.NavigateTo(last_touched_pos, {})
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector last_touched_pos;
+key last_touched_key;
+
+default
+{
+    state_entry()
+    {
+        llCreateCharacter([CHARACTER_DESIRED_SPEED, 50.0]);
+    }
+
+    touch_start(integer total_number)
+    {
+        last_touched_key = llDetectedKey(0);
+        last_touched_pos = llList2Vector(llGetObjectDetails(last_touched_key, [OBJECT_POS]), 0);
+        llNavigateTo(last_touched_pos, []);
+        llSetTimerEvent(0.2);
+    }
+
+    timer()
+    {
+        vector last_touched_pos_now = llList2Vector(llGetObjectDetails(last_touched_key, [OBJECT_POS]), 0);
+        if ( llVecDist(last_touched_pos_now, last_touched_pos) > 1 )
+        {
+            last_touched_pos = last_touched_pos_now;
+            llNavigateTo(last_touched_pos, []);
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>FORCE_DIRECT_PATH can be used to rescue characters that have somehow fallen off the navigable zone as it doesn't use the navmesh.</li>
+  </ul>
+  <p>(Needs verification.)</p>
+  <ul>
+    <li>The position vector can be set outside the current region by using extended range region coordinates: e.g., to go to the SE corner of the region to the East of the current one, you could llNavigateTo(<0.0, 512.0, 0.0>, []);</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a></li>
+  </ul>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDeleteCharacter" target="_blank">llDeleteCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlEvade" target="_blank">llEvade</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlExecCharacterCmd" target="_blank">llExecCharacterCmd</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetClosestNavPoint" target="_blank">llGetClosestNavPoint</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlFleeFrom" target="_blank">llFleeFrom</a></li>
+    <li>llNavigateTo</li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPatrolPoints" target="_blank">llPatrolPoints</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlUpdateCharacter" target="_blank">llUpdateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlWanderWithin" target="_blank">llWanderWithin</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.31.262785" target="_blank"> 31/07/2012 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llNavigateTo( vector pos, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,143 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`state_exit()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`state_exit()`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="removed-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Removed from Lua</span></p>
+      <p>  <p>Triggered on a qualifying <a href="https://wiki.secondlife.com/wiki/State" target="_blank">state</a> transition.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="lua-section attr-label bg-deprecated">Lua Removed</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Events queued during state_exit, are dumped before the next state is entered. use <a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a> to avoid this, when possible. See <a href="https://wiki.secondlife.com/wiki/State" target="_blank">state</a> for further caveats.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+local default, other = {}, {}
+
+function default.state_entry()
+    ll.OwnerSay("Entering default state")
+end
+function default.touch_end(events)
+    local detected = #events
+    -- Note: NEVER do a state change from a touch_start event -
+    -- - this can result in a missed touch_start on re-entering this state
+    -- Here we do the state change safely from within touch_end
+    state(other)
+end
+function default.state_exit()
+    ll.OwnerSay("leaving default state")
+end
+
+function other.state_entry()
+    ll.OwnerSay("Entering state \"other\"")
+end
+function other.touch_end(events)
+    local detected = #events
+    state(default)
+end
+function other.state_exit()
+    ll.OwnerSay("leaving state \"other\"")
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llOwnerSay("Entering default state");
+    }
+    touch_end(integer detected)
+    {
+        // Note: NEVER do a state change from a touch_start event -
+        // - this can result in a missed touch_start on re-entering this state
+        // Here we do the state change safely from within touch_end
+        state other;
+    }
+    state_exit()
+    {
+        llOwnerSay("leaving default state");
+    }
+}
+
+state other
+{
+    state_entry()
+    {
+        llOwnerSay("Entering state \"other\"");
+    }
+    touch_end(integer detected)
+    {
+        state default;
+    }
+    state_exit()
+    {
+        llOwnerSay("leaving state \"other\"");
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>While the <a href="https://wiki.secondlife.com/wiki/Default" target="_blank">default</a> <a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a> is triggered on script reset, state_exit is not triggered prior to the reset.</p>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void state_exit(  );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

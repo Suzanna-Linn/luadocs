@@ -1,0 +1,103 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RemoteLoadScript(Target: uuid, ScriptName: string, Unknown1: number, Unknown2: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRemoteLoadScript(key Target, string ScriptName, integer Unknown1, integer Unknown2);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"">Deprecated: </p>
+      <p>  <p>Deprecated</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>Target / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/target" target="_blank">target</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>ScriptName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>a script in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Unknown1 / running</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Unknown2 / start_param</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">3s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">251</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-deprecated">Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 3.0 seconds.</li>
+    <li>This function has been deprecated, please use <a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a> instead.</li>
+    <li>This function returns an error message and does nothing else.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRemoteLoadScript( key target, string name, integer running, integer start_param );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

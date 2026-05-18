@@ -1,0 +1,335 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_TEXTURE: number = 17`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_TEXTURE = 17;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_TEXTURE has the value 17</p>
+  <p>Used to get or set the <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> diffuse texture settings of a prim's <b>face</b>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_TEXTURE,&#32;[integer</a> face, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rot ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• string</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/texture" target="_blank">texture</a></td>
+        <td>–</td>
+        <td>a texture in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a texture</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>repeats</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 100, or -0.0 to -100 in 0.01 increments. Negative values flip the texture (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>offsets</td>
+        <td>–</td>
+        <td>x and y range from -1 to 1 (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+        <td>–</td>
+        <td>angle expressed in <a href="https://wiki.secondlife.com/wiki/Radians" target="_blank">radians</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a>.</p>
+  <p>Caveats</p>
+  <ul>
+    <li><b>repeats</b> is not only used to set the number of repeats but the sign of the individual components is also used to set the "Flip" attribute.</li>
+    <li>In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_DEFAULT" target="_blank">default</a> <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN" target="_blank">texture mapping</a> <b>mode</b> the texture <b>repeats</b> units are in texture repeats per face. In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_PLANAR" target="_blank">planar</a> texture mapping mode the texture <b>repeats</b> units are in texture repeats per half meter. This is in contrast to the in-world editing tool, in which the planar texture scaling units are repeats per meter.</li>
+    <li>If <b>texture</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>texture</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <p>texture Constants</p>
+  <p>The following constants can (optionally) be used for the <b>texture</b> value:
+<a href="https://wiki.secondlife.com/wiki/TEXTURE_BLANK" target="_blank">TEXTURE_BLANK</a>, <a href="https://wiki.secondlife.com/wiki/TEXTURE_DEFAULT" target="_blank">TEXTURE_DEFAULT</a>, <a href="https://wiki.secondlife.com/wiki/TEXTURE_MEDIA" target="_blank">TEXTURE_MEDIA</a>, <a href="https://wiki.secondlife.com/wiki/TEXTURE_PLYWOOD" target="_blank">TEXTURE_PLYWOOD</a> and <a href="https://wiki.secondlife.com/wiki/TEXTURE_TRANSPARENT" target="_blank">TEXTURE_TRANSPARENT</a>.</p>
+  <p>Examples</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+ll.SetPrimitiveParams({PRIM_TEXTURE, ALL_SIDES, "5748decc-f629-461c-9a36-a35a221fe21f", vector(1.0, 1.0, 0.0), vector(0.0, 0.0, 0.0), 0.0})
+ll.SetPrimitiveParams({PRIM_TEXTURE, ALL_SIDES, ll.GetInventoryName(INVENTORY_TEXTURE, 0), vector(1.0, 1.0, 0.0), vector(0.0, 0.0, 0.0), 0.0})
+ll.SetPrimitiveParams({PRIM_TEXTURE, 0, TEXTURE_PLYWOOD, vector(2.0, 5.0, 0.0), vector(0.1, 0.2, 0.0), 1.0})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetPrimitiveParams([ PRIM_TEXTURE, ALL_SIDES, "5748decc-f629-461c-9a36-a35a221fe21f", <1.0, 1.0, 0.0>, <0.0, 0.0, 0.0>, 0.0 ]);
+llSetPrimitiveParams([ PRIM_TEXTURE, ALL_SIDES, llGetInventoryName(INVENTORY_TEXTURE, 0), <1.0, 1.0, 0.0>, <0.0, 0.0, 0.0>, 0.0 ]);
+llSetPrimitiveParams([ PRIM_TEXTURE, 0, TEXTURE_PLYWOOD, <2.0, 5.0, 0.0>, <0.1, 0.2, 0.0>, 1.0 ]);`} lang="lsl" /></div>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_TEXTURE,&#32;[integer</a> face ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rot ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• string</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/texture" target="_blank">texture</a></td>
+        <td>–</td>
+        <td>a texture in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the <a href="#Target" target="_blank">target</a> prim&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a texture</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>repeats</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 100, or -0.0 to -100 in 0.01 increments. Negative values flip the texture (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>offsets</td>
+        <td>–</td>
+        <td>x and y range from -1 to 1 (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+        <td>–</td>
+        <td>angle expressed in <a href="https://wiki.secondlife.com/wiki/Radians" target="_blank">radians</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Caveats</p>
+  <ul>
+    <li>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the PRIM_TEXTURE works on all sides.</li>
+    <li>If <b>face</b> indicates a face that does not exist the PRIM_TEXTURE return is an empty list.</li>
+    <li><b>repeats</b> is not only used to get the number of repeats but the sign of the individual components indicate if "Flip" is set.</li>
+    <li>With <b>texture</b> as with <a href="https://wiki.secondlife.com/wiki/LlGetTexture" target="_blank">llGetTexture</a>, <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned when the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> does not have <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full permissions</a> to the object and the texture is not in the prim's inventory.</li>
+    <li>In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_DEFAULT" target="_blank">default</a> <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN" target="_blank">texture mapping</a> <b>mode</b> the texture <b>repeats</b> units are in texture repeats per face. In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_PLANAR" target="_blank">planar</a> texture mapping mode the texture <b>repeats</b> units are in texture repeats per half meter. This is in contrast to the in-world editing tool, in which the planar texture scaling units are repeats per meter.</li>
+  </ul>
+  <p>Target</p>
+  <p>In the case of llGetPrimitiveParams is either the prim the script resides in, or the prim specified by the immediately prior <a href="https://wiki.secondlife.com/wiki/PRIM_LINK_TARGET" target="_blank">PRIM_LINK_TARGET</a> call. However in the case of llGetLinkPrimitiveParams, it is either the value of the <b>link</b> parameter, or the prim specified by the immediately prior <a href="https://wiki.secondlife.com/wiki/PRIM_LINK_TARGET" target="_blank">PRIM_LINK_TARGET</a> call.</p>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_TEXTURE" target="_blank">CHANGED_TEXTURE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TEXTURE_BLANK" target="_blank">TEXTURE_BLANK</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TEXTURE_DEFAULT" target="_blank">TEXTURE_DEFAULT</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TEXTURE_PLYWOOD" target="_blank">TEXTURE_PLYWOOD</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TEXTURE_TRANSPARENT" target="_blank">TEXTURE_TRANSPARENT</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TEXTURE_MEDIA" target="_blank">TEXTURE_MEDIA</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetTexture" target="_blank">llSetTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkTexture" target="_blank">llSetLinkTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlScaleTexture" target="_blank">llScaleTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlOffsetTexture" target="_blank">llOffsetTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotateTexture" target="_blank">llRotateTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a></td>
+        <td>–</td>
+        <td>Returns the link number of the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the script is in.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Notes</h2>
+  <h3>Link Numbers</h3>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <ul>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+  </ul>
+  <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
+  <p>Counting Prims & Avatars</p>
+  <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
+  <ul>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
+    if ll.GetAttached() ~= 0 then  --Is it attached?
+        return ll.GetNumberOfPrims()  --returns avatars and prims but attachments can't be sat on.
+    end
+    return ll.GetObjectPrimCount(ll.GetKey())  --returns only prims but won't work on attachments.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer GetPrimCount() { //always returns only the number of prims
+    if(llGetAttached())//Is it attached?
+        return llGetNumberOfPrims();//returns avatars and prims but attachments can't be sat on.
+    return llGetObjectPrimCount(llGetKey());//returns only prims but won't work on attachments.
+}`} lang="lsl" /></div>
+  <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
+Errata</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_TEXTURE" target="_blank">Search Canny for related Issues</a> Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> LINK_ROOT does not work on single <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">objects</a>. Unless there is an avatar sitting on the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_TEXTURE = 17
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_TEXTURE = 17;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

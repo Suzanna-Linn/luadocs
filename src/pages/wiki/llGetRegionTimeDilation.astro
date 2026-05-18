@@ -1,0 +1,148 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetRegionTimeDilation(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetRegionTimeDilation();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the current time dilation, the value range is [0.0, 1.0], 0.0 (full dilation) and 1.0 (no dilation).[[1]](#footnote_1)</p>
+  <p>It is used as the ratio between the change of script time to that of real world time.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">227</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>Time dilation is a method the server uses to cope with simulator lag. Physics and script generated lag can result in time dilation. Time dilation slows script time & execution. When time dilation is zero script execution halts.</p>
+  <p>Affects</p>
+  <ul>
+    <li>Intervals of <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a> events queued as a result of <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a>.</li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li><a href="http://community.secondlife.com/t5/Second-Life-Server/Region-Idling-FAQ/m-p/1535497" target="_blank">Region idling</a> lowers a region's framerate when no avatars are currently on or looking into the region. Scripts measuring time dilation with llGetRegionTimeDilation may report significant time dilation if the region is <a href="https://wiki.secondlife.com/wiki/LlGetEnv" target="_blank">idle</a>.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- The beginnings of a region-info script.
+local region = ""
+local sim = ""
+
+local function main()
+    ll.SetTimerEvent(1.0)
+end
+function LLEvents.timer()
+    local here = ll.GetRegionName()
+    if region ~= here then
+        sim = ll.GetSimulatorHostname()
+        region = here
+    end
+    ll.SetText("   REGION NAME : " .. region .. "\n  SIM HOSTNAME : " .. sim .. "\n TIME DILATION : " .. tostring(ll.GetRegionTimeDilation()) .. "\n    REGION FPS : " .. tostring(ll.GetRegionFPS()), vector(0, 1, 0), 1.0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// The beginnings of a region-info script.
+string region;
+string sim;
+
+default
+{
+    state_entry()
+    {
+        llSetTimerEvent(1.0);
+    }
+    timer()
+    {
+        string here = llGetRegionName();
+        if(region != here)
+        {
+            sim = llGetSimulatorHostname();
+            region = here;
+        }
+        llSetText(
+                "   REGION NAME : " + region + 
+              "\n  SIM HOSTNAME : " + sim + 
+              "\n TIME DILATION : " + (string)llGetRegionTimeDilation() +
+              "\n    REGION FPS : " + (string)llGetRegionFPS(),
+            <0,1,0>, 1.0);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionFPS" target="_blank">llGetRegionFPS</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTime" target="_blank">llGetTime</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAndResetTime" target="_blank">llGetAndResetTime</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetRegionTimeDilation()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGetRegionTimeDilation();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,242 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ClearPrimMedia(Face: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llClearPrimMedia(integer Face);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Clears (deletes) the media and all params from the given <b>face</b>.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/status" target="_blank">status</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) that is a STATUS_* flag which details the success/failure of the operation.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>media</li>
+        <li>prim</li>
+        <li>prim_media</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">352</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Success/Failure Flags</th>
+        <th></th>
+        <th colspan="6">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_OK" target="_blank">STATUS_OK</a></td>
+        <td>0</td>
+        <td>Result of function call was success</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_MALFORMED_PARAMS" target="_blank">STATUS_MALFORMED_PARAMS</a></td>
+        <td>1000</td>
+        <td>Function was called with malformed parameters</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_TYPE_MISMATCH" target="_blank">STATUS_TYPE_MISMATCH</a></td>
+        <td>1001</td>
+        <td>Argument(s) passed to function had a type mismatch</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_BOUNDS_ERROR" target="_blank">STATUS_BOUNDS_ERROR</a></td>
+        <td>1002</td>
+        <td>Argument(s) passed to function had a bounds error</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_NOT_FOUND" target="_blank">STATUS_NOT_FOUND</a></td>
+        <td>1003</td>
+        <td>Object or other item was not found</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_NOT_SUPPORTED" target="_blank">STATUS_NOT_SUPPORTED</a></td>
+        <td>1004</td>
+        <td>Feature not supported</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_INTERNAL_ERROR" target="_blank">STATUS_INTERNAL_ERROR</a></td>
+        <td>1999</td>
+        <td>An internal error occurred</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_WHITELIST_FAILED" target="_blank">STATUS_WHITELIST_FAILED</a></td>
+        <td>2001</td>
+        <td>Whitelist Failed</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 1.0 seconds.</li>
+    <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  when dropping this script into a prim
+--  it will remove all set media-on-a-prim
+--  on all sides of the prim containing the script
+--  and then the script will delete itself
+
+local function publish_returned_status_flag(inputLink, inputFace, inputStatus)
+    local outputStatus = "STATUS_OK"  --[[ if (inputInteger == 0) ]]
+    if inputStatus == 1000 then
+        outputStatus = "STATUS_MALFORMED_PARAMS"
+    elseif inputStatus == 1001 then
+        outputStatus = "STATUS_TYPE_MISMATCH"
+    elseif inputStatus == 1002 then
+        outputStatus = "STATUS_BOUNDS_ERROR"
+    elseif inputStatus == 1003 then
+        outputStatus = "STATUS_NOT_FOUND"
+    elseif inputStatus == 1004 then
+        outputStatus = "STATUS_NOT_SUPPORTED"
+    elseif inputStatus == 1999 then
+        outputStatus = "STATUS_INTERNAL_ERROR"
+    elseif inputStatus == 2001 then
+        outputStatus = "STATUS_WHITELIST_FAILED"
+    end
+
+    -- PUBLIC_CHANNEL has the integer value 0
+    ll.Say(PUBLIC_CHANNEL, "llClearLinkMedia(link " .. tostring(inputLink) .. ", face " .. tostring(inputFace) .. ") = " .. outputStatus .. ";")
+end
+
+local function main()
+    local link = ll.GetLinkNumber()
+    local numOfSides = ll.GetLinkNumberOfSides(link)
+    local face = 0
+
+    repeat
+        local clearMediaSucceeded = ll.ClearPrimMedia(face)
+        publish_returned_status_flag(link, face, clearMediaSucceeded)
+
+        face += 1
+    until not (face < numOfSides)
+
+    local thisScript = ll.GetScriptName()
+    ll.RemoveInventory(thisScript)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  when dropping this script into a prim
+//  it will remove all set media-on-a-prim
+//  on all sides of the prim containing the script
+//  and then the script will delete itself
+
+
+
+publish_returned_status_flag(integer inputLink, integer inputFace, integer inputStatus)
+{
+    /* if (inputInteger == 0) */ string outputStatus = "STATUS_OK";
+    if (inputStatus == 1000) outputStatus = "STATUS_MALFORMED_PARAMS";
+    else if (inputStatus == 1001) outputStatus = "STATUS_TYPE_MISMATCH";
+    else if (inputStatus == 1002) outputStatus = "STATUS_BOUNDS_ERROR";
+    else if (inputStatus == 1003) outputStatus = "STATUS_NOT_FOUND";
+    else if (inputStatus == 1004) outputStatus = "STATUS_NOT_SUPPORTED";
+    else if (inputStatus == 1999) outputStatus = "STATUS_INTERNAL_ERROR";
+    else if (inputStatus == 2001) outputStatus = "STATUS_WHITELIST_FAILED";
+
+    // PUBLIC_CHANNEL has the integer value 0
+    llSay(PUBLIC_CHANNEL, "llClearLinkMedia(link " + (string)inputLink
+        + ", face " + (string)inputFace + ") = " + outputStatus + ";");
+}
+
+default
+{
+    state_entry()
+    {
+        integer link = llGetLinkNumber();
+        integer numOfSides = llGetLinkNumberOfSides(link);
+        integer face;
+
+        do
+        {
+            integer clearMediaSucceeded = llClearPrimMedia(face);
+            publish_returned_status_flag(link, face, clearMediaSucceeded);
+
+            ++face;
+        }
+        while (face < numOfSides);
+
+        string thisScript = llGetScriptName();
+        llRemoveInventory(thisScript);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlClearLinkMedia" target="_blank">llClearLinkMedia</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimMediaParams" target="_blank">llSetPrimMediaParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimMediaParams" target="_blank">llGetPrimMediaParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/2816?new_path=%2F" target="_blank">SVN:2816 r134947 Trunk</a></li>
+    <li><a href="https://jira.secondlife.com/browse/SVC-4939" target="_blank">SVC-4939</a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llClearPrimMedia( integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

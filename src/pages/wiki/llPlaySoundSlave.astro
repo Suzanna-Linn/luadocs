@@ -1,0 +1,135 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.PlaySoundSlave(Sound: string|uuid, Volume: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llPlaySoundSlave(string Sound, float Volume);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Plays attached <b>sound</b> once at <b>volume</b>, synced to next loop of most audible sync master declared by <a href="https://wiki.secondlife.com/wiki/LlLoopSoundMaster" target="_blank">llLoopSoundMaster</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Sound / sound</td>
+          <td>a sound in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a sound</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Volume / volume</td>
+          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>volume</b> <&#61; 1.0`)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>sound</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">90</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>sound</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a sound then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>sound</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>As an object can only have a single active sound, this function should be called from a different prim than the one that defined a sync master, otherwise it will remove the master sound, and no sound will be available to sync-to.</li>
+    <li>This function is affected by the <a href="https://wiki.secondlife.com/wiki/LlSetSoundQueueing" target="_blank">Sound Queueing</a> property of the parent prim - this means it's possible to queue a slave sound prior to starting a master, without having to use more than one prim as an emitter. (See example on <a href="https://wiki.secondlife.com/wiki/LlLoopSoundMaster" target="_blank">llLoopSoundMaster</a>).</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPlaySound" target="_blank">llPlaySound</a></td>
+        <td>–</td>
+        <td>Plays a sound attached once.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSound" target="_blank">llLoopSound</a></td>
+        <td>–</td>
+        <td>Plays a sound attached indefinitely.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSoundMaster" target="_blank">llLoopSoundMaster</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSoundSlave" target="_blank">llLoopSoundSlave</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSound" target="_blank">llTriggerSound</a></td>
+        <td>–</td>
+        <td>Plays a sound unattached.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSoundLimited" target="_blank">llTriggerSoundLimited</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetSoundQueueing" target="_blank">llSetSoundQueueing</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llPlaySoundSlave( string sound, float volume );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

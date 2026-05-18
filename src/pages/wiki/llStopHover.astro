@@ -1,0 +1,134 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.StopHover()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llStopHover();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Stop hovering to a height</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">124</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Put in an attached prim and touch to start floating in air without flying.
+-- Touch again to drop to the ground.
+
+local gHovering = false  -- are we supposd to be hovering now?
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    if not (ll.GetAttached() ~= 0) then
+        ll.Whisper(0, "Wear me to play.")
+        return
+    end
+
+    if gHovering then
+        ll.OwnerSay("Releasing you.")
+        ll.StopHover()
+    else
+        ll.OwnerSay("Making you float...")
+
+        -- Start hovering 5 meters over our current location.
+        local myPosition = ll.GetPos()
+        ll.SetHoverHeight(myPosition.z - ll.Ground(ZERO_VECTOR) + 5.0, false, 1.0)
+    end
+
+    gHovering = not gHovering  -- flip the switch
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Put in an attached prim and touch to start floating in air without flying.
+// Touch again to drop to the ground.
+ 
+integer gHovering = FALSE; // are we supposd to be hovering now?
+ 
+default {
+    touch_start(integer total_number) {
+        if (!llGetAttached()) {
+            llWhisper(0, "Wear me to play.");
+            return;
+        }
+ 
+        if (gHovering) {
+            llOwnerSay("Releasing you.");
+            llStopHover();
+        }
+        else {
+            llOwnerSay("Making you float...");
+ 
+            // Start hovering 5 meters over our current location.
+            vector myPosition = llGetPos();
+            llSetHoverHeight(myPosition.z - llGround(ZERO_VECTOR) + 5.0, FALSE, 1.0);
+        }
+ 
+        gHovering = !gHovering; // flip the switch
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGroundRepel" target="_blank">llGroundRepel</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetHoverHeight" target="_blank">llSetHoverHeight</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+void
+ll.StopHover()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llStopHover();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

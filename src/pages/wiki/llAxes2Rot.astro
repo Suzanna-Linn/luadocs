@@ -1,0 +1,137 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Axes2Rot(Forward: vector, Left: vector, Up: vector): rotation`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation llAxes2Rot(vector Forward, vector Left, vector Up);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a rotation that is defined by the 3 coordinate axes</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Forward / fwd</td>
+          <td>Forward/Back part of rotation.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Left / left</td>
+          <td>Left/Right part of rotation.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Up / up</td>
+          <td>Up/Down part of rotation.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_3d</li>
+        <li>math_trig</li>
+        <li>quaternion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">17</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>All three vectors must be mutually orthogonal unit vectors.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local i = vector(1.0, 0.0, 0.0)
+    local j = vector(0.0, 1.0, 0.0)
+    local k = vector(0.0, 0.0, 1.0)
+
+    local rot = ll.Axes2Rot(j, -i, k)
+
+    ll.Say(0, tostring(ll.Rot2Euler(rot) * RAD_TO_DEG))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        vector i = < 1.0, 0.0, 0.0>;
+        vector j = < 0.0, 1.0, 0.0>;
+        vector k = < 0.0, 0.0, 1.0>;
+
+        rotation rot = llAxes2Rot( j, -i, k );
+
+        llSay(0, (string) (llRot2Euler(rot) * RAD_TO_DEG) );
+    }
+}`} lang="lsl" /></div>
+  <p>This script displays:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`Object: <-0.00000, 0.00000, 90.00000>`} lang="lsl" /></div>
+  <p>which shows that (<b>j</b>, <b>-i</b>, <b>k</b>) is obtained by rotating (<b>i</b>, <b>j</b>, <b>k</b>) 90 degrees around z direction.</p>
+  <h2>Notes</h2>
+  <p>Technically, only the first two vectors are needed to define this rotation, which can be done by calling any of these:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llAxes2Rot(fwd, left, fwd % left);
+llAxes2Rot(left % up, left, up);
+llAxes2Rot(fwd, up % fwd, up);`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/User:Dora_Gustafson/llAxes2Rot_right_and_wrong" target="_blank">Visual illustration</a></td>
+        <td>–</td>
+        <td>Importance of mutually orthogonal unit vectors</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function rotation llAxes2Rot( vector fwd, vector left, vector up );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>quaternions rule</p>
+<p>the whole world spins at your whim</p>
+<p>or crashes and burns</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

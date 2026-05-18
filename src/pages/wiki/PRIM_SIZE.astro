@@ -1,0 +1,148 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_SIZE: number = 7`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_SIZE = 7;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_SIZE has the value 7</p>
+  <p>Returns or sets the prim's <b>size</b>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">&#32;PRIM_SIZE,&#32;[vector</a> size ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td>size</td>
+        <td>–</td>
+        <td>ranges from 0.01 to 64.0 for x, y and z</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_SIZE ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> [vector</a> size ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td>size</td>
+        <td>–</td>
+        <td>ranges from 0.01 to 64.0 for x, y and z</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Does not work on <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physical</a> prims.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetScale" target="_blank">llGetScale</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetScale" target="_blank">llSetScale</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Changing the prim size and rotation
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.SetPrimitiveParams({PRIM_SIZE, vector(0.25, 0.5, 1.0), PRIM_ROTATION, rotation(1.0, 0.0, 0.0, 0.0)})
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Changing the prim size and rotation
+default
+{
+  touch_start(integer total_number)
+  {
+    llSetPrimitiveParams([
+        PRIM_SIZE, <0.25,0.5,1.0>,
+        PRIM_ROTATION, <1.0, 0.0, 0.0, 0.0>
+      ]);
+  }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_SIZE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_SIZE = 7
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_SIZE = 7;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

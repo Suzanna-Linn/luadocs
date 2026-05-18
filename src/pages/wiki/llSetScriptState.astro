@@ -1,0 +1,114 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetScriptState(ScriptName: string, Running: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetScriptState(string ScriptName, integer Running);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Set the running state of the script <b>name</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>ScriptName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>a script in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Running / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">running</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>[[1]](#footnote_1) the script will be enabled, if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> the script will be disabled</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">148</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>name</b> is missing from the prim's inventory or it is not a script then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>Cannot be used to restart a script that has encountered a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Error" target="_blank">run-time error</a>.</li>
+    <li>Cannot be used to start a script that has been added via <a href="https://wiki.secondlife.com/wiki/LlGiveInventory" target="_blank">llGiveInventory</a>. Scripts sent via <a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a>, and which have the running state set FALSE by that command, may be started.</li>
+    <li>The script appears to stop when its time slice ends, not sooner. If a script tries to stop itself then some LSL code following the llSetScriptState call may be executed before the script stops.</li>
+    <li>If a script is paused by llSetScriptState and is then either re-rezzed, in a region during a restart, or moved into a different region, the script's memory is reset.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Stops the Script, at some non-deterministic time later, until invoked with TRUE, in another script
+ll.SetScriptState(ll.GetScriptName(), false)
+-- Stall until end of time slice
+ll.Sleep(0.1)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Stops the Script, at some non-deterministic time later, until invoked with TRUE, in another script
+llSetScriptState(llGetScriptName(),FALSE);
+// Stall until end of time slice
+llSleep(0.1);`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Starts Another Script
+ll.SetScriptState("somescript", true)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Starts Another Script
+llSetScriptState("somescript",TRUE);`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetScriptState" target="_blank">llGetScriptState</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlResetOtherScript" target="_blank">llResetOtherScript</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Any value that is not zero/<a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> is treated the same as <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>. This behavior should not be depended upon.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetScriptState( string name, integer running );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

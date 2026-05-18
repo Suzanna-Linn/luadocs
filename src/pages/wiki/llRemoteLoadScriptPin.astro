@@ -1,0 +1,383 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RemoteLoadScriptPin(ObjectID: uuid, ScriptName: string, PIN: number, Running: boolean, StartParameter: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRemoteLoadScriptPin(key ObjectID, string ScriptName, integer PIN, integer Running, integer StartParameter);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Copy script <b>name</b> into <b>target</b> and set to <b>running</b> with a <b>start_param</b> only if <b>target</b>'s <a href="https://wiki.secondlife.com/wiki/LlSetRemoteScriptAccessPin" target="_blank">pin</a> matches <b>pin</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ObjectID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/target" target="_blank">target</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>ScriptName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>a script in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>PIN / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pin" target="_blank">pin</a></td>
+          <td>Must match pin set by <a href="https://wiki.secondlife.com/wiki/LlSetRemoteScriptAccessPin" target="_blank">llSetRemoteScriptAccessPin</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Running / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">running</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>[[1]](#footnote_1) the script is set as running, if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> the script is not set as running</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>StartParameter / start_param</td>
+          <td>value returned by <a href="https://wiki.secondlife.com/wiki/LlGetStartParameter" target="_blank">llGetStartParameter</a> in the target script.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_inventory</li>
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">3s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">253</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Only works if the <a href="https://wiki.secondlife.com/wiki/LSL_Glossary#script_owner" target="_blank">script owner</a> can modify <b>target</b>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 3.0 seconds.</li>
+    <li>If <b>target</b> is not owned by the same person, and <b>name</b> does not have transfer permissions, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> permissions do not allow copy, the transfer fails and an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>target</b> is not in the same region an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>When scripts are copied or moved between inventories, their state does not survive the transfer. Memory, event queue and execution position are all discarded.</li>
+    <li>If <b>name</b> is missing from the prim's inventory or it is not a script then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is present in the <b>target</b> prim's inventory then it is silently replaced.</li>
+    <li><b>start_param</b> only lasts until the script is reset.</li>
+    <li>Only the owner of an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Attachment" target="_blank">attachment</a> can modify it while it is being worn.
+    <ul>
+      <li>If <b>target</b> is an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Attachment" target="_blank">attachment</a> owned by a different user, regardless of object modify rights granted, this function will silently fail.</li>
+    </ul>
+  
+    </li>
+    <li>If <b>target</b> is owned by a different user and modify permission has been granted to the script owner via <a href="http://community.secondlife.com/t5/tkb/articleprintpage/tkb-id/English_KB@tkb/article-id/215" target="_blank">Edit, delete, or take my objects</a>, the script owner must be connected to the sim for this function to succeed.</li>
+    <li>If <b>pin</b> fails to match, the error "Task ~Prim~ trying to illegally load script onto task ~Other_Prim~!" is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. "~Prim~" and "~Other_Prim~" are substituted with the applicable prim names.</li>
+    <li>If <b>target</b> is the script's parent (`<b>target</b> == <a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>()`) then "Unable to add item!" is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If the object containing this script is deeded to a group, then script <b>name</b> needs transfer permissions; even if <b>target</b> is deeded to the same group.</li>
+    <li>When the script is set to run (with <b>running</b>, the running checkbox or <a href="https://wiki.secondlife.com/wiki/LlSetScriptState" target="_blank">llSetScriptState</a>) <a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a> will be queued.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Basic Example
+Script copier</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Copy a script to the second prim
+local PIN = 1341134
+
+local function main()
+    ll.RemoteLoadScriptPin(ll.GetLinkKey(2), "some script", PIN, true, 0xBEEEEEEF)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Copy a script to the second prim
+integer PIN=1341134;
+
+default {
+    state_entry() {
+        llRemoteLoadScriptPin( llGetLinkKey(2), "some script", PIN, TRUE, 0xBEEEEEEF );
+    }
+}`} lang="lsl" /></div>
+  <p>Pin setter</p>
+  <p>Simple script used for setting the pin for a prim, so you can later send scripts to it with llRemoteLoadScriptPin.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Child Prim PIN setter
+local PIN = 1341134
+
+local function main()
+    ll.OwnerSay(ll.GetObjectName() .. " : " .. tostring(ll.GetKey()) .. " is ready to accept a describer script using the agreed upon PIN.")
+    ll.SetRemoteScriptAccessPin(PIN)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Child Prim PIN setter
+integer PIN=1341134;
+
+default {
+    state_entry() {
+        llOwnerSay(llGetObjectName()+" : "+(string)llGetKey()+" is ready to accept a describer script using the agreed upon PIN.");
+        llSetRemoteScriptAccessPin(PIN);
+    }
+}`} lang="lsl" /></div>
+  <p>Rez and copy a file from a control object</p>
+  <p>Notes: There is currently no signing on the starting messages only the owner is checked.</p>
+  <p>this example rezs a prim from inventory that has a basic control file inside of it and does a basic handshake to setup the
+pin and transfer the script.</p>
+  <p>after the transfert the helper script in the rezzed prim deletes itself.</p>
+  <p>Control prim</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer controlchan = 0;
+integer controlid = -1;
+start()
+{
+    llSetTimerEvent(0);
+    talkingto = NULL_KEY;
+    integer a = (integer)llFrand(43);
+    controlchan = a * a;
+    controlchan -= controlchan * 3;
+    controlid = llListen(controlchan,"","","set-connect");
+    llRezObject("card",llGetPos()+<0,0,0.1>,<0,0,0>,ZERO_ROTATION,a);
+    llSetTimerEvent(60);
+}
+key talkingto = NULL_KEY;
+integer busy = FALSE;
+integer accesspin = 0;
+default
+{
+    timer()
+    {
+        llSetTimerEvent(0);
+        llOwnerSay("Lost connection!");
+        llListenRemove(controlid);
+        busy = FALSE;
+    }
+    listen(integer chan,string name,key id,string message)
+    {
+        if(chan == controlchan)
+        {
+            if(llGetOwnerKey(id) == llGetOwner())
+            {
+                if(talkingto == NULL_KEY)
+                {
+                    if(message == "set-connect")
+                    {
+                        llSetTimerEvent(0);
+                        talkingto = id;
+                        llListenRemove(controlid);
+                        controlid = llListen(controlchan,"",talkingto,"ready");
+                        llRegionSayTo(id,controlchan,"auto-connect");
+                        llSetTimerEvent(60);
+                    }
+                }   
+                else if(id == talkingto)
+                {
+                    if(message == "ready")
+                    {
+                        llSetTimerEvent(0);
+                        accesspin = (integer)llFrand(2345)+213;
+                        llListenRemove(controlid);
+                        controlid = llListen(controlchan,"",talkingto,"pinset");
+                        llSleep(1);
+                        llRegionSayTo(talkingto,controlchan,(string)accesspin);
+                        llSetTimerEvent(60);
+                    }
+                    else if(message == "pinset")
+                    {
+                        llSetTimerEvent(0);
+                        llListenRemove(controlid);
+                        llRemoteLoadScriptPin(talkingto,"demo.lsl",accesspin,1,0);
+                        llSleep(3);
+                        llRegionSayTo(talkingto,controlchan,"finished");
+                        llOwnerSay("Transfer of file finished - control file should have auto deleted itself!");
+                        busy = FALSE;
+                    }
+                } 
+            }   
+        }
+    }
+    touch_end(integer a)
+    {
+        if(busy == FALSE)
+        {
+            busy = TRUE;
+            if(llGetOwner() == llDetectedKey(0))
+            {
+                start();
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <p>rezzed prim</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+local listen_id = -1
+local listen_chan = -1
+local details_from = NULL_KEY
+function LLEvents.on_rez(a)
+    if a == 0 then
+        ll.OwnerSay("- Direct rez -")
+    else
+        ll.OwnerSay("- Awaiting config connection -")
+        listen_chan = a * a
+        listen_chan -= listen_chan * 3
+        listen_id = ll.Listen(listen_chan, "", "", "auto-connect")
+        ll.Whisper(listen_chan, "set-connect")
+        ll.SetTimerEvent(30)
+    end
+end
+function LLEvents.timer()
+    ll.OwnerSay("Failed to connect to rezzer deleting myself!")
+    ll.SetTimerEvent(0)
+    ll.Die()
+end
+function LLEvents.listen(chan, name, id, message)
+    if ll.GetOwnerKey(id) == ll.GetOwner() then
+        if message == "auto-connect" then
+            ll.SetTimerEvent(0)
+            ll.ListenRemove(listen_id)
+            listen_id = ll.Listen(listen_chan, "", id, "")
+            ll.RegionSayTo(id, listen_chan, "ready")
+            details_from = id
+            ll.SetTimerEvent(30)
+        elseif details_from ~= NULL_KEY then
+            ll.SetTimerEvent(0)
+            if message == "finished" then
+                ll.SetRemoteScriptAccessPin(integer(message))
+                ll.RemoveInventory(ll.GetScriptName())
+            else
+                ll.SetRemoteScriptAccessPin(integer(message))
+                ll.RegionSayTo(id, listen_chan, "pinset")
+            end
+            ll.SetTimerEvent(30)
+        end
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer listen_id = -1;
+integer listen_chan = -1;
+key details_from = NULL_KEY;
+default
+{
+    on_rez(integer a)
+    {
+        if(a == 0)
+        {
+            llOwnerSay("- Direct rez -");
+        }
+        else
+        {
+            llOwnerSay("- Awaiting config connection -");
+            listen_chan = a * a;
+            listen_chan -= listen_chan * 3;
+            listen_id = llListen(listen_chan,"","","auto-connect");
+            llWhisper(listen_chan,"set-connect");
+            llSetTimerEvent(30);
+        }
+    }
+    timer()
+    {
+        llOwnerSay("Failed to connect to rezzer deleting myself!");
+        llSetTimerEvent(0);
+        llDie();
+    }
+    listen(integer chan,string name,key id,string message)
+    {
+        if(llGetOwnerKey(id) == llGetOwner())
+        {
+            if(message == "auto-connect")
+            {
+                llSetTimerEvent(0);
+                llListenRemove(listen_id);
+                listen_id = llListen(listen_chan,"",id,"");
+                llRegionSayTo(id,listen_chan,"ready");
+                details_from = id;
+                llSetTimerEvent(30);                 
+            }
+            else if(details_from != NULL_KEY)
+            {
+                llSetTimerEvent(0);  
+                if(message == "finished")
+                {
+                    llSetRemoteScriptAccessPin((integer)message);
+                    llRemoveInventory(llGetScriptName());         
+                }
+                else
+                {
+                    llSetRemoteScriptAccessPin((integer)message);
+                    llRegionSayTo(id,listen_chan,"pinset");
+                } 
+                llSetTimerEvent(30);  
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetRemoteScriptAccessPin" target="_blank">llSetRemoteScriptAccessPin</a></td>
+        <td>–</td>
+        <td>Used to setup a prim for remote loading</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetScriptState" target="_blank">llSetScriptState</a></td>
+        <td>–</td>
+        <td>Set a scripts running state</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlResetOtherScript" target="_blank">llResetOtherScript</a></td>
+        <td>–</td>
+        <td>Reset another script in the prim</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Added in 1.2.6</li>
+    <li>In SL 1.25.4 this function will not copy/move any script into an attachment unless the script is full perm. (<a href="https://jira.secondlife.com/browse/SVC-3725" target="_blank">SVC-3725</a>)</li>
+    <li>SL 1.25.5 will allow this function to copy/move a script into an attachment so long as the target has matching (or more restrictive) copy and transfer permissions. (<a href="https://jira.secondlife.com/browse/SVC-3738" target="_blank">SVC-3738</a>)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Any value that is not zero/<a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> is treated the same as <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>. This behavior should not be depended upon.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRemoteLoadScriptPin( key target, string name, integer pin, integer running, integer start_param );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

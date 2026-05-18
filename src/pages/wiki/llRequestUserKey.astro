@@ -1,0 +1,124 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestUserKey(Name: string): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llRequestUserKey(string Name);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests the Agent ID for the agent identified by name from the dataserver. The name given may be either the current name of an avatar or a historical name that has been used in the past. If no agent can be found with the supplied name this function returns the value <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.</p>
+  <p>Returns a handle (a key) that can be used to identify the request when the dataserver event is raised.</p>
+  <p>The agent being searched for with this function does not need to be signed on to Second Life.</p>
+  <p>Returns a key</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Name / username</td>
+          <td>the username of the avatar to retrieve the UUID of.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>dataserver</li>
+        <li>uuid</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">525</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function is throttled. The throttle is undocumented, but as of October 2018 the function appears to support bursts of up to 20 requests and sustained use at an average rate of 1.9 requests per second per owner, per region. (Meaning the throttle applies to all objects in the region with the same owner.) Once tripped, the function fails and says "Too many llRequestUserKey requests. Throttled until average falls." on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>This function will return a NULL_KEY for any agent that has yet to log on to the grid the function is used on.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local name_key_query = NULL_KEY
+local function main()
+    name_key_query = ll.RequestUserKey("rider.linden")
+end
+
+function LLEvents.dataserver(queryid, data)
+    if name_key_query == queryid then
+        ll.Say(0, "The key for this user is : " .. data)
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key name_key_query;
+default
+{
+   state_entry()
+   {
+       name_key_query = llRequestUserKey("rider.linden");
+   }
+
+   dataserver(key queryid, string data) 
+   {
+       if ( name_key_query == queryid )
+       {
+           llSay(0, "The key for this user is : " + data);
+       }
+   }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Names are always provided in the form "First[ Last]" or "first[.last]" (first name with an optional last name.) If the last name is omitted a last name of "Resident" is assumed. Case is not considered when resolving agent names.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestUsername" target="_blank">llRequestUsername</a></td>
+        <td>–</td>
+        <td>to translate a key to a name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlName2Key" target="_blank">llName2Key</a></td>
+        <td>–</td>
+        <td>to fetch avatar UUID by name.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llRequestUserKey( string username );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

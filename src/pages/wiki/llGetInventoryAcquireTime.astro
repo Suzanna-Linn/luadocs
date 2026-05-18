@@ -1,0 +1,160 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetInventoryAcquireTime(InventoryItem: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetInventoryAcquireTime(string InventoryItem);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string with the timestamp that the item was added to the prim's inventory.</p>
+  <p>The time is in the UTC time zone in the format "YYYY-MM-DDThh:mm:ssZ"</p>
+  <p>Appears to be accurate to seconds.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InventoryItem / item</td>
+          <td>an item in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">529</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>item</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>This function currently returns an ISO timestamp that is missing milliseconds. It is recommended that you code your applications in preparation of millisecond support being added at a later date.</li>
+    <li>Using <a href="https://wiki.secondlife.com/wiki/LlListSort" target="_blank">llListSort</a> to sort a list of timestamps that both include and exclude milliseconds will have undesired results. ".000000" will first have to be inserted into timestamps missing milliseconds.</li>
+    <li>Changing the contents of a script or notecard (or recompiling a script) does not change its acquire time.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>If there is no other item in the inventory, you get the timestamp from the script itself.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.Say(0, "Hello, Avatar!")
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local item = ll.GetInventoryName(INVENTORY_ALL, 0)  -- 0 means the first item in prim's inventory.
+    local timestamp = ll.GetInventoryAcquireTime(item)
+
+    ll.Say(0, "Timestamp for: " .. item .. " - " .. timestamp)  -- output
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSay(0, "Hello, Avatar!");
+    }
+
+    touch_start(integer total_number)
+    {
+        string item = llGetInventoryName(INVENTORY_ALL, 0); // 0 means the first item in prim's inventory.
+        string timestamp = llGetInventoryAcquireTime(item);
+        
+        llSay(0, "Timestamp for: " + item + " - " + timestamp); // output
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTimestamp" target="_blank">llGetTimestamp</a></td>
+        <td>–</td>
+        <td>Returns the current timestamp using the same format</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryCreator" target="_blank">llGetInventoryCreator</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's creator</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryName" target="_blank">llGetInventoryName</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryType" target="_blank">llGetInventoryType</a></td>
+        <td>–</td>
+        <td>Tests to see if an inventory item exists and returns its type</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryNumber" target="_blank">llGetInventoryNumber</a></td>
+        <td>–</td>
+        <td>Returns the number of items of a specific type in inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">llGetInventoryPermMask</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> (if full perm)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetInventoryAcquireTime( string item );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

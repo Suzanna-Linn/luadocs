@@ -1,0 +1,140 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestUsername(AvatarID: uuid): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llRequestUsername(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests the <b><a href="https://wiki.secondlife.com/wiki/Usernames" target="_blank">Username</a></b> of the agent identified by <b>id</b>. When the <b><a href="https://wiki.secondlife.com/wiki/Usernames" target="_blank">Username</a></b> is available the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event will be raised. The agent identified by <b>id</b> does not need to be in the same region or online at the time of the request.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) that is used to identify the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event when it is raised.
+If <b>id</b> is not the UUID of an avatar, the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event is not raised.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>dataserver</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">359</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If the name has been changed some time in the past, this provides only the current name.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li><p>If you merely wish to show the agent username in the viewer window, it may be more straightforward to use <a href="https://wiki.secondlife.com/wiki/Viewer_URI_Name_Space" target="_blank">Viewer URI Name Space</a> and avoid a dataserver event, e.g.:</p>
+<p><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+llSay(0, "secondlife:///app/agent/" + (string)id + "/username");
+`} lang="lsl" /></div>
+
+</p></li>
+    <li>This function is throttled. The throttle is undocumented, but as of October 2018 the function appears to support bursts of up to 20 requests and sustained use at an average rate of 1.9 requests per second per owner, per region. (Meaning the throttle applies to all objects in the region with the same owner.) Once tripped, the function fails and says "Too many llRequestUsername requests. Throttled until average falls." on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local owner_name_query = NULL_KEY
+
+local function main()
+    owner_name_query = ll.RequestUsername(ll.GetOwner())
+end
+
+function LLEvents.dataserver(queryid, data)
+    if owner_name_query == queryid then
+        ll.Say(0, "The username of the owner of this script : " .. data)
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key owner_name_query;
+ 
+default
+{
+    state_entry()
+    {
+        owner_name_query = llRequestUsername(llGetOwner());
+    }
+
+    dataserver(key queryid, string data)
+    {
+        if ( owner_name_query == queryid )
+        {
+            llSay(0, "The username of the owner of this script : " + data);
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetUsername" target="_blank">llGetUsername</a></td>
+        <td>–</td>
+        <td>works only for avatars that are present</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestUserKey" target="_blank">llRequestUserKey</a></td>
+        <td>–</td>
+        <td>general way to translate a name to a key</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llRequestUsername( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

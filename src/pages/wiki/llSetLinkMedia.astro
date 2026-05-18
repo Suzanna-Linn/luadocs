@@ -1,0 +1,444 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetLinkMedia(Link: number, Face: number, Parameters: {any}): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llSetLinkMedia(integer Link, integer Face, list Parameters);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Set the media <b>params</b> for a particular <b>face</b> on the <b>link</b>ed prim(s) without a delay.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/status" target="_blank">status</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) that is a STATUS_* flag which details the success/failure of the operation(s).</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Link / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">link</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&#32;</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Parameters / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">params</a></td>
+          <td>a set of name/value pairs (in no particular order)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>linkset</li>
+        <li>media</li>
+        <li>prim_media</li>
+        <li>web</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">371</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Flag</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_ROOT" target="_blank">LINK_ROOT</a></td>
+        <td>1</td>
+        <td>refers to the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim in a multi-prim linked set[[1]](#footnote_1)</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Flag</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_THIS" target="_blank">LINK_THIS</a></td>
+        <td>-4</td>
+        <td>refers to the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a> is in</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Success/Failure Flags</th>
+        <th></th>
+        <th colspan="6">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_OK" target="_blank">STATUS_OK</a></td>
+        <td>0</td>
+        <td>Result of function call was success</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_MALFORMED_PARAMS" target="_blank">STATUS_MALFORMED_PARAMS</a></td>
+        <td>1000</td>
+        <td>Function was called with malformed parameters</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_TYPE_MISMATCH" target="_blank">STATUS_TYPE_MISMATCH</a></td>
+        <td>1001</td>
+        <td>Argument(s) passed to function had a type mismatch</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_BOUNDS_ERROR" target="_blank">STATUS_BOUNDS_ERROR</a></td>
+        <td>1002</td>
+        <td>Argument(s) passed to function had a bounds error</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_NOT_FOUND" target="_blank">STATUS_NOT_FOUND</a></td>
+        <td>1003</td>
+        <td>Object or other item was not found</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_NOT_SUPPORTED" target="_blank">STATUS_NOT_SUPPORTED</a></td>
+        <td>1004</td>
+        <td>Feature not supported</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_INTERNAL_ERROR" target="_blank">STATUS_INTERNAL_ERROR</a></td>
+        <td>1999</td>
+        <td>An internal error occurred</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_WHITELIST_FAILED" target="_blank">STATUS_WHITELIST_FAILED</a></td>
+        <td>2001</td>
+        <td>Whitelist Failed</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Parameter</th>
+        <th colspan="2">Additional Parameters</th>
+        <th colspan="6">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_ALT_IMAGE_ENABLE" target="_blank"> [PRIM_MEDIA_ALT_IMAGE_ENABLE</a> ]</td>
+        <td>0</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
+        <td colspan="6">Sets the default image state (the image that the user sees before a piece of media is active) for the chosen face. The default image is specified by Second Life's server for that media type.
+<b>Note:</b> This flag is not currently implemented.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_CONTROLS" target="_blank"> [PRIM_MEDIA_CONTROLS</a> ]</td>
+        <td>1</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> control ]</td>
+        <td colspan="6">Sets the style of controls. Can be either <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_STANDARD&action=edit&redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_STANDARD</a> or <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_MINI&action=edit&redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_MINI</a>.</td>
+      </tr>
+      <tr>
+        <th colspan="2">controls Flags</th>
+        <th colspan="6">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_STANDARD&action=edit&redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_STANDARD</a></td>
+        <td>0</td>
+        <td colspan="6">Standard web navigation controls.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_MINI&action=edit&redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_MINI</a></td>
+        <td>1</td>
+        <td colspan="6">Mini web navigation controls; does not include an address bar.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_CURRENT_URL" target="_blank"> [PRIM_MEDIA_CURRENT_URL</a> ]</td>
+        <td>2</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> current_url ]</td>
+        <td colspan="6">Sets the current url displayed on the chosen face. Changing this URL causes navigation. 1024 characters Max</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_HOME_URL" target="_blank"> [PRIM_MEDIA_HOME_URL</a> ]</td>
+        <td>3</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> home_url ]</td>
+        <td colspan="6">Sets the home url for the chosen face. 1024 characters max</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_AUTO_LOOP" target="_blank"> [PRIM_MEDIA_AUTO_LOOP</a> ]</td>
+        <td>4</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
+        <td colspan="6">Sets whether auto-looping is enabled.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_AUTO_PLAY" target="_blank"> [PRIM_MEDIA_AUTO_PLAY</a> ]</td>
+        <td>5</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
+        <td colspan="6">Sets whether the media auto-plays when a Resident can view it.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_AUTO_SCALE" target="_blank"> [PRIM_MEDIA_AUTO_SCALE</a> ]</td>
+        <td>6</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
+        <td colspan="6">Sets whether auto-scaling is enabled. Auto-scaling forces the media to the full size of the texture.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_AUTO_ZOOM" target="_blank"> [PRIM_MEDIA_AUTO_ZOOM</a> ]</td>
+        <td>7</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
+        <td colspan="6">Sets whether clicking the media triggers auto-zoom and auto-focus on the media.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_FIRST_CLICK_INTERACT" target="_blank"> [PRIM_MEDIA_FIRST_CLICK_INTERACT</a> ]</td>
+        <td>8</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
+        <td colspan="6">Sets whether the first click interaction is enabled.
+<b>Note:</b> This flag appears not to work.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_WIDTH_PIXELS" target="_blank"> [PRIM_MEDIA_WIDTH_PIXELS</a> ]</td>
+        <td>9</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> width ]</td>
+        <td colspan="6">Sets the width of the media in pixels.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_HEIGHT_PIXELS" target="_blank"> [PRIM_MEDIA_HEIGHT_PIXELS</a> ]</td>
+        <td>10</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> height ]</td>
+        <td colspan="6">Sets the height of the media in pixels.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_WHITELIST_ENABLE" target="_blank"> [PRIM_MEDIA_WHITELIST_ENABLE</a> ]</td>
+        <td>11</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
+        <td colspan="6">Sets whether navigation is restricted to URLs in PRIM_MEDIA_WHITELIST.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_WHITELIST" target="_blank"> [PRIM_MEDIA_WHITELIST</a> ]</td>
+        <td>12</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> CSV ]</td>
+        <td colspan="6">Sets the whitelist as a string of <a href="https://wiki.secondlife.com/wiki/LlEscapeURL" target="_blank">escaped</a>, comma-separated URLs. This string can hold up to 64 URLs or 1024 characters, whichever comes first.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERMS_INTERACT" target="_blank"> [PRIM_MEDIA_PERMS_INTERACT</a> ]</td>
+        <td>13</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> perms ]</td>
+        <td colspan="6">Sets the permissions mask that control who can interact with the object:
+<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERM_NONE" target="_blank">PRIM_MEDIA_PERM_NONE</a>
+<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERM_OWNER" target="_blank">PRIM_MEDIA_PERM_OWNER</a>
+<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERM_GROUP" target="_blank">PRIM_MEDIA_PERM_GROUP</a>
+<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERM_ANYONE" target="_blank">PRIM_MEDIA_PERM_ANYONE</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERMS_CONTROL" target="_blank"> [PRIM_MEDIA_PERMS_CONTROL</a> ]</td>
+        <td>14</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> perms ]</td>
+        <td colspan="6">Sets the permissions mask that control who can see the media control bar above the object:
+<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERM_NONE" target="_blank">PRIM_MEDIA_PERM_NONE</a>
+<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERM_OWNER" target="_blank">PRIM_MEDIA_PERM_OWNER</a>
+<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERM_GROUP" target="_blank">PRIM_MEDIA_PERM_GROUP</a>
+<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_PERM_ANYONE" target="_blank">PRIM_MEDIA_PERM_ANYONE</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li><b>link</b> needs to be either an actual <a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">link number</a> or a link constants that equate to a single prim, such as <a href="https://wiki.secondlife.com/wiki/LINK_ROOT" target="_blank">LINK_ROOT</a> and <a href="https://wiki.secondlife.com/wiki/LINK_THIS" target="_blank">LINK_THIS</a>.
+    <ul>
+      <li><a href="https://wiki.secondlife.com/wiki/LINK_SET" target="_blank">LINK_SET</a>, <a href="https://wiki.secondlife.com/wiki/LINK_ALL_CHILDREN" target="_blank">LINK_ALL_CHILDREN</a> and <a href="https://wiki.secondlife.com/wiki/LINK_ALL_OTHERS" target="_blank">LINK_ALL_OTHERS</a> will not work.</li>
+    </ul>
+  
+    </li>
+    <li><b>link</b> cannot be a seated avatar.</li>
+    <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
+    <li>If prim media is not already on this object, it will be added.</li>
+    <li>If prim media is newly added to this object, params not specified take their default value.</li>
+    <li>If prim media is already on this object, params not specified are unchanged.</li>
+    <li>About `<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_WIDTH_PIXELS" target="_blank">PRIM_MEDIA_WIDTH_PIXELS</a>` (<b>width</b>) and `<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_HEIGHT_PIXELS" target="_blank">PRIM_MEDIA_HEIGHT_PIXELS</a>` (<b>height</b>) ...
+    <ul>
+      <li>Both <b>width</b> and <b>height</b> must be specified for either to work. They narrow the texture space while inversely widening the aperture, i.e. smaller values "zoom in."
+      <ul>
+        <li>If <b>width</b> and <b>height</b> are not specified, the function assumes 1024 for each.</li>
+      </ul>
+    
+      </li>
+      <li>When `<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_AUTO_SCALE" target="_blank">PRIM_MEDIA_AUTO_SCALE</a>` is `<a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>`, any value for <b>width</b> and <b>height</b> that is not precisely 2<i>n</i> where 0 &#8804; <i>n</i> < 12 will be "rounded up" to the next value, i.e. setting `<a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_WIDTH_PIXELS" target="_blank">PRIM_MEDIA_WIDTH_PIXELS</a>` to 257 has the same effect as setting it to 512. Any value outside the range of [0, 2048] will cause the function to shout a message to `<a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>` and fail. Using 0 (zero) results in the default value being used, which is 1024.</li>
+      <li>It might be helpful to think of <b>width</b> and <b>height</b> as setting your "screen size." If the media is smaller than this "screen," there will be empty space below and/or to the right of the media. If the media is larger than this "screen," scroll bars will be made visible. Re-scaling the prim without altering the face's <i>Horizontal scale,</i> <i>Vertical scale,</i> <i>Horizontal offset,</i> and <i>Vertical offset</i> will only distort (stretch/compress) the media.<i>Pending review. - NM</i></li>
+    </ul>
+  
+    </li>
+    <li><b>width</b> and <b>height</b> scaled larger than 1024 pixels will require the texture backdrop to be resized to fit. (See <a href="#Useful_Snippets" target="_blank">Useful Snippets</a>)
+    <ul>
+      <li>If resized to fit, the resulting view will cut off scrolled content outside the bounds making it impossible to be viewed.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+---- expand media textures greater than 1024 pixel in a direction to fit the media face
+---- does exactly what the "align" button does in the edit window
+---- original by Edelman Linden (or Kate Linden), tweaked by Void Singer
+local function uExpandMediaTexture(vIntWidth, vIntHeight, vIntFace)
+    local vIntTemp = 0
+    local vSizScale = ZERO_VECTOR
+
+    while bit32.arshift(vIntWidth, (function() vIntTemp += 1 return vIntTemp end)()) ~= 0 do
+    end
+    vSizScale = vector(vIntWidth / tonumber(bit32.lshift(1, vIntTemp)), vSizScale.y, vSizScale.z)
+    vIntTemp = 0
+    while bit32.arshift(vIntHeight, (function() vIntTemp += 1 return vIntTemp end)()) ~= 0 do
+    end
+    vSizScale = vector(vSizScale.x, vIntHeight / tonumber(bit32.lshift(1, vIntTemp)), vSizScale.z)
+    ll.SetLinkPrimitiveParamsFast(LINK_THIS, ll.ListInsertList({PRIM_TEXTURE, vIntFace}, ll.ListReplaceList(ll.GetLinkPrimitiveParams(LINK_THIS, {PRIM_TEXTURE, vIntFace}), {vSizScale, (vSizScale - vector(1.0, 1.0, 0.0)) / 2.0}, 1, 2), #{PRIM_TEXTURE, vIntFace}))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- expand media textures greater than 1024 pixel in a direction to fit the media face
+//-- does exactly what the "align" button does in the edit window
+//-- original by Edelman Linden (or Kate Linden), tweaked by Void Singer
+uExpandMediaTexture( integer vIntWidth, integer vIntHeight, integer vIntFace ){
+    integer vIntTemp;
+    vector  vSizScale;
+
+    while (vIntWidth >> ++vIntTemp);
+    vSizScale.x = vIntWidth / (float)(1 << vIntTemp);
+    vIntTemp = 0;
+    while (vIntHeight >> ++vIntTemp);
+    vSizScale.y = vIntHeight / (float)(1 << vIntTemp);
+    llSetLinkPrimitiveParamsFast( LINK_THIS,
+                                  [PRIM_TEXTURE, vIntFace] +
+                                  llListReplaceList( llGetLinkPrimitiveParams(LINK_THIS, [PRIM_TEXTURE, vIntFace] ),
+                                                    [vSizScale, ((vSizScale - <1.0, 1.0, 0.0>) / 2.0)],
+                                                    1,
+                                                    2 ) );
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <h3>Link Numbers</h3>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <ul>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+  </ul>
+  <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
+  <p>Counting Prims & Avatars</p>
+  <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
+  <ul>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
+    if ll.GetAttached() ~= 0 then  --Is it attached?
+        return ll.GetNumberOfPrims()  --returns avatars and prims but attachments can't be sat on.
+    end
+    return ll.GetObjectPrimCount(ll.GetKey())  --returns only prims but won't work on attachments.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer GetPrimCount() { //always returns only the number of prims
+    if(llGetAttached())//Is it attached?
+        return llGetNumberOfPrims();//returns avatars and prims but attachments can't be sat on.
+    return llGetObjectPrimCount(llGetKey());//returns only prims but won't work on attachments.
+}`} lang="lsl" /></div>
+  <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
+Errata</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a></td>
+        <td>–</td>
+        <td>Returns the link number of the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the script is in.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimMediaParams" target="_blank">llSetPrimMediaParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkMedia" target="_blank">llGetLinkMedia</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlClearLinkMedia" target="_blank">llClearLinkMedia</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/User:Kelly_Linden/lsl_hacks" target="_blank">User:Kelly Linden/lsl hacks</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.08.10.238207" target="_blank"> 10/08/2011 </a></p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> LINK_ROOT does not work on single <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">objects</a>. Unless there is an avatar sitting on the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llSetLinkMedia( integer link, integer face, list params );
+integer PRIM_MEDIA_ALT_IMAGE_ENABLE = 0;
+integer PRIM_MEDIA_CONTROLS = 1;
+integer PRIM_MEDIA_CURRENT_URL = 2;
+integer PRIM_MEDIA_HOME_URL = 3;
+integer PRIM_MEDIA_AUTO_LOOP = 4;
+integer PRIM_MEDIA_AUTO_PLAY = 5;
+integer PRIM_MEDIA_AUTO_SCALE = 6;
+integer PRIM_MEDIA_AUTO_ZOOM = 7;
+integer PRIM_MEDIA_FIRST_CLICK_INTERACT = 8;
+integer PRIM_MEDIA_WIDTH_PIXELS = 9;
+integer PRIM_MEDIA_HEIGHT_PIXELS = 10;
+integer PRIM_MEDIA_WHITELIST_ENABLE = 11;
+integer PRIM_MEDIA_WHITELIST = 12;
+integer PRIM_MEDIA_PERMS_INTERACT = 13;
+integer PRIM_MEDIA_PERM_OWNER;
+integer PRIM_MEDIA_PERM_GROUP;
+integer PRIM_MEDIA_PERM_ANYONE;
+integer PRIM_MEDIA_PERMS_CONTROL = 14;
+
+
+integer PRIM_MEDIA_CONTROLS_STANDARD = 0;//Standard web navigation controls.
+integer PRIM_MEDIA_CONTROLS_MINI = 1;//Mini web navigation controls; does not include an address bar.
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

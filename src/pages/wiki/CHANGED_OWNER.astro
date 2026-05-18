@@ -1,0 +1,100 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`CHANGED_OWNER: number = 128`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer CHANGED_OWNER = 128;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant CHANGED_OWNER has the value 0x80</p>
+  <p>The object has changed owners. This event occurs in the original object when a user takes it or takes a copy of it or when the owner deeds it to a group. The event occurs in the new object when it is first rezzed.</p>
+  <p>Counter-intuitively, this event also occurs in the <i>original</i> object when it is purchased or a copy of it is purchased (although the original object does <i>not</i> in fact change owner). The event does not occur in the original object when its contents are purchased.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ChangeType</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_OWNER) then  --note that it's & and not &&... it's bitwise!
+        ll.OwnerSay("The owner of the object has changed.")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    changed(integer change)
+    {
+        if (change & CHANGED_OWNER) //note that it's & and not &&... it's bitwise!
+        {
+            llOwnerSay("The owner of the object has changed.");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>All Issues ~ <a href="https://secondlife.canny.io/?search=CHANGED_OWNER" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/VWR-12880" target="_blank">VWR-12880</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/VWR-12880" target="_blank">A</a></td>
+        <td></td>
+        <td>CHANGED_OWNER in LSL script always triggered when detaching and attaching again an object</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+CHANGED_OWNER = 0x80
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer CHANGED_OWNER = 0x80;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

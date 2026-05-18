@@ -1,0 +1,155 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_FULLBRIGHT: number = 20`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_FULLBRIGHT = 20;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_FULLBRIGHT has the value 20</p>
+  <p>Used to get or set the full-bright setting of a prim's face.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_FULLBRIGHT,&#32;[integer</a> face, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> boolean ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> disables</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_FULLBRIGHT,&#32;[integer</a> face ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> disables</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Caveats</p>
+  <ul>
+    <li>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the PRIM_FULLBRIGHT works on all sides.</li>
+    <li>If <b>face</b> indicates a face that does not exist the PRIM_FULLBRIGHT return is <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank"> [FALSE</a> ]</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_TEXTURE" target="_blank">CHANGED_TEXTURE</a>?</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_FULLBRIGHT" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_FULLBRIGHT = 20
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_FULLBRIGHT = 20;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

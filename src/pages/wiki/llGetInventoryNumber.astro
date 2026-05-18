@@ -1,0 +1,418 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetInventoryNumber(InventoryType: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetInventoryNumber(integer InventoryType);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns an integer that is the number of items of a given <b>type</b> in the prims inventory.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>InventoryType / type</td>
+          <td>INVENTORY_* flag</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">146</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b>Flag</b></th>
+        <th><b>Inventory Type</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_NONE" target="_blank">INVENTORY_NONE</a></td>
+        <td>-1</td>
+        <td>Item does not exist.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_ALL" target="_blank">INVENTORY_ALL</a></td>
+        <td>Any inventory type.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_TEXTURE" target="_blank">INVENTORY_TEXTURE</a></td>
+        <td>0</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Texture" target="_blank">texture</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_SOUND" target="_blank">INVENTORY_SOUND</a></td>
+        <td>1</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Sound" target="_blank">sound</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_LANDMARK" target="_blank">INVENTORY_LANDMARK</a></td>
+        <td>3</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Landmark" target="_blank">landmark</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_CLOTHING" target="_blank">INVENTORY_CLOTHING</a></td>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Clothing" target="_blank">clothing</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_OBJECT" target="_blank">INVENTORY_OBJECT</a></td>
+        <td>6</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b>Flag</b></th>
+        <th><b>Inventory Type</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_NOTECARD" target="_blank">INVENTORY_NOTECARD</a></td>
+        <td>7</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Notecard" target="_blank">notecard</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_SCRIPT" target="_blank">INVENTORY_SCRIPT</a></td>
+        <td>10</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_BODYPART" target="_blank">INVENTORY_BODYPART</a></td>
+        <td>13</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Body_part" target="_blank">body part</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_ANIMATION" target="_blank">INVENTORY_ANIMATION</a></td>
+        <td>20</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Animation" target="_blank">animation</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_GESTURE" target="_blank">INVENTORY_GESTURE</a></td>
+        <td>21</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Gesture" target="_blank">gesture</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_SETTING" target="_blank">INVENTORY_SETTING</a></td>
+        <td>56</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Environmental_Enhancement_Project" target="_blank">setting</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_MATERIAL" target="_blank">INVENTORY_MATERIAL</a></td>
+        <td>57</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PBR_Materials" target="_blank">material</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--                             Item Counter
+--                       By Apollia Pirandello
+--                              9/19/2007
+--
+-- Public domain.  Free to use and/or modify for any purpose, 
+-- including commercial purposes.
+--
+-- Once you drop this script in any prim, it will immediately
+-- tell you in an OwnerSay how many items are in that prim, 
+-- minus 1, so the script itself isn't counted.
+--
+-- It will also do that whenever the prim is touched.
+--**********SCRIPT BEGINS BELOW**********
+
+--****VARIABLE
+
+local items_contained = 0
+
+--****END OF VARIABLE SECTION
+--****FUNCTIONS****
+
+local function CountItems()
+    items_contained = ll.GetInventoryNumber(INVENTORY_ALL)
+    items_contained -= 1  --minus 1, the script itself isn't counted, since its used with the INVENTORY_ALL flag
+end
+
+local function SayCount()
+    ll.OwnerSay("This prim contains " .. tostring(items_contained) .. " items.")
+end
+
+--****END OF FUNCTIONS****
+--****DEFAULT STATE****
+
+local function main()
+    CountItems()
+    SayCount()
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    CountItems()
+    SayCount()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//                             Item Counter
+//                       By Apollia Pirandello
+//                              9/19/2007
+//
+// Public domain.  Free to use and/or modify for any purpose, 
+// including commercial purposes.
+//
+// Once you drop this script in any prim, it will immediately
+// tell you in an OwnerSay how many items are in that prim, 
+// minus 1, so the script itself isn't counted.
+//
+// It will also do that whenever the prim is touched.
+//**********SCRIPT BEGINS BELOW**********
+
+//****VARIABLE
+
+integer items_contained;
+
+//****END OF VARIABLE SECTION
+//****FUNCTIONS****
+
+CountItems()
+{
+  items_contained = llGetInventoryNumber( INVENTORY_ALL );
+  --items_contained; //minus 1, the script itself isn't counted, since its used with the INVENTORY_ALL flag
+}
+
+SayCount()
+{
+  llOwnerSay( "This prim contains " + (string)items_contained + " items." );
+}
+
+//****END OF FUNCTIONS****
+//****DEFAULT STATE****
+
+default
+{
+  state_entry()
+  {
+    CountItems();
+    SayCount();
+  }
+
+  touch_start(integer total_number)
+  {
+    CountItems();
+    SayCount();
+  }  
+}`} lang="lsl" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`objects = llGetInventoryNumber(INVENTORY_OBJECT);`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+-- Inventory Statistic By Zep Palen.
+-- Here is another use of llGetInventoryNumber to show a statistic in a hovertext
+-- For this script to work you must add a showlist and an excludelist to the Description of the item this script is in.
+-- The description field must be filled like follows: [showlist];[Excludelist]
+-- Example: 0,1,3,5,6,7,10,13,20,21;3,7,10
+-- in the example all types are shown, but only types 3,7 and 10 are counted as total. You can see in the 2 lists below which number means which type
+-- -----------------
+-- This script is free to use and modify as you wish - Zep Palen
+-- --------------------------
+
+local inv_types = {0, 1, 3, 5, 6, 7, 10, 13, 20, 21}
+local inv_names = {"Textures", "Sounds", "Landmarks", "Clothings", "Objects", "Notecards", "Scripts", "Bodyparts", "Animations", "Gestures"}
+
+local function processCountInventory()
+    local objDesc = ll.ParseString2List(ll.GetObjectDesc(), {";"}, {})
+    local showList = ll.ParseString2List(ll.List2String(objDesc, 0), {","}, {})
+    local excludeFromCount = ll.ParseString2List(ll.List2String(objDesc, 1), {","}, {})
+
+    local counted = "ITEM COUNTER"
+    local i = bit32.bnot(#showList)
+    while (function() i += 1 return i end)() ~= 0 do
+        local showItem = integer(ll.List2String(showList, i))
+        local sIndex = ll.ListFindList(inv_types, {showItem})
+        if bit32.bnot(sIndex) ~= 0 then
+            counted ..= "\n" .. ll.List2String(inv_names, sIndex) .. ": " .. tostring(ll.GetInventoryNumber(showItem))
+        end
+    end
+    local totalCount = ll.GetInventoryNumber(INVENTORY_ALL)
+    i = bit32.bnot(#excludeFromCount)
+    while (function() i += 1 return i end)() ~= 0 do
+        local exclItem = integer(ll.List2String(excludeFromCount, i))
+        local cIndex = ll.ListFindList(inv_types, {tostring(exclItem)})
+        if bit32.bnot(cIndex) ~= 0 then
+            totalCount = totalCount - ll.GetInventoryNumber(exclItem)
+        end
+    end
+
+    counted ..= "\n \n" .. "Total: " .. tostring(totalCount)
+    ll.SetText(counted, vector(1, 1, 0), 1)
+end
+
+local function main()
+    processCountInventory()
+end
+
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_INVENTORY) then
+        processCountInventory()
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Inventory Statistic By Zep Palen.
+// Here is another use of llGetInventoryNumber to show a statistic in a hovertext
+// For this script to work you must add a showlist and an excludelist to the Description of the item this script is in.
+// The description field must be filled like follows: [showlist];[Excludelist]
+// Example: 0,1,3,5,6,7,10,13,20,21;3,7,10
+// in the example all types are shown, but only types 3,7 and 10 are counted as total. You can see in the 2 lists below which number means which type
+// -----------------
+// This script is free to use and modify as you wish - Zep Palen
+// --------------------------
+
+list inv_types = [0, 1, 3, 5, 6, 7, 10, 13, 20, 21];
+list inv_names = ["Textures", "Sounds", "Landmarks", "Clothings", "Objects", "Notecards", "Scripts", "Bodyparts", "Animations", "Gestures"];
+
+processCountInventory()
+{
+    list objDesc = llParseString2List(llGetObjectDesc(), [";"], []);
+    list showList = llParseString2List(llList2String(objDesc, 0), [","], []);
+    list excludeFromCount = llParseString2List(llList2String(objDesc, 1), [","], []);
+            
+    string counted = "ITEM COUNTER";
+    integer i = ~llGetListLength(showList);
+    while (++i)
+    {
+        integer showItem = (integer)llList2String(showList, i);
+        integer sIndex = llListFindList(inv_types, [showItem]);
+        if (~sIndex)
+            counted += "\n" + llList2String(inv_names, sIndex) + ": " + (string)llGetInventoryNumber(showItem);
+    }
+    integer totalCount = llGetInventoryNumber(INVENTORY_ALL);
+    for (i = ~llGetListLength(excludeFromCount); ++i;)
+    {
+        integer exclItem = (integer)llList2String(excludeFromCount, i);
+        integer cIndex = llListFindList(inv_types, [(string)exclItem]);
+        if (~cIndex)
+            totalCount = totalCount - llGetInventoryNumber(exclItem);
+    }
+    
+    counted += "\n \n" + "Total: " + (string)totalCount;
+    llSetText(counted, <1,1,0>, 1);
+}
+
+default
+{
+    state_entry()
+    {
+        processCountInventory();
+    }
+    
+    changed(integer change)
+    {
+        if (change & CHANGED_INVENTORY)
+        {
+            processCountInventory();
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryAcquireTime" target="_blank">llGetInventoryAcquireTime</a></td>
+        <td>–</td>
+        <td>Returns the time the item was added to the prim's inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryName" target="_blank">llGetInventoryName</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryType" target="_blank">llGetInventoryType</a></td>
+        <td>–</td>
+        <td>Tests to see if an inventory item exists and returns its type.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryCreator" target="_blank">llGetInventoryCreator</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's creator</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">llGetInventoryPermMask</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> (if full perm)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveInventory_All_Test" target="_blank">llGiveInventory_All_Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetInventoryNumber( integer type );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

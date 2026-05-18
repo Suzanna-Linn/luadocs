@@ -1,0 +1,132 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ResetScript()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llResetScript();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Resets the script.</p>
+  <p>On script reset...</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">163</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <ul>
+    <li>Full Object Update is sent to viewers.</li>
+    <li>The current event/function is exited without further execution or return.</li>
+    <li>Any granted URLs are released.</li>
+    <li>All global variables are set to their defaults.</li>
+    <li>Timers (including repeating sensors) are cleared.</li>
+    <li>Listeners are removed.</li>
+    <li>The event queue is cleared.</li>
+    <li>The <a href="https://wiki.secondlife.com/wiki/Default" target="_blank">default</a> state is set as the active state.
+    <ul>
+      <li>If it has a <a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a> event, then it is queued.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- reset script when the object is rezzed
+function LLEvents.on_rez(start_param)
+    ll.ResetScript()
+end
+
+function LLEvents.changed(change)
+    -- reset script when the owner or the inventory changed
+    if bit32.btest(change, bit32.bor(CHANGED_OWNER, CHANGED_INVENTORY)) then
+        ll.ResetScript()
+    end
+end
+
+-- script initialization here
+local function main()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    // reset script when the object is rezzed
+    on_rez(integer start_param)
+    {
+        llResetScript();
+    }
+
+    changed(integer change)
+    {
+        // reset script when the owner or the inventory changed
+        if (change & (CHANGED_OWNER | CHANGED_INVENTORY))
+            llResetScript();
+    }
+
+    // script initialization here
+    state_entry()
+    {
+        ;
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlResetOtherScript" target="_blank">llResetOtherScript</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+void
+ll.ResetScript()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llResetScript();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Precipitous cliff</p>
+<p>A whole universe reset</p>
+<p>by its old owner</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

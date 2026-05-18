@@ -1,0 +1,97 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.XorBase64Strings(Text1: string, Text2: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llXorBase64Strings(string Text1, string Text2);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"">Deprecated:  use ll.XorBase64</p>
+      <p>  <p>Returns a string that is a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Base64" target="_blank">Base64</a> string of <b>s1</b> xor'ed with <b>s2</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text1 / str1</td>
+          <td>Base64 string</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text2 / str2</td>
+          <td>Base64 string</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.3s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">262</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-deprecated">Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>s2</b> repeats if it is shorter than <b>s1</b>. Retained for backwards compatibility.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.3 seconds.</li>
+    <li>This function has been deprecated, please use <a href="https://wiki.secondlife.com/wiki/LlXorBase64" target="_blank">llXorBase64</a> instead.</li>
+    <li><b>Incorrectly performs an exclusive or on two Base64 strings and returns a Base64 string</b>
+    <ul>
+      <li>Use <a href="https://wiki.secondlife.com/wiki/LlXorBase64" target="_blank">llXorBase64</a> instead.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlXorBase64" target="_blank">llXorBase64</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llXorBase64Strings( string str1, string str2 );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

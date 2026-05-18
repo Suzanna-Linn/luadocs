@@ -1,0 +1,307 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.OverMyLand(ID: uuid): boolean`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llOverMyLand(key ID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) boolean, <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if <b>id</b> is over land owned by the script owner, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> otherwise.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>parcel</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">215</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>On group deeded land the object containing the script must be deeded to the same group. (It is not enough to set the script to the group.)</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+----// private land message //--//
+
+---- list of people not to pester, lower case only
+local gLstIgnore = {"void singer"}
+local gKeyAv = NULL_KEY
+
+local function main()
+    ll.OwnerSay("I'll pester anyone on your land I can find," .. " unless they're in your ignore list.")
+    ll.SensorRepeat("", "", AGENT, 96, PI, 30)
+end
+
+function LLEvents.sensor(events)
+    local vIntFound = #events
+    repeat
+        gKeyAv = ll.DetectedKey((function() vIntFound -= 1 return vIntFound end)())  ---- Decrement sensor variable to walk backwards through all detections
+        ---- check if they are over our land
+        if ll.OverMyLand(gKeyAv) ~= 0 then  ---- the return value is automatically tested by the if statemnt
+            ---- check if they are in the ignore list
+            if not (bit32.bnot(ll.ListFindList(gLstIgnore, {ll.ToLower(ll.DetectedName(vIntFound))})) ~= 0) then  ---- '!~llListFindList' == 'not found in the list'
+                ---- pester everyone not in the ignore list !!!
+                ll.InstantMessage(gKeyAv, "You are on private land, please leave this parcel")
+            end
+        end
+    until not (vIntFound ~= 0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//--// private land message //--//
+
+//-- list of people not to pester, lower case only
+list gLstIgnore = ["void singer"];
+key  gKeyAv;
+
+default{
+    state_entry(){
+        llOwnerSay( "I'll pester anyone on your land I can find,"
+                    + " unless they're in your ignore list." );
+        llSensorRepeat( "", "", AGENT, 96, PI, 30 );
+    }
+
+    sensor( integer vIntFound ){
+        do{
+            gKeyAv = llDetectedKey( --vIntFound );  //-- Decrement sensor variable to walk backwards through all detections
+             //-- check if they are over our land
+            if (llOverMyLand( gKeyAv )){ //-- the return value is automatically tested by the if statemnt
+                 //-- check if they are in the ignore list
+                if (!~llListFindList( gLstIgnore, (list)llToLower( llDetectedName( vIntFound ) ) )){ //-- '!~llListFindList' == 'not found in the list'
+                     //-- pester everyone not in the ignore list !!!
+                    llInstantMessage( gKeyAv, "You are on private land, please leave this parcel" );
+                }
+            }
+        }while (vIntFound);
+    }
+}`} lang="lsl" /></div>
+  <p>This following example is a variation of the previous one. It will email you a daily visitor log. This is useful to determine how much traffic your parcel is attracting each day, and who is visiting you regularly. The llOverMyLand function is used to prevented the script from counting people on other parcels.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- This script will email you a daily count of new visitors and repeat visitors.
+-- Visitors are counted once per email update cycle.
+
+-- -----------------------------------
+-- Configuration: customize this script here.
+-- Change this to your email address.
+local MyEmail = "you@example.com"
+-- This is a number 0 to 96 meters, anything farther away than that will not be noticed.  
+local SensorRange = 96.0
+-- How often to send email updates.
+local UpdateFrequency = 86400  -- Number of seconds in 1 day.
+-- -----------------------------------
+
+-- Internal Variables -- Do not change.
+local todayVisitors = {}
+local allVisitors = {}
+local repeatVisitors = {}
+local firstTimers = {}
+local newVisitors = 0
+local returnVisitors = 0
+local ParcelName = ""
+
+local function main()
+    local parcelDetails = ll.GetParcelDetails(ll.GetPos(), {PARCEL_DETAILS_NAME})
+    ParcelName = ll.List2String(parcelDetails, 0)
+    ll.SensorRepeat("", "", AGENT, SensorRange, PI, 20)
+    ll.SetTimerEvent(UpdateFrequency)  -- Email me a regular report.
+    ll.OwnerSay("Visitor Log Started.")
+end
+
+function LLEvents.sensor(events)
+    local avsFound = #events
+    local avKey = NULL_KEY
+    local avNum = 0
+    for avNum = 0, avsFound - 1 do
+        avKey = ll.DetectedKey(avNum)
+        if ll.OverMyLand(avKey) ~= 0 then
+            local whom = ll.DetectedName(avNum)
+            if not (bit32.bnot(ll.ListFindList(todayVisitors, {whom})) ~= 0) then
+                -- This person hasn't been seen yet today.
+                todayVisitors = ll.ListInsertList(todayVisitors, {whom}, #todayVisitors)
+                if bit32.bnot(ll.ListFindList(allVisitors, {whom})) ~= 0 then
+                    -- This is a returning visitor.
+                    returnVisitors += 1
+                    repeatVisitors = ll.ListInsertList(repeatVisitors, {whom}, #repeatVisitors)
+                else
+                    -- This is a first-time visitor.
+                    newVisitors += 1
+                    allVisitors = ll.ListInsertList({whom}, allVisitors, #{whom})
+                    firstTimers = ll.ListInsertList(firstTimers, {whom}, #firstTimers)
+                end
+            end
+        end
+    end
+end
+
+function LLEvents.timer()
+    local parcelDetails = ll.GetParcelDetails(ll.GetPos(), {PARCEL_DETAILS_NAME})
+    ParcelName = ll.List2String(parcelDetails, 0)
+    local subj = "Visitor Log for " .. ParcelName
+    local body = "Number of Visitors Total: " .. tostring(newVisitors + returnVisitors) .. "\nReturning Visitors: " .. tostring(returnVisitors) .. "\nNew Visitors: " .. tostring(newVisitors) .. "\n\nList of New Visitors:\n\t" .. ll.DumpList2String(firstTimers, "\n\t") .. "\n\nList of Returning Visitors:\n\t" .. ll.DumpList2String(repeatVisitors, "\n\t")
+    newVisitors = 0
+    returnVisitors = 0
+    todayVisitors = {}
+    repeatVisitors = {}
+    firstTimers = {}
+    if #allVisitors > 500 then
+        allVisitors = ll.List2List(allVisitors, 0, 499)
+    end
+    ll.Email(MyEmail, subj, body)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// This script will email you a daily count of new visitors and repeat visitors.
+// Visitors are counted once per email update cycle.
+
+// -----------------------------------
+// Configuration: customize this script here.
+// Change this to your email address.
+string MyEmail = "you@example.com";
+// This is a number 0 to 96 meters, anything farther away than that will not be noticed.  
+float SensorRange = 96.0;
+// How often to send email updates.
+integer UpdateFrequency = 86400; // Number of seconds in 1 day.
+// -----------------------------------
+
+// Internal Variables -- Do not change.
+list todayVisitors = [];
+list allVisitors = [];
+list repeatVisitors = [];
+list firstTimers = [];
+integer newVisitors = 0;
+integer returnVisitors = 0;
+string ParcelName;
+
+default
+{
+    state_entry()
+    {
+        list parcelDetails = llGetParcelDetails(llGetPos(), [PARCEL_DETAILS_NAME]);
+        ParcelName = llList2String(parcelDetails, 0);
+        llSensorRepeat( "", "", AGENT, SensorRange, PI, 20);
+        llSetTimerEvent(UpdateFrequency); // Email me a regular report.
+        llOwnerSay("Visitor Log Started.");
+    }
+ 
+    sensor(integer avsFound)
+    {
+        key  avKey;
+        integer avNum;
+        for(avNum=0; avNum<avsFound; avNum++)
+        {
+            avKey = llDetectedKey(avNum);
+            if (llOverMyLand(avKey))
+            {
+                string whom = llDetectedName(avNum);
+                if (!~llListFindList(todayVisitors, [whom]))
+                {
+                    // This person hasn't been seen yet today.
+                    todayVisitors += [whom];
+                    if (~llListFindList(allVisitors, [whom]))
+                    {
+                        // This is a returning visitor.
+                        returnVisitors++;
+                        repeatVisitors += [whom];
+                    }
+                    else
+                    {
+                        // This is a first-time visitor.
+                        newVisitors++;
+                        allVisitors = [whom] + allVisitors;
+                        firstTimers += [whom];
+                    }
+                }
+            }
+        }
+    }
+    
+    timer() 
+    {
+        list parcelDetails = llGetParcelDetails(llGetPos(), [PARCEL_DETAILS_NAME]);
+        ParcelName = llList2String(parcelDetails, 0);
+        string subj = "Visitor Log for " + ParcelName;
+        string body = "Number of Visitors Total: " + (string)(newVisitors + returnVisitors)
+            + "\nReturning Visitors: " + (string)returnVisitors
+            + "\nNew Visitors: " + (string)newVisitors 
+            + "\n\nList of New Visitors:\n\t" + llDumpList2String(firstTimers, "\n\t")
+            + "\n\nList of Returning Visitors:\n\t" + llDumpList2String(repeatVisitors, "\n\t");
+        newVisitors = 0;
+        returnVisitors = 0;
+        todayVisitors = [];
+        repeatVisitors = [];
+        firstTimers = [];
+        if (llGetListLength(allVisitors)>500)
+        {
+            allVisitors = llList2List(allVisitors, 0, 499);
+        }
+        llEmail(MyEmail, subj, body);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReturnObjectsByID" target="_blank">llReturnObjectsByID</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llOverMyLand Added in <a href="http://secondlife.wikia.com/wiki/Version_0.6.0" target="_blank">SL 0.6.0</a>[[1]](#footnote_1)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llOverMyLand( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,232 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`state_entry()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`state_entry()`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="removed-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Removed from Lua</span></p>
+      <p>  <p>Triggered on any state transition and startup</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="lua-section attr-label bg-deprecated">Lua Removed</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <h3>Triggered</h3>
+  <ul>
+    <li>Script save or adding to object</li>
+    <li>State change
+    <ul>
+      <li>A <a href="https://wiki.secondlife.com/wiki/State_exit" target="_blank">state_exit</a> is triggered in the old state and the state_entry is triggered in the new state. All other events in the queue are lost as a result of the state change.</li>
+    </ul>
+  
+    </li>
+    <li>On script reset, either by client or <a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">llResetScript</a>/<a href="https://wiki.secondlife.com/wiki/LlResetOtherScript" target="_blank">llResetOtherScript</a></li>
+    <li>When the object is rezzed <i>without</i> a saved script status
+    <ul>
+      <li>If it was a copy taken from inworld</li>
+      <li>If the event had not been triggered due to no-script land.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h3>Not Triggered</h3>
+  <ul>
+    <li>When the object is rezzed <i>with</i> saved script status, not even on change of owner
+    <ul>
+      <li>Use <a href="https://wiki.secondlife.com/wiki/On_rez" target="_blank">on_rez</a> event in this situation</li>
+    </ul>
+  
+    </li>
+    <li>When the task moves to another SIM, nor on SIM restart</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+local default, two = {}, {}
+
+function default.state_entry()
+    ll.Say(0, "You either just saved the script after editing it" .. "\nand/or the script (re)entered the default state.")
+
+    ll.SetText("Click to change states", vector(1.0, 1.0, 1.0), 1.0)
+end
+
+function default.touch_end(events)
+    local num_detected = #events
+    -- Note: NEVER do a state change from within a touch_start event -
+    -- - that can lead to the next touch_start on return to this state to be missed.
+    -- Here we do the state change safely, from within touch_end
+    state(two)
+end
+
+function default.state_exit()
+    ll.Say(0, "The script leaves the default state.")
+end
+
+function two.state_entry()
+    ll.Say(0, "The script entered state 'two'")
+    state(default)
+end
+
+function two.state_exit()
+    ll.Say(0, "The script leaves state 'two'")
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSay(0,
+            "You either just saved the script after editing it"
+            + "\nand/or the script (re)entered the default state.");
+ 
+        llSetText("Click to change states", <1.0, 1.0, 1.0>, 1.0);
+    }
+ 
+    touch_end(integer num_detected)
+    {
+        // Note: NEVER do a state change from within a touch_start event -
+        // - that can lead to the next touch_start on return to this state to be missed.
+        // Here we do the state change safely, from within touch_end
+        state two;
+    }
+ 
+    state_exit()
+    {
+        llSay(0, "The script leaves the default state.");
+    }
+}
+ 
+state two
+{
+    state_entry()
+    {
+        llSay(0, "The script entered state 'two'");
+        state default;
+    }
+ 
+    state_exit()
+    {
+        llSay(0, "The script leaves state 'two'");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/On_rez" target="_blank">on_rez</a></td>
+        <td>–</td>
+        <td>Triggered when the object is rezzed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/State_exit" target="_blank">state_exit</a></td>
+        <td>–</td>
+        <td>Triggered when the state is exited at state change</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">llResetScript</a></td>
+        <td>–</td>
+        <td>Resets the script</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlResetOtherScript" target="_blank">llResetOtherScript</a></td>
+        <td>–</td>
+        <td>Resets another script in the prim</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetStartParameter" target="_blank">llGetStartParameter</a></td>
+        <td>–</td>
+        <td>The <a href="https://wiki.secondlife.com/wiki/On_rez" target="_blank">on_rez</a> parameter (or <a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a> parameter)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Issues
+All Issues ~ <a href="https://secondlife.canny.io/?search=event+AND+state_entry" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/SVC-3379" target="_blank">SVC-3379</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/SVC-3379" target="_blank">A</a></td>
+        <td></td>
+        <td>changing to same <a href="https://wiki.secondlife.com/wiki/State" target="_blank">state</a> triggers state_entry in <a href="https://wiki.secondlife.com/wiki/Mono" target="_blank">mono</a> compiled script</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void state_entry(  );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

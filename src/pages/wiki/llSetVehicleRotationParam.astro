@@ -1,0 +1,120 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetVehicleRotationParam(ParameterName: number, ParameterValue: rotation)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetVehicleRotationParam(integer ParameterName, rotation ParameterValue);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the vehicle rotation parameter <b>param</b> to <b>rot</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>ParameterName / param</td>
+          <td>VEHICLE_* flag</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>ParameterValue / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>vehicles</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">235</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_REFERENCE_FRAME" target="_blank">VEHICLE_REFERENCE_FRAME</a></td>
+        <td>44</td>
+        <td>rotation of vehicle axes relative to local frame</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+  <p>The reference frame can be computed and set in two steps:</p>
+  <ul>
+    <li>Place the vehicle with front facing east(red arrow) and with left side facing north(green arrow)</li>
+    <li>llSetVehicleRotationParam( <a href="https://wiki.secondlife.com/wiki/VEHICLE_REFERENCE_FRAME" target="_blank">VEHICLE_REFERENCE_FRAME</a>, <a href="https://wiki.secondlife.com/wiki/ZERO_ROTATION" target="_blank">ZERO_ROTATION</a> / <a href="https://wiki.secondlife.com/wiki/LlGetRootRotation" target="_blank">llGetRootRotation</a>());</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetVehicleFloatParam" target="_blank">llSetVehicleFloatParam</a></td>
+        <td>–</td>
+        <td>Sets a vehicle float parameter</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetVehicleVectorParam" target="_blank">llSetVehicleVectorParam</a></td>
+        <td>–</td>
+        <td>Sets a vehicle vector parmeter</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Linden_Vehicle_Tutorial" target="_blank">Linden Vehicle Tutorial</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetVehicleRotationParam( integer param, rotation rot );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

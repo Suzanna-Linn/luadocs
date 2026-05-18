@@ -1,0 +1,113 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetNumberOfPrims(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetNumberOfPrims();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns an integer that is the number of prims in a link set the script is attached to.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>linkset</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">275</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The number of prims returned also includes the number of avatars sitting on the object.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.OwnerSay(tostring(ll.GetLinkNumber()))
+    ll.OwnerSay(tostring(ll.GetNumberOfPrims()))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llOwnerSay((string)llGetLinkNumber());
+        llOwnerSay((string)llGetNumberOfPrims());
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Returns the number of prims in the object, ignoring seated avatars
+local function getNumberOfPrims()
+    if ll.GetObjectPrimCount(ll.GetKey()) == 0 then  -- attachment
+        return ll.GetNumberOfPrims()
+    end
+    return ll.GetObjectPrimCount(ll.GetKey())  -- non-attachment
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Returns the number of prims in the object, ignoring seated avatars
+integer getNumberOfPrims(){
+  if (llGetObjectPrimCount(llGetKey()) == 0 ) return llGetNumberOfPrims(); // attachment
+  return llGetObjectPrimCount(llGetKey());   // non-attachment
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a></td>
+        <td>–</td>
+        <td>Returns the number of prims in any object.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a></td>
+        <td>–</td>
+        <td>Returns the link number of the prim the script is in.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetNumberOfPrims()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetNumberOfPrims();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

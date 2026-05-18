@@ -1,0 +1,151 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetOwnerKey(ObjectID: uuid): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llGetOwnerKey(key ObjectID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a key that is the owner of prim <b>id</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ObjectID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>object</li>
+        <li>uuid</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">182</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Returns <b>id</b> if <b>id</b> is not found in the region or is not a prim.
+    <ul>
+      <li>Owner information becomes unavailable <i>immediately</i> on derez or detach. For example, if a prim chats at derez or detach time, <b>id</b> can be returned even inside <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> events of nearby objects. <a href="https://jira.secondlife.com/browse/SVC-5095" target="_blank">SVC-5095</a></li>
+    </ul>
+  
+    </li>
+    <li>Also returns <b>id</b> for avatars, use <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a> instead to distinguish them from prims that do not exist.</li>
+    <li>Returns NULL_KEY if the id passed in is not a valid key</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    --  listen to anything talking on channel 1
+    ll.Listen(1, "", NULL_KEY, "")
+--  Type "/1 " + message (such as "/1 poke") to chat 'message' on channel 1.
+end
+
+function LLEvents.listen(channel, name, id, message)
+    local ownerOfThisObject = ll.GetOwner()
+    local ownerOfSpeaker = ll.GetOwnerKey(id)
+
+    --  if whoever is talking is the owner of this object
+    --  or if the owner of the object talking is the owner of this object
+    if ownerOfSpeaker == ownerOfThisObject then
+        ll.OwnerSay("'" .. name .. "' has the same owner as me ^_^")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+    //  listen to anything talking on channel 1
+        llListen(1, "", NULL_KEY, "");
+    //  Type "/1 " + message (such as "/1 poke") to chat 'message' on channel 1.
+    }
+
+    listen(integer channel, string name, key id, string message)
+    {
+        key ownerOfThisObject = llGetOwner();
+        key ownerOfSpeaker = llGetOwnerKey(id);
+
+    //  if whoever is talking is the owner of this object
+    //  or if the owner of the object talking is the owner of this object
+        if (ownerOfSpeaker == ownerOfThisObject)
+        {
+            llOwnerSay("'" + name + "' has the same owner as me ^_^");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlKey2Name" target="_blank">llKey2Name</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestAgentData" target="_blank">llRequestAgentData</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/OBJECT_OWNER" target="_blank">OBJECT_OWNER</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetOwner" target="_blank">llGetOwner</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llGetOwnerKey( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

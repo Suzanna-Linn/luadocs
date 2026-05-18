@@ -1,0 +1,135 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.IntegerToBase64(Value: number): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llIntegerToBase64(integer Value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Base64" target="_blank">Base64</a> big endian encode of <b>number</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Value / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/number" target="_blank">number</a></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">280</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function ASCII7ToString(letter)
+    if letter >= 0x80 or letter < 0 then  --Not valid ascii7 character
+        return ""
+    end
+    return ll.Base64ToString(ll.IntegerToBase64(bit32.lshift(letter, 24)))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string ASCII7ToString(integer letter)
+{
+    if(letter >= 0x80 || letter < 0) return "";//Not valid ascii7 character
+    return llBase64ToString(llIntegerToBase64(letter << 24));
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Packs a 24-bit unsigned integer value (0-16777215) to only 4 Base64 characters.
+local function Int24ToBase64(value)
+    return ll.GetSubString(ll.IntegerToBase64(bit32.lshift(value, 8)), 0, 3)
+end
+-- unpacks a 4-character Base64 value to a 24-bit unsigned integer
+local function Base64ToInt24(value)
+    return bit32.band(bit32.arshift(ll.Base64ToInteger(value), 8), 0xffffff)  -- Masking required to remove sign extension from bit-shifting
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Packs a 24-bit unsigned integer value (0-16777215) to only 4 Base64 characters.
+string Int24ToBase64(integer value)
+{
+    return llGetSubString(llIntegerToBase64(value<<8), 0, 3);
+}
+// unpacks a 4-character Base64 value to a 24-bit unsigned integer
+integer Base64ToInt24(string value)
+{
+    return (llBase64ToInteger(value)>>8)&0xffffff; // Masking required to remove sign extension from bit-shifting
+}`} lang="lsl" /></div>
+  <p>If you are looking for full Unicode translation, not just ASCII7 see: <a href="https://wiki.secondlife.com/wiki/Combined_Library#Unicode_Integer_to_UTF8" target="_blank">Combined_Library</a></p>
+  <h2>Notes</h2>
+  <ul>
+    <li>Only the first 6 of the 8 characters returned are needed to decoded it back into an integer. The padding "==" can be safely removed for storage.</li>
+    <li>"Big-endian" refers to the fact that the most significant, i.e. highest byte of the integer is processed first: the first characters in the returned Base64 string correspond to this byte, and the last characters correspond to the least significant byte.
+    <ul>
+      <li>Combined with bit-shifting, removing characters from the Base64 string allows more efficient packing of small values. See <a href="https://wiki.secondlife.com/wiki/LlBase64ToInteger#Caveats" target="_blank">llBase64ToInteger caveats</a> for specifics.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlBase64ToInteger" target="_blank">llBase64ToInteger</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlBase64ToString" target="_blank">llBase64ToString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStringToBase64" target="_blank">llStringToBase64</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llIntegerToBase64( integer number );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

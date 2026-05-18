@@ -1,0 +1,258 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`money(Payer: uuid, Amount: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`money(key Payer, integer Amount)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Triggered when money is paid to the prim in the <b>amount</b> by <b>id</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>Payer / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>who paid</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Amount / amount</td>
+          <td>the amount paid</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>When money is paid to the prim, the money is given to the object's owner.</p>
+  <p>If the object is owned by or deeded to a group it is divvied up amongst the group members immediately (which is why groups can't grant <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a>). Only members of a role that has the "Accounting/Pay group liabilities and receive group dividends" attribute will receive money.</p>
+  <p>Don't forget to turn on the pay-behavior of the prims/objects involved.</p>
+  <p>The pay buttons should be configured in most applications where money is being transfered (<a href="https://wiki.secondlife.com/wiki/LlSetPayPrice" target="_blank">llSetPayPrice</a>), it makes paying money to the object easier.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This event cannot be triggered by a call to <a href="https://wiki.secondlife.com/wiki/LlGiveMoney" target="_blank">llGiveMoney</a> because <a href="https://wiki.secondlife.com/wiki/LlGiveMoney" target="_blank">llGiveMoney</a> cannot be used by one object to pay another object.</li>
+    <li>Money cannot be paid to an attachment.</li>
+    <li><b>Money() does not check if it is running on the Testing Grid!</b> If you are writing a vendor that does networking, be sure to check that it was not payed aditi grid by doing `if(llSubStringIndex(llGetEnv("simulator_hostname"), ".aditi.") == -1)` or by checking if <a href="https://wiki.secondlife.com/wiki/LlHTTPRequest" target="_blank">llHTTPRequest</a>'s `X-SecondLife-Shard` header does not equal "Testing".</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>This example shows the simplest tip-jar and shows how little code is needed to receive unverified amounts of money.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.money(id, amount)  -- Some money has been received (and has been paid into the owner's account) 
+    -- Thank the giver for their tip
+    ll.InstantMessage(id, "Thanks for the L$" .. tostring(amount) .. " tip!")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    money(key id, integer amount)      // Some money has been received (and has been paid into the owner's account) 
+    {
+        // Thank the giver for their tip
+        llInstantMessage(id, "Thanks for the L$"  + (string) amount + " tip!");
+    }
+}`} lang="lsl" /></div>
+  <p>Next level of tip jar, advising owner, keeping a running total, and with floating text to show status.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local Total = 0
+local OwnerName = ""
+
+function LLEvents.on_rez(sparam)
+    ll.ResetScript()
+end
+local function main()
+    OwnerName = ll.Key2Name(ll.GetOwner())
+    ll.SetText(OwnerName .. "'s Tip Jar.\nAny tips gratefully received!\nL$0 Donated so far", vector(.2, 1, .6), 1)
+end
+
+function LLEvents.money(id, amount)
+    Total += amount
+    -- Shortcut 'cheat' to avoid multiple casts when constructing a message including non-string items
+    local str = tostring({OwnerName, "'s Tip Jar.\nPlease tip if you are so inclined!\nL$", amount, " Was donated last!\nL$", Total, " Donated so far"})
+    ll.SetText(str, vector(1, 1, 1), 1)
+    ll.InstantMessage(id, "Thanks for the tip!")
+    ll.InstantMessage(ll.GetOwner(), ll.Key2Name(id) .. " donated L$" .. tostring(amount))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer Total;
+string  OwnerName;
+
+default
+{
+    on_rez( integer sparam )
+    {
+        llResetScript();
+    }
+    state_entry()
+    {
+        OwnerName = llKey2Name( llGetOwner() );
+        llSetText( OwnerName + "'s Tip Jar.\nAny tips gratefully received!\nL$0 Donated so far", <.2, 1, .6>, 1);
+    }
+
+    money(key id, integer amount)
+    {
+        Total += amount;
+        // Shortcut 'cheat' to avoid multiple casts when constructing a message including non-string items
+        string str = (string) [OwnerName, "'s Tip Jar.\nPlease tip if you are so inclined!\nL$", amount, " Was donated last!\nL$", Total, " Donated so far" ];
+        llSetText(str, <1,1,1>, 1);
+        llInstantMessage(id,"Thanks for the tip!");
+        llInstantMessage(llGetOwner(), llKey2Name(id) + " donated L$" + (string) amount );
+    }
+}`} lang="lsl" /></div>
+  <p>An elementary vendor with money validation and refund capability</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Give the first item in this object's inventory to anyone who pays the price
+
+local price = 10  -- The price needed to purchase the item
+
+local function main()
+    -- Turn off pay options so no money can be received until we are ready
+    ll.SetPayPrice(PAY_HIDE, {PAY_HIDE, PAY_HIDE, PAY_HIDE, PAY_HIDE})
+    -- Request Debit Permissions from the owner so refunds can be given
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_DEBIT)
+end
+function LLEvents.on_rez(p)
+    ll.ResetScript()  -- Reset script on rezzing. Will thus register any change of owner.
+end
+function LLEvents.money(id, amount)  -- Some money has been received and has gone to this object's owner
+    if amount < price then
+        -- Customer has not paid enough
+        ll.InstantMessage(id, "That's not enough money.")
+        ll.GiveMoney(id, amount)  -- Refund the money they paid
+        return
+    end
+    if amount > price then
+        -- Customer paid too much. Refund the excess
+        local change = amount - price
+        ll.InstantMessage(id, "You paid more than L$" .. tostring(price) .. "  your change is L$" .. tostring(change))
+        ll.GiveMoney(id, change)
+    end
+    -- Customer has paid at least the right amount. Give them the item.
+    local ItemName = ll.GetInventoryName(INVENTORY_OBJECT, 0)
+    ll.GiveInventory(id, ItemName)
+    ll.InstantMessage(id, "Please accept your purchase worth L$" .. tostring(price))
+end
+function LLEvents.run_time_permissions(perm)
+    -- If Debit permissions are granted, set up the pay price for this single-price vendor
+    if bit32.btest(perm, PERMISSION_DEBIT) then
+        ll.SetPayPrice(price, {PAY_HIDE, PAY_HIDE, PAY_HIDE, PAY_HIDE})
+    end
+
+-- In practice, the following line would be preferable and almost fully guards against a wrong amount being paid
+-- - except in the rare event that the price is changed while a transaction is in progress, or a user with a hacked viewer
+--  llSetPayPrice(PAY_HIDE, [price ,PAY_HIDE, PAY_HIDE, PAY_HIDE]);
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Give the first item in this object's inventory to anyone who pays the price
+
+integer price = 10;      // The price needed to purchase the item
+
+default
+{
+    state_entry()
+    {
+        // Turn off pay options so no money can be received until we are ready
+        llSetPayPrice(PAY_HIDE, [PAY_HIDE ,PAY_HIDE, PAY_HIDE, PAY_HIDE]);
+        // Request Debit Permissions from the owner so refunds can be given
+        llRequestPermissions(llGetOwner(), PERMISSION_DEBIT);
+    }
+    on_rez(integer p)
+    {
+        llResetScript();                // Reset script on rezzing. Will thus register any change of owner.
+    }
+    money(key id, integer amount)        // Some money has been received and has gone to this object's owner
+    {
+        if (amount < price)
+        {   // Customer has not paid enough
+            llInstantMessage(id, "That's not enough money.");
+            llGiveMoney(id, amount);   // Refund the money they paid
+            return;
+        }
+        if (amount > price)
+        {   // Customer paid too much. Refund the excess
+            integer change = amount - price;
+            llInstantMessage(id, "You paid more than L$" + (string)price
+                + "  your change is L$" + (string)change );
+            llGiveMoney(id, change);
+        }
+        // Customer has paid at least the right amount. Give them the item.
+        string ItemName = llGetInventoryName(INVENTORY_OBJECT, 0);
+        llGiveInventory(id, ItemName);
+        llInstantMessage(id, "Please accept your purchase worth L$" + (string) price );
+    }
+    run_time_permissions(integer perm)
+    {
+        // If Debit permissions are granted, set up the pay price for this single-price vendor
+        if(perm & PERMISSION_DEBIT)
+            llSetPayPrice(price, [PAY_HIDE ,PAY_HIDE, PAY_HIDE, PAY_HIDE]);
+
+        // In practice, the following line would be preferable and almost fully guards against a wrong amount being paid
+        // - except in the rare event that the price is changed while a transaction is in progress, or a user with a hacked viewer
+        //  llSetPayPrice(PAY_HIDE, [price ,PAY_HIDE, PAY_HIDE, PAY_HIDE]);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTransferLindenDollars" target="_blank">llTransferLindenDollars</a></td>
+        <td>–</td>
+        <td>Give money to another avatar with transaction confirmation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveMoney" target="_blank">llGiveMoney</a></td>
+        <td>–</td>
+        <td>Give money to another avatar</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPayPrice" target="_blank">llSetPayPrice</a></td>
+        <td>–</td>
+        <td>Configure the pay buttons</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void money( key id, integer amount );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

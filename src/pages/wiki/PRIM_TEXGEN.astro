@@ -1,0 +1,169 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_TEXGEN: number = 22`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_TEXGEN = 22;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_TEXGEN has the value 22</p>
+  <p>PRIM_TEXGEN is used to get and set the configure the texture mapping mode of the <b>face</b>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_TEXGEN,&#32;[integer</a> face, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> mode ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• integer</td>
+        <td>mode</td>
+        <td>–</td>
+        <td>PRIM_TEXGEN_* flag</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>, <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></p>
+  <p>Caveats</p>
+  <ul>
+    <li>If <b>texture</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>texture</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_DEFAULT" target="_blank">default</a> texture mapping <b>mode</b> the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXTURE" target="_blank">texture</a> <b>repeats</b> units are in texture repeats per face. In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_PLANAR" target="_blank">planar</a> texture mapping mode the texture <b>repeats</b> units are in texture repeats per half meter. This is in contrast to the in-world editing tool, in which the planar texture scaling units are repeats per meter.</li>
+    <li>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the PRIM_TEXGEN works on all sides.</li>
+    <li>The PRIM_TEXGEN silently fails if its <b>face</b> value indicates a face that does not exist.</li>
+  </ul>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_TEXGEN,&#32;[integer</a> face ] </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> mode ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• integer</td>
+        <td>mode</td>
+        <td>–</td>
+        <td>PRIM_TEXGEN_* flag</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></p>
+  <p>Caveats</p>
+  <ul>
+    <li>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the PRIM_TEXGEN works on all sides.</li>
+    <li>If <b>face</b> indicates a face that does not exist the PRIM_TEXGEN return is <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_DEFAULT" target="_blank"> [PRIM_TEXGEN_DEFAULT</a> ]</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_TEXTURE" target="_blank">CHANGED_TEXTURE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_TEXGEN" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_TEXGEN = 22
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_TEXGEN = 22;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,520 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.JsonSetValue(JSON: string, Specifiers: {any}, Value: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llJsonSetValue(string JSON, list Specifiers, string Value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use lljson.encode because Also, the indices are zero-based.</span></p>
+      <p>  <p>Returns, if successful, a new <a href="http://json.org" target="_blank">JSON</a> text <i>string</i> which is <b>json</b> with the value indicated by the <b>specifiers</b> list set to <b>value</b>.</p>
+  <p>If unsuccessful (usually because of specifying an out of bounds array index) it returns <a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a>.</p>
+  <p>An "out of bounds array index" is defined to be any Integer <b>specifiers</b> greater than the length of an existing array at that level within the Json text or greater than 0 (zero) at a level an array doesn't exist.</p>
+  <p>A special <b>specifiers</b>, <a href="https://wiki.secondlife.com/wiki/JSON_APPEND" target="_blank">JSON_APPEND</a>, is accepted which appends the <b>value</b> to the end of the array at the <b>specifiers</b> level. Care should be taken- if that level is not an array, the existing Value there will be overwritten and replaced with an array containing <b>value</b> at it's first (0) index.</p>
+  <p>Contrary to <a href="https://wiki.secondlife.com/wiki/List" target="_blank">lists</a> and <a href="https://wiki.secondlife.com/wiki/String" target="_blank">strings</a>, negative indexing of Json arrays is <b>not</b> supported.</p>
+  <p>If an existing "Key" is <b>specifiers</b> at that level, its Value will be overwritten by <b>value</b> unless <b>value</b> is the magic value <a href="https://wiki.secondlife.com/wiki/JSON_DELETE" target="_blank">JSON_DELETE</a>. If a value does not exist at <b>specifiers</b>, a new Key:Value pair will be formed within the Json object.</p>
+  <p>To delete an existing value at <b>specifiers</b>, use <a href="https://wiki.secondlife.com/wiki/JSON_DELETE" target="_blank">JSON_DELETE</a> as the <b>value</b>. Note it will not prune empty objects or arrays at higher levels.</p>
+  <p>If <b>value</b> is <a href="https://wiki.secondlife.com/wiki/JSON_TRUE" target="_blank">JSON_TRUE</a>, <a href="https://wiki.secondlife.com/wiki/JSON_FALSE" target="_blank">JSON_FALSE</a> or <a href="https://wiki.secondlife.com/wiki/JSON_NULL" target="_blank">JSON_NULL</a>, the Value set will be the bare words 'true', 'false' or 'null', respectively, at the <b>specifiers</b> location within <b>json</b>.</p>
+  <p>Returns a string</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>JSON / json</td>
+          <td>source JSON data</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Specifiers / specifiers</td>
+          <td>location of the of the value to be added, updated or deleted.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Value / value</td>
+          <td>new value or <a href="https://wiki.secondlife.com/wiki/JSON_DELETE" target="_blank">JSON_DELETE</a> flag.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+        <li>json</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">510</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>specifiers</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <h2>Specification</h2>
+  <p>See <a href="https://wiki.secondlife.com/wiki/Json_usage_in_LSL" target="_blank">Json usage in LSL</a></p>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td>⚠️</td>
+        <td><b>Warning:</b> The below comment in regards to speed is unverified on modern simulator versions, and thus cannot be assumed to be true. <b>Always test execution speed claims for yourself.</b></td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlListReplaceList" target="_blank">llListReplaceList()</a> is roughly 2.8x as fast in replacing a single value of a list than llJsonSetValue() is to replace a single value in a json.</li>
+  </ul>
+  <p>The length of the list/json are irrelevant here.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local TEST_STRING_JSON = ""
+
+local say
+
+local function init()
+    TEST_STRING_JSON = "[9,\"<1,1,1>\",false,{\"A\":8,\"Z\":9}]"
+
+    --  [9,"<1,1,1>",false,{"A":8,"Z":9}]
+    say("Original TEST_STRING_JSON: " .. TEST_STRING_JSON)
+end
+
+local function run_json_test(input)
+    local output = ""
+
+    --  changing values within the json string
+
+    --  change the first value in the array to 10
+    output = ll.JsonSetValue(input, {0}, "10")
+
+    --  [10,"<1,1,1>",false,{"A":8,"Z":9}]
+    say("( 1): " .. output)
+
+    --  change the third value in the array to 'true'
+    output = ll.JsonSetValue(input, {2}, JSON_TRUE)
+
+    --  [9,"<1,1,1>",true,{"A":8,"Z":9}]
+    say("( 2): " .. output)
+
+    --  change the value of "A" within the Json object to 3
+    output = ll.JsonSetValue(input, {3, "A"}, "3")
+
+    --  [9,"<1,1,1>",false,{"A":3,"Z":9}]
+    say("( 3): " .. output)
+
+    --  adding a value or new key-value-pair within the input
+
+    --  add the value "Hello" to the end of the array
+    --      NOTE: One cannot insert, only add to the end
+    output = ll.JsonSetValue(input, {JSON_APPEND}, "Hello")
+
+    --  [9,"<1,1,1>",false,{"A":8,"Z":9},"Hello"]
+    say("( 4): " .. output)
+
+    --  add the key-value-pair "B":10 to the object
+    output = ll.JsonSetValue(input, {3, "B"}, "10")
+
+    --  [9,"<1,1,1>",false,{"A":8,"B":10,"Z":9}]
+    say("( 5): " .. output)
+
+    --  Things to look out for when modifying Json text
+    --      ~!~ Be careful when using this function ~!~
+
+    --  out of bounds array assignment:
+    --      defined as attempting to add a value to a position ...
+    --      ...greater than the length of the array (which may be 0)
+    --      JSON_APPEND is ALWAYS the preferred way to add to an array
+    output = ll.JsonSetValue(input, {5}, "10")
+
+    --  %EF%B7%90 (URL escaped JSON_INVALID)
+    say("( 6): " .. ll.EscapeURL(output))
+
+    --  BUT, this works, since it is in bounds
+    --      (eqivalent to JSON_APPEND in this case)
+    output = ll.JsonSetValue(input, {4}, "10")
+
+    --  [9,"<1,1,1>",false,{"A":8,"Z":9},10]
+    say("( 7): " .. output)
+
+    --  careless formation of new arrays
+    --      ( the 4 and all subsequent 0's are all in bounds.)
+    output = ll.JsonSetValue(input, {4, 0, 0, 0}, "10")
+
+    --  [9,"<1,1,1>",false,{"A":8,"Z":9},[[[10]]]]
+    say("( 8): " .. output)
+
+    --  overwriting an object with an array:
+    --      ~!~ mistaken use of JSON_APPEND on an object ~!~
+    output = ll.JsonSetValue(input, {3, JSON_APPEND}, "10")
+
+    --  [9,"<1,1,1>",false,[10]]
+    say("( 9): " .. output)
+
+    --  careless formation of new objects
+    --      NOTE: "Key" assignemts will NEVER result in a return of JSON_INVALID!
+    output = ll.JsonSetValue(input, {3, "W", "X"}, "10")
+
+    --  [9,"<1,1,1>",false,{"A":8,"W":{"X":10},"Z":9}]
+    say("(10): " .. output)
+
+    output = ll.JsonSetValue(input, {3, "W", "X", "Y"}, "10")
+
+    --  [9,"<1,1,1>",false,{"A":8,"W":{"X":{"Y":10}},"Z":9}]
+    say("(11): " .. output)
+
+    --  overwriting an array with an object
+    output = ll.JsonSetValue(input, {"X"}, "10")
+
+    --  {"X":10}
+    say("(12): " .. output)
+
+    --  special case considerations:
+
+    --  BUG-3692: (NOTE: Corrected in release 13.09.21.281328!)
+    --      a bug where, instead of JSON_INVALID being returned, if the out of
+    --      bounds index is at a lower level than the topmost (root) level, a
+    --      non-compliant JSON text would be formed
+    output = ll.JsonSetValue(input, {1, 7}, "Disappearing Text")
+
+    --  Note the "empty" second position that resulted in the returned array
+    --  [9,,false,{"A":8,"Z":9}]
+    -- (But now correctly shows JSON_INVALID)
+    say("(13): " .. output)
+
+    --  though there is no way to directly delete a key-value-pair 
+    --  nor remove a value from an array,
+    --  the use of JSON_NULL may prove adequate
+    output = ll.JsonSetValue(input, {3, "A"}, JSON_NULL)
+
+    --  [9,"<1,1,1>",false,{"A":null,"Z":9}]
+    say("(14): " .. output)
+
+    --  if a JSON text object has been formed with llList2Json()
+    --  that contains one or more duplicated "Keys", (allowable
+    --  but NOT recommended!) ANY change
+    --  made to that object will correct the condition,
+    --  with all but the last such "Key" being removed
+    output = ll.List2Json(JSON_OBJECT, {"A", 1, "A", 2, "A", 3, "B", 4, "B", 4})
+
+    --  both Keys "A" and "B" are duplicated
+    --  {"A":1,"A":2,"A":3,"B":4,"B":4}
+    say("(15): " .. output)
+
+    --  only the last value of the duplications is accessable though
+
+    --  3
+    say("(16): " .. ll.JsonGetValue(output, {"A"}))
+
+    --  condition corrected by adding a key-value-pair...
+
+    --  {"A":3,"B":4,"Z":5}
+    say("(17): " .. ll.JsonSetValue(output, {"Z"}, "5"))
+
+    --  ... or by changing a value
+
+    -- {"A":5,"B":4}
+    say("(18): " .. ll.JsonSetValue(output, {"A"}, "5"))
+end
+
+function say(message)
+    ll.OwnerSay(message)
+--  llRegionSayTo(llGetOwner(), PUBLIC_CHANNEL, message);
+--  llWhisper(PUBLIC_CHANNEL, message);
+end
+
+function LLEvents.on_rez(start_param)
+    ll.ResetScript()
+end
+
+local function main()
+    init()
+end
+
+function LLEvents.touch_end(events)
+    local num_detected = #events
+    --      copy 'TEST_STRING_JSON' from the following function call
+    --      to the string 'input' in the function declaration
+    --      and run a test on 'input' to not (!) modify 'TEST_STRING_JSON'
+    --      but its copy instead
+    run_json_test(TEST_STRING_JSON)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string TEST_STRING_JSON;
+
+init()
+{
+    TEST_STRING_JSON = "[9,\"<1,1,1>\",false,{\"A\":8,\"Z\":9}]";
+
+//  [9,"<1,1,1>",false,{"A":8,"Z":9}]
+    say("Original TEST_STRING_JSON: " + TEST_STRING_JSON);
+}
+
+run_json_test(string input)
+{
+    string output;
+
+//  changing values within the json string
+
+//  change the first value in the array to 10
+    output = llJsonSetValue(input, [0], "10");
+
+//  [10,"<1,1,1>",false,{"A":8,"Z":9}]
+    say("( 1): " + output);
+
+//  change the third value in the array to 'true'
+    output = llJsonSetValue(input, [2], JSON_TRUE);
+
+//  [9,"<1,1,1>",true,{"A":8,"Z":9}]
+    say("( 2): " + output);
+
+//  change the value of "A" within the Json object to 3
+    output = llJsonSetValue(input, [3, "A"], "3");
+
+//  [9,"<1,1,1>",false,{"A":3,"Z":9}]
+    say("( 3): " + output);
+
+//  adding a value or new key-value-pair within the input
+
+//  add the value "Hello" to the end of the array
+//      NOTE: One cannot insert, only add to the end
+    output = llJsonSetValue(input, [JSON_APPEND], "Hello");
+
+//  [9,"<1,1,1>",false,{"A":8,"Z":9},"Hello"]
+    say("( 4): " + output);
+
+//  add the key-value-pair "B":10 to the object
+    output = llJsonSetValue(input, [3, "B"], "10");
+
+//  [9,"<1,1,1>",false,{"A":8,"B":10,"Z":9}]
+    say("( 5): " + output);
+
+
+//  Things to look out for when modifying Json text
+//      ~!~ Be careful when using this function ~!~
+
+//  out of bounds array assignment:
+//      defined as attempting to add a value to a position ...
+//      ...greater than the length of the array (which may be 0)
+//      JSON_APPEND is ALWAYS the preferred way to add to an array
+    output = llJsonSetValue(input, [5], "10");
+
+//  %EF%B7%90 (URL escaped JSON_INVALID)
+    say("( 6): " + llEscapeURL(output));
+
+//  BUT, this works, since it is in bounds
+//      (eqivalent to JSON_APPEND in this case)
+    output = llJsonSetValue(input, [4], "10");
+
+//  [9,"<1,1,1>",false,{"A":8,"Z":9},10]
+    say("( 7): " + output);
+
+//  careless formation of new arrays
+//      ( the 4 and all subsequent 0's are all in bounds.)
+    output = llJsonSetValue(input, [4, 0, 0, 0], "10");
+
+//  [9,"<1,1,1>",false,{"A":8,"Z":9},[[[10]]]]
+    say("( 8): " + output);
+
+//  overwriting an object with an array:
+//      ~!~ mistaken use of JSON_APPEND on an object ~!~
+    output = llJsonSetValue(input, [3, JSON_APPEND], "10");
+
+//  [9,"<1,1,1>",false,[10]]
+    say("( 9): " + output);
+
+//  careless formation of new objects
+//      NOTE: "Key" assignemts will NEVER result in a return of JSON_INVALID!
+    output = llJsonSetValue(input, [3, "W", "X"], "10");
+
+//  [9,"<1,1,1>",false,{"A":8,"W":{"X":10},"Z":9}]
+    say("(10): " + output);
+
+    output = llJsonSetValue(input, [3, "W", "X", "Y"], "10");
+
+//  [9,"<1,1,1>",false,{"A":8,"W":{"X":{"Y":10}},"Z":9}]
+    say("(11): " + output);
+
+//  overwriting an array with an object
+    output = llJsonSetValue(input, ["X"], "10");
+
+//  {"X":10}
+    say("(12): " + output);
+
+//  special case considerations:
+
+
+//  BUG-3692: (NOTE: Corrected in release 13.09.21.281328!)
+//      a bug where, instead of JSON_INVALID being returned, if the out of
+//      bounds index is at a lower level than the topmost (root) level, a
+//      non-compliant JSON text would be formed
+    output = llJsonSetValue(input, [1, 7], "Disappearing Text");
+
+//  Note the "empty" second position that resulted in the returned array
+//  [9,,false,{"A":8,"Z":9}]
+// (But now correctly shows JSON_INVALID)
+    say("(13): " + output);
+
+//  though there is no way to directly delete a key-value-pair 
+//  nor remove a value from an array,
+//  the use of JSON_NULL may prove adequate
+    output = llJsonSetValue(input, [3, "A"], JSON_NULL);
+
+//  [9,"<1,1,1>",false,{"A":null,"Z":9}]
+    say("(14): " + output);
+
+//  if a JSON text object has been formed with llList2Json()
+//  that contains one or more duplicated "Keys", (allowable
+//  but NOT recommended!) ANY change
+//  made to that object will correct the condition,
+//  with all but the last such "Key" being removed
+    output = llList2Json(JSON_OBJECT, ["A", 1, "A", 2, "A", 3, "B", 4, "B", 4]);
+
+//  both Keys "A" and "B" are duplicated
+//  {"A":1,"A":2,"A":3,"B":4,"B":4}
+    say("(15): " + output);
+
+//  only the last value of the duplications is accessable though
+
+//  3
+    say("(16): " + llJsonGetValue(output, ["A"]));
+
+//  condition corrected by adding a key-value-pair...
+
+//  {"A":3,"B":4,"Z":5}
+    say("(17): " + llJsonSetValue(output, ["Z"], "5"));
+
+//  ... or by changing a value
+
+// {"A":5,"B":4}
+    say("(18): " + llJsonSetValue(output, ["A"], "5"));
+}
+
+say(string message)
+{
+    llOwnerSay(message);
+//  llRegionSayTo(llGetOwner(), PUBLIC_CHANNEL, message);
+//  llWhisper(PUBLIC_CHANNEL, message);
+}
+
+default
+{
+    on_rez(integer start_param)
+    {
+        llResetScript();
+    }
+
+    state_entry()
+    {
+        init();
+    }
+
+    touch_end(integer num_detected)
+    {
+//      copy 'TEST_STRING_JSON' from the following function call
+//      to the string 'input' in the function declaration
+//      and run a test on 'input' to not (!) modify 'TEST_STRING_JSON'
+//      but its copy instead
+        run_json_test(TEST_STRING_JSON);
+    }
+}`} lang="lsl" /></div>
+  <p>Double-quotes in string values are escaped. The following script inserts literal `string \"with\" quote` instead of `string "with" quotes` as the JSON value.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local test = "[\"a\"]"
+    local add = "string \"with\" quotes"
+    ll.OwnerSay(ll.JsonSetValue(test, {JSON_APPEND}, add))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        string test = "[\"a\"]";
+        string add = "string \"with\" quotes";
+        llOwnerSay(llJsonSetValue(test, [JSON_APPEND], add));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2Json" target="_blank">llList2Json</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJson2List" target="_blank">llJson2List</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonGetValue" target="_blank">llJsonGetValue</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">Typecast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/13#13.05.20.276191" target="_blank"> 20/05/2013 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llJsonSetValue( string json, list specifiers, string value );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

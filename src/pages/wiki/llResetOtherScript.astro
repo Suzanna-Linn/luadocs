@@ -1,0 +1,144 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ResetOtherScript(ScriptName: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llResetOtherScript(string ScriptName);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Resets script <b>name</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>ScriptName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>a script in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">249</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>On script reset...</p>
+  <ul>
+    <li>The current event/function is exited without further execution or return.</li>
+    <li>All global variables are set to their defaults</li>
+    <li>The event queue is cleared, and recurring events are stopped.</li>
+    <li>The <a href="https://wiki.secondlife.com/wiki/Default" target="_blank">default</a> state is set as the active state
+    <ul>
+      <li>If it has a <a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a> event, then it is queued.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>name</b> is missing from the prim's inventory or it is not a script then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If the script is not running, this call has no effect, even after the script is set running again.</li>
+    <li>A script can reset itself with this function (not just other scripts).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- the other script must be within the same prim and has to be running
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    ll.ResetTime()
+end
+
+function LLEvents.touch_end(events)
+    local num_detected = #events
+    if ll.GetTime() < 3.0 then
+        ll.Say(0, "Please click & hold for at least 3.0 seconds.")
+    else
+        ll.ResetOtherScript("second")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// the other script must be within the same prim and has to be running
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        llResetTime();
+    }
+
+    touch_end(integer num_detected)
+    {
+        if (llGetTime() < 3.0)
+            llSay(0, "Please click & hold for at least 3.0 seconds.");
+        else
+            llResetOtherScript("second");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">llResetScript</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetScriptState" target="_blank">llGetScriptState</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetScriptState" target="_blank">llSetScriptState</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llResetOtherScript( string name );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

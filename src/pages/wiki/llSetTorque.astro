@@ -1,0 +1,120 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTorque(Torque: vector, Local: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTorque(vector Torque, integer Local);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the torque of object (if the script is physical)</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Torque / torque</td>
+          <td>Torque force.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Local / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">local</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> uses the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local axis</a>, if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> uses the region <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region axis</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">74</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Only works in <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics-enabled</a> objects.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.SetTorque(vector(0, 10, 0), 1)
+--X  Y Z  Local
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        llSetTorque(<0,10,0>,1);
+                   //X  Y Z  Local
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetForceAndTorque" target="_blank">llSetForceAndTorque</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetForce" target="_blank">llSetForce</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetTorque( vector torque, integer local );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Spinning, all a blur...</p>
+<p>Small moment of inertia.</p>
+<p>They say torque is cheap.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

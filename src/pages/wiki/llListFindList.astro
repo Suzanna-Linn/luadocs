@@ -1,0 +1,182 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ListFindList(ListVariable: {any}, Find: {any}): number?`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llListFindList(list ListVariable, list Find);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use table.find because Prefer dictionaries or single-item searches.</span></p>
+      <p>  <p>Returns the integer index of the first instance of <b>test</b> in <b>src</b>.</p>
+</p>
+      <p><span class="lua-section"><span class="tag lua-tag">Lua</span>Returns nil when not found</span></p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>ListVariable / src</td>
+          <td>what to search in (haystack)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Find / test</td>
+          <td>what to search for (needle)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>list</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">201</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>test</b> is not found in <b>src</b>, -1 (in LSL) or nil (in SLua) is returned.</p>
+  <p>The index of the first entry in the list is 0</p>
+  <p>If <b>test</b> is found at the last index in <b>src</b> the positive index is returned (5th entry of 5 returns 4).</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Strict type matching and case sensitivity is enforced.
+    <ul>
+      <li>"1" != 1</li>
+      <li>"1.0" != 1.0</li>
+      <li>1 != 1.0</li>
+      <li>"a822ff2b-ff02-461d-b45d-dcd10a2de0c2" != (key)"a822ff2b-ff02-461d-b45d-dcd10a2de0c2"</li>
+      <li>"Justice" != "justice"</li>
+    </ul>
+  
+    </li>
+    <li>If <b>test</b> is an empty list the value returned is 0 rather than -1.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local numbers = {1, 2, 3, 4, 5}
+local function main()
+    local index = ll.ListFindList(numbers, {3})
+    if index ~= -1 then
+        local three_four = ll.List2List(numbers, index, index + 1)
+        ll.OwnerSay(ll.DumpList2String(three_four, ","))
+    -- Object: 3,4
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list numbers = [1, 2, 3, 4, 5];
+default
+{
+    state_entry()
+    {
+        integer index = llListFindList(numbers, [3]);
+        if (index != -1)
+        {
+            list three_four = llList2List(numbers, index, index + 1);
+            llOwnerSay(llDumpList2String(three_four, ","));
+            // Object: 3,4
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--You can also search for two items at once to find a pattern in a list
+local avatarsWhoFoundMagicLeaves = {"Fire Centaur", "Red Leaf"}
+local function main()
+    local index = ll.ListFindList(avatarsWhoFoundMagicLeaves, {"Fire Centaur", "Red Leaf"})
+    if index ~= -1 then
+        local output = ll.List2List(avatarsWhoFoundMagicLeaves, index, index + 1)
+        ll.OwnerSay(ll.DumpList2String(output, ","))
+    -- Object: Fire Centaur, Red Leaf
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//You can also search for two items at once to find a pattern in a list
+list avatarsWhoFoundMagicLeaves = ["Fire Centaur","Red Leaf"];
+default
+{
+    state_entry()
+    {
+        integer index = llListFindList(avatarsWhoFoundMagicLeaves, ["Fire Centaur","Red Leaf"]);
+        if (index != -1)
+        {
+            list output = llList2List(avatarsWhoFoundMagicLeaves, index, index + 1);
+            llOwnerSay(llDumpList2String(output, ","));
+            // Object: Fire Centaur, Red Leaf
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <p>An easy way to see if an item exists in a list...</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`if(~llListFindList(myList, (list)item))
+{//it exists
+    // This works because ~(-1) produces 0, but ~ of any other value produces non-zero and causes the 'if' to succeed
+    // So any return value (including 0) that corresponds to a found item, will make the condition succeed
+    // It saves bytecode and is faster then doing != -1
+    // This is a bitwise NOT (~) not a negation (-)
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSubStringIndex" target="_blank">llSubStringIndex</a></td>
+        <td>–</td>
+        <td>Find a string in another string</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llListFindList( list src, list test );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Where are my car keys?</p>
+<p>Has anyone seen my keys?</p>
+<p>Oh! In my pocket.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

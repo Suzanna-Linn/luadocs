@@ -1,0 +1,77 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`TOUCH_INVALID_FACE: number = -1`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer TOUCH_INVALID_FACE = -1;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant TOUCH_INVALID_FACE has the value 0xFFFFFFFF</p>
+  <p>Returned by <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a> when the <a href="https://wiki.secondlife.com/wiki/LSL_Touch_Position" target="_blank">touch position</a> is not valid.</p>
+  <p>Specifically when...</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <ul>
+    <li>The avatar's viewer does not support face touch detection.</li>
+    <li>The touch has moved off the surface of the prim.</li>
+    <li>The triggering event is not a touch event.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Introduced in <a href="http://svn.secondlife.com/trac/linden/changeset/1167?new_path=%2F#file24" target="_blank">SVN:1167 r96080 Branch:viewer_1-21-2&#32;Tuesday, 09 September 2008</a></li>
+    <li>Merged into Trunk <a href="http://svn.secondlife.com/trac/linden/changeset/1169?new_path=%2F#file24" target="_blank">SVN:1169 r96492 Branch:{{{branch}}}&#32;Thursday, 11 September 2008</a></li>
+  </ul>
+  <p><a href="https://secondlife.canny.io/?search=TOUCH_INVALID_FACE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+TOUCH_INVALID_FACE = 0xFFFFFFFF
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer TOUCH_INVALID_FACE = 0xFFFFFFFF;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

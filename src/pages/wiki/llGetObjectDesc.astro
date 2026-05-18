@@ -1,0 +1,190 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetObjectDesc(): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetObjectDesc();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string containing the description of the prim the script is attached to.</p>
+  <p>To get the <i>object's</i> description (not the current prim's), use <a href="https://wiki.secondlife.com/wiki/PRIM_DESC" target="_blank">PRIM_DESC</a> or <a href="https://wiki.secondlife.com/wiki/OBJECT_DESC" target="_blank">OBJECT_DESC</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_properties</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">270</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The prim description is <a href="https://wiki.secondlife.com/wiki/Limit" target="_blank">limited</a> to 127 <a href="https://wiki.secondlife.com/wiki/Bytes" target="_blank">bytes</a>; any string longer then that will be truncated. This truncation does not always happen when the attribute is set or read.</li>
+    <li>The prim description may only contain printable ASCII characters (code points 32-126), except the pipe character '&#124;', which is not permitted for historical reasons.[[1]](#footnote_1) All other characters will be replaced with one '?' character per illegal UTF-8 byte.</li>
+    <li>Note that when people have "Hover Tips on All Objects" selected in the viewer's "View" menu, they'll see the object description pop-up for any object under their mouse pointer. For that reason, it is good practice to only set human-friendly information in the description, e.g. keys and such.</li>
+    <li><p>When an attached object is detached, changes made by script to the name and description (of the root prim) of the attachment will be lost. While the object is attached the name and description can be changed but it will not be reflected in inventory. This caveat does <i>not</i> apply to child prims.</p>
+<p><b>Important:</b> This function <b>does not</b> get the description of the object's rootprim, but the description of the prim containing the script. Please use <a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a>(<a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/LINK_ROOT" target="_blank">LINK_ROOT</a>, <a href="https://wiki.secondlife.com/wiki/PRIM_DESC" target="_blank"> [PRIM_DESC</a> ]), 0); instead.</p></li>
+  </ul>
+  <h2>Examples</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Get this prim's description</b></th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+local function main()
+    --  PUBLIC_CHANNEL has the integer value 0
+    ll.Say(PUBLIC_CHANNEL, "This prim's description: " .. ll.GetObjectDesc())
+end
+
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+default
+{
+    state_entry()
+    {
+    //  PUBLIC_CHANNEL has the integer value 0
+        llSay(PUBLIC_CHANNEL, "This prim's description: " + llGetObjectDesc() );
+    }
+}
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Get the root prim's description</b></th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+
+local function main()
+    --  PUBLIC_CHANNEL has the integer value 0
+    ll.Say(PUBLIC_CHANNEL, "Rootprim's description: " .. ll.List2String(ll.GetLinkPrimitiveParams(LINK_ROOT, {PRIM_DESC}), 0))
+end
+
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+default
+{
+    state_entry()
+    {
+    //  PUBLIC_CHANNEL has the integer value 0
+        llSay(PUBLIC_CHANNEL, "Rootprim's description: "
+            + llList2String(llGetLinkPrimitiveParams(LINK_ROOT, [ PRIM_DESC ]), 0));
+    }
+}
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetObjectDesc" target="_blank">llSetObjectDesc</a></td>
+        <td>–</td>
+        <td>Sets the prim description.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectName" target="_blank">llGetObjectName</a></td>
+        <td>–</td>
+        <td>Gets the prim name.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetObjectName" target="_blank">llSetObjectName</a></td>
+        <td>–</td>
+        <td>Sets the prim name.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Limits" target="_blank">Limits</a></td>
+        <td>–</td>
+        <td>SL limits and constrictions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Prim_Attribute_Overloading" target="_blank">Prim Attribute Overloading</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The pipe character historically has been used to separate fields in the serialized version of inventory and possibly other internal fields for prim parameters.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetObjectDesc()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetObjectDesc();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

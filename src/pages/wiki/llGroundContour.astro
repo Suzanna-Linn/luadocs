@@ -1,0 +1,107 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GroundContour(Offset: vector): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGroundContour(vector Offset);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a vector that is the ground contour direction below the prim <a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">position</a> + <b>offset</b>. The contour is the direction of a contour line at that point, that is the direction in which there is no change in elevation.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Offset / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/offset" target="_blank">offset</a></td>
+          <td>offset relative to the prim's position and expressed in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">223</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The requested position needs to be in the same region.</p>
+  <p>Only the <b>x</b> and <b>y</b> coordinates in <b>offset</b> are important, the <b>z</b> component is ignored.</p>
+  <h2>Specification</h2>
+  <p>This function is defined as:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGroundContour(vector offset)
+{
+    vector slope = llGroundSlope(offset);
+    return <-slope.y, slope.x, 0.0>;
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGround" target="_blank">llGround</a></td>
+        <td>–</td>
+        <td>Gets the ground height</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGroundNormal" target="_blank">llGroundNormal</a></td>
+        <td>–</td>
+        <td>Gets the ground normal</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGroundSlope" target="_blank">llGroundSlope</a></td>
+        <td>–</td>
+        <td>Gets the ground slope</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llGroundContour Added in <a href="http://secondlife.wikia.com/wiki/Version_0.9.0" target="_blank">SL 0.9.0</a>[[1]](#footnote_1)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llGroundContour( vector offset );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

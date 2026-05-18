@@ -1,0 +1,181 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_PHYSICS_SHAPE_TYPE: number = 30`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_PHYSICS_SHAPE_TYPE = 30;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_PHYSICS_SHAPE_TYPE has the value 30</p>
+  <p>Used to set the type of shape the physics engine should use for the prim. This is primarily used to do <a href="https://wiki.secondlife.com/wiki/Physics_Optimization" target="_blank">Physics Optimization</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_PHYSICS_SHAPE_TYPE,&#32;[integer</a> type ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td>type</td>
+        <td>–</td>
+        <td>PRIM_PHYSICS_SHAPE_* flag</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_PHYSICS_SHAPE_TYPE ]); </b></p>
+  <p>Returns the <a href="https://wiki.secondlife.com/wiki/List" target="_blank">list</a> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> type ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td>type</td>
+        <td>–</td>
+        <td>PRIM_PHYSICS_SHAPE_* flag</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>type</b> Flags</th>
+        <th>V</th>
+        <th colspan="3">Description</th>
+        <th colspan="3">Notes</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_PRIM" target="_blank">PRIM_PHYSICS_SHAPE_PRIM</a></td>
+        <td>0</td>
+        <td colspan="3">The visible shape of the prim determines its physics-shape</td>
+        <td colspan="3">default for all non-mesh prims</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_CONVEX" target="_blank">PRIM_PHYSICS_SHAPE_CONVEX</a></td>
+        <td>2</td>
+        <td colspan="3">Use the convex hull formulas for generating the prim's physics-shape</td>
+        <td colspan="3">default for all mesh prims</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_NONE" target="_blank">PRIM_PHYSICS_SHAPE_NONE</a></td>
+        <td>1</td>
+        <td colspan="3">The prim will not contribute to the object's physics-shape</td>
+        <td colspan="3"><i>This cannot be applied to the root prim or avatars.</i>
+This prim has no physics representation at all. Like <a href="https://wiki.secondlife.com/wiki/Phantom" target="_blank">phantom</a> objects, it will not collide with avatars or other objects. <i>Unlike</i> phantom prims, it will also pass freely through the terrain when the parent object is physical. Like <a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">volume detect</a> it doesn't collide with terrain. <i>Unlike</i> volume detect, it will not register <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">collision</a> events.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Physics_Optimization" target="_blank">Physics Optimization</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="http://community.secondlife.com/t5/English-Knowledge-Base/Best-practices-for-creating-efficient-collision-volumes/ta-p/984115" target="_blank">Best practices for creating efficient collision volumes</a></td>
+        <td>–</td>
+        <td>A really good article that explains how collisions work.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Notes</h2>
+  <p>Modern physics engines achieve real-time results (as opposed to slower than real-time results) by approximating and simplifying the shapes. This means the shape that client displays on the screen is much more complicated than the shape the physics engine works with (with the exception of basic shapes like cubes or prisms). This flag gives the scripter some control over how the prim is treated by the physics engine.</p>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Introduced in <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_RC_LeTigre/11#11.09.09.240509" target="_blank">Second Life RC LeTigre 11.09.09.240509</a>, September 9, 2011</li>
+    <li><a href="http://www.sluniverse.com/php/vb/scripting/61203-future-physics-functions-tease.html#post1305775" target="_blank">SLUniverse:Future physics functions tease</a></li>
+  </ul>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_PHYSICS_SHAPE_TYPE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_PHYSICS_SHAPE_TYPE = 30
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_PHYSICS_SHAPE_TYPE = 30;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

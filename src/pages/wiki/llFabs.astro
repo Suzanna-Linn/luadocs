@@ -1,0 +1,134 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Fabs(Value: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llFabs(float Value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.abs because Double precision; fastcall.</span></p>
+      <p>  <p>Returns a float that is the positive version of <b>val</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Value / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/val" target="_blank">val</a></td>
+          <td>Any valid float value</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">7</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This function is similar to functions (e.g. <a href="http://www.cplusplus.com/reference/cmath/fabs/" target="_blank">fabs</a>) found in many other languages:</p>
+  <table>
+    <tbody>
+      <tr>
+        <td><b>C++</b></td>
+      </tr>
+      <tr>
+        <td><a href="http://www.cplusplus.com/reference/cmath/fabs/" target="_blank">fabs</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.Say(0, "The (Float)absolute value of -4.5 is: " .. tostring(ll.Fabs(-4.5)))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSay(0,"The (Float)absolute value of -4.5 is: "+(string)llFabs(-4.5) );
+    }
+}
+// returns :
+// The (Float)absolute value of -4.5 is: 4.500000`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>Using `<b>val</b>-2<i><b>val</b></i>(<b>val</b><0)` is roughly 60% faster than llFabs as it avoids a function call, though it produces NaN if given an infinite value and (correctly) returns 0.0 instead of -0.0 when taking the absolute value of negative zero.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAbs" target="_blank">llAbs</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> version of llFabs</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Absolute_value" target="_blank">Absolute value</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llFabs( float val );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Even with all your little bits intact,</p>
+<p>down to the final point</p>
+<p>it's still size that matters.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

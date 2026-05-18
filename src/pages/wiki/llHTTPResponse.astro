@@ -1,0 +1,335 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.HTTPResponse(HTTPRequestID: uuid, Status: number, Body: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llHTTPResponse(key HTTPRequestID, integer Status, string Body);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Responds to <b>request_id</b> with <b>status</b> and <b>body</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>HTTPRequestID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">request_id</a></td>
+          <td>A valid HTTP request key.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Status / status</td>
+          <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank">HTTP Status</a> (200, 400, 404, etc)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Body / body</td>
+          <td>Contents of the response.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>media</li>
+        <li>prim_media</li>
+        <li>script_communication</li>
+        <li>web</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">348</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The response need not be made inside the <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> event but if it does not happen in a timely fashion the request will time out (within 25 seconds).</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This call must be made by the script containing the <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> event where the <b>request_id</b> was received.</li>
+    <li>There is no limit, other than script size, to the amount of data that can be sent by this function.
+    <ul>
+      <li><a href="https://wiki.secondlife.com/wiki/LlHTTPRequest" target="_blank">llHTTPRequest</a> can truncate the response length in <i>receiving</i> scripts. Be aware when using them together for prim-to-prim communications.</li>
+    </ul>
+  
+    </li>
+    <li>The response by default has `"content-type: text/plain"`. Use <a href="https://wiki.secondlife.com/wiki/LlSetContentType" target="_blank">llSetContentType</a> to optionally return a different type, like `"text/html"`.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local url = ""
+
+function LLEvents.changed(change)
+    if bit32.btest(change, bit32.bor(CHANGED_REGION_START, CHANGED_REGION, CHANGED_TELEPORT)) then
+        ll.ResetScript()
+    end
+end
+
+local function main()
+    ll.RequestURL()
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    --  PUBLIC_CHANNEL has the integer value 0
+    if url ~= "" then
+        ll.Say(PUBLIC_CHANNEL, "URL: " .. url)
+    end
+end
+
+function LLEvents.http_request(id, method, body)
+    --  http://en.wikipedia.org/wiki/Create,_read,_update_and_delete
+    local CRUDmethods = {"GET", "POST", "PUT", "DELETE"}
+    --  it's bit-wise NOT ( ~ ) !!!
+    local isAllowedMethod = bit32.bnot(ll.ListFindList(CRUDmethods, {method}))
+
+    if isAllowedMethod ~= 0 then
+        ll.HTTPResponse(id, 200, "Body of request below:\n" .. body)
+    elseif method == URL_REQUEST_GRANTED then
+        --  don't forget the trailing slash
+        url = body .. "/"
+
+        ll.OwnerSay("URL: " .. url)
+    elseif method == URL_REQUEST_DENIED then
+        ll.OwnerSay("Something went wrong, no URL.\n" .. body)
+    else
+        ll.OwnerSay("Ummm... I have no idea what SL just did. Method=\"" .. method .. "\"\n" .. body)
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string url;
+
+default
+{
+    changed(integer change)
+    {
+        if (change & (CHANGED_REGION_START | CHANGED_REGION | CHANGED_TELEPORT))
+            llResetScript();
+    }
+
+    state_entry()
+    {
+        llRequestURL();
+    }
+
+    touch_start(integer num_detected)
+    {
+    //  PUBLIC_CHANNEL has the integer value 0
+        if (url != "")
+            llSay(PUBLIC_CHANNEL, "URL: " + url);
+    }
+
+    http_request(key id, string method, string body)
+    {
+    //  http://en.wikipedia.org/wiki/Create,_read,_update_and_delete
+        list CRUDmethods = ["GET", "POST", "PUT", "DELETE"];
+    //  it's bit-wise NOT ( ~ ) !!!
+        integer isAllowedMethod = ~llListFindList(CRUDmethods, [method]);
+
+        if (isAllowedMethod)
+        {
+            llHTTPResponse(id, 200, "Body of request below:\n" + body);
+        }
+        else if (method == URL_REQUEST_GRANTED)
+        {
+        //  don't forget the trailing slash
+            url = body + "/";
+
+            llOwnerSay("URL: " + url);
+        }
+        else if (method == URL_REQUEST_DENIED)
+        {
+            llOwnerSay("Something went wrong, no URL.\n" + body);
+        }
+        else
+        {
+            llOwnerSay("Ummm... I have no idea what SL just did. Method=\""+method+"\"\n" + body);
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_TEXT" target="_blank">CONTENT_TYPE_TEXT</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_HTML" target="_blank">CONTENT_TYPE_HTML</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_XML" target="_blank">CONTENT_TYPE_XML</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_XHTML" target="_blank">CONTENT_TYPE_XHTML</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_ATOM" target="_blank">CONTENT_TYPE_ATOM</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_JSON" target="_blank">CONTENT_TYPE_JSON</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_LLSD" target="_blank">CONTENT_TYPE_LLSD</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_FORM" target="_blank">CONTENT_TYPE_FORM</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_RSS" target="_blank">CONTENT_TYPE_RSS</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetFreeURLs" target="_blank">llGetFreeURLs</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestURL" target="_blank">llRequestURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestSecureURL" target="_blank">llRequestSecureURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReleaseURL" target="_blank">llReleaseURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetHTTPHeader" target="_blank">llGetHTTPHeader</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetContentType" target="_blank">llSetContentType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LSL_http_server" target="_blank">LSL http server</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/1836?new_path=%2F#file22" target="_blank">SVN:1836 r112899 Trunk</a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llHTTPResponse( key request_id, integer status, string body );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

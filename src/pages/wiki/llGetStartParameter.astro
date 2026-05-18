@@ -1,0 +1,150 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetStartParameter(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetStartParameter();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns an integer that is the script start/rez parameter.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>rez</li>
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">134</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <ul>
+    <li>If the script was loaded with <a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a> then that start parameter is returned.</li>
+    <li>If the containing object was rezzed by <a href="https://wiki.secondlife.com/wiki/LlRezObjectWithParams" target="_blank">llRezObjectWithParams</a> or <a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a> or <a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a> then the return is the <a href="https://wiki.secondlife.com/wiki/On_rez" target="_blank">on_rez</a> parameter.</li>
+    <li>If the containing object was manually rezzed, by dragging from inventory, the start parameter is 0.</li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The start parameter does not survive region restarts (<a href="https://jira.secondlife.com/browse/SVC-2251" target="_blank">SVC-2251</a>) or region change (<a href="https://jira.secondlife.com/browse/SVC-3258" target="_blank">SVC-3258</a>, crossing or teleport).</li>
+    <li>If the script is reset (using <a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">llResetScript</a> or other means), the start parameter is set to 0.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.on_rez(param)
+    ll.OwnerSay("rezzed with the number " .. tostring(param))
+end
+local function main()
+    local i = ll.GetStartParameter()
+    if i ~= 0 then
+        ll.OwnerSay("I was given the number " .. tostring(i) .. " when I was rezzed")
+    else
+        ll.OwnerSay("rezzed from inventory (or rezzed/loaded with 0)")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    on_rez(integer param)
+    {
+        llOwnerSay("rezzed with the number " + (string)param);
+    }
+    state_entry()
+    {
+        integer i = llGetStartParameter();
+        if (i)
+        {
+            llOwnerSay("I was given the number " + (string)i + " when I was rezzed");
+        }
+        else
+        {
+            llOwnerSay("rezzed from inventory (or rezzed/loaded with 0)");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/On_rez" target="_blank">on_rez</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetStartString" target="_blank">llGetStartString</a></td>
+        <td>–</td>
+        <td>Modern alternative that allows passing even more data.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a></td>
+        <td>–</td>
+        <td>Used to load a script into a remote prim</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a></td>
+        <td>–</td>
+        <td>Used to rez an object at the center of mass</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a></td>
+        <td>–</td>
+        <td>Used to rez an object at the root</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetStartParameter()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetStartParameter();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

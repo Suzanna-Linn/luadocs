@@ -1,0 +1,419 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.TeleportAgent(AvatarID: uuid, LandmarkName: string, Position: vector, LookAtPoint: vector)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llTeleportAgent(key AvatarID, string LandmarkName, vector Position, vector LookAtPoint);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Teleports an <b>agent</b> to a <b>landmark</b> stored in the object's inventory.</p>
+  <p>If <b>landmark</b> is an empty string, the avatar is teleported to the location <b>position</b> in the current region.</p>
+  <p>If the destination is in the current region, the avatar will land facing <b>look_at</b> as a position within that region. Otherwise, <b>look_at</b> is treated as a unit direction.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/agent" target="_blank">agent</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>&#32;(the avatar to teleport, must be the <a href="https://wiki.secondlife.com/wiki/LlGetOwner" target="_blank">owner</a>)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>LandmarkName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/landmark" target="_blank">landmark</a></td>
+          <td>a landmark in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or an empty string&#32;(for teleporting within the same region)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
+          <td>The position within the local region to teleport the avatar to if no landmark was provided.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>LookAtPoint / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/look_at" target="_blank">look_at</a></td>
+          <td>The position within the region that the avatar should be turned to face upon arrival.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>permissions</li>
+        <li>teleport</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_TELEPORT</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">368</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&#32;and it must be granted by <b>agent</b>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>landmark</b> is not an empty string and...
+    <ul>
+      <li><b>landmark</b> is missing from the prim's inventory or it is not a landmark then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+If <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a> is granted by anyone other than <b>agent</b>, then when the function is called an error will be shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a> permission is granted there is no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or the script is reset or deleted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><b>This function can only teleport the owner of the object</b> (unless part of an <a href="https://wiki.secondlife.com/wiki/Category:Experience_Tools" target="_blank">Experience</a>).</li>
+    <li>Teleports are throttled (no more than 10 teleports within 15 seconds)</li>
+    <li>Does not work in scripts within attached temp objects　<a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">llAttachToAvatarTemp</a>.　Error Message is "Temporary attachments cannot request runtime permissions to teleport"</li>
+    <li>Sitting avatars cannot be teleported using this function. You must <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">llUnSit</a> them first.</li>
+    <li>This function does not override a parcel's teleport settings, i.e. if the parcel has a landing zone enabled the avatar will be teleported there.</li>
+    <li>If the script is part of an experience that the avatar has granted permission, then this function may teleport them without being the owner and it will override parcel teleport routing. See the example below.</li>
+    <li>When <b>look_at</b> is treated as a direction, a valid input should be `<llCos(angle), llSin(angle), 0.0>`.
+    <ul>
+      <li>In other words, it should be a <b>unit vector</b> corresponding to the avatar turning <b>angle</b> radians from north.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Basic example with a landmark called <b>Destination</b> in the object's inventory:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local num_detected = #events
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_TELEPORT)
+end
+
+function LLEvents.run_time_permissions(perm)
+    if bit32.btest(PERMISSION_TELEPORT, perm) then
+        ll.TeleportAgent(ll.GetPermissionsKey(), "Destination", ZERO_VECTOR, ZERO_VECTOR)
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        llRequestPermissions(llGetOwner(), PERMISSION_TELEPORT);
+    }
+
+    run_time_permissions(integer perm)
+    {
+        if (PERMISSION_TELEPORT & perm)
+        {
+            llTeleportAgent(llGetPermissionsKey(), "Destination", ZERO_VECTOR, ZERO_VECTOR);
+        }
+    }
+}`} lang="lsl" /></div>
+  <p>Basic example without a landmark in the object's inventory, while facing the avatar towards the center of the region:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local num_detected = #events
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_TELEPORT)
+end
+
+function LLEvents.run_time_permissions(perm)
+    if bit32.btest(PERMISSION_TELEPORT, perm) then
+        local region_pos = vector(100, 130, 40)
+        local look_at = vector(128, 128, 40)
+        ll.TeleportAgent(ll.GetPermissionsKey(), "", region_pos, look_at)
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        llRequestPermissions(llGetOwner(), PERMISSION_TELEPORT);
+    }
+
+    run_time_permissions(integer perm)
+    {
+        if (PERMISSION_TELEPORT & perm)
+        {
+            vector region_pos = <100, 130, 40>;
+            vector look_at = <128,128,40>;
+            llTeleportAgent(llGetPermissionsKey(), "", region_pos, look_at);
+        }
+    }
+}`} lang="lsl" /></div>
+  <p><b>How to use this function in an Experience</b></p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- A SIMPLE SCRIPT that implements an Experience based teleport.
+-- Compile with the "Use Experience" box cnecked and an experience key you own selected.
+-- The prim containing this script must contain a landmark named "Landmark" in its contents
+--
+-- If the person touching this box has not previously accepted an invitation to your experience,
+-- that person will be offered that opportunity when this prim is touched, and if the invitations
+-- is accepted, will be immediately teleported to the target of the landmark.
+--
+-- If the toucher has previously accepted an invitation, the person will be immediately teleported
+-- with no interruption.
+--
+-- The script has no safety features, e.g., will simply fail if the prim contains no landmark.
+--
+-- Thanks to Rolig Loon for her help in figuring out how to do this
+-- See https://community.secondlife.com/t5/English-Knowledge-Base/Experiences-in-Second-Life/ta-p/2744686
+-- to read what the Lindens think is an adequate explanation of all this.
+
+function LLEvents.touch_start(events)
+    local n = #events
+    ll.RequestExperiencePermissions(ll.DetectedKey(0), "")
+end
+
+function LLEvents.experience_permissions(agent)
+    ll.TeleportAgent(agent, "Landmark", ZERO_VECTOR, ZERO_VECTOR)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// A SIMPLE SCRIPT that implements an Experience based teleport.
+// Compile with the "Use Experience" box cnecked and an experience key you own selected.
+// The prim containing this script must contain a landmark named "Landmark" in its contents
+//
+// If the person touching this box has not previously accepted an invitation to your experience,
+// that person will be offered that opportunity when this prim is touched, and if the invitations
+// is accepted, will be immediately teleported to the target of the landmark.
+//
+// If the toucher has previously accepted an invitation, the person will be immediately teleported
+// with no interruption.
+//
+// The script has no safety features, e.g., will simply fail if the prim contains no landmark.
+//
+// Thanks to Rolig Loon for her help in figuring out how to do this
+// See https://community.secondlife.com/t5/English-Knowledge-Base/Experiences-in-Second-Life/ta-p/2744686
+// to read what the Lindens think is an adequate explanation of all this.
+
+default
+{
+    touch_start(integer n)
+    {
+        llRequestExperiencePermissions(llDetectedKey(0), "");
+    }
+
+    experience_permissions(key agent)
+    {
+        llTeleportAgent(agent, "Landmark", ZERO_VECTOR, ZERO_VECTOR);
+    }
+}`} lang="lsl" /></div>
+  <p>Below is an example of properly handling the <b>look_at</b> value based on whether the destination is the current region or a different one. This ensures that the avatar will always be facing the same <i>direction</i> regardless of whether they're teleporting within the region or to another one.</p>
+  <p>The script keeps track of the landmark's destination coordinate in the <b>state_entry</b> and <b>changed</b> events, which is later used to calculate the total distance of the teleport.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local landmark = ""
+local destination = ZERO_VECTOR
+
+local function main()
+    -- Get data about the first landmark in object inventory when script starts.
+    if ll.GetInventoryNumber(INVENTORY_LANDMARK) > 0 then
+        landmark = ll.GetInventoryName(INVENTORY_LANDMARK, 0)
+        ll.RequestInventoryData(landmark)
+    end
+end
+
+function LLEvents.changed(change)
+    if not bit32.btest(change, bit32.bor(CHANGED_INVENTORY, CHANGED_REGION)) then
+        return
+    end
+
+    -- Get data about the first landmark in object inventory when inventory changes.
+    if ll.GetInventoryNumber(INVENTORY_LANDMARK) > 0 then
+        landmark = ll.GetInventoryName(INVENTORY_LANDMARK, 0)
+        ll.RequestInventoryData(landmark)
+    end
+end
+
+function LLEvents.dataserver(query, data)
+    -- Save llRequestInventoryData response.
+    destination = tovector(data)
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_TELEPORT)
+end
+
+function LLEvents.run_time_permissions(perm)
+    if not bit32.btest(PERMISSION_TELEPORT, perm) then
+        return
+    end
+
+    local angle = 45 * DEG_TO_RAD
+
+    -- When teleporting to another region, we need a direction vector.
+    local look_at = vector(ll.Cos(angle), ll.Sin(angle), 0)
+
+    local sim_size = ll.VecMag(vector(1, 1, 1))
+    local distance = ll.VecDist(vector(1, 1, 1), destination / 256)
+
+    if distance < sim_size then
+        -- When teleporting within the current region, we should use a position within the region instead.
+        look_at = destination + look_at
+    end
+
+    ll.TeleportAgent(ll.GetPermissionsKey(), landmark, ZERO_VECTOR, look_at)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string landmark;
+vector destination;
+
+default
+{
+    state_entry()
+    {
+        // Get data about the first landmark in object inventory when script starts.
+        if (llGetInventoryNumber(INVENTORY_LANDMARK) > 0) {
+            landmark = llGetInventoryName(INVENTORY_LANDMARK, 0);
+            llRequestInventoryData(landmark);
+        }
+    }
+
+    changed(integer change)
+    {
+        if (!(change & (CHANGED_INVENTORY|CHANGED_REGION))) return;
+
+        // Get data about the first landmark in object inventory when inventory changes.
+        if (llGetInventoryNumber(INVENTORY_LANDMARK) > 0) {
+            landmark = llGetInventoryName(INVENTORY_LANDMARK, 0);
+            llRequestInventoryData(landmark);
+        }
+    }
+
+    dataserver(key query, string data)
+    {
+        // Save llRequestInventoryData response.
+        destination = (vector)data;
+    }
+
+    touch_start(integer num_detected)
+    {
+        llRequestPermissions(llGetOwner(), PERMISSION_TELEPORT);
+    }
+
+    run_time_permissions(integer perm)
+    {
+        if (!(PERMISSION_TELEPORT & perm)) return;
+
+        float angle = 45 * DEG_TO_RAD;
+
+        // When teleporting to another region, we need a direction vector.
+        vector look_at = <llCos(angle), llSin(angle), 0>;
+
+        float sim_size = llVecMag(<1,1,1>);
+        float distance = llVecDist(<1,1,1>, destination / 256);
+
+        if (distance < sim_size) {
+            // When teleporting within the current region, we should use a position within the region instead.
+            look_at = destination + look_at;
+        }
+
+        llTeleportAgent(llGetPermissionsKey(), landmark, ZERO_VECTOR, look_at);
+    }
+}`} lang="lsl" /></div>
+  <p>Another example, submitted by <a href="https://wiki.secondlife.com/wiki/User:Jesse_Barnett" target="_blank">Jesse Barnett</a>, shows how to use a list of landmarks inside a HUD to allow teleporting, even inside a no-script area: <a href="https://wiki.secondlife.com/wiki/Teleport_HUD" target="_blank">Teleport HUD</a>.</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTeleportAgentGlobalCoords" target="_blank">llTeleportAgentGlobalCoords</a></td>
+        <td>–</td>
+        <td>Teleports an agent to a global position.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.24.262437" target="_blank"> 24/07/2012 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llTeleportAgent( key agent, string landmark, vector position, vector look_at );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

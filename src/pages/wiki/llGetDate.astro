@@ -1,0 +1,201 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetDate(): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetDate();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the current date in the UTC time zone in the format "YYYY-MM-DD".</p>
+  <p>If you wish to know the time as well use: <a href="https://wiki.secondlife.com/wiki/LlGetTimestamp" target="_blank">llGetTimestamp</a> which uses the format "YYYY-MM-DDThh:mm:ss.ff..fZ"</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>time</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">204</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Birthday surprise
+local function main()
+    ll.SetTimerEvent(0.1)
+end
+
+function LLEvents.timer()
+    if ll.GetDate() == "2009-02-15" then
+        ll.SetText("HAPPY BIRTHDAY!", vector(0, 1, 0), 1.0)
+    else
+        ll.SetText("A surprise is coming...", vector(0, 1, 0), 1.0)
+    end
+
+    ll.SetTimerEvent(3600.0)  -- check every hour. 
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Birthday surprise
+default
+{
+    state_entry()
+    {   
+        llSetTimerEvent(0.1);
+    }
+
+    timer()
+    {
+        if(llGetDate() == "2009-02-15")
+            llSetText("HAPPY BIRTHDAY!", <0,1,0>, 1.0);
+        else
+            llSetText("A surprise is coming...", <0,1,0>, 1.0);
+         
+        llSetTimerEvent(3600.0);  // check every hour. 
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+-- Function to calculate the numeric day of year
+local function dayOfYear(year, month, day)
+    return day + (month - 1) * 30 + (((if month > 8 then 1 else 0) + month) // 2) - (if ((1 + bit32.bor(bit32.bxor(if not ((year % 4) ~= 0) then 1 else 0, if not ((year % 100) ~= 0) then 1 else 0, if not ((year % 400) ~= 0) then 1 else 0), if year <= 1582 then 1 else 0)) ~= 0) and (month > 2) then 1 else 0)
+end
+
+function LLEvents.touch_end(events)
+    local count = #events
+    local dateComponents = ll.ParseString2List(ll.GetDate(), {"-"}, {})
+    local year = integer(ll.List2String(dateComponents, 0))
+    local month = integer(ll.List2String(dateComponents, 1))
+    local day = integer(ll.List2String(dateComponents, 2))
+    ll.Say(0, "The current day of the year is " .. tostring(dayOfYear(year, month, day)))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Function to calculate the numeric day of year
+integer dayOfYear(integer year, integer month, integer day)
+{
+    return day + (month - 1) * 30 + (((month > 8) + month) / 2)
+        - ((1 + (((!(year % 4)) ^ (!(year % 100)) ^ (!(year % 400))) | (year <= 1582))) && (month > 2));
+}
+
+default
+{
+    touch_end(integer count)
+    {
+        list dateComponents = llParseString2List(llGetDate(), ["-"], []);
+        integer year  = (integer) llList2String(dateComponents, 0);
+        integer month = (integer) llList2String(dateComponents, 1);
+        integer day   = (integer) llList2String(dateComponents, 2);
+        llSay(0, "The current day of the year is " + (string) dayOfYear(year, month, day));
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Function to calculate whether a current year is a leap year
+
+local function is_leap_year(year)
+    if (year % 4) ~= 0 then  -- Not a leap year under any circumstances     
+        return false
+    end
+    if year <= 1582 then  -- In the Julian calender before 24 February 1582, every fourth year was a leap year
+        return true
+    end
+    if not ((year % 400) ~= 0) then  -- A leap century is a leap year if divisible by 400 
+        return true
+    end
+    if not ((year % 100) ~= 0) then  -- Any other century is not a leap year  
+        return false
+    end
+    return true  -- It is divisible by 4 and not a century and not Julian, therefore it is a leap year
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Function to calculate whether a current year is a leap year
+
+integer is_leap_year( integer year ) 
+{     
+    if( year % 4 )         return FALSE;   // Not a leap year under any circumstances     
+    if( year <= 1582 )     return TRUE;    // In the Julian calender before 24 February 1582, every fourth year was a leap year
+    if( !( year % 400 ))   return TRUE;    // A leap century is a leap year if divisible by 400 
+    if( !( year % 100 ))   return FALSE;   // Any other century is not a leap year  
+    return TRUE;                           // It is divisible by 4 and not a century and not Julian, therefore it is a leap year
+}`} lang="lsl" /></div>
+  <p>The previous script is way unnecessary for Avatar age, SL sales history etc. Here is all that is needed for 99% of SL applications.</p>
+  <p>This code is in fact valid for all years from 1901 to 2099, as 2000 was a leap year.</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`if (year % 4)          //  TRUE if NOT a leap year`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <h3>Helper Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Stamp2UnixInt" target="_blank">Timestamp: list format to Unix timestamp</a> - ex: [2009, 2, 13, 3, 31, 30] to 1234567890
+    <ul>
+      <li>compatible with <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a>( llGetDate(), ["-"], [] ) (reports as first second of given day)</li>
+    </ul>
+  
+    </li>
+    <li><a href="https://wiki.secondlife.com/wiki/Stamp2WeekdayStr" target="_blank">Timestamp: Weekday from (Y, M, D)</a> - ex: "Friday" from (Y, M, D)</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTimestamp" target="_blank">llGetTimestamp</a></td>
+        <td>–</td>
+        <td>Same format but with the time.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="http://www.cl.cam.ac.uk/~mgk25/iso-time.html" target="_blank">ISO 8601</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetDate()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetDate();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

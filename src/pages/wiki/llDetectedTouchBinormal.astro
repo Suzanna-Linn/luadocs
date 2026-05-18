@@ -1,0 +1,207 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.DetectedTouchBinormal(Index: number): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llDetectedTouchBinormal(integer Index);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a vector that is the surface binormal (tangent to the surface, pointing along the positive T (V) direction of tangent space) where the touch event was triggered. Along with <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchNormal" target="_blank">llDetectedTouchNormal</a>, this information can be used to find the <a href="http://en.wikipedia.org/wiki/Tangent_space" target="_blank">tangent space</a> at the touch location.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Index / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/index" target="_blank">index</a></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Index of detection information</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>detected</li>
+        <li>touch</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">341</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-detected">Detected Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>index</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>For the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> category of events only. The prim that was touched may not be the prim receiving the event, use <a href="https://wiki.secondlife.com/wiki/LlDetectedLinkNumber" target="_blank">llDetectedLinkNumber</a> to check for this; likewise you can use <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a> to determine which face was touched.</p>
+  <p>To find the third tangent vector, <a href="https://wiki.secondlife.com/w/index.php?title=LSL_Cross_Product&action=edit&redlink=1" target="_blank">cross</a> this vector with the <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchNormal" target="_blank">normal</a>.</p>
+  <h2>Specification</h2>
+  <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions only work if called from within Detection events (<a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a>, <a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a>, <a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a>, <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a>, <a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a>, <a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a>, <a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a>) or in functions called by Detection events. They will fail silently and return unusable values if called during other events.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>index</b> is out of bounds the script continues to execute without an error message.</li>
+    <li>Events that enable the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions always return at least one detected item.
+    <ul>
+      <li>Detection events are not raised if there is nothing detected.[[1]](#footnote_1)</li>
+      <li>The detection event's items detected parameter is initially never less than 1.[[2]](#footnote_2)</li>
+    </ul>
+  
+    </li>
+    <li><a href="https://wiki.secondlife.com/wiki/TOUCH_INVALID_VECTOR" target="_blank">TOUCH_INVALID_VECTOR</a> is returned when...
+    <ul>
+      <li>The avatar's viewer does not support face touch detection.
+      <ul>
+        <li>To check if face touch detection is supported check the return of <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a>.</li>
+      </ul>
+    
+      </li>
+      <li>The touch has moved off the surface of the prim.</li>
+      <li>The event triggered is not a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> event.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local total_num = #events
+    ll.OwnerSay(tostring(ll.DetectedTouchBinormal(0)))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_num)
+    {
+        llOwnerSay((string)llDetectedTouchBinormal(0));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedLinkNumber" target="_blank">llDetectedLinkNumber</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchST" target="_blank">llDetectedTouchST</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchUV" target="_blank">llDetectedTouchUV</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchPos" target="_blank">llDetectedTouchPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchNormal" target="_blank">llDetectedTouchNormal</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">Detected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Introduced in Viewer <a href="http://svn.secondlife.com/trac/linden/changeset/870?new_path=%2F#file14" target="_blank">SVN:870 r92872 Branch:Release&#32;Wednesday, 23 July 2008</a>, no server support, no viewer binary released.</li>
+    <li>Server support available on preview grid in Second Life Beta Server 1.24, client support in Preview Grid viewer 1.20.15 (93532)</li>
+    <li>Date of Release Server <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Beta_Server/1.24#Release_Notes_for_Second_Life_Beta_Server_1.24.3_.28August_29th.2C_2008.29" target="_blank"> 29-08-2008 </a></li>
+    <li>Date of Release Client <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.21" target="_blank"> 16-10-2008 </a></li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The exception is <a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a> but it doesn't enable <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Like all event parameters, the user can overwrite the initial value.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llDetectedTouchBinormal( integer index );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

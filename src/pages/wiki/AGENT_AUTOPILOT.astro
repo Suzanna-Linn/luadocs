@@ -1,0 +1,120 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`AGENT_AUTOPILOT: number = 8192`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer AGENT_AUTOPILOT = 8192;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant AGENT_AUTOPILOT has the value 0x2000</p>
+  <p>This value is set when the user selects "Go Here" on the ground, or uses the optional Double-Click Auto-Pilot feature.</p>
+  <p>Under Viewer 2.0 and later, it is also set when:</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>AgentInfo</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <ul>
+    <li>the user selects "Sit Here" on the ground.</li>
+    <li>an object is selected or edited, <i>and</i> that selection can trigger a <a href="https://wiki.secondlife.com/wiki/Control" target="_blank">control</a> (<a href="https://wiki.secondlife.com/wiki/CONTROL_ROT_RIGHT" target="_blank">CONTROL_ROT_RIGHT</a> and <a href="https://wiki.secondlife.com/wiki/CONTROL_ROT_LEFT" target="_blank">CONTROL_ROT_LEFT</a> can be activated when selecting an object near the far right or left edge of the screen).</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_FLYING" target="_blank">AGENT_FLYING</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_IN_AIR" target="_blank">AGENT_IN_AIR</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_WALKING" target="_blank">AGENT_WALKING</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_ALWAYS_RUN" target="_blank">AGENT_ALWAYS_RUN</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo" target="_blank">llGetAgentInfo</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`if bit32.btest(ll.GetAgentInfo(ll.GetOwner()), AGENT_AUTOPILOT) then
+    ll.Say(0, "Oops, sorry, don't blame me, it was my auto-pilot!")
+end`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`if (llGetAgentInfo( llGetOwner() ) & AGENT_AUTOPILOT)    
+        llSay(0, "Oops, sorry, don't blame me, it was my auto-pilot!");`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="https://jira.secondlife.com/browse/VWR-13202" target="_blank">VWR-13202</a> - Bug report where AGENT_AUTOPILOT was proposed and implementation was discussed.</li>
+    <li>AGENT_AUTOPILOT was added in <a href="http://svn.secondlife.com/trac/linden/changeset/2900?new_path=%2F#file21" target="_blank">SVN:2900 r136439 Trunk&#32;s:1.33.0</a></li>
+    <li>Server support added in Second Life Server 1.32.0.136920</li>
+  </ul>
+  <p><a href="https://secondlife.canny.io/?search=AGENT_AUTOPILOT" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+AGENT_AUTOPILOT = 0x2000
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer AGENT_AUTOPILOT = 0x2000;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

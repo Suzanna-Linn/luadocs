@@ -1,0 +1,151 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.InsertString(TargetVariable: string, Position: number, SourceVariable: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llInsertString(string TargetVariable, integer Position, string SourceVariable);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns the string <b>dst</b> with <b>src</b> inserted starting at <b>pos</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>TargetVariable / dst</td>
+          <td>destination of insertion</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>position index for insert, first is 0</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>SourceVariable / src</td>
+          <td>source string to be inserted</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>string</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">96</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>pos</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>i.e. unlike other somewhat similar string functions such as <a href="https://wiki.secondlife.com/wiki/LlGetSubString" target="_blank">llGetSubString</a> and <a href="https://wiki.secondlife.com/wiki/LlDeleteSubString" target="_blank">llDeleteSubString</a>, you cannot use -1 for the counting with this function. You may use instead the function provided a bit further below.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>pos</b> is out of bounds the script continues to execute without an error message.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+ll.InsertString("input", 2, "put out")  -- returns "input output"`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llInsertString("input", 2, "put out")// returns "input output"`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <p>This function will allow you to use a negative number as the position:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function insertString(destination, position, str)
+    if position < 0 then
+        if ((function() position += ll.StringLength(destination) return position end)()) < 0 then
+            position = 0
+        end
+    end
+    return ll.InsertString(destination, position, str)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string insertString(string destination, integer position, string str) {
+    if (position < 0)
+        if ((position += llStringLength(destination)) < 0)
+            position = 0;
+    return llInsertString(destination, position, str);
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDeleteSubString" target="_blank">llDeleteSubString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetSubString" target="_blank">llGetSubString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReplaceSubString" target="_blank">llReplaceSubString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Examples" target="_blank">Examples:</a> <a href="https://wiki.secondlife.com/wiki/Library_Combined_Library#str_replace" target="_blank">str_replace</a></td>
+        <td>–</td>
+        <td>Replace all instances of a string with another string in a target string</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Examples" target="_blank">Examples:</a> <a href="https://wiki.secondlife.com/wiki/SplitLine" target="_blank">SplitLine</a></td>
+        <td>–</td>
+        <td>Insert 'new line' escape codes at certain positions of a string</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llInsertString( string dst, integer pos, string src );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

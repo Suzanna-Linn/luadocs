@@ -1,0 +1,299 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_TYPE_BOX: number = 0`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_TYPE_BOX = 0;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_TYPE_BOX has the value 0</p>
+  <p>PRIM_TYPE_BOX is a parameter of <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank">PRIM_TYPE</a> used to make prim into a box and to change specific properties that define the shape of that box.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimType</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>PRIM_TYPE</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank"> [PRIM_TYPE</a>, PRIM_TYPE_BOX,&#32;<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td>hole_shape</td>
+        <td>–</td>
+        <td>PRIM_HOLE_* flag</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>cut</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>hollow</td>
+        <td>–</td>
+        <td>ranges from 0.0 (solid) to 0.95 (maximum hollowed)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>twist</td>
+        <td>–</td>
+        <td>ranges from -1.0 (-180 degree in the edit window) to 1.0 (+180 degree in the edit window) for both x and y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>top_size</td>
+        <td>–</td>
+        <td>ranges from 0.0 to 1.0 to 2.0 for both x and y (z is ignored)<a href="#z_taper" target="_blank">!</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>top_shear</td>
+        <td>–</td>
+        <td>ranges from -0.5 to 0.5 for both x and y (z is ignored)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">hole_shape Flags</th>
+        <th>Shape</th>
+        <th colspan="2">hole_shape Flags</th>
+        <th>Shape</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_DEFAULT" target="_blank">PRIM_HOLE_DEFAULT</a></td>
+        <td>0x00</td>
+        <td>Default</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_SQUARE" target="_blank">PRIM_HOLE_SQUARE</a></td>
+        <td>0x20</td>
+        <td>Square</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_CIRCLE" target="_blank">PRIM_HOLE_CIRCLE</a></td>
+        <td>0x10</td>
+        <td>Circle</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_TRIANGLE" target="_blank">PRIM_HOLE_TRIANGLE</a></td>
+        <td>0x30</td>
+        <td>Triangle</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>PRIM_TYPE_LEGACY</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> 1, PRIM_TYPE_BOX,&#32;[vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td>cut</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>hollow</td>
+        <td>–</td>
+        <td>ranges from 0.0 (solid) to 0.95 (maximum hollowed)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>twist</td>
+        <td>–</td>
+        <td>ranges from -0.5 (-180 degree in the edit window) to 0.5 (+180 degree in the edit window)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>top_size</td>
+        <td>–</td>
+        <td>ranges from 0.0 to 1.0 for both x and y (z is ignored)<a href="#z_taper" target="_blank">!</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>top_shear</td>
+        <td>–</td>
+        <td>ranges from -0.5 to 0.5 for both x and y (z is ignored)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>This is the old PRIM_TYPE format for boxes (PRIM_TYPE used to be 1 instead of 9). Use the new format unless you are maintaining old code.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li><b>top_size</b> and client values are different, the ranges do not line up, conversion is required. This simple equation can be used: answer = 1.0 - value. See <a href="#top_size_Explained" target="_blank">top_size Explained</a> for more information.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank">PRIM_TYPE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_SHAPE" target="_blank">CHANGED_SHAPE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- hole_shape
+-- cut
+-- hollow
+-- twist
+-- top_size
+-- top_Shear
+ll.SetPrimitiveParams({PRIM_TYPE, PRIM_TYPE_BOX, PRIM_HOLE_DEFAULT, vector(0.00, 1.0, 0.0), 0.0, vector(0.0, 0.0, 0.0), vector(1.0, 1.0, 0.0), vector(0.0, 0.0, 0.0)})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetPrimitiveParams([PRIM_TYPE, 
+                        PRIM_TYPE_BOX, 
+                            PRIM_HOLE_DEFAULT,  // hole_shape
+                            <0.00, 1.0, 0.0>,   // cut
+                            0.0,                // hollow
+                            <0.0, 0.0, 0.0>,    // twist
+                            <1.0, 1.0, 0.0>,    // top_size
+                            <0.0, 0.0, 0.0>     // top_Shear
+                      ]);`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th></th>
+        <th>Range[[1]](#footnote_1)</th>
+        <th><p>Top</p>
+<p>Tapered</p></th>
+        <th><p>No</p>
+<p>Tapering</p></th>
+        <th><p>Bottom</p>
+<p>Tapered</p></th>
+      </tr>
+      <tr>
+        <th>Client</th>
+        <th>[-1, 1]</th>
+        <th>1.0</th>
+        <th>0.0</th>
+        <th>-1.0</th>
+      </tr>
+      <tr>
+        <th><a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a></th>
+        <th>[0, 2]</th>
+        <th>0.0</th>
+        <th>1.0</th>
+        <th>2.0</th>
+      </tr>
+      <tr>
+        <th><a href="#PRIM_TYPE_LEGACY" target="_blank">LEGACY</a></th>
+        <th>[0, 1]</th>
+        <th>0.0</th>
+        <th>1.0</th>
+        <th>NA</th>
+      </tr>
+      <tr>
+        <th>Client < 1.11</th>
+        <th>[0, 1]</th>
+        <th>0.0</th>
+        <th>1.0</th>
+        <th>NA</th>
+      </tr>
+    </tbody>
+  </table>
+  <p>top_size Explained</p>
+  <p>When the original <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface was retired (<a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>, <a href="http://secondlife.wikia.com/wiki/Version_1.5" target="_blank">SL 1.5</a>), the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface did not yet support tapering of the bottom of the prim, this feature wasn't added until <a href="http://secondlife.wikia.com/wiki/Version_1.11" target="_blank">SL 1.11</a> (two years later). Instead of retiring the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> when it was added, the range of <b>top_size</b> was enlarged; meanwhile in the client they redefined the parameter and it's values. This redefinition and range enlargement resulted in two interfaces that did the same thing but achieved it through different values. Meanwhile <a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>'s interface was not updated to support tapering of the bottom of the prim. Consequently all three interfaces have different ranges, making for a rather nasty caveat.</p>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_TYPE_BOX" target="_blank">Search Canny for related Issues</a> Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_TYPE_BOX = 0
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_TYPE_BOX = 0;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

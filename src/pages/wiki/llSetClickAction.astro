@@ -1,0 +1,440 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetClickAction(Action: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetClickAction(integer Action);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the action performed when a prim is clicked upon (aka <a href="https://wiki.secondlife.com/wiki/Click_action" target="_blank">click action</a>).</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Action / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/click_action" target="_blank">action</a></td>
+          <td>CLICK_ACTION_* flag</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>input</li>
+        <li>money</li>
+        <li>prim_properties</li>
+        <li>touch</li>
+        <li>user_interface</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">333</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>When the cursor hovers over the prim, its image changes to reflect the action.</p>
+  <h2>Constants</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Flag</th>
+        <th></th>
+        <th>Description</th>
+        <th>Cursor</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_NONE" target="_blank">CLICK_ACTION_NONE</a></td>
+        <td>0</td>
+        <td>Performs the default action: when the prim is touched, touch events are triggered</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_TOUCH" target="_blank">CLICK_ACTION_TOUCH</a></td>
+        <td>0</td>
+        <td>When the prim is touched, touch events are triggered</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_SIT" target="_blank">CLICK_ACTION_SIT</a></td>
+        <td>1</td>
+        <td>When the prim is touched, the avatar sits upon it</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:SitActionCursor.png)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_BUY" target="_blank">CLICK_ACTION_BUY</a></td>
+        <td>2</td>
+        <td>When the prim is touched, the buy dialog is opened</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:SaleOneclickCursor.png)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_PAY" target="_blank">CLICK_ACTION_PAY</a></td>
+        <td>3</td>
+        <td>When the prim is touched, the pay dialog is opened</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:SaleOneclickCursor.png)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_OPEN" target="_blank">CLICK_ACTION_OPEN</a></td>
+        <td>4</td>
+        <td>When the prim is touched, the object inventory dialog is opened</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:OpenOneclickCursor.png)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_PLAY" target="_blank">CLICK_ACTION_PLAY</a></td>
+        <td>5</td>
+        <td>Play or pause parcel media on touch</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Toolplay.png)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_OPEN_MEDIA" target="_blank">CLICK_ACTION_OPEN_MEDIA</a></td>
+        <td>6</td>
+        <td>Play parcel media on touch, no pause</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Toolmediaopen.png)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_ZOOM" target="_blank">CLICK_ACTION_ZOOM</a></td>
+        <td>7</td>
+        <td>Zoom the avatar camera on this object (<a href="https://wiki.secondlife.com/wiki/Viewer_2_Help" target="_blank">Viewer 2</a>)</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Toolzoom.png)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_DISABLED" target="_blank">CLICK_ACTION_DISABLED</a></td>
+        <td>8</td>
+        <td>No click action. No touches detected or passed.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_IGNORE" target="_blank">CLICK_ACTION_IGNORE</a></td>
+        <td>9</td>
+        <td>Clicks go through the object to whatever is behind it. No touches detected.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>When set in the root of an object the chosen CLICK_ACTION_<i> will be that for the children also even if they have their own llSetClickAction set (it will be over-ridden). However (in the case of <a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a> for example) if the CLICK_ACTION_</i> is set in the root but not at all in the children (including not having <a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">scripts</a> in them (this creates a default <a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_TOUCH" target="_blank">CLICK_ACTION_TOUCH</a>)) the effect of the roots CLICK_ACTION_<i> is not </i>seen<i> but the CLICK_ACTION_</i> is <i>used</i> on clicking. To both use <b>and see</b> the correct cursor the CLICK_ACTION_* flags must match in the children and root.</li>
+    <li>If llSetClickAction is <a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_PAY" target="_blank">CLICK_ACTION_PAY</a> then you must have a <a href="https://wiki.secondlife.com/wiki/Money" target="_blank">money</a> event, or it will revert to <a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_NONE" target="_blank">CLICK_ACTION_NONE</a>.</li>
+    <li>While this function works or attached objects (click action can be changed), the configured click action of an attachment is ignored by the viewer (with exceptions). The viewer always* behaves as though an attached object has <a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_TOUCH" target="_blank">CLICK_ACTION_TOUCH</a> set.
+    <ul>
+      <li>The only exception to the above rule is when the chosen click action is <a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_DISABLED" target="_blank">CLICK_ACTION_DISABLED</a>, which will disable the cursor changing from the standard pointer arrow to the touch pointer.</li>
+    </ul>
+  
+    </li>
+    <li>llSetClickAction has to be called <b>before</b> an avatar clicks on an object. Calling it while an avatar is clicking (click & holding) will cause this function to silently fail. You <i>can</i> set the click action after an avatar touches an object, but bear in mind that there may be some delay before the given avatar's viewer will update due to ping times, etc.</li>
+  </ul>
+  <h2>Examples</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>make sitting easier</b></th>
+        <th><b>make unpacking for next owner easier</b></th>
+        <th><b>make buying for customers easier</b></th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+local function main()
+    ll.SetClickAction(CLICK_ACTION_SIT)
+    ll.RemoveInventory(ll.GetScriptName())
+end
+
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+default
+{
+    state_entry()
+    {
+        llSetClickAction(CLICK_ACTION_SIT);
+        llRemoveInventory(llGetScriptName());
+    }
+}
+`} lang="lsl" /></div>
+
+</td>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+local function main()
+    ll.SetClickAction(CLICK_ACTION_OPEN)
+    ll.RemoveInventory(ll.GetScriptName())
+end
+
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+default
+{
+    state_entry()
+    {
+        llSetClickAction(CLICK_ACTION_OPEN);
+        llRemoveInventory(llGetScriptName());
+    }
+}
+`} lang="lsl" /></div>
+
+</td>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+--  remember you'll have to set a price
+--  in the general tab of the edit window
+--  for your object before using this script
+
+
+local function main()
+    ll.SetClickAction(CLICK_ACTION_BUY)
+    ll.RemoveInventory(ll.GetScriptName())
+end
+
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+//  remember you'll have to set a price
+//  in the general tab of the edit window
+//  for your object before using this script
+
+
+default
+{
+    state_entry()
+    {
+        llSetClickAction(CLICK_ACTION_BUY);
+        llRemoveInventory(llGetScriptName());
+    }
+}
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  simple tipjar
+
+local function main()
+    ll.SetClickAction(CLICK_ACTION_PAY)
+
+    --  enabled edit field to put own amount, all quick-pay-buttons hidden
+    ll.SetPayPrice(PAY_DEFAULT, {PAY_HIDE, PAY_HIDE, PAY_HIDE, PAY_HIDE})
+end
+
+function LLEvents.money(id, amount)
+    local name = ll.Key2Name(id)
+
+    ll.InstantMessage(id, "Thank you for the tip, " .. name .. "!")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  simple tipjar
+
+default
+{
+    state_entry()
+    {
+        llSetClickAction(CLICK_ACTION_PAY);
+
+    //  enabled edit field to put own amount, all quick-pay-buttons hidden
+        llSetPayPrice(PAY_DEFAULT, [PAY_HIDE, PAY_HIDE, PAY_HIDE, PAY_HIDE]);
+    }
+
+    money(key id, integer amount)
+    {
+        string name = llKey2Name(id);
+
+        llInstantMessage(id, "Thank you for the tip, " + name + "!");
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--Sit Only with Permission
+
+local gAvWhitelist = {"953d10f1-44ce-462a-8bc1-f634333ee031", "599dce91-a2b8-48c5-b96d-54965433022b"}
+
+local function main()
+    ll.SitTarget(vector(0.0, 0.0, 0.5), ZERO_ROTATION)
+end
+
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_LINK) then
+        local Properties = ll.GetObjectDetails(ll.GetKey(), {OBJECT_CLICK_ACTION})
+        local Click = ll.List2Integer(Properties, 0)
+        local Av = ll.AvatarOnSitTarget()
+        if (Av ~= NULL_KEY) and (not (Click ~= 0)) then
+            ll.Say(0, "Please click first for permission to sit.")
+            ll.UnSit(Av)
+        end
+    end
+end
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local Properties = ll.GetObjectDetails(ll.GetKey(), {OBJECT_CLICK_ACTION})
+    local Click = ll.List2Integer(Properties, 0)
+    if not (Click ~= 0) and (bit32.bnot(ll.ListFindList(gAvWhitelist, {tostring(ll.DetectedKey(0))})) ~= 0) then
+        ll.SetClickAction(CLICK_ACTION_SIT)
+        ll.SetTimerEvent(10.0)
+        ll.Say(0, "Please take a seat.")
+    else
+        ll.SetClickAction(CLICK_ACTION_TOUCH)
+        if ll.AvatarOnSitTarget() ~= NULL_KEY then
+            ll.Say(0, "Good bye!")
+        else
+            ll.Say(0, "Sorry.  You are not allowed to sit here.")
+        end
+        ll.UnSit(ll.DetectedKey(0))
+    end
+end
+
+function LLEvents.timer()
+    ll.SetTimerEvent(0.0)
+    ll.SetClickAction(CLICK_ACTION_TOUCH)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Sit Only with Permission
+
+list gAvWhitelist = ["953d10f1-44ce-462a-8bc1-f634333ee031", "599dce91-a2b8-48c5-b96d-54965433022b"];
+
+default
+{
+    state_entry()
+    {
+        llSitTarget(<0.0, 0.0, 0.5>, ZERO_ROTATION);
+    }
+    
+    changed(integer change)
+    {
+        if (change & CHANGED_LINK)
+        {
+            list Properties = llGetObjectDetails(llGetKey(), [OBJECT_CLICK_ACTION]);
+            integer Click = llList2Integer(Properties, 0);
+            key Av = llAvatarOnSitTarget();
+            if ((Av != NULL_KEY) && (!Click))
+            {
+                llSay(0, "Please click first for permission to sit.");
+                llUnSit(Av);
+            }
+        }
+    }
+    touch_start(integer total_number)
+    {
+        list Properties = llGetObjectDetails(llGetKey(), [OBJECT_CLICK_ACTION]);
+        integer Click = llList2Integer(Properties, 0);
+        if (!Click && (~llListFindList(gAvWhitelist, [(string)llDetectedKey(0)])))
+        {
+            llSetClickAction(CLICK_ACTION_SIT);
+            llSetTimerEvent(10.0);
+            llSay(0, "Please take a seat.");
+        }
+        else
+        {
+            llSetClickAction(CLICK_ACTION_TOUCH);
+            if (llAvatarOnSitTarget() != NULL_KEY)
+            {
+                llSay(0, "Good bye!");
+            }
+            else
+            {
+                llSay(0, "Sorry.  You are not allowed to sit here.");
+            }
+            llUnSit(llDetectedKey(0));
+        }            
+    }
+    
+    timer()
+    {
+        llSetTimerEvent(0.0);
+        llSetClickAction(CLICK_ACTION_TOUCH);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassTouches" target="_blank">llPassTouches</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">Detected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <ul>
+    <li>When using <a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_SIT" target="_blank">CLICK_ACTION_SIT</a>, an avatar who clicks the object and sits down and then clicks the object again will fire a <a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a> event with the second click.</li>
+  </ul>
+  <p>History</p>
+  <ul>
+    <li>Introduced in SL Client 1.19.1(0)</li>
+    <li><a href="https://wiki.secondlife.com/wiki/CLICK_ACTION_ZOOM" target="_blank">CLICK_ACTION_ZOOM</a> added in SL Server 1.32 and <a href="https://wiki.secondlife.com/wiki/Viewer_2_Help" target="_blank">Viewer 2</a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetClickAction( integer action );
+integer CLICK_ACTION_ZOOM = 7;//Zoom
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

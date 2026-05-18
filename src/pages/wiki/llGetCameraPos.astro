@@ -1,0 +1,267 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetCameraPos(): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGetCameraPos();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a vector that is the current camera position for the agent the task has permissions for.</p>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRACK_CAMERA" target="_blank">PERMISSION_TRACK_CAMERA</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>camera</li>
+        <li>permissions</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_TRACK_CAMERA</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">303</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRACK_CAMERA" target="_blank">PERMISSION_TRACK_CAMERA</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRACK_CAMERA" target="_blank">PERMISSION_TRACK_CAMERA</a> permission is granted there is no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or the script is reset or deleted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Seems to act weird when the camera gets too far from the agent.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--Camera Follower Script
+--llGetCameraPos & llGetCameraRot Example
+--By Nika Rugani
+
+local perm_track = 0x400
+local second_check = 0.1
+
+local object_offset = vector(2, 0, 0)  --Offset of the cameras position where the object will set itself
+
+local die_channel = 0
+local die_command = "/die"
+
+local function quickPosRot(pos, rot)
+    --This way you don't have the 0.2 second sleeps from llSetPos and llSetRot
+    ll.SetLinkPrimitiveParamsFast(LINK_THIS, {PRIM_POSITION, pos, PRIM_ROTATION, rot})
+end
+
+function LLEvents.on_rez(a)
+    ll.ResetScript()
+end
+local function main()
+    ll.RequestPermissions(ll.GetOwner(), perm_track)
+end
+function LLEvents.run_time_permissions(permission)
+    if permission == perm_track then
+        ll.SetTimerEvent(second_check)
+        ll.Listen(die_channel, "", ll.GetOwner(), "")
+    else
+    --llResetScript(); //Remove comment to loop the process of requesting permissions if user deny's permission
+    --llDie(); //Remove comment to kill the object if user deny's it
+    end
+end
+function LLEvents.listen(channel, name, id, str)
+    str = ll.ToLower(str)
+    if str == die_command then
+        ll.Die()
+    end
+end
+function LLEvents.timer()
+    local c_pos = ll.GetCameraPos()  --Get Users Camera Position
+    local c_rot = ll.GetCameraRot()  --Get Users Camera Rotation
+    c_pos = (c_pos + object_offset * c_rot)  --Apply the offset to the position
+    quickPosRot(c_pos, c_rot)  --EXECUTE ORDER!
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Camera Follower Script
+//llGetCameraPos & llGetCameraRot Example
+//By Nika Rugani
+
+integer perm_track = 0x400;
+float second_check = 0.1;
+
+vector object_offset = <2,0,0>; //Offset of the cameras position where the object will set itself
+
+integer die_channel = 0;
+string die_command = "/die";
+
+quickPosRot(vector pos, rotation rot)
+{//This way you don't have the 0.2 second sleeps from llSetPos and llSetRot
+    llSetLinkPrimitiveParamsFast(LINK_THIS, [PRIM_POSITION, pos, PRIM_ROTATION, rot]);
+}
+
+default
+{
+    on_rez(integer a)
+    {
+        llResetScript();
+    }
+    state_entry()
+    {
+        llRequestPermissions(llGetOwner(), perm_track);
+    }
+    run_time_permissions(integer permission)
+    {
+        if(permission == perm_track)
+        {
+            llSetTimerEvent(second_check);
+            llListen(die_channel, "", llGetOwner(), "");
+        }
+        else
+        {
+            //llResetScript(); //Remove comment to loop the process of requesting permissions if user deny's permission
+            //llDie(); //Remove comment to kill the object if user deny's it
+        }
+    }
+    listen(integer channel, string name, key id, string str)
+    {
+        str = llToLower(str);
+        if(str == die_command)
+        {
+            llDie();
+        }
+    }
+    timer()
+    {
+        vector c_pos = llGetCameraPos(); //Get Users Camera Position
+        rotation c_rot = llGetCameraRot(); //Get Users Camera Rotation
+        c_pos = (c_pos+object_offset*c_rot); //Apply the offset to the position
+        quickPosRot(c_pos, c_rot); //EXECUTE ORDER!
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetCameraRot" target="_blank">llGetCameraRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraParams" target="_blank">llSetCameraParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraAtOffset" target="_blank">llSetCameraAtOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraEyeOffset" target="_blank">llSetCameraEyeOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetCameraPos()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llGetCameraPos();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

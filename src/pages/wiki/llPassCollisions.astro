@@ -1,0 +1,174 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.PassCollisions(Pass: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llPassCollisions(integer Pass);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the pass-collisions <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> attribute.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Pass / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/pass" target="_blank">pass</a></td>
+          <td>PASS_* flag&#32;</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>physics</li>
+        <li>sensor</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">166</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Whether Collisions are passed to the root prim depends not only on which PASS_* flag is selected, but may also depend on if there is a script that in the prim that handles one of the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">collision</a> events. For this reason most users will want to use <a href="https://wiki.secondlife.com/wiki/PASS_ALWAYS" target="_blank">PASS_ALWAYS</a> or <a href="https://wiki.secondlife.com/wiki/PASS_NEVER" target="_blank">PASS_NEVER</a> as they do not have this variable behavior.</p>
+  <p>The default value for this attribute is <a href="https://wiki.secondlife.com/wiki/PASS_IF_NOT_HANDLED" target="_blank">PASS_IF_NOT_HANDLED</a>.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>pass</b> Constant</th>
+        <th>Value</th>
+        <th><a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">collision</a> Script</th>
+        <th>No <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">collision</a> Script</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASS_IF_NOT_HANDLED" target="_blank">PASS_IF_NOT_HANDLED</a></td>
+        <td>0</td>
+        <td>not passed</td>
+        <td>passed</td>
+        <td><b>Default:</b> Collisions are passed if there is no script handling the event in the prim.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASS_ALWAYS" target="_blank">PASS_ALWAYS</a></td>
+        <td>1</td>
+        <td>passed</td>
+        <td>passed</td>
+        <td>Collisions are always passed to the root.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASS_NEVER" target="_blank">PASS_NEVER</a></td>
+        <td>2</td>
+        <td>not passed</td>
+        <td>not passed</td>
+        <td>Collisions are never passed to the root.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Has no known effect if called from within the root prim.</li>
+    <li>The script must be located in the prim whose pass-touch behavior is being changed; if not, the prim reverts to the default pass-touch setting.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassTouches" target="_blank">llPassTouches</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCollisionFilter" target="_blank">llCollisionFilter</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCollisionSound" target="_blank">llCollisionSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCollisionSprite" target="_blank">llCollisionSprite</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">llVolumeDetect</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Introduction: ?</li>
+    <li>Change: <a href="https://jira.secondlife.com/browse/SVC-5923" target="_blank">SVC-5923</a> - Server version 1.40.2 - New <b>pass</b> value added: 2</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llPassCollisions( integer pass );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

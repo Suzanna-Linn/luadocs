@@ -1,0 +1,198 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_ROTATION: number = 8`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_ROTATION = 8;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_ROTATION has the value 8</p>
+  <p>PRIM_ROTATION is used to get or set the prim's rotation.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">&#32;PRIM_ROTATION,&#32;[rotation</a> rot ]); </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• rotation</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+        <td>–</td>
+        <td>Any valid rotation</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_ROTATION ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank"> [rotation</a> rot ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• rotation</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+        <td>–</td>
+        <td>Any valid rotation</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Caveats</h3>
+  <ul>
+    <li><b>rot</b> is always the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#global" target="_blank">global rotation</a>, even if the prim is a child or the root prim of an <a href="https://wiki.secondlife.com/wiki/Attachment" target="_blank">attachment</a>.</li>
+    <li>PRIM_ROTATION incorrectly reports the avatars rotation when called on the root of an attached object. Use <a href="https://wiki.secondlife.com/wiki/PRIM_ROT_LOCAL" target="_blank">PRIM_ROT_LOCAL</a> for the root prim instead.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRot" target="_blank">llGetRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetRot" target="_blank">llSetRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLocalRot" target="_blank">llSetLocalRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLocalRot" target="_blank">llGetLocalRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRootRotation" target="_blank">llGetRootRotation</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    --[[ This is rotates only once and just gradually that once ]]
+    local rotationAngle = vector(2.3, 5.5, 9.7)
+    local rot = ll.Euler2Rot(rotationAngle)
+    ll.SetLinkPrimitiveParams(2, {PRIM_ROTATION, rot})
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        /* This is rotates only once and just gradually that once */
+        vector rotationAngle = <2.3, 5.5, 9.7>; 
+        rotation rot = llEuler2Rot( rotationAngle );
+        llSetLinkPrimitiveParams(2, [ PRIM_ROTATION, rot ]);
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>All Issues ~ <a href="https://secondlife.canny.io/?search=PRIM_ROTATION" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/SVC-93" target="_blank">SVC-93</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/SVC-93" target="_blank">A</a></td>
+        <td></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetRot" target="_blank">llSetRot</a> and <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> (using PRIM_ROTATION) incorrectly implemented for child prims.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_ROTATION = 8
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_ROTATION = 8;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

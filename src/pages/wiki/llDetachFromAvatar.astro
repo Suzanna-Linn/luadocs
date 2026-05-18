@@ -1,0 +1,203 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.DetachFromAvatar()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llDetachFromAvatar();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Detach object from avatar.</p>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&#32;and it must be granted by the owner.</p>
+  <p>The detached object is no longer present in the sim. There is no lsl equivilent of the "Drop" command that moves an attachment onto the ground. Use <a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a> if you need similar behavior</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>attachments</li>
+        <li>avatar</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_ATTACH</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">114</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+If <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a> is granted by anyone other than the owner, then when the function is called an error will be shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a> permission is granted there is no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or the script is reset or deleted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Only works in the root prim of the attachment; calling it from a script in a child prim will cause it to fail silently.</li>
+    <li>If the attachment was attached using <a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">llAttachToAvatarTemp</a>, the <a href="https://wiki.secondlife.com/wiki/Attach" target="_blank">attach</a>() <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> will <i>not</i> be called because the object will be destroyed before the event gets processed.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.attach(AvatarKey)
+    --give instructions for use and prevent item from being attached to avatar
+    if AvatarKey.istruthy then
+        --event is called on both attach and detatch, but Key is only valid on attach
+        ll.OwnerSay([[
+            We hope you will enjoy your purchase, 
+            but if you really want to use this item properly, you should: 
+            1) drag it from your inventory to the ground 
+            2) Right click on it and select \"open\"
+            3) copy its contents to inventory.]])
+
+        ll.RequestPermissions(AvatarKey, PERMISSION_ATTACH)
+    end
+end
+function LLEvents.run_time_permissions(perm)
+    if bit32.btest(perm, PERMISSION_ATTACH) then
+        ll.DetachFromAvatar()
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    attach(key AvatarKey)
+    {//give instructions for use and prevent item from being attached to avatar
+        if(AvatarKey)
+        {//event is called on both attach and detatch, but Key is only valid on attach
+            llOwnerSay ("
+            We hope you will enjoy your purchase, 
+            but if you really want to use this item properly, you should: 
+            1) drag it from your inventory to the ground 
+            2) Right click on it and select \"open\"
+            3) copy its contents to inventory.");
+
+            llRequestPermissions(AvatarKey, PERMISSION_ATTACH );
+        }
+    }
+    run_time_permissions(integer perm)
+    {
+        if(perm & PERMISSION_ATTACH)
+        {
+            llDetachFromAvatar( );
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>There is no way to delete an attachment with a script or to drop it to the ground.</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Attach" target="_blank">attach</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAttachToAvatar" target="_blank">llAttachToAvatar</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAttached" target="_blank">llGetAttached</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+void
+ll.DetachFromAvatar()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llDetachFromAvatar();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

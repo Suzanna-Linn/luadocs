@@ -1,0 +1,148 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetDisplayName(AvatarID: uuid): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetDisplayName(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the non-unique <a href="https://wiki.secondlife.com/wiki/Display_names" target="_blank">display name</a> of the avatar specified by <b>id</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a> or is otherwise known to the region</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">360</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>id</b> must specify a valid avatar key, present in or otherwise known to the sim in which the script is running, otherwise an empty string is returned. This function will still return a valid display name if the avatar is a child agent of the sim (i.e., in an adjacent sim, but presently able to see into the one the script is in), or for a short period after the avatar leaves the sim (specifically, when the client completely disconnects from the sim, either as a main or child agent).</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>To get around the "avatar must be present" limitation, you can use the <a href="https://wiki.secondlife.com/wiki/LlRequestDisplayName" target="_blank">llRequestDisplayName</a> function and the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event to obtain the avatar's display name from a key (this is slower).</li>
+    <li>There is no opposite function (<a href="https://wiki.secondlife.com/w/index.php?title=LlDisplayName2Key&action=edit&redlink=1" target="_blank">llDisplayName2Key</a>) available since display names are non-unique.</li>
+    <li>Either of `???` or `""` is returned if the region is unable to return display names. This can happen even if display names are enabled on the region, especially the first time a given key is checked. At least one retry may be advisable. Do not rely on this function to verify avatar presence.</li>
+    <li>It is possible for `Loading...` to be returned if called before the region has had a chance to resolve the agent's display name.
+    <ul>
+      <li>Do <i>not</i> retry failed attempts indefinitely in a loop. In a few cases, a display name or username will not be returned for as long as the avatar is in the region.</li>
+    </ul>
+  
+    </li>
+    <li><p>If you merely wish to show the agent display name in the viewer window, it may be more straightforward to use <a href="https://wiki.secondlife.com/wiki/Viewer_URI_Name_Space" target="_blank">Viewer URI Name Space</a>, e.g.:</p>
+<p><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+llSay(0, "secondlife:///app/agent/" + (string)id + "/displayname");
+`} lang="lsl" /></div>
+
+</p></li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Best viewed in Chat History (ctrl-h)
+function LLEvents.collision_start(events)  --Announce who collided
+    local a = #events
+    ll.Say(0, "llGetDisplayName: " .. ll.GetDisplayName(ll.DetectedKey(0)) .. "\nllDetectedName: " .. ll.DetectedName(0))
+end
+function LLEvents.touch_start(events)
+    local a = #events
+    ll.Say(0, "llGetDisplayName: " .. ll.GetDisplayName(ll.DetectedKey(0)) .. "\nllDetectedName: " .. ll.DetectedName(0))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Best viewed in Chat History (ctrl-h)
+default
+{
+    collision_start(integer a)//Announce who collided
+    {
+        llSay(0, "llGetDisplayName: " + llGetDisplayName(llDetectedKey(0)) +
+                 "\nllDetectedName: " + llDetectedName(0));
+    }
+    touch_start(integer a)
+    {
+        llSay(0, "llGetDisplayName: " + llGetDisplayName(llDetectedKey(0)) +
+                 "\nllDetectedName: " + llDetectedName(0));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestDisplayName" target="_blank">llRequestDisplayName</a></td>
+        <td>–</td>
+        <td>Uses the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> to request avatar information</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetUsername" target="_blank">llGetUsername</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestUsername" target="_blank">llRequestUsername</a></td>
+        <td>–</td>
+        <td>Uses the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> to request avatar information</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetDisplayName( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Hi! My name's Jerome,</p>
+<p>But you can call me Alice.</p>
+<p>Don't tell my mother.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,181 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`STATUS_CAST_SHADOWS: number = 512`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer STATUS_CAST_SHADOWS = 512;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"">Deprecated:  Not implemented.</p>
+      <p>  <p>The integer constant STATUS_CAST_SHADOWS has the value 0x200</p>
+  <p>This status flag would set an object's ability to cast <a href="https://wiki.secondlife.com/wiki/Lighting_and_shadows" target="_blank">shadows</a>.</p>
+  <p>There is no client support for this feature. [[1]](#footnote_1)</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ObjectStatusParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-deprecated">Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This has been deprecated.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">STATUS_PHYSICS</a></td>
+        <td>0x001</td>
+        <td>Object is <a href="https://wiki.secondlife.com/wiki/LSL_Glossary#physical" target="_blank">physical</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_X" target="_blank">STATUS_ROTATE_X</a></td>
+        <td>0x002</td>
+        <td>Can turn along this axis (physical objects only)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_Y" target="_blank">STATUS_ROTATE_Y</a></td>
+        <td>0x004</td>
+        <td>Can turn along this axis (physical objects only)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_Z" target="_blank">STATUS_ROTATE_Z</a></td>
+        <td>0x008</td>
+        <td>Can turn along this axis (physical objects only)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_PHANTOM" target="_blank">STATUS_PHANTOM</a></td>
+        <td>0x010</td>
+        <td>Object is <a href="https://wiki.secondlife.com/wiki/LSL_Glossary#phantom" target="_blank">phantom</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_SANDBOX" target="_blank">STATUS_SANDBOX</a></td>
+        <td>0x020</td>
+        <td>Keep object within 10 meters and in the same region</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_BLOCK_GRAB" target="_blank">STATUS_BLOCK_GRAB</a></td>
+        <td>0x040</td>
+        <td>Prevent click-and-drag movement on the root prim</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_DIE_AT_EDGE" target="_blank">STATUS_DIE_AT_EDGE</a></td>
+        <td>0x080</td>
+        <td>Delete and do not return object if it goes off world</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_RETURN_AT_EDGE" target="_blank">STATUS_RETURN_AT_EDGE</a></td>
+        <td>0x100</td>
+        <td>Return object to owner if it goes off world</td>
+      </tr>
+      <tr>
+        <td>STATUS_CAST_SHADOWS</td>
+        <td>0x200</td>
+        <td><i>not currently used</i></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_BLOCK_GRAB_OBJECT" target="_blank">STATUS_BLOCK_GRAB_OBJECT</a></td>
+        <td>0x400</td>
+        <td>Prevent click-and-drag movement on all prims in the object</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_DIE_AT_NO_ENTRY" target="_blank">STATUS_DIE_AT_NO_ENTRY</a></td>
+        <td>0x800</td>
+        <td>Delete and do not return object if it cannot enter a parcel</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetStatus" target="_blank">llSetStatus</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetStatus" target="_blank">llGetStatus</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Introduced as part of 1.9.1</p>
+  <p>All Issues ~ <a href="https://secondlife.canny.io/?search=STATUS_CAST_SHADOWS" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/VWR-20197" target="_blank">VWR-20197</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/VWR-20197" target="_blank">A</a></td>
+        <td></td>
+        <td>Restore `<a href="https://wiki.secondlife.com/wiki/PRIM_CAST_SHADOWS" target="_blank">PRIM_CAST_SHADOWS</a>` and `STATUS_CAST_SHADOWS` to work with new deferred shadow rendering</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> "that would be good, but would require a protocol change to include the information (the existing protocol does send a flag for this, but it's defunct)" &#8212; <a href="https://wiki.secondlife.com/wiki/Mesh/Archive/2011-07-18#msg_44" target="_blank">Runitai Linden, Mesh User Group, 2011-07-18 12:13</a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+STATUS_CAST_SHADOWS = 0x200
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer STATUS_CAST_SHADOWS = 0x200;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

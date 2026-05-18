@@ -1,0 +1,204 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetUnixTime(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetUnixTime();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use os.time because Int32 will wrap on 2038-01-19</span></p>
+      <p>  <p>Returns an integer that is the number of seconds elapsed since 00:00 hours, Jan 1, 1970 [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time" target="_blank">UTC</a> from the system clock (<a href="https://en.wikipedia.org/wiki/Unix_time" target="_blank">Unix time</a>).</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>time</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">316</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Time codes outside 1901-12-13 20:45:52 UTC and 2038-01-19 03:14:08 UTC cannot be represented in LSL due to its use of signed 32-bit integers for Unix times. Scripts that rely on this function after January 19, 2038 may have logical errors.
+    <ul>
+      <li>Consider <a href="https://wiki.secondlife.com/wiki/LlGetTimestamp" target="_blank">llGetTimestamp</a> instead, which will correctly report time through 2038.</li>
+      <li>Lua scripts (not including LSL scripts compiled for the Luau VM) do not have this limitation with `os.time()`, since it returns a 64-bit number and will correctly represent time through the likely heat death of the universe.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Reset tracker
+local BOOT_TIME = 0
+local function main()
+    BOOT_TIME = ll.GetUnixTime()
+    ll.SetTimerEvent(0.1)
+end
+
+function LLEvents.timer()
+    ll.SetText(tostring(ll.GetUnixTime() - BOOT_TIME) .. " Seconds since boot.\n\n ", vector(1, 0, 0), 1.0)
+    ll.SetTimerEvent(1)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Reset tracker
+integer BOOT_TIME;
+default
+{
+    state_entry()
+    {
+        BOOT_TIME = llGetUnixTime(); 
+        llSetTimerEvent(0.1);
+    }
+    
+    timer()
+    {
+        llSetText((string)(llGetUnixTime() - BOOT_TIME) + " Seconds since boot.\n\n ", <1,0,0>, 1.0);
+        llSetTimerEvent(1);
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <h3>Helper Functions:</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Unix2StampLst" target="_blank">Unix2StampLst</a></td>
+        <td>–</td>
+        <td>Converts Unix Time stamp to a list. ex: 1234567890 to [2009, 2, 13, 23, 31, 30]</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Stamp2UnixInt" target="_blank">Stamp2UnixInt</a></td>
+        <td>–</td>
+        <td>Converts date to Unix Time stamp. ex: [2009, 2, 13, 23, 31, 30] to 1234567890</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/UuLinuxTime" target="_blank">uuLinuxTime</a></td>
+        <td>–</td>
+        <td>Converts date to Unix Time stamp (from Linux kernel's sources)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Unix2WeekdayStr" target="_blank">Unix2WeekdayStr</a></td>
+        <td>–</td>
+        <td>Gets the weekday from a Unix Time stamp. ex: "Friday" from 1234567890</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Unix2PST_PDT" target="_blank">Unix2PST_PDT</a></td>
+        <td>–</td>
+        <td>Converts Unix Time stamp to an SLT date/time string with PST or PDT indication as appropriate</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Unix2GMTorBST" target="_blank">Unix2GMTorBST</a></td>
+        <td>–</td>
+        <td>Converts Unix Time stamp to a UK date/time string with GMT or BST indication as appropriate</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTimestamp" target="_blank">llGetTimestamp</a></td>
+        <td>–</td>
+        <td>Human Readable UTC Date and time</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetDate" target="_blank">llGetDate</a></td>
+        <td>–</td>
+        <td>Human Readable UTC Date</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTime" target="_blank">llGetTime</a></td>
+        <td>–</td>
+        <td>Elapsed script-time.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetUnixTime/test" target="_blank">llGetUnixTime Conformance Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetUnixTime()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetUnixTime();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Ticking time bomb waits,</p>
+<p>A few years till scripts explode—</p>
+<p>Y2K, take two!</p>
+<p><i> — ChatGPT 4</i></p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

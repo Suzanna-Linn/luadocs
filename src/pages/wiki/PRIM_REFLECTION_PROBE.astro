@@ -1,0 +1,271 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_REFLECTION_PROBE: number = 44`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_REFLECTION_PROBE = 44;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_REFLECTION_PROBE has the value 44</p>
+  <p>PRIM_REFLECTION_PROBE is used to change the reflection probe configuration of the prim.</p>
+  <p>A reflection probe is a volume used for image-based lighting (IBL). It takes an image of its surroundings and uses it as the basis for reflection effects (shiny surfaces) and ambiance effects (light bouncing).</p>
+  <p>Typically, the viewer automatically places reflection probes. Prim-based probes enable artists to provide hints to the render engine to improve the quality of image based lighting. Only objects in the probe's influence volume are affected.</p>
+  <p>Lighting is most accurate when the edges of a probe volume are near the geometry that appears in reflections. For example, objects inside a room with a box shaped reflection probe that hugs the walls, floor, and ceiling would show accurate reflections and ambient lighting from the walls of the room.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_REFLECTION_PROBE,&#32;[integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> ambiance, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> clip_distance, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flags ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> disables</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>ambiance</td>
+        <td>–</td>
+        <td>Ranges from 0.0 to 100.0. Is the brightness of lighting effects from the probe, but not reflection effects. If the environment settings has nonzero reflection probe ambiance, the effective probe ambiance is the greater of the two.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>clip_distance</td>
+        <td>–</td>
+        <td>Ranges from 0.0 to 1024.0. Is the minimum distance from the probe's center where the surroundings are included for imaging.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• integer</td>
+        <td>flags</td>
+        <td>–</td>
+        <td>PRIM_REFLECTION_PROBE_* flags</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_REFLECTION_PROBE ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> ambiance, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> clip_distance, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flags ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> disables</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>ambiance</td>
+        <td>–</td>
+        <td>Ranges from 0.0 to 100.0. Is the brightness of lighting effects from the probe, but not reflection effects. If the environment settings has nonzero reflection probe ambiance, the effective probe ambiance is the greater of the two.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>clip_distance</td>
+        <td>–</td>
+        <td>Ranges from 0.0 to 1024.0. Is the minimum distance from the probe's center where the surroundings are included for imaging.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• integer</td>
+        <td>flags</td>
+        <td>–</td>
+        <td>PRIM_REFLECTION_PROBE_* flags</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>type</b> Flags</th>
+        <th>V</th>
+        <th colspan="3">Description</th>
+        <th colspan="3">Notes</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_REFLECTION_PROBE_BOX" target="_blank">PRIM_REFLECTION_PROBE_BOX</a></td>
+        <td>1</td>
+        <td colspan="3">Determines if the reflection probe is a box or a sphere.</td>
+        <td colspan="3">Unset by default (probe is a sphere)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_REFLECTION_PROBE_DYNAMIC" target="_blank">PRIM_REFLECTION_PROBE_DYNAMIC</a></td>
+        <td>2</td>
+        <td colspan="3">Determines if avatars are included by the probe for imaging.</td>
+        <td colspan="3">Unset by default (probe does not image avatars). Imaging avatars in probes has a performance cost.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_REFLECTION_PROBE_MIRROR" target="_blank">PRIM_REFLECTION_PROBE_MIRROR</a></td>
+        <td>4</td>
+        <td colspan="3">Determines if objects intersecting the probe act as a mirror.</td>
+        <td colspan="3">Unset by default (probe does not act as a mirror). Rendering mirrors has a performance cost.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>A viewer must have reflections enabled to see the effects of reflection probes.</li>
+    <li>By default, the viewer auto-places reflection probes with 0.0 ambiance. Environment settings for the region or parcel can be adjusted to increase reflection probe ambiance for these auto-placed probes.</li>
+    <li>Automatically-placed reflection probes do not image avatars. Imaging avatars in probes has a performance cost.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetEnvironment" target="_blank">LlSetEnvironment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReplaceEnvironment" target="_blank">LlReplaceEnvironment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+  <p>Increase the prim's reflection probe ambiance when an agent is detected in the sensor range of the prim. Decrease the probe ambiance when an agent is no longer detected.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local probe_enabled = true
+local probe_no_agent_ambiance = 0.0
+local probe_agent_ambiance = 1.0
+local probe_clip_distance = 0.0
+local probe_flags = 0
+
+local function main()
+    local sensor_type = AGENT
+    local sensor_range = 3.0
+    local sensor_rate = 5.0
+    ll.SensorRepeat("", "", sensor_type, sensor_range, PI, sensor_rate)
+end
+
+function LLEvents.sensor(events)
+    local num_detected = #events
+    ll.SetPrimitiveParams({PRIM_REFLECTION_PROBE, if probe_enabled then 1 else 0, probe_agent_ambiance, probe_clip_distance, probe_flags})
+end
+
+function LLEvents.no_sensor()
+    ll.SetPrimitiveParams({PRIM_REFLECTION_PROBE, if probe_enabled then 1 else 0, probe_no_agent_ambiance, probe_clip_distance, probe_flags})
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer probe_enabled = TRUE;
+float probe_no_agent_ambiance = 0.0;
+float probe_agent_ambiance = 1.0;
+float probe_clip_distance = 0.0;
+integer probe_flags = 0;
+
+default
+{
+    state_entry()
+    {
+        integer sensor_type = AGENT;
+        float sensor_range = 3.0;
+        float sensor_rate = 5.0;
+        llSensorRepeat("", "", sensor_type, sensor_range, PI, sensor_rate);
+    }
+
+    sensor(integer num_detected)
+    {
+        llSetPrimitiveParams([PRIM_REFLECTION_PROBE, probe_enabled, probe_agent_ambiance, probe_clip_distance, probe_flags]);
+    }
+    
+    no_sensor()
+    {
+        llSetPrimitiveParams([PRIM_REFLECTION_PROBE, probe_enabled, probe_no_agent_ambiance, probe_clip_distance, probe_flags]);
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_REFLECTION_PROBE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_REFLECTION_PROBE = 44
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_REFLECTION_PROBE = 44;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

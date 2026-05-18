@@ -1,0 +1,136 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetMemoryLimit(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetMemoryLimit();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Get the maximum memory a script can use.</p>
+  <p>Returns the integer amount of memory the script can use in bytes.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">370</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>Mono
+Gets the memory limit for the script.</p>
+  <ul>
+    <li>The memory limit can be up to 64k.</li>
+    <li>The default memory limit is 64k[[1]](#footnote_1).</li>
+    <li>The memory limit is not the amount of real memory actually used by the script, just the upper limit on how much it could use.</li>
+  </ul>
+  <p>LSO
+LSO scripts will always use exactly 16k</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.SetMemoryLimit(4000)  -- set the memory limit
+
+    -- display memory usage...
+    ll.Say(0, "Memory used: " .. tostring(ll.GetFreeMemory()) .. " bytes, total memory: " .. tostring(ll.GetMemoryLimit()) .. " bytes.")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSetMemoryLimit( 4000 ); // set the memory limit
+        
+        // display memory usage...
+        llSay(0, "Memory used: " + (string)llGetFreeMemory() + " bytes, total memory: " + 
+            (string)llGetMemoryLimit() + " bytes." );
+    }
+}
+
+// outputs 
+// Object: Memory used: 124 bytes, total memory: 4000 bytes.`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetMemoryLimit" target="_blank">llSetMemoryLimit</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetFreeMemory" target="_blank">llGetFreeMemory</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetUsedMemory" target="_blank">llGetUsedMemory</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.08.10.238207" target="_blank"> 10/08/2011 </a></p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Prior to scripts being able to set their own limit, the limit was set to 64k</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetMemoryLimit()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetMemoryLimit();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

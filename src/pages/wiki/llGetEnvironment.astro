@@ -1,0 +1,424 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetEnvironment(Position: vector, EnvParams: {number}): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llGetEnvironment(vector Position, list EnvParams);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a list containing the current environment values for the parcel or region as a list of attributes. Takes a list of attributes to retrieve in params and returns them in the order requested.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td>A position in region coordinates. X and Y are in region coordinates and determine the parcel. If X and Y are both -1, the environment for the region is inspected. Z is the altitude in the region and determines which sky track is accessed.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{number}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>EnvParams / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/params" target="_blank">params</a></td>
+          <td>A list of parameters to retrieve from the current environment.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>parcel</li>
+        <li>parcel_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">711</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If an unknown rule is encountered in the parameter list an error is sent to the debug channel.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>parameter</th>
+        <th>integer value</th>
+        <th>return values</th>
+        <th>description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_TRACKS&action=edit&redlink=1" target="_blank">SKY_TRACKS</a></td>
+        <td>15</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> sky2, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> sky3, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> sky4</td>
+        <td>Altitudes for sky transitions in the region.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_AMBIENT&action=edit&redlink=1" target="_blank">SKY_AMBIENT</a></td>
+        <td>0</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> ambient_color</td>
+        <td>The ambient color of the environment.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_TEXTURE_DEFAULTS&action=edit&redlink=1" target="_blank">SKY_TEXTURE_DEFAULTS</a></td>
+        <td>1</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> bloom_is_default, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> halo_is_default, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> rainbow_is_default</td>
+        <td>Checks if the textures are currently set to use the default. For default values, the returned integer is 1. If the texture uses something other than the default, the returned value is 0.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_CLOUDS&action=edit&redlink=1" target="_blank">SKY_CLOUDS</a></td>
+        <td>2</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> coverage, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> scale, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> variance, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> scroll, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> density, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> detail, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> is_default</td>
+        <td>Environmental cloud information.
+color: The color used for the clouds.
+coverage: The coverage percentage.
+scale: The scaling applied to the cloud textures.
+variance: A randomizing factor applied to the main cloud layer
+scroll: The scroll speed of the clouds.
+X is east/west
+Y is north/south
+Z is unused
+density: The X/Y and D parameter used to generate cloud density
+detail: The X/Y and D parameter used to generate cloud details.
+is_default: 1 if the clouds are using the default texture.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_DOME&action=edit&redlink=1" target="_blank">SKY_DOME</a></td>
+        <td>4</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> offset, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> radius, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> max_altitude</td>
+        <td>Sky dome information.
+offset
+radius
+maximum altitude</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_GAMMA&action=edit&redlink=1" target="_blank">SKY_GAMMA</a></td>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> gamma</td>
+        <td>The gamma value applied to the scene.
+In viewer versions 7.0+, this value has been repurposed into the "HDR Scale" value in the EEP editor. (Thus, this will return the value of the HDR Scale slider).</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_GLOW&action=edit&redlink=1" target="_blank">SKY_GLOW</a></td>
+        <td>6</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> glow_size, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> glow_focus</td>
+        <td>Glow applied to the sun and moon.
+size of glow effect
+focus of glow effect</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_MOON&action=edit&redlink=1" target="_blank">SKY_MOON</a></td>
+        <td>9</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a> rot, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> scale, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> brightness, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> is_default_texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> direction, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> ambient_color, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> diffuse_color</td>
+        <td>Detailed moon information
+rot: The current rotation applied to the moon.
+scale: The current scale applied to the moon's texture
+brightness: The moon's brightness
+is_default_texture: 1 if the moon texture is set to the default. 0 otherwise
+direction: A unit vector pointing at the moon.
+ambient_color: The ambient color of the moon
+diffuse_color: The diffuse color applied to the moon.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_STAR_BRIGHTNESS&action=edit&redlink=1" target="_blank">SKY_STAR_BRIGHTNESS</a></td>
+        <td>13</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> brightness</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_SUN&action=edit&redlink=1" target="_blank">SKY_SUN</a></td>
+        <td>14</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a> rot, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> scale, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> sun_color, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> is_default_texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> direction, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> ambient_color, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> diffuse_color</td>
+        <td>Detailed sun information
+rot: The current rotation applied to the sun.
+scale: The current scale applied to the sun's texture
+sun_color:
+is_default_texture: 1 if the sun texture is set to the default. 0 otherwise
+direction: A unit vector pointing at the sun.
+ambient_color: The ambient color of the sun.
+diffuse_color: The diffuse color applied to the sun.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_PLANET&action=edit&redlink=1" target="_blank">SKY_PLANET</a></td>
+        <td>10</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> planet_radius, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> sky_bottom_radius, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> sky_top_radius</td>
+        <td>Planet information used in rendering the sky
+planet_radius
+sky_bottom_radius
+sky_top_radius</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_REFRACTION&action=edit&redlink=1" target="_blank">SKY_REFRACTION</a></td>
+        <td>11</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> moisture_level, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> droplet_radius, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> ice_level</td>
+        <td>Sky refraction parameters for rainbows and optical effects.
+moisture_level
+droplet_radius
+ice_level</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_LIGHT&action=edit&redlink=1" target="_blank">SKY_LIGHT</a></td>
+        <td>8</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> light_direction, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> fade_color, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> total_ambient</td>
+        <td>Miscellaneous lighting values
+light_direction: A unit vector indicating the direction of the dominant light source.
+fade_color: A color vector representing the current color of the light emitted from the dominant light source (in sRGB space).
+total_ambient: A color vector representing the current ambient color in use in the scene (in sRGB space).</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SKY_REFLECTION_PROBE_AMBIANCE&action=edit&redlink=1" target="_blank">SKY_REFLECTION_PROBE_AMBIANCE</a></td>
+        <td>24</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> ambiance</td>
+        <td>Minimum ambiance value for all <a href="https://wiki.secondlife.com/wiki/PRIM_REFLECTION_PROBE" target="_blank">reflection probes</a>.
+range = [0.0, 10.0]
+<b>Caveat:</b> This parameter will be supported in the upcoming GLTF Materials project. Currently it will only work in supported testing areas with a supported test viewer.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=WATER_BLUR_MULTIPLIER&action=edit&redlink=1" target="_blank">WATER_BLUR_MULTIPLIER</a></td>
+        <td>100</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> multiplier</td>
+        <td>Multiplier applied to blur the scene when under water.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=WATER_FOG&action=edit&redlink=1" target="_blank">WATER_FOG</a></td>
+        <td>101</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> , <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> density, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> modulation</td>
+        <td>Fog parameters applied when underwater
+color: The color of the underwater fog
+density: Density exponent applied to the fog
+modulation:</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=WATER_FRESNEL&action=edit&redlink=1" target="_blank">WATER_FRESNEL</a></td>
+        <td>102</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> offset, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> scale</td>
+        <td>Fresnel scattering applied to the surface of the water.
+offset
+scale</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=WATER_TEXTURE_DEFAULTS&action=edit&redlink=1" target="_blank">WATER_TEXTURE_DEFAULTS</a></td>
+        <td>103</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> normal_is_default, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> transparent_is_default</td>
+        <td>Checks if the textures are currently set to use the default. For default values the returned integer is 1, if the texture uses something other than the default this value is 0.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=WATER_NORMAL_SCALE&action=edit&redlink=1" target="_blank">WATER_NORMAL_SCALE</a></td>
+        <td>104</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> scale</td>
+        <td>Scaling applied to the water normal map.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=WATER_REFRACTION&action=edit&redlink=1" target="_blank">WATER_REFRACTION</a></td>
+        <td>105</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> scale_above, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> scale_below</td>
+        <td>Refraction factors when looking through the surface of the water.
+scale_above
+scale_below</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=WATER_WAVE_DIRECTION&action=edit&redlink=1" target="_blank">WATER_WAVE_DIRECTION</a></td>
+        <td>106</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> large_wave, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> small_wave</td>
+        <td>Vector for the directions of the waves Y represents north/south and X represents movement east/west.
+large_wave: Large wave speed and direction.
+small_wave: Small wave speed and direction.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=ENVIRONMENT_DAYINFO&action=edit&redlink=1" target="_blank">ENVIRONMENT_DAYINFO</a></td>
+        <td>200</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> day_length, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> day_offset, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> secs_since_midnight</td>
+        <td>Current time and day information
+day_length: Number of seconds in the environments day cycle.
+day_offset: Number of seconds day cycle is offset from GMT.
+secs_since_midnight: Number of seconds elapsed since the last day cycle midnight.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If the script can not run in the requested parcel, this function returns an empty list and issues a warning in the debug channel.</li>
+    <li><a href="https://wiki.secondlife.com/w/index.php?title=SKY_LIGHT&action=edit&redlink=1" target="_blank">SKY_LIGHT</a>'s param <i>fade_color</i> does not return a clamped value, meaning an unusually bright scene will cause it to return an out-of-bounds color. (This can be fixed by clamping the value manually, but this should really return a clamped value).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    local environment = ll.GetEnvironment(ll.GetPos(), {SKY_TRACKS, SKY_AMBIENT, SKY_CLOUDS})
+    ll.OwnerSay(ll.DumpList2String(environment, ", "))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        list environment = llGetEnvironment(llGetPos(), [SKY_TRACKS, SKY_AMBIENT, SKY_CLOUDS]);
+        llOwnerSay(llDumpList2String(environment, ", "));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReplaceAgentEnvironment" target="_blank">llReplaceAgentEnvironment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetAgentEnvironment" target="_blank">llSetAgentEnvironment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetSunDirection" target="_blank">llGetSunDirection</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionSunDirection" target="_blank">llGetRegionSunDirection</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetMoonDirection" target="_blank">llGetMoonDirection</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionMoonDirection" target="_blank">llGetRegionMoonDirection</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetSunRotation" target="_blank">llGetSunRotation</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionSunRotation" target="_blank">llGetRegionSunRotation</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetMoonRotation" target="_blank">llGetMoonRotation</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionMoonRotation" target="_blank">llGetRegionMoonRotation</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetDayLength" target="_blank">llGetDayLength</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionDayLength" target="_blank">llGetRegionDayLength</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetDayOffset" target="_blank">llGetDayOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionDayOffset" target="_blank">llGetRegionDayOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTimeOfDay" target="_blank">llGetTimeOfDay</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionTimeOfDay" target="_blank">llGetRegionTimeOfDay</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">Color in LSL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">Color in LSL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llGetEnvironment( vector pos, list params );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

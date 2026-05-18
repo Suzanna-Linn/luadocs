@@ -1,0 +1,131 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Rot2Left(Rotation: rotation): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llRot2Left(rotation Rotation);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use quaternion.toleft</span></p>
+      <p>  <p>Computes the orientation of the local y-axis relative to the parent (i.e. relative to the root prim or the world).</p>
+  <p>Returns a vector that is the left vector defined by <b>q</b>, i.e. a unit vector pointing in the local positive Y direction</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>Rotation / q</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_3d</li>
+        <li>math_trig</li>
+        <li>quaternion</li>
+        <li>vector</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">19</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>Mathematically equivalent to:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`ret = llVecNorm(<0., 1., 0.> * q);`} lang="lsl" /></div>
+  <p>If <b>q</b> is known to be a unit quaternion then it can be simplified as:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`ret = <0., 1., 0.> * q;`} lang="lsl" /></div>
+  <p>Keep in mind that object and agent rotations will always be unit quaternions. For example, <0.0, 1.0, 0.0>*llGetRot() is about 25-30% faster than llRot2Left(llGetRot()) depending on the VM used. If done often and at extremely fast rates, it can be advantageous to even save <0.0, 1.0, 0.0> to a local/global variable and reuse it.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Move an object 5 metres forwards along its own y axis, when touched, no matter how the object is oriented in world.
+-- Works for a root or child prim
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local v = ll.Rot2Left(ll.GetLocalRot())
+    ll.SetPos(ll.GetLocalPos() + v * 5)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Move an object 5 metres forwards along its own y axis, when touched, no matter how the object is oriented in world.
+// Works for a root or child prim
+default
+{
+    touch_start(integer total_number)
+    {
+        vector v = llRot2Left( llGetLocalRot() );
+        llSetPos( llGetLocalPos() + v * 5 );
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Can be useful to identify the orientation of the local [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/sagittal_plane" target="_blank">sagittal-plane</a> of the prim, since it's y-axis is always perpendicular to this local sagittal-plane.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Up" target="_blank">llRot2Up</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Fwd" target="_blank">llRot2Fwd</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Axis" target="_blank">llRot2Axis</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Angle" target="_blank">llRot2Angle</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llRot2Left( rotation q );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

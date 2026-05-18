@@ -1,0 +1,220 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ExecCharacterCmd(Command: number, Options: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llExecCharacterCmd(integer Command, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Send a command to the pathing system.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Command / command</td>
+          <td>Command to be sent.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">options</a></td>
+          <td>`CHARACTER_CMD_*`</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>pathfinding</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">404</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Currently only supports stopping the current pathfinding operation or causing the character to jump.</p>
+  <p>Command</p>
+  <p>Value</p>
+  <p>Description & Required Parameters</p>
+  <p>CHARACTER_CMD_JUMP</p>
+  <p>0x1</p>
+  <p>Makes the character jump.</p>
+  <p>The option list is required to start with a height parameter: <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">[float</a> height]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• float</td>
+        <td>height</td>
+        <td>–</td>
+        <td>height to jump, between 0.1m and 2.0m</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>CHARACTER_CMD_SMOOTH_STOP</p>
+  <p>0x2</p>
+  <p>Stops any current pathfinding operation in a smooth like fashion.</p>
+  <p>CHARACTER_CMD_STOP</p>
+  <p>0x0</p>
+  <p>Stops any current pathfinding operation.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If another script in the same object issues <a href="https://wiki.secondlife.com/w/index.php?title=CHARACTER_CMD_STOP&action=edit&redlink=1" target="_blank">CHARACTER_CMD_STOP</a> then pathing in all scripts is cancelled.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+local patrol = ZERO_VECTOR
+local default, awake, sleep = {}, {}, {}
+
+function default.state_entry()
+    patrol = ll.GetPos()
+    ll.CreateCharacter({CHARACTER_MAX_SPEED, 25, CHARACTER_DESIRED_SPEED, 15.0})
+    state(awake)
+end
+
+function awake.state_entry()
+    ll.Say(0, "I am guarding now")
+    local points = {patrol + vector(5, 0, 0), patrol - vector(5, 0, 0)}
+    ll.PatrolPoints(points, {})
+end
+
+function awake.touch_start(events)
+    local total_number = #events
+    state(sleep)
+end
+
+function sleep.state_entry()
+    ll.Say(0, "Going to sleep")
+    ll.ExecCharacterCmd(CHARACTER_CMD_SMOOTH_STOP, {})
+end
+
+function sleep.touch_start(events)
+    local total_number = #events
+    patrol = ll.GetPos()
+    --Jump to attention!
+    ll.ExecCharacterCmd(CHARACTER_CMD_JUMP, {0.5})
+    state(awake)
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector patrol;
+ 
+default
+{
+    state_entry()
+    {
+        patrol = llGetPos();
+        llCreateCharacter([CHARACTER_MAX_SPEED, 25, CHARACTER_DESIRED_SPEED, 15.0]);
+        state awake;
+    }
+}
+ 
+state awake
+{
+    state_entry()
+    {
+        llSay(0, "I am guarding now");
+        list points = [patrol + <5,0,0>, patrol - <5,0,0>];
+        llPatrolPoints(points, []);
+    }
+ 
+    touch_start(integer total_number)
+    {
+        state sleep;
+    }
+}
+ 
+state sleep
+{
+    state_entry()
+    {
+        llSay(0, "Going to sleep");
+        llExecCharacterCmd(CHARACTER_CMD_SMOOTH_STOP, []);
+    }
+ 
+    touch_start(integer total_number)
+    {
+        patrol = llGetPos();
+        //Jump to attention!
+        llExecCharacterCmd(CHARACTER_CMD_JUMP, [0.5]);
+        state awake;
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a></li>
+  </ul>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDeleteCharacter" target="_blank">llDeleteCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlEvade" target="_blank">llEvade</a></li>
+    <li>llExecCharacterCmd</li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetClosestNavPoint" target="_blank">llGetClosestNavPoint</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlFleeFrom" target="_blank">llFleeFrom</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlNavigateTo" target="_blank">llNavigateTo</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPatrolPoints" target="_blank">llPatrolPoints</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlUpdateCharacter" target="_blank">llUpdateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlWanderWithin" target="_blank">llWanderWithin</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.31.262785" target="_blank"> 31/07/2012 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llExecCharacterCmd( integer command, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

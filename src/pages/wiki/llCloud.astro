@@ -1,0 +1,123 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Cloud(Offset: vector): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llCloud(vector Offset);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"">Deprecated: </p>
+      <p>  <p>Returns a float that is the cloud density at the <a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">prim position</a> + <b>offset</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Offset / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/offset" target="_blank">offset</a></td>
+          <td>offset relative to the prim's position and expressed in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">43</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-deprecated">Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Only the <b>x</b> and <b>y</b> coordinates in <b>offset</b> are important, the <b>z</b> component is ignored.</p>
+  <p>Returned values are in the range [0.0, 2.0][[1]](#footnote_1). Values above 1.0 indicate rain.</p>
+  <h2>Specification</h2>
+  <p>SL features a <a href="http://web.archive.org/web/20040703050532/http://secondlife.com/about/technology.php#14" target="_blank">cellular automata-based</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Weather" target="_blank">weather</a> system. There are 16x16 square cloud "cells" per <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function has been deprecated.</li>
+    <li>There are currently no SecondLife clients that render rain.</li>
+    <li>The client attempts to render clouds from the cloud algorithm results sent from the server, which is why different clients can see different cloud formations and de-synchronizes cloud view from the server over time. The cloud density data is sent from the server to the client when the region is loaded by the client. This can happen when the region comes into view, during teleport or during login.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local num = #events
+    ll.Say(0, "Cloud density:" .. tostring(ll.Cloud(ZERO_VECTOR)))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num)
+    {
+        llSay(0,"Cloud density:" + (string)llCloud(ZERO_VECTOR));
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Clouds and <a href="https://wiki.secondlife.com/wiki/LlWind" target="_blank">wind</a> are interrelated.</p>
+  <h3>Client</h3>
+  <p>Clouds are always rendered between about 180-200m absolute height.</p>
+  <h3>Algorithm</h3>
+  <p>The cloud seed/growth/dissipation algorithm uses a solenoidal vector field, which is a vector field with zero-divergence: ∇ · v = 0</p>
+  <p>This condition is satisfied whenever v has a vector potential A, because if v = ∇ ⨯ A then ∇ · v = ∇ · (∇ ⨯ A) = 0</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlWind" target="_blank">llWind</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetSunDirection" target="_blank">llGetSunDirection</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Deprecated in <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/13#13.02.08.270166" target="_blank">13.02.08.270166</a>.</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llCloud( vector offset );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

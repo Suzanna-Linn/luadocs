@@ -1,0 +1,130 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Log10(Value: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llLog10(float Value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.log10 because Double precision; fastcall.</span></p>
+      <p>  <p>Returns a float that is the base 10 [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/logarithm" target="_blank">logarithm</a> of <b>val</b>.</p>
+  <p>If <b>val</b> <= 0 return zero instead.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Value / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/val" target="_blank">val</a></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">264</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To get the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/natural_logarithm" target="_blank">natural logarithm</a> use <a href="https://wiki.secondlife.com/wiki/LlLog" target="_blank">llLog</a>.</p>
+  <p>llLog10 should only be used where the base 10 log is needed, all other applications should use <a href="https://wiki.secondlife.com/wiki/LlLog" target="_blank">llLog</a> instead.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local num1 = ll.Frand(100.0)
+
+    ll.OwnerSay("The base 10 logarithm of " .. tostring(num1) .. " is " .. tostring(ll.Log10(num1)))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+  state_entry()
+  {
+    float num1 = llFrand(100.0);
+
+    llOwnerSay("The base 10 logarithm of " + (string)num1 + " is " + (string)llLog10(num1));
+  }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>There are only two log functions <a href="https://wiki.secondlife.com/wiki/LlLog" target="_blank">llLog</a> and llLog10. Errors introduced as a result of floating-point arithmetic are most noticable when working with logarithms. <a href="https://wiki.secondlife.com/wiki/LlLog" target="_blank">llLog</a> should be used instead of llLog10 when converting the base of the logarithm.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local LogBaseN = ll.Log(value) / ll.Log(Base)  --This technique introduces errors but is the only way`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float LogBaseN = llLog(value) / llLog(Base); //This technique introduces errors but is the only way`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLog" target="_blank">llLog</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPow" target="_blank">llPow</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSqrt" target="_blank">llSqrt</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Logarithm" target="_blank">Logarithm</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llLog10( float val );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

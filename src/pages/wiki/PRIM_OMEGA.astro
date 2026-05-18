@@ -1,0 +1,216 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_OMEGA: number = 32`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_OMEGA = 32;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_OMEGA has the value 32</p>
+  <p>Used to make the object spin at the specified axis and rate, or retrieve spin settings. See <a href="https://wiki.secondlife.com/wiki/LlTargetOmega" target="_blank">llTargetOmega</a> for specification.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">&#32;PRIM_OMEGA,&#32;[vector</a> axis, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> spinrate, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> gain ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td>axis</td>
+        <td>–</td>
+        <td>arbitrary axis to rotate the object around</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>spinrate</td>
+        <td>–</td>
+        <td>rate of rotation in radians per second</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>gain</td>
+        <td>–</td>
+        <td>also modulates the final spinrate and disables the rotation behavior if zero</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_OMEGA ]); </b></p>
+  <p>Returns the <a href="https://wiki.secondlife.com/wiki/List" target="_blank">list</a> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> [vector</a> axis, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> spinrate, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> gain ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td>axis</td>
+        <td>–</td>
+        <td>arbitrary axis to rotate the object around</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>spinrate</td>
+        <td>–</td>
+        <td>rate of rotation in radians per second</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>gain</td>
+        <td>–</td>
+        <td>also modulates the final spinrate and disables the rotation behavior if zero</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>PRIM_OMEGA on nonphysical objects, and child prims of physical objects, is only a client side effect; the object or prim will collide as non-moving geometry.</li>
+    <li>PRIM_OMEGA cannot be used on avatars sitting on the object. It will emit the error message "PRIM_OMEGA disallowed on agent".</li>
+    <li>If PRIM_OMEGA does not appear to be working, make sure that that Develop > Network > Velocity Interpolate Objects is enabled on the viewer.</li>
+    <li>In the parameters returned by `llGetPrimitiveParams([PRIM_OMEGA])`, the vector is normalized, and the spinrate is multiplied by the magnitude of the original vector.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTargetOmega" target="_blank">llTargetOmega</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Set this prim rotating
+ll.TargetOmega(vector(1.0, 3.0, 0.5), TWO_PI, 1.0)
+
+-- Read back this prim's current target omega
+local current_omega = ll.GetPrimitiveParams({PRIM_OMEGA})  -- returns [axis, spinrate, gain]
+local axis = ll.List2Vector(current_omega, 0)  -- Should be llVecNorm(<1.0,3.0,0.5>)
+local spinrate = ll.List2Float(current_omega, 1)  -- Should be TWO_PI*llVecMag(<1.0,3.0,0.5>)
+local gain = ll.List2Float(current_omega, 2)  -- Should be 1.0
+
+-- Set all child prims rotating
+ll.SetLinkPrimitiveParamsFast(LINK_ALL_CHILDREN, {PRIM_OMEGA, vector(1.0, 3.0, 0.5), TWO_PI, 1.0})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Set this prim rotating
+llTargetOmega(<1.0,3.0,0.5>, TWO_PI, 1.0);
+
+// Read back this prim's current target omega
+list current_omega = llGetPrimitiveParams([PRIM_OMEGA]); // returns [axis, spinrate, gain]
+vector axis = llList2Vector(current_omega, 0); // Should be llVecNorm(<1.0,3.0,0.5>)
+float spinrate = llList2Float(current_omega, 1); // Should be TWO_PI*llVecMag(<1.0,3.0,0.5>)
+float gain = llList2Float(current_omega, 2); // Should be 1.0
+
+// Set all child prims rotating
+llSetLinkPrimitiveParamsFast(LINK_ALL_CHILDREN, [PRIM_OMEGA, <1.0,3.0,0.5>, TWO_PI, 1.0]);`} lang="lsl" /></div>
+  <p>Also, can use llSetPrimitiveParams for the root prim.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- will need two prims linked together for this script.
+local function main()
+    -- make some sort of rotation angle for the omega...
+    local rotationAngle = vector(2.3, 5.5, 9.7) * ll.Tan(85)
+
+    -- rotate the main prim slowly using the same rotataion angle, rate, and gain...
+    ll.SetPrimitiveParams({PRIM_OMEGA, rotationAngle * 0.3, 1.0, 1.0})
+
+    -- rotate the link satellite prim separately around its own axis 
+    -- it will rotate also around the main prim because the main prim is rotating.
+    ll.SetLinkPrimitiveParams(2, {PRIM_OMEGA, rotationAngle, 1.0, 1.0})
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// will need two prims linked together for this script.
+default
+{
+    state_entry()
+    {
+        // make some sort of rotation angle for the omega...
+        vector rotationAngle = <2.3, 5.5, 9.7> * llTan(85); 
+        
+        // rotate the main prim slowly using the same rotataion angle, rate, and gain...
+        llSetPrimitiveParams([ PRIM_OMEGA, rotationAngle * 0.3, 1.0, 1.0 ]);
+        
+        // rotate the link satellite prim separately around its own axis 
+        // it will rotate also around the main prim because the main prim is rotating.
+        llSetLinkPrimitiveParams(2, [ PRIM_OMEGA, rotationAngle, 1.0, 1.0 ]);
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Introduced in <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_RC_BlueSteel/11#11.06.20.233291" target="_blank">Second Life RC BlueSteel 11.06.20.233291</a>, June 22, 2011</li>
+    <li>Rolled to main server channel the week of 7/11/2011</li>
+  </ul>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_OMEGA" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_OMEGA = 32
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_OMEGA = 32;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,203 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ReturnObjectsByID(ObjectIDs: {uuid}): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llReturnObjectsByID(list ObjectIDs);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>If the script is owned by an agent, <a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a> may be granted by the owner. If the script is owned by a group, this permission may be granted by an agent belonging to the group's "Owners" role.</p>
+  <p>Returns an integer that is the number of objects successfully returned to their owners or an <a href="#Error_Flags" target="_blank">ERR_*</a> flag.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{uuid}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>ObjectIDs / objects</td>
+          <td>list of object <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">uuids</a> (keys)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>land_moderation</li>
+        <li>rez</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_RETURN_OBJECTS</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">520</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>.</p>
+  <p>If the return value is negative, it represents an <a href="#Error_Flags" target="_blank">error</a> flag.</p>
+  <h2>Specification</h2>
+  <p>Script Owner and Scope</p>
+  <p>If the script is owned by an estate owner or manager, this function works for objects located on any parcel in the region. Otherwise, the script can return objects located over land owned by the owner of the script.</p>
+  <p>As a security measure, parcel owner, estate owner, and estate managers can not have their objects returned by this method, except when the object returns itself.</p>
+  <p>Throttle</p>
+  <p>Throttled at max parcel land impact capacity region-wide per hour.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Error Flags</th>
+        <th></th>
+        <th colspan="6">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ERR_GENERIC" target="_blank">ERR_GENERIC</a></td>
+        <td>-1</td>
+        <td>A nebulous and inexplicable error, nothing is known about it.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ERR_PARCEL_PERMISSIONS" target="_blank">ERR_PARCEL_PERMISSIONS</a></td>
+        <td>-2</td>
+        <td>Permission lacked to perform task on specified parcel.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ERR_MALFORMED_PARAMS" target="_blank">ERR_MALFORMED_PARAMS</a></td>
+        <td>-3</td>
+        <td>Parameters are malformed.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ERR_RUNTIME_PERMISSIONS" target="_blank">ERR_RUNTIME_PERMISSIONS</a></td>
+        <td>-4</td>
+        <td>Script lacks the runtime permission to perform the requested task.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ERR_THROTTLED" target="_blank">ERR_THROTTLED</a></td>
+        <td>-5</td>
+        <td>Task has been throttled. Try again later.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a> permission is granted there is no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or the script is reset or deleted.
+While anyone may grant <a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a> this function will only work properly if one of the following is true:
+The land is owned by the prim owner and this permission has been granted by the land owner.
+The land is group owned and this permission has been granted by a group member filling the group "Owners" role.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Objects owned by other groups will be returned to their previous owner if the object is transferable, deleted otherwise.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReturnObjectsByOwner" target="_blank">llReturnObjectsByOwner</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelPrimOwners" target="_blank">llGetParcelPrimOwners</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDie" target="_blank">llDie</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/13#13.06.18.277494" target="_blank"> 18/06/2013 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llReturnObjectsByID( list objects );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

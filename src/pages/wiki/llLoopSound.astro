@@ -1,0 +1,145 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LoopSound(Sound: string|uuid, Volume: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llLoopSound(string Sound, float Volume);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Plays attached <b>sound</b> looping indefinitely at <b>volume</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Sound / sound</td>
+          <td>a sound in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a sound</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Volume / volume</td>
+          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>volume</b> <&#61; 1.0`)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>sound</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">87</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>sound</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a sound then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>sound</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>A call to llLoopSound replaces any other sound (so that only one sound can be played at the same time from the same prim, except sounds started with the deprecated <a href="https://wiki.secondlife.com/wiki/LlSound" target="_blank">llSound</a> which always plays sound files till the end. An object can play 2 sounds with llLoopSound if the function is called from different prims</li>
+    <li>If a second call to loop the same sound at a different volume is made from within the same script NO volume change is made.
+    <ul>
+      <li><a href="https://wiki.secondlife.com/wiki/LlStopSound" target="_blank">llStopSound</a> set just previous to the second call for a new volume allows the volume change with no discernible pause.</li>
+    </ul>
+  
+    </li>
+    <li>When call made from HUD attachment sound is only heard by agent the task is attached to.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LoopSound("ambient.wav", 0.5)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llLoopSound("ambient.wav", 0.5);`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSoundMaster" target="_blank">llLoopSoundMaster</a></td>
+        <td>–</td>
+        <td>Plays a sound attached indefinitely.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSoundSlave" target="_blank">llLoopSoundSlave</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStopSound" target="_blank">llStopSound</a></td>
+        <td>–</td>
+        <td>Stops playing a looped sound.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPlaySound" target="_blank">llPlaySound</a></td>
+        <td>–</td>
+        <td>Plays a sound attached once.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSound" target="_blank">llTriggerSound</a></td>
+        <td>–</td>
+        <td>Plays a sound unattached.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSoundLimited" target="_blank">llTriggerSoundLimited</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llLoopSound Added in <a href="http://secondlife.wikia.com/wiki/Version_0.2.0" target="_blank">SL 0.2.0</a>[[1]](#footnote_1)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llLoopSound( string sound, float volume );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

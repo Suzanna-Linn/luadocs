@@ -1,0 +1,134 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetRootRotation(): rotation`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation llGetRootRotation();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a rotation that is the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> rotation of the root prim of the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>linkset</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">269</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Returns an accurate facing for Avatars seated or in mouselook, but only a rough direction otherwise when called from an attached prim.</li>
+    <li>When a seated avatar is in mouselook, its rotation is affected by the camera's rotation. There is no way to get the actual rotation of an avatar while seated in mouselook.</li>
+    <li>This function incorrectly (but usefully) returns the avatars region rotation when called in an attachment, use the following instead:</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--  if called only from the root
+ll.GetLocalRot()
+--  if called from in a linked object
+ll.List2Rot(ll.GetLinkPrimitiveParams(LINK_ROOT, {PRIM_ROT_LOCAL}), 0)
+--  this alternative works correctly in all scenarios
+ll.List2Rot(ll.GetLinkPrimitiveParams(if ll.GetLinkNumber() == 0 then 0 else 1, {PRIM_ROT_LOCAL}), 0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  if called only from the root
+    llGetLocalRot();
+//  if called from in a linked object
+    llList2Rot( llGetLinkPrimitiveParams( LINK_ROOT, [PRIM_ROT_LOCAL] ), 0 );
+//  this alternative works correctly in all scenarios
+    llList2Rot( llGetLinkPrimitiveParams( !!llGetLinkNumber(), [PRIM_ROT_LOCAL] ), 0 );`} lang="lsl" /></div>
+  <h2>Examples</h2>
+  <p>Simple example to set region rotation of child prim in unattached link set</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    --Rotate 45 degrees about Y-axis
+    local globalRot = ll.Euler2Rot(vector(0.0, 45.0, 0.0) * DEG_TO_RAD)
+    ll.SetLocalRot(globalRot / ll.GetRootRotation())
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+  state_entry()
+  {
+    //Rotate 45 degrees about Y-axis
+    rotation globalRot = llEuler2Rot(<0.0, 45.0, 0.0> * DEG_TO_RAD);
+    llSetLocalRot(globalRot / llGetRootRotation());
+  }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>In an attached object, returns region rotation of avatar NOT of the object's root prim. See <a href="https://wiki.secondlife.com/wiki/Rotation#Single_or_Root_Prims_vs_Linked_Prims_vs_Attachments" target="_blank">special cases of rotation</a>.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRot" target="_blank">llGetRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLocalRot" target="_blank">llGetLocalRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetRootRotation()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function rotation llGetRootRotation();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

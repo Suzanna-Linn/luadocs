@@ -1,0 +1,139 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GenerateKey(): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llGenerateKey();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Generates a key using <a href="http://en.wikipedia.org/wiki/UUID#Version_5_.28SHA-1_hash.29" target="_blank">Version 5 (SHA-1 hash)</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> generation to create a unique key.</p>
+  <p>Returns the key generated.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>uuid</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">383</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The specific UUID version is an implementation detail that has changed in the past and may change again in the future. Do not depend upon the UUID that is returned to be Version 5.</li>
+    <li>As the UUID produced is versioned, it should never return a value of <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    -- avatar touching
+    local avatarKey = ll.DetectedKey(0)
+    local avatarName = ll.Key2Name(avatarKey)
+
+    -- key of the owner
+    local owner = ll.GetOwner()
+
+    -- generated random key
+    local random = ll.GenerateKey()
+
+    -- number of objects inside the same prim
+    local numberOfObjects = ll.GetInventoryNumber(INVENTORY_OBJECT)
+
+    if numberOfObjects ~= 0 then
+        -- name of first object sorted by name inside the prim's inventory
+        local itemName = ll.GetInventoryName(INVENTORY_OBJECT, 0)
+
+        ll.GiveInventory(avatarKey, itemName)
+        ll.InstantMessage(avatarKey, "Your transaction key is '" .. tostring(random) .. "'.")
+
+        ll.InstantMessage(owner, "Transaction record:\n" .. "receiver: " .. avatarName .. " (" .. tostring(avatarKey) .. ")\n" .. "item: " .. itemName .. "\n" .. "transaction key: " .. tostring(random))
+    else
+        -- PUBLIC_CHANNEL has the integer value 0
+        ll.Say(PUBLIC_CHANNEL, "No items to give away, sorry!")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        // avatar touching
+        key avatarKey = llDetectedKey(0);
+        string avatarName = llKey2Name(avatarKey);
+
+        // key of the owner
+        key owner = llGetOwner();
+
+        // generated random key
+        key random = llGenerateKey();
+
+        // number of objects inside the same prim
+        integer numberOfObjects = llGetInventoryNumber(INVENTORY_OBJECT);
+
+        if (numberOfObjects)
+        {
+            // name of first object sorted by name inside the prim's inventory
+            string itemName = llGetInventoryName(INVENTORY_OBJECT, 0);
+    
+            llGiveInventory(avatarKey, itemName);
+            llInstantMessage(avatarKey, "Your transaction key is '" + (string)random + "'.");
+    
+            llInstantMessage(owner, "Transaction record:\n"
+                + "receiver: " + avatarName + " (" + (string)avatarKey + ")\n"
+                + "item: " + itemName + "\n"
+                + "transaction key: " + (string)random);
+        }
+        else
+        {
+            // PUBLIC_CHANNEL has the integer value 0
+            llSay(PUBLIC_CHANNEL, "No items to give away, sorry!");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Inspired by the library function <a href="https://wiki.secondlife.com/wiki/GenerateKey" target="_blank">generateKey</a>.</li>
+    <li>Changed from using <a href="http://en.wikipedia.org/wiki/UUID#Version_3_.28MD5_hash.29" target="_blank">Version 3 (MD5 hash)</a> to <a href="http://en.wikipedia.org/wiki/UUID#Version_5_.28SHA-1_hash.29" target="_blank">Version 5 (SHA-1 hash)</a>. Date of this change is unknown.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GenerateKey()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llGenerateKey();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

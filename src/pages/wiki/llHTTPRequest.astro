@@ -1,0 +1,549 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.HTTPRequest(URL: string, Parameters: {any}, Body: string): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llHTTPRequest(string URL, list Parameters, string Body);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sends an HTTP request to the specified URL with the body of the request and parameters. When the response is received, a <a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a> event is raised.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) identifying the HTTP request made.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>URL / url</td>
+          <td>A valid HTTP/HTTPS URL.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Parameters / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">parameters</a></td>
+          <td>configuration parameters, specified as HTTP_* flag-value pairs
+[ parameter1, value1, parameter2, value2, . . . parameterN, valueN]</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Body / body</td>
+          <td>Contents of the request.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script_communication</li>
+        <li>web</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">320</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>Flag</b></p>
+  <p><b>Parameter(s)</b></p>
+  <p><b>Default Parameter Value(s)</b></p>
+  <p><b>Description</b></p>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_METHOD" target="_blank">HTTP_METHOD</a></p>
+  <p>0</p>
+  <p><a href="https://wiki.secondlife.com/wiki/String" target="_blank">[string</a> method]</p>
+  <p>["GET"]</p>
+  <p>"GET", "POST", "PUT" and "DELETE"</p>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_MIMETYPE" target="_blank">HTTP_MIMETYPE</a></p>
+  <p>1</p>
+  <p><a href="https://wiki.secondlife.com/wiki/String" target="_blank">[string</a> MIME_type]</p>
+  <p>["text/plain;charset=utf-8"]</p>
+  <p>text/<i> MIME types should specify a charset. To emulate HTML forms use application/x-www-form-urlencoded. This allows you to set the body to a properly escaped (<a href="https://wiki.secondlife.com/wiki/LlEscapeURL" target="_blank">llEscapeURL</a>) sequence of <name,value> pairs in the form var=value&var2=value2 and have them automatically parsed by web frameworks.
+MIME types must be specified in the format: </i>type<i><b>/</b></i>subtype<i>[<b>;</b></i>option<i><b>=</b></i>value*]
+Some valid examples are</p>
+  <p>"text/html"
+"text/plain;charset=utf-8"
+"application/xhtml+xml"
+"application/json"
+"application/x-www-form-urlencoded"
+"application/rss+xml"
+"multipart/mixed; boundary="---1234567890---""</p>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_BODY_MAXLENGTH" target="_blank">HTTP_BODY_MAXLENGTH</a></p>
+  <p>2</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">[integer</a> length]</p>
+  <p>[2048]</p>
+  <p>Sets the maximum (UTF-8 encoded) byte length of the HTTP response body. The maximum that can be set depends upon which VM is used.</p>
+  <ul>
+    <li><b><a href="https://wiki.secondlife.com/wiki/Mono" target="_blank">Mono</a> Max:</b> 16384</li>
+    <li><b><a href="https://wiki.secondlife.com/wiki/LSO" target="_blank">LSO</a> Max:</b> 4096</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <td>⚠️</td>
+        <td><b>Warning:</b> Applies to the <a href="https://wiki.secondlife.com/wiki/Category:LSL_HTTP#Understanding_LSL_HTTP_Communications" target="_blank"> Outgoing</a> pipeline only (HTTP calls invoked by llHTTPRequest,and responses from <a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a>).</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Tip:</b> When you only need to request a small amount of data from a remote source, consider using the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range" target="_blank">Content-Range header</a> instead.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_VERIFY_CERT" target="_blank">HTTP_VERIFY_CERT</a></p>
+  <p>3</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">[integer</a> verify]</p>
+  <p><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">[TRUE</a>]</p>
+  <p>If <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, the server SSL certificate must be verifiable using one of the standard certificate authorities[[1]](#footnote_1) when making HTTPS requests. If <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>, any server SSL certificate will be accepted.</p>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_VERBOSE_THROTTLE" target="_blank">HTTP_VERBOSE_THROTTLE</a></p>
+  <p>4</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">[integer</a> noisy]</p>
+  <p><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">[TRUE</a>]</p>
+  <p>If <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, shout error messages to <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> if the outgoing request rate exceeds the server limit. If <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>, the error messages are suppressed (llHTTPRequest will still return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>).</p>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_CUSTOM_HEADER" target="_blank">HTTP_CUSTOM_HEADER</a></p>
+  <p>5</p>
+  <p><a href="https://wiki.secondlife.com/wiki/String" target="_blank">[string</a> name, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> value]</p>
+  <p>NA</p>
+  <p>Add an extra custom HTTP header to the request. The first string is the name of the parameter to change, e.g. "Pragma", and the second string is the value, e.g. "no-cache". Multiple custom headers may be configured per request, as long as the combined custom header length is no greater than 4096 characters. Note that certain headers, such as the default headers, are blocked for security reasons.</p>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_PRAGMA_NO_CACHE" target="_blank">HTTP_PRAGMA_NO_CACHE</a></p>
+  <p>6</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">[integer</a> send_header]</p>
+  <p><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">[TRUE</a>]</p>
+  <p>Sends "Pragma: no-cache" header (<a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>), or does not send a "Pragma" header (<a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>).</p>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_USER_AGENT" target="_blank">HTTP_USER_AGENT</a></p>
+  <p>7</p>
+  <p><a href="https://wiki.secondlife.com/wiki/String" target="_blank">[string</a> user agent value]</p>
+  <p>[<i>(none)</i>]</p>
+  <p>The user agent value is appended to the one generated by LSL itself. It should follow the syntax from the HTTP standard like: "My-Script-Name/1.0 (Mozilla compatible)".</p>
+  <p><b>Note:</b> Spaces are not allowed in HTTP User Agent token values, so "My Script Name/1.0" will produce a script error; change the spaces to hyphens ("-")</p>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_ACCEPT" target="_blank">HTTP_ACCEPT</a></p>
+  <p>8</p>
+  <p><a href="https://wiki.secondlife.com/wiki/String" target="_blank">[string</a> MIME_type]</p>
+  <p>["text/plain;charset=utf-8"]</p>
+  <p>HTTP_ACCEPT parameters can be passed to limit the number of mime types that are sent in the Accept: header of the HTTP request. Specified mime types may include character set and q parameters. This parameter may be specified multiple times.</p>
+  <p>The specified mime type must be one already recognized by llHTTPRequest. These include any text/ mime type, or the following application mime types: “application/xhtml+xml”, “application/atom+xml”, “application/json”, “application/xml”, “application/llsd+xml”, “application/x-javascript”, “application/javascript”, “application/x-www-form-urlencoded”, or “application/rss+xml”.</p>
+  <p>The Content-Type header in the response is checked against the specified HTTP_ACCEPT parameters. If the value of the header is not in the list of acceptable mime types, llHTTPRequest will return 415 as a result code and the body will be "Unsupported or unknown Content-Type."</p>
+  <p><a href="https://wiki.secondlife.com/wiki/HTTP_EXTENDED_ERROR" target="_blank">HTTP_EXTENDED_ERROR</a></p>
+  <p>9</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">[integer</a> extended]</p>
+  <p><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">[FALSE</a>]</p>
+  <p>If <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> llHTTPRequest will always return a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>. If there was an error making the HTTP request. Detailed error information will be returned through the <a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a> event using the provided key. Error information is delivered in a JSON block as described in <a href="https://tools.ietf.org/html/rfc7807" target="_blank">RFC 7807</a>. Details about extended return codes can be found below.</p>
+  <p>Headers sent by the simulator in the course of calling llHTTPRequest.</p>
+  <p>Header</p>
+  <p>Description</p>
+  <p>Example data</p>
+  <p>Connection</p>
+  <p>Connection options</p>
+  <p>close</p>
+  <p>Cache-Control</p>
+  <p>Maximum response age accepted.</p>
+  <p>max-age=259200</p>
+  <p>X-Forwarded-For</p>
+  <p>Used to show the IP address connected to through proxies.</p>
+  <p>127.0.0.1</p>
+  <p>Via</p>
+  <p>Shows the recipients and protocols used between the User Agent and the server.</p>
+  <p>1.1 sim10115.agni.lindenlab.com:3128 (squid/2.7.STABLE9)</p>
+  <p>Content-Length</p>
+  <p>The size of the entity-body, in decimal number of octets.</p>
+  <p>17</p>
+  <p>Pragma</p>
+  <p>The message should be forwarded to the server, even if it has a cached version of the data.</p>
+  <p>no-cache</p>
+  <p>X-SecondLife-Shard</p>
+  <p>The environment the object is in. "Production" is the main grid and "Testing" is the preview grid</p>
+  <p>Production</p>
+  <p>X-SecondLife-Region</p>
+  <p>The name of the region the object is in, along with the global coordinates of the region's south-west corner</p>
+  <p>Jin Ho (264448, 233984)</p>
+  <p>X-SecondLife-Owner-Name</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">Legacy name</a> of the owner of the object</p>
+  <p>Zeb Wyler</p>
+  <p>X-SecondLife-Owner-Key</p>
+  <p><a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> of the owner of the object</p>
+  <p>01234567-89ab-cdef-0123-456789abcdef</p>
+  <p>X-SecondLife-Object-Name</p>
+  <p>The name of the object containing the script</p>
+  <p>Object</p>
+  <p>X-SecondLife-Object-Key</p>
+  <p>The key of the object containing the script</p>
+  <p>01234567-89ab-cdef-0123-456789abcdef</p>
+  <p>X-SecondLife-Local-Velocity</p>
+  <p>The velocity of the object</p>
+  <p>0.000000, 0.000000, 0.000000</p>
+  <p>X-SecondLife-Local-Rotation</p>
+  <p>The rotation of the object containing the script</p>
+  <p>0.000000, 0.000000, 0.000000, 1.000000</p>
+  <p>X-SecondLife-Local-Position</p>
+  <p>The position of the object within the region</p>
+  <p>(173.009827, 75.551231, 60.950001)</p>
+  <p>User-Agent</p>
+  <p>The user-agent header sent by LSL Scripts. Contains Server version.</p>
+  <p>Second Life LSL/16.05.24.315768 (http://secondlife.com)</p>
+  <p>Content-Type</p>
+  <p>The media type of the entity body.</p>
+  <p>text/plain; charset=utf-8</p>
+  <p>Accept-Charset</p>
+  <p>Acceptable character sets from the server. Q being the quality expected when sending the different character sets.</p>
+  <p>utf-8;q=1.0, *;q=0.5</p>
+  <p>Accept</p>
+  <p>Media types the server will accept.</p>
+  <p>text/*, application/xhtml+xml, application/atom+xml, application/json, application/xml, application/llsd+xml, application/x-javascript, application/javascript, application/x-www-form-urlencoded, application/rss+xml</p>
+  <p>Accept-Encoding</p>
+  <p>Acceptable content encodings for the server.</p>
+  <p>deflate, gzip</p>
+  <p>Host</p>
+  <p>The internet host being requested.</p>
+  <p>secondlife.com</p>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Tip:</b> Certain server environments (CGI) place headers into variables by capitalizing the entire name, replacing dashes with underscores, and prefixing the name with "HTTP_", e.g. "X-SecondLife-Object-Name" becomes "HTTP_X_SECONDLIFE_OBJECT_NAME". This depends solely on the HTTP server used to process the request and cannot be controlled via LSL.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <td>⚠️</td>
+        <td><b>Warning:</b> <a href="https://datatracker.ietf.org/doc/html/rfc2616#section-4.2" target="_blank">RFC 2616 § 4.2</a> defines HTTP header field names as case-insensitive. The capitalization of header field names shown above is not guaranteed; for example, "X-SecondLife-Object-Name" may be received as "X-Secondlife-Object-Name". See <a href="https://jira.secondlife.com/browse/BUG-5094" target="_blank">BUG-5094</a> for an instance of ISPs recapitalizing headers. This behavior was also observed when testing in 2026.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Error</b></th>
+        <th></th>
+        <th><b>Description</b></th>
+      </tr>
+      <tr>
+        <td>Method Not Allowed</td>
+        <td>405</td>
+        <td>The HTTP method specified for <a href="https://wiki.secondlife.com/wiki/HTTP_METHOD" target="_blank">HTTP_METHOD</a> is not supported.</td>
+      </tr>
+      <tr>
+        <td>Unsupported Media Type</td>
+        <td>415</td>
+        <td>The mime type specified in <a href="https://wiki.secondlife.com/wiki/HTTP_MIMETYPE" target="_blank">HTTP_MIMETYPE</a> or <a href="https://wiki.secondlife.com/wiki/HTTP_ACCEPT" target="_blank">HTTP_ACCEPT</a> is not supported.</td>
+      </tr>
+      <tr>
+        <td>Enhance Your Calm</td>
+        <td>420</td>
+        <td>HTTP requests have been throttled for this object, script, or owner. Back off making further HTTP calls until the throttle has cleared.</td>
+      </tr>
+      <tr>
+        <td>HTTP Unavailable</td>
+        <td>470</td>
+        <td>HTTP and/or HTTPS have been disabled in this region.</td>
+      </tr>
+      <tr>
+        <td>Invalid URL</td>
+        <td>471</td>
+        <td>The URL passed to llHTTPRequest contains invalid characters or uses a protocol other than http or https.</td>
+      </tr>
+      <tr>
+        <td>Parameter Error</td>
+        <td>472</td>
+        <td>There was an issue with the parameters passed to llHTTPRequest. One of the following conditions may be the problem
+The type of the parameter value may be incorrect.
+The parameter key may be something other than an integer.
+A parameter may be missing.
+The value for a parameter failed validation.</td>
+      </tr>
+      <tr>
+        <td>Illegal Request Header</td>
+        <td>473</td>
+        <td>A request header passed to <a href="https://wiki.secondlife.com/wiki/HTTP_CUSTOM_HEADER" target="_blank">HTTP_CUSTOM_HEADER</a> is not allowed.</td>
+      </tr>
+      <tr>
+        <td>Too Many Headers</td>
+        <td>474</td>
+        <td>Too many request headers have been specified with <a href="https://wiki.secondlife.com/wiki/HTTP_CUSTOM_HEADER" target="_blank">HTTP_CUSTOM_HEADER</a>.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Spaces, control characters, and other characters that are not allowed in URLs will cause a run time error.</li>
+    <li>The corresponding <a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a> event will be triggered in all scripts in the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, not just in the requesting script.</li>
+    <li>Requests must fully complete after 60 seconds, or else the response will be thrown away and the <a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a> status code will be 499.</li>
+    <li>The response body is limited to 2048 bytes by default, see <a href="https://wiki.secondlife.com/wiki/HTTP_BODY_MAXLENGTH" target="_blank">HTTP_BODY_MAXLENGTH</a> above to increase it. If the response is longer, it will be truncated.</li>
+    <li>The request body size (e.g., of POST and PUT requests) is limited only by available script memory. Scripts can hold at most 32k characters in a string, under <a href="https://wiki.secondlife.com/wiki/Mono" target="_blank">Mono</a>, as characters are two bytes each, so, scripts cannot upload over 32k UTF-8 characters</li>
+    <li>Cannot be used to load textures or images from the internet, for more information see <a href="https://wiki.secondlife.com/wiki/Web_Textures" target="_blank">Web Textures</a>[[2]](#footnote_2).</li>
+    <li>If the accessed site is relying on the LSL script to report <a href="https://wiki.secondlife.com/wiki/L$" target="_blank">L$</a> transactions, then it <b>must</b> check the `X-SecondLife-Shard` header to see if the script is running on the beta grid.</li>
+    <li>Some servers will return a `405` error if you send POST to a file that can't accept metadata, such as a text or HTML file. Make sure you use the GET method to ensure success in any environment.</li>
+    <li>While the HTTP status code from the server is provided to the script, redirect codes such as `302` will result in the redirect being automatically and transparently followed ONLY IF the <a href="https://wiki.secondlife.com/wiki/HTTP_METHOD" target="_blank">HTTP_METHOD</a> is GET, with the resulting response being returned. If the <a href="https://wiki.secondlife.com/wiki/HTTP_METHOD" target="_blank">HTTP_METHOD</a> is anything other than GET then you'll get back an <a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a> with a status code of `302`, but without any way to view the headers, you can't know where you were being redirected to unless that was also included in the body.</li>
+    <li>The following applies when making a request to a script using HTTP-In:
+    <ul>
+      <li>When appending a query string to a cap URL there <b>MUST</b> be a trailing slash between the cap guid and the query string token `"?"`. For example: <a href="https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322?arg=gra" target="_blank">https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322?arg=gra</a> will return a 500 HTTP status [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes%235xx_Server_Error" target="_blank">Server Error code</a>, but <a href="https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322/?arg=gra" target="_blank">https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322/?arg=gra</a> will succeed.</li>
+    </ul>
+  
+    </li>
+    <li>`X-SecondLife-Owner-Name` may return `"(Loading...)"` instead of owner name (still true, 30th of March, 2022)</li>
+    <li>Requests made at approx 0625 SLT may fail with a `503` status code, with `"ERROR: The requested URL could not be retrieved"`, and `"(111) Connection refused"` in the body of the response. This has been confirmed as expected behavior by Kelly, due to the nightly maintenance and log rotation. It does reliably impact object to object HTTP at that time, and quite probably may impact object to/from web around the same time. The interruption in service is fairly brief, and the precise timing may vary as LL adjust their nightly maintenance processes, or due to server load.</li>
+    <li>Use `HTTP_MIMETYPE` to set the `Content-Type` header. Attempts to use `HTTP_CUSTOM_HEADER` to set it will cause a runtime script error.</li>
+    <li>If the origin server does not include a content-type header in its response, LSL will attempt to treat the incoming data as "text/plain; charset=utf-8". This behavior diverges from <a href="https://datatracker.ietf.org/doc/html/rfc2616#section-7.2.1" target="_blank">RFC 2616</a>.</li>
+  </ul>
+  <p>Throttles</p>
+  <p>The LSL function llHTTPRequest is throttled in three ways: by object, by owner, and by http error. All group-owned objects are considered together in the same throttle.</p>
+  <p>The current limits are:</p>
+  <ul>
+    <li>25 requests in 20 seconds for each object</li>
+    <li>1000 requests in 20 seconds for each owner with higher limits for some regions</li>
+    <li>Five HTTP errors (500 or higher) in 60 seconds for each script</li>
+  </ul>
+  <p>These may change in the future if needed to prevent problems in regions.</p>
+  <p>It is possible for a large collection of objects or scripts to make many calls to llHTTPRequest and reach one or more throttles. When a script calls llHTTPRequest with a throttle blocking the request, it will return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.</p>
+  <p>The calling script must check for the <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> result and react properly for the script and object to function correctly. Some things to consider:</p>
+  <ul>
+    <li>Pause further requests until the throttle clears</li>
+    <li>Do not make any additional llHTTPRequest calls until enough time has passed for the throttle to reset. They will fail and continue to return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> otherwise.</li>
+    <li>Once reached, the throttles will remain in effect as long as requests continue, but will clear if there is a silent period with no requests at least twice the throttle interval, in the common case 2 * 20 or 40 seconds.‎</li>
+  </ul>
+  <p>Consider how a group of objects behaves. Developers must consider how multiple objects will interact and how that will affect clearing the throttle.‎
+The llHTTPRequest throttle is most likely to be an issue with a large number of objects in a region making requests. To clear the throttle fastest, when an object encounters the throttle, it should broadcast a region-wide chat message to other objects informing them of the event and stopping their requests. If those objects continue making requests, those requests will fail and just prolong recovery.‎
+If an object waits and still gets a failure, it may be a good idea to increase the time before the next request and/or add a small random value to the wait time. This may help prevent failures caused by large groups of objects acting nearly in unison.</p>
+  <ul>
+    <li>Object requests are throttled at approximately 25 requests per 20 seconds. This is to support a sustained rate of one per second or a maximum burst of up to 25 every 40 seconds (twice the interval for maximum burst), smaller bursts are recommended.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned if the request is throttled.</li>
+    <li>See <a href="http://forums-archive.secondlife.com/139/72/108960/1.html" target="_blank">this thread</a> and <a href="http://forums-archive.secondlife.com/139/2c/109571/1.html" target="_blank">this thread</a> for older details.</li>
+  </ul>
+  <h2>Examples</h2>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Writing_Headers_and_HTTP_POST_Body_to_a_File" target="_blank">Writing Headers and HTTP POST Body to a File</a></li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local http_request_id = NULL_KEY
+
+local function main()
+    http_request_id = ll.HTTPRequest("url", {}, "")
+end
+
+function LLEvents.http_response(request_id, status, metadata, body)
+    if request_id ~= http_request_id then  -- exit if unknown
+        return
+    end
+
+    local COLOR_BLUE = vector(0.0, 0.0, 1.0)
+    local OPAQUE = 1.0
+
+    ll.SetText(body, COLOR_BLUE, OPAQUE)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key http_request_id;
+
+default
+{
+    state_entry()
+    {
+        http_request_id = llHTTPRequest("url", [], "");
+    }
+
+    http_response(key request_id, integer status, list metadata, string body)
+    {
+        if (request_id != http_request_id) return;// exit if unknown
+
+        vector COLOR_BLUE = <0.0, 0.0, 1.0>;
+        float  OPAQUE     = 1.0;
+
+        llSetText(body, COLOR_BLUE, OPAQUE);
+    }
+}`} lang="lsl" /></div>
+  <p>Example PHP test script:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`<?php header("content-type: text/plain; charset=utf-8"); ?>
+Headers received:
+<?php
+
+/**
+ * @author Wouter Hobble
+ * @copyright 2008
+ */
+
+foreach ($_SERVER as $k => $v)
+{
+    if( substr($k, 0, 5) == 'HTTP_')
+    {
+        print "\n". $k. "\t". $v;
+    }
+}
+?>`} lang="lsl" /></div>
+  <p>Example PHP wrapper script both capturing Apache headers and global methods</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`<?php
+    // Author Waster Skronski.
+    // General Public License (GPL).
+    // Mind that some headers are not included because they're either useless or unreliable.
+
+    $USE_APACHE_HEADERS = TRUE;// switch to false if you need CGI methods
+
+    if ($USE_APACHE_HEADERS)
+    {
+        $headers    = apache_request_headers();
+        $objectgrid = $headers["X-SecondLife-Shard"];
+        $objectname = $headers["X-SecondLife-Object-Name"];
+        $objectkey  = $headers["X-SecondLife-Object-Key"];
+        $objectpos  = $headers["X-SecondLife-Local-Position"];
+        $ownerkey   = $headers["X-SecondLife-Owner-Key"];
+        $ownername  = $headers["X-SecondLife-Owner-Name"];
+        $regiondata = $headers["X-SecondLife-Region"];
+        $regiontmp  = explode ("(",$regiondata);        // cut coords off
+        $regionpos  = explode (")",$regiontmp[1]);
+        $regionname = substr($regiontmp[0],0,-1);       // cut last space from region name
+    } else {
+        $db         = $GLOBALS;
+        $headers    = $db['$_ENV'];
+        $objectgrid = $headers["HTTP_X_SECONDLIFE_SHARD"];
+        $objectname = $headers["HTTP_X_SECONDLIFE_OBJECT_NAME"];
+        $objectkey  = $headers["HTTP_X_SECONDLIFE_OBJECT_KEY"];
+        $ownerkey   = $headers["HTTP_X_SECONDLIFE_OWNER_KEY"];
+        $objectpos  = $headers["HTTP_X_SECONDLIFE_LOCAL_POSITION"];
+        $ownername  = $headers["HTTP_X_SECONDLIFE_OWNER_NAME"];
+        $regiondata = $headers["HTTP_X_SECONDLIFE_REGION"];
+        $regiontmp  = explode ("(",$regiondata);
+        $regionpos  = explode (")",$regiontmp[1]);
+        $regionname = substr($regiontmp[0],0,-1);
+    }
+?>`} lang="lsl" /></div>
+  <p>Example wrapper script for GoDaddy.com Linux PHP servers (fix made by Thomas Conover):</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`<?php
+// FETCH HEADERS START
+
+if (!function_exists('apache_request_headers'))
+{
+    function apache_request_headers() {
+        foreach($_SERVER as $key=>$value) {
+            if (substr($key,0,5)=="HTTP_") {
+                $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
+                $out[$key]=$value;
+            }else{
+                $out[$key]=$value;
+            }
+        }
+        return $out;
+    }
+}
+// Mind that some headers are not included because they're either useless or unreliable (e.g. X-Secondlife-Local-Position)
+$headers    = apache_request_headers();
+$objectgrid = $headers["X-Secondlife-Shard"];
+$objectname = $headers["X-Secondlife-Object-Name"];
+$objectkey  = $headers["X-Secondlife-Object-Key"];
+$objectpos  = $headers["X-Secondlife-Local-Position"];
+$ownerkey   = $headers["X-Secondlife-Owner-Key"];
+$ownername  = $headers["X-Secondlife-Owner-Name"];
+$regiondata = $headers["X-Secondlife-Region"];
+$regiontmp  = explode ("(",$regiondata);            // cut coords off
+$regionname = substr($regiontmp[0],0,-1);           // cut last space from region name
+$regiontmp  = explode (")",$regiontmp[1]);
+$regionpos  = $regiontmp[0];
+
+
+// FETCH HEADERS END
+?>`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>If for some reason while using the function llHTTPRequest or the event <a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a> you are unable to parse a known good RSS feed or some other form of web contents, you will need to work around it outside of Second Life. This is unlikely to change in the near future since checking the headers requires more overhead at the simulator level.</p>
+  <p>You may find that some web servers return either a null or a nonsensical result when llHTTPRequest is used, even though the same URL in a PC web browser returns the expected result. This may be due to the fact that the llHTTPRequest User Agent string is not recognised by some web servers as it does not contain `"Mozilla"`, which would identify it as a web browser instead of, for example, a <a href="https://www.shoutcast.com/" target="_blank">Shoutcast</a> or an RSS client. This is also true when the PHP script relies on <a href="https://www.php.net/manual/en/reserved.variables.cookies.php" target="_blank">$_COOKIE</a>. Neither can the function llHTTPRequest set a cookie nor can the event <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> retrieve them.</p>
+  <p>CGI environments may place the headers into variables by capitalizing the entire name, replacing dashes with underscores, and prefixing the name with `HTTP_`, e.g. `HTTP_X_SECONDLIFE_OBJECT_NAME`. PHP `$_SERVER` variables do this as well, and so does PHP running inside PHP-FPM (as opposed to an Apache module), which is the standard way to configure PHP on non-Apache webservers (such as <a href="https://nginx.org/nginx" target="_blank">`nginx`</a>).</p>
+  <p>Apache can include the headers in its logs, using the `CustomLog` and `LogFormat` directives. See <a href="https://httpd.apache.org/docs/2.4/mod/mod_log_config.html#formats" target="_blank">the docs</a> for details on the syntax.</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlEscapeURL" target="_blank">llEscapeURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlHTTPResponse" target="_blank">llHTTPResponse</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlUnescapeURL" target="_blank">llUnescapeURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Simulator_IP_Addresses" target="_blank">Simulator IP Addresses</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> A list of acceptable certificate authorities can be found at <a href="https://jira.secondlife.com/browse/SCR-473" target="_blank">SCR-473</a>.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> <b>Note:</b> Web textures have been made obsolete for many reasons, and the link has been archived; nevertheless, the reference might be interesting for historical reasons.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llHTTPRequest( string url, list parameters, string body );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Shining break of day</p>
+<p>Lov'ly web, carefully spun</p>
+<p>Of bytes and prims</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

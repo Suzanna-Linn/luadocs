@@ -1,0 +1,284 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetLinkName(LinkNumber: number): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetLinkName(integer LinkNumber);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the name of <b>link</b> in link set</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>LinkNumber / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">link</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims&#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&#32;</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>linkset</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">145</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Flag</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_ROOT" target="_blank">LINK_ROOT</a></td>
+        <td>1</td>
+        <td>refers to the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim in a multi-prim linked set[[1]](#footnote_1)</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Flag</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_THIS" target="_blank">LINK_THIS</a></td>
+        <td>-4</td>
+        <td>refers to the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a> is in</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li><b>link</b> needs to be either an actual <a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">link number</a> or a link constants that equate to a single prim, such as <a href="https://wiki.secondlife.com/wiki/LINK_ROOT" target="_blank">LINK_ROOT</a> and <a href="https://wiki.secondlife.com/wiki/LINK_THIS" target="_blank">LINK_THIS</a>.
+    <ul>
+      <li><a href="https://wiki.secondlife.com/wiki/LINK_SET" target="_blank">LINK_SET</a>, <a href="https://wiki.secondlife.com/wiki/LINK_ALL_CHILDREN" target="_blank">LINK_ALL_CHILDREN</a> and <a href="https://wiki.secondlife.com/wiki/LINK_ALL_OTHERS" target="_blank">LINK_ALL_OTHERS</a> will not work.</li>
+    </ul>
+  
+    </li>
+    <li>If <b>link</b> is out of bounds, NULL_KEY is returned.</li>
+    <li>The prim name attribute is limited to 63 bytes, any string longer then that will be truncated. This truncation does not always happen when the attribute is set or read.</li>
+    <li>There is no corresponding <b>llSetLinkName</b>, use `llSetLinkPrimitiveParamsFast(link, [PRIM_NAME, name]);` instead.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Listen on channel 10 for a name; check if a prim with that name is part of this object</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function check_for_prim(name)
+    local i = ll.GetNumberOfPrims()
+    while i >= 0 do
+        if ll.GetLinkName(i) == name then
+            return true
+        end
+        i -= 1
+    end
+    return false
+end
+local function main()
+    ll.Listen(10, "", ll.GetOwner(), "")
+end
+function LLEvents.listen(chan, obj, id, msg)
+    if check_for_prim(msg) then
+        ll.OwnerSay("found a linked prim named \"" .. msg .. "\"")
+    else
+        ll.OwnerSay("this object does not have any linked prims named \"" .. msg .. "\"")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer check_for_prim(string name)
+{
+    integer i = llGetNumberOfPrims();
+    for (; i >= 0; --i)
+    {
+        if (llGetLinkName(i) == name)
+        {
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+default
+{
+    state_entry()
+    {
+        llListen(10, "", llGetOwner(), "");
+    }
+    listen(integer chan, string obj, key id, string msg)
+    {
+        if (check_for_prim(msg))
+        {
+            llOwnerSay("found a linked prim named \"" + msg + "\"");
+        }
+        else
+        {
+            llOwnerSay("this object does not have any linked prims named \"" + msg + "\"");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function getLinkWithName(name)
+    local i = (if ll.GetLinkNumber() ~= 0 then 1 else 0)  -- Start at zero (single prim) or 1 (two or more prims)
+    local x = ll.GetNumberOfPrims() + i  -- [0, 1) or [1, llGetNumberOfPrims()]
+    while i < x do
+        if ll.GetLinkName(i) == name then
+            return i  -- Found it! Exit loop early with result
+        end
+        i += 1
+    end
+    return -1  -- No prim with that name, return -1.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer getLinkWithName(string name) {
+    integer i = llGetLinkNumber() != 0;   // Start at zero (single prim) or 1 (two or more prims)
+    integer x = llGetNumberOfPrims() + i; // [0, 1) or [1, llGetNumberOfPrims()]
+    for (; i < x; ++i)
+        if (llGetLinkName(i) == name) 
+            return i; // Found it! Exit loop early with result
+    return -1; // No prim with that name, return -1.
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <h3>Link Numbers</h3>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <ul>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+  </ul>
+  <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
+  <p>Counting Prims & Avatars</p>
+  <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
+  <ul>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
+    if ll.GetAttached() ~= 0 then  --Is it attached?
+        return ll.GetNumberOfPrims()  --returns avatars and prims but attachments can't be sat on.
+    end
+    return ll.GetObjectPrimCount(ll.GetKey())  --returns only prims but won't work on attachments.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer GetPrimCount() { //always returns only the number of prims
+    if(llGetAttached())//Is it attached?
+        return llGetNumberOfPrims();//returns avatars and prims but attachments can't be sat on.
+    return llGetObjectPrimCount(llGetKey());//returns only prims but won't work on attachments.
+}`} lang="lsl" /></div>
+  <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
+Errata</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a></td>
+        <td>–</td>
+        <td>Returns the link number of the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the script is in.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkKey" target="_blank">llGetLinkKey</a></td>
+        <td>–</td>
+        <td>Gets the instance UUID of the link</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectName" target="_blank">llGetObjectName</a></td>
+        <td>–</td>
+        <td>Get the prims name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetObjectName" target="_blank">llSetObjectName</a></td>
+        <td>–</td>
+        <td>Set the prims name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDesc" target="_blank">llGetObjectDesc</a></td>
+        <td>–</td>
+        <td>Get the prims description</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetObjectDesc" target="_blank">llSetObjectDesc</a></td>
+        <td>–</td>
+        <td>Set the prims description</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Limits" target="_blank">Limits</a></td>
+        <td>–</td>
+        <td>SL limits and constrictions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Prim_Attribute_Overloading" target="_blank">Prim Attribute Overloading</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> LINK_ROOT does not work on single <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">objects</a>. Unless there is an avatar sitting on the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetLinkName( integer link );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

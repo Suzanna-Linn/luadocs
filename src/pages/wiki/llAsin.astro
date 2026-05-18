@@ -1,0 +1,132 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Asin(Value: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llAsin(float Value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.asin because Double precision; fastcall.</span></p>
+      <p>  <p>Returns a float that is the arcsine in <a href="https://wiki.secondlife.com/wiki/Radians" target="_blank">radians</a> of <b>val</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Value / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/val" target="_blank">val</a></td>
+          <td>must fall in the range [-1.0, 1.0]</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_trig</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">173</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The returned value is in the range <a href="https://wiki.secondlife.com/wiki/PI_BY_TWO" target="_blank">-[PI_BY_TWO</a>, PI_BY_TWO][[1]](#footnote_1), or NaN signifying a complex result when the parameter is out of range.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Triggers a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Error/Math" target="_blank">Math Error</a> for complex results if not compiled in Mono.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Touch the object with this script in it to see the arcsine of random numbers!
+function LLEvents.touch_start(events)
+    local num = #events
+    local r = ll.Frand(2) - 1.0
+    ll.OwnerSay("The arcsine of " .. tostring(r) .. " is " .. tostring(ll.Asin(r)))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Touch the object with this script in it to see the arcsine of random numbers!
+default
+{
+    touch_start(integer num)
+    {
+        float r = llFrand(2) - 1.0;
+        llOwnerSay("The arcsine of " + (string)r + " is " + (string)llAsin(r));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlSin" target="_blank">llSin</a></td>
+        <td></td>
+        <td>–</td>
+        <td>sine</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlCos" target="_blank">llCos</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAcos" target="_blank">llAcos</a></td>
+        <td>–</td>
+        <td>cosine & inverse cosine</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlTan" target="_blank">llTan</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAtan2" target="_blank">llAtan2</a></td>
+        <td>–</td>
+        <td>tangent & inverse tangent</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_function" target="_blank">Inverse trigonometric function</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llAsin( float val );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

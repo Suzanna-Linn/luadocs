@@ -1,0 +1,328 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetContentType(HTTPRequestID: uuid, ContentType: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetContentType(key HTTPRequestID, integer ContentType);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Internet_media_type" target="_blank">Internet media type</a> `"Content-Type"` header of any subsequent <a href="https://wiki.secondlife.com/wiki/LSL_HTTP_server" target="_blank">LSL HTTP server</a> response via <a href="https://wiki.secondlife.com/wiki/LlHTTPResponse" target="_blank">llHTTPResponse</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>HTTPRequestID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">request_id</a></td>
+          <td>a valid <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a>() key</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>ContentType / content_type</td>
+          <td>Media type to use with any following <a href="https://wiki.secondlife.com/wiki/LlHTTPResponse" target="_blank">llHTTPResponse</a>(<b>request_id</b>, ...)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>media</li>
+        <li>prim_media</li>
+        <li>web</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">374</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>content_type</th>
+        <th></th>
+        <th>Content-Type</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_TEXT" target="_blank">CONTENT_TYPE_TEXT</a></td>
+        <td>0</td>
+        <td>text/plain</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_HTML" target="_blank">CONTENT_TYPE_HTML</a></td>
+        <td>1</td>
+        <td>text/html</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_XML" target="_blank">CONTENT_TYPE_XML</a></td>
+        <td>2</td>
+        <td>application/xml</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_XHTML" target="_blank">CONTENT_TYPE_XHTML</a></td>
+        <td>3</td>
+        <td>application/xhtml+xml</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_ATOM" target="_blank">CONTENT_TYPE_ATOM</a></td>
+        <td>4</td>
+        <td>application/atom+xml</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_JSON" target="_blank">CONTENT_TYPE_JSON</a></td>
+        <td>5</td>
+        <td>application/json</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_LLSD" target="_blank">CONTENT_TYPE_LLSD</a></td>
+        <td>6</td>
+        <td>application/llsd+xml</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_FORM" target="_blank">CONTENT_TYPE_FORM</a></td>
+        <td>7</td>
+        <td>application/x-www-form-urlencoded</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_RSS" target="_blank">CONTENT_TYPE_RSS</a></td>
+        <td>8</td>
+        <td>application/rss+xml</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>When using <a href="https://wiki.secondlife.com/wiki/CONTENT_TYPE_HTML" target="_blank">CONTENT_TYPE_HTML</a>, this setting will be ignored unless all of these conditions are met: Obviously this is not compatible with group owned objects. One way around this limitation would be to <a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">temporarily attach</a> a repeater.
+    <ul>
+      <li>the web browser is the Second Life client</li>
+      <li>the user (logged into the SL client viewing the page) is the owner of the object.</li>
+      <li>the user (logged into the SL client viewing the page) is connected to the region the object is located in</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local url_request = NULL_KEY
+
+local HTML_BODY = [[<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+
+</body>
+</html>]]
+
+local function main()
+    url_request = ll.RequestURL()
+end
+
+function LLEvents.http_request(id, method, body)
+    local owner = ll.GetOwner()
+    local ownerSize = ll.GetAgentSize(owner)
+
+    if url_request == id then
+        --  if you're usually not resetting the query ID
+        --  now is a good time to start!
+        url_request = uuid("")
+
+        if method == URL_REQUEST_GRANTED then
+            ll.OwnerSay("URL: " .. body)
+
+            --  if owner in sim
+            if ownerSize ~= ZERO_VECTOR then  --  != ZERO_VECTOR
+                ll.LoadURL(owner, "I got a new URL!", body)
+            end
+
+        elseif method == URL_REQUEST_DENIED then
+            ll.OwnerSay("Something went wrong, no url:\n" .. body)
+        end
+
+    else
+        ll.OwnerSay("request body:\n" .. body)
+
+        --  if owner in sim
+        if ownerSize ~= ZERO_VECTOR then  --  != ZERO_VECTOR
+            ll.SetContentType(id, CONTENT_TYPE_HTML)
+            ll.HTTPResponse(id, 200, HTML_BODY)
+        else
+            ll.SetContentType(id, CONTENT_TYPE_TEXT)
+            ll.HTTPResponse(id, 200, "OK")
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key url_request;
+
+string HTML_BODY =
+"<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+
+</body>
+</html>";
+
+default
+{
+    state_entry()
+    {
+        url_request = llRequestURL();
+    }
+
+    http_request(key id, string method, string body)
+    {
+        key owner = llGetOwner();
+        vector ownerSize = llGetAgentSize(owner);
+
+        if (url_request == id)
+        {
+        //  if you're usually not resetting the query ID
+        //  now is a good time to start!
+            url_request = "";
+
+            if (method == URL_REQUEST_GRANTED)
+            {
+                llOwnerSay("URL: " + body);
+
+            //  if owner in sim
+                if (ownerSize)//  != ZERO_VECTOR
+                    llLoadURL(owner, "I got a new URL!", body);
+            }
+
+            else if (method == URL_REQUEST_DENIED)
+                llOwnerSay("Something went wrong, no url:\n" + body);
+        }
+
+        else
+        {
+            llOwnerSay("request body:\n" + body);
+
+        //  if owner in sim
+            if (ownerSize)//  != ZERO_VECTOR
+            {
+                llSetContentType(id, CONTENT_TYPE_HTML);
+                llHTTPResponse(id, 200, HTML_BODY);
+            }
+            else
+            {
+                llSetContentType(id, CONTENT_TYPE_TEXT);
+                llHTTPResponse(id, 200, "OK");
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>A workaround for displaying HTML to non-owners inworld can be found <a href="https://wiki.secondlife.com/wiki/Teacup" target="_blank">here</a>.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Http_response" target="_blank">http_response</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlHTTPResponse" target="_blank">llHTTPResponse</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LSL_HTTP_server" target="_blank">LSL HTTP server</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/HTML_HUD_Demo" target="_blank">HTML HUD Demo</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Released August 16, 2011.</li>
+    <li><a href="https://jira.secondlife.com/browse/SCR-394" target="_blank">SCR-394</a> - Documentation revised but no change in functionality.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetContentType( key request_id, integer content_type );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>A web of code spun,</p>
+<p>Content-Type set in response,</p>
+<p>Limits weave constraints.</p>
+<p><i> — ChatGPT</i></p></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Comments</h2>
+  <p>The client and owner limitations are most likely to remove the possibility of running a website from a prim.</p>
+
+</DocsLayout>
+      

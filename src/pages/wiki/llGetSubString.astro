@@ -1,0 +1,283 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetSubString(String: string, Start: number, End: number): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetSubString(string String, integer Start, integer End);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the substring of <b>src</b> from <b>start</b> to <b>end</b>, leaving the original <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> intact.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>String / src</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Start / start</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>start index</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>End / end</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>end index</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>string</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">94</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>start</b> & <b>end</b> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <h2>Specification</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Index</th>
+        <th>Positive</th>
+        <th>Negative</th>
+      </tr>
+      <tr>
+        <td>First</td>
+        <td>`0`</td>
+        <td>`-length`</td>
+      </tr>
+      <tr>
+        <td>Last</td>
+        <td>`length - 1`</td>
+        <td>`-1`</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Indexes</h3>
+  <ul>
+    <li>Positive indexes count from the beginning, the first item being indexed as `0`, the last as `(length - 1)`.</li>
+  </ul>
+  <ul>
+    <li>Negative indexes count from the far end, the first item being indexed as `-length`, the last as `-1`.</li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If either <b>start</b> or <b>end</b> are out of bounds the script continues to execute without an error message.</li>
+    <li><b>start</b> & <b>end</b> will form an <a href="#exclusion_range" target="_blank">exclusion range</a> when <b>start</b> is past <b>end</b> (Approximately: <b>start</b> > <b>end</b>).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    local word = "Hello!"
+    ll.OwnerSay(ll.GetSubString(word, 0, 0))
+    -- Object: H
+    ll.OwnerSay(ll.GetSubString(word, -1, -1))
+    -- Object: !
+    ll.OwnerSay(ll.GetSubString(word, 2, 3))
+-- Object: ll
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        string word = "Hello!";
+        llOwnerSay(llGetSubString(word, 0, 0));
+        // Object: H
+        llOwnerSay(llGetSubString(word, -1, -1));
+        // Object: !
+        llOwnerSay(llGetSubString(word, 2, 3));
+        // Object: ll
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+-- display SL time using a script without an 'if'
+local function main()
+    -- synchronise our clock to a fraction of a second
+    local fnow = ll.GetWallclock()
+    while fnow == ll.GetWallclock() do  -- await a change in seconds
+    end
+
+    ll.SetTimerEvent(1.0)
+end
+
+function LLEvents.timer()
+    local seconds = integer(ll.GetWallclock())
+    local minutes = seconds // 60
+    seconds = seconds % 60
+    local hours = minutes // 60
+    minutes = minutes % 60
+
+    local stringHours = ll.GetSubString("0" .. tostring(hours), -2, -1)
+    local stringMinutes = ll.GetSubString("0" .. tostring(minutes), -2, -1)
+    local stringSeconds = ll.GetSubString("0" .. tostring(seconds), -2, -1)
+
+    local time = stringHours .. ":" .. stringMinutes .. ":" .. stringSeconds
+
+    ll.SetText(time, vector(1.0, 1.0, 1.0), 1.0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// display SL time using a script without an 'if'
+default
+{
+    state_entry()
+    {
+        // synchronise our clock to a fraction of a second
+        float fnow = llGetWallclock();
+        while (fnow == llGetWallclock() )   ;   // await a change in seconds
+
+        llSetTimerEvent(1.0);
+    }
+
+    timer()
+    {
+        integer seconds = (integer) llGetWallclock();
+        integer minutes = seconds / 60;
+        seconds = seconds % 60;
+        integer hours = minutes / 60;
+        minutes = minutes % 60;
+
+        string stringHours   = llGetSubString("0" + (string)hours,   -2, -1);
+        string stringMinutes = llGetSubString("0" + (string)minutes, -2, -1);
+        string stringSeconds = llGetSubString("0" + (string)seconds, -2, -1);
+
+        string time = stringHours + ":" + stringMinutes + ":" + stringSeconds;
+
+        llSetText(time, <1.0, 1.0, 1.0>, 1.0);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <h3>Ranges & Indexes</h3>
+  <p>The easiest way to explain how ranges work is to make all indexes positive. Negative indexes are just a way of counting from the tail end instead of the beginning, all negative indexes have a corresponding equivalent positive index (assuming they are in range). Positive indexes past length (after the last index), or negative indexes past the beginning (before the first index) are valid and the effects are predictable and reliable: the entries are treated as if they were there but were removed just before output.</p>
+  <ul>
+    <li>If <b>start</b> <= <b>end</b> then the range operated on starts at <b>start</b> and ends at <b>end</b>. [<b>start</b>, <b>end</b>]</li>
+    <li>Exclusion range: If <b>start</b> > <b>end</b> then the range operated on starts at <b>0</b> and goes to <b>end</b> and then starts again at <b>start</b> and goes to <b>-1</b>. [<b>0</b>, <b>end</b>] + [<b>start</b>, <b>-1</b>]
+    <ul>
+      <li>If <b>end</b> is a negative index past the beginning, then the operating range would be [<b>start</b>, <b>-1</b>].</li>
+      <li>If <b>end</b> is a positive index past the end, then the operating range would be [<b>0</b>, <b>end</b>].</li>
+      <li>If both <b>start</b> and <b>end</b> are out of bounds then the function would have no operating range (effectively inverting what the function is supposed to do).</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <p>See <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index#Range_Functions" target="_blank">negative indexes</a> for more information.</p>
+  <p>The counting of the characters starts at 0. Using 0,0 as start and end positions would return the first character only. Using negative numbers causes backwards counting, so -1 is shortform for the last character in a string. Ergo, using 0, -1 as start and end positions would return the entire string.</p>
+  <p>To ascertain how long a string is, use <a href="https://wiki.secondlife.com/wiki/LlStringLength" target="_blank">llStringLength</a>.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReplaceSubString" target="_blank">llReplaceSubString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDeleteSubString" target="_blank">llDeleteSubString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlInsertString" target="_blank">llInsertString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">Negative Index</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Library_Combined_Library#str_replace" target="_blank">CombinedLibrary: str_replace</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetSubString( string src, integer start, integer end );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Half a bee buzzing</p>
+<p>Flying through the air so free</p>
+<p>With half of its wings</p>
+<p>Generated by <a href="https://toolbaz.com/writer/haiku-generator" target="_blank">the AI Haiku Generator</a> inspired by the Monty Python song <a href="https://genius.com/Monty-python-eric-the-half-a-bee-lyrics" target="_blank"><i>Eric the Half a Bee</i></a>, which starts with:</p>
+<p>Half a bee, philosophically
+Must, <i>ipso facto</i>, half not be
+But half the bee has got to be
+A <i>vis-a-vis</i> its entity, you see?
+But can a bee be said to be
+Or not to be an entire bee
+When half the bee is not a bee
+Due to some ancient injury?</p>
+<p>If it's not obvious, my twisted mind tried to explain, using analogies, that part of a string extracted from a string is, indeed, a string too; half a string is also a string. Unless you make a serious mistake, that is.
+— <a href="https://wiki.secondlife.com/wiki/User:Gwyneth_Llewelyn" target="_blank">Gwyneth Llewelyn</a> (<a href="https://wiki.secondlife.com/wiki/User_talk:Gwyneth_Llewelyn" target="_blank">talk</a>) 07:55, 15 October 2023 (PDT)</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

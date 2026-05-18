@@ -1,0 +1,144 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetTexture(Face: number): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetTexture(integer Face);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> diffuse texture on <b>face</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">57</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function returns the value for face zero.</p>
+  <p>If the texture is in the prim's inventory, the return value is the inventory name, otherwise the returned value is the texture <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>face</b> indicates a face that does not exist the return is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned when the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> does not have <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full permissions</a> to the object and the texture is not in the prim's inventory.</li>
+    <li>The white texture from the texture picker is "<a href="https://wiki.secondlife.com/wiki/TEXTURE_BLANK" target="_blank">5748decc-f629-461c-9a36-a35a221fe21f</a>"</li>
+    <li>The default texture (plywood) is "<a href="https://wiki.secondlife.com/wiki/TEXTURE_PLYWOOD" target="_blank">89556747-24cb-43ed-920b-47caed15465f</a>"</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Tells (on chat) the texture keys / texture names on 6 sides
+local function main()
+    local i = 0
+    local max = ll.GetNumberOfSides()
+    while i < max do
+        ll.Say(0, "Side " .. tostring(i) .. " texture is: " .. tostring(ll.GetTexture(i)))
+        i += 1
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Tells (on chat) the texture keys / texture names on 6 sides
+default
+{
+    state_entry()
+    {
+        integer i = 0;
+        integer max = llGetNumberOfSides();
+        while(i < max)
+        {
+            llSay(0,"Side " + (string)i + " texture is: " + (string)llGetTexture(i));
+            ++i;
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_PrimitiveParams" target="_blank">PrimitiveParams</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TEXTURE" target="_blank">PRIM_TEXTURE</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetTexture" target="_blank">llSetTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkTexture" target="_blank">llSetLinkTexture</a></td>
+        <td>–</td>
+        <td>Sets link's texture</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNumberOfSides" target="_blank">llGetNumberOfSides</a></td>
+        <td>–</td>
+        <td>Gets the number of faces on the prim</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>On 5/15/2005 (give or take a day) llGetTexture was changed to check the host object's permissions and if inadequate return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.
+    <ul>
+      <li><a href="http://forums-archive.secondlife.com/54/a1/47066/1.html" target="_blank">http://forums-archive.secondlife.com/54/a1/47066/1.html</a></li>
+      <li><a href="http://forums-archive.secondlife.com/54/09/33388/1.html" target="_blank">http://forums-archive.secondlife.com/54/09/33388/1.html</a></li>
+    </ul>
+  
+    </li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetTexture( integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,164 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetHoverHeight(Height: number, Water: boolean, Tau: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetHoverHeight(float Height, integer Water, float Tau);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Critically damps to a <b>height</b> above the ground (or water) in <b>tau</b> seconds.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Height / height</td>
+          <td>Distance to hover above the ground (if negative, hovers below ground)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Water / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">water</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> then hover above water too (or below if <b>height</b> is negative), if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> ignore water like it isn't there</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Tau / tau</td>
+          <td>seconds to critically damp in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">123</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Do not use with vehicles.</p>
+  <p>Use <a href="https://wiki.secondlife.com/wiki/LlStopHover" target="_blank">llStopHover</a> to stop hovering.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Only works in <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics-enabled</a> objects.</li>
+    <li>Do not rely on built-in limits. In the past, the difference between the object's initial position and the hover height was limited to 64 meters. Under SL Server 1.26.2 the limit is 4096 meters above the ground level.</li>
+    <li>This is not a prim property; stopping or resetting the script stops llSetHoverHeight; same with the similar <a href="https://wiki.secondlife.com/wiki/LlGroundRepel" target="_blank">llGroundRepel</a></li>
+    <li>If the object tries to go above the height (like, walking up a prim ramp), llSetHoverHeight will pull it back down, unlike the similar <a href="https://wiki.secondlife.com/wiki/LlGroundRepel" target="_blank">llGroundRepel</a></li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Put in an attached prim and touch to start floating in air without flying.
+-- Touch again to drop to the ground.
+
+local gHovering = false  -- are we supposd to be hovering now?
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    if not (ll.GetAttached() ~= 0) then
+        ll.Whisper(0, "Wear me to play.")
+        return
+    end
+
+    if gHovering then
+        ll.OwnerSay("Releasing you.")
+        ll.StopHover()
+    else
+        ll.OwnerSay("Making you float...")
+
+        -- Start hovering 5 meters over our current location.
+        local myPosition = ll.GetPos()
+        ll.SetHoverHeight(myPosition.z - ll.Ground(ZERO_VECTOR) + 5.0, false, 1.0)
+    end
+
+    gHovering = not gHovering  -- flip the switch
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Put in an attached prim and touch to start floating in air without flying.
+// Touch again to drop to the ground.
+
+integer gHovering = FALSE; // are we supposd to be hovering now?
+
+default {
+    touch_start(integer total_number) {
+        if (!llGetAttached()) {
+            llWhisper(0, "Wear me to play.");
+            return;
+        }
+
+        if (gHovering) {
+            llOwnerSay("Releasing you.");
+            llStopHover();
+        }
+        else {
+            llOwnerSay("Making you float...");
+
+            // Start hovering 5 meters over our current location.
+            vector myPosition = llGetPos();
+            llSetHoverHeight(myPosition.z - llGround(ZERO_VECTOR) + 5.0, FALSE, 1.0);
+        }
+
+        gHovering = !gHovering; // flip the switch
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>It is possible to assign <b>height</b> a negative value. If <b>water</b> is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, this will make the object hover below the water level.</li>
+    <li>Unless <a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">volume detect</a> is enabled, negative <b>height</b> values when <b>water</b> is <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> will not move the object below the ground level and may cause it to be dragged down the local incline to the nearest low point. Enabling <a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">volume detect</a> will cause negative <b>height</b> settings to move the object below the ground level.</li>
+    <li>Assigning <b>height</b> a value of zero will have the same effect as <a href="https://wiki.secondlife.com/wiki/LlStopHover" target="_blank">llStopHover</a>.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGroundRepel" target="_blank">llGroundRepel</a></td>
+        <td>–</td>
+        <td>Same as llSetHoverHeight but does not hover all the time</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStopHover" target="_blank">llStopHover</a></td>
+        <td>–</td>
+        <td>To stop hovering</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetHoverHeight( float height, integer water, float tau );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

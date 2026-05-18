@@ -1,0 +1,133 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`TEXTURE_PLYWOOD: string = 89556747-24cb-43ed-920b-47caed15465f`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string TEXTURE_PLYWOOD = 89556747-24cb-43ed-920b-47caed15465f;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The string constant TEXTURE_PLYWOOD has the value "89556747-24cb-43ed-920b-47caed15465f"</p>
+  <p>UUID for the default "Plywood" texture</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Untitled Section</h2>
+  <p><b> Constant: <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> TEXTURE_DEFAULT = "89556747-24cb-43ed-920b-47caed15465f"; </b></p>
+  <p>The string constant TEXTURE_DEFAULT also has the value "89556747-24cb-43ed-920b-47caed15465f"</p>
+  <p>It can be used just like TEXTURE_PLYWOOD.</p>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TEXTURE_BLANK" target="_blank">TEXTURE_BLANK</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TEXTURE_MEDIA" target="_blank">TEXTURE_MEDIA</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TEXTURE_TRANSPARENT" target="_blank">TEXTURE_TRANSPARENT</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetTexture" target="_blank">llSetTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Notes</h2>
+  <p>Like any <a href="https://wiki.secondlife.com/wiki/LSO" target="_blank">LSO</a> string constants longer then 3 characters and used in multiple places in the code, they should be stored in a global variable. The result will be a considerable memory savings. This does not apply to scripts compiled with <a href="https://wiki.secondlife.com/wiki/Mono" target="_blank">Mono</a>. See <a href="https://wiki.secondlife.com/wiki/LSL_Constants_vs_Globals" target="_blank">LSL Constants vs Globals</a> for more information about this and examples.</p>
+  <p>Since TEXTURE_DEFAULT and TEXTURE_PLYWOOD share the same value, they are interchangeable.</p>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/543?new_path=%2F#file35" target="_blank">SVN:543 r Branch:Release&#32;c:1.20.7</a> - Introduction</li>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/627?new_path=%2F#file3" target="_blank">SVN:627 r Branch:Release&#32;c:1.20.10</a> - Value of <b>TEXTURE_DEFAULT</b> changed from <a href="https://wiki.secondlife.com/wiki/TEXTURE_MEDIA" target="_blank">"8b5fec65-8d8d-9dc5-cda8-8fdf2716e361"</a> to "89556747-24cb-43ed-920b-47caed15465f"</li>
+    <li>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.20#Release_Notes_for_Second_Life_1.20.15_Jul_24th.2C_2008" target="_blank"> 24/07/2008 </a></li>
+  </ul>
+  <p>All Issues ~ <a href="https://secondlife.canny.io/?search=TEXTURE_PLYWOOD" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/VWR-7315" target="_blank">VWR-7315</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/VWR-7315" target="_blank">A</a></td>
+        <td></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TEXTURE_DEFAULT" target="_blank">TEXTURE_DEFAULT</a> is a bad constant name</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+TEXTURE_PLYWOOD = uuid("89556747-24cb-43ed-920b-47caed15465f")
+TEXTURE_DEFAULT = uuid("89556747-24cb-43ed-920b-47caed15465f")
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+string TEXTURE_PLYWOOD = "89556747-24cb-43ed-920b-47caed15465f";
+string TEXTURE_DEFAULT = "89556747-24cb-43ed-920b-47caed15465f";
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

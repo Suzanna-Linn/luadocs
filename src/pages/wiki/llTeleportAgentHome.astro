@@ -1,0 +1,145 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.TeleportAgentHome(AvatarID: uuid)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llTeleportAgentHome(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Teleports <b>avatar</b> on owner's land to their home location without any warning, similar to a <a href="https://wiki.secondlife.com/w/index.php?title=God_Summons&action=edit&redlink=1" target="_blank">God Summons</a> or <a href="https://wiki.secondlife.com/wiki/Death" target="_blank">dying</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>land_moderation</li>
+        <li>teleport</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">5s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">100</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">158</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Generally, the object owner must also be the land owner but there is an exception for land deeded to a group for group members with the "Eject and freeze Residents on parcels" ability. See <a href="#Ownership_Limitations" target="_blank">#Ownership Limitations</a> for details.</p>
+  <h2>Specification</h2>
+  <h3>Ownership Limitations</h3>
+  <ul>
+    <li>If the land under the object is owned by an individual, the script must be owned by the same individual.</li>
+    <li>If the land under the object is deeded to a group the object will need to satisfy one of the following:
+    <ul>
+      <li>The object is deeded to the same group.</li>
+      <li>The object owner must have "Eject and freeze Residents on parcels" ability in the group and be connected to the sim[[1]](#footnote_1).</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 5.0 seconds.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    -- floattext is red and opaque
+    ll.SetText("Don't touch me!", vector(1.0, 0.0, 0.0), 1.0)
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local id = ll.DetectedKey(0)
+
+    ll.TeleportAgentHome(id)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        // floattext is red and opaque
+        llSetText("Don't touch me!", <1.0, 0.0, 0.0>, 1.0);
+    }
+
+    touch_start(integer num_detected)
+    {
+        key id = llDetectedKey(0);
+
+        llTeleportAgentHome(id);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlEjectFromLand" target="_blank">llEjectFromLand</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTeleportAgent" target="_blank">llTeleportAgent</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTeleportAgentGlobalCoords" target="_blank">llTeleportAgentGlobalCoords</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The script owner need not be in the region, they can be a child agent of the region.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llTeleportAgentHome( key avatar );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

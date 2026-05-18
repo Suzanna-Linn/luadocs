@@ -1,0 +1,188 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GiveInventory(TargetID: uuid, InventoryItem: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llGiveInventory(key TargetID, string InventoryItem);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Give <b>inventory</b> to <b>destination</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>TargetID / destination</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InventoryItem / inventory</td>
+          <td>an item in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_inventory</li>
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">150</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>destination</b> is an object then it must be in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>.</p>
+  <p>If <b>destination</b> is an avatar they do not have to be in the same region.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>destination</b> is an avatar the script sleeps for 2.0 seconds. (Giving to objects or attachments has no delay)</li>
+    <li>If <b>destination</b> is not the owner nor shares the same owner, and <b>inventory</b> does not have transfer permissions, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>When scripts are copied or moved between inventories, their state does not survive the transfer. Memory, event queue and execution position are all discarded.</li>
+    <li>If <b>inventory</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>There is no way to know if the transaction failed. Unless you send a message when inventory is given to a prim and prim's script checks its inventory and sends a message back using llRegionSay.</li>
+    <li>Scripts reach <b>destination</b> disabled (not running, and cannot be made to run unless the destination object is taken to inventory and rezzed again, or the script is recompiled). To send a running script to a prim use <a href="https://wiki.secondlife.com/wiki/LlSetRemoteScriptAccessPin" target="_blank">llSetRemoteScriptAccessPin</a> and <a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a>.</li>
+    <li>If <b>destination</b> is locked then <b>inventory</b> is not transferred and a <b>Blocked by permissions</b> error is shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>destination</b> object is not modifiable then <b>inventory</b> is not transferred and a <b>Blocked by permissions</b> error is shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>inventory</b> is no-copy it is transfered to <b>destination</b> without copying it. Since it is no-copy the only copy is given to <b>destination</b>; removing it from the source prim's inventory.
+    <ul>
+      <li>the <a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a> event does <b>not</b> fire in this case</li>
+      <li>To avoid this problem use <a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">llGetInventoryPermMask</a> to check the permissions of <b>inventory</b>.</li>
+    </ul>
+  
+    </li>
+    <li><a href="https://wiki.secondlife.com/wiki/Attachment" target="_blank">Attachments</a> cannot give or receive no-copy inventory. When attempted an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>When giving to an attachment that is not owned by the script owner, the receiving attachment must have <a href="https://wiki.secondlife.com/wiki/LlAllowInventoryDrop" target="_blank">llAllowInventoryDrop</a> set to TRUE.</li>
+    <li>If <b>destination</b> is an avatar that refuses to accept it (by manual decline or muting), is in busy mode, or is offline with instant messages capped, it is not returned to the prim's inventory; it is deleted.
+    <ul>
+      <li>It is not returned to the owner. It does not show up in their lost and found or any other inventory folder.</li>
+      <li>It is not put in the target's trash folder.</li>
+    </ul>
+  
+    </li>
+    <li>A successful send to an offline avatar by means of llGiveInventory() counts as an IM against that avatar’s IM cap.</li>
+    <li>As of 31th January 2012, llGiveInventory now has similar throttle to instant messages. A throttle of 5k per hour per owner per region; with a maximum burst of 2.5k. This throttle only affects gives to agents, not to non-agents.
+    <ul>
+      <li>"With 3k subscribers you will want to send slow enough that it takes ~45 minutes to send 1 item to each subscriber. A general safe way would be to send ~2k as fast as you can, then wait 31 minutes and send another 2k." <a href="https://jira.secondlife.com/browse/SVC-7631?focusedCommentId=308665&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-308665" target="_blank">Kelly Linden on SVC-7631</a></li>
+      <li>Be aware that while you script a system to handle the top of these limits that other busy scripted objects can be adding up to the throttle as well, such as vendors.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local n = #events
+    --Gives this script to whoever touches the object.
+    ll.GiveInventory(ll.DetectedKey(0), ll.GetScriptName())
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer n)
+    {
+        //Gives this script to whoever touches the object.
+        llGiveInventory(llDetectedKey(0), llGetScriptName());
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveInventoryList" target="_blank">llGiveInventoryList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveAgentInventory" target="_blank">llGiveAgentInventory</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetRemoteScriptAccessPin" target="_blank">llSetRemoteScriptAccessPin</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlMapDestination" target="_blank">llMapDestination</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveInventory_Test" target="_blank">llGiveInventory Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llGiveInventory( key destination, string inventory );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

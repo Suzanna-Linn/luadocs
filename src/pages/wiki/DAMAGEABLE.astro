@@ -1,0 +1,480 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`DAMAGEABLE: number = 32`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer DAMAGEABLE = 32;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant DAMAGEABLE has the value 0x20</p>
+  <p>If it is contained in the result of <a href="https://wiki.secondlife.com/wiki/LlDetectedType" target="_blank">llDetectedType</a>, it means what was detected is either an <a href="https://wiki.secondlife.com/wiki/Agent" target="_blank">agent</a> that can take damage, or is an object containing a script with either <a href="https://wiki.secondlife.com/wiki/On_damage" target="_blank">on_damage</a> or <a href="https://wiki.secondlife.com/wiki/Final_damage" target="_blank">final_damage</a> events (able to process damage).</p>
+  <p>If it is used as a filter of <a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a> or <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a>, it will search for agents or objects which match the same criteria mentioned above.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>DetectType</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The sensor will detect nothing if DAMAGEABLE is used by itself.
+    <ul>
+      <li>It should be combined with other constants like <a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a> or <a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b> Flag Mask</b></th>
+        <th><b>Description (<a href="https://wiki.secondlife.com/wiki/LlDetectedType" target="_blank">llDetectedType</a>())</b></th>
+        <th><b>Description (<a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a>() and <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a>() mask)</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_BY_LEGACY_NAME" target="_blank">AGENT_BY_LEGACY_NAME</a></td>
+        <td>0x1</td>
+        <td>Agents</td>
+        <td>This is used to find agents by <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a></td>
+        <td>0x1</td>
+        <td>Agents</td>
+        <td>This is also used to find agents by <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a>, and is functionally identical to <a href="https://wiki.secondlife.com/wiki/AGENT_BY_LEGACY_NAME" target="_blank">AGENT_BY_LEGACY_NAME</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_BY_USERNAME" target="_blank">AGENT_BY_USERNAME</a></td>
+        <td>0x10</td>
+        <td><i>Reserved</i></td>
+        <td>This is used to find agents by <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">username</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a></td>
+        <td>0x2</td>
+        <td>Physical tasks. (Physical objects & agents)</td>
+        <td>Physical objects that are moving or objects containing an active script. Thus, it is using SL server resources now.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a></td>
+        <td>0x4</td>
+        <td>Non-physical objects.</td>
+        <td>Non-scripted or script is inactive and non-physical or, if physical, not moving. Thus, it is not using SL server resources now.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a></td>
+        <td>0x8</td>
+        <td>Objects containing any active script.</td>
+        <td>Objects that has any script, which is doing anything in simulator just now.</td>
+      </tr>
+      <tr>
+        <td>DAMAGEABLE</td>
+        <td>0x20</td>
+        <td>Objects & agents that are able to process damage.</td>
+        <td>Filter for objects in world that have a script with <a href="https://wiki.secondlife.com/wiki/On_damage" target="_blank">on_damage</a> or a <a href="https://wiki.secondlife.com/wiki/Final_damage" target="_blank">final_damage</a> event (able to process damage)</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th><a href="https://wiki.secondlife.com/wiki/LlDetectedType" target="_blank">llDetectedType</a>()</th>
+        <th>Scripted</th>
+        <th>Not Scripted</th>
+        <th>Agent Standing</th>
+        <th>Agent Sitting</th>
+      </tr>
+      <tr>
+        <th>Physical Movement</th>
+        <th>10 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>|<a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a>)</th>
+        <th>2 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>)</th>
+        <th>3 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>|<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+        <th>3 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>|<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+      </tr>
+      <tr>
+        <th>Non-Physical</th>
+        <th>12 (<a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>|<a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a>)</th>
+        <th>4 (<a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>)</th>
+        <th>1 (<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+        <th>5 (<a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>|<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedType" target="_blank">llDetectedType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+  <p><b>Using <a href="https://wiki.secondlife.com/wiki/LlDetectedType" target="_blank">llDetectedType</a> in <a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a> event:</b></p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local type = 0
+
+local function main()
+    ll.VolumeDetect(true)
+end
+function LLEvents.collision_start(events)
+    local detected = #events
+    type = ll.DetectedType(0)
+    if type == AGENT then  -- = 1
+        ll.Say(0, "This is impossible. Since there is no avatar who doesn't require the physical calculation.")
+    elseif type == ACTIVE then  -- = 2
+        ll.Say(0, "I have been struck by a physical object not containing any script.")
+    elseif type == PASSIVE then  -- = 4
+        ll.Say(0, "This is impossible. Non-physical objects cannot trigger this event.")
+    elseif type == SCRIPTED then  -- = 8
+        ll.Say(0, "This is impossible. Since there is no object which isn't physical nor non-physical.")
+    elseif type == bit32.bor(AGENT, ACTIVE) then  -- 1 + 2
+        ll.Say(0, "I have been struck by an avatar.")
+    elseif type == bit32.bor(SCRIPTED, ACTIVE) then  -- = 8 + 2
+        ll.Say(0, "I have been struck by a physical object containing any script.")
+    elseif type == bit32.bor(SCRIPTED, PASSIVE) then  -- = 8 + 4
+        ll.Say(0, "This is impossible. Non-physical objects cannot trigger this event.")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer type;
+
+default
+{
+    state_entry()
+    {
+        llVolumeDetect(TRUE);
+    }
+    collision_start(integer detected)
+    {
+        type = llDetectedType(0);
+        if (type == AGENT)// = 1
+        {
+            llSay(0, "This is impossible. Since there is no avatar who doesn't require the physical calculation.");
+        }
+        else if (type == ACTIVE)// = 2
+        {
+            llSay(0, "I have been struck by a physical object not containing any script.");
+        }
+        else if (type == PASSIVE)// = 4
+        {
+            llSay(0, "This is impossible. Non-physical objects cannot trigger this event.");
+        }
+        else if (type == SCRIPTED)// = 8
+        {
+            llSay(0, "This is impossible. Since there is no object which isn't physical nor non-physical.");
+        }
+        else if (type == (AGENT | ACTIVE) ) // 1 + 2
+        {
+            llSay(0, "I have been struck by an avatar.");
+        }
+        else if (type == (SCRIPTED | ACTIVE) ) // = 8 + 2
+        {
+            llSay(0, "I have been struck by a physical object containing any script.");
+        }
+        else if (type == (SCRIPTED | PASSIVE) ) // = 8 + 4
+        {
+            llSay(0, "This is impossible. Non-physical objects cannot trigger this event.");
+        }
+    }
+}`} lang="lsl" /></div>
+  <p><b>Using <a href="https://wiki.secondlife.com/wiki/LlDetectedType" target="_blank">llDetectedType</a> in <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a> event:</b></p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local numberDetected = #events
+    ll.Sensor("", "", bit32.bor(ACTIVE, PASSIVE, AGENT), 20.0, PI)  -- activates the sensor.
+end
+
+function LLEvents.sensor(events)
+    local numberDetected = #events
+    local i = 0
+    while i < numberDetected do
+        local type = ll.DetectedType(i)
+        local message = ""
+        message ..= tostring(i) .. ", " .. ll.DetectedName(i) .. ", "
+        local typeList = {}
+        if bit32.btest(type, AGENT) then
+            typeList = ll.ListInsertList(typeList, {"AGENT"}, #typeList)
+        end
+        if bit32.btest(type, ACTIVE) then
+            typeList = ll.ListInsertList(typeList, {"ACTIVE"}, #typeList)
+        end
+        if bit32.btest(type, PASSIVE) then
+            typeList = ll.ListInsertList(typeList, {"PASSIVE"}, #typeList)
+        end
+        if bit32.btest(type, SCRIPTED) then
+            typeList = ll.ListInsertList(typeList, {"SCRIPTED"}, #typeList)
+        end
+        message ..= ll.DumpList2String(typeList, "|")
+        ll.Whisper(0, message)
+        i += 1
+    end
+end
+
+function LLEvents.no_sensor()
+    -- This is impossible if range = 20.0 and you are standing within 10m!
+    ll.Whisper(0, "Nothing is near me at present.")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer numberDetected)
+    {
+         llSensor("", "", ACTIVE | PASSIVE | AGENT, 20.0, PI); // activates the sensor.
+    }
+
+    sensor (integer numberDetected)
+    {
+        integer i;
+        while(i < numberDetected)
+        {
+            integer type = llDetectedType(i);
+            string message;
+            message += (string)i + ", " + llDetectedName(i) + ", ";
+            list typeList;
+            if (type & AGENT)
+            {
+                typeList += "AGENT";
+            }
+            if (type & ACTIVE)
+            {
+                typeList += "ACTIVE";
+            }
+            if (type & PASSIVE)
+            {
+                typeList += "PASSIVE";
+            }
+            if (type & SCRIPTED)
+            {
+                typeList += "SCRIPTED";
+            }
+            message += llDumpList2String(typeList, "|");
+            llWhisper(0, message);
+            ++i;
+        }
+    }
+ 
+    no_sensor()
+    {
+        // This is impossible if range = 20.0 and you are standing within 10m!
+        llWhisper(0, "Nothing is near me at present."); 
+    }
+}`} lang="lsl" /></div>
+  <p>**Using filter in <a href="https://wiki.secondlife.com/wiki/Category:LSL_Sensor" target="_blank">llSensor*</a> functions:**</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Report nearby sensed objects and avatars under sundry categories
+
+local SenseTypes = {}
+local gIndex = 0
+
+local function SenseNextType()
+    local text = ll.List2String(SenseTypes, gIndex)
+    local tipe = ll.List2Integer(SenseTypes, gIndex + 1)
+    if tipe ~= 0 then
+        ll.Whisper(0, text)
+        ll.Sensor("", NULL_KEY, tipe, 20.0, PI)
+        gIndex += 2  -- increment by stride
+    else
+        ll.Whisper(0, "--- Finished ---")
+    end
+end
+
+function LLEvents.touch_start(events)
+    local detected = #events
+    -- Make a Strided list of text and sensor type combinations
+    -- (Can't use '|' in Global, unfortunately)
+    SenseTypes = {"AGENT_BY_LEGACY_NAME", AGENT_BY_LEGACY_NAME, "ACTIVE", ACTIVE, "AGENT_BY_LEGACY_NAME|ACTIVE", bit32.bor(AGENT_BY_LEGACY_NAME, ACTIVE), "PASSIVE", PASSIVE, "AGENT_BY_LEGACY_NAME|PASSIVE", bit32.bor(AGENT_BY_LEGACY_NAME, PASSIVE), "ACTIVE|PASSIVE", bit32.bor(ACTIVE, PASSIVE), "AGENT_BY_LEGACY_NAME|ACTIVE|PASSIVE", bit32.bor(AGENT_BY_LEGACY_NAME, ACTIVE, PASSIVE), "SCRIPTED", SCRIPTED, "AGENT|SCRIPTED", bit32.bor(AGENT, SCRIPTED), "ACTIVE|SCRIPTED", bit32.bor(ACTIVE, SCRIPTED), "AGENT_BY_LEGACY_NAME|ACTIVE|SCRIPTED", bit32.bor(AGENT_BY_LEGACY_NAME, ACTIVE, SCRIPTED), "PASSIVE|SCRIPTED", bit32.bor(PASSIVE, SCRIPTED), "", 0}
+    gIndex = 0
+    SenseNextType()  -- Kick off the sensing sequence
+end
+function LLEvents.sensor(events)
+    local detected = #events
+    local x = 0
+    while x < detected do
+        ll.Whisper(0, tostring(x + 1) .. ": " .. ll.DetectedName(x))
+        x += 1
+    end
+    SenseNextType()
+end
+function LLEvents.no_sensor()
+    ll.Whisper(0, "none")
+    SenseNextType()
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Report nearby sensed objects and avatars under sundry categories
+
+list     SenseTypes;
+integer  gIndex;
+
+SenseNextType()
+{
+    string  text = llList2String( SenseTypes, gIndex);
+    integer tipe = llList2Integer(SenseTypes, gIndex + 1);
+    if (tipe)
+    {
+        llWhisper(0, text);
+        llSensor("", NULL_KEY, tipe, 20.0, PI);
+        gIndex += 2;   // increment by stride
+    }
+    else
+        llWhisper(0, "--- Finished ---");
+}
+
+default
+{
+    touch_start(integer detected)
+    {
+        // Make a Strided list of text and sensor type combinations
+        // (Can't use '|' in Global, unfortunately)
+        SenseTypes = [
+            "AGENT_BY_LEGACY_NAME", AGENT_BY_LEGACY_NAME,
+            "ACTIVE", ACTIVE,
+            "AGENT_BY_LEGACY_NAME|ACTIVE", AGENT_BY_LEGACY_NAME|ACTIVE,
+            "PASSIVE", PASSIVE,
+            "AGENT_BY_LEGACY_NAME|PASSIVE", AGENT_BY_LEGACY_NAME|PASSIVE,
+            "ACTIVE|PASSIVE", ACTIVE|PASSIVE,
+            "AGENT_BY_LEGACY_NAME|ACTIVE|PASSIVE", AGENT_BY_LEGACY_NAME|ACTIVE|PASSIVE,
+            "SCRIPTED", SCRIPTED,
+            "AGENT|SCRIPTED", AGENT|SCRIPTED,
+            "ACTIVE|SCRIPTED", ACTIVE|SCRIPTED,
+            "AGENT_BY_LEGACY_NAME|ACTIVE|SCRIPTED", AGENT_BY_LEGACY_NAME|ACTIVE|SCRIPTED,
+            "PASSIVE|SCRIPTED", PASSIVE|SCRIPTED,
+            "", 0 ];
+        gIndex = 0;
+        SenseNextType();        // Kick off the sensing sequence
+    }
+    sensor(integer detected)
+    {
+        integer x;
+        while (x < detected)
+        {
+            llWhisper(0, (string) (x+1) + ": " + llDetectedName(x) );
+            ++x;
+        }
+        SenseNextType();
+    }
+    no_sensor()
+    {
+        llWhisper(0, "none");
+        SenseNextType();
+    }
+}`} lang="lsl" /></div>
+  <p><b>Detecting damageable things with sensors:</b></p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.Sensor("", "", bit32.bor(SCRIPTED, AGENT, DAMAGEABLE), 20, PI)
+end
+
+function LLEvents.no_sensor()
+    ll.OwnerSay("Nothing detected")
+end
+
+function LLEvents.sensor(events)
+    local num_detected = #events
+    ll.OwnerSay("Detected " .. tostring(num_detected) .. " damageable thing(s)")
+    local i = 0
+    i = 0
+    while i < num_detected do
+        local name = ll.DetectedName(i)
+        local isAgent = bit32.band(ll.DetectedType(i), AGENT)
+        local types = {"Object", "Agent"}
+
+        ll.OwnerSay(ll.List2String(types, isAgent) .. ": " .. name)
+        i += 1
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSensor("", "", SCRIPTED|AGENT|DAMAGEABLE, 20, PI);
+    }
+
+    no_sensor()
+    {
+        llOwnerSay("Nothing detected");
+    }
+
+    sensor(integer num_detected)
+    {
+        llOwnerSay("Detected " + (string)num_detected + " damageable thing(s)");
+        integer i;
+        for (i = 0; i < num_detected; ++i)
+        {
+            string name = llDetectedName(i);
+            integer isAgent = llDetectedType(i) & AGENT;
+            list types = ["Object", "Agent"];
+
+            llOwnerSay(llList2String(types, isAgent) + ": " + name);
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=DAMAGEABLE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+DAMAGEABLE = 0x20
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer DAMAGEABLE = 0x20;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

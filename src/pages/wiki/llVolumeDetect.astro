@@ -1,0 +1,176 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.VolumeDetect(DetectEnabled: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llVolumeDetect(integer DetectEnabled);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>If <b>detect</b> is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, VolumeDetect is enabled, physical object and avatars can pass through the object.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>DetectEnabled / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">detect</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>&#32;(default) disables</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>physics</li>
+        <li>sensor</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">248</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This works much like Phantom, but unlike Phantom, VolumeDetect objects trigger <a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a> and <a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a> events when interpenetrating. Collision events will trigger in any script in the object.</p>
+  <h2>Specification</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th></th>
+        <th>VolumeDetect</th>
+        <th>Phantom</th>
+      </tr>
+      <tr>
+        <th><p>Events</p>
+<p>Supported</p></th>
+        <th><p><a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a></p>
+<p><a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a></p></th>
+        <th><p><a href="https://wiki.secondlife.com/wiki/Land_collision_start" target="_blank">land_collision_start</a></p>
+<p><a href="https://wiki.secondlife.com/wiki/Land_collision" target="_blank">land_collision</a></p>
+<p><a href="https://wiki.secondlife.com/wiki/Land_collision_end" target="_blank">land_collision_end</a></p></th>
+      </tr>
+    </tbody>
+  </table>
+  <p>Differences</p>
+  <p>There are a couple differences in how Phantom and VolumeDetect handle collisions; specifically which events are supported and how they handle the ground.</p>
+  <p>VolumeDetect</p>
+  <ul>
+    <li>When physical they fall through the ground with the risk of going off-world.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a> events are not triggered</li>
+  </ul>
+  <p>Phantom</p>
+  <ul>
+    <li>When physical they collide with the ground but will not pass through (normal physical object behavior), <a href="https://wiki.secondlife.com/wiki/Category:LSL_Land_Collision" target="_blank">land collision</a> events are queued.</li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDetectedLinkNumber" target="_blank">llDetectedLinkNumber</a> will return 0 in <a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a> and <a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a> events of VolumeDetect objects (<a href="#SVC-2996" target="_blank">SVC-2996</a>).</li>
+    <li>It can only be applied to the root prim (which will make the entire object VolumeDetect).</li>
+    <li>If the volume detecting object is <i>not</i> physical, it can only detect physical objects and avatars. If the object <i>is</i> physical, it can detect its collisions with static and <a href="https://wiki.secondlife.com/wiki/LlSetKeyframedMotion" target="_blank">keyframed motion</a> objects as well.</li>
+  </ul>
+  <h3>Attachments</h3>
+  <p><b>Note:</b> Attachments are not included in the avatar's bounding box. <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">Collision events</a> received by attachments are collisions the avatar is having with the world, not collisions the attachment is having. Nothing actually can collide with an attachment[[1]](#footnote_1).</p>
+  <ul>
+    <li>It is meaningless to enabled on attachments. Attachments cannot collide with anything.</li>
+    <li>Attachments do not receive collision events for avatar collisions with VolumeDetect objects.
+    <ul>
+      <li>Attachments do receive collision events for avatar collisions with non-VolumeDetect, non-phantom objects.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.VolumeDetect(true)  -- Starts llVolumeDetect
+end
+function LLEvents.collision_start(events)
+    local total_number = #events
+    ll.Say(0, "Detected!")  -- Tells you when something penetrates the prim
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llVolumeDetect(TRUE); // Starts llVolumeDetect
+    }
+    collision_start(integer total_number)
+    {
+        llSay(0, "Detected!"); // Tells you when something penetrates the prim
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassCollisions" target="_blank">llPassCollisions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Even if attachments were included in an avatars bounding box, you would not like the outcome, the avatars bounding box is not deformed by animations.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llVolumeDetect( integer detect );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

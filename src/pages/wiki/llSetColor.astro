@@ -1,0 +1,310 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetColor(Color: vector, Face: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetColor(vector Color, integer Face);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> <b>color</b> on <b>face</b> of the prim.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Color / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">49</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function works on all sides.</p>
+  <h2><a href="https://wiki.secondlife.com/wiki/LlSetColor/Newbie_Notes" target="_blank">Newbie Notes</a></h2>
+  <p>llSetColor changes the color of a prim, either on a specific side (face) or the entire prim.</p>
+  <p>Example:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetColor(vector(r, g, b), ALL_SIDES)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetColor(<r, g, b>, ALL_SIDES);`} lang="lsl" /></div>
+  <p><b>r, g, b</b>: values for red, green, blue ranging from <0.0, 0.0, 0.0> (black) to <1.0, 1.0, 1.0> (white)</p>
+  <p>To continue reading see: <a href="https://wiki.secondlife.com/wiki/LlSetColor/Newbie_Notes" target="_blank">Newbie Notes</a></p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
+    <li><p>llSetColor will have no visible effect on faces with a PBR material. To work on faces both with and without a PBR material, use this snippet:</p>
+<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+
+
+if ll.IsLinkGLTFMaterial(LINK_THIS, ALL_SIDES) ~= 0 then
+    ll.SetLinkGLTFOverrides(LINK_THIS, ALL_SIDES, {OVERRIDE_GLTF_BASE_COLOR_FACTOR, ll.sRGB2Linear(color)})
+else
+    ll.SetColor(color, ALL_SIDES)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+if (llIsLinkGLTFMaterial(LINK_THIS, ALL_SIDES)) {
+    llSetLinkGLTFOverrides(LINK_THIS, ALL_SIDES, [OVERRIDE_GLTF_BASE_COLOR_FACTOR, llsRGB2Linear(color)]);
+} else {
+    llSetColor(color, ALL_SIDES);
+}
+`} lang="lsl" /></div>
+
+</p></li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local face = -1
+local color = vector(1.0, 1.0, 1.0)
+
+function LLEvents.touch_start(events)
+    local num = #events
+    if bit32.bnot(face) ~= 0 then  --quick & dirty but efficient way of testing if face is not equal to -1
+        ll.SetColor(color, face)  --restore the color
+    end
+    face = (face + 1) % ll.GetNumberOfSides()  --increment and keep the face number in range
+    color = ll.GetColor(face)  --save the face's color
+    ll.SetColor(vector(0.5, 0.0, 0.0), face)  --change the face's color
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer face = -1;
+vector color = <1.0, 1.0, 1.0>;
+
+default
+{
+    touch_start(integer num)
+    {
+        if(~face)       //quick & dirty but efficient way of testing if face is not equal to -1
+            llSetColor(color, face); //restore the color
+        face = (face + 1) % llGetNumberOfSides(); //increment and keep the face number in range
+        color = llGetColor(face); //save the face's color
+        llSetColor(<0.5, 0.0, 0.0>, face );  //change the face's color
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Color</th>
+        <th>Hexadecimal code</th>
+        <th>LSL color representations</th>
+      </tr>
+      <tr>
+        <td>NAVY</td>
+        <td>#001f3f</td>
+        <td>`<0.000, 0.122, 0.247>`</td>
+      </tr>
+      <tr>
+        <td>BLUE</td>
+        <td>#0074d9</td>
+        <td>`<0.000, 0.455, 0.851>`</td>
+      </tr>
+      <tr>
+        <td>AQUA</td>
+        <td>#7fdbff</td>
+        <td>`<0.498, 0.859, 1.000>`</td>
+      </tr>
+      <tr>
+        <td>TEAL</td>
+        <td>#39cccc</td>
+        <td>`<0.224, 0.800, 0.800>`</td>
+      </tr>
+      <tr>
+        <td>OLIVE</td>
+        <td>#3d9970</td>
+        <td>`<0.239, 0.600, 0.439>`</td>
+      </tr>
+      <tr>
+        <td>GREEN</td>
+        <td>#2ecc40</td>
+        <td>`<0.180, 0.800, 0.251>`</td>
+      </tr>
+      <tr>
+        <td>LIME</td>
+        <td>#01ff70</td>
+        <td>`<0.004, 1.000, 0.439>`</td>
+      </tr>
+      <tr>
+        <td>YELLOW</td>
+        <td>#ffdc00</td>
+        <td>`<1.000, 0.863, 0.000>`</td>
+      </tr>
+      <tr>
+        <td>ORANGE</td>
+        <td>#ff851b</td>
+        <td>`<1.000, 0.522, 0.106>`</td>
+      </tr>
+      <tr>
+        <td>RED</td>
+        <td>#ff4136</td>
+        <td>`<1.000, 0.255, 0.212>`</td>
+      </tr>
+      <tr>
+        <td>MAROON</td>
+        <td>#85144b</td>
+        <td>`<0.522, 0.078, 0.294>`</td>
+      </tr>
+      <tr>
+        <td>FUCHSIA</td>
+        <td>#f012be</td>
+        <td>`<0.941, 0.071, 0.745>`</td>
+      </tr>
+      <tr>
+        <td>PURPLE</td>
+        <td>#b10dc9</td>
+        <td>`<0.694, 0.051, 0.788>`</td>
+      </tr>
+      <tr>
+        <td>WHITE</td>
+        <td>#ffffff</td>
+        <td>`<1.000, 1.000, 1.000>`</td>
+      </tr>
+      <tr>
+        <td>SILVER</td>
+        <td>#dddddd</td>
+        <td>`<0.867, 0.867, 0.867>`</td>
+      </tr>
+      <tr>
+        <td>GRAY</td>
+        <td>#aaaaaa</td>
+        <td>`<0.667, 0.667, 0.667>`</td>
+      </tr>
+      <tr>
+        <td>BLACK</td>
+        <td>#111111</td>
+        <td>`<0.067, 0.067, 0.067>`</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_COLOR" target="_blank">CHANGED_COLOR</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAlpha" target="_blank">llGetAlpha</a></td>
+        <td>–</td>
+        <td>Gets the prim's alpha</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetAlpha" target="_blank">llSetAlpha</a></td>
+        <td>–</td>
+        <td>Sets the prim's alpha</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetColor" target="_blank">llGetColor</a></td>
+        <td>–</td>
+        <td>Gets the prim's color</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkColor" target="_blank">llSetLinkColor</a></td>
+        <td>–</td>
+        <td>Sets link's color</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkAlpha" target="_blank">llSetLinkAlpha</a></td>
+        <td>–</td>
+        <td>Sets link's alpha</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_COLOR" target="_blank">PRIM_COLOR</a></td>
+        <td>–</td>
+        <td>The equivilant parameter for <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_BASE_COLOR" target="_blank">PRIM_GLTF_BASE_COLOR</a></td>
+        <td>–</td>
+        <td>The equivilant PBR parameter for <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">Color in LSL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Color_and_Scripting" target="_blank">Color and Scripting</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetColor( vector color, integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,180 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_PHYSICS: number = 3`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_PHYSICS = 3;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_PHYSICS has the value 3</p>
+  <p>Used to get or set the object's <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Status" target="_blank">status</a>. When enabled the object responds to SL physics.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_PHYSICS,&#32;[integer</a> boolean ]); </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> disables</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The same syntax applies to <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> and <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a> but with an additional prefixed <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/link" target="_blank">link</a> parameter in the function call.</p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_PHYSICS ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> disables</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The same syntax applies to <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a>, but with an additional prefixed <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/link" target="_blank">link</a> parameter in the function call.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>calls to set PRIM_PHYSICS in attachments fail silently</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">STATUS_PHYSICS</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetStatus" target="_blank">llSetStatus</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetStatus" target="_blank">llGetStatus</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.SetPrimitiveParams({PRIM_PHYSICS, if true then 1 else 0})  -- makes the object physical...
+
+    local isPhysical = ll.List2Integer(ll.GetPrimitiveParams({PRIM_PHYSICS}), 0)
+
+    if isPhysical == 1 then
+        ll.SetText("Object is Physical", vector(1, 1, 1), 1.0)
+
+    else
+        ll.SetText("Object is non-Physical", vector(1, 1, 1), 1.0)
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSetPrimitiveParams([PRIM_PHYSICS, TRUE]); // makes the object physical...
+        
+        integer isPhysical = llList2Integer(llGetPrimitiveParams([PRIM_PHYSICS]), 0);
+        
+        if( isPhysical == 1 )
+        {
+            llSetText("Object is Physical", <1, 1, 1>, 1.0);
+        }
+        
+        else
+        {
+            llSetText("Object is non-Physical", <1, 1, 1>, 1.0);
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_PHYSICS" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_PHYSICS = 3
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_PHYSICS = 3;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

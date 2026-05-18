@@ -1,0 +1,146 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.PatrolPoints(Points: {vector}, Options: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llPatrolPoints(list Points, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the object patrolling between the points specified in patrolPoints.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{vector}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Points / patrolPoints</td>
+          <td>A list of vectors for the character to travel through sequentially. The list must contain at least two entries.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">options</a></td>
+          <td>PATROL_* flags and their parameters</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>pathfinding</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">403</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Option</th>
+        <th>V</th>
+        <th>Parameters</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PATROL_PAUSE_AT_WAYPOINTS" target="_blank"> [PATROL_PAUSE_AT_WAYPOINTS</a> ]</td>
+        <td>0</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank"> [FALSE</a> ]</td>
+        <td>Whether the character should pause briefly after reaching each patrol point.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Must use <a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a> or script won't compile</li>
+    <li>Vertical positions specified for any vectors should be chosen to be as close as possible to the actual height of the terrain requested. Large difference between the provided vertical position and the actual terrain/object will result in failure of the behavior.</li>
+    <li>The <b>patrolPoints</b> list requires a minimum of two valid vectors.
+    <ul>
+      <li>If a vector in the list is outside the nav volume (e.g.: too high,) it will be ignored.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.CreateCharacter({CHARACTER_MAX_SPEED, 25, CHARACTER_DESIRED_SPEED, 15.0})
+--MAX_SPEED is @ 20 by default
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local points = {ll.GetPos() + vector(5, 0, 0), ll.GetPos() - vector(5, 0, 0)}
+    ll.PatrolPoints(points, {PATROL_PAUSE_AT_WAYPOINTS, if true then 1 else 0})
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llCreateCharacter([CHARACTER_MAX_SPEED, 25, CHARACTER_DESIRED_SPEED, 15.0]);
+        //MAX_SPEED is @ 20 by default
+    }
+
+    touch_start(integer total_number)
+    {
+        list points = [llGetPos() + <5,0,0>, llGetPos() - <5,0,0>];
+        llPatrolPoints(points, [PATROL_PAUSE_AT_WAYPOINTS, TRUE]);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a></li>
+  </ul>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDeleteCharacter" target="_blank">llDeleteCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlEvade" target="_blank">llEvade</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlExecCharacterCmd" target="_blank">llExecCharacterCmd</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetClosestNavPoint" target="_blank">llGetClosestNavPoint</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlFleeFrom" target="_blank">llFleeFrom</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlNavigateTo" target="_blank">llNavigateTo</a></li>
+    <li>llPatrolPoints</li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlUpdateCharacter" target="_blank">llUpdateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlWanderWithin" target="_blank">llWanderWithin</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.31.262785" target="_blank"> 31/07/2012 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llPatrolPoints( list patrolPoints, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

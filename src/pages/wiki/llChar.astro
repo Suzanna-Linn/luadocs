@@ -1,0 +1,173 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Char(value: number): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llChar(integer value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Construct a single character string from the supplied Unicode value.</p>
+  <p>Returns a string</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>value / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/val" target="_blank">val</a></td>
+          <td>Unicode value for character.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>string</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">526</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This function returns a single character string generated from the character at the indicated UTF-32 codepoint.</p>
+  <p>If <b>val</b> is negative, the codepoint has no valid single-character UTF-16 representation such as a part of a surrogate pair, or is outside defined range, the Unicode replacement character "�" (`0xFFFD`) is returned. (Slua's equivilant `utf8.char` instead raises the error `"invalid argument #1 to 'char' (value out of range)"` in this situation).</p>
+  <p>If <b>val</b> is 0, an empty string is returned.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Value range is between `0x1`&#8211;`0x10FFFF`</li>
+    <li>Values in the surrogate range `0xD800`&#8211;`0xDFFF` will return the replacement character "�" (`0xFFFD`) instead</li>
+    <li>Values for the special noncharacters `0xFFFE` and `0xFFFF` will return the replacement character instead</li>
+    <li>SLua's equivilant `utf8.char` has none of the above caveats, and also handles `0x0` (the null character) correctly (<a href="https://github.com/secondlife/lsl-definitions/pull/74#discussion_r2934141244" target="_blank">validation script, in SLua</a>)</li>
+    <li>Values for UTF-8 multibyte ranges are:
+    <ul>
+      <li>1 byte: `0x0`&#8211;`0x7F`</li>
+      <li>2 bytes: `0x80`&#8211;`0x07FF`</li>
+      <li>3 bytes: `0x0800`&#8211;`0xFFFF`</li>
+      <li>4 bytes: `0x10000`&#8211;`0x10FFFF`</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local test_string = "The quick brown fox jumped over the lazy dog"
+    local test_list = {}
+    local test_string2 = ""
+
+    local index = 0
+    local ord = 0
+    index = 0
+    while index < ll.StringLength(test_string) do
+        ord = ll.Ord(test_string, index)
+        test_list = ll.ListInsertList(test_list, {ord}, #test_list)
+        index += 1
+    end
+
+    local char = ""
+    index = 0
+    while index < #test_list do
+        ord = ll.List2Integer(test_list, index)
+        char = ll.Char(ord)
+        test_string2 = test_string2 .. char
+        index += 1
+    end
+
+    ll.Say(0, "\"" .. test_string .. "\" -> [" .. ll.DumpList2String(test_list, ", ") .. "] -> \"" .. test_string2 .. "\"")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        string test_string = "The quick brown fox jumped over the lazy dog";
+        list test_list = [];
+        string test_string2 = "";
+        
+        integer index;
+        integer ord;
+        for (index = 0; index < llStringLength(test_string); ++index)
+        {
+            ord = llOrd(test_string, index);
+            test_list = test_list + [ ord ];
+        }
+        
+        string char;
+        for (index = 0; index < llGetListLength(test_list); ++index)
+        {
+            ord = llList2Integer(test_list, index);
+            char = llChar(ord);
+            test_string2 = test_string2 + char;
+        }
+        
+        llSay(0, "\"" + test_string + "\" -> [" + 
+            llDumpList2String(test_list, ", ") + "] -> \"" + test_string2 + "\"");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlOrd" target="_blank">llOrd</a></td>
+        <td>Convert a character into an ordinal</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlHash" target="_blank">llHash</a></td>
+        <td>Calculate a 32bit hash for a string</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/UTF-32" target="_blank">UTF-32</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llChar( integer val );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,144 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ParcelMediaQuery(QueryList: {number}): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llParcelMediaQuery(list QueryList);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a list containing results of <b>query</b>. The results are in the same order as the request.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{number}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>QueryList / query</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>media</li>
+        <li>parcel</li>
+        <li>parcel_media</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">2s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">299</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th></th>
+        <th>Constant</th>
+        <th>Return</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_TEXTURE" target="_blank">PARCEL_MEDIA_COMMAND_TEXTURE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> uuid</td>
+        <td>Used to get or set the parcel's media texture.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_URL" target="_blank">PARCEL_MEDIA_COMMAND_URL</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> url</td>
+        <td>Used to get or set the parcel's media url.</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_TYPE" target="_blank">PARCEL_MEDIA_COMMAND_TYPE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> mime_type</td>
+        <td>Used to get or set the parcel media MIME type (e.g. "text/html"). (1.19.1 RC0 or later)</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_SIZE" target="_blank">PARCEL_MEDIA_COMMAND_SIZE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> x, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> y</td>
+        <td>Used to get or set the parcel media pixel resolution. (1.19.1 RC0 or later)</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_DESC" target="_blank">PARCEL_MEDIA_COMMAND_DESC</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> desc</td>
+        <td>Used to get or set the parcel media description. (1.19.1 RC0 or later)</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_LOOP_SET" target="_blank">PARCEL_MEDIA_COMMAND_LOOP_SET</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> loop</td>
+        <td>Used to get or set the parcel's media loop duration. (1.19.1 RC0 or later)</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 2.0 seconds.</li>
+    <li>This script's object must be owned by the landowner or the function will silently fail.</li>
+    <li>If the script's object is over group owned land, then the object must be deeded to <b>that</b> group.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`---- quick function to tell you the URL of the Media the Parcel is set for
+function LLEvents.touch_start(events)  ---- named null because we're ignoring it
+    local vIntNull = #events
+    ll.Say(0, "The Media URL is\n" .. tostring(ll.ParcelMediaQuery({PARCEL_MEDIA_COMMAND_URL})))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- quick function to tell you the URL of the Media the Parcel is set for
+default{
+  touch_start( integer vIntNull ){ //-- named null because we're ignoring it
+    llSay( 0, "The Media URL is\n" + (string)llParcelMediaQuery( (list)PARCEL_MEDIA_COMMAND_URL ) );
+  }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlParcelMediaCommandList" target="_blank">llParcelMediaCommandList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llParcelMediaQuery( list query );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

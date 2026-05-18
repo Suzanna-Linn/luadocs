@@ -1,0 +1,211 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.DetectedType(Number: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llDetectedType(integer Number);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_field" target="_blank">bit field</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) that is the types of the detected object or avatar.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Number / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/number" target="_blank">number</a></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Index of detection information</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>detected</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">34</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-detected">Detected Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>number</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>Returns zero if <b>number</b> is not valid sensed object or avatar.</p>
+  <h2>Specification</h2>
+  <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions only work if called from within Detection events (<a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a>, <a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a>, <a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a>, <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a>, <a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a>, <a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a>, <a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a>) or in functions called by Detection events. They will fail silently and return unusable values if called during other events.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b> Flag Mask</b></th>
+        <th><b>Description (llDetectedType())</b></th>
+        <th><b>Description (<a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a>() and <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a>() mask)</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_BY_LEGACY_NAME" target="_blank">AGENT_BY_LEGACY_NAME</a></td>
+        <td>0x1</td>
+        <td>Agents</td>
+        <td>This is used to find agents by <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a></td>
+        <td>0x1</td>
+        <td>Agents</td>
+        <td>This is also used to find agents by <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a>, and is functionally identical to <a href="https://wiki.secondlife.com/wiki/AGENT_BY_LEGACY_NAME" target="_blank">AGENT_BY_LEGACY_NAME</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_BY_USERNAME" target="_blank">AGENT_BY_USERNAME</a></td>
+        <td>0x10</td>
+        <td><i>Reserved</i></td>
+        <td>This is used to find agents by <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">username</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a></td>
+        <td>0x2</td>
+        <td>Physical tasks. (Physical objects & agents)</td>
+        <td>Physical objects that are moving or objects containing an active script. Thus, it is using SL server resources now.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a></td>
+        <td>0x4</td>
+        <td>Non-physical objects.</td>
+        <td>Non-scripted or script is inactive and non-physical or, if physical, not moving. Thus, it is not using SL server resources now.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a></td>
+        <td>0x8</td>
+        <td>Objects containing any active script.</td>
+        <td>Objects that has any script, which is doing anything in simulator just now.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DAMAGEABLE" target="_blank">DAMAGEABLE</a></td>
+        <td>0x20</td>
+        <td>Objects & agents that are able to process damage.</td>
+        <td>Filter for objects in world that have a script with <a href="https://wiki.secondlife.com/wiki/On_damage" target="_blank">on_damage</a> or a <a href="https://wiki.secondlife.com/wiki/Final_damage" target="_blank">final_damage</a> event (able to process damage)</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>llDetectedType()</th>
+        <th>Scripted</th>
+        <th>Not Scripted</th>
+        <th>Agent Standing</th>
+        <th>Agent Sitting</th>
+      </tr>
+      <tr>
+        <th>Physical Movement</th>
+        <th>10 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>|<a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a>)</th>
+        <th>2 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>)</th>
+        <th>3 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>|<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+        <th>3 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>|<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+      </tr>
+      <tr>
+        <th>Non-Physical</th>
+        <th>12 (<a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>|<a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a>)</th>
+        <th>4 (<a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>)</th>
+        <th>1 (<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+        <th>5 (<a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>|<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>number</b> is out of bounds this function returns zero and the script continues to execute without an error message.</li>
+    <li>Events that enable the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions always return at least one detected item.
+    <ul>
+      <li>Detection events are not raised if there is nothing detected.[[1]](#footnote_1)</li>
+      <li>The detection event's items detected parameter is initially never less than 1.[[2]](#footnote_2)</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+----// Type & name of collision source //--//
+
+function LLEvents.collision_start(events)
+    local vIntCollided = #events
+    local vBitType = 0
+    local vStrType = ""
+    repeat
+        vBitType = ll.DetectedType((function() vIntCollided -= 1 return vIntCollided end)())
+        if bit32.btest(vBitType, AGENT_BY_LEGACY_NAME) then
+            vStrType = "avatar"
+        else
+            vStrType = "object"
+        end
+        ll.OwnerSay("An " .. vStrType .. " named '" .. ll.DetectedName(vIntCollided) .. "' collided with me")
+    until not (vIntCollided ~= 0)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//--// Type & name of collision source //--//
+
+default{
+    collision_start( integer vIntCollided ){
+        integer vBitType;
+        string vStrType;
+        do
+        {
+            vBitType = llDetectedType( --vIntCollided );
+            if (vBitType & AGENT_BY_LEGACY_NAME)
+                vStrType = "avatar";
+            else
+                vStrType = "object";
+            llOwnerSay( "An " + vStrType + " named '" + llDetectedName( vIntCollided ) + "' collided with me" );
+        }
+        while (vIntCollided);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">Detected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The exception is <a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a> but it doesn't enable <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Like all event parameters, the user can overwrite the initial value.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llDetectedType( integer number );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,192 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetRegionPos(Position: vector): boolean`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llSetRegionPos(vector Position);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Tries to move the entire object so that the root prim is within 0.1m of <b>position</b>.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) , <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if the object is successfully placed within 0.1 m of <b>position</b>, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> otherwise. See <a href="#Specification" target="_blank">#Specification</a> for details.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>prim</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">397</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Only if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> is returned does the object move, if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> is returned, the object does not change position. (Spec does not quite agree, if object tries to go underground, the spec says it moves to ground level with the provided X and Y.)</p>
+  <h2>Specification</h2>
+  <p>The object with the script will move the root prim position to the given location. The position is any position within the region. If the position is below ground, it will be set to the ground level at that X,Y spot. The function has no delay or throttle.</p>
+  <ul>
+    <li>Returns <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if the object is successfully placed within 0.1 m of position.</li>
+    <li>Returns <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> and does not move the object if...
+    <ul>
+      <li><b>position</b> is more than 10m off region or above 4096m.
+      <ul>
+        <li>The x & y components of <b>position</b> must be in the range [-10.0, 266.0].[[1]](#footnote_1)</li>
+        <li>The z component must be in the range [0.0, 4096].</li>
+      </ul>
+    
+      </li>
+      <li>the object is dynamic (has <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics enabled</a>).</li>
+      <li>the object can not move to position due to parcel/region restrictions (object entry rules, prim limits, bans, etc).</li>
+      <li>the object is an avatar attachment.</li>
+    </ul>
+  
+    </li>
+    <li>Returns <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> and moves the object if the z position is below the ground .</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local currentPosition = ll.GetPos()
+
+    -- check whether the object has successfully been moved
+    -- to the center of the sim at the same height
+    local hasMoved = ll.SetRegionPos(vector(128.0, 128.0, currentPosition.z))
+
+    if hasMoved ~= 0 then
+        ll.OwnerSay("My new position is now:\n" .. "http://maps.secondlife.com/secondlife/" .. ll.EscapeURL(ll.GetRegionName()) .. "/128/128/" .. tostring(ll.Round(currentPosition.z)) .. "/")
+    elseif currentPosition.z < ll.Ground(ZERO_VECTOR) then
+        ll.OwnerSay("My new position is now:\n" .. "http://maps.secondlife.com/secondlife/" .. ll.EscapeURL(ll.GetRegionName()) .. "/128/128/" .. tostring(ll.Ceil(ll.Ground(ZERO_VECTOR))) .. "/")
+    else
+        ll.OwnerSay("Move was not possible!")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        vector currentPosition = llGetPos();
+
+        // check whether the object has successfully been moved
+        // to the center of the sim at the same height
+        integer hasMoved = llSetRegionPos(<128.0, 128.0, currentPosition.z>);
+
+        if (hasMoved)
+        {
+            llOwnerSay("My new position is now:\n"
+                + "http://maps.secondlife.com/secondlife/" + llEscapeURL(llGetRegionName())
+                + "/128/128/" + (string)llRound(currentPosition.z) + "/");
+        }
+        else if ( currentPosition.z < llGround(ZERO_VECTOR) )
+        {
+            llOwnerSay("My new position is now:\n"
+                + "http://maps.secondlife.com/secondlife/" + llEscapeURL(llGetRegionName())
+                + "/128/128/" + (string)llCeil(llGround(ZERO_VECTOR)) + "/");
+        }
+        else
+            llOwnerSay("Move was not possible!");
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>This function is intended to replace <a href="https://wiki.secondlife.com/wiki/WarpPos" target="_blank">WarpPos</a>.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLocalPos" target="_blank">llGetLocalPos</a></td>
+        <td>–</td>
+        <td>Returns the prim's local position if it is attached or non-root (otherwise it returns the global position)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRootPosition" target="_blank">llGetRootPosition</a></td>
+        <td>–</td>
+        <td>Gets the root prims position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">llGetPos</a></td>
+        <td>–</td>
+        <td>Returns the prim's global position, even if it is attached or non-root</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPos" target="_blank">llSetPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlEdgeOfWorld" target="_blank">llEdgeOfWorld</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>New LSL function integer llSetRegionPos(vector position) in Second Life Server 12.01.24.248357
+The object with the script will move the root prim position to the given location. The position is any position within the region. If the position is below ground, it will be set to the ground level at that X,Y spot. The function has no delay or throttle.
+    <ul>
+      <li>Returns 1 if the object is successfully placed within 0.1 m of position.</li>
+      <li>Returns 0 and does not move the object if position is more than 10m off region or above 4096m.</li>
+      <li>Returns 0 and does not move the object if the object is dynamic (has physics enabled).</li>
+      <li>Returns 0 and does not move the object if the object can not move to position due to object entry rules, prim limits, bans, etc.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llSetRegionPos( vector position );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

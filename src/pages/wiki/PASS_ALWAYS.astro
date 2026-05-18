@@ -1,0 +1,131 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PASS_ALWAYS: number = 1`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PASS_ALWAYS = 1;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PASS_ALWAYS has the value 1</p>
+  <p>The applicable event group will always be triggered in the the root prim. Whether or not is handled in the child prim is irrelevant.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PassMode</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>pass</b> Constant</th>
+        <th>Value</th>
+        <th><a href="https://wiki.secondlife.com/wiki/Category:LSL_Passable" target="_blank">Passable</a> Script</th>
+        <th>No <a href="https://wiki.secondlife.com/wiki/Category:LSL_Passable" target="_blank">Passable</a> Script</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASS_IF_NOT_HANDLED" target="_blank">PASS_IF_NOT_HANDLED</a></td>
+        <td>0</td>
+        <td>not passed</td>
+        <td>passed</td>
+        <td>Passables are passed if there is no script handling the event in the prim.</td>
+      </tr>
+      <tr>
+        <td>PASS_ALWAYS</td>
+        <td>1</td>
+        <td>passed</td>
+        <td>passed</td>
+        <td>Passables are always passed to the root.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASS_NEVER" target="_blank">PASS_NEVER</a></td>
+        <td>2</td>
+        <td>not passed</td>
+        <td>not passed</td>
+        <td>Passables are never passed to the root.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassTouches" target="_blank">llPassTouches</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassCollisions" target="_blank">llPassCollisions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• Collision</td>
+        <td></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a></td>
+      </tr>
+      <tr>
+        <td>• Touch</td>
+        <td></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PASS_ALWAYS" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PASS_ALWAYS = 1
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PASS_ALWAYS = 1;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

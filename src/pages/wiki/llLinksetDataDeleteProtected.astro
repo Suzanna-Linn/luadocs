@@ -1,0 +1,466 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LinksetDataDeleteProtected(name: string, pass: string): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llLinksetDataDeleteProtected(string name, string pass);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Removes an unprotected <b>name:value</b> pair from the linkset's datastore. If the pair was created</p>
+  <p>Returns an integer success or failure code.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>The key of the linkset <b>name:value</b> pair to be deleted.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>pass</td>
+          <td>Pass phrase to access protected data.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>linkset</li>
+        <li>linkset_data</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">660</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Untitled Section</h2>
+  <h3>llLinksetDataDeleteProtected</h3>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Functions" target="_blank">Function</a>: <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> </b>llLinksetDataDeleteProtected<b>( <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> name, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> pass );</b></p>
+  <p>The <b>llLinksetDataDeleteProtected</b> function erases a protected <b>name:value</b> pair from the linkset's datastore.</p>
+  <p>Returns an integer success or failure code.</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• string</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+        <td>–</td>
+        <td>The key of the linkset <b>name:value</b> pair to be deleted.The key of the linkset <b>name:value</b> pair to be deleted.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• string</td>
+        <td>pass</td>
+        <td>–</td>
+        <td>A pass phrase previously used to protect the <b>name:value</b> pair.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_OK&action=edit&redlink=1" target="_blank">LINKSETDATA_OK</a></td>
+        <td>0</td>
+        <td>The <b>name:value</b> pair was written to the datastore.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_EMEMORY&action=edit&redlink=1" target="_blank">LINKSETDATA_EMEMORY</a></td>
+        <td>1</td>
+        <td>A <b>name:value</b> pair was too large to write to the linkset datastore.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_ENOKEY&action=edit&redlink=1" target="_blank">LINKSETDATA_ENOKEY</a></td>
+        <td>2</td>
+        <td>The name supplied to llLinksetDataWrite was empty.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_EPROTECTED&action=edit&redlink=1" target="_blank">LINKSETDATA_EPROTECTED</a></td>
+        <td>3</td>
+        <td>The <b>name:value</b> pair has been protected from overwrite in the linkset's datastore.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_NOTFOUND&action=edit&redlink=1" target="_blank">LINKSETDATA_NOTFOUND</a></td>
+        <td>4</td>
+        <td>The named key could not be found in the linkset's datastore when attempting to delete it.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_NOUPDATE&action=edit&redlink=1" target="_blank">LINKSETDATA_NOUPDATE</a></td>
+        <td>5</td>
+        <td>The <b>name:value</b> stored in the linkset was not changed by the write operation because the value stored matches the value written.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If the <b>name</b> does not exist or the <b>pass</b> does not match, no event is triggered.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+-- Simple blacklist management.
+
+local gDialogChannel = 0
+local gDialogHandle = 0
+local gManagingBlocks = 0
+
+local function startDialog(person)
+    gManagingBlocks = 0
+    gDialogHandle = ll.Listen(gDialogChannel, "", person, "")
+    ll.Dialog(person, "\nSelect action", {"List blocks", "Add block", "Remove block"}, gDialogChannel)
+    ll.SetTimerEvent(60)
+end
+
+local function stopDialog()
+    ll.SetTimerEvent(0)
+    ll.ListenRemove(gDialogHandle)
+end
+
+function LLEvents.on_rez(sp)
+    ll.ResetScript()
+end
+
+local function main()
+    gDialogChannel = integer(ll.Frand(-10000000) - 10000000)
+    ll.Listen(PUBLIC_CHANNEL, "", NULL_KEY, "")
+end
+
+function LLEvents.timer()
+    stopDialog()
+end
+
+function LLEvents.touch_start(events)
+    local nd = #events
+    local toucherKey = ll.DetectedKey(0)
+    if toucherKey == ll.GetOwner() then
+        startDialog(toucherKey)
+    end
+end
+
+function LLEvents.listen(channel, name, id, message)
+
+    if ll.GetAgentSize(id) == ZERO_VECTOR then
+        return
+    end
+
+    if channel == gDialogChannel then
+        stopDialog()
+        if gManagingBlocks ~= 0 then
+            message = ll.StringTrim(message, STRING_TRIM)
+            if (uuid(message)).istruthy then
+                if gManagingBlocks == 1 then
+                    ll.OwnerSay("Addition request has been sent to the blacklist storage")
+                    ll.LinksetDataWrite("blocklist:" .. message, "1")
+                else
+                    ll.OwnerSay("Removal request has been sent to the blacklist storage.")
+                    ll.LinksetDataDelete("blocklist:" .. message)
+                end
+            else
+                ll.OwnerSay("The UUID '" .. message .. "' appears to be invalid.")
+            end
+            startDialog(id)
+        elseif message == "List blocks" then
+            local blocks = ll.LinksetDataFindKeys("^blocklist:", 0, 0)
+            local listLength = #blocks
+            ll.OwnerSay("Blacklist items: " .. tostring(listLength))
+            local i = 0
+            while i < listLength do
+                local record = ll.GetSubString(ll.List2String(blocks, i), 10, -1)
+                ll.OwnerSay("- secondlife:///app/agent/" .. record .. "/about" .. " - " .. record)
+                i += 1
+            end
+            blocks = {}
+            startDialog(id)
+        elseif message == "Add block" or message == "Remove block" then
+            local label = "add to"
+            gManagingBlocks = 1
+            if message == "Remove block" then
+                gManagingBlocks = 2
+                label = "remove from"
+            end
+            gDialogHandle = ll.Listen(gDialogChannel, "", id, "")
+            ll.TextBox(id, "\nPlease specify one single avatar UUID you'd like to " .. label .. " the blacklist storage.", gDialogChannel)
+            ll.SetTimerEvent(60)
+        end
+        return
+    end
+
+    if #ll.LinksetDataFindKeys("blocklist:" .. tostring(id), 0, 1) > 0 then
+        ll.RegionSayTo(id, 0, "You're blacklisted.")
+        return
+    end
+
+    ll.RegionSayTo(id, 0, "Hello there, secondlife:///app/agent/" .. tostring(id) .. "/about - your message: " .. message)
+
+end
+
+function LLEvents.linkset_data(action, name, value)
+    if action == LINKSETDATA_RESET or action == LINKSETDATA_DELETE or action == LINKSETDATA_UPDATE then
+        ll.OwnerSay("Blacklist storage modified.")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Simple blacklist management.
+
+integer gDialogChannel;
+integer gDialogHandle;
+integer gManagingBlocks;
+
+startDialog(key person)
+{
+    gManagingBlocks = 0;
+    gDialogHandle = llListen(gDialogChannel, "", person, "");
+    llDialog(person, "\nSelect action", ["List blocks", "Add block", "Remove block"], gDialogChannel);
+    llSetTimerEvent(60);
+}
+
+stopDialog()
+{
+    llSetTimerEvent(0);
+    llListenRemove(gDialogHandle);
+}
+
+default
+{
+
+    on_rez(integer sp)
+    {
+        llResetScript();
+    }
+
+    state_entry()
+    {
+        gDialogChannel = (integer)(llFrand(-10000000)-10000000);
+        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");;
+    }
+
+    timer()
+    {
+        stopDialog();
+    }
+
+    touch_start(integer nd)
+    {
+        key toucherKey = llDetectedKey(0);
+        if (toucherKey == llGetOwner())
+        {
+            startDialog(toucherKey);
+        }
+    }
+
+    listen(integer channel, string name, key id, string message)
+    {
+
+        if (llGetAgentSize(id) == ZERO_VECTOR)
+        {
+            return;
+        }
+
+        if (channel == gDialogChannel)
+        {
+            stopDialog();
+            if (gManagingBlocks)
+            {
+                message = llStringTrim(message, STRING_TRIM);
+                if ((key)message)
+                {
+                    if (gManagingBlocks == 1)
+                    {
+                        llOwnerSay("Addition request has been sent to the blacklist storage");
+                        llLinksetDataWrite("blocklist:" + message, "1");
+                    }
+                    else
+                    {
+                        llOwnerSay("Removal request has been sent to the blacklist storage.");
+                        llLinksetDataDelete("blocklist:" + message);
+                    }
+                }
+                else
+                {
+                    llOwnerSay("The UUID '" + message + "' appears to be invalid.");
+                }
+                startDialog(id);
+            }
+            else if (message == "List blocks")
+            {
+                list blocks = llLinksetDataFindKeys("^blocklist:", 0, 0);
+                integer listLength = llGetListLength(blocks);
+                llOwnerSay("Blacklist items: " + (string)listLength);
+                integer i;
+                while (i < listLength)
+                {
+                    string record = llGetSubString(llList2String(blocks, i), 10, -1);
+                    llOwnerSay("- secondlife:///app/agent/" + record + "/about" + " - " + record);
+                    ++i;
+                }
+                blocks = [];
+                startDialog(id);
+            }
+            else if (message == "Add block" || message == "Remove block")
+            {
+                string label = "add to";
+                gManagingBlocks = 1;
+                if (message == "Remove block")
+                {
+                    gManagingBlocks = 2;
+                    label = "remove from";
+                }
+                gDialogHandle = llListen(gDialogChannel, "", id, "");
+                llTextBox(id, "\nPlease specify one single avatar UUID you'd like to " + label + " the blacklist storage.", gDialogChannel);
+                llSetTimerEvent(60);
+            }
+            return;
+        }
+
+        if (llGetListLength(llLinksetDataFindKeys("blocklist:" + (string)id, 0, 1)) > 0)
+        {
+            llRegionSayTo(id, 0, "You're blacklisted.");
+            return;
+        }
+
+        llRegionSayTo(id, 0, "Hello there, secondlife:///app/agent/" + (string)id + "/about - your message: " + message);
+
+    }
+
+    linkset_data(integer action, string name, string value)
+    {
+        if (action == LINKSETDATA_RESET || action == LINKSETDATA_DELETE || action == LINKSETDATA_UPDATE)
+        {
+            llOwnerSay("Blacklist storage modified.");
+        }
+    }
+
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Linkset_data" target="_blank">linkset_data</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataAvailable" target="_blank">llLinksetDataAvailable</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataCountKeys" target="_blank">llLinksetDataCountKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataFindKeys" target="_blank">llLinksetDataFindKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataListKeys" target="_blank">llLinksetDataListKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDeleteFound" target="_blank">llLinksetDataDeleteFound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataRead" target="_blank">llLinksetDataRead</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataReadProtected" target="_blank">llLinksetDataReadProtected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataReset" target="_blank">llLinksetDataReset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataWrite" target="_blank">llLinksetDataWrite</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataWriteProtected" target="_blank">llLinksetDataWriteProtected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llLinksetDataDelete( string name );
+function integer llLinksetDataDeleteProtected( string name, string pass );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

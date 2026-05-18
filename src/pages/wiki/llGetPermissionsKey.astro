@@ -1,0 +1,186 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetPermissionsKey(): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llGetPermissionsKey();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns the <a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_Key/avatar&action=edit&redlink=1" target="_blank">avatar</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) of the avatar that last granted or declined permissions to the script.</p>
+  <p>Returns <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> if permissions were neither granted nor declined (e.g., the permissions dialog was cancelled or otherwise ignored).</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>permissions</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">137</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- 1. rez a cube
+-- 2. create a new script and paste this
+-- 3. save script
+-- 4. right-click the prim and choose attach
+-- 5. touch the prim
+
+local function announce_permissions_key()
+    local permissionsKey = ll.GetPermissionsKey()
+
+    ll.Say(0, "key llGetPermissionsKey() = '" .. tostring(permissionsKey) .. "'")
+end
+
+local function main()
+    announce_permissions_key()
+
+    local owner = ll.GetOwner()
+    ll.RequestPermissions(owner, PERMISSION_ATTACH)
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local id = ll.DetectedKey(0)
+    local owner = ll.GetOwner()
+    local permissionsKey = ll.GetPermissionsKey()
+
+    if id == owner then
+        if permissionsKey == owner then
+            ll.DetachFromAvatar()
+        else
+            ll.Say(0, "Can't detach from you, you have not granted ATTACH perms.")
+        end
+    else
+        ll.Say(0, "Sorry, you're not the owner!")
+    end
+end
+
+function LLEvents.run_time_permissions(perm)
+    if bit32.btest(perm, PERMISSION_ATTACH) then
+        announce_permissions_key()
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// 1. rez a cube
+// 2. create a new script and paste this
+// 3. save script
+// 4. right-click the prim and choose attach
+// 5. touch the prim
+
+announce_permissions_key()
+{
+    key permissionsKey = llGetPermissionsKey();
+
+    llSay(0, "key llGetPermissionsKey() = '" + (string)permissionsKey + "'");
+}
+
+default
+{
+    state_entry()
+    {
+        announce_permissions_key();
+
+        key owner = llGetOwner();
+        llRequestPermissions(owner, PERMISSION_ATTACH);
+    }
+
+    touch_start(integer num_detected)
+    {
+        key id = llDetectedKey(0);
+        key owner = llGetOwner();
+        key permissionsKey = llGetPermissionsKey();
+
+        if (id == owner)
+        {
+            if (permissionsKey == owner)
+                llDetachFromAvatar();
+            else
+                llSay(0, "Can't detach from you, you have not granted ATTACH perms.");
+        }
+        else
+            llSay(0, "Sorry, you're not the owner!");
+    }
+
+    run_time_permissions(integer perm)
+    {
+        if (perm & PERMISSION_ATTACH)
+            announce_permissions_key();
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetPermissionsKey()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llGetPermissionsKey();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,139 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.TriggerSound(Sound: string|uuid, Volume: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llTriggerSound(string Sound, float Volume);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Plays <b>sound</b> at <b>volume</b>, centered at but not attached to object.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Sound / sound</td>
+          <td>a sound in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a sound</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Volume / volume</td>
+          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>volume</b> <&#61; 1.0`)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>sound</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">91</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If the object moves the sound does not move with it.</p>
+  <p>Use <a href="https://wiki.secondlife.com/wiki/LlPlaySound" target="_blank">llPlaySound</a> to play a sound attached to the object.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>sound</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a sound then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>sound</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>Sounds played from a HUD using llTriggerSound are audible inworld. To make sounds from a HUD audible only to the wearer, use <a href="https://wiki.secondlife.com/wiki/LlPlaySound" target="_blank">llPlaySound</a>.</li>
+    <li>Playing sounds is throttled. If the average number of played sounds per second exceeds the limit (22 sounds/s), all sounds from the object are suppressed until the average falls sufficiently. The throttle is per object, not per link or per script, so multiple links cannot be used to overcome the throttle.
+    <ul>
+      <li>Once the throttle is hit, the following error will be shown in debug channel: "Too many sound requests. Throttled until average falls."</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--When touched, object containing this script will trigger the sound entered.
+--This function allows object to trigger sound even if attached to an avatar (AGENT)
+--Creator: TonyH Wrangler
+
+local sound = "ed124764-705d-d497-167a-182cd9fa2e6c"  --uuid or name of item in inventory
+
+function LLEvents.touch_start(events)
+    local total_num = #events
+    ll.TriggerSound(sound, 1.0)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//When touched, object containing this script will trigger the sound entered.
+//This function allows object to trigger sound even if attached to an avatar (AGENT)
+//Creator: TonyH Wrangler
+
+string sound = "ed124764-705d-d497-167a-182cd9fa2e6c"; //uuid or name of item in inventory
+
+default
+{
+    touch_start(integer total_num)
+    {
+        llTriggerSound(sound, 1.0);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPlaySound" target="_blank">llPlaySound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSoundLimited" target="_blank">llTriggerSoundLimited</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinkPlaySound" target="_blank">llLinkPlaySound</a></td>
+        <td>–</td>
+        <td>Can be used to trigger sounds in other prims in the linkset.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llTriggerSound( string sound, float volume );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,222 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.JsonGetValue(JSON: string, Specifiers: {any}): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llJsonGetValue(string JSON, list Specifiers);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use lljson.decode because Also, the indices are zero-based.</span></p>
+      <p>  <p>Gets the value indicated by specifiers from the <a href="http://json.org" target="_blank">json</a> string.</p>
+  <p>Returns a string made by parsing <b>json</b>, a string representing json and traversing as specified by <b>specifiers</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>JSON / json</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Specifiers / specifiers</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+        <li>json</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">511</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>When the input is invalid or no result can be found this function returns <a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a>. If the result is `null` the function returns <a href="https://wiki.secondlife.com/wiki/JSON_NULL" target="_blank">JSON_NULL</a>.</p>
+  <h2>Specification</h2>
+  <p>See <a href="https://wiki.secondlife.com/wiki/Json_usage_in_LSL" target="_blank">Json usage in LSL</a></p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Manual definition of JSON syntax within LSL does not always parse in the expected way, so be careful to avoid using syntax characters anywhere other than where needed (for example, inside a string.); alternately escape the syntax character and use <a href="https://wiki.secondlife.com/wiki/LlUnescapeURL" target="_blank">llUnescapeURL</a> on the retrieved string to convert it back - See <a href="#bugs" target="_blank">#bugs</a>.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <td>⚠️</td>
+        <td><b>Warning:</b> The below comment in regards to speed cannot be assumed to be true on all server versions and in all environments. <b>Always test execution speed claims for yourself.</b></td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>As of Second Life Server 2024-06-11.9458617693, benchmark testing in a 99%+ scripts run environment resulted in the following conclusions with a 3-element array cast to either JSON or CSV:
+    <ul>
+      <li>llJsonGetValue takes approximately 2-3 ms per call to execute regardless of depth, making it a faster option for reading a single element from a dataset.</li>
+      <li><a href="https://wiki.secondlife.com/wiki/LlParseStringKeepNulls" target="_blank">llParseStringKeepNulls</a> takes approximately 5 ms to execute, while each subsequent <a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a> takes approximately 0.5 ms to execute, making it a faster option for reading more than 2 elements from a dataset.</li>
+    </ul>
+  
+    </li>
+    <li>This function will convert the occurrence of a `\n` to a line feed and a `\t` to `U+0009`.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+
+    --below is an example of a JSON=string with a key called "key" and a value "val" 
+    local json1 = "{\"key\":\"val\"}"
+    ll.Say(0, ll.JsonGetValue(json1, {"key"}))  --returns "val" in localchat
+
+    local json2 = "{\"mansBestFriend\":\"dog\"}"
+    ll.Say(0, ll.JsonGetValue(json2, {"mansBestFriend"}))  --returns "dog" in localchat
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default {
+    state_entry() {
+     
+     //below is an example of a JSON=string with a key called "key" and a value "val" 
+     string json1 = "{\"key\":\"val\"}";
+     llSay(0, llJsonGetValue( json1, ["key"]));//returns "val" in localchat
+
+     string json2 = "{\"mansBestFriend\":\"dog\"}";
+     llSay(0, llJsonGetValue( json2, ["mansBestFriend"]));//returns "dog" in localchat
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function JGetValTest()
+    local j = "[[1,2],[4,5,6]]"  --JSON may be written directly as a string like this in sl.
+    local k = ""  --this will change with each command below;
+    k = ll.JsonGetValue(j, {})  --returns the whole array of a JSON. It might just be one entry or a whole nested array or whole nested object.
+    --if "j" is a single JSON_STRING, this may return what the string represents as a JSON within a string; a JSON_NUMBER , JSON_TRUE, TRUE ...
+
+    k = ll.JsonGetValue("\"3.14\"", {})  --==k="3,14" (float that was stored in a JSON_STRING within a JSON. and not as JSON_NUMBER for no good reason)
+    k = ll.JsonGetValue("\"TRUE\"", {})  --==k="TRUE" (the value was stored as a JSON_STRING and is thus returned verbatim)
+    k = ll.JsonGetValue(j, {0})  --returns only the first entry (at offset 0). An entry can be any JSON type,
+    --each entry being separated by a comma from other entries.
+    --array and object entries may contain multiple comma separated entries within them.
+    k = ll.JsonGetValue(j, {1})  --returns only the second entry... (all the above still applies) k="[4,5,6]";
+    k = ll.JsonGetValue(ll.JsonGetValue(j, {1}), {2})
+    --instead of getting an entry from "j" we get a sub-entry from llJsonGetValue(j,[1]), 
+    --assuming the sub-entry is a JSON_ARRAY. It returns the 3rd sub-entry of the second entry, 
+    --that is an array with 3 entries. it would make k="6". 
+    --it will return JSON_INVALID if there is no 3rd entry in the 2nd sub-array,
+    --or no 2nd sub-array.
+    k = ll.JsonGetValue(j, {1, 2})  --Shorter way to do the same as in the previous example.
+    k = ll.JsonGetValue("true", {})  --Sets k to JSON_TRUE
+    k = ll.JsonGetValue("True", {})  --Sets k to JSON_INVALID because the JSON constant for 'true' is all lower case
+    k = ll.JsonGetValue("TRUE", {})  --Sets k to JSON_INVALID because the JSON constant for 'true' is all lower case
+    k = ll.JsonGetValue(JSON_TRUE, {})  --Sets k to JSON_INVALID. The JSON_xxxx constants are not supposed to be part of
+-- a JSON string, just values to test against.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`JGetValTest(){
+    string j="[[1,2],[4,5,6]]";            //JSON may be written directly as a string like this in sl.
+    string k;                              //this will change with each command below;
+    k=llJsonGetValue(j,[]);                //returns the whole array of a JSON. It might just be one entry or a whole nested array or whole nested object.
+    //if "j" is a single JSON_STRING, this may return what the string represents as a JSON within a string; a JSON_NUMBER , JSON_TRUE, TRUE ...
+
+    k=llJsonGetValue("\"3.14\"",[]);       //==k="3,14" (float that was stored in a JSON_STRING within a JSON. and not as JSON_NUMBER for no good reason)
+    k=llJsonGetValue("\"TRUE\""     ,[]);  //==k="TRUE" (the value was stored as a JSON_STRING and is thus returned verbatim)
+    k=llJsonGetValue(j,[0]);               //returns only the first entry (at offset 0). An entry can be any JSON type,
+                                           //each entry being separated by a comma from other entries.
+                                           //array and object entries may contain multiple comma separated entries within them.
+    k=llJsonGetValue(j,[1]);//returns only the second entry... (all the above still applies) k="[4,5,6]";
+    k=llJsonGetValue(llJsonGetValue(j,[1]),[2]);
+                                           //instead of getting an entry from "j" we get a sub-entry from llJsonGetValue(j,[1]), 
+                                           //assuming the sub-entry is a JSON_ARRAY. It returns the 3rd sub-entry of the second entry, 
+                                           //that is an array with 3 entries. it would make k="6". 
+                                           //it will return JSON_INVALID if there is no 3rd entry in the 2nd sub-array,
+                                           //or no 2nd sub-array.
+    k=llJsonGetValue(j,[1,2]);             //Shorter way to do the same as in the previous example.
+    k=llJsonGetValue("true",[]);           //Sets k to JSON_TRUE
+    k=llJsonGetValue("True",[]);           //Sets k to JSON_INVALID because the JSON constant for 'true' is all lower case
+    k=llJsonGetValue("TRUE",[]);           //Sets k to JSON_INVALID because the JSON constant for 'true' is all lower case
+    k=llJsonGetValue(JSON_TRUE,[]);        //Sets k to JSON_INVALID. The JSON_xxxx constants are not supposed to be part of
+                                           // a JSON string, just values to test against.
+}`} lang="lsl" /></div>
+  <p>See also <a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a> for examples where the value type is checked before getting the value as that type.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2Json" target="_blank">llList2Json</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJson2List" target="_blank">llJson2List</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonSetValue" target="_blank">llJsonSetValue</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">Typecast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/13#13.05.20.276191" target="_blank"> 20/05/2013 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string lJsonGetValue( string json, list specifiers );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,189 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetGroundTexture(Changes: {any}): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llSetGroundTexture(list Changes);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Changes the textures used to paint the terrain of a region. The owner of the script must be able to manage the estate.</p>
+  <p>Returns an integer</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Changes / changes</td>
+          <td>List of changes to apply to ground textures on the region.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">558</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th></th>
+        <th>Format</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_DETAIL_1&action=edit&redlink=1" target="_blank">TERRAIN_DETAIL_1</a></td>
+        <td>0</td>
+        <td>[ TERRAIN_DETAIL_#, texture_id ]</td>
+        <td>Sets the texture to use for the current terrain detail layer. texture_id must be the UUID of a texture or material, or the name of a texture or material in the object's inventory.
+Passing NULL_KEY or an empty string will set the terrain texture to the default.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_DETAIL_2&action=edit&redlink=1" target="_blank">TERRAIN_DETAIL_2</a></td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_DETAIL_3&action=edit&redlink=1" target="_blank">TERRAIN_DETAIL_3</a></td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_DETAIL_4&action=edit&redlink=1" target="_blank">TERRAIN_DETAIL_4</a></td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_HEIGHT_RANGE_SW&action=edit&redlink=1" target="_blank">TERRAIN_HEIGHT_RANGE_SW</a></td>
+        <td>4</td>
+        <td>[ TERRAIN_HEIGHT_RANGE_XX, float low, float high ]</td>
+        <td>Sets the height range for terrain for texture blending in the region. low is the maximum height for texture 1 and high is the minimum height for texture 4, textures 2 and 3 will mix in between these values.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_HEIGHT_RANGE_SE&action=edit&redlink=1" target="_blank">TERRAIN_HEIGHT_RANGE_SE</a></td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_HEIGHT_RANGE_NW&action=edit&redlink=1" target="_blank">TERRAIN_HEIGHT_RANGE_NW</a></td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_HEIGHT_RANGE_NE&action=edit&redlink=1" target="_blank">TERRAIN_HEIGHT_RANGE_NE</a></td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_SCALE_1&action=edit&redlink=1" target="_blank">TERRAIN_PBR_SCALE_1</a></td>
+        <td>8</td>
+        <td>[ TERRAIN_PBR_SCALE_#, vector uv_scale ]</td>
+        <td><p>Sets the UV scale used for each layer's terrain texture in repeats per meter.</p>
+<p>The Z value of the vector is ignored.
+Only works for PBR textures.</p></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_SCALE_2&action=edit&redlink=1" target="_blank">TERRAIN_PBR_SCALE_2</a></td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_SCALE_3&action=edit&redlink=1" target="_blank">TERRAIN_PBR_SCALE_3</a></td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_SCALE_4&action=edit&redlink=1" target="_blank">TERRAIN_PBR_SCALE_4</a></td>
+        <td>11</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_ROTATION_1&action=edit&redlink=1" target="_blank">TERRAIN_PBR_ROTATION_1</a></td>
+        <td>12</td>
+        <td>[ TERRAIN_PBR_ROTATION_#, float rotation ]</td>
+        <td><p>Sets the rotation of the PBR texture for each layer, in radians.</p>
+<p>Only works for PBR textures.</p></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_ROTATION_2&action=edit&redlink=1" target="_blank">TERRAIN_PBR_ROTATION_2</a></td>
+        <td>13</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_ROTATION_3&action=edit&redlink=1" target="_blank">TERRAIN_PBR_ROTATION_3</a></td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_ROTATION_4&action=edit&redlink=1" target="_blank">TERRAIN_PBR_ROTATION_4</a></td>
+        <td>15</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_OFFSET_1&action=edit&redlink=1" target="_blank">TERRAIN_PBR_OFFSET_1</a></td>
+        <td>16</td>
+        <td>[ TERRAIN_PBR_OFFSET_#, vector uv_offset ]</td>
+        <td><p>Sets the UV offset for drawing each terrain layer.</p>
+<p>The Z value of the vector is ignored.
+Only works for PBR textures.</p></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_OFFSET_2&action=edit&redlink=1" target="_blank">TERRAIN_PBR_OFFSET_2</a></td>
+        <td>17</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_OFFSET_3&action=edit&redlink=1" target="_blank">TERRAIN_PBR_OFFSET_3</a></td>
+        <td>18</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TERRAIN_PBR_OFFSET_4&action=edit&redlink=1" target="_blank">TERRAIN_PBR_OFFSET_4</a></td>
+        <td>19</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function must be executed from a script in an object owned by the region owner or an estate manager.</li>
+    <li>This function is throttled at 4 calls every 2 minutes.</li>
+    <li>Always returns 0</li>
+    <li>PBR terrain is all or nothing. Mixing normal terrain textures with PBR textures will cause the PBR textures to appear gray.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlModifyLand" target="_blank">llModifyLand</a></td>
+        <td>–</td>
+        <td>Modifies terrain contours.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llSetGroundTexture( list changes );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

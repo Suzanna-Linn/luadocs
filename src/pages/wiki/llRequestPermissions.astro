@@ -1,0 +1,322 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestPermissions(AvatarID: uuid, PermissionMask: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRequestPermissions(key AvatarID, integer PermissionMask);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Ask <b>agent</b> for <b>permissions</b> to run certain classes of functions.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/agent" target="_blank">agent</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>PermissionMask / permissions</td>
+          <td>Permission mask (<a href="https://wiki.secondlife.com/wiki/Bit_field" target="_blank">bitfield</a> containing the permissions to request).</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>permissions</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">136</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Script execution continues without waiting for a response. When a response is given, a <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event is put in the event queue.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Constants</th>
+        <th>Action</th>
+        <th>Category</th>
+        <th>Granter</th>
+        <th>Automatically granted when&#8230;</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a></td>
+        <td>0x2</td>
+        <td>take money from agent's account</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Money" target="_blank">Money</a></td>
+        <td>Owner</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_TAKE_CONTROLS" target="_blank">PERMISSION_TAKE_CONTROLS</a></td>
+        <td>0x4</td>
+        <td>take agent's <a href="https://wiki.secondlife.com/wiki/Control" target="_blank">controls</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Controls" target="_blank">Control</a></td>
+        <td>Anyone</td>
+        <td>sat on, attached</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_TRIGGER_ANIMATION" target="_blank">PERMISSION_TRIGGER_ANIMATION</a></td>
+        <td>0x10</td>
+        <td>start or stop <a href="https://wiki.secondlife.com/wiki/LlStartAnimation" target="_blank">Animations</a> on agent</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Animation" target="_blank">Animation</a></td>
+        <td>Anyone</td>
+        <td>sat on, attached</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a></td>
+        <td>0x20</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAttachToAvatar" target="_blank">attach</a>/<a href="https://wiki.secondlife.com/wiki/LlDetachFromAvatar" target="_blank">detach</a> from agent</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Attachment" target="_blank">Attachment</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAttachToAvatar" target="_blank">Owner</a> or <a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">Anyone</a></td>
+        <td>attached</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_CHANGE_LINKS" target="_blank">PERMISSION_CHANGE_LINKS</a></td>
+        <td>0x80</td>
+        <td>change <a href="https://wiki.secondlife.com/wiki/Category:LSL_Link" target="_blank">links</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Link" target="_blank">Link</a></td>
+        <td>Owner</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_TRACK_CAMERA" target="_blank">PERMISSION_TRACK_CAMERA</a></td>
+        <td>0x400</td>
+        <td>track the agent's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Camera" target="_blank">camera</a> <a href="https://wiki.secondlife.com/wiki/Position" target="_blank">position</a> and <a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Camera" target="_blank">Camera</a></td>
+        <td>Anyone</td>
+        <td>sat on, attached</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target="_blank">PERMISSION_CONTROL_CAMERA</a></td>
+        <td>0x800</td>
+        <td><p>control the agent's camera</p>
+<p>(<a href="https://wiki.secondlife.com/wiki/LlSetCameraParams_Test" target="_blank">must be sat on or attached; automatically revoked on stand or detach</a>)</p></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Camera" target="_blank">Camera</a></td>
+        <td>Anyone</td>
+        <td>sat on, attached</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a></td>
+        <td>0x1000</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTeleportAgent" target="_blank">teleport</a> the agent</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Teleport" target="_blank">Teleport</a></td>
+        <td>Anyone[[1]](#footnote_1)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_SILENT_ESTATE_MANAGEMENT" target="_blank">PERMISSION_SILENT_ESTATE_MANAGEMENT</a></td>
+        <td>0x4000</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlManageEstateAccess" target="_blank">manage estate access</a> without notifying the owner of changes</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Estate" target="_blank">Estate</a></td>
+        <td>Owner</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_OVERRIDE_ANIMATIONS" target="_blank">PERMISSION_OVERRIDE_ANIMATIONS</a></td>
+        <td>0x8000</td>
+        <td>configure the overriding of default <a href="https://wiki.secondlife.com/wiki/LlStartAnimation" target="_blank">animations</a> on agent</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Animation" target="_blank">Animation</a></td>
+        <td>Anyone</td>
+        <td>attached</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a></td>
+        <td>0x10000</td>
+        <td>Used by <a href="https://wiki.secondlife.com/wiki/LlReturnObjectsByOwner" target="_blank">llReturnObjectsByOwner</a> and <a href="https://wiki.secondlife.com/wiki/LlReturnObjectsByID" target="_blank">llReturnObjectsByID</a> to return objects from parcels</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Cleanup" target="_blank">Cleanup</a></td>
+        <td>Owner, Group Owner</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_PRIVILEGED_LAND_ACCESS" target="_blank">PERMISSION_PRIVILEGED_LAND_ACCESS</a></td>
+        <td>0x80000</td>
+        <td>Grants the script privileged access to land parcel functions, such as parcel sale. Used by <a href="https://wiki.secondlife.com/wiki/LlSetParcelForSale" target="_blank">llSetParcelForSale</a>.</td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_Land&action=edit&redlink=1" target="_blank">Land</a></td>
+        <td>Owner</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>A dialog is presented to the agent to grant these permissions except when granted automatically as shown in the table above.</li>
+    <li>If object is attached to agent, "automatic" permissions are granted without notification upon request.</li>
+    <li>Permissions persist across state changes.</li>
+    <li>Regardless of whether granting is automatic, you should always use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event. Granting permissions takes time, and you shouldn't assume it's completed until the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> handler gets invoked.</li>
+    <li>The menu-option "Stop Animating Me" will release certain permissions (PERMISSION_TRIGGER_ANIMATION and PERMISSION_OVERRIDE_ANIMATIONS), if the script which holds these permissions is in the same region as the agent, and the script is not attached to the permission granter.</li>
+    <li>Permissions do not accumulate.
+    <ul>
+      <li>If a permission was requested with a previous call to this function and granted, then in subsequent call was not requested, that permission is released (lost).</li>
+      <li><p>To request two or more permissions at the same time, use the bitwise OR (|) operator, e.g.:</p>
+  <p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+  ll.RequestPermissions(AvatarID, bit32.bor(PERMISSION_TAKE_CONTROLS, PERMISSION_TRIGGER_ANIMATION))
+  `} lang="slua" /></div>
+  <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+  llRequestPermissions(AvatarID, PERMISSION_TAKE_CONTROLS | PERMISSION_TRIGGER_ANIMATION)
+  `} lang="lsl" /></div>
+  
+  </p></li>
+    </ul>
+  
+    </li>
+  </ul>
+  <ul>
+    <li>Permissions are requested and granted separately for each script, even if they are located in the same object.</li>
+    <li>It is currently not possible to request no permissions at all (see Issues below); as a workaround <a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">llResetScript</a> can be used.</li>
+    <li>Scripts may hold permissions for only one agent at a time. To hold permissions for multiple agents you must use more than one script.</li>
+    <li>The result of granting permissions affects the return of <a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a> and <a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a> immediately, despite the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event being queued, or dropped if the object's event queue is full.</li>
+    <li>Permission request dialogs never time out.</li>
+    <li>If a script makes two permission requests, whichever response is last is considered the granted permissions.</li>
+    <li>The viewer limits permission requests from any agent to any other agent to 5 dialogs in 10 seconds.</li>
+    <li>Permission requests and changing state ...
+    <ul>
+      <li>Requesting a permission in one state, then changing state before the agent response, will cause <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> to be fired in the new state once the agent responds.</li>
+      <li>Requesting only auto-granted permissions in one state, then immediately changing state, will never fire <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a>.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Request permission to animate an avatar</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local detected = #events
+    ll.RequestPermissions(ll.DetectedKey(0), PERMISSION_TRIGGER_ANIMATION)
+end
+function LLEvents.run_time_permissions(perm)
+    if bit32.btest(perm, PERMISSION_TRIGGER_ANIMATION) then
+        ll.StartAnimation("sit")
+        ll.OwnerSay("animation will end in 5 seconds")
+        ll.SetTimerEvent(5.0)
+    end
+end
+function LLEvents.timer()
+    ll.SetTimerEvent(0.0)
+    ll.StopAnimation("sit")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer detected)
+    {
+        llRequestPermissions(llDetectedKey(0), PERMISSION_TRIGGER_ANIMATION);
+    }
+    run_time_permissions(integer perm)
+    {
+        if (perm & PERMISSION_TRIGGER_ANIMATION)
+        {
+            llStartAnimation("sit");
+            llOwnerSay("animation will end in 5 seconds");
+            llSetTimerEvent(5.0);
+        }
+    }
+    timer()
+    {
+        llSetTimerEvent(0.0);
+        llStopAnimation("sit");
+    }
+}`} lang="lsl" /></div>
+  <p>To request two (or more) permissions at the same time, use the bitwise OR (|) <a href="https://wiki.secondlife.com/wiki/LSL_Operators" target="_blank">operator</a>.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestPermissions(AvatarID, bit32.bor(PERMISSION_TAKE_CONTROLS, PERMISSION_TRIGGER_ANIMATION))`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRequestPermissions(AvatarID, PERMISSION_TAKE_CONTROLS | PERMISSION_TRIGGER_ANIMATION);`} lang="lsl" /></div>
+  <p>- or -</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local perms = PERMISSION_TAKE_CONTROLS
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer perms = PERMISSION_TAKE_CONTROLS | PERMISSION_TRIGGER_ANIMATION;
+llRequestPermissions(AvatarID, perms);`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>When an agent grants a script non-automatic permissions they will receive a notification (in chat) of</p>
+  <ul>
+    <li>The <b>name</b> of the object that contains the script that has been granted perms,</li>
+    <li>The name of the owner of the object,</li>
+    <li>The location of the object in the order Region name at <b>position</b>, and</li>
+    <li>A statement of what permissions were granted.</li>
+  </ul>
+  <p>If the script that holds the permissions is in a child prim the <b>name</b> will be that of the child prim (not the object (root)) and <b>position</b> will be its <a href="https://wiki.secondlife.com/wiki/LlGetLocalPos" target="_blank">local</a> position (relative to its root).</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiver event</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the avatar who granted permissions.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a> cannot be held by <a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">temporary attachments</a>.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRequestPermissions( key agent, integer permissions );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,416 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.FindNotecardTextSync(NotecardName: string|uuid, Pattern: string, StartMatch: number, Count: number, Options: {any}): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llFindNotecardTextSync(string NotecardName, string Pattern, integer StartMatch, integer Count, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a list of lines and columns where the search pattern is found in the notecard.</p>
+  <p>Returns the list containing a list of integers containing the locations of the found text.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>NotecardName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>a notecard in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a notecard</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Pattern / pattern</td>
+          <td>The regex pattern to search for</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>StartMatch / start</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>The number of match results to skip before returning matches. 0 will begin at the first match.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Count / count</td>
+          <td>The maximum number of search results to return</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/options" target="_blank">options</a></td>
+          <td>A list of options to pass into the search. (unused at this time, should be [])</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>notecard</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">508</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Returns a list containing only <a href="https://wiki.secondlife.com/wiki/NAK" target="_blank">NAK</a> if the notecard is not cached.</p>
+  <h2>Specification</h2>
+  <p>Searches the text of a cached notecard for lines containing the given pattern. If the notecard is not in the cache, returns a list containing a single <a href="https://wiki.secondlife.com/wiki/NAK" target="_blank">NAK</a>, otherwise a list of matches of the pattern in the notecard. If no matches are found, or the notecard contains embedded items, an empty list is returned.</p>
+  <p>Every match in the notecard is represented as a sequence of three integers:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`[integer row, integer column, integer length]`} lang="lsl" /></div>
+  <p>In other words the returned list has a stride of 3. A maximum of 64 matches are returned, resulting in a maximum list length of 192.</p>
+  <p>If the notecard does not exist, returns a list containing a single <a href="https://wiki.secondlife.com/wiki/NAK" target="_blank">NAK</a> and the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> (but the script continues to run).</p>
+  <p>If there is an error in the regular expression, returns an empty list and the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> (but the script continues to run).</p>
+  <p>Notecards are cached into a fixed-size buffer, with the oldest (least-recently read) notecard getting removed first. It is not safe to assume a notecard has been previously cached. Data for a previously cached notecard may be dropped from the cache at any time, especially on a busy server.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>name</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a notecard then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>If <b>name</b> is a new empty notecard (never saved) then an error "Couldn't find notecard ~NAME~" (~NAME~ being the value of <b>name</b>) will be shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. This is because until a notecard is saved for the first time, it does not exist as an asset only as an inventory placeholder.
+    <ul>
+      <li>If the notecard is <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a> you can check for this with <a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a> which will return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> in this case. However if notecard is not <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a>, there is no way to avoid the error message.</li>
+    </ul>
+  
+    </li>
+    <li>If notecard contains embedded inventory items (such as textures and landmarks), an empty list will be returned, regardless of the search string.</li>
+    <li>No more than 64 matches are returned.</li>
+  </ul>
+  <h2>Notes</h2>
+  <h3>Regular Expression Cheat Sheet</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="3">Wildcard</th>
+      </tr>
+      <tr>
+        <th>.</th>
+        <th>Matches any character</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Anchors</th>
+      </tr>
+      <tr>
+        <th>^</th>
+        <th>Matches the beginning of the string.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>$</th>
+        <th>Matches the end of the string.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Expression Prefixes</th>
+      </tr>
+      <tr>
+        <th>(?i)</th>
+        <th>Makes search string case insensitive.</th>
+        <th>This must be the first thing that appears in the search string.
+"(?i)apple" will match "apple", "APPLE", "ApPlE", and any other combination of upper and lower case characters.</th>
+      </tr>
+      <tr>
+        <th>$</th>
+        <th>Matches the end of the string.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Repeats</th>
+      </tr>
+      <tr>
+        <th>*</th>
+        <th>Matches the preceding atom 0 or more times.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>+</th>
+        <th>Matches the preceding atom 1 or more times.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>?</th>
+        <th>Matches the preceding atom 0 or 1 times.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>{<i>n</i>}
+{<i>n</i>,}
+{<i>n</i>, <i>m</i>}</th>
+        <th>Matches the preceding atom <i>n</i>, <i>n</i> or more, or between <i>n</i> and <i>m</i> times.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Sub-expressions</th>
+      </tr>
+      <tr>
+        <th>(<i>expression</i>)</th>
+        <th>Text enclosed in parentheses is a marked sub-expression. Text matched as part of a sub-expressions is split out and may be repeated.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Alternation</th>
+      </tr>
+      <tr>
+        <th><i>a</i> | <i>b</i></th>
+        <th>Match either <i>a</i> or <i>b</i>.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Character Sets</th>
+      </tr>
+      <tr>
+        <th>[<i>abc</i>]</th>
+        <th>Matches any one of the enumerated characters.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>[<i>a</i>-<i>c</i>]</th>
+        <th>Matches any character in the specified range.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>[^<i>abc</i>]</th>
+        <th>Matches any character other than the enumerated characters.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>[[:<i>name</i>:]]</th>
+        <th>Matches any character of the named class.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>Any of the above character set definitions may be combined.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Escape Sequences</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2"><b>Specific Characters</b></td>
+      </tr>
+      <tr>
+        <th>\e</th>
+        <th colspan="2">ASCII 0x1B, ESC</th>
+      </tr>
+      <tr>
+        <th>\n</th>
+        <th colspan="2">New line</th>
+      </tr>
+      <tr>
+        <th>\r</th>
+        <th colspan="2">Carriage return</th>
+      </tr>
+      <tr>
+        <th>\t</th>
+        <th colspan="2">Tab</th>
+      </tr>
+      <tr>
+        <th>\x<i>dd</i></th>
+        <th colspan="2">Matches an ASCII character with the code <i>dd</i></th>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2"><b>Single character classes</b></td>
+      </tr>
+      <tr>
+        <th>\d
+\D</th>
+        <th>Any decimal digit.</th>
+        <th><b>\d</b> &#8594; [[:digit:]] or [0-9]
+<b>\D</b> &#8594; [^[:digit:]] or [^0-9]</th>
+      </tr>
+      <tr>
+        <th>\l
+\L</th>
+        <th>Any lower case character.</th>
+        <th><b>\l</b> &#8594; [[:lower:]] or [a-z]
+<b>\L</b> &#8594; [^[:lower:]] or [^a-z]</th>
+      </tr>
+      <tr>
+        <th>\s
+\S</th>
+        <th>Any whitespace character.</th>
+        <th><b>\s</b> &#8594; [[:space:]] or [ \t\r\n]
+<b>\S</b> &#8594; [^[:space:]] or [^ \t\r\n]</th>
+      </tr>
+      <tr>
+        <th>\u
+\U</th>
+        <th>Any upper case character.</th>
+        <th><b>\u</b> &#8594; [[:upper:]] or [A-Z]
+<b>\U</b> &#8594; [^[:upper:]] or [^A-Z]</th>
+      </tr>
+      <tr>
+        <th>\w
+\W</th>
+        <th>Any "word" character.
+Alphanumeric plus underscore</th>
+        <th><b>\w</b> &#8594; [[:upper:][:lower:][:digit:]_] or [A-Za-z0-9_]
+<b>\W</b> &#8594; [^[:upper:][:lower:][:digit:]_] or [^A-Za-z0-9_]</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2"><b>Word boundaries</b></td>
+      </tr>
+      <tr>
+        <th>\<</th>
+        <th>Start of word.</th>
+      </tr>
+      <tr>
+        <th>\></th>
+        <th>End of word</th>
+      </tr>
+      <tr>
+        <th>\b</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>\B</th>
+        <th>Not a word boundary.</th>
+      </tr>
+      <tr>
+        <td colspan="3"><i><b>Note</b></i> LSL uses '\' as an escape character in strings. The escape characters above must be double escaped. So "\d" needs to be written in LSL as "\\d"
+Please see <a href="https://wiki.secondlife.com/wiki/Category:LSL_String#Escape_Codes" target="_blank">LSL Strings, Escape Codes</a></td>
+      </tr>
+      <tr>
+        <th colspan="3">Named Character Classes</th>
+      </tr>
+      <tr>
+        <th>alnum</th>
+        <th>Any alpha-numeric character.</th>
+        <th>[[:alnum:]] &#8594; [0-9a-zA-Z]
+[^[:alnum:]] &#8594; [^0-9a-zA-Z]</th>
+      </tr>
+      <tr>
+        <th>alpha</th>
+        <th>Any alphabetic character.</th>
+        <th>[[:alpha:]] &#8594; [a-zA-Z]
+[^[:alpha:]] &#8594; [^a-zA-Z]</th>
+      </tr>
+      <tr>
+        <th>blank</th>
+        <th>Any whitespace character that is not a line separator.</th>
+      </tr>
+      <tr>
+        <th>cntrl</th>
+        <th>Any control character</th>
+        <th>[[:cntrl:]] &#8594; [\x01-\x31]
+[^[:cntrl:]] &#8594; [^\x01-\x31]</th>
+      </tr>
+      <tr>
+        <th>digit
+d</th>
+        <th>Any decimal digit</th>
+        <th>[[:digit:]] &#8594; [0-9]
+[^[:digit:]] &#8594; [^0-9]</th>
+      </tr>
+      <tr>
+        <th>lower
+l</th>
+        <th>Any lower case character.</th>
+        <th>[[:lower:]] &#8594; [a-z]
+[^[:lower:]] &#8594; [^a-z]</th>
+      </tr>
+      <tr>
+        <th>print</th>
+        <th>Any printable character.</th>
+      </tr>
+      <tr>
+        <th>punct</th>
+        <th>Any punctiation character.</th>
+      </tr>
+      <tr>
+        <th>space
+s</th>
+        <th>Any whitespace character.</th>
+      </tr>
+      <tr>
+        <th>upper
+u</th>
+        <th>Any upper case character.</th>
+        <th>[[:upper:]] &#8594; [A-Z]
+[^[:upper:]] &#8594; [^A-Z]</th>
+      </tr>
+      <tr>
+        <th>word
+w</th>
+        <th>Any control character</th>
+        <th>[[:word:]] &#8594; [0-9a-zA-Z_]
+[^[:word:]] &#8594; [^0-9a-zA-Z_]</th>
+      </tr>
+      <tr>
+        <th>xdigit</th>
+        <th>Any hexadecimal digit character</th>
+        <th>[[:xdigit:]] &#8594; [0-9a-fA-F]
+[^[:xdigit:]] &#8594; [^0-9a-fA-F]</th>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNumberOfNotecardLines" target="_blank">llGetNumberOfNotecardLines</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNotecardLine" target="_blank">llGetNotecardLine</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNotecardLineSync" target="_blank">llGetNotecardLineSync</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llFindNotecardTextSync( string name, string pattern, integer start, integer count, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

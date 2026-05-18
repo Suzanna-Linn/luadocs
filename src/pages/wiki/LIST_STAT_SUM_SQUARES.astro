@@ -1,0 +1,73 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`LIST_STAT_SUM_SQUARES: number = 7`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer LIST_STAT_SUM_SQUARES = 7;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant LIST_STAT_SUM_SQUARES has the value 7</p>
+  <p>Calculates the sum of the squares of the numbers in a list.</p>
+  <p>That is, for each number <i>N_i</i> in a list of <i>k</i> elements, it calculates <i>N_1</i>N_1 + N_2<i>N_2 + ... + N_k </i> N_k*.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ListStatisticsOperation</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local sum_of_squares = ll.ListStatistics(LIST_STAT_SUM_SQUARES, numList)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float sum_of_squares = llListStatistics( LIST_STAT_SUM_SQUARES, numList );`} lang="lsl" /></div>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListStatistics" target="_blank">llListStatistics</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=LIST_STAT_SUM_SQUARES" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+LIST_STAT_SUM_SQUARES = 7
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer LIST_STAT_SUM_SQUARES = 7;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

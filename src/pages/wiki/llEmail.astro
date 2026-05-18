@@ -1,0 +1,395 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Email(Address: string, Subject: string, Text: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llEmail(string Address, string Subject, string Text);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sends an email to <b>address</b> with <b>subject</b> and <b>message</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Address / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/address" target="_blank">address</a></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Subject / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/subject" target="_blank">subject</a></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/message" target="_blank">message</a></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_communication</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">20s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">119</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The entire message (including the address, subject and other miscellaneous fields) can't be longer than 4096 bytes combined.</p>
+  <h2>Specification</h2>
+  <p>The <b>message</b> is prefixed with information about the <a href="https://wiki.secondlife.com/wiki/Primitive" target="_blank">prim</a> sending the email.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Template</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+Object-Name: <i>prim</i>
+Region: <i>simname</i> (<i>simpos.x</i>, <i>simpos.y</i>)
+Local-Position: (<i>primpos.x</i>, <i>primpos.y</i>, <i>primpos.z</i>)
+
+
+<i>message</i>
+`} lang="lsl" /></div>
+
+</td>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+Object-Name: Object
+Region: Gibson (254976, 256000)
+Local-Position: (117, 129, 50)
+
+
+The real message starts here.
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 20.0 seconds.</li>
+    <li>If you're sending to the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a>, prefer the <a href="https://wiki.secondlife.com/wiki/LlTargetedEmail" target="_blank">llTargetedEmail</a> method.</li>
+    <li>There is a limit to the number of email messages an object can send in a given amount of time.</li>
+    <li>There is a limit of 500 messages from a single <a href="https://wiki.secondlife.com/wiki/Agent" target="_blank">agent</a>'s objects in a one-hour period.</li>
+    <li>The 4096-byte size limit includes the subject line and automatically added text. The practical maximum body size is approximately 3600 bytes.</li>
+    <li>(Sept-2008) The Email Throttle was modified slightly, Per <a href="https://wiki.secondlife.com/w/index.php?title=User:Prospero_Linden&action=edit&redlink=1" target="_blank">Prospero Linden</a>'s comments:</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <td>"there has long been a throttle that makes a single script sleep for 20 seconds after sending an email. The new throttle is per user... some were using many, many different <a href="https://wiki.secondlife.com/wiki/Scripts" target="_blank">scripts</a> to send spam. (the new throttle applies) when the destination is outside of Second Life. I know that messages within the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a> were not throttled (beyond the 20-second delay), and I <i>believe</i> that messages between different <a href="https://wiki.secondlife.com/wiki/Simulator" target="_blank">sims</a> were not throttled (between the 20-second delay)."</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Due to the bug <a href="https://jira.secondlife.com/browse/SVC-23" target="_blank">SVC-23</a> (present since 2005), objects may stop receiving emails completely until either the region is restarted or the object crosses a region boundary (resetting the script doesn't help). Emails sent may eventually be received after a restart/region-cross. Hence, don't rely on this function for reliable inter-region messaging.</li>
+    <li>Due to bug <a href="https://jira.secondlife.com/browse/BUG-229767" target="_blank">BUG-229767</a>, an object's email queue can still become suspended until the object crosses a region border (neither a region restart nor a script reset helps). First analysis has revealed a potential workaround, by implementing a delay of about 30 seconds before first trying to send email to a freshly rezzed script - apparently registering the <a href="https://wiki.secondlife.com/wiki/Email" target="_blank">email(...)</a> event handler can take quite some time, and emails arriving prior to said registry process is what gets the entire queue stuck. Official Linden Lab response still pending.</li>
+    <li>Due to the bug <a href="https://jira.secondlife.com/browse/SVC-391" target="_blank">SVC-391</a>, llEmail will silently fail (no mail will arrive) when [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/ASCII" target="_blank">non-ASCII</a> characters are present in the subject. However, non-ASCII characters in the message body will be replaced by "?".</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local emailAddress = "somebody@example.com"
+local emailHeader = "Someone touched me!"
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    -- llSay(PUBLIC_CHANNEL, "Sending eMail report now, this will take ~20 seconds.");
+
+    local id = ll.DetectedKey(0)
+    local name = ll.DetectedName(0)
+
+    ll.Email(emailAddress, emailHeader, "I was touched by: '" .. name .. "' (" .. tostring(id) .. ").")
+
+-- llSay(PUBLIC_CHANNEL, "Email has been sent.");
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string emailAddress = "somebody@example.com";
+string emailHeader = "Someone touched me!";
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        // llSay(PUBLIC_CHANNEL, "Sending eMail report now, this will take ~20 seconds.");
+
+        key id = llDetectedKey(0);
+        string name = llDetectedName(0);
+
+        llEmail(emailAddress, emailHeader,
+            "I was touched by: '" + name + "' (" + (string)id + ").");
+
+        // llSay(PUBLIC_CHANNEL, "Email has been sent.");
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`email(string time, string address, string subj, string message, integer num_left)
+{
+    if (llGetSubString(address, -19, -1) == "@lsl.secondlife.com") //trim the header
+        message = llDeleteSubString(message, 0, llSubStringIndex(message, "\n\n") + 1);
+}`} lang="lsl" /></div>
+  <p>Get the region name and object position of the object that sent the email:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local region = ll.List2String(ll.ParseString2List(message, {"Region: ", " ("}, {}), 1)
+local position = tovector("<" .. ll.List2String(ll.ParseString2List(message, {"Local-Position: (", ")\n\n"}, {}), 1) .. ">")`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string region = llList2String(llParseString2List(message, ["Region: "," ("], []),1);
+vector position = (vector) ("<" + llList2String(llParseString2List(message, ["Local-Position: (",")\n\n"], []),1) + ">");`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>Because of the long delay on this function, it is often called from a second script triggered by <a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link_message</a>.</li>
+    <li>If you are sending email to a prim within Second Life, its address is <i>[key]</i>@lsl.secondlife.com
+    <ul>
+      <li>Which means if the key returned by <a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a> is "a2e76fcd-9360-4f6d-a924-000000000003", then its email address is "a2e76fcd-9360-4f6d-a924-000000000003@lsl.secondlife.com".</li>
+      <li>Agents do not have fixed email addresses, use <a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a> or <a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a><a href="#cite_note-1" target="_blank">&#91;1&#93;</a>.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h3>Prim2Prim Email</h3>
+  <p>In LSL you can both send email with llEmail and receive it with the <a href="https://wiki.secondlife.com/wiki/Email" target="_blank">email</a> event.</p>
+  <p>The email event is triggered with five pieces of information:</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• string</td>
+        <td>time</td>
+        <td>–</td>
+        <td>When the message was sent, in the `(string)<a href="https://wiki.secondlife.com/wiki/LlGetUnixTime" target="_blank">llGetUnixTime</a>` format</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• string</td>
+        <td>address</td>
+        <td>–</td>
+        <td>Who sent the message</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• string</td>
+        <td>subject</td>
+        <td>–</td>
+        <td>Subject of the message</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• string</td>
+        <td>message</td>
+        <td>–</td>
+        <td>Body of the message</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• integer</td>
+        <td>num_left</td>
+        <td>–</td>
+        <td>The number of emails left in the email queue</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When receiving a message sent with llEmail it helps to separate the message from the prefixed header. The header and original message body are separated by "\n\n"</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer divide = llSubStringIndex(message, "\n\n");
+string header = llDeleteSubString(message, divide, -1);
+message = llDeleteSubString(message, 0, divide + 1);`} lang="lsl" /></div>
+  <p>To get just one of the header items, do this:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local lines = ll.ParseStringKeepNulls(header, {"\n"}, {})
+local objname_line = ll.List2String(lines, 0)
+local region_line = ll.List2String(lines, 1)
+local localpos_line = ll.List2String(lines, 2)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list lines = llParseStringKeepNulls(header, ["\n"], []);
+string objname_line  = llList2String(lines, 0);
+string region_line   = llList2String(lines, 1);
+string localpos_line = llList2String(lines, 2);`} lang="lsl" /></div>
+  <p>To get a pure region name, do this:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local region_name = ll.StringTrim(tostring(ll.DeleteSubList(ll.ParseStringKeepNulls(ll.DeleteSubString(region_line, 0, 12), {}, {"("}), -2, -1)), STRING_TRIM)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string region_name = llStringTrim(
+            (string)llDeleteSubList(
+                llParseStringKeepNulls(
+                    llDeleteSubString(region_line, 0, 12),
+                    [], 
+                    ["("]
+                ), -2, -1), STRING_TRIM);`} lang="lsl" /></div>
+  <p>This application uses email to have objects check with a central server to see if the owner has the latest version. In the objects:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local version = "1"  --
+local type = "lolcube"
+function LLEvents.on_rez(start_param)
+    ll.Email("5a634b27-f032-283f-2df2-55ead7724b23@lsl.secondlife.com", version, tostring(ll.GetOwner()) .. "," .. type)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string version = "1"; //
+string type = "lolcube";
+default
+{
+    on_rez(integer start_param)
+    {
+        llEmail("5a634b27-f032-283f-2df2-55ead7724b23@lsl.secondlife.com",
+            version,
+            (string)llGetOwner() + "," + type);
+    }
+}`} lang="lsl" /></div>
+  <p>The server:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+local function main()
+    ll.SetTimerEvent(15.0)
+end
+
+function LLEvents.timer()
+    ll.GetNextEmail("", "")
+end
+
+function LLEvents.email(time, address, version, message, num_left)
+    if integer(version) < 2 then
+        local info = ll.CSV2List(ll.DeleteSubString(message, 0, ll.SubStringIndex(message, "\n\n") + 1))
+        ll.GiveInventory(ll.List2Key(info, 0), ll.List2String(info, 1))
+    end
+
+    if num_left ~= 0 then
+        ll.GetNextEmail("", "")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSetTimerEvent(15.0);
+    }
+    
+    timer()
+    {
+        llGetNextEmail("", "");
+    }
+    
+    email(string time, string address, string version, string message, integer num_left)
+    {    
+        if ((integer)version < 2)
+        {
+            list info = llCSV2List(llDeleteSubString(message, 0, llSubStringIndex(message, "\n\n") + 1));
+            llGiveInventory(llList2Key(info, 0), llList2String(info, 1));
+        }
+        
+        if (num_left)
+            llGetNextEmail("","");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Email" target="_blank">email</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link message</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNextEmail" target="_blank">llGetNextEmail</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlMessageLinked" target="_blank">llMessageLinked</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/IM_to_email" target="_blank">IM to email</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Postcards" target="_blank">Postcards</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://osiris.lindenlab.com/mediawiki/index.php/Email_Test" target="_blank">internal test</a><a href="#cite_note-2" target="_blank">&#91;2&#93;</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llEmail( string address, string subject, string message );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

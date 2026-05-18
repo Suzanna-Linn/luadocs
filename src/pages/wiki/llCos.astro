@@ -1,0 +1,113 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Cos(Theta: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llCos(float Theta);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.cos because Double precision; fastcall.</span></p>
+      <p>  <p>Returns a float that is the cosine of <b>theta</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Theta / theta</td>
+          <td>angle expressed in <a href="https://wiki.secondlife.com/wiki/Radians" target="_blank">radians</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_trig</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">1</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <p>because of IEE754 on single floats, llCos(PI_BY_TWO) returns -4.371139E-8 (hex : 0xB33BBD2E ) and not 0 ; llCos(PI/3.0) returns 0.49999997 ( hex : 0x3EFFFFFF ) and not 0.5</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Touch the object with this script in it to see the cosine of random numbers!
+function LLEvents.touch_start(events)
+    local num = #events
+    local r = ll.Frand(TWO_PI)
+    ll.OwnerSay("The cosine of " .. tostring(r) .. " in radians or " .. tostring(r * RAD_TO_DEG) .. " in degrees is " .. tostring(ll.Cos(r)))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Touch the object with this script in it to see the cosine of random numbers!
+default
+{
+    touch_start(integer num)
+    {
+        float r = llFrand(TWO_PI);
+        llOwnerSay("The cosine of " + (string)r + " in radians or " + (string)(r * RAD_TO_DEG) + " in degrees is " + (string)llCos(r));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlSin" target="_blank">llSin</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAsin" target="_blank">llAsin</a></td>
+        <td>–</td>
+        <td>sine & inverse Sine</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAcos" target="_blank">llAcos</a></td>
+        <td>–</td>
+        <td>inverse cosine</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlTan" target="_blank">llTan</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAtan2" target="_blank">llAtan2</a></td>
+        <td>–</td>
+        <td>tangent & inverse tangent</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llCos( float theta );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

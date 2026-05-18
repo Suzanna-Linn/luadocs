@@ -1,0 +1,147 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.PassTouches(Pass: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llPassTouches(integer Pass);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets whether touches detected on this prim are passed to the root <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Pass / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/pass" target="_blank">pass</a></td>
+          <td>PASS_* flag&#32;</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>touch</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">154</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Whether Touches are passed to the root prim depends not only on which PASS_* flag is selected, but may also depend on if there is a script that in the prim that handles one of the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> events. For this reason most users will want to use <a href="https://wiki.secondlife.com/wiki/PASS_ALWAYS" target="_blank">PASS_ALWAYS</a> or <a href="https://wiki.secondlife.com/wiki/PASS_NEVER" target="_blank">PASS_NEVER</a> as they do not have this variable behavior.</p>
+  <p>The default value for this attribute is <a href="https://wiki.secondlife.com/wiki/PASS_IF_NOT_HANDLED" target="_blank">PASS_IF_NOT_HANDLED</a>.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>pass</b> Constant</th>
+        <th>Value</th>
+        <th><a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> Script</th>
+        <th>No <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> Script</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASS_IF_NOT_HANDLED" target="_blank">PASS_IF_NOT_HANDLED</a></td>
+        <td>0</td>
+        <td>not passed</td>
+        <td>passed</td>
+        <td><b>Default:</b> Touches are passed if there is no script handling the event in the prim.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASS_ALWAYS" target="_blank">PASS_ALWAYS</a></td>
+        <td>1</td>
+        <td>passed</td>
+        <td>passed</td>
+        <td>Touches are always passed to the root.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASS_NEVER" target="_blank">PASS_NEVER</a></td>
+        <td>2</td>
+        <td>not passed</td>
+        <td>not passed</td>
+        <td>Touches are never passed to the root.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Has no known effect if called from within the root prim.</li>
+    <li>The script must be located in the prim whose pass-touch behavior is being changed; if not, the prim reverts to the default pass-touch setting.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassCollisions" target="_blank">llPassCollisions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> & <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> vs. PASS_* flags</p>
+  <p>Prior to Server Version 1.40.2, <b>pass</b> was couched in terms of being a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> and the only meaningful values were 0 and 1. The best practice at that time was to use the integer constants <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> and <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>. The design of this function left much to be desired. The problem was that while <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> always caused all Touches to be passed along to the the root, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> would only not pass Touches if there the prim had a script that handled a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> event. This meant to fully utilize this function the prim must contain a script that handled <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> events! With the release of Server Version 1.40.2, the PASS_* flags were introduced and the subtype of the <b>pass</b> was changed. Specifically the introduction of <a href="https://wiki.secondlife.com/wiki/PASS_NEVER" target="_blank">PASS_NEVER</a> solved this problem, allowing content creators to eliminate scripts that were only in the object to tweak the passing of <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> events.</p>
+  <p>History</p>
+  <ul>
+    <li>Introduction: ?</li>
+    <li>Change: <a href="https://jira.secondlife.com/browse/SVC-5923" target="_blank">SVC-5923</a> - Server version 1.40.2 - New <b>pass</b> value added: 2</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llPassTouches( integer pass );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

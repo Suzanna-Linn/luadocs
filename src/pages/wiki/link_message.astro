@@ -1,0 +1,195 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`link_message(SendersLink: number, Value: number, Text: string, ID: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`link_message(integer SendersLink, integer Value, string Text, key ID)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Triggered when the script receives a link message that was sent by a call to <a href="https://wiki.secondlife.com/wiki/LlMessageLinked" target="_blank">llMessageLinked</a>. llMessageLinked is used to send messages from one script to another.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>SendersLink / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">sender_num</a></td>
+          <td>The link number of the prim that contained the script that called <a href="https://wiki.secondlife.com/wiki/LlMessageLinked" target="_blank">llMessageLinked</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Value / num</td>
+          <td>Second parameter of the llMessageLinked call.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / str</td>
+          <td>The message that was sent from the script that called <a href="https://wiki.secondlife.com/wiki/LlMessageLinked" target="_blank">llMessageLinked</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>Fourth parameter of the llMessageLinked call.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>id</b> is often used as a second string field (in LSL the <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> type is implemented as a <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> with just custom operators). <a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">Typecasting</a> between <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> and <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> types has no effect on the data contained. The sizes of <b>str</b> and <b>id</b> are only limited by available script memory.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>64 link_message events can queue, past that, they are silently dropped! Don't do too much in the event if they might be coming in fast.</li>
+    <li><b>sender_num</b> does not reflect how a message was sent, there is no way to know if it was sent with a LINK_* flag or the <a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">specific link number</a>.</li>
+    <li>If <b>str</b> and <b>id</b> are bigger than available memory the script will crash with a Stack-Heap Collision.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- This is just an example script, you shouldn't handle touches within a single script this way.
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    ll.MessageLinked(LINK_THIS, 0, ll.DetectedName(0), ll.DetectedKey(0))
+end
+
+function LLEvents.link_message(source, num, str, id)
+    ll.Whisper(0, str .. " (" .. tostring(id) .. ") touched me!")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// This is just an example script, you shouldn't handle touches within a single script this way.
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        llMessageLinked(LINK_THIS, 0, llDetectedName(0), llDetectedKey(0));
+    }
+
+    link_message(integer source, integer num, string str, key id)
+    {
+        llWhisper(0, str + " (" + (string)id + ") touched me!");
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <h3>Sending Lists</h3>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- This is just an example script, you shouldn't handle link messages within a single script this way.
+
+-- To propagate an unlimited number of arguments of any type, as long as you don't run out of memory.
+-- For low-latency operations, it is more efficient to concatenate the parameters into a string manually all at once, which avoids the comparatively slower llDumpList2String call but is not as flexible.
+-- The separator string cannot be used in any source string, or the resulting list will be incorrectly parsed.
+-- It is possible to design your own custom escape sequence for any instances of the separator string or use a rarer character, though that is outside the scope of this snippet.
+
+local function main()
+    local my_list = {1, 2.0, "a string", vector(1, 2, 3), rotation(1, 2, 3, 4), ll.GetOwner()}
+    local list_parameter = ll.DumpList2String(my_list, "|")  -- Produce a | delimited string from the list
+    ll.MessageLinked(LINK_THIS, 0, list_parameter, NULL_KEY)
+end
+
+function LLEvents.link_message(sender_num, num, list_argument, id)
+    if list_argument ~= "" then
+        local re_list = ll.ParseStringKeepNulls(list_argument, {"|"}, {""})  -- Convert the string back to a list
+    -- llParseStringKeepNulls is used here in lieu of llParseString2List to accommodate any elements of my_list that were empty strings, which would otherwise be deleted.
+    -- Note that re_list will be a list of strings no matter what my_list contained, so only llList2String can be used on it, not llList2Integer, llList2Vector, etc.
+    else
+    -- my_list was an empty list (or a list that contained only one empty string), so llParseStringKeepNulls is not necessary because it would potentially incorrectly return a list with a single blank string.
+    -- It is not possible to distinguish between the two, so it would be wise to check which is the case before sending if possible.
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// This is just an example script, you shouldn't handle link messages within a single script this way.
+
+default
+{
+    // To propagate an unlimited number of arguments of any type, as long as you don't run out of memory.
+    // For low-latency operations, it is more efficient to concatenate the parameters into a string manually all at once, which avoids the comparatively slower llDumpList2String call but is not as flexible.
+    // The separator string cannot be used in any source string, or the resulting list will be incorrectly parsed.
+    // It is possible to design your own custom escape sequence for any instances of the separator string or use a rarer character, though that is outside the scope of this snippet.
+
+    state_entry()
+    {
+        list my_list = [1, 2.0, "a string", <1, 2, 3>, <1, 2, 3, 4>, llGetOwner()];
+        string list_parameter = llDumpList2String(my_list, "|");	// Produce a | delimited string from the list
+        llMessageLinked(LINK_THIS, 0, list_parameter, NULL_KEY);
+    }
+
+    link_message(integer sender_num, integer num, string list_argument, key id) 
+    {
+        if (list_argument != "")
+        {
+            list re_list = llParseStringKeepNulls(list_argument, ["|"], [""]);	// Convert the string back to a list
+            // llParseStringKeepNulls is used here in lieu of llParseString2List to accommodate any elements of my_list that were empty strings, which would otherwise be deleted.
+            // Note that re_list will be a list of strings no matter what my_list contained, so only llList2String can be used on it, not llList2Integer, llList2Vector, etc.
+        }
+        else
+        {
+            // my_list was an empty list (or a list that contained only one empty string), so llParseStringKeepNulls is not necessary because it would potentially incorrectly return a list with a single blank string.
+            // It is not possible to distinguish between the two, so it would be wise to check which is the case before sending if possible.
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> A script can hear its own link messages.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><b>sender_num</b> can be compared to <a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a> to determine whether the message was sent by the same prim, regardless of whether the prim is unlinked, a root, or a child.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlMessageLinked" target="_blank">llMessageLinked</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void link_message( integer sender_num, integer num, string str, key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

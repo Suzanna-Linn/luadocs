@@ -1,0 +1,174 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ReplaceSubString(InitialString: string, SubString: string, NewSubString: string, Count: number): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llReplaceSubString(string InitialString, string SubString, string NewSubString, integer Count);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the result of replacing the first <b>count</b> matching instances <b>pattern</b> in <b>src</b> with <b>replacement_pattern</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InitialString / src</td>
+          <td>The original string in which to hunt for substring matches.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>SubString / pattern</td>
+          <td>The original substring to find.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>NewSubString / replacement_pattern</td>
+          <td>The new substring used to replace.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Count / count</td>
+          <td>The max number of replacements to make. Zero Count means "replace all". Positive Count moves left to right. Negative moves right to left.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>string</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">541</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>count</b> = 0, all matching substrings are replaced. If <b>count</b> > 0, substrings are replaced starting from the left/beginning of <b>src</b>. If <b>count</b> < 0, substrings are replaced starting from the right/end of <b>src</b>.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local ex = "red foxes, red hens, red turnips"
+    -- Replace first 2 matches, starting from the left side
+    ex = ll.ReplaceSubString(ex, "red", "blue", 2)
+    ll.Say(0, ex)  -- Should say "blue foxes, blue hens, red turnips"
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        string ex = "red foxes, red hens, red turnips";
+        // Replace first 2 matches, starting from the left side
+        ex = llReplaceSubString(ex, "red", "blue", 2);
+        llSay(0, ex); // Should say "blue foxes, blue hens, red turnips"
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local ex = "red foxes, red hens, red turnips"
+    -- Replace first match, starting from the right side
+    ex = ll.ReplaceSubString(ex, "red", "green", -1)
+    ll.Say(0, ex)  -- Should say "red foxes, red hens, green turnips"
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        string ex = "red foxes, red hens, red turnips";
+        // Replace first match, starting from the right side
+        ex = llReplaceSubString(ex, "red", "green", -1);
+        llSay(0, ex); // Should say "red foxes, red hens, green turnips"
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local ex = "red foxes, red hens, red turnips"
+    -- Replace all matches
+    ex = ll.ReplaceSubString(ex, "red", "yellow", 0)
+    ll.Say(0, ex)  -- Should say "yellow foxes, yellow hens, yellow turnips"
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        string ex = "red foxes, red hens, red turnips";
+        // Replace all matches
+        ex = llReplaceSubString(ex, "red", "yellow", 0);
+        llSay(0, ex); // Should say "yellow foxes, yellow hens, yellow turnips"
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetSubString" target="_blank">llGetSubString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDeleteSubString" target="_blank">llDeleteSubString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlInsertString" target="_blank">llInsertString</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDeleteSubList" target="_blank">llDeleteSubList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llReplaceSubString( string src, string pattern, string replacement_pattern, integer count );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

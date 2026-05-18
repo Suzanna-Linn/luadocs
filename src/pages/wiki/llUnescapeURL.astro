@@ -1,0 +1,180 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.UnescapeURL(URL: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llUnescapeURL(string URL);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is an unescaped/unencoded version of <b>url</b>, replacing `"%20"` with spaces etc.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>URL / url</td>
+          <td>A (preferably valid and escaped URL) string.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>web</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">308</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This function is similar to functions (e.g. <a href="http://php.net/manual/en/function.urldecode.php" target="_blank">urldecode</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent" target="_blank">decodeURIComponent</a>) found in many other languages:</p>
+  <table>
+    <tbody>
+      <tr>
+        <td><b>PHP</b></td>
+      </tr>
+      <tr>
+        <td><a href="http://php.net/manual/en/function.urldecode.php" target="_blank">urldecode</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <td><b>ECMAScript</b></td>
+      </tr>
+      <tr>
+        <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/decodeURIComponent" target="_blank">decodeURIComponent</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Hexadecimal" target="_blank">hexadecimal</a> encoded representation of [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Byte" target="_blank">byte</a> encoding is the only supported means of access to non ASCII7 characters (Unicode characters).
+    <ul>
+      <li>Decoding of Unicode as `"%u####"` is not supported.</li>
+    </ul>
+  
+    </li>
+    <li>The `"+"` character is not decoded as a space.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local str = "http://wiki.secondlife.com/wiki/LSL Portal"
+
+local function main()
+    ll.OwnerSay("Plain string:\n\t" .. str)
+    -- output: "http://wiki.secondlife.com/wiki/LSL Portal"
+
+    ll.OwnerSay("Escaped string:\n\t" .. ll.EscapeURL(str))
+    -- output: "http%3A%2F%2Fwiki%2Esecondlife%2Ecom%2Fwiki%2FLSL%20Portal"
+
+    ll.OwnerSay("Escaped string unescaped again:\n\t" .. ll.UnescapeURL(ll.EscapeURL(str)))
+    -- output: "http://wiki.secondlife.com/wiki/LSL Portal"
+
+    -- because escaping and unescaping are exact opposite
+    -- and unescaping an escaped string returns the original
+
+    --  For readability's sake it would make more sense to do:
+    ll.OwnerSay("For readability's sake:\n\t" .. "http://wiki.secondlife.com/wiki/" .. ll.EscapeURL("LSL Portal"))
+-- output: "http://wiki.secondlife.com/wiki/LSL%20Portal"
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string str = "http://wiki.secondlife.com/wiki/LSL Portal";
+
+default
+{
+    state_entry()
+    {
+        llOwnerSay("Plain string:\n\t" + str);
+        // output: "http://wiki.secondlife.com/wiki/LSL Portal"
+
+        llOwnerSay("Escaped string:\n\t" + llEscapeURL(str));
+        // output: "http%3A%2F%2Fwiki%2Esecondlife%2Ecom%2Fwiki%2FLSL%20Portal"
+
+        llOwnerSay("Escaped string unescaped again:\n\t" + llUnescapeURL( llEscapeURL(str) ));
+        // output: "http://wiki.secondlife.com/wiki/LSL Portal"
+
+        // because escaping and unescaping are exact opposite
+        // and unescaping an escaped string returns the original
+
+
+        //  For readability's sake it would make more sense to do:
+        llOwnerSay("For readability's sake:\n\t" + "http://wiki.secondlife.com/wiki/" + llEscapeURL("LSL Portal"));
+        // output: "http://wiki.secondlife.com/wiki/LSL%20Portal"
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlEscapeURL" target="_blank">llEscapeURL</a></td>
+        <td>–</td>
+        <td>Opposite of llUnescapeURL</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/UTF-8" target="_blank">UTF-8</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Base64" target="_blank">Base64</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Combined_Library#Unicode_Integer_to_UTF8" target="_blank">Combined Library: UnicodeIntegerToUTF8</a></td>
+        <td>–</td>
+        <td>Easily convert unicode character codes to string form.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llUnescapeURL( string url );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

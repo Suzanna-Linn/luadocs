@@ -1,0 +1,113 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Euler2Rot(Vector: vector): rotation`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation llEuler2Rot(vector Vector);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a rotation representation of the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Euler_Angles" target="_blank">Euler Angles</a> <b>v</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Vector / v</td>
+          <td>Angle</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_3d</li>
+        <li>quaternion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">16</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>The <a href="https://wiki.secondlife.com/wiki/Category:LSL_Euler" target="_blank">Euler</a> angle vector (in radians) is converted to a rotation by doing the rotations around the 3 axes in Z, Y, X order. So `llEuler2Rot(<1.0, 2.0, 3.0> * <a href="https://wiki.secondlife.com/wiki/DEG_TO_RAD" target="_blank">DEG_TO_RAD</a>)` generates a rotation by first rotating 3 degrees around the global Z axis, then rotating the result around the global Y axis, and finally rotating that 1 degree around the global X axis.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local input = vector(73.0, -63.0, 20.0) * DEG_TO_RAD
+    local rot = ll.Euler2Rot(input)
+    ll.Say(0, "The Euler2Rot of " .. tostring(input) .. " is: " .. tostring(rot))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        vector input = <73.0, -63.0, 20.0> * DEG_TO_RAD;
+        rotation rot = llEuler2Rot(input);
+        llSay(0,"The Euler2Rot of "+(string)input+" is: "+(string)rot );
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`v/=2;
+rotation k = <0.0, 0.0, llSin(v.z), llCos(v.z)> * <0.0, llSin(v.y), 0.0, llCos(v.y)> * <llSin(v.x), 0.0, 0.0, llCos(v.x)>;`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Euler" target="_blank">llRot2Euler</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Euler_Angles" target="_blank">Euler Angles</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function rotation llEuler2Rot( vector v );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,132 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Name2Key(Name: string): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llName2Key(string Name);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a key the Agent ID for the named agent in the region. If there is no agent with the specified name currently signed onto the region, this function returns the value NULL_KEY. Names are always provided in the form "First[ Last]" or "first[.last]" (first name with an optional last name.) If the last name is omitted a last name of "Resident" is assumed. Case is not considered when resolving agent names.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Name / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>Name of the avatar to retrieve the UUID of.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">524</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function does not operate on historical names. For historical name lookup use <a href="https://wiki.secondlife.com/wiki/LlRequestUserKey" target="_blank">llRequestUserKey</a>.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function tellName2Key(avatarName)
+    local keyFromName = ll.Name2Key(avatarName)
+    if keyFromName == NULL_KEY then
+        ll.Say(0, "There is no agent with the name '" .. avatarName .. "' currently signed onto the region.")
+        return
+    end
+    ll.Say(0, "Avatar key for name '" .. avatarName .. "': " .. tostring(keyFromName))
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    tellName2Key("rider.linden")
+    tellName2Key("Rider Linden")
+    tellName2Key(ll.DetectedName(0))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`tellName2Key(string avatarName)
+{
+    key keyFromName = llName2Key(avatarName);
+    if (keyFromName == NULL_KEY)
+    {
+        llSay(0, "There is no agent with the name '" + avatarName + "' currently signed onto the region.");
+        return;
+    }
+    llSay(0, "Avatar key for name '" + avatarName + "': " + (string)keyFromName);
+}
+
+default
+{
+    touch_start(integer total_number)
+    {
+        tellName2Key("rider.linden");
+        tellName2Key("Rider Linden");
+        tellName2Key(llDetectedName(0));
+    }
+}
+// If Rider Linden touches the object, the three lines should contain the answer c5a07167-9bbe-4944-a7b0-a9677afa134d`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestUserKey" target="_blank">llRequestUserKey</a></td>
+        <td></td>
+        <td></td>
+        <td>to fetch avatar UUID by current or historical username.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llName2Key( string name );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Glorious high noon</p>
+<p>A last, tiny name converts</p>
+<p>in spite of the key</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

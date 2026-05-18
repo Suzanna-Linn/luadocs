@@ -1,0 +1,122 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PARCEL_COUNT_TEMP: number = 5`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PARCEL_COUNT_TEMP = 5;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PARCEL_COUNT_TEMP has the value 5</p>
+  <p>Used with <a href="https://wiki.secondlife.com/wiki/LlGetParcelPrimCount" target="_blank">llGetParcelPrimCount</a> to get the total land impact of <a href="https://wiki.secondlife.com/wiki/Category:LSL_Temporary" target="_blank">temporary</a> objects.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ParcelPrimCountCategory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li><p>Meshes are different than ordinary Prims and Sculpts when set Temporary.</p>
+<p>They still count against the Parcel and Sim Prim Limits. See: <a href="https://wiki.secondlife.com/wiki/Mesh_Prim_Equivalence_test#Temporary_meshes" target="_blank">Mesh_Prim_Equivalence_test#Temporary_meshes</a></p></li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Category</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_COUNT_TOTAL" target="_blank">PARCEL_COUNT_TOTAL</a></td>
+        <td>0</td>
+        <td>All objects on the parcel(s). Does not include temp on rez objects.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_COUNT_OWNER" target="_blank">PARCEL_COUNT_OWNER</a></td>
+        <td>1</td>
+        <td>Objects owned by the parcel owner.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_COUNT_GROUP" target="_blank">PARCEL_COUNT_GROUP</a></td>
+        <td>2</td>
+        <td>Objects not owned by the owner, but set to or owned by the group of the parcel.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_COUNT_OTHER" target="_blank">PARCEL_COUNT_OTHER</a></td>
+        <td>3</td>
+        <td>Objects not set to group or owned by the owner.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_COUNT_SELECTED" target="_blank">PARCEL_COUNT_SELECTED</a></td>
+        <td>4</td>
+        <td>All objects selected or sat on.</td>
+      </tr>
+      <tr>
+        <td>PARCEL_COUNT_TEMP</td>
+        <td>5</td>
+        <td>All temp on rez objects.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelPrimCount" target="_blank">llGetParcelPrimCount</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelMaxPrims" target="_blank">llGetParcelMaxPrims</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PARCEL_COUNT_TEMP" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PARCEL_COUNT_TEMP = 5
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PARCEL_COUNT_TEMP = 5;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

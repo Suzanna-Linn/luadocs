@@ -1,0 +1,236 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetAgentLanguage(AvatarID: uuid): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetAgentLanguage(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the language code of the preferred interface language of the user <b>avatar</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">336</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Return</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>"en"</td>
+        <td>English</td>
+      </tr>
+      <tr>
+        <td>"az"</td>
+        <td>Azerbaycanca (Azerbaijani)</td>
+      </tr>
+      <tr>
+        <td>"da"</td>
+        <td>Dansk (Danish)</td>
+      </tr>
+      <tr>
+        <td>"de"</td>
+        <td>Deutsch (German)</td>
+      </tr>
+      <tr>
+        <td>"es"</td>
+        <td>Español (Spanish)</td>
+      </tr>
+      <tr>
+        <td>"fr"</td>
+        <td>Français (French)</td>
+      </tr>
+      <tr>
+        <td>"it"</td>
+        <td>Italiano (Italian)</td>
+      </tr>
+      <tr>
+        <td>"hu"</td>
+        <td>Magyar (Hungarian)</td>
+      </tr>
+      <tr>
+        <td>"nl"</td>
+        <td>Nederlands (Dutch)</td>
+      </tr>
+      <tr>
+        <td>"pl"</td>
+        <td>Polski (Polish)</td>
+      </tr>
+      <tr>
+        <td>"pt"</td>
+        <td>Portugués (Portuguese)</td>
+      </tr>
+      <tr>
+        <td>"ru"</td>
+        <td>Русский (Russian)</td>
+      </tr>
+      <tr>
+        <td>"tr"</td>
+        <td>Türkçe (Turkish)</td>
+      </tr>
+      <tr>
+        <td>"uk"</td>
+        <td>Українська (Ukrainian)</td>
+      </tr>
+      <tr>
+        <td>"zh"</td>
+        <td>中文 (简体) (Chinese)</td>
+      </tr>
+      <tr>
+        <td>"ja"</td>
+        <td>日本語 (Japanese)</td>
+      </tr>
+      <tr>
+        <td>"ko"</td>
+        <td>한국어 (Korean)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>If the viewer is set to "System Default" the possible return may not be in this list. See <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">List of ISO 639-1 codes</a> for reference.</p>
+  <p>The value can also be modified by directly editing the settings.xml file or with debug settings. So the value returned by llGetAgentLanguage may not be an ISO 639-1 value at all.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If the user has "Share language with objects" disabled then this function returns an empty string.</li>
+    <li>During a 1-5 seconds period after which an agent is logging in, this function will return an empty string as well, until the viewer sends the data to the simulator.</li>
+    <li>Users may prefer to see the client interface in a language that is not their native language, and some may prefer to use objects in the native language of the creator, or dislike low-quality translations. Consider providing a manual language override when it is appropriate.</li>
+    <li>New language/variant values may be added later. Scripts may need to be prepared for unexpected values.</li>
+    <li>If the viewer is set to "System Default" the possible return may be outside the list given above. see <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">List of ISO 639-1 codes</a> for reference.</li>
+    <li>Viewers can specify other arbitrary language strings with the 'InstallLanguage' debug setting. For example, launching the viewer with "--set InstallLanguage american" results this function returning 'american' for the avatar. <a href="https://jira.secondlife.com/browse/VWR-12222" target="_blank">VWR-12222</a>
+    <ul>
+      <li>If the viewer supplies a multiline value, the simulator will only accept the first line and ignore all others. <a href="https://jira.secondlife.com/browse/SVC-5503" target="_blank">SVC-5503</a></li>
+    </ul>
+  
+    </li>
+    <li>Older viewers may return "en-us" instead of "en".</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    ---- loop through all detected touches
+    num_detected -= 1
+    while num_detected > -1 do
+        local agent = ll.DetectedKey(num_detected)
+        local name = ll.GetDisplayName(agent)
+        local language = ll.GetAgentLanguage(agent)
+
+        if ("" == name) or ("???" == name) then
+            name = ll.DetectedName(num_detected)
+        end
+
+        ---- PUBLIC_CHANNEL is 0
+        if language == "es" then
+            ll.Say(PUBLIC_CHANNEL, "¡Hola, " .. name .. "!")
+        elseif language == "fr" then
+            ll.Say(PUBLIC_CHANNEL, "Salut, " .. name .. " !")
+        elseif language == "ja" then
+            ll.Say(PUBLIC_CHANNEL, "やあ、　" .. name .. "！")
+        elseif language == "de" then
+            ll.Say(PUBLIC_CHANNEL, "Hallo, " .. name .. "!")
+        elseif language == "en" then  ---- returned by some TPVs
+            ll.Say(PUBLIC_CHANNEL, "Hello, " .. name .. "!")
+        elseif language == "pt" then
+            ll.Say(PUBLIC_CHANNEL, "Olá!, " .. name .. "!")
+        elseif language == "ko" then
+            ll.Say(PUBLIC_CHANNEL, "안녕하세요, " .. name .. "!")
+        elseif language == "zh" then
+            ll.Say(PUBLIC_CHANNEL, "你好啊， " .. name .. "！")
+        else  ---- Default to 'en-us' if language is unrecognized / not provided.
+            ll.Say(PUBLIC_CHANNEL, "Hi there, " .. name .. "!")
+        end
+        num_detected -= 1
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default{
+    touch_start( integer num_detected ){
+        //-- loop through all detected touches
+        for (num_detected -= 1; num_detected > -1; num_detected -= 1 ){
+            key agent = llDetectedKey( num_detected );
+            string name = llGetDisplayName( agent );
+            string language = llGetAgentLanguage( agent );
+
+            if (("" == name) || ("???" == name))
+                name = llDetectedName( num_detected );
+
+            //-- PUBLIC_CHANNEL is 0
+            if (language == "es"){
+                llSay( PUBLIC_CHANNEL, "¡Hola, " + name + "!" );
+            }else if (language == "fr"){
+                llSay( PUBLIC_CHANNEL, "Salut, " + name + " !" );
+            }else if (language == "ja"){
+                llSay( PUBLIC_CHANNEL, "やあ、　" + name + "！" );
+            }else if (language == "de"){
+                llSay( PUBLIC_CHANNEL, "Hallo, " + name + "!" );
+            }else if (language == "en"){ //-- returned by some TPVs
+                llSay( PUBLIC_CHANNEL, "Hello, " + name + "!" );
+            }else if (language == "pt"){
+                llSay( PUBLIC_CHANNEL, "Olá!, " + name + "!" );
+            }else if (language == "ko"){
+                llSay( PUBLIC_CHANNEL, "안녕하세요, " + name + "!" );
+            }else if (language == "zh"){
+                llSay( PUBLIC_CHANNEL, "你好啊， " + name + "！" );
+            }else{ //-- Default to 'en-us' if language is unrecognized / not provided.
+                llSay( PUBLIC_CHANNEL, "Hi there, " + name + "!" );
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Introduced in <a href="http://svn.secondlife.com/trac/linden/changeset/568?new_path=%2F#file33" target="_blank">SVN:568 r88085 Branch:Release&#32;Wednesday, 21 May 2008</a></li>
+    <li>Modified to only return the first line with <a href="https://jira.secondlife.com/browse/SVC-5503" target="_blank">SVC-5503</a></li>
+    <li>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.21" target="_blank"> 16-10-2008 </a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetAgentLanguage( key avatar );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,197 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`JSON_DELETE: string = \u{FDD8}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string JSON_DELETE = \u{FDD8};`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use nil</span></p>
+      <p>  <p>The string constant JSON_DELETE has the value "�"</p>
+  <p>A <a href="https://wiki.secondlife.com/wiki/Category:LSL_Constants" target="_blank">constant</a> used to delete a value within a <a href="http://www.json.org/" target="_blank">JSON</a> text string.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Using JSON_DELETE will <b>not</b> prune empty objects or arrays at higher levels.</li>
+    <li>Using JSON_DELETE to delete a non-existent array or object element in a JSON string will return <a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a>, not an unaltered string.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Type Flags</th>
+        <th>Value</th>
+        <th>Unicode</th>
+        <th><a href="https://wiki.secondlife.com/wiki/LlOrd" target="_blank">Integer</a></th>
+        <th><a href="https://wiki.secondlife.com/wiki/Category:LSL_Encoding/URL" target="_blank">URL Encoded</a></th>
+        <th>HTML Encoded</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a></td>
+        <td>&#xfdd0;</td>
+        <td>U+FDDO</td>
+        <td>64976</td>
+        <td>"%EF%B7%90"</td>
+        <td>&#xFDD0;</td>
+        <td>Value returned when inputs are not well formed.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_OBJECT" target="_blank">JSON_OBJECT</a></td>
+        <td>&#xfdd1;</td>
+        <td>U+FDD1</td>
+        <td>64977</td>
+        <td>"%EF%B7%91"</td>
+        <td>&#xFDD1;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_ARRAY" target="_blank">JSON_ARRAY</a></td>
+        <td>&#xfdd2;</td>
+        <td>U+FDD2</td>
+        <td>64978</td>
+        <td>"%EF%B7%92"</td>
+        <td>&#xFDD2;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_NUMBER" target="_blank">JSON_NUMBER</a></td>
+        <td>&#xfdd3;</td>
+        <td>U+FDD3</td>
+        <td>64979</td>
+        <td>"%EF%B7%93"</td>
+        <td>&#xFDD3;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_STRING" target="_blank">JSON_STRING</a></td>
+        <td>&#xfdd4;</td>
+        <td>U+FDD4</td>
+        <td>64980</td>
+        <td>"%EF%B7%94"</td>
+        <td>&#xFDD4;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_NULL" target="_blank">JSON_NULL</a></td>
+        <td>&#xfdd5;</td>
+        <td>U+FDD5</td>
+        <td>64981</td>
+        <td>"%EF%B7%95"</td>
+        <td>&#xFDD5;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_TRUE" target="_blank">JSON_TRUE</a></td>
+        <td>&#xfdd6;</td>
+        <td>U+FDD6</td>
+        <td>64982</td>
+        <td>"%EF%B7%96"</td>
+        <td>&#xFDD6;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_FALSE" target="_blank">JSON_FALSE</a></td>
+        <td>&#xfdd7;</td>
+        <td>U+FDD7</td>
+        <td>64983</td>
+        <td>"%EF%B7%97"</td>
+        <td>&#xFDD7;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>JSON_DELETE</td>
+        <td>&#xfdd8;</td>
+        <td>U+FDD8</td>
+        <td>64984</td>
+        <td>"%EF%B7%98"</td>
+        <td>&#xFDD8;</td>
+        <td>Used with <a href="https://wiki.secondlife.com/wiki/LlJsonSetValue" target="_blank">llJsonSetValue</a> to remove a key-value pair.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonSetValue" target="_blank">llJsonSetValue</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local num_detected = #events
+    local jsonString = "[1,2,3,4,5]"
+
+    ll.Say(PUBLIC_CHANNEL, "Original: " .. jsonString)
+
+    --  we remove the first item (list has zero-based index!)
+    jsonString = ll.JsonSetValue(jsonString, {0}, JSON_DELETE)
+
+    --  "[2,3,4,5]"
+    ll.Say(PUBLIC_CHANNEL, "Modified: " .. jsonString)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        string jsonString = "[1,2,3,4,5]";
+
+        llSay(PUBLIC_CHANNEL, "Original: " + jsonString);
+
+    //  we remove the first item (list has zero-based index!)
+        jsonString = llJsonSetValue(jsonString, [0], JSON_DELETE);
+
+    //  "[2,3,4,5]"
+        llSay(PUBLIC_CHANNEL, "Modified: " + jsonString);
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=JSON_DELETE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+JSON_DELETE = "�"
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+string JSON_DELETE = "�";
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

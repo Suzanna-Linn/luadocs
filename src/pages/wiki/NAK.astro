@@ -1,0 +1,73 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`NAK: string = 
+\x15
+`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string NAK = 
+\x15
+;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The string constant NAK has the value "\n"+llChar(21)+"\n"</p>
+  <p>NAK is a value returned by the <a href="https://wiki.secondlife.com/wiki/LlGetNotecardLineSync" target="_blank">llGetNotecardLineSync</a> function when the requested notecard data is not available due to the notecard not being in the region notecard cache. The value returned equals the characters with codes "10, 21, 10", which is to say the ASCII "NAK" character surrounded by two newline characters.</p>
+  <p>If the NAK response is encountered, the card can be fetched into the region notecard cache by using the <a href="https://wiki.secondlife.com/wiki/LlGetNotecardLine" target="_blank">llGetNotecardLine</a> or <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfNotecardLines" target="_blank">llGetNumberOfNotecardLines</a> functions. If the notecard doesn't exist at all, further llGetNotecardLineSync calls will continue returning NAK.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNotecardLineSync" target="_blank">llGetNotecardLineSync</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Notes</h2>
+  <p>NAK is an acronym that stands for "Negative AcKnownledgement".</p>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=NAK" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+NAK = "\n" .. ll.Char(21) .. "\n"  --An ASCII "NAK" character (21) surrounded by two newline characters (10).
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+string NAK = "\n"+llChar(21)+"\n";//An ASCII "NAK" character (21) surrounded by two newline characters (10).
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

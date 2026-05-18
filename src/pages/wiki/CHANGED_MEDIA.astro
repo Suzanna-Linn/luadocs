@@ -1,0 +1,111 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`CHANGED_MEDIA: number = 2048`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer CHANGED_MEDIA = 2048;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant CHANGED_MEDIA has the value 0x800</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_Prim_Media" target="_blank">Prim Media</a> on the prim has changed.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ChangeType</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimMediaParams" target="_blank">llSetPrimMediaParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlClearPrimMedia" target="_blank">llClearPrimMedia</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_MEDIA) then  --note that it's & and not &&... it's bitwise!
+        ll.OwnerSay("The prims media has changed.")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    changed(integer change)
+    {
+        if (change & CHANGED_MEDIA) //note that it's & and not &&... it's bitwise!
+        {
+            llOwnerSay("The prims media has changed.");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Implementation: <a href="http://svn.secondlife.com/trac/linden/changeset/2816?new_path=%2F#file15" target="_blank">SVN:2816 r134947 Trunk&#32;c:1.24.4&#32;s:1.32.0</a></li>
+    <li>Bug: <a href="https://jira.secondlife.com/browse/SVC-4939" target="_blank">SVC-4939</a> - SVN Changeset 2816 in Trunk is immature</li>
+  </ul>
+  <p><a href="https://secondlife.canny.io/?search=CHANGED_MEDIA" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+CHANGED_MEDIA = 0x800
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer CHANGED_MEDIA = 0x800;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

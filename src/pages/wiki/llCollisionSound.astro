@@ -1,0 +1,165 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.CollisionSound(ImpactSound: string|uuid, ImpactVolume: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llCollisionSound(string ImpactSound, float ImpactVolume);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Suppress default collision sounds, replace default impact sounds with <b>impact_sound</b> at the volume <b>impact_volume</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>ImpactSound / impact_sound</td>
+          <td>a sound in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in, a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a sound&#32;or an empty string</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>ImpactVolume / impact_volume</td>
+          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>impact_volume</b> <&#61; 1.0`)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>physics</li>
+        <li>sound</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">160</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>impact_sound</b> is an empty string then the collision sound is suppressed.</p>
+  <p>If <b>impact_volume</b> is set to zero the collision particles are suppressed.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>impact_sound</b> is not an empty string and...
+    <ul>
+      <li><b>impact_sound</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a sound then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    </ul>
+  
+    </li>
+    <li>If <b>impact_sound</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>If this function is used to suppress collision sounds, NO sound will be generated even if the suppressed object collides with an unsuppressed object (there will be no sound from the unsuppressed object either).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Play Sound When Collision Occurs With Other Object Or An AGENT
+--Creator: TonyH Wrangler
+
+local sound = "ed124764-705d-d497-167a-182cd9fa2e6c"  --uuid or name of item in inventory
+
+local function main()
+    ll.CollisionSound(sound, 1.0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Play Sound When Collision Occurs With Other Object Or An AGENT
+//Creator: TonyH Wrangler
+
+string sound = "ed124764-705d-d497-167a-182cd9fa2e6c"; //uuid or name of item in inventory
+
+default
+{
+    state_entry()
+    {
+        llCollisionSound(sound, 1.0);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCollisionFilter" target="_blank">llCollisionFilter</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCollisionSprite" target="_blank">llCollisionSprite</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llCollisionSound Added in <a href="http://secondlife.wikia.com/wiki/Version_0.2.0" target="_blank">SL 0.2.0</a>[[1]](#footnote_1)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llCollisionSound( string impact_sound, float impact_volume );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

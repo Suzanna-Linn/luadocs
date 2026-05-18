@@ -1,0 +1,184 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetObjectName(): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetObjectName();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the name of the <i>prim</i> the script is attached to.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_properties</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">202</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The prim name is limited to 63 bytes, any string longer than that will be truncated. This truncation does not always happen when the attribute is set or read.</li>
+    <li>This function may return "(Waiting)" sometimes. See: <a href="#Notes" target="_blank">#Notes</a></li>
+  </ul>
+  <h2>Examples</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Get this prim's name</b></th>
+        <th><b>Get the root prim's name</b></th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+local function main()
+    --  PUBLIC_CHANNEL has the integer value 0
+    ll.Say(PUBLIC_CHANNEL, "This prim's name: " .. ll.GetObjectName())
+end
+
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+default
+{
+    state_entry()
+    {
+    //  PUBLIC_CHANNEL has the integer value 0
+        llSay(PUBLIC_CHANNEL, "This prim's name: " + llGetObjectName() );
+    }
+}
+`} lang="lsl" /></div>
+
+</td>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+local function main()
+    --  PUBLIC_CHANNEL has the integer value 0
+    ll.Say(PUBLIC_CHANNEL, "Root prim's name: " .. ll.GetLinkName(LINK_ROOT))
+end
+
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+default
+{
+    state_entry()
+    {
+    //  PUBLIC_CHANNEL has the integer value 0
+        llSay(PUBLIC_CHANNEL, "Root prim's name: "
+            + llGetLinkName(LINK_ROOT));
+    }
+}
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Notes</h2>
+  <p>Erroneous "(Waiting)"</p>
+  <p>Presumably the function queries the asset server for a predetermined time and returns "(Waiting)" if that elapses.
+It then silently proceeds to the next instruction.
+A work around therefore, might be to test object name is not "(Waiting)" after calling llGetObjectName.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetObjectName" target="_blank">llSetObjectName</a></td>
+        <td>–</td>
+        <td>Set the prims name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkName" target="_blank">llGetLinkName</a></td>
+        <td>–</td>
+        <td>Get a linked prims name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDesc" target="_blank">llGetObjectDesc</a></td>
+        <td>–</td>
+        <td>Get the prims description</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetObjectDesc" target="_blank">llSetObjectDesc</a></td>
+        <td>–</td>
+        <td>Sets the prims description</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Limits" target="_blank">Limits</a></td>
+        <td>–</td>
+        <td>SL limits and constrictions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Prim_Attribute_Overloading" target="_blank">Prim Attribute Overloading</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetObjectName()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetObjectName();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

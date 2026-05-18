@@ -1,0 +1,147 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`DATA_NAME: number = 2`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer DATA_NAME = 2;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant DATA_NAME has the value 2</p>
+  <p>Used with <a href="https://wiki.secondlife.com/wiki/LlRequestAgentData" target="_blank">llRequestAgentData</a> to return a string containing the avatars <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>AgentData</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <ul>
+    <li>For legacy accounts (those with a first and last name). The format is "FirstName LastName".</li>
+    <li>For modern accounts (those with only a first name). The format is "FirstName Resident".</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DATA_ONLINE" target="_blank">DATA_ONLINE</a></td>
+        <td>1</td>
+        <td>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) boolean</td>
+        <td colspan="4">If the requested agent is online</td>
+      </tr>
+      <tr>
+        <td>DATA_NAME</td>
+        <td>2</td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a></td>
+        <td colspan="4">The requested agent's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DATA_BORN" target="_blank">DATA_BORN</a></td>
+        <td>3</td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a></td>
+        <td colspan="4">The account creation/"born on" date as a string in an ISO 8601 format of YYYY-MM-DD.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DATA_RATING" target="_blank">DATA_RATING</a></td>
+        <td>4</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a>()</td>
+        <td colspan="4"><p><b>Deprecated</b>: Returns [0, 0, 0, 0, 0, 0]</p>
+<p>Used to return: [pos_behavior, neg_behavior, pos_appearance, neg_appearance, pos_building, neg_building]</p></td>
+      </tr>
+      <tr>
+        <th><a href="https://wiki.secondlife.com/wiki/DATA_PAYINFO" target="_blank">DATA_PAYINFO</a></th>
+        <th>8</th>
+        <th>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) mask</th>
+        <th colspan="3">Flag</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/PAYMENT_INFO_ON_FILE" target="_blank">PAYMENT_INFO_ON_FILE</a></td>
+        <td>0x1</td>
+        <td>If payment info is on file.</td>
+      </tr>
+      <tr>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/PAYMENT_INFO_USED" target="_blank">PAYMENT_INFO_USED</a></td>
+        <td>0x2</td>
+        <td>If payment info has been used.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestAgentData" target="_blank">llRequestAgentData</a></td>
+        <td>–</td>
+        <td>Used with DATA_NAME</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestDisplayName" target="_blank">llRequestDisplayName</a></td>
+        <td>–</td>
+        <td>Gets the <a href="https://wiki.secondlife.com/wiki/Display_name" target="_blank">display name</a>.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestUsername" target="_blank">llRequestUsername</a></td>
+        <td>–</td>
+        <td>Gets the <a href="https://wiki.secondlife.com/wiki/Display_name" target="_blank">username</a>.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=DATA_NAME" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+DATA_NAME = 2
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer DATA_NAME = 2;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

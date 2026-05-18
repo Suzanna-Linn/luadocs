@@ -1,0 +1,388 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetStaticPath(Start: vector, End: vector, Radius: number, Parameters: {any}): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llGetStaticPath(vector Start, vector End, float Radius, list Parameters);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a list of position vectors indicating pathfinding waypoints between positions at <b>start</b> and <b>end</b>, for a character of a given <b>radius</b>. The waypoints this function returns are for the 'static' nav mesh, meaning that objects set to "movable obstacle" or "movable phantom" are ignored.</p>
+  <p>This function <b>can</b> be used from attachments and other non-character objects. It can also be used in any region, even if dynamic pathfinding is disabled.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Start / start</td>
+          <td>Starting position</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>End / end</td>
+          <td>End position</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Radius / radius</td>
+          <td>Radius of the character that we're creating a path for, between 0.125m and 5.0m</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Parameters / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/params" target="_blank">params</a></td>
+          <td>Only takes the parameter <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a>; the options are identical to those used for <a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a>. The default value is <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_NONE" target="_blank">CHARACTER_TYPE_NONE</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>pathfinding</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">413</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The list also always contains an integer in the last element, which is a status code indicating the outcome of the path query:</p>
+  <ul>
+    <li>If llGetStaticPath() finds a path, it will return waypoint vectors and will return a status code of 0, for success</li>
+    <li>If llGetStaticPath() cannot find a path for some reason, it only returns the status code, indicating the sort of error. The error codes correspond to the constants in <a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a> (e.g. PU_FAILURE_INVALID_START is returned if the start vector is not near the nav mesh)</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_SLOWDOWN_DISTANCE_REACHED&action=edit&redlink=1" target="_blank">PU_SLOWDOWN_DISTANCE_REACHED</a></td>
+        <td>0x00</td>
+        <td>Character is near current goal.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_GOAL_REACHED&action=edit&redlink=1" target="_blank">PU_GOAL_REACHED</a></td>
+        <td>0x01</td>
+        <td>Character has reached the goal and will stop or choose a new goal (if wandering).</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_START&action=edit&redlink=1" target="_blank">PU_FAILURE_INVALID_START</a></td>
+        <td>0x02</td>
+        <td>Character cannot navigate from the current location - e.g., the character is off the navmesh or too high above it.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_GOAL&action=edit&redlink=1" target="_blank">PU_FAILURE_INVALID_GOAL</a></td>
+        <td>0x03</td>
+        <td>Goal is not on the navmesh and cannot be reached.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_UNREACHABLE&action=edit&redlink=1" target="_blank">PU_FAILURE_UNREACHABLE</a></td>
+        <td>0x04</td>
+        <td>Goal is no longer reachable for some reason - e.g., an obstacle blocks the path.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_TARGET_GONE&action=edit&redlink=1" target="_blank">PU_FAILURE_TARGET_GONE</a></td>
+        <td>0x05</td>
+        <td>Target (for llPursue or llEvade) can no longer be tracked - e.g., it left the region or is an avatar that is now more than about 30m outside the region.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_NO_VALID_DESTINATION&action=edit&redlink=1" target="_blank">PU_FAILURE_NO_VALID_DESTINATION</a></td>
+        <td>0x06</td>
+        <td>There's no good place for the character to go - e.g., it is patrolling and all the patrol points are now unreachable.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_EVADE_HIDDEN&action=edit&redlink=1" target="_blank">PU_EVADE_HIDDEN</a></td>
+        <td>0x07</td>
+        <td>Triggered when an llEvade character thinks it has hidden from its pursuer.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_EVADE_SPOTTED&action=edit&redlink=1" target="_blank">PU_EVADE_SPOTTED</a></td>
+        <td>0x08</td>
+        <td>Triggered when an llEvade character switches from hiding to running</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_NO_NAVMESH&action=edit&redlink=1" target="_blank">PU_FAILURE_NO_NAVMESH</a></td>
+        <td>0x09</td>
+        <td>This is a fatal error reported to a character when there is no navmesh for the region. This usually indicates a server failure and users should file a bug report and include the time and region in which they received this message.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED&action=edit&redlink=1" target="_blank">PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED</a></td>
+        <td>0x0A</td>
+        <td>Triggered when a character enters a region with dynamic pathfinding disabled. Dynamic pathfinding can be toggled by estate managers via the 'dynamic_pathfinding' option in the Region Debug Console.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_PARCEL_UNREACHABLE&action=edit&redlink=1" target="_blank">PU_FAILURE_PARCEL_UNREACHABLE</a></td>
+        <td>0x0B</td>
+        <td>Triggered when a character failed to enter a parcel because it is not allowed to enter, e.g. because the parcel is already full or because object entry was disabled after the navmesh was baked.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_OTHER&action=edit&redlink=1" target="_blank">PU_FAILURE_OTHER</a></td>
+        <td>0xF4240</td>
+        <td>Other failure.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Option</th>
+        <th></th>
+        <th>Default</th>
+        <th>Range / Values</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_SPEED" target="_blank">CHARACTER_DESIRED_SPEED</a></td>
+        <td>1</td>
+        <td>6</td>
+        <td>[0.2, 40.0]</td>
+        <td>Speed of pursuit in meters per second.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_RADIUS" target="_blank">CHARACTER_RADIUS</a></td>
+        <td>2</td>
+        <td></td>
+        <td>[0.125, 5.0]</td>
+        <td>Set collision capsule radius.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_LENGTH" target="_blank">CHARACTER_LENGTH</a></td>
+        <td>3</td>
+        <td></td>
+        <td>(0.0, 10.0]</td>
+        <td>Set collision capsule length
+If the value is less than twice the <b>radius</b> plus 0.1m, it will be set to twice the radius plus 0.1m.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_ORIENTATION" target="_blank">CHARACTER_ORIENTATION</a></td>
+        <td>4</td>
+        <td><a href="https://wiki.secondlife.com/wiki/VERTICAL" target="_blank">VERTICAL</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/VERTICAL" target="_blank">VERTICAL</a>, <a href="https://wiki.secondlife.com/wiki/HORIZONTAL" target="_blank">HORIZONTAL</a></td>
+        <td>Set the character orientation.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/TRAVERSAL_TYPE" target="_blank">TRAVERSAL_TYPE</a></td>
+        <td>7</td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_SLOW</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_FAST</a>, <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_SLOW</a>, <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_NONE&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_NONE</a></td>
+        <td>Controls the speed at which characters moves on terrain that is less than 100% walkable will move faster (e.g., a cat crossing a street) or slower (e.g., a car driving in a swamp).
+To use <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">_FAST</a> or <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">_SLOW</a>, you must specify a <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a></td>
+        <td>6</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_NONE" target="_blank">CHARACTER_TYPE_NONE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_A" target="_blank">CHARACTER_TYPE_A</a>, <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_B" target="_blank">CHARACTER_TYPE_B</a>, <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_C" target="_blank">CHARACTER_TYPE_C</a>, <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_D" target="_blank">CHARACTER_TYPE_D</a>, <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_NONE" target="_blank">CHARACTER_TYPE_NONE</a></td>
+        <td>Specifies which walkability coefficient will be used by this character.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_AVOIDANCE_MODE" target="_blank">CHARACTER_AVOIDANCE_MODE</a></td>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&action=edit&redlink=1" target="_blank">AVOID_CHARACTERS</a> | <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_DYNAMIC_OBSTACLES&action=edit&redlink=1" target="_blank">AVOID_DYNAMIC_OBSTACLES</a></td>
+        <td><p>Combinable Flags:</p>
+<p><a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&action=edit&redlink=1" target="_blank">AVOID_CHARACTERS</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_DYNAMIC_OBSTACLES&action=edit&redlink=1" target="_blank">AVOID_DYNAMIC_OBSTACLES</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_NONE&action=edit&redlink=1" target="_blank">AVOID_NONE</a></p></td>
+        <td>Allows you to specify that a character should not try to avoid other characters, should not try to avoid dynamic obstacles (relatively fast moving objects and avatars), or both. This is framed in the positive sense (`<a href="https://wiki.secondlife.com/wiki/CHARACTER_AVOIDANCE_MODE" target="_blank">[CHARACTER_AVOIDANCE_MODE</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&action=edit&redlink=1" target="_blank">AVOID_CHARACTERS</a>]` would create a character that avoided other characters but not agents or moving vehicles). Setting this parameter to <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_NONE&action=edit&redlink=1" target="_blank">AVOID_NONE</a> causes the character to not avoid either category.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_ACCEL" target="_blank">CHARACTER_MAX_ACCEL</a></td>
+        <td>8</td>
+        <td>20</td>
+        <td>[0.5, 40.0]</td>
+        <td>The character's maximum acceleration rate.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_DECEL" target="_blank">CHARACTER_MAX_DECEL</a></td>
+        <td>9</td>
+        <td>30</td>
+        <td>[0.5, 60.0]</td>
+        <td>The character's maximum deceleration rate.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_TURN_SPEED" target="_blank">CHARACTER_DESIRED_TURN_SPEED</a></td>
+        <td>12</td>
+        <td>6</td>
+        <td>[0.02, 40.0]</td>
+        <td>The character's maximum speed while turning--note that this is only loosely enforced (i.e., a character may turn at higher speeds under certain conditions)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_TURN_RADIUS" target="_blank">CHARACTER_MAX_TURN_RADIUS</a></td>
+        <td>10</td>
+        <td>1.25</td>
+        <td>[0.1, 10.0]</td>
+        <td>The character's turn radius when traveling at <a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_TURN_SPEED" target="_blank">CHARACTER_DESIRED_TURN_SPEED</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_SPEED" target="_blank">CHARACTER_MAX_SPEED</a></td>
+        <td>13</td>
+        <td>20</td>
+        <td>[1, 40.0]</td>
+        <td>The character's maximum speed. Affects speed when avoiding dynamic obstacles and when traversing low-walkability objects in <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_FAST</a> mode.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_ACCOUNT_FOR_SKIPPED_FRAMES" target="_blank">CHARACTER_ACCOUNT_FOR_SKIPPED_FRAMES</a></td>
+        <td>14</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> matches pre-existing behavior. If set to <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>, character will not attempt to catch up on lost time when pathfinding performance is low, potentially providing more reliable movement (albeit while potentially appearing to be more stuttery).</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_STAY_WITHIN_PARCEL" target="_blank">CHARACTER_STAY_WITHIN_PARCEL</a></td>
+        <td>15</td>
+        <td>Depends<a href="https://wiki.secondlife.com/wiki/LlCreateCharacter#ct-caveat" target="_blank">*</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> matches traditional behavior. If set to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, treat the parcel boundaries as one-way obstacles (will re-enter but can't leave on it's own).</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- llGetStaticPath() test script
+-- Reports the static path from the object's current position to the object owner's position
+
+-- Radius of character to test for
+local character_radius = 1.0
+
+-- All defined path_update codes; note that llGetStaticPath() can only return a few of these.
+local path_update_codes = {"PU_SLOWDOWN_DISTANCE_REACHED ", "PU_GOAL_REACHED", "PU_FAILURE_INVALID_START", "PU_FAILURE_INVALID_GOAL", "PU_FAILURE_UNREACHABLE", "PU_FAILURE_TARGET_GONE", "PU_FAILURE_NO_VALID_DESTINATION", "PU_EVADE_HIDDEN", "PU_EVADE_SPOTTED", "PU_FAILURE_NO_NAVMESH", "PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED", "PU_FAILURE_PARCEL_UNREACHABLE", "PU_FAILURE_OTHER"}
+
+function LLEvents.touch_start(events)
+    local detected = #events
+    local agent_pos = ll.List2Vector(ll.GetObjectDetails(ll.GetOwner(), {OBJECT_POS}), 0)
+    local end_pos = ll.List2Vector(ll.GetClosestNavPoint(agent_pos, {GCNP_STATIC, if true then 1 else 0}), 0)
+    local start_pos = ll.List2Vector(ll.GetClosestNavPoint(ll.GetPos(), {GCNP_STATIC, if true then 1 else 0}), 0)
+    if end_pos == ZERO_VECTOR then
+        ll.OwnerSay("Error: end position undefined - the object owner is either offline or far away from the nav mesh." .. "\nagent pos is " .. tostring(agent_pos))
+    elseif start_pos == ZERO_VECTOR then
+        ll.OwnerSay("Error: start position undefined - this object is far away from the nav mesh." .. "\nobject pos is " .. tostring(ll.GetPos()))
+    else
+        ll.OwnerSay("Finding path from " .. tostring(start_pos) .. " to " .. tostring(end_pos) .. " for a character of radius " .. tostring(character_radius))
+        local result = ll.GetStaticPath(start_pos, end_pos, character_radius, {})
+        local result_code = ll.List2Integer(result, -1)
+        --llOwnerSay("Raw llGetStaticPath() result: " + llList2CSV(result));
+
+        -- the last element in the list is just the return code;
+        -- the preceding elements should be waypoint vectors
+        if result_code == 0 then
+            ll.OwnerSay("llGetStaticPath found a path: " .. ll.List2CSV(ll.List2List(result, 0, -2)))
+        else
+            ll.OwnerSay("llGetStaticPath failed to find a path, with code " .. tostring(result_code) .. " (" .. ll.List2String(path_update_codes, result_code) .. ")")
+        end
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// llGetStaticPath() test script
+// Reports the static path from the object's current position to the object owner's position
+
+// Radius of character to test for
+float character_radius = 1.0;
+
+// All defined path_update codes; note that llGetStaticPath() can only return a few of these.
+list path_update_codes = [
+    "PU_SLOWDOWN_DISTANCE_REACHED ",
+    "PU_GOAL_REACHED",
+    "PU_FAILURE_INVALID_START",
+    "PU_FAILURE_INVALID_GOAL",
+    "PU_FAILURE_UNREACHABLE",
+    "PU_FAILURE_TARGET_GONE",
+    "PU_FAILURE_NO_VALID_DESTINATION",
+    "PU_EVADE_HIDDEN",
+    "PU_EVADE_SPOTTED",
+    "PU_FAILURE_NO_NAVMESH",
+    "PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED",
+    "PU_FAILURE_PARCEL_UNREACHABLE",
+    "PU_FAILURE_OTHER"
+];
+
+default
+{
+    touch_start(integer detected)
+    {
+        vector agent_pos = llList2Vector(llGetObjectDetails(llGetOwner(), [OBJECT_POS]), 0);
+        vector end_pos = llList2Vector(llGetClosestNavPoint(agent_pos, [GCNP_STATIC, TRUE]), 0);
+        vector start_pos = llList2Vector(llGetClosestNavPoint(llGetPos(), [GCNP_STATIC, TRUE]), 0);
+        if(end_pos == ZERO_VECTOR)
+        {
+            llOwnerSay("Error: end position undefined - the object owner is either offline or far away from the nav mesh."
+                + "\nagent pos is " + (string)agent_pos);
+        }
+        else if(start_pos == ZERO_VECTOR)
+        {
+            llOwnerSay("Error: start position undefined - this object is far away from the nav mesh."
+                + "\nobject pos is " + (string)llGetPos());
+        }
+        else
+        {
+            llOwnerSay("Finding path from " + (string)start_pos 
+                + " to " + (string)end_pos 
+                + " for a character of radius " + (string)character_radius);
+            list result = llGetStaticPath(start_pos, end_pos, character_radius, []);
+            integer result_code = llList2Integer(result, -1);
+            //llOwnerSay("Raw llGetStaticPath() result: " + llList2CSV(result));
+            
+            // the last element in the list is just the return code;
+            // the preceding elements should be waypoint vectors
+            if(result_code == 0)
+            {
+                llOwnerSay("llGetStaticPath found a path: " + llList2CSV(llList2List(result, 0, -2)));
+            } 
+            else
+            {
+                llOwnerSay("llGetStaticPath failed to find a path, with code " + (string)result_code
+                    + " (" + llList2String(path_update_codes, result_code) + ")");
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a></li>
+  </ul>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.31.262785" target="_blank"> 31/07/2012 </a></p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llGetStaticPath( vector start, vector end, float radius, list params );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

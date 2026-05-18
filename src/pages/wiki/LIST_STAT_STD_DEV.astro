@@ -1,0 +1,121 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`LIST_STAT_STD_DEV: number = 5`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer LIST_STAT_STD_DEV = 5;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant LIST_STAT_STD_DEV has the value 5</p>
+  <p>Calculates the <i>sample</i> standard deviation of a list of numbers.</p>
+  <p>Standard deviation is a measure of how spread out the values are, and is defined as the square root of the average of the squares of the numbers:</p>
+  <p>The sample standard deviation is used when the list doesn't (or can't) include the <i>entire</i> set of numbers, like the mass of <i>every</i> prim in SL. The true standard deviation is therefore estimated by using the sample standard deviation, which is defined by,</p>
+  <p>Another way to calculate the sample standard deviation is</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ListStatisticsOperation</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local sample_standard_deviation = ll.ListStatistics(LIST_STAT_STD_DEV, numList)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float sample_standard_deviation = llListStatistics( LIST_STAT_STD_DEV, numList );`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+local count = integer(ll.ListStatistics(LIST_STAT_NUM_COUNT, numList))
+local standard_deviation = ll.Sqrt(ll.ListStatistics(LIST_STAT_SUM_SQUARES, numList)) / count`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer count = (integer)llListStatistics( LIST_STAT_NUM_COUNT, numList );
+float standard_deviation = llSqrt( llListStatistics( LIST_STAT_SUM_SQUARES , numList ) ) / count;`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+local count = integer(ll.ListStatistics(LIST_STAT_NUM_COUNT, numList))
+local sample_standard_deviation = ll.Sqrt(ll.ListStatistics(LIST_STAT_SUM_SQUARES, numList)) / (count - 1)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer count = (integer)llListStatistics( LIST_STAT_NUM_COUNT, numList );
+float sample_standard_deviation = llSqrt( llListStatistics( LIST_STAT_SUM_SQUARES , numList ) ) / (count - 1);`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local numList = {1, 1, 1, 2, 1000, 1000, 1000}
+local count = #numList
+local sum = 0
+local mean = ll.ListStatistics(LIST_STAT_MEAN, numList)
+local i = 0
+while i < count do
+    local val = ll.List2Float(numList, i)
+    local diff = val - mean
+    sum += (diff * diff)
+    i += 1
+end
+local sample_stdev = ll.Sqrt(sum / (count - 1))
+local true_stdev = ll.Sqrt(sum / count)
+ll.OwnerSay(tostring(true_stdev))
+ll.OwnerSay(tostring(sample_stdev))
+ll.OwnerSay(tostring(ll.ListStatistics(LIST_STAT_STD_DEV, numList)))`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list numList = [1,1,1,2,1000,1000,1000];
+    integer count = llGetListLength( numList );
+    float sum = 0;
+    float mean = llListStatistics( LIST_STAT_MEAN, numList );
+    integer i = 0;
+    for (; i<count; ++i) {
+        float val = llList2Float( numList, i );
+        float diff = val - mean;
+        sum += ( diff * diff );
+    }
+    float sample_stdev = llSqrt( sum / (count - 1) ); 
+    float true_stdev = llSqrt( sum / count ); 
+    llOwnerSay((string)true_stdev);
+    llOwnerSay((string)sample_stdev);
+    llOwnerSay((string)llListStatistics( LIST_STAT_STD_DEV, numList ));
+}`} lang="lsl" /></div>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListStatistics" target="_blank">llListStatistics</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=LIST_STAT_STD_DEV" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+LIST_STAT_STD_DEV = 5
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer LIST_STAT_STD_DEV = 5;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

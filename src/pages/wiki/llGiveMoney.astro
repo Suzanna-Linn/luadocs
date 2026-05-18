@@ -1,0 +1,251 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GiveMoney(AvatarID: uuid, Amount: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGiveMoney(key AvatarID, integer Amount);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Transfer <b>amount</b> of L$ money from script owner to <b>destination</b> avatar.</p>
+  <p>Returns an integer that is always zero. In contrast <a href="https://wiki.secondlife.com/wiki/LlTransferLindenDollars" target="_blank">llTransferLindenDollars</a> returns a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> that can be used to match the function call to the resulting <a href="https://wiki.secondlife.com/wiki/Transaction_result" target="_blank">transaction_result</a> event and the <a href="https://secondlife.com/my/account/transactions.php" target="_blank">transaction history</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / destination</td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Amount / amount</td>
+          <td>number of L$, must be greater than zero, (<b>amount</b> > 0)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>money</li>
+        <li>permissions</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_DEBIT</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">99</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&#32;and it must be granted by the owner.</p>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+If <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a> is granted by anyone other than the owner, then when the function is called an error will be shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a> permission is granted there is no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or the script is reset or deleted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>An object cannot pay another object.</li>
+    <li>It is impossible for a script to tell if an llGiveMoney transaction succeeded or failed. Use <a href="https://wiki.secondlife.com/wiki/LlTransferLindenDollars" target="_blank">llTransferLindenDollars</a> instead.</li>
+    <li>Objects deeded to groups cannot give money (the permission cannot be granted).</li>
+    <li>Use is limited to 30 payments in a 30 second interval for all scripts owned by that resident on a region. Sustained overage will produce a script error and halt payments while the rate remains excessive. Historically, faster payments have failed intermittently.</li>
+    <li>Once a script has the <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a> permission it can empty an account of L$.
+    <ul>
+      <li>Fraud & theft are both <a href="https://lindenlab.com" target="_blank">Linden Lab</a> violations and crimes. Misuse this function and you risk being banned and legal action. In addition LL may freeze the accounts of anyone the money is transferred to and restore it to it's rightful owners. This may involve retrieving it from third party exchanges and accounts on those exchanges being frozen. The system is not designed to be friendly towards fraud.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Pay 100 L$ to Fred Bloggs when he touches this prim, then die
+-- Compare this example with that shown under llTransferLindenDollars
+
+local Recipient = "Fred Bloggs"  -- Authorised recipient
+local Amount = 100  -- Amount to pay Fred when he touches the prim
+local DebitPerms = false
+
+local function main()
+    -- Ask the owner for permission to debit their account
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_DEBIT)
+end
+
+function LLEvents.run_time_permissions(perm)
+    if bit32.btest(perm, PERMISSION_DEBIT) then
+        DebitPerms = true
+    end
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    if not DebitPerms then
+        return  -- Cannot proceed - debit permissions not granted
+    end
+    if ll.DetectedName(0) ~= Recipient then
+        return  -- unauthorised person is touching - ignore
+    end
+
+    local id = ll.DetectedKey(0)  -- Get toucher's (i.e. Fred's) UUID
+    ll.GiveMoney(id, Amount)  -- Give him the money
+    ll.Die()  -- Die so Fred can't keep taking money
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Pay 100 L$ to Fred Bloggs when he touches this prim, then die
+// Compare this example with that shown under llTransferLindenDollars
+
+string  Recipient = "Fred Bloggs";      // Authorised recipient
+integer Amount = 100;                   // Amount to pay Fred when he touches the prim
+integer DebitPerms;
+
+default
+{
+    state_entry()
+    {
+        // Ask the owner for permission to debit their account
+        llRequestPermissions(llGetOwner(), PERMISSION_DEBIT);
+    }
+
+    run_time_permissions (integer perm)
+    {
+        if  (perm & PERMISSION_DEBIT)
+            DebitPerms = TRUE;
+    }
+
+    touch_start(integer num_detected)
+    {
+        if (!DebitPerms)
+            return;                     // Cannot proceed - debit permissions not granted
+        if (llDetectedName(0) != Recipient)
+            return;                     // unauthorised person is touching - ignore
+
+        key id = llDetectedKey(0);      // Get toucher's (i.e. Fred's) UUID
+        llGiveMoney(id, Amount);        // Give him the money
+        llDie();                        // Die so Fred can't keep taking money
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Money" target="_blank">money</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Transaction_result" target="_blank">transaction_result</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTransferLindenDollars" target="_blank">llTransferLindenDollars</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPayPrice" target="_blank">llSetPayPrice</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGiveMoney( key destination, integer amount );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,114 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.DumpList2String(Source: {any}, Separator: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llDumpList2String(list Source, string Separator);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the list <b>src</b> converted to a string with <b>separator</b> between the entries.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Source / src</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Separator / separator</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">245</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-native">Native Coded</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Use <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a> or <a href="https://wiki.secondlife.com/wiki/LlParseStringKeepNulls" target="_blank">llParseStringKeepNulls</a> to undo the process.</p>
+  <p>Unlike <a href="https://wiki.secondlife.com/wiki/LlList2CSV" target="_blank">llList2CSV</a>, which dumps a list to a comma-separated formatted string with no choice over the <b>separator</b>, llDumpList2String gives you more control. This can be useful if you don't trust commas as a <b>separator</b> because you might be working with data supplied to the script by a user who uses, say, commas as part of a street address.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local mylist = {"a", "b", "c", "d"}
+local tmp = ll.DumpList2String(mylist, "**")
+--tmp now equals: "a**b**c**d"`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list mylist = ["a", "b", "c", "d"];
+string tmp = llDumpList2String(mylist, "**");
+//tmp now equals: "a**b**c**d"`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local mylist = {vector(10, 5, 7), 100, "c", "d"}
+local tmp = ll.DumpList2String(mylist, "**")
+--tmp now equals: "<10,5,7>**100**c**d"`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list mylist = [<10,5,7>, 100, "c", "d"];
+string tmp = llDumpList2String(mylist, "**");
+//tmp now equals: "<10,5,7>**100**c**d"`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local my_list = {1, 2.0, "a string", ll.GetOwner()}
+    ll.OwnerSay("<" .. ll.DumpList2String(my_list, "><") .. ">")
+--says: "<1><2.000000><a string><a822ff2b-ff02-461d-b45d-dcd10a2de0c2>"        
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default{
+    state_entry(){
+        list my_list = [1, 2.0, "a string", llGetOwner()];
+        llOwnerSay("<" + llDumpList2String(my_list,"><") + ">"); 
+//says: "<1><2.000000><a string><a822ff2b-ff02-461d-b45d-dcd10a2de0c2>"        
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Instead of using `llDumpList2String(myList, "")` you may wish to consider using the more efficient `(string)myList` as it produces an identical result with less memory usage due to eliminating a function-call. Each element of the list is converted to string format in the result, so floats expand to six digits of precision, rotations and vectors are represented with "<" and ">" characters, etc.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlParseStringKeepNulls" target="_blank">llParseStringKeepNulls</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlList2CSV" target="_blank">llList2CSV</a></li>
+  </ul>
+  <h3>Articles</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">Typecast</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llDumpList2String( list src, string separator );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,235 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RotTarget(Rotation: rotation, LeeWay: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llRotTarget(rotation Rotation, float LeeWay);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>This function is to have the script know when it has reached a rotation.</p>
+  <p>It registers a <b>rot</b> with a <b>error</b> that triggers <a href="https://wiki.secondlife.com/wiki/At_rot_target" target="_blank">at_rot_target</a> and <a href="https://wiki.secondlife.com/wiki/Not_at_rot_target" target="_blank">not_at_rot_target</a> events continuously until unregistered.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/handle" target="_blank">handle</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) to unregister the target with <a href="https://wiki.secondlife.com/wiki/LlRotTargetRemove" target="_blank">llRotTargetRemove</a></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>Rotation / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+          <td>target rotation</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>LeeWay / error</td>
+          <td>angle in radians, defines when <b>rot</b> has been reached</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">68</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>A similar function exists for positions: <a href="https://wiki.secondlife.com/wiki/LlTarget" target="_blank">llTarget</a></p>
+  <p>This function does not rotate the object, to do that use <a href="https://wiki.secondlife.com/wiki/LlSetRot" target="_blank">llSetRot</a>, <a href="https://wiki.secondlife.com/wiki/LlRotLookAt" target="_blank">llRotLookAt</a> or <a href="https://wiki.secondlife.com/wiki/LlLookAt" target="_blank">llLookAt</a>.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+local standrot = vector(0.0, 0.0, 0.0)
+local fliprot = vector(45.0, 0.0, 0.0)
+
+-- simple two-state rot target detection and rotation by Hypatia Callisto
+-- works, to detect a rotation target. An example I wrote
+-- since there is almost zilch for clean examples for 
+-- at_rot_target, not_at_rot_target, llRotTarget, llRotTargetRemove
+
+local rottarget = 0
+local default, rotatestate = {}, {}
+
+function default.state_entry()
+    rottarget = ll.RotTarget(ll.Euler2Rot(fliprot * DEG_TO_RAD), 0.1)
+    ll.SetPrimitiveParams({PRIM_ROTATION, ll.Euler2Rot(standrot * DEG_TO_RAD)})  -- rotate to starting point
+end
+
+function default.not_at_rot_target()
+    ll.RotTargetRemove(rottarget)
+    ll.OwnerSay("not there")  --not at target
+end
+
+function default.touch_start(events)
+    local total_number = #events
+    state(rotatestate)  -- change to state for new position
+end
+
+function rotatestate.state_entry()
+    rottarget = ll.RotTarget(ll.Euler2Rot(fliprot * DEG_TO_RAD), 0.1)
+    ll.SetPrimitiveParams({PRIM_ROTATION, ll.Euler2Rot(fliprot * DEG_TO_RAD)})  -- rotate to new point
+end
+
+function rotatestate.at_rot_target(tnum, targetrot, ourrot)
+    ll.RotTargetRemove(rottarget)
+    ll.OwnerSay("there")  --reached the target
+end
+
+function rotatestate.touch_start(events)
+    local touched = #events
+    state(default)
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector standrot = <0.0, 0.0, 0.0>;
+vector fliprot = <45.0, 0.0, 0.0>;
+
+// simple two-state rot target detection and rotation by Hypatia Callisto
+// works, to detect a rotation target. An example I wrote
+// since there is almost zilch for clean examples for 
+// at_rot_target, not_at_rot_target, llRotTarget, llRotTargetRemove
+
+integer rottarget;
+
+default
+{
+
+    state_entry(){ 
+        rottarget = llRotTarget(llEuler2Rot(fliprot*DEG_TO_RAD), 0.1);
+        llSetPrimitiveParams ([PRIM_ROTATION, llEuler2Rot(standrot*DEG_TO_RAD)]); // rotate to starting point
+    }
+
+    not_at_rot_target()
+    { 
+        llRotTargetRemove( rottarget );
+        llOwnerSay("not there"); //not at target
+    }
+        
+    touch_start (integer total_number)
+    {
+        state rotatestate; // change to state for new position
+    }
+}
+             
+      
+state rotatestate 
+{ 
+    state_entry(){ 
+        rottarget = llRotTarget(llEuler2Rot(fliprot*DEG_TO_RAD), 0.1);
+        llSetPrimitiveParams ([PRIM_ROTATION, llEuler2Rot(fliprot*DEG_TO_RAD)]); // rotate to new point
+    }
+    
+    at_rot_target(integer tnum, rotation targetrot, rotation ourrot)
+    { 
+        llRotTargetRemove( rottarget );
+        llOwnerSay("there"); //reached the target
+    }
+
+    touch_start(integer touched){ 
+        state default; 
+    }
+    
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/At_rot_target" target="_blank">at_rot_target</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Not_at_rot_target" target="_blank">not_at_rot_target</a></td>
+        <td>–</td>
+        <td>rotational target events</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/At_target" target="_blank">at_target</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Not_at_target" target="_blank">not_at_target</a></td>
+        <td>–</td>
+        <td>positional target events</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotTargetRemove" target="_blank">llRotTargetRemove</a></td>
+        <td>–</td>
+        <td>Cancel a target rotation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTarget" target="_blank">llTarget</a></td>
+        <td>–</td>
+        <td>Register a target position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTargetRemove" target="_blank">llTargetRemove</a></td>
+        <td>–</td>
+        <td>Cancel a target position</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llRotTarget( rotation rot, float error );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

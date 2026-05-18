@@ -1,0 +1,282 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestSimulatorData(RegionName: string, Data: number): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llRequestSimulatorData(string RegionName, integer Data);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests <b>data</b> about <b>region</b>. When <b>data</b> is available the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event will be raised.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) for a <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event response.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>RegionName / region</td>
+          <td>Case sensitive region name.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Data / data</td>
+          <td>DATA_* flag</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>dataserver</li>
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">293</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">data Constant</th>
+        <th>Type</th>
+        <th colspan="4">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DATA_SIM_POS" target="_blank">DATA_SIM_POS</a></td>
+        <td>5</td>
+        <td>(<a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a>)</td>
+        <td colspan="4">The regions <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Global" target="_blank">global position</a>.</td>
+      </tr>
+      <tr>
+        <th><a href="https://wiki.secondlife.com/wiki/DATA_SIM_STATUS" target="_blank">DATA_SIM_STATUS</a></th>
+        <th>6</th>
+        <th><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a></th>
+        <th>Value</th>
+        <th colspan="3">Description</th>
+      </tr>
+      <tr>
+        <td>"up"</td>
+        <td colspan="3">region currently up and running</td>
+      </tr>
+      <tr>
+        <td>"down"</td>
+        <td colspan="3">region currently down</td>
+      </tr>
+      <tr>
+        <td>"starting"</td>
+        <td colspan="3">region currently starting</td>
+      </tr>
+      <tr>
+        <td>"stopping"</td>
+        <td colspan="3">region currently stopping</td>
+      </tr>
+      <tr>
+        <td>"crashed"</td>
+        <td colspan="3">region has crashed</td>
+      </tr>
+      <tr>
+        <td>"unknown"</td>
+        <td colspan="3">region status unknown or unknown region</td>
+      </tr>
+      <tr>
+        <th><a href="https://wiki.secondlife.com/wiki/DATA_SIM_RATING" target="_blank">DATA_SIM_RATING</a></th>
+        <th>7</th>
+        <th><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a></th>
+        <th>Value</th>
+        <th colspan="3">Maturity rating</th>
+      </tr>
+      <tr>
+        <td>"PG"</td>
+        <td colspan="3">[](https://wiki.secondlife.com/wiki/File:Parcel_lght_G.png) <b><a href="http://community.secondlife.com/t5/English-Knowledge-Base/Maturity-ratings/ta-p/700119#Section_.2.2" target="_blank">General</a></b></td>
+      </tr>
+      <tr>
+        <td>"MATURE"</td>
+        <td colspan="3">[](https://wiki.secondlife.com/wiki/File:Parcel_lght_M.png) <b><a href="http://community.secondlife.com/t5/English-Knowledge-Base/Maturity-ratings/ta-p/700119#Section_.2.3" target="_blank">Moderate</a></b></td>
+      </tr>
+      <tr>
+        <td>"ADULT"</td>
+        <td colspan="3">[](https://wiki.secondlife.com/wiki/File:Parcel_lght_A.png) <b><a href="http://community.secondlife.com/t5/English-Knowledge-Base/Maturity-ratings/ta-p/700119#Section_.2.4" target="_blank">Adult</a></b></td>
+      </tr>
+      <tr>
+        <td>"UNKNOWN"</td>
+        <td colspan="3">rating or region unknown</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 1.0 seconds.</li>
+    <li>There is no DATA_SIM_MAXPRIMS flag (but `<a href="https://wiki.secondlife.com/wiki/LlGetEnv" target="_blank">llGetEnv</a>("region_product_name")` returns the region type). <a href="#SVC-4921" target="_blank">SVC-4921</a></li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Hide objects in PG or unknown regions</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local gRateingQuery = NULL_KEY
+
+local function show()
+    ll.SetLinkAlpha(LINK_SET, 1.0, ALL_SIDES)
+end  --show
+
+local function hide()
+    ll.SetLinkAlpha(LINK_SET, 0.0, ALL_SIDES)
+end  --hide
+
+function LLEvents.on_rez(Setting)
+    ll.ResetScript()
+end  --on_rez
+
+local function main()
+    gRateingQuery = ll.RequestSimulatorData(ll.GetRegionName(), DATA_SIM_RATING)
+end  --state_entry
+
+function LLEvents.changed(ItChanged)
+    if bit32.btest(ItChanged, CHANGED_OWNER) then
+        ll.ResetScript()
+    end
+    if bit32.btest(ItChanged, CHANGED_REGION) then
+        ll.ResetScript()
+    end
+end  --changed
+
+function LLEvents.dataserver(query_id, data)
+    if query_id == gRateingQuery then
+        if data == "MATURE" or data == "ADULT" then
+            show()
+        elseif data == "UNKNOWN" or data == "PG" then
+            hide()
+        end
+    end  --gRateingQuery
+end  --dataserver
+
+  --default
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key         gRateingQuery       =   NULL_KEY        ;
+
+show()
+{
+    llSetLinkAlpha( LINK_SET, 1.0, ALL_SIDES );
+}//show
+
+hide()
+{
+     llSetLinkAlpha( LINK_SET, 0.0, ALL_SIDES );
+}//hide
+
+default
+{
+    on_rez(integer Setting)
+    {
+        llResetScript();
+    }//on_rez
+    
+    state_entry()
+    {
+        gRateingQuery = llRequestSimulatorData( llGetRegionName(), DATA_SIM_RATING );
+    }//state_entry
+   
+    changed(integer ItChanged)
+    {
+        if (ItChanged & CHANGED_OWNER)      llResetScript();
+        if (ItChanged & CHANGED_REGION)     llResetScript();
+    }//changed
+    
+    dataserver(key query_id, string data)
+    {
+        if (query_id == gRateingQuery)
+        {
+            if (data == "MATURE" || data == "ADULT")        show();
+            else if (data == "UNKNOWN" || data == "PG")     hide();
+        }//gRateingQuery
+    }//dataserver
+    
+}//default`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Global Position in meters</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetEnv" target="_blank">llGetEnv</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelDetails" target="_blank">llGetParcelDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelFlags" target="_blank">llGetParcelFlags</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelMaxPrims" target="_blank">llGetParcelMaxPrims</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelPrimCount" target="_blank">llGetParcelPrimCount</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestSimulatorData_Test" target="_blank">llRequestSimulatorData Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llRequestSimulatorData( string region, integer data );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,191 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetAttachedList(ID: uuid): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llGetAttachedList(key ID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a list of object keys corresponding to public attachments worn by an <b>avatar</b> in the order they were attached.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>attachments</li>
+        <li>avatar</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">523</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>By design HUD attachment keys are not reported by this function.</p>
+  <p>If avatar is a child agent, ["NOT ON REGION"] is returned.</p>
+  <p>If avatar is not a main agent and not a child agent or not an agent at all, ["NOT FOUND"] is returned.</p>
+  <h2>Caveats</h2>
+  <p>When an avatar first arrives in a region, there is a brief period when their attachments are not yet fully rezzed or added. During this time, those attachments will not appear in the results.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Touch to list all attachments
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local AttachedNames = {}
+    local AttachedUUIDs = ll.GetAttachedList(ll.DetectedKey(0))
+    local i = 0
+    while i < #AttachedUUIDs do
+        local temp = ll.GetObjectDetails(ll.List2Key(AttachedUUIDs, i), {OBJECT_NAME})
+        AttachedNames = ll.ListInsertList(AttachedNames, {ll.List2String(temp, 0)}, #AttachedNames)
+        i += 1
+    end
+    ll.Say(PUBLIC_CHANNEL, "\n" .. ll.DumpList2String(AttachedNames, "\n"))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Touch to list all attachments
+
+default
+{
+    touch_start(integer total_number)
+    {
+        list AttachedNames;
+        list AttachedUUIDs = llGetAttachedList(llDetectedKey(0));
+        integer i;
+        while (i < llGetListLength(AttachedUUIDs) )
+        {
+            list temp = llGetObjectDetails(llList2Key(AttachedUUIDs,i),[OBJECT_NAME]);
+            AttachedNames += [llList2String(temp,0)];
+            ++i;
+        }
+        llSay(PUBLIC_CHANNEL,"\n" + llDumpList2String(AttachedNames,"\n"));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Attach" target="_blank">attach</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAttached" target="_blank">llGetAttached</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAttachedListFiltered" target="_blank">llGetAttachedListFiltered</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAttachToAvatar" target="_blank">llAttachToAvatar</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetachFromAvatar" target="_blank">llDetachFromAvatar</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAttachToAvatar" target="_blank">llAttachToAvatar</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/OBJECT_ATTACHED_POINT" target="_blank">OBJECT_ATTACHED_POINT</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• 20/Dec/08</td>
+        <td><a href="https://jira.secondlife.com/browse/SVC-3560" target="_blank">SVC-3560</a></td>
+        <td>–</td>
+        <td>llQueryAvatarAttachments Suggested</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• 30/Apr/13</td>
+        <td><a href="https://jira.secondlife.com/browse/BUG-2467" target="_blank">BUG-2467</a></td>
+        <td>–</td>
+        <td>llGetAttachedList Suggested</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• 14/Jul/15</td>
+        <td><a href="https://jira.secondlife.com/browse/BUG-9683" target="_blank">BUG-9683</a></td>
+        <td>–</td>
+        <td>llGetAttachedList Suggested again</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llGetAttachedList( key avatar );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

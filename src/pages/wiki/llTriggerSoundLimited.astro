@@ -1,0 +1,264 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.TriggerSoundLimited(Sound: string|uuid, Volume: number, TNE: vector, BSW: vector)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llTriggerSoundLimited(string Sound, float Volume, vector TNE, vector BSW);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Plays <b>sound</b> at <b>volume</b>, centered at but not attached to the object, limited to the box defined by vectors <b>top_north_east</b> and <b>bottom_south_west</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Sound / sound</td>
+          <td>a sound in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a sound</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Volume / volume</td>
+          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>volume</b> <&#61; 1.0`)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>TNE / top_north_east</td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>BSW / bottom_south_west</td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>sound</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">212</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If the object moves the sound does not move with it.</p>
+  <p>Use <a href="https://wiki.secondlife.com/wiki/LlPlaySound" target="_blank">llPlaySound</a> to play a sound attached to the object.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>sound</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a sound then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>sound</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>Unlike <a href="https://wiki.secondlife.com/wiki/LlSetSoundRadius" target="_blank">llSetSoundRadius</a>, the sound audibility is determined by <b>avatar</b> position and not camera position.</li>
+    <li>If the script is attached and the parcel has avatar sounds turned off, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>: "Too many sound triggers."</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+
+--[[
+    Single Prim llTriggerSoundLimited Helper by Daemonika Nightfire.
+
+    Just use this script in a single prim and make the prim as big as your room.
+    If you then click on the prim, the sound will only be triggered inside and you will get a message with a finished LSL code.
+    You can simply copy this code to the clipboard and use it in your actual script.
+
+    Important:
+    You cannot rotate the prim, the code needs global coordinates.
+]]
+local sound = "c704dbd8-53b1-246d-e197-b486e92da45b"  -- use here your own sound uuid
+
+--//////// nothing to do below this line \\\\\\\\\\
+local function main()
+    ll.SetStatus(STATUS_PHANTOM, true)
+    ll.SetRot(ZERO_ROTATION)
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.SetRot(ZERO_ROTATION)
+    local my_pos = ll.GetPos()
+    local my_scale = ll.GetScale()
+
+    local _X = my_scale.x / 2
+    local _Y = my_scale.y / 2
+    local _Z = my_scale.z / 2
+
+    local bottom_south_west = vector(my_pos.x - _X, my_pos.y - _Y, my_pos.z - _Z)
+    local top_north_east = vector(my_pos.x + _X, my_pos.y + _Y, my_pos.z + _Z)
+
+    ll.TriggerSoundLimited(sound, 1.0, top_north_east, bottom_south_west)
+
+    ll.OwnerSay("\nllTriggerSoundLimited(\"" .. sound .. "\", 1.0, " .. tostring(top_north_east) .. ", " .. tostring(bottom_south_west) .. ");")
+end
+
+function LLEvents.on_rez(Dae)
+    ll.ResetScript()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`/*
+    Single Prim llTriggerSoundLimited Helper by Daemonika Nightfire.
+ 
+    Just use this script in a single prim and make the prim as big as your room.
+    If you then click on the prim, the sound will only be triggered inside and you will get a message with a finished LSL code.
+    You can simply copy this code to the clipboard and use it in your actual script.
+    
+    Important:
+    You cannot rotate the prim, the code needs global coordinates.
+*/
+
+string sound = "c704dbd8-53b1-246d-e197-b486e92da45b"; // use here your own sound uuid
+
+////////// nothing to do below this line \\\\\\\\\\
+default
+{
+    state_entry()
+    {
+        llSetStatus(STATUS_PHANTOM, TRUE);
+        llSetRot(ZERO_ROTATION);
+    }
+
+    touch_start(integer total_number)
+    {
+        llSetRot(ZERO_ROTATION);
+        vector my_pos = llGetPos();
+        vector my_scale = llGetScale();
+        
+        float _X = my_scale.x/2;
+        float _Y = my_scale.y/2;
+        float _Z = my_scale.z/2;
+        
+        vector bottom_south_west = <my_pos.x - _X, my_pos.y - _Y, my_pos.z - _Z>;
+        vector top_north_east    = <my_pos.x + _X, my_pos.y + _Y, my_pos.z + _Z>;
+        
+        llTriggerSoundLimited(sound, 1.0, top_north_east, bottom_south_west);
+        
+        llOwnerSay("\nllTriggerSoundLimited(\"" + sound + "\", 1.0, " + (string)top_north_east + ", " + (string)bottom_south_west + ");");
+    }
+    
+    on_rez(integer Dae)
+    {
+        llResetScript();
+    }
+}`} lang="lsl" /></div>
+  <h3>Secret Collision Sound</h3>
+  <p>This will play a sound on collision, only to the person who collided with it.
+It can be used for haunted houses where you want to add confusion, since others wont hear!</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local sound = "a9da4612-5d4b-662a-050a-c821c394991f"  -- squeaky toy
+
+local function playSoundAt(avatar, sound, volume)
+    if ll.GetAgentSize(avatar) ~= ZERO_VECTOR then  -- Make sure theyre actually present
+        local pos = tovector(ll.List2String(ll.GetObjectDetails(avatar, {OBJECT_POS}), 0))  -- Their position
+        local scale = ll.GetBoundingBox(avatar)  -- The corners of their bounding box
+        local corner2 = pos + ll.List2Vector(scale, 1)  -- Top northeast corner of their bounding box
+        local corner1 = pos + ll.List2Vector(scale, 0)  -- Bottom southwest corner of their bounding box
+        ll.TriggerSoundLimited(sound, volume, corner2, corner1)  -- Play sound in their location only
+    end
+end
+function LLEvents.collision_start(events)
+    local n = #events
+    local bumper = ll.DetectedKey(0)
+    local volume = 1.0  -- Volume is affected by distance like llPlaySound!
+    playSoundAt(bumper, sound, volume)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string sound = "a9da4612-5d4b-662a-050a-c821c394991f"; // squeaky toy
+
+playSoundAt(key avatar, string sound, float volume)
+{
+    if (llGetAgentSize(avatar)) // Make sure theyre actually present
+    {
+        vector pos = (vector)llList2String(llGetObjectDetails(avatar, [OBJECT_POS]),0); // Their position
+        list scale = llGetBoundingBox(avatar); // The corners of their bounding box
+        vector corner2 = pos+llList2Vector(scale,1); // Top northeast corner of their bounding box
+        vector corner1 = pos+llList2Vector(scale,0); // Bottom southwest corner of their bounding box
+        llTriggerSoundLimited(sound, volume, corner2, corner1); // Play sound in their location only
+    }
+}
+default
+{
+    collision_start(integer n)
+    {
+        key bumper = llDetectedKey(0);
+        float volume = 1.0; // Volume is affected by distance like llPlaySound!
+        playSoundAt(bumper, sound, volume);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPlaySound" target="_blank">llPlaySound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSound" target="_blank">llTriggerSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetSoundRadius" target="_blank">llSetSoundRadius</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llTriggerSoundLimited Added in <a href="http://secondlife.wikia.com/wiki/Version_0.4.0" target="_blank">SL 0.4.0</a>[[1]](#footnote_1)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llTriggerSoundLimited( string sound, float volume, vector top_north_east, vector bottom_south_west );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

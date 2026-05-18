@@ -1,0 +1,222 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.PlaySound(Sound: string|uuid, Volume: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llPlaySound(string Sound, float Volume);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Plays attached <b>sound</b> once at <b>volume</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Sound / sound</td>
+          <td>a sound in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a sound</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Volume / volume</td>
+          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>volume</b> <&#61; 1.0`)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>sound</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">86</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>sound</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a sound then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>sound</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>A call to llPlaySound replaces any other sound (so that only one sound can be played at the same time from the same prim), except sounds started with the deprecated <a href="https://wiki.secondlife.com/wiki/LlSound" target="_blank">llSound</a> which always plays sound files till the end.</li>
+    <li>Sound files must be 30 seconds or shorter.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/Sound_Clips" target="_blank">Sounds are always sampled</a> at 44.1KHz, 16-bit (unsigned), mono (stereo files will have one channel dropped — merged (as in combined) — when uploading).</li>
+    <li>If the object playing the sound is a <a href="https://wiki.secondlife.com/wiki/HUD" target="_blank">HUD</a>, the sound is only heard by the user the HUD is attached to.
+    <ul>
+      <li>To play a sound inworld from a HUD use <a href="https://wiki.secondlife.com/wiki/LlTriggerSound" target="_blank">llTriggerSound</a>.</li>
+    </ul>
+  
+    </li>
+    <li>It is impossible to play two (or more) sounds at the same time and have them start playing at exactly the same time ~ <a href="https://jira.secondlife.com/browse/VWR-15663" target="_blank">VWR-15663</a>
+    <ul>
+      <li>If multiple sound emitters play the same exact sound within range of the viewer at the same time, they are usually not in sync due to latency between the server/client and script execution & communication delays. This can produce echoes, odd resonance, and other strange effects that you (probably) do not want.</li>
+    </ul>
+  
+    </li>
+    <li>When used in conjunction with <a href="https://wiki.secondlife.com/wiki/LlSetSoundQueueing" target="_blank">llSetSoundQueueing</a>, sounds may incorrectly. <a href="https://community.secondlife.com/forums/topic/443645-llplaysound-plays-the-sound-twice-or-more/" target="_blank">play more than once.</a> This can be fixed by disabling the sound queue if only a single sound sample is to be played.</li>
+    <li>Playing sounds is throttled. If the average number of played sounds per second exceeds the limit (22 sounds/s), all sounds from the object are suppressed until the average falls sufficiently. The throttle is per object, not per link or per script, so multiple links cannot be used to overcome the throttle.
+    <ul>
+      <li>Once the throttle is hit, the following error will be shown in debug channel: "Too many sound requests. Throttled until average falls."</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.PlaySound("some_sound", 1.0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+ {
+     state_entry()
+     {
+          llPlaySound("some_sound",1.0);
+     }
+ }`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSound" target="_blank">llTriggerSound</a></td>
+        <td>–</td>
+        <td>Plays a sound unattached.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSoundLimited" target="_blank">llTriggerSoundLimited</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSound" target="_blank">llLoopSound</a></td>
+        <td>–</td>
+        <td>Plays a sound attached.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSoundMaster" target="_blank">llLoopSoundMaster</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSoundSlave" target="_blank">llLoopSoundSlave</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPlaySoundSlave" target="_blank">llPlaySoundSlave</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetSoundQueueing" target="_blank">llSetSoundQueueing</a></td>
+        <td>–</td>
+        <td>Sets a prim property which allows sounds to be queued, instead of overwriting each other.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStopSound" target="_blank">llStopSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinkPlaySound" target="_blank">llLinkPlaySound</a></td>
+        <td>–</td>
+        <td>Plays a sound from a prim in the linkset, with flexible options.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPreloadSound" target="_blank">llPreloadSound</a></td>
+        <td>–</td>
+        <td>Preloads sound on viewers in range.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAdjustSoundVolume" target="_blank">llAdjustSoundVolume</a></td>
+        <td>–</td>
+        <td>Adjusts volume of attached sound.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/Sound_Clips" target="_blank">Sound Clips</a></td>
+        <td></td>
+        <td>–</td>
+        <td>Specifications for uploading sounds.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llPlaySound( string sound, float volume );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Mono sound it hums,</p>
+<p>Sync lost, echoes' chaos drums—</p>
+<p>HUD whispers alone.</p>
+<p><i> — ChatGPT Plus</i></p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,286 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_TYPE_TUBE: number = 5`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_TYPE_TUBE = 5;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_TYPE_TUBE has the value 5</p>
+  <p>PRIM_TYPE_TUBE is a parameter of <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank">PRIM_TYPE</a> used to make prim into a tube and to change specific properties that define the shape of that tube.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimType</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>PRIM_TYPE</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank"> [PRIM_TYPE</a>, PRIM_TYPE_TUBE,&#32;<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> hole_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> advanced_cut, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> taper, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> revolutions, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> radius_offset, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> skew ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td>hole_shape</td>
+        <td>–</td>
+        <td>PRIM_HOLE_* flag</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>cut</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>hollow</td>
+        <td>–</td>
+        <td>ranges from 0.0 (solid) to 0.95 (maximum hollowed)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>twist</td>
+        <td>–</td>
+        <td>ranges from -1.0 (-360 degree in the edit window) to 1.0 (+360 degree in the edit window) for both x and y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>hole_size</td>
+        <td>–</td>
+        <td>x ranges from 0.05 to 1.0; y ranges from 0.05 (large hole) to 0.50 (no hole)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>top_shear</td>
+        <td>–</td>
+        <td>ranges from -0.5 to 0.5 for both x and y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>advanced_cut</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>taper</td>
+        <td>–</td>
+        <td>ranges from -1.0 to 1.0 for both x and y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>revolutions</td>
+        <td>–</td>
+        <td>ranges from 1.0 to 4.00</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>radius_offset</td>
+        <td>–</td>
+        <td>depends on holesize.y and revolutions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>skew</td>
+        <td>–</td>
+        <td>ranges from -1.0 to 1.0</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">hole_shape Flags</th>
+        <th>Shape</th>
+        <th colspan="2">hole_shape Flags</th>
+        <th>Shape</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_DEFAULT" target="_blank">PRIM_HOLE_DEFAULT</a></td>
+        <td>0x00</td>
+        <td>Default</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_SQUARE" target="_blank">PRIM_HOLE_SQUARE</a></td>
+        <td>0x20</td>
+        <td>Square</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_CIRCLE" target="_blank">PRIM_HOLE_CIRCLE</a></td>
+        <td>0x10</td>
+        <td>Circle</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_TRIANGLE" target="_blank">PRIM_HOLE_TRIANGLE</a></td>
+        <td>0x30</td>
+        <td>Triangle</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>PRIM_TYPE_LEGACY</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> 1, PRIM_TYPE_TUBE,&#32;[vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> twist_end, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> topshear_x ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td>cut</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>hollow</td>
+        <td>–</td>
+        <td>ranges from 0.0 (solid) to 0.95 (maximum hollowed)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>twist_end</td>
+        <td>–</td>
+        <td>ranges from -0.5 (-180 degree in the edit window) to 0.5 (+180 degree in the edit window)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>topshear_x</td>
+        <td>–</td>
+        <td>ranges from 0.05 to 0.50</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>This is the old PRIM_TYPE format for the tube (PRIM_TYPE used to be 1 instead of 9). Use the new format unless you are maintaining old code.</p>
+  <p>It should be noted that <b>topshear_x</b> was intended to be <b>hole_size_y</b> and wasn't caught by QA; in the documentation it was listed by an equivalent term to <b>hole_size_y</b>. The bug became <a href="http://en.wikipedia.org/wiki/Lava_flow_(programming" target="_blank">lava-flowed</a>) and was never fixed in the old incarnation of PRIM_TYPE.</p>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank">PRIM_TYPE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_SHAPE" target="_blank">CHANGED_SHAPE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- makes a spiral
+local hollow = 0.0  -- 0.0 to 0.95
+local twist = vector(0, 0.0, 0.0)  -- -1.0 to 1.0
+local holesize = vector(1.0, 0.05, 0.0)  -- max X:1.0 Y:0.5
+local topshear = vector(0.0, 0.0, 0.0)  -- -0.5 to 0.5
+local profilecut = vector(0.0, 0.0, 0.0)  -- 0.0 to 1.0
+local taper_a = vector(0.0, 0.0, 0.0)  -- 0.0 to 1.0
+local revolutions = 3.0  -- 1.0 to 4.0
+local radiusoffset = 1.0  -- -1.0 to 1.0
+local skew = 0.0  -- 
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// makes a spiral
+float hollow = 0.0;                    // 0.0 to 0.95
+vector twist = <0, 0.0, 0.0>;          // -1.0 to 1.0
+vector holesize = <1.0, 0.05, 0.0>;    // max X:1.0 Y:0.5
+vector topshear = <0.0, 0.0, 0.0>;     // -0.5 to 0.5
+vector profilecut = <0.0, 0.0, 0.0>;   // 0.0 to 1.0
+vector taper_a = <0.0, 0.0, 0.0>;      // 0.0 to 1.0
+float revolutions = 3.0;               // 1.0 to 4.0
+float radiusoffset = 1.0;              // -1.0 to 1.0
+float skew = 0.0;                      // 
+llSetPrimitiveParams( [PRIM_TYPE, PRIM_TYPE_TUBE, PRIM_HOLE_DEFAULT,
+                        cut, hollow, twist, holesize, topshear,
+                        profilecut, taper_a, revolutions, 
+                        radiusoffset, skew] );`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_TYPE_TUBE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_TYPE_TUBE = 5
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_TYPE_TUBE = 5;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

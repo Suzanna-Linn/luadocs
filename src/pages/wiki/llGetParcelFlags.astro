@@ -1,0 +1,224 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetParcelFlags(Position: vector): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetParcelFlags(vector Position);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_field" target="_blank">bit field</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) of parcel flags (PARCEL_FLAG_*) for the parcel that includes the point <b>pos</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;(z component is ignored)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>parcel</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">317</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Both <b>x</b> and <b>y</b> components of <b>pos</b> are clamped to the range [0.0, 256.0], the <b>z</b> component is ignored.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Flag</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_FLY" target="_blank">PARCEL_FLAG_ALLOW_FLY</a></td>
+        <td>0x00000001</td>
+        <td>find if a parcel allows flying</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_SCRIPTS" target="_blank">PARCEL_FLAG_ALLOW_SCRIPTS</a></td>
+        <td>0x00000002</td>
+        <td>find if a parcel allows outside scripts</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_LANDMARK" target="_blank">PARCEL_FLAG_ALLOW_LANDMARK</a></td>
+        <td>0x00000008</td>
+        <td>find if a parcel allows landmarks to be created</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_TERRAFORM" target="_blank">PARCEL_FLAG_ALLOW_TERRAFORM</a></td>
+        <td>0x00000010</td>
+        <td>find if a parcel allows anyone to terraform the land</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_DAMAGE" target="_blank">PARCEL_FLAG_ALLOW_DAMAGE</a></td>
+        <td>0x00000020</td>
+        <td>find if a parcel allows damage</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_CREATE_OBJECTS" target="_blank">PARCEL_FLAG_ALLOW_CREATE_OBJECTS</a></td>
+        <td>0x00000040</td>
+        <td>find if a parcel allows anyone to create objects</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_USE_ACCESS_GROUP" target="_blank">PARCEL_FLAG_USE_ACCESS_GROUP</a></td>
+        <td>0x00000100</td>
+        <td>find if a parcel limits access to a group</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_USE_ACCESS_LIST" target="_blank">PARCEL_FLAG_USE_ACCESS_LIST</a></td>
+        <td>0x00000200</td>
+        <td>find if a parcel limits access to a list of residents</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_USE_BAN_LIST" target="_blank">PARCEL_FLAG_USE_BAN_LIST</a></td>
+        <td>0x00000400</td>
+        <td>find if a parcel uses a ban list, including restricting access based on payment info</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_USE_LAND_PASS_LIST" target="_blank">PARCEL_FLAG_USE_LAND_PASS_LIST</a></td>
+        <td>0x00000800</td>
+        <td>find if a parcel allows passes to be purchased</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_LOCAL_SOUND_ONLY" target="_blank">PARCEL_FLAG_LOCAL_SOUND_ONLY</a></td>
+        <td>0x00008000</td>
+        <td>find if a parcel restricts spatialized sound to the parcel</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_RESTRICT_PUSHOBJECT" target="_blank">PARCEL_FLAG_RESTRICT_PUSHOBJECT</a></td>
+        <td>0x00200000</td>
+        <td>find if a parcel restricts <a href="https://wiki.secondlife.com/wiki/LlPushObject" target="_blank">llPushObject</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_GROUP_SCRIPTS" target="_blank">PARCEL_FLAG_ALLOW_GROUP_SCRIPTS</a></td>
+        <td>0x02000000</td>
+        <td>find if a parcel allows scripts owned by group</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS" target="_blank">PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS</a></td>
+        <td>0x04000000</td>
+        <td>find if a parcel allows object creation by group members or objects</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_ALL_OBJECT_ENTRY" target="_blank">PARCEL_FLAG_ALLOW_ALL_OBJECT_ENTRY</a></td>
+        <td>0x08000000</td>
+        <td>find if a parcel allows all objects to enter a parcel</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_GROUP_OBJECT_ENTRY" target="_blank">PARCEL_FLAG_ALLOW_GROUP_OBJECT_ENTRY</a></td>
+        <td>0x10000000</td>
+        <td>find if a parcel only allows group (and owner) objects to enter the parcel</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`if (!(llGetParcelFlags(llGetPos()) & PARCEL_FLAG_ALLOW_FLY))
+    llSay(0,"You are not allowed to fly here!, Sorry!.");
+
+// Answers TRUE if rezzing is permitted, FALSE if not.
+// Rezzing can fail even if this returns TRUE due to parcel full or server errors.
+// Rezzing will always fail if this returns FALSE
+integer canRezAt(vector pos) {
+    integer parcelFlags = llGetParcelFlags(pos);
+    list parcelDetails = llGetParcelDetails(pos, [PARCEL_DETAILS_OWNER, PARCEL_DETAILS_GROUP]);
+    key parcelOwner = llList2Key(parcelDetails, 0);
+    key parcelGroup = llList2Key(parcelDetails, 1);
+ 
+    if (parcelFlags & PARCEL_FLAG_ALLOW_CREATE_OBJECTS) return TRUE;
+    if (parcelOwner == llGetOwner()) return TRUE;
+    if (!llSameGroup(parcelGroup)) return FALSE;
+    if (parcelFlags & PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS) return TRUE;
+    return FALSE;
+}
+ 
+// Answers TRUE if running scripts is permitted, FALSE if not
+integer canRunScriptsAt(vector pos) {
+    integer parcelFlags = llGetParcelFlags(pos);
+    list parcelDetails = llGetParcelDetails(pos, [PARCEL_DETAILS_OWNER, PARCEL_DETAILS_GROUP]);
+    key parcelOwner = llList2Key(parcelDetails, 0);
+    key parcelGroup = llList2Key(parcelDetails, 1);
+ 
+    if (parcelFlags & PARCEL_FLAG_ALLOW_SCRIPTS) return TRUE;
+    if (parcelOwner == llGetOwner()) return TRUE;
+    if (!llSameGroup(parcelGroup)) return FALSE;
+    if (parcelFlags & PARCEL_FLAG_ALLOW_GROUP_SCRIPTS) return TRUE;
+    return FALSE;
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelDetails" target="_blank">llGetParcelDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionFlags" target="_blank">llGetRegionFlags</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelFlags_Test" target="_blank">llGetParcelFlags Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Source</p>
+  <p><a href="https://github.com/secondlife/viewer/blob/master/indra/llinventory/llparcelflags.h#" target="_blank">viewer - indra/llinventory/llparcelflags.h </a></p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetParcelFlags( vector pos );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

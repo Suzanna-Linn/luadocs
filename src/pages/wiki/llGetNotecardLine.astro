@@ -1,0 +1,641 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetNotecardLine(NotecardName: string|uuid, LineNumber: number): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llGetNotecardLine(string NotecardName, integer LineNumber);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests the line <b>line</b> of the notecard <b>name</b> from the dataserver.</p>
+  <p>Returns the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) for a <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event response.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>NotecardName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>a notecard in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a notecard</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>LineNumber / line</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Line number in a notecard (the index starts at zero).</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>dataserver</li>
+        <li>notecard</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">217</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>line</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>If <b>line</b> is past the end of the notecard <a href="https://wiki.secondlife.com/wiki/EOF" target="_blank">EOF</a> is returned by the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.1 seconds.</li>
+    <li>If <b>line</b> is out of bounds the script continues to execute without an error message.</li>
+    <li>If <b>name</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a notecard then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>If <b>name</b> is a new empty notecard (never saved) then an error "Couldn't find notecard ~NAME~" (~NAME~ being the value of <b>name</b>) will be shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. This is because until a notecard is saved for the first time, it does not exist as an asset only as an inventory placeholder.
+    <ul>
+      <li>If the notecard is <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a> you can check for this with <a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a> which will return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> in this case. However if notecard is not <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a>, there is no way to avoid the error message.</li>
+    </ul>
+  
+    </li>
+    <li>If notecard contains embedded inventory items (such as textures and landmarks), <a href="https://wiki.secondlife.com/wiki/EOF" target="_blank">EOF</a> will be returned, regardless of the line requested.</li>
+    <li>If the requested line is longer than 1024 bytes (<i>not</i> characters), <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> will only return the first 1024 <i>bytes</i> of the line.
+    <ul>
+      <li>To check that the returned line has not been truncated, use the example snippet on <a href="https://wiki.secondlife.com/wiki/LlStringToBase64" target="_blank">llStringToBase64</a> to check the number of bytes returned in the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event. If the string is exactly 1024 bytes, it <i>may</i> have been truncated.
+      <ul>
+        <li>Do not use <a href="https://wiki.secondlife.com/wiki/LlStringLength" target="_blank">llStringLength</a> for this, because strings in LSL support multi-byte characters (UTF-8 for LSL-2, UTF-16 for Mono).</li>
+      </ul>
+    
+      </li>
+      <li>The maximum bytes returned by this function was increased from 255 bytes to 1024 bytes with server version <a href="https://releasenotes.secondlife.com/simulator/2021-10-25.565008.html" target="_blank">2021-10-25.565008</a>.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local notecardQueryId = NULL_KEY  --Identifier for the dataserver event
+
+local notecardName = "MyNotecard"  --Name of a notecard in the object's inventory. Needs to be Full Perm for key checking for changed contents to work
+
+local notecardLine = 0  --Initialize the counter value at 0
+
+local notecardKey = NULL_KEY  --Store the notecard's key, so we don't read it again by accident.
+
+local notecardData = {}  --List to store data read from the notecard.
+
+local function ReadNotecard()
+    if ll.GetInventoryKey(notecardName) == NULL_KEY then
+        --Check if the notecard exists in inventory, and is has been saved since it's creation (newly created notecards that are yet to be saved are assigned NULL_KEY).
+        ll.OwnerSay("Notecard '" .. notecardName .. "' is missing, unwritten, or not full permission.")  --Notify user.
+        return  --Don't do anything else.
+    elseif ll.GetInventoryKey(notecardName) == notecardKey then
+        return
+    end
+    --This notecard has already been read - call to read was made in error, so don't do anything. (Notecards are assigned a new key each time they are saved.)
+
+    ll.OwnerSay("Began reading notecard: " .. notecardName)  --Notify user that read has started.
+    notecardData = {}  --Clear the memory of the previous notecard.
+    notecardKey = ll.GetInventoryKey(notecardName)  --Remember the key of this iteration of the notecard, so we don't read it again by accident.
+    notecardQueryId = ll.GetNotecardLine(notecardName, notecardLine)
+end
+
+local function main()
+    ReadNotecard()  --Pass off to the read function.
+end
+
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_INVENTORY) then
+        --The object's inventory just changed - the notecard could have been modified!
+        ReadNotecard()
+    end
+end
+
+function LLEvents.dataserver(query_id, data)
+    if query_id == notecardQueryId then
+        if data == EOF then  --Reached end of notecard (End Of File).
+            ll.OwnerSay("Done reading notecard, read " .. tostring(notecardLine) .. " notecard lines.")  --Notify user.
+            ll.Say(DEBUG_CHANNEL, "=== READ FROM NOTECARD: " .. notecardName .. " ===\n" .. ll.DumpList2String(notecardData, "\n"))
+        --Dump the contents of the notecard (for testing purposes).
+        else
+            notecardData = ll.ListInsertList(notecardData, {data}, #notecardData)  --Add the line being read to a new entry on the list.
+            notecardLine += 1  --Increment line number (read next line).
+            notecardQueryId = ll.GetNotecardLine(notecardName, notecardLine)  --Query the dataserver for the next notecard line.
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key notecardQueryId; //Identifier for the dataserver event
+
+string notecardName = "MyNotecard"; //Name of a notecard in the object's inventory. Needs to be Full Perm for key checking for changed contents to work
+ 
+integer notecardLine; //Initialize the counter value at 0
+
+key notecardKey; //Store the notecard's key, so we don't read it again by accident.
+ 
+list notecardData; //List to store data read from the notecard.
+
+ReadNotecard()
+{
+    if (llGetInventoryKey(notecardName) == NULL_KEY)
+    { //Check if the notecard exists in inventory, and is has been saved since it's creation (newly created notecards that are yet to be saved are assigned NULL_KEY).
+        llOwnerSay( "Notecard '" + notecardName + "' is missing, unwritten, or not full permission."); //Notify user.
+        return; //Don't do anything else.
+    }
+    else if (llGetInventoryKey(notecardName) == notecardKey) return;
+    //This notecard has already been read - call to read was made in error, so don't do anything. (Notecards are assigned a new key each time they are saved.)
+
+    llOwnerSay("Began reading notecard: " + notecardName); //Notify user that read has started.
+    notecardData = []; //Clear the memory of the previous notecard.
+    notecardKey = llGetInventoryKey(notecardName); //Remember the key of this iteration of the notecard, so we don't read it again by accident.
+    notecardQueryId = llGetNotecardLine(notecardName, notecardLine);
+}
+ 
+default
+{
+    state_entry()
+    {
+        ReadNotecard(); //Pass off to the read function.
+    }
+    
+    changed(integer change)
+    {
+        if(change & CHANGED_INVENTORY)
+        { //The object's inventory just changed - the notecard could have been modified!
+            ReadNotecard();
+        }
+    }
+ 
+    dataserver(key query_id, string data)
+    {
+        if (query_id == notecardQueryId)
+        {
+            if (data == EOF) //Reached end of notecard (End Of File).
+            {
+                llOwnerSay("Done reading notecard, read " + (string) notecardLine + " notecard lines."); //Notify user.
+                llSay(DEBUG_CHANNEL,"=== READ FROM NOTECARD: " + notecardName + " ===\n" + llDumpList2String(notecardData,"\n"));
+                //Dump the contents of the notecard (for testing purposes).
+            }
+            else
+            {
+                notecardData += data; //Add the line being read to a new entry on the list.
+                ++notecardLine; //Increment line number (read next line).
+                notecardQueryId = llGetNotecardLine(notecardName, notecardLine); //Query the dataserver for the next notecard line.
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--///
+--  Generic Multi Notecard reader by Brangus Weir
+--  Given freely and published on wiki.secondlife.com
+--
+--  This script will read three note cards and store the results into three lists.
+--  It can be modified and extended to as many (or few) cards as you'd like to read. 
+--
+
+local gOneCard = {}  -- All the lines from from the first card
+local gTwoCard = {}  -- All the lines from from the second card
+local gThreeCard = {}  -- All the lines from from the third card
+
+local gsCardOneName = "One"  --Set these to the name of the invetory item.
+local gsCardTwoName = "Two"
+local gsCardThreeName = "Three"
+
+--Temporary variables for processing
+local g_sNoteCardName = ""  -- Name of the card to be read.
+local g_lTempLines = {}  -- The resulting data pushed into a list
+local g_iLine = 0  -- The line count for the card reader
+local g_kQuery = NULL_KEY  -- The key of the card being read
+
+local loadNoteCard
+
+local function initialize(_action)
+    -- Due to the execution order when using dataserver, this function sets the first card to 
+    -- be read, and the excetuion finishes when called again with the _action set to "finish".
+    if _action == "" then
+        loadNoteCard(gsCardOneName)
+    elseif _action == "finish" then
+        -- All cards have been read into the lists... now you can do any kind of string
+        -- manipulations to get the data you need to set your script.
+        -- But here we will prove that the cards have been read with a loop
+
+        g_lTempLines = {}  -- lets not forget to delete this global, or it will be dead weight.
+
+        local len = #gOneCard  --Always evaluate this once, don't do it
+        --INSIDE the for loop like noob programers will.
+        --Reduce lag, THINK ABOUT MACHINE CYCLES!
+        local i = 0
+        while i < len do
+            ll.Say(0, ll.List2String(gOneCard, i))
+            i += 1
+        end
+
+        len = #gTwoCard
+        i = 0
+        while i < len do
+            ll.Say(0, ll.List2String(gTwoCard, i))
+            i += 1
+        end
+
+        len = #gThreeCard
+        i = 0
+        while i < len do
+            ll.Say(0, ll.List2String(gThreeCard, i))
+            i += 1
+        end
+    end
+
+end
+
+function loadNoteCard(_notecard)
+    g_lTempLines = {}  --clear the temp lines
+    g_sNoteCardName = _notecard
+    g_iLine = 0
+    g_kQuery = ll.GetNotecardLine(g_sNoteCardName, g_iLine)
+
+end
+
+local function notecardFinished(_notecard)
+    -- Called at the end of each notecard as it is read. The temp results are stored
+    -- and the next card is commanded to be read.
+    if _notecard == gsCardOneName then
+        gOneCard = g_lTempLines
+        loadNoteCard(gsCardTwoName)
+    elseif _notecard == gsCardTwoName then
+        gTwoCard = g_lTempLines
+        loadNoteCard(gsCardThreeName)
+    elseif _notecard == gsCardThreeName then
+        gThreeCard = g_lTempLines
+        initialize("finish")  -- Finally pass execution to finish the initialization.   
+    end
+end
+
+local function main()
+end
+
+function LLEvents.touch_start(events)
+    local _num_det = #events
+    initialize("")
+end
+
+function LLEvents.dataserver(_query_id, _data)
+    if _query_id == g_kQuery then
+        -- this is a line of our notecard
+        if _data ~= EOF then
+            g_lTempLines = ll.ListInsertList(g_lTempLines, {_data}, #g_lTempLines)
+            --request a next line
+            g_iLine += 1  -- increment line count
+            g_kQuery = ll.GetNotecardLine(g_sNoteCardName, g_iLine)
+        else
+            --The notecard has been read 
+            --notify end of read
+            notecardFinished(g_sNoteCardName)
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`/////
+//  Generic Multi Notecard reader by Brangus Weir
+//  Given freely and published on wiki.secondlife.com
+//
+//  This script will read three note cards and store the results into three lists.
+//  It can be modified and extended to as many (or few) cards as you'd like to read. 
+//
+
+list gOneCard;    // All the lines from from the first card
+list gTwoCard;    // All the lines from from the second card
+list gThreeCard;  // All the lines from from the third card
+
+string gsCardOneName = "One";  //Set these to the name of the invetory item.
+string gsCardTwoName = "Two";
+string gsCardThreeName = "Three";
+
+//Temporary variables for processing
+string g_sNoteCardName; // Name of the card to be read.
+list g_lTempLines;      // The resulting data pushed into a list
+integer g_iLine;        // The line count for the card reader
+key g_kQuery;           // The key of the card being read
+
+
+initialize(string _action) {
+    // Due to the execution order when using dataserver, this function sets the first card to 
+    // be read, and the excetuion finishes when called again with the _action set to "finish".
+    if (_action == "") {
+        loadNoteCard(gsCardOneName);
+    } else if (_action == "finish") {
+        // All cards have been read into the lists... now you can do any kind of string
+        // manipulations to get the data you need to set your script.
+        // But here we will prove that the cards have been read with a loop
+
+        g_lTempLines = []; // lets not forget to delete this global, or it will be dead weight.
+
+        integer len = llGetListLength(gOneCard);  //Always evaluate this once, don't do it
+                                                  //INSIDE the for loop like noob programers will.
+                                                  //Reduce lag, THINK ABOUT MACHINE CYCLES!
+        integer i = 0;
+        for (; i< len; ++i)
+            llSay(0, llList2String(gOneCard,i));
+
+        len = llGetListLength(gTwoCard);
+        for (i = 0; i< len; ++i)
+            llSay(0, llList2String(gTwoCard,i));
+
+        len = llGetListLength(gThreeCard);
+        for (i = 0; i< len; ++i)
+            llSay(0, llList2String(gThreeCard,i));
+    }                
+                              
+}
+
+loadNoteCard( string _notecard ) {
+    g_lTempLines = []; //clear the temp lines
+    g_sNoteCardName = _notecard;
+    g_iLine = 0;
+    g_kQuery = llGetNotecardLine(g_sNoteCardName, g_iLine);  
+    
+}
+
+notecardFinished(string _notecard){
+    // Called at the end of each notecard as it is read. The temp results are stored
+    // and the next card is commanded to be read.
+    if (_notecard == gsCardOneName) {
+        gOneCard = g_lTempLines;
+        loadNoteCard(gsCardTwoName);
+    } else if (_notecard == gsCardTwoName) {
+        gTwoCard = g_lTempLines;
+        loadNoteCard(gsCardThreeName);
+    } else if (_notecard == gsCardThreeName) {
+        gThreeCard = g_lTempLines;
+        initialize("finish");  // Finally pass execution to finish the initialization.   
+    }    
+}
+
+default
+{
+    state_entry()
+    {
+    }
+    
+    touch_start(integer _num_det){
+        initialize("");
+    }
+     
+    dataserver(key _query_id, string _data) 
+    {
+        if (_query_id == g_kQuery) {
+            // this is a line of our notecard
+            if (_data != EOF) {    
+                g_lTempLines += _data;
+                //request a next line
+                ++g_iLine;   // increment line count
+                g_kQuery = llGetNotecardLine(g_sNoteCardName, g_iLine);
+            } else {
+                //The notecard has been read 
+                //notify end of read
+                notecardFinished(g_sNoteCardName);
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+--///
+--  Generic Multi Notecard reader by Randur Source
+--  Given freely and published on wiki.secondlife.com
+--
+--  This script will read all note cards in sequence and dump the results into chat as an example.
+--  It can be modified and extended to do other things to the data. 
+--
+
+local inventorycnt = 0
+local notecardlinecnt = 0
+local notecardlinenumber = 0
+local notecardname = ""
+local linenumberid = NULL_KEY
+local lineid = NULL_KEY
+
+local function getnextnotecardlinenumber()
+    -- first get the number of lines from the notecard
+    inventorycnt += 1
+    if inventorycnt < ll.GetInventoryNumber(INVENTORY_NOTECARD) then
+        notecardname = ll.GetInventoryName(INVENTORY_NOTECARD, inventorycnt)
+        linenumberid = ll.GetNumberOfNotecardLines(notecardname)
+    else
+        ll.OwnerSay("Done.")
+    end
+end
+
+local function getnextnotecardline()
+    -- get the next line from the notecard or skip to the next notecard
+    notecardlinecnt += 1
+    if notecardlinecnt < notecardlinenumber then
+        lineid = ll.GetNotecardLine(notecardname, notecardlinecnt)
+    else
+        getnextnotecardlinenumber()
+    end
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    if ll.DetectedKey(0) ~= ll.GetOwner() then  -- allow owner only
+        return
+    end
+
+    inventorycnt = -1
+    getnextnotecardlinenumber()
+end
+
+function LLEvents.dataserver(queryid, data)
+    if queryid == linenumberid then  -- this was a line number lookup
+        linenumberid = NULL_KEY
+        notecardlinenumber = integer(data)
+        if notecardlinenumber == 0 then
+            getnextnotecardlinenumber()
+        else
+            notecardlinecnt = -1
+            getnextnotecardline()
+        end
+    elseif queryid == lineid then  -- this was a data line lookup
+        lineid = NULL_KEY
+
+        -- Example of what to do with the data:
+        -- Test for valid avatar names, possibly multiple names on each line, separated by ,
+        -- and say them in chat to the owner
+        local names = ll.ParseString2List(data, {","}, {})  -- split lines on ,
+        local len = #names  -- I wouldn't dare to put this inside the for loop
+        local cnt = 0
+        for cnt = 0, len - 1 do
+            local name = ll.DumpList2String(ll.ParseString2List(ll.List2String(names, cnt), {" "}, {}), " ")  -- remove extra spaces
+            if #ll.ParseString2List(name, {" "}, {}) == 2 then  -- check for first + lastname
+                ll.OwnerSay(notecardname .. ": " .. name)
+            end
+        end
+
+        getnextnotecardline()
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`/////
+//  Generic Multi Notecard reader by Randur Source
+//  Given freely and published on wiki.secondlife.com
+//
+//  This script will read all note cards in sequence and dump the results into chat as an example.
+//  It can be modified and extended to do other things to the data. 
+//
+
+integer inventorycnt;
+integer notecardlinecnt;
+integer notecardlinenumber;
+string notecardname;
+key linenumberid;
+key lineid;
+
+getnextnotecardlinenumber()
+{
+    // first get the number of lines from the notecard
+    inventorycnt++;
+    if (inventorycnt < llGetInventoryNumber(INVENTORY_NOTECARD))
+    {
+        notecardname = llGetInventoryName(INVENTORY_NOTECARD,inventorycnt);
+        linenumberid = llGetNumberOfNotecardLines(notecardname);
+    }
+    else
+        llOwnerSay("Done.");
+}
+
+getnextnotecardline()
+{
+     // get the next line from the notecard or skip to the next notecard
+    notecardlinecnt++;
+    if (notecardlinecnt < notecardlinenumber)
+        lineid = llGetNotecardLine(notecardname,notecardlinecnt);
+    else
+        getnextnotecardlinenumber();
+}
+
+default
+{
+    touch_start(integer total_number)
+    {
+        if (llDetectedKey(0) != llGetOwner()) return; // allow owner only
+
+        inventorycnt = -1;
+        getnextnotecardlinenumber();
+    }
+    
+    dataserver(key queryid,string data)
+    {
+        if (queryid == linenumberid) // this was a line number lookup
+        {
+            linenumberid = NULL_KEY;
+            notecardlinenumber = (integer)data;
+            if (notecardlinenumber == 0)
+                getnextnotecardlinenumber();
+            else
+            {
+                notecardlinecnt = -1;
+                getnextnotecardline();
+            }
+        }
+        else if (queryid == lineid) // this was a data line lookup
+        {
+            lineid = NULL_KEY;
+
+            // Example of what to do with the data:
+            // Test for valid avatar names, possibly multiple names on each line, separated by ,
+            // and say them in chat to the owner
+            list names = llParseString2List(data,[","],[]); // split lines on ,
+            integer len = llGetListLength(names); // I wouldn't dare to put this inside the for loop
+            integer cnt;
+            for (cnt = 0; cnt < len; cnt++)
+            {
+                string name = llDumpList2String(llParseString2List(llList2String(names,cnt),[" "],[])," "); // remove extra spaces
+                if (llGetListLength(llParseString2List(name,[" "],[])) == 2) // check for first + lastname
+                    llOwnerSay(notecardname + ": " + name);
+            }
+
+            getnextnotecardline();
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNumberOfNotecardLines" target="_blank">llGetNumberOfNotecardLines</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNotecardLineSync" target="_blank">llGetNotecardLineSync</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llGetNotecardLine Added in <a href="http://secondlife.wikia.com/wiki/Version_0.6.0" target="_blank">SL 0.6.0</a>[[1]](#footnote_1)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llGetNotecardLine( string name, integer line );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

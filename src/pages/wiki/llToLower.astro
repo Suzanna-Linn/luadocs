@@ -1,0 +1,90 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ToLower(Text: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llToLower(string Text);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is <b>src</b> with all lower-case letters</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / src</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>string</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">98</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The opposite is <a href="https://wiki.secondlife.com/wiki/LlToUpper" target="_blank">llToUpper</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>There is no Linden Library "llToProperCase", which would return <i><a href="http://en.wikipedia.org/wiki/Sentence_case" target="_blank">correctly</a></i> capitalized strings; However, there are user functions that do this: <a href="https://wiki.secondlife.com/wiki/User:Fred_Gandt/Scripts/Functions#ToNormal" target="_blank">ToNormal</a></li>
+    <li>The function also works for many characters outside the 7-bit ASCII range, especially latin, cyrillic and greek, but not all characters tagged as "uppercase" in the Unicode specification are converted.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local msg = "I like CANDY!"
+local p = ll.ToLower(msg)
+ll.OwnerSay(p)  --Will say "i like candy!"`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string msg = "I like CANDY!";
+string p = llToLower(msg);
+llOwnerSay(p);//Will say "i like candy!"`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlToUpper" target="_blank">llToUpper</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llToLower( string src );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

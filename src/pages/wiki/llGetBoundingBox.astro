@@ -1,0 +1,304 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetBoundingBox(ID: uuid): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llGetBoundingBox(key ID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a list that is the bounding box of <b>object</b> relative to its root prim, in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#local" target="_blank">local coordinates</a>.</p>
+  <p>Format: `[ (vector) min_corner, (vector) max_corner ]`</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ID / object</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>object</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">277</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The bounding box is for the entire link set, not just the requested prim.</p>
+  <p>Returns an empty list (`[]`) if <b>object</b> is not found.</p>
+  <h2>Specification</h2>
+  <p>The physical representation of an object is made up of the shape of the prims and avatars seated upon it. The bounding box is the smallest possible cuboid which can contain the physical representation of the object and have its faces aligned to the object's local axes.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Regardless if <b>object</b> is a non-root prim, the bounding box of the object is returned. This also applies if <b>object</b> is an agent sitting on an object - the bounding box of the sat-upon object (including the agent's shape) is returned.</li>
+    <li>The bounding box is determined by the physics models, not the visual representation.
+    <ul>
+      <li>A child prim with its physics mode set to none will not affect the bounding box.</li>
+      <li><a href="https://wiki.secondlife.com/wiki/Phantom" target="_blank">Phantom</a> and <a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">volume detect</a> objects do have physics interactions, which is why they still have bounding boxes.</li>
+      <li>Attachments have no bounding boxes of their own as they have no physics interaction, instead the bounding box of the avatar is returned.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--An avatar bounding box ruler thingy
+local function main()
+    ll.SetStatus(STATUS_PHANTOM, true)
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local target = ll.DetectedKey(0)
+    local box = ll.GetBoundingBox(target)
+    local center = ll.DetectedPos(0) + (ll.List2Vector(box, 0) + ll.List2Vector(box, 1)) * 0.5
+    local size = ll.List2Vector(box, 1) - ll.List2Vector(box, 0)
+    ll.SetPrimitiveParams({PRIM_POSITION, center, PRIM_SIZE, size})
+    ll.SetText("Name: " .. ll.DetectedName(0) .. ", UUID: " .. tostring(target) .. "\nBounding Box Size: " .. tostring(size), vector(1.0, 1.0, 1.0), 1.0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default//An avatar bounding box ruler thingy
+{
+    state_entry()
+    {
+        llSetStatus(STATUS_PHANTOM, TRUE);
+    }
+    
+    touch_start(integer total_number)
+    {
+        key target = llDetectedKey(0);
+        list box = llGetBoundingBox(target);
+        vector center = llDetectedPos(0) + (llList2Vector(box, 0) + llList2Vector(box, 1)) * 0.5;
+        vector size = llList2Vector(box, 1) - llList2Vector(box, 0);
+        llSetPrimitiveParams([PRIM_POSITION, center, PRIM_SIZE, size]);
+        llSetText("Name: " + llDetectedName(0) + ", UUID: " + (string)target + 
+                "\nBounding Box Size: " + (string)size, <1.0, 1.0, 1.0>, 1.0);
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Enclose a named object in the tightest possible box
+-- that is aligned with the object's root prim axes.
+-- Drop this script in a box near the object to enclose
+-- (must be in a 10m range)
+
+local ObjectNameToEnclose = "SearchMe"
+local UUID = NULL_KEY
+
+local function main()
+    ll.Sensor(ObjectNameToEnclose, "", bit32.bor(ACTIVE, PASSIVE), 10, PI)
+end
+
+function LLEvents.sensor(events)
+    local n = #events
+    UUID = ll.DetectedKey(0)
+    ll.SetTimerEvent(1)
+end
+
+function LLEvents.timer()
+    local info = ll.ListInsertList(ll.GetObjectDetails(UUID, {OBJECT_POS, OBJECT_ROT}), ll.GetBoundingBox(UUID), #ll.GetObjectDetails(UUID, {OBJECT_POS, OBJECT_ROT}))
+    local pos = ll.List2Vector(info, 0)
+    local rot = ll.List2Rot(info, 1)
+    local corner1 = ll.List2Vector(info, 2) * rot + pos
+    local corner2 = ll.List2Vector(info, 3) * rot + pos
+    local size = ll.List2Vector(info, 3) - ll.List2Vector(info, 2)
+
+    ll.SetPos((corner1 + corner2) * 0.5)  -- Set position to the midpoint (average) of the corners
+    ll.SetRot(rot)
+    ll.SetScale(size)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Enclose a named object in the tightest possible box
+// that is aligned with the object's root prim axes.
+// Drop this script in a box near the object to enclose
+// (must be in a 10m range)
+
+string ObjectNameToEnclose = "SearchMe";
+key UUID;
+
+default
+{
+    state_entry()
+    {
+        llSensor(ObjectNameToEnclose, "", ACTIVE | PASSIVE, 10, PI);
+    }
+
+    sensor(integer n)
+    {
+        UUID = llDetectedKey(0);
+        llSetTimerEvent(1);
+    }
+
+    timer()
+    {
+        list info = llGetObjectDetails(UUID, [OBJECT_POS, OBJECT_ROT]) + llGetBoundingBox(UUID);
+        vector pos = llList2Vector(info, 0);
+        rotation rot = llList2Rot(info, 1);
+        vector corner1 = llList2Vector(info, 2) * rot + pos;
+        vector corner2 = llList2Vector(info, 3) * rot + pos;
+        vector size = llList2Vector(info, 3) - llList2Vector(info, 2);
+
+        llSetPos((corner1 + corner2) * 0.5); // Set position to the midpoint (average) of the corners
+        llSetRot(rot);
+        llSetScale(size);
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--(bool) isInPrim - determines whether a given vector position in the region is within the borders of a cuboid,
+-- respecting the cuboid's rotation.
+local function isInPrim(vPos)
+    local bb = ll.GetBoundingBox(ll.GetKey())
+    local min = ll.List2Vector(bb, 0)
+    local max = ll.List2Vector(bb, 1)
+    vPos = (vPos - ll.GetPos()) / ll.GetRot()
+    local fTemp = 0
+    if min.x > max.x then
+        fTemp = max.x
+        max = vector(min.x, max.y, max.z)
+        min = vector(fTemp, min.y, min.z)
+    end
+    if min.y > max.y then
+        fTemp = max.y
+        max = vector(max.x, min.y, max.z)
+        min = vector(min.x, fTemp, min.z)
+    end
+    if min.z > max.z then
+        fTemp = max.z
+        max = vector(max.x, max.y, min.z)
+        min = vector(min.x, min.y, fTemp)
+    end
+    if vPos.x < min.x then
+        return false
+    end
+    if vPos.y < min.y then
+        return false
+    end
+    if vPos.z < min.z then
+        return false
+    end
+    if vPos.x > max.x then
+        return false
+    end
+    if vPos.y > max.y then
+        return false
+    end
+    if vPos.z > max.z then
+        return false
+    end
+    return true
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//(bool) isInPrim - determines whether a given vector position in the region is within the borders of a cuboid,
+// respecting the cuboid's rotation.
+integer isInPrim(vector vPos)
+{
+    list bb = llGetBoundingBox(llGetKey());
+    vector min = llList2Vector(bb, 0);
+    vector max = llList2Vector(bb, 1);
+    vPos = (vPos - llGetPos()) / llGetRot();
+    float fTemp;
+    if (min.x > max.x)
+    {
+        fTemp = max.x;
+        max.x = min.x;
+        min.x = fTemp;
+    }
+    if (min.y > max.y)
+    {
+        fTemp = max.y;
+        max.y = min.y;
+        min.y = fTemp;
+    }
+    if (min.z > max.z)
+    {
+        fTemp = max.z;
+        max.z = min.z;
+        min.z = fTemp;
+    }
+    if (vPos.x < min.x)
+    {
+        return FALSE;
+    }
+    if (vPos.y < min.y)
+    {
+        return FALSE;
+    }
+    if (vPos.z < min.z)
+    {
+        return FALSE;
+    }
+    if (vPos.x > max.x)
+    {
+        return FALSE;
+    }
+    if (vPos.y > max.y)
+    {
+        return FALSE;
+    }
+    if (vPos.z > max.z)
+    {
+        return FALSE;
+    }
+    return TRUE;
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Sitting in 1.36</p>
+  <p>Avatars historically when they sit upon an object have been treated as part of the object, like a prim, even being assigned a link number (which can be used to detect and manipulate them to some extent). Unrelated to this, requesting the bounding box for a child prim of an object would return the bounding box for the entire object (unless it was an attachment, which point it would return the bounding box for the avatar). The first is something of a misfeature, the latter is an honest to goodness feature; the combination of these two lead to something interesting: Prior to 1.36 requesting the bounding box of an attachment while seated returned the bounding box for the object sat upon. It got reported as a bug <a href="https://jira.secondlife.com/browse/SVC-1174" target="_blank">SVC-1174</a>, and the behavior was changed in 1.36. The bounding box for the object sat upon is unchanged by 1.36, the avatar still counts. However when the bounding box for the seated avatar is requested it does not fall through to the object being sat upon.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llGetBoundingBox( key object );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

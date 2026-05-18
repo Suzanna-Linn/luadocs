@@ -1,0 +1,370 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LinkAdjustSoundVolume(LinkNumber: number, Volume: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llLinkAdjustSoundVolume(integer LinkNumber, float Volume);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>Adjusts the volume (0.0 - 1.0) of the currently playing sound attached to the link.<br>This function has no effect on sounds started with llTriggerSound.</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>LinkNumber / volume</td>
+          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>volume</b> <&#61; 1.0`)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Volume</td>
+          <td>The volume to set.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>sound</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">535</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Caveats</p>
+  <ul>
+    <li>This function causes the script to sleep for 0.1 seconds.</li>
+  </ul>
+  <h2>Untitled Section</h2>
+  <h3>llLinkAdjustSoundVolume</h3>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Functions" target="_blank">Function</a>: </b>llLinkAdjustSoundVolume<b>( <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> link, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> volume );</b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">link</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims&#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&#32;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>volume</td>
+        <td>–</td>
+        <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>volume</b> <&#61; 1.0`)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Caveats</p>
+  <ul>
+    <li>This function causes the script to sleep for 0.1 seconds.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Flag</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_ROOT" target="_blank">LINK_ROOT</a></td>
+        <td>1</td>
+        <td>refers to the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim in a multi-prim linked set[[1]](#footnote_1)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_SET" target="_blank">LINK_SET</a></td>
+        <td>-1</td>
+        <td>refers to all prims</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_ALL_OTHERS" target="_blank">LINK_ALL_OTHERS</a></td>
+        <td>-2</td>
+        <td>refers to all other prims</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Flag</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_ALL_CHILDREN" target="_blank">LINK_ALL_CHILDREN</a></td>
+        <td>-3</td>
+        <td>refers to all children, (everything but the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_THIS" target="_blank">LINK_THIS</a></td>
+        <td>-4</td>
+        <td>refers to the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a> is in</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <p>Not work <a href="https://wiki.secondlife.com/wiki/LlTriggerSound" target="_blank">llTriggerSound</a> and <a href="https://wiki.secondlife.com/wiki/LlCollisionSound" target="_blank">llCollisionSound</a></p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.Listen(42, "", ll.GetOwner(), "")
+end
+
+function LLEvents.listen(chan, name, id, msg)
+    local value = tonumber(msg)
+    ll.AdjustSoundVolume(value)
+    ll.OwnerSay("Volume set to: " .. tostring(value) .. " of 1.0")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llListen(42, "", llGetOwner(), "");
+    }
+
+    listen(integer chan, string name, key id, string msg)
+    {
+        float value = (float)msg;
+        llAdjustSoundVolume(value);
+        llOwnerSay("Volume set to: " + (string)value + " of 1.0");
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.collision_start(events)
+    local p = #events
+    ll.PlaySound("5df2e97f-d3ab-9a80-7063-69007470a182", 1.0)
+    ll.AdjustSoundVolume(1.0)
+    ll.SetTimerEvent(0.2)  --In 0.2 seconds, will reduce the volume of the currently playing audio.
+end
+function LLEvents.timer()
+    ll.AdjustSoundVolume(0.1)
+    ll.SetTimerEvent(0.0)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    collision_start(integer p)
+    {
+        llPlaySound("5df2e97f-d3ab-9a80-7063-69007470a182", 1.0);
+        llAdjustSoundVolume(1.0);
+        llSetTimerEvent(0.2); //In 0.2 seconds, will reduce the volume of the currently playing audio.
+    }
+    timer(){
+        llAdjustSoundVolume(0.1);
+        llSetTimerEvent(0.0);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <h3>Link Numbers</h3>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <ul>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+  </ul>
+  <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
+  <p>Counting Prims & Avatars</p>
+  <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
+  <ul>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
+    if ll.GetAttached() ~= 0 then  --Is it attached?
+        return ll.GetNumberOfPrims()  --returns avatars and prims but attachments can't be sat on.
+    end
+    return ll.GetObjectPrimCount(ll.GetKey())  --returns only prims but won't work on attachments.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer GetPrimCount() { //always returns only the number of prims
+    if(llGetAttached())//Is it attached?
+        return llGetNumberOfPrims();//returns avatars and prims but attachments can't be sat on.
+    return llGetObjectPrimCount(llGetKey());//returns only prims but won't work on attachments.
+}`} lang="lsl" /></div>
+  <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
+Errata</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a></td>
+        <td>–</td>
+        <td>Returns the link number of the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the script is in.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkNumberOfSides" target="_blank">llGetLinkNumberOfSides</a></td>
+        <td>–</td>
+        <td>Returns the number of faces of the linked prim.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinkPlaySound" target="_blank">llLinkPlaySound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinkSetSoundQueueing" target="_blank">llLinkSetSoundQueueing</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinkSetSoundRadius" target="_blank">llLinkSetSoundRadius</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinkStopSound" target="_blank">llLinkStopSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSound" target="_blank">llLoopSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSoundMaster" target="_blank">llLoopSoundMaster</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSoundSlave" target="_blank">llLoopSoundSlave</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPlaySound" target="_blank">llPlaySound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPlaySoundSlave" target="_blank">llPlaySoundSlave</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPreloadSound" target="_blank">llPreloadSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetSoundQueueing" target="_blank">llSetSoundQueueing</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetSoundRadius" target="_blank">llSetSoundRadius</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSound" target="_blank">llSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSoundPreload" target="_blank">llSoundPreload</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStopSound" target="_blank">llStopSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSound" target="_blank">llTriggerSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTriggerSoundLimited" target="_blank">llTriggerSoundLimited</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlLinkAdjustSoundVolume" target="_blank">llLinkAdjustSoundVolume</a> Added in <a href="http://secondlife.wikia.com/wiki/Version_0.2.0" target="_blank">SL 0.2.0</a>[[2]](#footnote_2)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> LINK_ROOT does not work on single <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">objects</a>. Unless there is an avatar sitting on the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llAdjustSoundVolume( float volume );
+function void llLinkAdjustSoundVolume( integer link, float volume );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

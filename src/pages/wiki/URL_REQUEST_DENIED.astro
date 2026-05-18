@@ -1,0 +1,284 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`URL_REQUEST_DENIED: string = URL_REQUEST_DENIED`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string URL_REQUEST_DENIED = URL_REQUEST_DENIED;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The string constant URL_REQUEST_DENIED has the value "URL_REQUEST_DENIED"</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/URL_REQUEST_GRANTED" target="_blank">URL_REQUEST_GRANTED</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> Never ever forget to release a URL again which you have requested! URLs are region resources just like prims. If you take them all you can get into big trouble with the sim owner and/or estate managers.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>This script requests a new URL after region restart:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local url = ""
+local urlRequestId = NULL_KEY
+local selfCheckRequestId = NULL_KEY
+
+local function request_url()
+    ll.ReleaseURL(url)
+    url = ""
+
+    urlRequestId = ll.RequestURL()
+end
+
+local function throw_exception(inputString)
+    local owner = ll.GetOwner()
+    ll.InstantMessage(owner, inputString)
+
+    -- yeah, bad way to handle exceptions by restarting.
+    -- However this is just a demo script...
+
+    ll.ResetScript()
+end
+
+function LLEvents.on_rez(start_param)
+    ll.ResetScript()
+end
+
+function LLEvents.changed(change)
+    if bit32.btest(change, bit32.bor(CHANGED_OWNER, CHANGED_INVENTORY)) then
+        ll.ReleaseURL(url)
+        url = ""
+
+        ll.ResetScript()
+    end
+
+    if bit32.btest(change, bit32.bor(CHANGED_REGION, CHANGED_REGION_START, CHANGED_TELEPORT)) then
+        request_url()
+    end
+end
+
+local function main()
+    request_url()
+end
+
+function LLEvents.http_request(id, method, body)
+    local responseStatus = 400
+    local responseBody = "Unsupported method"
+
+    if method == URL_REQUEST_DENIED then
+        throw_exception("The following error occurred while attempting to get a free URL for this device:\n \n" .. body)
+
+    elseif method == URL_REQUEST_GRANTED then
+        url = body
+        local owner = ll.GetOwner()
+        ll.LoadURL(owner, "Click to visit my URL!", url)
+
+        -- check every 5 mins for dropped URL
+        ll.SetTimerEvent(300.0)
+    elseif method == "GET" then
+        responseStatus = 200
+        responseBody = "Hello world!"
+    end
+    -- else if (method == "POST") ...;
+    -- else if (method == "PUT") ...;
+    -- else if (method == "DELETE") { responseStatus = 403; responseBody = "forbidden"; }
+
+    ll.HTTPResponse(id, responseStatus, responseBody)
+end
+
+function LLEvents.http_response(id, status, metaData, body)
+    if id == selfCheckRequestId then
+        -- If you're not usually doing this,
+        -- now is a good time to get used to doing it!
+        selfCheckRequestId = NULL_KEY
+
+        if status ~= 200 then
+            request_url()
+        end
+
+    elseif id == NULL_KEY then
+        throw_exception("Too many HTTP requests too fast!")
+    end
+end
+
+function LLEvents.timer()
+    selfCheckRequestId = ll.HTTPRequest(url, {HTTP_METHOD, "GET", HTTP_VERBOSE_THROTTLE, if false then 1 else 0, HTTP_BODY_MAXLENGTH, 16384}, "")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string url;
+key urlRequestId;
+key selfCheckRequestId;
+
+request_url()
+{
+    llReleaseURL(url);
+    url = "";
+
+    urlRequestId = llRequestURL();
+}
+
+throw_exception(string inputString)
+{
+    key owner = llGetOwner();
+    llInstantMessage(owner, inputString);
+
+    // yeah, bad way to handle exceptions by restarting.
+    // However this is just a demo script...
+
+    llResetScript();
+}
+
+default
+{
+    on_rez(integer start_param)
+    {
+        llResetScript();
+    }
+
+    changed(integer change)
+    {
+        if (change & (CHANGED_OWNER | CHANGED_INVENTORY))
+        {
+            llReleaseURL(url);
+            url = "";
+
+            llResetScript();
+        }
+
+        if (change & (CHANGED_REGION | CHANGED_REGION_START | CHANGED_TELEPORT))
+            request_url();
+    }
+
+    state_entry()
+    {
+        request_url();
+    }
+
+    http_request(key id, string method, string body)
+    {
+        integer responseStatus = 400;
+        string responseBody = "Unsupported method";
+
+        if (method == URL_REQUEST_DENIED)
+            throw_exception("The following error occurred while attempting to get a free URL for this device:\n \n" + body);
+
+        else if (method == URL_REQUEST_GRANTED)
+        {
+            url = body;
+            key owner = llGetOwner();
+            llLoadURL(owner, "Click to visit my URL!", url);
+
+            // check every 5 mins for dropped URL
+            llSetTimerEvent(300.0);
+        }
+        else if (method == "GET")
+        {
+            responseStatus = 200;
+            responseBody = "Hello world!";
+        }
+        // else if (method == "POST") ...;
+        // else if (method == "PUT") ...;
+        // else if (method == "DELETE") { responseStatus = 403; responseBody = "forbidden"; }
+
+        llHTTPResponse(id, responseStatus, responseBody);
+    }
+
+    http_response(key id, integer status, list metaData, string body)
+    {
+        if (id == selfCheckRequestId)
+        {
+            // If you're not usually doing this,
+            // now is a good time to get used to doing it!
+            selfCheckRequestId = NULL_KEY;
+
+            if (status != 200)
+                request_url();
+        }
+
+        else if (id == NULL_KEY)
+            throw_exception("Too many HTTP requests too fast!");
+    }
+
+    timer()
+    {
+        selfCheckRequestId = llHTTPRequest(url,
+                                [HTTP_METHOD, "GET",
+                                    HTTP_VERBOSE_THROTTLE, FALSE,
+                                    HTTP_BODY_MAXLENGTH, 16384],
+                                "");
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/1836?new_path=%2F#file15" target="_blank">SVN:1836 r112899 Trunk</a></li>
+  </ul>
+  <p><a href="https://secondlife.canny.io/?search=URL_REQUEST_DENIED" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+URL_REQUEST_DENIED = "URL_REQUEST_DENIED"
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+string URL_REQUEST_DENIED = "URL_REQUEST_DENIED";
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

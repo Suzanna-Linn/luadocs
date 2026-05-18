@@ -1,0 +1,192 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ListInsertList(Target: {T}, ListVariable: {T}, Position: number): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llListInsertList(list Target, list ListVariable, integer Position);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use table.insert because Unnecessary table copying. Fastcall.</span></p>
+      <p>  <p>Returns a list that contains all the elements from <b>dest</b> but with the elements from <b>src</b> inserted at position <b>start</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{T}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Target / dest</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{T}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>ListVariable / src</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Position / start</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>list</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">200</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>start</b> supports <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <h2>Specification</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Index</th>
+        <th>Positive</th>
+        <th>Negative</th>
+      </tr>
+      <tr>
+        <td>First</td>
+        <td>`0`</td>
+        <td>`-length`</td>
+      </tr>
+      <tr>
+        <td>Last</td>
+        <td>`length - 1`</td>
+        <td>`-1`</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Indexes</h3>
+  <ul>
+    <li>Positive indexes count from the beginning, the first item being indexed as `0`, the last as `(length - 1)`.</li>
+  </ul>
+  <ul>
+    <li>Negative indexes count from the far end, the first item being indexed as `-length`, the last as `-1`.</li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>start</b> is out of bounds the script continues to execute without an error message.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local numbers = {3, "three", 2, "two", 1, "one"}
+local function main()
+    ll.OwnerSay(ll.DumpList2String(numbers, ","))
+    -- Object: 3,three,2,two,1,one
+    local index = ll.ListFindList(numbers, {2})
+    if index ~= -1 then
+        numbers = ll.ListInsertList(numbers, {2.5, "two and a half"}, index)
+        ll.OwnerSay(ll.DumpList2String(numbers, ","))
+    -- Object: 3,three,2.500000,two and a half,2,two,1,one
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list numbers = [3, "three", 2, "two", 1, "one"];
+default
+{
+    state_entry()
+    {
+        llOwnerSay(llDumpList2String(numbers, ","));
+        // Object: 3,three,2,two,1,one
+        integer index = llListFindList(numbers, [2]);
+        if (index != -1)
+        {
+            numbers = llListInsertList(numbers, [2.5, "two and a half"], index);
+            llOwnerSay(llDumpList2String(numbers, ","));
+            // Object: 3,three,2.500000,two and a half,2,two,1,one
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Bear in mind that the source list will remain unchanged. Instead, a new list will be produced. So, it's important that you capture this with a variable (unless you are acting directly on the results.)</p>
+  <p>Tip! To insert something at the start of a list, you can just add the two lists (putting the list with the new item(s) first)</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local oldList = {"B", "C", "D"}
+local newItem = {"A"}
+local newlist = newItem
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list oldList = ["B", "C", "D"];
+list newItem = ["A"];
+list newlist = newItem + oldList;`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlDeleteSubList" target="_blank">llDeleteSubList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlList2List" target="_blank">llList2List</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlListReplaceList" target="_blank">llListReplaceList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">Negative Index</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llListInsertList( list dest, list src, integer start );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

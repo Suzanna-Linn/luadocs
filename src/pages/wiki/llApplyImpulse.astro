@@ -1,0 +1,331 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ApplyImpulse(Force: vector, Local: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llApplyImpulse(vector Force, integer Local);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Applies impulse to object</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Force / momentum</td>
+          <td>Amount of impulse force to apply.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Local / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">local</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> <b>momentum</b> is treated as a <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local</a> directional vector, if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> <b>momentum</b> is treated as a <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> directional vector</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">72</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Instantaneous impulse. <a href="https://wiki.secondlife.com/wiki/LlSetForce" target="_blank">llSetForce</a> has continuous push. "Instantaneous" seems to mean a one second impulse.</p>
+  <p>This function actually expects <b>momentum</b> to be expressed in **Lindograms * meters per second**.</p>
+  <p>See below for an example script to accelerate an object to a specific velocity. (Alternately, use <a href="https://wiki.secondlife.com/wiki/LlSetVelocity" target="_blank">llSetVelocity</a>)</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Only works in <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics-enabled</a> objects.</li>
+    <li>Sets an initial momentum on the object applied to the center of Mass . Momentum is the mass*velocity needed to get an initial movement of velocity if the object is not affected by other forces ( such as gravity )</li>
+    <li>The <a href="https://wiki.secondlife.com/wiki/LlVecMag" target="_blank">magnitude</a> of <b>momentum</b> may be scaled back by the object's available energy. For heavy objects , the cap of momentum will be momentum = 20000 . ( and not 20 as told previously ). For fast objects , the velocity will be capped to 202 meters/second ( and so the momentum will reflect this cap )</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--This script will apply an impulse to reach a target velocity value, regardless of object mass.
+local start = ZERO_VECTOR
+local startRot = ZERO_ROTATION
+
+local Velocity = 13.0  --meters / second.
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.Say(0, "Launching!")
+    start = ll.GetPos()
+    startRot = ll.GetRot()
+    ll.SetStatus(STATUS_PHYSICS, true)  -- Make sure prim has physics enabled
+    --vector targetVelo = <0,0,Velocity>*llGetMassMKS(); //Factor object mass into velocity calculation. Kg*m/s
+    --vector adjVelo = targetVelo/100; //Convert targetVelo back to Lindograms (Lg), as momentum uses Lg*m/s and not Kg*m/s. (Without this, the object will ping off at 100* the speed! llGetVel will also report that instead of having an initial velocity of ~13 m/s, it will have an initial velocity of ~113 m/s).
+
+    local adjVelo = vector(0, 0, Velocity) * ll.GetMass()  --Factor object mass (in Lindograms) into velocity calc. Lg*m/s. This replaces the above calculation.
+
+    ll.ApplyImpulse(adjVelo, true)
+    ll.SetTimerEvent(0.1)
+end
+
+function LLEvents.land_collision_start(start)
+    ll.SetLinkPrimitiveParamsFast(LINK_ROOT, {PRIM_PHYSICS, if false then 1 else 0, PRIM_POSITION, start, PRIM_ROTATION, startRot})
+    ll.SetTimerEvent(0)
+end
+
+function LLEvents.timer()
+    ll.OwnerSay(tostring(ll.GetVel()))  --Report velocity value back to owner.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//This script will apply an impulse to reach a target velocity value, regardless of object mass.
+vector start;
+rotation startRot;
+
+float Velocity = 13.0; //meters / second.
+
+default
+{
+    touch_start(integer total_number)
+    {
+        llSay(0, "Launching!");
+        start = llGetPos();
+        startRot = llGetRot();
+        llSetStatus(STATUS_PHYSICS, TRUE);     // Make sure prim has physics enabled
+        //vector targetVelo = <0,0,Velocity>*llGetMassMKS(); //Factor object mass into velocity calculation. Kg*m/s
+        //vector adjVelo = targetVelo/100; //Convert targetVelo back to Lindograms (Lg), as momentum uses Lg*m/s and not Kg*m/s. (Without this, the object will ping off at 100* the speed! llGetVel will also report that instead of having an initial velocity of ~13 m/s, it will have an initial velocity of ~113 m/s).
+
+        vector adjVelo = <0,0,Velocity>*llGetMass(); //Factor object mass (in Lindograms) into velocity calc. Lg*m/s. This replaces the above calculation.
+
+        llApplyImpulse(adjVelo,TRUE);
+        llSetTimerEvent(0.1);
+    }
+    
+    land_collision_start(vector start)
+    {
+        llSetLinkPrimitiveParamsFast(LINK_ROOT,[PRIM_PHYSICS,FALSE,PRIM_POSITION,start,PRIM_ROTATION,startRot]);
+        llSetTimerEvent(0);
+    }
+    
+    timer()
+    {
+        llOwnerSay((string)llGetVel()); //Report velocity value back to owner.
+    }
+} //Jenna Huntsman`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--  Rez an object, and drop this script in it.
+--  This will launch it at the owner.
+
+local function main()
+    local ownerKey = ll.GetOwner()
+    local ownerPosition = ll.List2Vector(ll.GetObjectDetails(ownerKey, {OBJECT_POS}), 0)
+
+    --  if the owner is not in the sim, stop fooling around
+    if ll.GetAgentSize(ownerKey) == ZERO_VECTOR then
+        return
+    end
+
+    --  else
+    ll.SetStatus(STATUS_PHYSICS, true)
+
+    local objectPosition = ll.GetPos()
+    local direction = ll.VecNorm(ownerPosition - objectPosition)
+
+    ll.ApplyImpulse(direction * ll.GetMass(), 0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  Rez an object, and drop this script in it.
+//  This will launch it at the owner.
+
+default
+{
+    state_entry()
+    {
+        key ownerKey = llGetOwner();
+        vector ownerPosition = llList2Vector(llGetObjectDetails(ownerKey, [OBJECT_POS]), 0);
+
+//  if the owner is not in the sim, stop fooling around
+        if (llGetAgentSize(ownerKey) == ZERO_VECTOR)
+            return;
+
+//  else
+        llSetStatus(STATUS_PHYSICS, TRUE);
+
+        vector objectPosition = llGetPos();
+        vector direction = llVecNorm(ownerPosition - objectPosition);
+
+        llApplyImpulse(direction * llGetMass(), 0);
+    }
+}`} lang="lsl" /></div>
+  <p>Make yourself a beer can, drop this script into it, and have some target practice.</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector gHome;
+integer gHit;
+
+default
+{
+    collision_start(integer num)
+    {
+        if (!gHit)
+        {
+            llSetTimerEvent(15.0);
+            gHome = llGetPos();
+            gHit = TRUE;
+        }
+        llSetStatus(STATUS_PHYSICS, TRUE);
+        llTriggerSound("b90ed62a-2737-b911-bb53-6b9228bbc933",1.0);
+        llApplyImpulse(llGetMass()*<0,0,5.0>,TRUE);
+        llApplyRotationalImpulse(llGetMass()*<llFrand(1.0),llFrand(1.0),llFrand(1.0)>,TRUE);
+        llResetTime();
+    }
+    
+    land_collision(vector where)
+    {
+        if (llGetTime() < 0.5)
+        {
+            llResetTime();
+            llApplyImpulse(llGetMass()*<0,0,llFrand(1.0)>,TRUE);
+            llApplyRotationalImpulse(llGetMass()*<llFrand(1.0),llFrand(1.0),llFrand(1.0)>,TRUE);
+        }
+    }
+    
+    timer()
+    {
+        llSetStatus(STATUS_PHYSICS,FALSE);
+        gHit = FALSE;
+        llSetRegionPos(gHome);  // Send the can home, even if more than 10m away
+        llSetRot(ZERO_ROTATION);
+        llSetTimerEvent(0.0);
+    }
+}`} lang="lsl" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Useless script , just to demo that 
+// the parameter is a momentum not a force
+// the initial velocity * mass = momentum when there are no other forces ( collisions, gravity )
+// the momentum is not capped to 20
+// momentum may be capped nevertheless because velocity is capped around 200 meters/second ; in this case it will be capped to 200m/s * mass
+
+ integer tid;
+ vector initPos;
+ vector Impulse;
+default
+{
+    state_entry()
+    {
+        llSetPhysicsMaterial(GRAVITY_MULTIPLIER,0,0,0,0);
+        llSetStatus(STATUS_PHANTOM, TRUE);      
+        llSetStatus(STATUS_PHYSICS, TRUE);
+
+
+    }
+    
+    touch_end(integer n)
+    {
+        tid=llTarget(initPos=llGetPos(),30);
+        llSetStatus(STATUS_PHYSICS, TRUE);
+        Impulse = llGetMass()*<0,0,25>;
+         llOwnerSay(llList2Json(JSON_ARRAY, [ "Setup a Momentum=", Impulse  ]));
+        llApplyImpulse( Impulse , FALSE);
+    }
+    moving_start()
+    {
+        llOwnerSay(llList2Json(JSON_ARRAY, [ "Velocity= ", llGetVel(), "Force=",llGetMass()*llGetAccel(), "Momentum=", llGetVel()*llGetMass()]));
+    } 
+    not_at_target()
+    {
+        llSetTimerEvent(0.0);
+        llTargetRemove(tid);
+        llSetStatus(STATUS_PHYSICS, FALSE);
+        llSetRegionPos(initPos);
+       
+    } 
+
+}
+
+// Example of results
+//  ["Setup a Momentum=","<0.000000, 0.000000, 183.181381>"]
+//  [10:19] Object: ["Velocity=","<0.000000, 0.000000, 25.000002>","Force=","<0.000000, 0.000000, -0.171902>","Momentum=","<0.000000, 0.000000, 183.181396>"]
+
+// And for an heavy object, the cap is 20000
+//  ["Setup a Momentum=","<0.000000, 0.000000, 28244.332031>"]
+//  [11:01] Object: ["Velocity=","<0.000000, 0.000000, 17.702671>","Force=","<0.000000, 0.000000, -28.363781>","Momentum=","<0.000000, 0.000000, 20000.005859>`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlApplyRotationalImpulse" target="_blank">llApplyRotationalImpulse</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetForce" target="_blank">llSetForce</a></td>
+        <td>–</td>
+        <td>Set continuous force</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetVelocity" target="_blank">llSetVelocity</a></td>
+        <td>–</td>
+        <td>Set instantaneous velocity. Spiritual successor to llApplyImpulse</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetMass" target="_blank">llGetMass</a></td>
+        <td>–</td>
+        <td>Get the mass of an object (in Lindograms)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetMassMKS" target="_blank">llGetMassMKS</a></td>
+        <td>–</td>
+        <td>Get the mass of an object (in Kilograms)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Unpredictability</p>
+  <p>Taken from <a href="https://wiki.secondlife.com/wiki/Simulator_User_Group/Transcripts/2012.10.05" target="_blank">Simulator User Group/Transcripts/2012.10.05</a></p>
+  <p>[16:24] <b>Andrew Linden</b>: the llApplyImpulse() is even more unpredictable</p>
+  <p>[16:24] <b>Andrew Linden</b>: because it uses the legacy script "energy budget"</p>
+  <p>[16:25] <b>Andrew Linden</b>: which will attenuate the results if the scripted object doesn't have enough "energy" to execute the impulse that it wants</p>
+  <p>[16:25] <b>Andrew Linden</b>: also, that llApplyImpulse() has great griefing potential</p>
+  <p>[16:25] <b>Andrew Linden</b>: so we hobbled it a long time ago with a very high energy consumption rate</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llApplyImpulse( vector momentum, integer local );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

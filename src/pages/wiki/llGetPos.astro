@@ -1,0 +1,169 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetPos(): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGetPos();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns the vector position of the task in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> coordinates</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">59</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>When called from the root of an attachment, returns the wearer's region position. To see the position used, enable <b>Develop>Avatar>Display Agent Target</b> and use the red crosshair. If the avatar is sitting on an object, the red crosshair may be hidden by the white one, in the same position.</li>
+  </ul>
+  <ul>
+    <li>When called in an attachment's child prim, the position given is again relative to the <i>avatar's</i> root position and rotation, but with the offset from the root prim added. Visually, the reported position will only be correct if the object's root is attached to <a href="https://wiki.secondlife.com/wiki/ATTACH_AVATAR_CENTER" target="_blank">ATTACH_AVATAR_CENTER</a>, at <a href="https://wiki.secondlife.com/wiki/ZERO_ROTATION" target="_blank">ZERO_ROTATION</a> and <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>. Moving the attachment's root or changing the attachment point will not affect the reported position. Avatar animation is invisible to the simulator, so it also does not affect the reported position.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    -- When touched, check the position of
+    -- the object, save it to "position",
+    -- then convert it into a string and
+    -- say it.
+    local position = ll.GetPos()
+    ll.Say(0, tostring(position))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        // When touched, check the position of
+        // the object, save it to "position",
+        // then convert it into a string and
+        // say it.
+        vector position = llGetPos();
+        llSay(0, (string)position);
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.on_rez(param)
+    -- Adding .x .y or .z after the vector name can be used to get the float value of just that axis.
+    local pos = ll.GetPos()
+    local Z = pos.z  -- <--- Like this.
+    if Z > 500.0 then
+        ll.OwnerSay("Oooh! I'm up high!")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    on_rez(integer param)
+    {
+        // Adding .x .y or .z after the vector name can be used to get the float value of just that axis.
+        vector pos = llGetPos();
+        float Z = pos.z; // <--- Like this.
+        if(Z > 500.0)
+        llOwnerSay("Oooh! I'm up high!");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLocalPos" target="_blank">llGetLocalPos</a></td>
+        <td>–</td>
+        <td>Gets the prim <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local</a> position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td>–</td>
+        <td>Gets prim properties</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRootPosition" target="_blank">llGetRootPosition</a></td>
+        <td>–</td>
+        <td>Gets the root prims position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPos" target="_blank">llSetPos</a></td>
+        <td>–</td>
+        <td>Sets the prim position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td>–</td>
+        <td>Sets prim properties</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td>–</td>
+        <td>Sets linked prim properties</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetPos()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llGetPos();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Remote yesteryear</p>
+<p>A precise position shows</p>
+<p>out of primitive</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,130 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`at_rot_target(TargetNumber: number, TargetRotation: rotation, CurrentRotation: rotation)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`at_rot_target(integer TargetNumber, rotation TargetRotation, rotation CurrentRotation)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Result of <a href="https://wiki.secondlife.com/wiki/LlRotTarget" target="_blank">llRotTarget</a> library function call</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>TargetNumber / handle</td>
+          <td><a href="https://wiki.secondlife.com/wiki/LlRotTarget" target="_blank">llRotTarget</a> return</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>TargetRotation / targetrot</td>
+          <td><a href="https://wiki.secondlife.com/wiki/LlRotTarget" target="_blank">llRotTarget</a> rot parameter</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>CurrentRotation / ourrot</td>
+          <td>current rotation (similar to <a href="https://wiki.secondlife.com/wiki/LlGetRot" target="_blank">llGetRot</a>)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+  <p>For an example, see <a href="https://wiki.secondlife.com/wiki/LlRotTarget" target="_blank">llRotTarget</a></p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Not_at_rot_target" target="_blank">not_at_rot_target</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/At_target" target="_blank">at_target</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Not_at_target" target="_blank">not_at_target</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTarget" target="_blank">llTarget</a></td>
+        <td>–</td>
+        <td>Setup a target position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTargetRemove" target="_blank">llTargetRemove</a></td>
+        <td>–</td>
+        <td>Stop a target position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotTarget" target="_blank">llRotTarget</a></td>
+        <td>–</td>
+        <td>Setup a target rotation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotTargetRemove" target="_blank">llRotTargetRemove</a></td>
+        <td>–</td>
+        <td>Stop a target rotation</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void at_rot_target( integer handle, rotation targetrot, rotation ourrot );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

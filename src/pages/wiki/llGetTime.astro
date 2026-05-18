@@ -1,0 +1,267 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetTime(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetTime();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is script time in seconds with subsecond precision since the script started, was last reset, or call to either <a href="https://wiki.secondlife.com/wiki/LlResetTime" target="_blank">llResetTime</a> or <a href="https://wiki.secondlife.com/wiki/LlGetAndResetTime" target="_blank">llGetAndResetTime</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">82</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>Script time matches normal time, it is unaffected by time dilation. For example, if you call llResetTime on two objects in separate simulators at the same time, and later call llGetTime on both at the same time, their values will be equal regardless of differences in dilation.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Script time is the amount of real-world time that the script has been in a running state. It is unaffected by time dilation, but it does not count time while the script is suspended, the user is offline (when in an attachment), the object is in inventory rather than rezzed, etc.</li>
+    <li>Script time resets when...
+    <ul>
+      <li>Script reset (user or <a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">llResetScript</a> or <a href="https://wiki.secondlife.com/wiki/LlResetOtherScript" target="_blank">llResetOtherScript</a>)</li>
+      <li>Call to either <a href="https://wiki.secondlife.com/wiki/LlResetTime" target="_blank">llResetTime</a> or <a href="https://wiki.secondlife.com/wiki/LlGetAndResetTime" target="_blank">llGetAndResetTime</a></li>
+    </ul>
+  
+    </li>
+    <li>Due to (32 bit) floating point number limitations, the accuracy of this function is 1/64sec up to ~3 days, 1/32sec up to ~6 days, etc... doubling each time, e.g. it's only 1 second at ~194 days. Use <a href="https://wiki.secondlife.com/wiki/LlResetTime" target="_blank">llResetTime</a> or <a href="https://wiki.secondlife.com/wiki/LlGetAndResetTime" target="_blank">llGetAndResetTime</a> whenever practical to maintain the accuracy you require:</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Precision</th>
+        <th>Up to Seconds</th>
+        <th>Hours</th>
+        <th>Days</th>
+      </tr>
+      <tr>
+        <td>0.016=2-6</td>
+        <td>262144=218</td>
+        <td>72.82</td>
+        <td>3.03</td>
+      </tr>
+      <tr>
+        <td>0.022=1/45</td>
+        <td colspan="3">1 simulator frame</td>
+      </tr>
+      <tr>
+        <td>0.031=2-5</td>
+        <td>524288=219</td>
+        <td>145.63</td>
+        <td>6.06</td>
+      </tr>
+      <tr>
+        <td>0.063=2-4</td>
+        <td>1048576=220</td>
+        <td>291.27</td>
+        <td>12.13</td>
+      </tr>
+      <tr>
+        <td>0.125=2-3</td>
+        <td>2097152=221</td>
+        <td>582.54</td>
+        <td>24.27</td>
+      </tr>
+      <tr>
+        <td>0.250=2-2</td>
+        <td>4194304=222</td>
+        <td>1165.08</td>
+        <td>48.54</td>
+      </tr>
+      <tr>
+        <td>0.500=2-1</td>
+        <td>8388608=223</td>
+        <td>2330.16</td>
+        <td>97.09</td>
+      </tr>
+      <tr>
+        <td>1.000=2-0</td>
+        <td>16777216=224</td>
+        <td>4660.33</td>
+        <td>194.18</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Note that this precision caveat does not apply to scripts written in SLua, only to LSL scripts. In SLua:
+    <ul>
+      <li>the timer precision is 64-bit, and will maintain 1/64sec precision for ~4.4million years.</li>
+      <li><a href="https://wiki.secondlife.com/wiki/LlResetTime" target="_blank">llResetTime</a> and <a href="https://wiki.secondlife.com/wiki/LlGetAndResetTime" target="_blank">llGetAndResetTime</a> have been removed</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.ResetTime()
+end
+function LLEvents.touch_start(events)
+    local num_touch = #events
+    local time = ll.GetTime()  --Instead getting, and then resetting the time, we could use llGetAndResetTime() to accomplish the same thing.
+    ll.ResetTime()
+    ll.Say(0, tostring(time) .. " seconds have elapsed since the last touch.")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default {
+    state_entry()
+    {
+        llResetTime();
+    }
+    touch_start(integer num_touch)
+    {
+        float time = llGetTime(); //Instead getting, and then resetting the time, we could use llGetAndResetTime() to accomplish the same thing.
+        llResetTime();
+        llSay(0,(string)time + " seconds have elapsed since the last touch." );
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Distinguish between a single click and a double click
+
+local gHoldTime = 0
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local now = ll.GetTime()
+    if now - gHoldTime < 0.3 then
+        ll.Say(PUBLIC_CHANNEL, "Double clicked")
+    -- Trigger one sequence of actions
+    else
+        ll.SetTimerEvent(0.32)
+    end
+    gHoldTime = now
+end
+
+function LLEvents.timer()
+    ll.SetTimerEvent(0.0)
+    if ll.GetTime() - gHoldTime > 0.3 then
+        ll.Say(PUBLIC_CHANNEL, "Single clicked.")
+    -- Trigger a different sequence of actions
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Distinguish between a single click and a double click
+
+float gHoldTime;
+
+default
+{
+    touch_start(integer total_number)
+    {
+        float now = llGetTime();
+        if (now - gHoldTime < 0.3)
+        {
+            llSay(PUBLIC_CHANNEL,"Double clicked");
+            // Trigger one sequence of actions
+        }
+        else
+        {
+            llSetTimerEvent(0.32);
+        }
+        gHoldTime = now;
+    }
+    
+    timer()
+    {
+        llSetTimerEvent(0.0);
+        if (llGetTime()-gHoldTime > 0.3)
+        {
+            llSay(PUBLIC_CHANNEL,"Single clicked.");
+            // Trigger a different sequence of actions
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  To do time-dependant loops of whatever:
+--  for example move 2 meters within 5.0 seconds
+
+local time = 5.0
+local i = 0
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  To do time-dependant loops of whatever:
+//  for example move 2 meters within 5.0 seconds
+
+float time = 5.0;
+float i;
+llResetTime();
+do
+{
+    i = llGetTime()/time;
+    // move2meters*i
+}
+while (llGetTime() < time);`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlResetTime" target="_blank">llResetTime</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAndResetTime" target="_blank">llGetAndResetTime</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionTimeDilation" target="_blank">llGetRegionTimeDilation</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetTime()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGetTime();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,151 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetTextureScale(Face: number): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGetTextureScale(integer Face);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a vector that is the texture scale on <b>face</b> (only the x and y components are used).</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">179</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function works on all sides.</p>
+  <h2>Specification</h2>
+  <p>In the default texture mapping mode the scale units are in texture repeats per face. In the planar texture mapping mode the scale units are in texture repeats per half meter. This is in contrast to the in-world editing tool, in which the planar texture scaling units are repeats per meter.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>face</b> indicates a face that does not exist the return is <1.0, 1.0, 0.0></li>
+    <li>ALL_SIDES seems to return the scale of the <i>first</i> face, not an average or other function of all the faces. It acts much like if it were called with `face=0`.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Script by Basil Wijaya, 2009 August 08
+--Sets texture scale on face 0. 
+--Corresponds to the object edit window, Texture tab, Repeats per Face: Horiontal U and Vertical V
+
+local U_repeats = 1.0
+local V_repeats = 1.0
+local face = 0
+
+local function main()
+    ll.ScaleTexture(U_repeats, V_repeats, ALL_SIDES)
+end
+
+function LLEvents.touch_start(events)
+    local num = #events
+    U_repeats = U_repeats + .2
+    V_repeats = V_repeats + .5
+
+    --set texture scale on a face
+    ll.ScaleTexture(U_repeats, V_repeats, face)
+    ll.OwnerSay("Scale has been set to " .. tostring(U_repeats) .. " and " .. tostring(V_repeats))
+
+    --get texture scale of a face
+    local scale_vector = ll.GetTextureScale(face)
+    ll.OwnerSay("llGetTextureScale(0) gives a vector :  " .. tostring(scale_vector))
+--You can see that the first 2 values of the vector contain the U_repeats and V_repeats values we have setted.
+
+--The object edit window, in the Texture tab, shows the changes of the U and V values, but only for face 0. 
+--Other faces changes are done but do not show in the edit window.  
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Script by Basil Wijaya, 2009 August 08
+//Sets texture scale on face 0. 
+//Corresponds to the object edit window, Texture tab, Repeats per Face: Horiontal U and Vertical V
+
+float U_repeats = 1.0;
+float V_repeats = 1.0;
+integer face = 0;
+
+default
+{
+    state_entry()
+    {
+        llScaleTexture( U_repeats, V_repeats, ALL_SIDES);  
+    }
+    
+    touch_start(integer num)
+    {
+        U_repeats = U_repeats + .2;
+        V_repeats = V_repeats + .5;
+        
+        //set texture scale on a face
+        llScaleTexture( U_repeats , V_repeats, face);
+        llOwnerSay("Scale has been set to " + (string)U_repeats +  " and " +  (string)V_repeats);
+
+        //get texture scale of a face
+        vector scale_vector = llGetTextureScale(face); 
+        llOwnerSay("llGetTextureScale(0) gives a vector :  " +  (string)scale_vector); 
+        //You can see that the first 2 values of the vector contain the U_repeats and V_repeats values we have setted.
+
+        //The object edit window, in the Texture tab, shows the changes of the U and V values, but only for face 0. 
+        //Other faces changes are done but do not show in the edit window.  
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlScaleTexture" target="_blank">llScaleTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llGetTextureScale( integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,143 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_SLICE: number = 35`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_SLICE = 35;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_SLICE has the value 35</p>
+  <p>Used to get or set the prim's slice values (a shape attribute, equivalent to <b>advanced_cut</b>).</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">&#32;PRIM_SLICE,&#32;[vector</a> slice ]); </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td>slice</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The same syntax applies to <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> and <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a> but with an additional prefixed <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/link" target="_blank">link</a> parameter in the function call.</p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_SLICE ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> [vector</a> slice ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td>slice</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The same syntax applies to <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a>, but with an additional prefixed <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/link" target="_blank">link</a> parameter in the function call.</p>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--updated findings show the difference can be as small as 0.02 not 0.05 (Tomos.Halsey)
+local function main()
+    ll.SetLinkPrimitiveParams(LINK_THIS, {PRIM_SLICE, vector(0.0, 0.02, 0.0)})
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//updated findings show the difference can be as small as 0.02 not 0.05 (Tomos.Halsey)
+default
+{
+    state_entry()
+    {
+        llSetLinkPrimitiveParams(LINK_THIS,[PRIM_SLICE,<0.0,0.02,0.0>]);
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_SLICE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_SLICE = 35
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_SLICE = 35;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

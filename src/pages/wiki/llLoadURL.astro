@@ -1,0 +1,169 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LoadURL(AvatarID: uuid, Text: string, URL: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llLoadURL(key AvatarID, string Text, string URL);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Shows dialog to <b>avatar</b> offering to load web page at <b>url</b> with <b>message</b>.</p>
+  <p>If user clicks yes, launches the page in their web browser, starting the browser if required.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/message" target="_blank">message</a></td>
+          <td>message to be displayed in the dialog box</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>URL / url</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_communication</li>
+        <li>user_interface</li>
+        <li>web</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">297</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The <b>url</b> is truncated to 255 characters and <b>message</b> is truncated to 254 characters.</p>
+  <p>The protocol for the <b>url</b> must be specified, currently only "https://" and "http://" are supported.</p>
+  <p>The URL should be <a href="http://tools.ietf.org/html/1738.html" target="_blank">RFC-1738</a> compliant with proper escapes.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.1 seconds.</li>
+    <li>This function should not be called from group deeded objects[[1]](#footnote_1), it will silently fail.</li>
+    <li>This function silently fails for an avatar that has muted itself.[[2]](#footnote_2)</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local id = ll.DetectedKey(0)
+    local info = "Visit the Second Life website!"
+
+    -- must start with either "http://..." or "https://..."
+    local url = "http://www.secondlife.com/"
+
+    local avatarInSameRegion = (ll.GetAgentSize(id) ~= ZERO_VECTOR)  -- TRUE or FALSE
+
+    if avatarInSameRegion then
+        ll.LoadURL(id, info, url)
+    else
+        -- if the agent is not in the same region, send a message instead
+        -- the viewer will turn the URL clickable
+        ll.InstantMessage(id, info .. " " .. url)
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        key id = llDetectedKey(0);
+        string info = "Visit the Second Life website!";
+        
+        // must start with either "http://..." or "https://..."
+        string url = "http://www.secondlife.com/";
+        
+        integer avatarInSameRegion = (llGetAgentSize(id) != ZERO_VECTOR); // TRUE or FALSE
+
+        if (avatarInSameRegion)
+        {
+            llLoadURL(id, info, url);
+        }
+        else
+        {
+            // if the agent is not in the same region, send a message instead
+            // the viewer will turn the URL clickable
+            llInstantMessage(id, info + " " + url);
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Limits" target="_blank">Limits</a></td>
+        <td>–</td>
+        <td>SL limits and constrictions</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Introduced in version 1.6, no support for group deeded objects.</li>
+    <li>As of version ~1.9, support for group deeded objects was added (possibly by accident).</li>
+    <li>In the server upgrade released on 2007-03-14, support for group deeded objects was removed.</li>
+  </ul>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlLoadURL_Test" target="_blank">llLoadURL Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> This was not always the case, see <a href="#History" target="_blank">History</a> for details</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> This can be extremely bewildering to debug because there's no easy way for a user to self-mute. Apparently it "just happens."</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llLoadURL( key avatar, string message, string url );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

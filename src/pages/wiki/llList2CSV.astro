@@ -1,0 +1,140 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.List2CSV(ListVariable: {any}): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llList2CSV(list ListVariable);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string of comma separated values taken in order from <b>src</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>ListVariable / src</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+        <li>list</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">195</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>More precisely the values are separated with a comma and a space (", ").</p>
+  <p>This function's functionality is equivalent to `<a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a>(<b>src</b>, ", ");`</p>
+  <p>The result of this function is more or less the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank">CSV</a> format, but it does not conform in all its details.</p>
+  <p>To reverse the process use <a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a>. But see the Caveat.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a> will not reverse the process if there are commas or oddly matched angle brackets (<b><</b> and <b>></b>) in any of the original strings. For details see the article <a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a>.
+    <ul>
+      <li>One way around this is to first use <a href="https://wiki.secondlife.com/wiki/LlEscapeURL" target="_blank">llEscapeURL</a> on any user-supplied strings before adding them to the list. <a href="https://wiki.secondlife.com/wiki/LlUnescapeURL" target="_blank">llUnescapeURL</a> will reverse <a href="https://wiki.secondlife.com/wiki/LlEscapeURL" target="_blank">llEscapeURL</a>.</li>
+      <li>If your strings may contain commas but not unmatched angle brackets you can wrap your strings with angle brackets (< and >) like you would use double quotes around the string and then use <a href="https://wiki.secondlife.com/wiki/LlGetSubString" target="_blank">llGetSubString</a> with START at 1 and END at -2 to remove them.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local my_list = {if false then 1 else 0, PI, "a string", ZERO_VECTOR, ZERO_ROTATION, NULL_KEY}
+    ll.OwnerSay(ll.List2CSV(my_list))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        list my_list = [FALSE, PI, "a string", ZERO_VECTOR, ZERO_ROTATION, NULL_KEY];
+        llOwnerSay(llList2CSV(my_list));        
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlParseStringKeepNulls" target="_blank">llParseStringKeepNulls</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">Typecast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llList2CSV( list src );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,134 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.MapBeacon(RegionName: string, Position: vector, Options: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llMapBeacon(string RegionName, vector Position, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Asks the viewer to create a beacon for the user and optionally opens the world map centered on the location.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>RegionName / region_name</td>
+          <td>Region name</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/options" target="_blank">options</a></td>
+          <td>Options</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_communication</li>
+        <li>user_interface</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">516</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>Requests that a user's viewer set a beacon in the world and optionally opens the world map centered on the specified location.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Parameter</th>
+        <th colspan="2">Return Values / Additional Parameters</th>
+        <th colspan="6">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=BEACON_MAP&action=edit&redlink=1" target="_blank"> [BEACON_MAP</a> ]</td>
+        <td>1</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> BEACON_MAP, [integer</a> open_map, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> focus_map ]</td>
+        <td colspan="6"><p>Requests viewer world map behavior. If the first parameter is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> the viewer should open the world map. If the second parameter is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> this function also requests that the map should receive focus.</p>
+<p>Note that setting both values to true mimics the behavior of <a href="https://wiki.secondlife.com/wiki/LlMapDestination" target="_blank">llMapDestination</a>.
+Also, the focus_map parameter is only meaningful if open_map is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a></p></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 1.0 seconds.</li>
+    <li>Since this function requests the client to perform a task, there is no way for script to know if it has failed.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>The following example mimics the behavior of <a href="https://wiki.secondlife.com/wiki/LlMapDestination" target="_blank">llMapDestination</a>.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.MapBeacon("WindSong", vector(185, 140, 29), {BEACON_MAP, if true then 1 else 0, if true then 1 else 0})
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        llMapBeacon("WindSong", <185,140,29>, [BEACON_MAP, TRUE, TRUE]);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li><b>pos</b> will work with <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">Region</a> coordinates not inside <b>simname</b>. (like those returned by <a href="https://wiki.secondlife.com/wiki/LlRequestInventoryData" target="_blank">llRequestInventoryData</a>)</li>
+    <li>if called from non <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> events, it only works for the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a>.</li>
+    <li>if called from touch, it may only work for the first or last touch in the event queue (example: num_touched > 1)</li>
+    <li>if called inside an <a href="https://wiki.secondlife.com/wiki/Attachment" target="_blank">attachment</a>, it only works for the owner.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlMapDestination" target="_blank">llMapDestination</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llMapBeacon( string region_name, vector pos, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

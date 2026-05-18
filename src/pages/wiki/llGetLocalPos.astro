@@ -1,0 +1,142 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetLocalPos(): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGetLocalPos();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a vector that is the position relative (<a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local</a>) to the root.</p>
+  <p>If called from the root prim it returns the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">position in the region</a> unless it is <a href="https://wiki.secondlife.com/wiki/LlGetAttached" target="_blank">attached</a> to which it returns the position relative to the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Attachments" target="_blank">attach point</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">60</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local vIntTouched = #events
+    local vStrMessage = "The touched prim is "
+    if ll.DetectedLinkNumber(0) > 1 then
+        vStrMessage ..= tostring(ll.VecMag(ll.GetLocalPos())) .. "m from "
+    end
+    ll.Say(0, vStrMessage .. "the root prim")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer vIntTouched)
+    {
+        string vStrMessage = "The touched prim is ";
+        if (llDetectedLinkNumber(0) > 1)
+        {
+            vStrMessage += (string)llVecMag(llGetLocalPos()) + "m from ";
+        }
+        llSay(0, vStrMessage + "the root prim");
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <p>There is no function to set the position of a prim local to itself.
+To set the position of a prim local to itself you would have to do something like:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function SetPositionLocalToCurrentPosition(local_position)
+    ll.SetPos(ll.GetLocalPos() + (local_position * ll.GetLocalRot()))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`SetPositionLocalToCurrentPosition(vector local_position)
+{
+    llSetPos(llGetLocalPos() + (local_position * llGetLocalRot()));
+}`} lang="lsl" /></div>
+  <p>Or:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function SetPositionLocalToCurrentPosition(local_position)
+    ll.SetPos(ll.GetPos() + (local_position * ll.GetRot()))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`SetPositionLocalToCurrentPosition(vector local_position)
+{
+    llSetPos(llGetPos() + (local_position * llGetRot()));
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRootPosition" target="_blank">llGetRootPosition</a></td>
+        <td>–</td>
+        <td>Gets the root prims global position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">llGetPos</a></td>
+        <td>–</td>
+        <td>Gets the prims global position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPos" target="_blank">llSetPos</a></td>
+        <td>–</td>
+        <td>Sets the prims global position</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetLocalPos()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llGetLocalPos();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Root's vector winks,</p>
+<p>Lost in local's labyrinth,</p>
+<p>Attach point's secret.</p>
+<p><i> — ChatGPT</i></p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

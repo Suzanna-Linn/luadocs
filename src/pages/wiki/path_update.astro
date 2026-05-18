@@ -1,0 +1,243 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`path_update(Type: number, Reserved: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`path_update(integer Type, list Reserved)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Event description goes here.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Type / type</td>
+          <td>A `PU_*`, it's the path event type</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Reserved / reserved</td>
+          <td>Reserved; not currently used.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_SLOWDOWN_DISTANCE_REACHED&action=edit&redlink=1" target="_blank">PU_SLOWDOWN_DISTANCE_REACHED</a></td>
+        <td>0x00</td>
+        <td>Character is near current goal.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_GOAL_REACHED&action=edit&redlink=1" target="_blank">PU_GOAL_REACHED</a></td>
+        <td>0x01</td>
+        <td>Character has reached the goal and will stop or choose a new goal (if wandering).</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_START&action=edit&redlink=1" target="_blank">PU_FAILURE_INVALID_START</a></td>
+        <td>0x02</td>
+        <td>Character cannot navigate from the current location - e.g., the character is off the navmesh or too high above it.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_GOAL&action=edit&redlink=1" target="_blank">PU_FAILURE_INVALID_GOAL</a></td>
+        <td>0x03</td>
+        <td>Goal is not on the navmesh and cannot be reached.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_UNREACHABLE&action=edit&redlink=1" target="_blank">PU_FAILURE_UNREACHABLE</a></td>
+        <td>0x04</td>
+        <td>Goal is no longer reachable for some reason - e.g., an obstacle blocks the path.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_TARGET_GONE&action=edit&redlink=1" target="_blank">PU_FAILURE_TARGET_GONE</a></td>
+        <td>0x05</td>
+        <td>Target (for llPursue or llEvade) can no longer be tracked - e.g., it left the region or is an avatar that is now more than about 30m outside the region.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_NO_VALID_DESTINATION&action=edit&redlink=1" target="_blank">PU_FAILURE_NO_VALID_DESTINATION</a></td>
+        <td>0x06</td>
+        <td>There's no good place for the character to go - e.g., it is patrolling and all the patrol points are now unreachable.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_EVADE_HIDDEN&action=edit&redlink=1" target="_blank">PU_EVADE_HIDDEN</a></td>
+        <td>0x07</td>
+        <td>Triggered when an llEvade character thinks it has hidden from its pursuer.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_EVADE_SPOTTED&action=edit&redlink=1" target="_blank">PU_EVADE_SPOTTED</a></td>
+        <td>0x08</td>
+        <td>Triggered when an llEvade character switches from hiding to running</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_NO_NAVMESH&action=edit&redlink=1" target="_blank">PU_FAILURE_NO_NAVMESH</a></td>
+        <td>0x09</td>
+        <td>This is a fatal error reported to a character when there is no navmesh for the region. This usually indicates a server failure and users should file a bug report and include the time and region in which they received this message.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED&action=edit&redlink=1" target="_blank">PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED</a></td>
+        <td>0x0A</td>
+        <td>Triggered when a character enters a region with dynamic pathfinding disabled. Dynamic pathfinding can be toggled by estate managers via the 'dynamic_pathfinding' option in the Region Debug Console.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_PARCEL_UNREACHABLE&action=edit&redlink=1" target="_blank">PU_FAILURE_PARCEL_UNREACHABLE</a></td>
+        <td>0x0B</td>
+        <td>Triggered when a character failed to enter a parcel because it is not allowed to enter, e.g. because the parcel is already full or because object entry was disabled after the navmesh was baked.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_OTHER&action=edit&redlink=1" target="_blank">PU_FAILURE_OTHER</a></td>
+        <td>0xF4240</td>
+        <td>Other failure.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Note that if wandering, the "stop" (`<a href="https://wiki.secondlife.com/w/index.php?title=PU_GOAL_REACHED&action=edit&redlink=1" target="_blank">PU_GOAL_REACHED</a>`) type may never occur as a new goal may be chosen when near (`<a href="https://wiki.secondlife.com/w/index.php?title=PU_SLOWDOWN_DISTANCE_REACHED&action=edit&redlink=1" target="_blank">PU_SLOWDOWN_DISTANCE_REACHED</a>`) the previous goal.</li>
+    <li>When the character cannot navigate from the current position (`<a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_START&action=edit&redlink=1" target="_blank">PU_FAILURE_INVALID_START</a>`) <a href="https://wiki.secondlife.com/wiki/LlNavigateTo" target="_blank">llNavigateTo</a> with the `<a href="https://wiki.secondlife.com/wiki/FORCE_DIRECT_PATH" target="_blank">FORCE_DIRECT_PATH</a>` option may be helpful.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`create_wandering_character()
+{
+//  Clear any previous character behaviors
+    llDeleteCharacter();
+
+//  MAX_SPEED is @ 20 by default
+    llCreateCharacter([
+        CHARACTER_MAX_SPEED, 25.0,
+        CHARACTER_DESIRED_SPEED, 15.0]);
+
+    llWanderWithin(llGetPos(), <10.0, 10.0,  2.0>, []);
+}
+
+list get_pathupdate_failure_info(integer type)
+{
+    if (type == PU_SLOWDOWN_DISTANCE_REACHED)
+        return ["Near", FALSE];
+    
+    if (type == PU_GOAL_REACHED)
+        return ["Stopping", FALSE];
+    
+    if (type == PU_FAILURE_INVALID_START)
+        return ["Cannot path find from current location! Attempting "
+                + "to go to the center of the region.", TRUE];
+
+    if (type == PU_FAILURE_INVALID_GOAL)
+        return ["Goal not on navmesh!", FALSE];
+    
+    if (type == PU_FAILURE_UNREACHABLE)
+        return ["Goal unreachable!", FALSE];
+    
+    if (type == PU_FAILURE_TARGET_GONE)
+        return ["Target gone!", FALSE];
+    
+    if (type == PU_FAILURE_NO_VALID_DESTINATION)
+        return ["No place to go!", FALSE];
+    
+    if (type ==  PU_EVADE_HIDDEN)
+        return ["Hiding from pursuer...", FALSE];
+    
+    if (type == PU_EVADE_SPOTTED)
+        return ["Switched from hiding to running...", FALSE];
+    
+    if (type ==  PU_FAILURE_NO_NAVMESH)
+        return ["Region has no nav mesh..", FALSE];
+    
+    if (type == PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED)
+        return ["Dynamic pathfinding is disabled in this region.", FALSE];
+
+    if (type == PU_FAILURE_PARCEL_UNREACHABLE)
+        return ["Parcel entry problem (is the parcel full?).", FALSE];
+
+    if (type == PU_FAILURE_OTHER)
+        return ["Hit an unspecified failure", FALSE];
+
+    return ["Unknown failure", FALSE];
+}
+
+default
+{
+    on_rez(integer start_param)
+    {
+        llResetScript();
+    }
+
+    state_entry()
+    {
+        create_wandering_character();
+    }
+ 
+    path_update(integer type, list reserved)
+    {
+        list params = get_pathupdate_failure_info(type);
+        string info = llList2String(params, 0);
+        integer /* boolean */ hasToMove = llList2Integer(params, 1);
+
+        llRegionSayTo(llGetOwner(), 0, info);
+        if (hasToMove)
+        {
+            vector currentPosition = llGetPos();
+            llNavigateTo(<128.0, 128.0, llGround(<128.0, 128.0, 0.0> - currentPosition)>, [FORCE_DIRECT_PATH, TRUE]);
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDeleteCharacter" target="_blank">llDeleteCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlEvade" target="_blank">llEvade</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlExecCharacterCmd" target="_blank">llExecCharacterCmd</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetClosestNavPoint" target="_blank">llGetClosestNavPoint</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlFleeFrom" target="_blank">llFleeFrom</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlNavigateTo" target="_blank">llNavigateTo</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPatrolPoints" target="_blank">llPatrolPoints</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlUpdateCharacter" target="_blank">llUpdateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlWanderWithin" target="_blank">llWanderWithin</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.31.262785" target="_blank"> 31/07/2012 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void path_update( integer type, list reserved );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

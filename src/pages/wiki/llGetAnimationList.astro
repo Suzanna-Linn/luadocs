@@ -1,0 +1,197 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetAnimationList(AvatarID: uuid): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llGetAnimationList(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a list of keys of playing animations for <b>avatar</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>avatar_animation</li>
+        <li>permissions</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">266</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>There is no internal mechanism to get the name of the animations playing.</li>
+    <li>Standard animations can be started and stopped by scripts, so the list returned may not accurately reflect the avatar's state. Use <a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo" target="_blank">llGetAgentInfo</a> and <a href="https://wiki.secondlife.com/wiki/LlGetAnimation" target="_blank">llGetAnimation</a> when this matters.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/Internal_Animations#Viewer-generated_motions" target="_blank">Some motions are local to the viewer</a> and cannot be detected by scripts.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/Internal_Animations#User-playable_animations" target="_blank">Animations that are triggered by other animations are local to the viewer</a> and cannot be detected by scripts.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>This example is a bit involved but there aren't many applications for this function.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--Simple Animation Override for Walk
+local old_anim = uuid("6ed24bd8-91aa-4b12-ccc7-c97c857ab4e0")
+local new_anim = "yoga_float"
+local status = false
+local check = {}
+local owner = NULL_KEY
+
+local function main()
+    owner = ll.GetOwner()
+    ll.RequestPermissions(owner, PERMISSION_TRIGGER_ANIMATION)
+    check = {old_anim}
+end
+
+function LLEvents.run_time_permissions(p)
+    if bit32.btest(p, PERMISSION_TRIGGER_ANIMATION) then
+        ll.SetTimerEvent(0.2)
+    end
+end
+
+function LLEvents.timer()
+    if bit32.btest(ll.GetAgentInfo(owner), AGENT_WALKING) then
+        local anims = ll.GetAnimationList(owner)
+        if bit32.bnot(ll.ListFindList(anims, check)) ~= 0 then
+            status = true
+            ll.StartAnimation(new_anim)
+            ll.StopAnimation(old_anim)
+        end
+    elseif status then
+        ll.StopAnimation(new_anim)
+        status = false
+    end
+end
+
+function LLEvents.on_rez(p)
+    ll.ResetScript()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Simple Animation Override for Walk
+key old_anim = "6ed24bd8-91aa-4b12-ccc7-c97c857ab4e0";
+string new_anim="yoga_float";
+integer status;
+list check;
+key owner;
+
+default
+{
+    state_entry()
+    {
+        owner = llGetOwner();
+        llRequestPermissions(owner, PERMISSION_TRIGGER_ANIMATION);
+        check = [old_anim];
+    }
+    
+    run_time_permissions(integer p)
+    {
+        if(p & PERMISSION_TRIGGER_ANIMATION)
+        {
+            llSetTimerEvent(0.2);
+        }
+    }
+
+    timer()
+    {
+        if(llGetAgentInfo(owner) & AGENT_WALKING)
+        {
+            list anims = llGetAnimationList(owner);
+            if(~llListFindList(anims, check))
+            {
+                status = 1;
+                llStartAnimation(new_anim);
+                llStopAnimation(old_anim);
+            }
+        }
+        else if(status)
+        {
+            llStopAnimation(new_anim);
+            status = 0;
+        }
+    }
+
+    on_rez(integer p)
+    {
+        llResetScript();
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo" target="_blank">llGetAgentInfo</a></td>
+        <td>–</td>
+        <td>Gets the avatar info</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAnimation" target="_blank">llGetAnimation</a></td>
+        <td>–</td>
+        <td>Get the avatar's base animation state</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStartAnimation" target="_blank">llStartAnimation</a></td>
+        <td>–</td>
+        <td>Start an animation on an avatar</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStopAnimation" target="_blank">llStopAnimation</a></td>
+        <td>–</td>
+        <td>Stop an animation playing on an avatar</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llGetAnimationList( key avatar );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

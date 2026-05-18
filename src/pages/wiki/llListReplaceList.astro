@@ -1,0 +1,286 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ListReplaceList(Target: {T}, ListVariable: {T}, Start: number, End: number): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llListReplaceList(list Target, list ListVariable, integer Start, integer End);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use t[n] = x because Unnecessary table copying.</span></p>
+      <p>  <p>Returns a list that is a copy of <b>dest</b> with <b>start</b> through <b>end</b> removed and <b>src</b> inserted at <b>start</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{T}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Target / dest</td>
+          <td>destination</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{T}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>ListVariable / src</td>
+          <td>source</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Start / start</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>start index</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>End / end</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>end index</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>list</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">296</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>start</b> & <b>end</b> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <h2>Specification</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Index</th>
+        <th>Positive</th>
+        <th>Negative</th>
+      </tr>
+      <tr>
+        <td>First</td>
+        <td>`0`</td>
+        <td>`-length`</td>
+      </tr>
+      <tr>
+        <td>Last</td>
+        <td>`length - 1`</td>
+        <td>`-1`</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Indexes</h3>
+  <ul>
+    <li>Positive indexes count from the beginning, the first item being indexed as `0`, the last as `(length - 1)`.</li>
+  </ul>
+  <ul>
+    <li>Negative indexes count from the far end, the first item being indexed as `-length`, the last as `-1`.</li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If either <b>start</b> or <b>end</b> are out of bounds the script continues to execute without an error message.</li>
+    <li><b>start</b> & <b>end</b> will form an <a href="#exclusion_range" target="_blank">exclusion range</a> when <b>start</b> is past <b>end</b> (Approximately: <b>start</b> > <b>end</b>).</li>
+    <li>If <b>start</b> is past the end of <b>dest</b>, then <b>src</b> is appended to <b>dest</b>, it will not add null entries. To avoid this, create empty elements in the list first. A similar outcome occurs when using <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</li>
+    <li>Just calling the function will not update the variable. You must store it (unless of course you are planning to act on the results straightway.)</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <b>Bad:</b></td>
+        <td>`llListReplaceList(MyList, ["New Item"], 2, 2)`</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <b>Good:</b></td>
+        <td>`MyList = llListReplaceList(MyList, ["New Item"], 2, 2)`</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>In <a href="https://wiki.secondlife.com/wiki/LSO" target="_blank">LSO</a> ONLY (not <a href="https://wiki.secondlife.com/wiki/Mono" target="_blank">Mono</a>): if you are storing to the same list, it can be more memory effective to clear the list before you store.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <b>Good:</b></td>
+        <td>`MyList = llListReplaceList(MyList, ["New Item"], 2, 2)`</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <b>Better:</b></td>
+        <td>`MyList = llListReplaceList((MyList = []) + MyList, ["New Item"], 2, 2)`</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    local MyOldList = {"a", "b", "e", "d"}
+    local MyNewList = ll.ListReplaceList(MyOldList, {"c"}, 2, 2)  --replace the range starting and ending at 
+    --index 2 with ["c"] and store it into MyNewList
+
+    ll.OwnerSay("\"" .. ll.List2CSV(MyOldList) .. "\"  ->  \"" .. ll.List2CSV(MyNewList) .. "\"")  --display the change
+--Will say: "a, b, e, d"  ->  "a, b, c, d"
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        list MyOldList = ["a", "b", "e", "d"];
+        list MyNewList = llListReplaceList(MyOldList, ["c"], 2, 2);//replace the range starting and ending at 
+                                                   //index 2 with ["c"] and store it into MyNewList
+
+        llOwnerSay("\""+llList2CSV(MyOldList) + "\"  ->  \"" + llList2CSV(MyNewList)+"\"");//display the change
+        //Will say: "a, b, e, d"  ->  "a, b, c, d"
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- More commonly, you will be updating an existing list, replacing 1 or more items
+-- Here we replace entries 2 and 3 and over-write our original list
+local function main()
+    local MyList = {"a", "b", "x", "y"}
+    MyList = ll.ListReplaceList(MyList, {"c", "d"}, 2, 3)  -- Over-write MyList, with the modified list (having replaced entries 2 & 3)  
+
+    ll.OwnerSay("\"" .. ll.List2CSV(MyList) .. "\"")  -- display the modified list
+-- Will say: "a, b, c, d"
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// More commonly, you will be updating an existing list, replacing 1 or more items
+// Here we replace entries 2 and 3 and over-write our original list
+default
+{
+    state_entry()
+    {
+        list MyList = ["a", "b", "x", "y"];
+        MyList = llListReplaceList(MyList, ["c", "d"], 2, 3);   // Over-write MyList, with the modified list (having replaced entries 2 & 3)  
+                                                   
+
+        llOwnerSay("\"" + llList2CSV(MyList) + "\"");     // display the modified list
+        // Will say: "a, b, c, d"
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <h3>Ranges & Indexes</h3>
+  <p>The easiest way to explain how ranges work is to make all indexes positive. Negative indexes are just a way of counting from the tail end instead of the beginning, all negative indexes have a corresponding equivalent positive index (assuming they are in range). Positive indexes past length (after the last index), or negative indexes past the beginning (before the first index) are valid and the effects are predictable and reliable: the entries are treated as if they were there but were removed just before output.</p>
+  <ul>
+    <li>If <b>start</b> <= <b>end</b> then the range operated on starts at <b>start</b> and ends at <b>end</b>. [<b>start</b>, <b>end</b>]</li>
+    <li>Exclusion range: If <b>start</b> > <b>end</b> then the range operated on starts at <b>0</b> and goes to <b>end</b> and then starts again at <b>start</b> and goes to <b>-1</b>. [<b>0</b>, <b>end</b>] + [<b>start</b>, <b>-1</b>]
+    <ul>
+      <li>If <b>end</b> is a negative index past the beginning, then the operating range would be [<b>start</b>, <b>-1</b>].</li>
+      <li>If <b>end</b> is a positive index past the end, then the operating range would be [<b>0</b>, <b>end</b>].</li>
+      <li>If both <b>start</b> and <b>end</b> are out of bounds then the function would have no operating range (effectively inverting what the function is supposed to do).</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <p>See <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index#Range_Functions" target="_blank">negative indexes</a> for more information.</p>
+  <p>To be clear, the list you are replacing in doesn't have to actually be a list of many elements. It can be a single item that you make into a single element list just by placing square brackets around it.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local TargetList = {"a", "b", "c", "z", "e"}
+local InsertList = {"d"}
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list TargetList = ["a", "b", "c", "z", "e"];
+list InsertList = ["d"];`} lang="lsl" /></div>
+  <p>To act on a single element in a list, just quote its place in the list as both start and end. For instance, 0, 0 would act only on the first element in the list; 7,7 would act only on the 8th element.</p>
+  <p>For a function that will operate as llListReplaceList does, but work on strided lists, see <a href="https://wiki.secondlife.com/wiki/ListStridedUpdate" target="_blank">ListStridedUpdate</a>.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlDeleteSubList" target="_blank">llDeleteSubList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlListInsertList" target="_blank">llListInsertList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlList2List" target="_blank">llList2List</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">Negative Index</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlListReplaceList_Test" target="_blank">llListReplaceList Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llListReplaceList( list dest, list src, integer start, integer end );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

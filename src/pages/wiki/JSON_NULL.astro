@@ -1,0 +1,217 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`JSON_NULL: string = \u{FDD5}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string JSON_NULL = \u{FDD5};`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use lljson.null</span></p>
+      <p>  <p>The string constant JSON_NULL has the value "�"</p>
+  <p>Return value for <a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a> function indicating the Json data type of a given address specifier in a given string-serialized JSON text.</p>
+  <p>Also the return string value for <a href="https://wiki.secondlife.com/wiki/LlJsonGetValue" target="_blank">llJsonGetValue</a> function when the bare word 'null' is at the given address specifier in a given string-serialized JSON text.</p>
+  <p>Also used to encode the bare word 'null' within a Json text to signify an empty, valueless placeholder Value at that location (the empty LSL String, "", can be used as well for that).</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Type Flags</th>
+        <th>Value</th>
+        <th>Unicode</th>
+        <th><a href="https://wiki.secondlife.com/wiki/LlOrd" target="_blank">Integer</a></th>
+        <th><a href="https://wiki.secondlife.com/wiki/Category:LSL_Encoding/URL" target="_blank">URL Encoded</a></th>
+        <th>HTML Encoded</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a></td>
+        <td>&#xfdd0;</td>
+        <td>U+FDDO</td>
+        <td>64976</td>
+        <td>"%EF%B7%90"</td>
+        <td>&#xFDD0;</td>
+        <td>Value returned when inputs are not well formed.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_OBJECT" target="_blank">JSON_OBJECT</a></td>
+        <td>&#xfdd1;</td>
+        <td>U+FDD1</td>
+        <td>64977</td>
+        <td>"%EF%B7%91"</td>
+        <td>&#xFDD1;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_ARRAY" target="_blank">JSON_ARRAY</a></td>
+        <td>&#xfdd2;</td>
+        <td>U+FDD2</td>
+        <td>64978</td>
+        <td>"%EF%B7%92"</td>
+        <td>&#xFDD2;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_NUMBER" target="_blank">JSON_NUMBER</a></td>
+        <td>&#xfdd3;</td>
+        <td>U+FDD3</td>
+        <td>64979</td>
+        <td>"%EF%B7%93"</td>
+        <td>&#xFDD3;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_STRING" target="_blank">JSON_STRING</a></td>
+        <td>&#xfdd4;</td>
+        <td>U+FDD4</td>
+        <td>64980</td>
+        <td>"%EF%B7%94"</td>
+        <td>&#xFDD4;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>JSON_NULL</td>
+        <td>&#xfdd5;</td>
+        <td>U+FDD5</td>
+        <td>64981</td>
+        <td>"%EF%B7%95"</td>
+        <td>&#xFDD5;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_TRUE" target="_blank">JSON_TRUE</a></td>
+        <td>&#xfdd6;</td>
+        <td>U+FDD6</td>
+        <td>64982</td>
+        <td>"%EF%B7%96"</td>
+        <td>&#xFDD6;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_FALSE" target="_blank">JSON_FALSE</a></td>
+        <td>&#xfdd7;</td>
+        <td>U+FDD7</td>
+        <td>64983</td>
+        <td>"%EF%B7%97"</td>
+        <td>&#xFDD7;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_DELETE" target="_blank">JSON_DELETE</a></td>
+        <td>&#xfdd8;</td>
+        <td>U+FDD8</td>
+        <td>64984</td>
+        <td>"%EF%B7%98"</td>
+        <td>&#xFDD8;</td>
+        <td>Used with <a href="https://wiki.secondlife.com/wiki/LlJsonSetValue" target="_blank">llJsonSetValue</a> to remove a key-value pair.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonGetValue" target="_blank">llJsonGetValue</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Showing usage of JSON_NULL
+-- within a Json text string
+local jText = ""
+
+local function main()
+    jText = ll.List2Json(JSON_OBJECT, {"A", 4, "B", 5})
+    ll.OwnerSay(jText)  -- jText is '{"A":4,"B":5}'
+    ll.OwnerSay(ll.JsonGetValue(jText, {"B"}))  -- The string "5"
+    jText = ll.JsonSetValue(jText, {"B"}, JSON_NULL)
+    ll.OwnerSay(jText)  -- jText is now '{"A":4,"B":null}'
+    ll.OwnerSay(ll.JsonGetValue(jText, {"B"}))  -- The Unicode value of JSON_NULL
+
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Showing usage of JSON_NULL
+// within a Json text string
+string jText;
+
+default
+{
+    state_entry(){
+        jText = llList2Json(JSON_OBJECT, ["A", 4, "B", 5]);
+        llOwnerSay(jText); // jText is '{"A":4,"B":5}'
+        llOwnerSay(llJsonGetValue(jText, ["B"])); // The string "5"
+        jText = llJsonSetValue(jText, ["B"], JSON_NULL);
+        llOwnerSay(jText); // jText is now '{"A":4,"B":null}'
+        llOwnerSay(llJsonGetValue(jText, ["B"])); // The Unicode value of JSON_NULL
+
+        }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>All Issues ~ <a href="https://secondlife.canny.io/?search=JSON_NULL" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/BUG-3692" target="_blank">BUG-3692</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/BUG-3692" target="_blank">A</a></td>
+        <td></td>
+        <td>JSON_NULL may be deceptively returned instead of <a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a> when <a href="http://tools.ietf.org/html/rfc4627" target="_blank">noncompliant Json text</a> is encountered by either <a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a> or <a href="https://wiki.secondlife.com/wiki/LlJsonGetValue" target="_blank">llJsonGetValue</a>. Fixed with release 13.09.21.281328.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+JSON_NULL = "�"
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+string JSON_NULL = "�";
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

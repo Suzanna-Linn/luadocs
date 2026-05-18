@@ -1,0 +1,117 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.PushObject(ObjectID: uuid, Impulse: vector, AngularImpulse: vector, Local: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llPushObject(key ObjectID, vector Impulse, vector AngularImpulse, integer Local);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Applies <b>impulse</b> and <b>ang_impulse</b> to object <b>target</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ObjectID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/target" target="_blank">target</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Impulse / impulse</td>
+          <td>Direction and force of push. Direction is affected by <b>local</b>.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>AngularImpulse / ang_impulse</td>
+          <td>Rotational force.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Local / local</td>
+          <td>boolean, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> uses the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local</a> axis of <b>target</b>, if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> uses the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> axis.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">165</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Only works on land where Push is not restricted or where the script is owned by the land owner.
+    <ul>
+      <li>If the land is owned by a group, the scripted object must be deeded to the same group.</li>
+      <li>In no-push areas an object can only push its owner or itself.</li>
+    </ul>
+  
+    </li>
+    <li>The effectiveness of Push is modulated by the amount of <a href="https://wiki.secondlife.com/wiki/Energy" target="_blank">script energy</a> available.
+    <ul>
+      <li>There is a <a href="https://wiki.secondlife.com/wiki/LlPushObject/Havok4Implementation" target="_blank">simplified code snippet</a> describing how Push is implemented in the Havok4 project and reveals some of the details of how the energy budget affects the final Push magnitude.</li>
+    </ul>
+  
+    </li>
+    <li><b>ang_impulse</b> is ignored when applying to agents or their attachments.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/Energy" target="_blank">Energy</a> is fully depleted by this function when either <b>impulse</b> or <b>ang_impulse</b> is nonzero. If <b>impulse</b> is nonzero, it will drain all energy in the object before <b>ang_impulse</b> is processed, causing the push to be purely linear.</li>
+    <li>The push impact is diminished with distance by a factor of distance cubed.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Pushes the collided object or avatar.
+function LLEvents.collision_start(events)
+    local num_detected = #events
+    ll.PushObject(ll.DetectedKey(0), vector(0, 0, 100), vector(0, 0, 100), true)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Pushes the collided object or avatar.
+default
+{
+    collision_start(integer num_detected)
+    {
+        llPushObject(llDetectedKey(0),<0,0,100>, <0,0,100>, TRUE);
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llPushObject( key target, vector impulse, vector ang_impulse, integer local );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,128 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.AxisAngle2Rot(Axis: vector, Angle: number): rotation`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation llAxisAngle2Rot(vector Axis, float Angle);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a rotation that is a generated <b>angle</b> about <b>axis</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Axis / axis</td>
+          <td>Axis.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Angle / angle</td>
+          <td>expressed in radians.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_3d</li>
+        <li>math_trig</li>
+        <li>quaternion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">169</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>axis</b> need not be <a href="https://wiki.secondlife.com/wiki/LlVecNorm" target="_blank">normalized</a>, only the direction is important.</p>
+  <p><b>angle</b> need to be between the value 0<angle<PI (higher values than PI lead to 2*PI-angle)
+, because a rotation is not really a rotation (it is more of a rigid motion/mirroring)
+,the final destination is the rotation.
+(in other words: it doesn't matter wether you rotate left by 90 degrees or right by 270 degrees it will return the same rotation)</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local axis = vector(0.0, 0.0, 1.0)
+    local angle = 90.0 * DEG_TO_RAD
+    local rot = ll.AxisAngle2Rot(axis, angle)
+    local euler = ll.Rot2Euler(rot) * RAD_TO_DEG
+
+    ll.OwnerSay(tostring(euler))
+--Says <0.0, 0.0, 90.0> since it is rotating 90 degrees on the Z axis caused by the 1.0 placed in the Z vector spot. 
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        vector axis = <0.0, 0.0, 1.0>;
+        float angle = 90.0 * DEG_TO_RAD;
+        rotation rot = llAxisAngle2Rot(axis, angle);
+        vector euler = llRot2Euler(rot) * RAD_TO_DEG;
+
+        llOwnerSay((string) euler);
+        //Says <0.0, 0.0, 90.0> since it is rotating 90 degrees on the Z axis caused by the 1.0 placed in the Z vector spot. 
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Angle" target="_blank">llRot2Angle</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Axis" target="_blank">llRot2Axis</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation llAxisAngle2Rot( vector axis, float angle )
+{
+    axis = llVecNorm( axis ) * llSin( angle/2 );
+    return <axis.x, axis.y, axis.z, llCos( angle/2 )>;
+}`} lang="lsl" /></div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function rotation llAxisAngle2Rot( vector axis, float angle );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

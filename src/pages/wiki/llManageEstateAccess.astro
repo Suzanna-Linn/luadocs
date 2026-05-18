@@ -1,0 +1,174 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ManageEstateAccess(Action: number, AvatarID: uuid): boolean`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llManageEstateAccess(integer Action, key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Use to add or remove agents from the estate's agent access or ban lists or groups from the estate's group access list.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if the call was successful; <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> if throttled, invalid action, invalid or null id or object owner is not allowed to manage the estate.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Action / action</td>
+          <td>ESTATE_ACCESS_* flag</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
+          <td>avatar or group <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>land_moderation</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">393</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Only works for objects owned by the Estate Owner or an <a href="https://wiki.secondlife.com/wiki/Estate_Manager" target="_blank">Estate Manager</a>. By default, the object owner is notified of every change made using this function. But if the owner grants <a href="https://wiki.secondlife.com/wiki/PERMISSION_SILENT_ESTATE_MANAGEMENT" target="_blank">PERMISSION_SILENT_ESTATE_MANAGEMENT</a> to the script, the owner will not be notified.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>action</b> flag</th>
+        <th>V</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_ALLOWED_AGENT_ADD" target="_blank">ESTATE_ACCESS_ALLOWED_AGENT_ADD</a></td>
+        <td>0x4</td>
+        <td>Add the agent to this estate's Allowed Residents list.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_ALLOWED_AGENT_REMOVE" target="_blank">ESTATE_ACCESS_ALLOWED_AGENT_REMOVE</a></td>
+        <td>0x8</td>
+        <td>Remove the agent from this estate's Allowed Residents list.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_ALLOWED_GROUP_ADD" target="_blank">ESTATE_ACCESS_ALLOWED_GROUP_ADD</a></td>
+        <td>0x10</td>
+        <td>Add the group to this estate's Allowed groups list.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_ALLOWED_GROUP_REMOVE" target="_blank">ESTATE_ACCESS_ALLOWED_GROUP_REMOVE</a></td>
+        <td>0x20</td>
+        <td>Remove the group from this estate's Allowed groups list.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_BANNED_AGENT_ADD" target="_blank">ESTATE_ACCESS_BANNED_AGENT_ADD</a></td>
+        <td>0x40</td>
+        <td>Add the agent to this estate's Banned residents list.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_BANNED_AGENT_REMOVE" target="_blank">ESTATE_ACCESS_BANNED_AGENT_REMOVE</a></td>
+        <td>0x80</td>
+        <td>Remove the agent from this estate's Banned residents list.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Calls are throttled at a rate of 30 calls per 30 seconds.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> will be returned...
+    <ul>
+      <li>if throttled,</li>
+      <li>if object owner doesn't have power to perform <b>action</b>,</li>
+      <li>if <b>avatar</b> is invalid or null</li>
+    </ul>
+  
+    </li>
+    <li>If used on <a href="https://wiki.secondlife.com/wiki/Mainland" target="_blank">mainland</a> the message "llManageEstateAccess does not work on mainland" is <a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">shouted</a> on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If the object owner is not allowed to manage the estate the message "llManageEstateAccess object owner must manage estate." is <a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">shouted</a> on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. -- <a href="https://jira.secondlife.com/browse/SRC-233" target="_blank">SRC-233</a></li>
+    <li>If a legit estate manager tries to exceed the max number of entries in the list the call will return <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> but the operation be truncated at the limit.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAddToLandPassList" target="_blank">llAddToLandPassList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAddToLandBanList" target="_blank">llAddToLandBanList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRemoveFromLandBanList" target="_blank">llRemoveFromLandBanList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRemoveFromLandPassList" target="_blank">llRemoveFromLandPassList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlResetLandBanList" target="_blank">llResetLandBanList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlResetLandPassList" target="_blank">llResetLandPassList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.10.18.243270" target="_blank"> 18/10/2011 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llManageEstateAccess( integer action, key avatar );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

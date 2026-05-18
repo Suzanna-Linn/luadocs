@@ -1,0 +1,185 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.MakeFountain(Particles: number, Scale: number, Velocity: number, Lifetime: number, Arc: number, Bounce: number, Texture: string|uuid, Offset: vector, Bounce_Offset: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llMakeFountain(integer Particles, float Scale, float Velocity, float Lifetime, float Arc, integer Bounce, string Texture, vector Offset, float Bounce_Offset);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"">Deprecated:  use ll.ParticleSystem</p>
+      <p>  <p>Make a fountain of particles</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Particles / particles</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Scale / scale</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Velocity / vel</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Lifetime / lifetime</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Arc / arc</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Bounce / bounce</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Texture / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/texture" target="_blank">texture</a></td>
+          <td>a texture in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a texture</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Offset / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/offset" target="_blank">offset</a></td>
+          <td>offset relative to the prim's position and expressed in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a>&#32;and is completely ignored.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Bounce_Offset / bounce_offset</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>effects</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">101</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-deprecated">Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.1 seconds.</li>
+    <li>This function has been deprecated, please use <a href="https://wiki.secondlife.com/wiki/LlParticleSystem" target="_blank">llParticleSystem</a> instead.</li>
+    <li><b>offset</b> functionality has been removed, any value provided is completely ignored. For future proofing purposes, you should use a <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> for it's value.</li>
+    <li>If <b>texture</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>texture</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Notes</h2>
+  <p>Beginning in 1.14, the simulator will be using <a href="https://wiki.secondlife.com/wiki/LlParticleSystem" target="_blank">llParticleSystem</a> to emulate legacy llMakeFountain particles.</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llMakeFountain(integer particle_count,
+              float particle_scale,
+              float particle_speed,
+              float particle_lifetime,
+              float source_cone,
+              integer source_bounce,
+              string source_texture_id,
+              vector local_offset,
+              vector bounce_offset);`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function fakeMakeFountain(particle_count, particle_scale, particle_speed, particle_lifetime, source_cone, bounce, source_texture_id, local_offset, bounce_offset)
+    --      local_offset is ignored
+    --      bounce is ignored
+    --      bounce_offset is ignored
+    ll.ParticleSystem({PSYS_PART_FLAGS, bit32.bor(PSYS_PART_INTERP_COLOR_MASK, PSYS_PART_INTERP_SCALE_MASK, PSYS_PART_WIND_MASK, PSYS_PART_BOUNCE_MASK, PSYS_PART_EMISSIVE_MASK), PSYS_SRC_PATTERN, PSYS_SRC_PATTERN_ANGLE_CONE, PSYS_PART_START_COLOR, vector(1.0, 1.0, 1.0), PSYS_PART_END_COLOR, vector(1.0, 1.0, 1.0), PSYS_PART_START_ALPHA, 0.50, PSYS_PART_END_ALPHA, 0.25, PSYS_PART_START_SCALE, vector(particle_scale / 1.5, particle_scale / 1.5, 0.0), PSYS_PART_END_SCALE, vector(0.0, 0.0, 0.0), PSYS_PART_MAX_AGE, 3.0, PSYS_SRC_ACCEL, vector(1.0, 0.0, -4), PSYS_SRC_TEXTURE, source_texture_id, PSYS_SRC_BURST_RATE, 5 // particle_count, PSYS_SRC_ANGLE_BEGIN, 0.0, PSYS_SRC_ANGLE_END, source_cone * PI, PSYS_SRC_BURST_PART_COUNT, 1, PSYS_SRC_BURST_RADIUS, 0.0, PSYS_SRC_BURST_SPEED_MIN, particle_speed, PSYS_SRC_BURST_SPEED_MAX, particle_speed, PSYS_SRC_MAX_AGE, particle_lifetime / 2, PSYS_SRC_OMEGA, vector(0.0, 0.0, 0.0)})
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`fakeMakeFountain(integer particle_count, float particle_scale, float particle_speed,
+                float particle_lifetime, float source_cone, integer bounce,
+                string source_texture_id, vector local_offset, vector bounce_offset)
+{
+//      local_offset is ignored
+//      bounce is ignored
+//      bounce_offset is ignored
+    llParticleSystem([
+        PSYS_PART_FLAGS,            PSYS_PART_INTERP_COLOR_MASK | PSYS_PART_INTERP_SCALE_MASK | PSYS_PART_WIND_MASK | PSYS_PART_BOUNCE_MASK | PSYS_PART_EMISSIVE_MASK,
+        PSYS_SRC_PATTERN,           PSYS_SRC_PATTERN_ANGLE_CONE,
+        PSYS_PART_START_COLOR,      <1.0, 1.0, 1.0>,
+        PSYS_PART_END_COLOR,        <1.0, 1.0, 1.0>,
+        PSYS_PART_START_ALPHA,      0.50,
+        PSYS_PART_END_ALPHA,        0.25,
+        PSYS_PART_START_SCALE,      <particle_scale/1.5, particle_scale/1.5, 0.0>,
+        PSYS_PART_END_SCALE,        <0.0, 0.0, 0.0>,
+        PSYS_PART_MAX_AGE,          3.0,
+        PSYS_SRC_ACCEL,             <1.0, 0.0, -4>,
+        PSYS_SRC_TEXTURE,           source_texture_id,
+        PSYS_SRC_BURST_RATE,        5/particle_count,
+        PSYS_SRC_ANGLE_BEGIN,       0.0,
+        PSYS_SRC_ANGLE_END,         source_cone*PI,
+        PSYS_SRC_BURST_PART_COUNT,  1,
+        PSYS_SRC_BURST_RADIUS,      0.0,
+        PSYS_SRC_BURST_SPEED_MIN,   particle_speed,
+        PSYS_SRC_BURST_SPEED_MAX,   particle_speed,
+        PSYS_SRC_MAX_AGE,           particle_lifetime/2,
+        PSYS_SRC_OMEGA,             <0.0, 0.0, 0.0>
+    ]);
+}
+//    Known discrepancies:
+//    1) The bounce level is not adjustable with the new particle system,
+//       it will be fixed to 0
+//    2) The original llMakeFountain has random particle lifetime, which cannot be
+//       created in the current particle system via a single call
+//    3) several values are not taken 'verbatim' in the original particle system
+//       (velocity is not m/sec for instance, and number of particles seems to be
+//       wildly off), these are approximated loosely in this simulation via basic
+//       divisors, which may not work out the same in some scenarios
+//    4) There is no way to duplicate the offset from the old functions within the
+//       new particle system`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llMakeFountain( integer particles, float scale, float vel, float lifetime, float arc, integer bounce, string texture, vector offset, float bounce_offset );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

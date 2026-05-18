@@ -1,0 +1,62 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`CHARACTER_LENGTH: number = 3`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer CHARACTER_LENGTH = 3;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant CHARACTER_LENGTH has the value 3</p>
+  <p>Constant used to indicate that the following argument is the length of the capsule for a <a href="https://wiki.secondlife.com/wiki/Pathfinding" target="_blank">Pathfinding</a> character. This is used to help denote the size of the character.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>CharacterParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <p><a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a>, <a href="https://wiki.secondlife.com/wiki/LlUpdateCharacter" target="_blank">llUpdateCharacter</a></p>
+  <h3>Events</h3>
+  <p><a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a></p>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=CHARACTER_LENGTH" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+CHARACTER_LENGTH = 3
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer CHARACTER_LENGTH = 3;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

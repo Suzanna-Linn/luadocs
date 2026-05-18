@@ -1,0 +1,181 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetAlpha(Face: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetAlpha(integer Face);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> alpha of <b>face</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">50</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function returns the sum of alpha of all the faces on the prim, range <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfSides" target="_blank">0, [sides</a>][[1]](#footnote_1).</p>
+  <p>Otherwise the return is in the range [0, 1], with 0.0 being fully transparent and 1.0 being fully solid.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>face</b> indicates a face that does not exist the return is 1.0</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Tells the owner the alpha on all sides
+local function main()
+    local i = 0
+    local max = ll.GetNumberOfSides()
+    while i < max do
+        ll.Say(0, "Face " .. tostring(i) .. " alpha is " .. tostring(ll.GetAlpha(i)))
+        i += 1
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Tells the owner the alpha on all sides
+default
+{
+    state_entry()
+    {
+        integer i = 0;
+        integer max = llGetNumberOfSides();
+        while(i < max)
+        {
+            llSay(0,"Face "+(string)i+" alpha is " + (string)llGetAlpha(i));
+            ++i;
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function AveragePrimAlpha()
+    --Since this is so simple you may just want to inline it instead of including the function.
+    return ll.GetAlpha(ALL_SIDES) / ll.GetNumberOfSides()
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float AveragePrimAlpha()
+{//Since this is so simple you may just want to inline it instead of including the function.
+    return (llGetAlpha(ALL_SIDES) / llGetNumberOfSides());
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--if face 0 is "transparent" then make the prim "visible"
+if ll.GetAlpha(0) ~= 0 then
+else
+    ll.SetAlpha(1.0, ALL_SIDES)
+end`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//if face 0 is "transparent" then make the prim "visible"
+if (llGetAlpha(0))  ;
+else llSetAlpha(1.0, ALL_SIDES);`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetAlpha" target="_blank">llSetAlpha</a></td>
+        <td>–</td>
+        <td>Sets the prim's alpha</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetColor" target="_blank">llGetColor</a></td>
+        <td>–</td>
+        <td>Gets the prim's color</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetColor" target="_blank">llSetColor</a></td>
+        <td>–</td>
+        <td>Sets the prim's color</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkColor" target="_blank">llSetLinkColor</a></td>
+        <td>–</td>
+        <td>Sets link's color</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkAlpha" target="_blank">llSetLinkAlpha</a></td>
+        <td>–</td>
+        <td>Sets link's alpha</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNumberOfSides" target="_blank">llGetNumberOfSides</a></td>
+        <td>–</td>
+        <td>Gets the number of faces on the prim</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Alpha" target="_blank">Translucent Color</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Rounding</p>
+  <p>Alpha is stored in a single 8-bit byte, meaning there are 256 values that are possible. Consequently the values returned by this function are all multiples of 1/255. When the alpha value is initially stored the float value is rounded to the nearest multiple, turning 0.5 into 128/255 for example.</p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGetAlpha( integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

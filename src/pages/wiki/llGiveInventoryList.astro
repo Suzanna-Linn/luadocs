@@ -1,0 +1,300 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GiveInventoryList(TargetID: uuid, FolderName: string, InventoryItems: {string})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llGiveInventoryList(key TargetID, string FolderName, list InventoryItems);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Gives <b>inventory</b> items to <b>target</b>, creating a new <b>folder</b> to put them in.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>TargetID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/target" target="_blank">target</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>FolderName / folder</td>
+          <td>folder name to use</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{string}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>InventoryItems / inventory</td>
+          <td>a list of items in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_inventory</li>
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">3s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">231</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <h3>target types</h3>
+  <p>Depending upon the type of <b>target</b> this function works differently.</p>
+  <ul>
+    <li>Avatar
+    <ul>
+      <li>Must be in or able to see into the same Region as the sending object, or recently have been so. <a href="#SVC-868" target="_blank">SVC-868</a></li>
+      <li>Places the inventory items in a newly created folder in the avatars inventory (even if there is a folder by the same name, a new one is created).</li>
+    </ul>
+  
+    </li>
+    <li>Prim / Object
+    <ul>
+      <li>The prim <i>must</i> be in the same region.</li>
+      <li>Does <i>not</i> create a folder.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 3.0 seconds.</li>
+    <li>If <b>target</b> is not the owner nor shares the same owner, and <b>inventory</b> does not have transfer permissions, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>inventory</b> permissions do not allow copy, the transfer fails and an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>target</b> is a prim that is not in the same region an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>When scripts are copied or moved between inventories, their state does not survive the transfer. Memory, event queue and execution position are all discarded.</li>
+    <li>If <b>inventory</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local n = #events
+    local toucher = ll.DetectedKey(0)
+    local folder = "Item Folder"
+    local inventory = {"item", "another item"}
+    ll.GiveInventoryList(toucher, folder, inventory)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer n)
+    {
+        key toucher = llDetectedKey(0);
+        string folder = "Item Folder";
+        list inventory = ["item", "another item"];
+        llGiveInventoryList(toucher, folder, inventory);
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--  when the prim is touched, the script checks all other inventory items whether or not they're copiable
+--  copiable items are added to a list, if the list is not empty when all items have been checked
+--  the prim gives them to the touching avatar within a single folder
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local thisScript = ll.GetScriptName()
+    local inventoryItems = {}
+    local inventoryNumber = ll.GetInventoryNumber(INVENTORY_ALL)
+
+    local index = 0
+    while index < inventoryNumber do
+        local itemName = ll.GetInventoryName(INVENTORY_ALL, index)
+
+        if itemName ~= thisScript then
+            if bit32.btest(ll.GetInventoryPermMask(itemName, MASK_OWNER), PERM_COPY) then
+                inventoryItems = ll.ListInsertList(inventoryItems, {itemName}, #inventoryItems)
+            else
+                ll.Say(0, "Unable to copy the item named '" .. itemName .. "'.")
+            end
+        end
+        index += 1
+    end
+
+    if #inventoryItems == 0 then
+        ll.Say(0, "No copiable items found, sorry.")
+    else
+        ll.GiveInventoryList(ll.DetectedKey(0), ll.GetObjectName(), inventoryItems)  -- 3.0 seconds delay
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  when the prim is touched, the script checks all other inventory items whether or not they're copiable
+//  copiable items are added to a list, if the list is not empty when all items have been checked
+//  the prim gives them to the touching avatar within a single folder
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        string thisScript = llGetScriptName();
+        list inventoryItems;
+        integer inventoryNumber = llGetInventoryNumber(INVENTORY_ALL);
+
+        integer index;
+        for ( ; index < inventoryNumber; ++index )
+        {
+            string itemName = llGetInventoryName(INVENTORY_ALL, index);
+
+            if (itemName != thisScript)
+            {
+                if (llGetInventoryPermMask(itemName, MASK_OWNER) & PERM_COPY)
+                {
+                    inventoryItems += itemName;
+                }
+                else
+                {
+                    llSay(0, "Unable to copy the item named '" + itemName + "'.");
+                }
+            }
+        }
+
+        if (inventoryItems == [] )
+        {
+            llSay(0, "No copiable items found, sorry.");
+        }
+        else
+        {
+            llGiveInventoryList(llDetectedKey(0), llGetObjectName(), inventoryItems);    // 3.0 seconds delay
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--  script gives items to owner only
+--  all copiable items are given within a single folder
+--  all no-copy items are transferred separately (only one time, right? right!)
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local owner = ll.GetOwner()
+    if ll.DetectedKey(0) ~= owner then
+        return
+    end
+
+    local inventoryItems = {}
+    local inventoryNumber = ll.GetInventoryNumber(INVENTORY_ALL)
+
+    local index = 0
+    while index < inventoryNumber do
+        local itemName = ll.GetInventoryName(INVENTORY_ALL, index)
+        if itemName ~= ll.GetScriptName() then
+            if bit32.btest(ll.GetInventoryPermMask(itemName, MASK_OWNER), PERM_COPY) then
+                inventoryItems = ll.ListInsertList(inventoryItems, {itemName}, #inventoryItems)
+            else
+                ll.GiveInventory(owner, itemName)  -- 2.0 seconds delay
+            end
+        end
+        index += 1
+    end
+
+    if #inventoryItems ~= 0 then
+        ll.GiveInventoryList(owner, ll.GetObjectName(), inventoryItems)  -- 3.0 seconds delay
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  script gives items to owner only
+//  all copiable items are given within a single folder
+//  all no-copy items are transferred separately (only one time, right? right!)
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        key owner = llGetOwner();
+        if (llDetectedKey(0) != owner)
+            return;
+
+        list inventoryItems;
+        integer inventoryNumber = llGetInventoryNumber(INVENTORY_ALL);
+
+        integer index;
+        for ( ; index < inventoryNumber; ++index )
+        {
+            string itemName = llGetInventoryName(INVENTORY_ALL, index);
+            if (itemName != llGetScriptName() )
+            {
+                if (llGetInventoryPermMask(itemName, MASK_OWNER) & PERM_COPY)
+                {
+                    inventoryItems += itemName;
+                }
+                else
+                {
+                    llGiveInventory(owner, itemName);    // 2.0 seconds delay
+                }
+            }
+        }
+
+        if (inventoryItems != [] )
+            llGiveInventoryList(owner, llGetObjectName(), inventoryItems);    // 3.0 seconds delay
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveInventory" target="_blank">llGiveInventory</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveAgentInventory" target="_blank">llGiveAgentInventory</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llGiveInventoryList( key target, string folder, list inventory );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

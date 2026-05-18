@@ -1,0 +1,185 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.EjectFromLand(AvatarID: uuid)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llEjectFromLand(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Ejects <b>avatar</b> from the parcel.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>land_moderation</li>
+        <li>parcel</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">213</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Generally, the object owner must also be the land owner but there is an exception for land deeded to a group for group members with the "Eject and freeze Residents on parcels" ability. See <a href="#Ownership_Limitations" target="_blank">#Ownership Limitations</a> for details.</p>
+  <h2>Specification</h2>
+  <h3>Ownership Limitations</h3>
+  <ul>
+    <li>If the land under the object is owned by an individual, the script must be owned by the same individual.</li>
+    <li>If the land under the object is deeded to a group the object will need to satisfy one of the following:
+    <ul>
+      <li>The object is deeded to the same group.</li>
+      <li>The object owner must have "Eject and freeze Residents on parcels" ability in the group and be connected to the sim[[1]](#footnote_1).</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Here a script done by shenanigan oh
+
+--It's a easy script that I came up with. When I worked for a carnage I put this script in a computer that was
+--attached to me. The carnage it self was a pvp sims so it was alot easier and fast to eject some this way
+--then running after them and clicking on them. The way this work is by trying eject and half type plays name.
+--Example: /1 eject shenan
+
+--Warning if you type someone name in short be careful of other plays with same name!
+local msg = ""
+local name = ""
+function LLEvents.on_rez(n)
+    ll.ResetScript()
+end
+
+local function main()
+    ll.Listen(1, "", ll.GetOwner(), "")
+    ll.Listen(0, "", ll.GetOwner(), "")
+end
+
+function LLEvents.listen(n, m, k, msg)
+    if ll.GetSubString(msg, 0, 5) == "eject " then
+        name = ll.ToLower(ll.StringTrim(ll.DeleteSubString(msg, 0, 5), STRING_TRIM))
+        ll.Sensor("", "", AGENT, 96, PI)
+    end
+end
+
+function LLEvents.sensor(events)
+    local n = #events
+    local i = 0
+    while i < n do
+        if ll.OverMyLand(ll.DetectedKey(i)) ~= 0 then
+            if bit32.bnot(ll.SubStringIndex(ll.ToLower(ll.DetectedName(i)), name)) ~= 0 then
+                ll.OwnerSay("ejecting " .. ll.DetectedName(i))
+                ll.EjectFromLand(ll.DetectedKey(i))
+            end
+        end
+        i += 1
+    end
+end
+function LLEvents.no_sensor()
+    ll.OwnerSay("Avatar not found.")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Here a script done by shenanigan oh
+
+//It's a easy script that I came up with. When I worked for a carnage I put this script in a computer that was
+//attached to me. The carnage it self was a pvp sims so it was alot easier and fast to eject some this way
+//then running after them and clicking on them. The way this work is by trying eject and half type plays name.
+//Example: /1 eject shenan
+
+//Warning if you type someone name in short be careful of other plays with same name!
+string msg;
+string name;
+default
+{
+    on_rez(integer n)
+    {
+        llResetScript();
+    }
+    
+    state_entry()
+    {
+        llListen(1, "", llGetOwner(), "");
+        llListen(0, "", llGetOwner(), "");
+    }
+
+    listen(integer n, string m, key k, string msg)
+    {
+        if (llGetSubString(msg, 0, 5) == "eject ")
+        {
+            name = llToLower(llStringTrim(llDeleteSubString(msg, 0, 5), STRING_TRIM));
+            llSensor("", "", AGENT, 96, PI);
+        }
+    }
+    
+    sensor(integer n)
+    {
+        integer i = 0;
+        for (;i<n;++i)
+        {
+            if (llOverMyLand(llDetectedKey(i)))
+            {
+                if (~llSubStringIndex(llToLower(llDetectedName(i)), name))
+                {
+                    llOwnerSay("ejecting " + llDetectedName(i));
+                    llEjectFromLand(llDetectedKey(i));
+                }
+            }
+        }
+    }
+    no_sensor()
+    {
+        llOwnerSay("Avatar not found.");
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llEjectFromLand Added in <a href="http://secondlife.wikia.com/wiki/Version_0.6.0" target="_blank">SL 0.6.0</a>[[2]](#footnote_2)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The script owner need not be in the region, they can be a child agent of the region.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llEjectFromLand( key avatar );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

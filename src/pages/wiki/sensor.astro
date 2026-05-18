@@ -1,0 +1,160 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`sensor(Detected: {DetectedEvent})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`sensor(integer NumberDetected)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Results from a call to either <a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a> or <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Detected / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span>NumberDetected / num_detected</span></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Table with the detected events / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span>number of objects/avatars found</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-detected">Detected Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The results are ordered from nearest to furthest.</p>
+  <p><b>num_detected</b> is always greater than zero, the <a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a> event is triggered if no objects/avatars were found.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Linden" target="_blank">Lindens</a> in <a href="https://wiki.secondlife.com/wiki/God_Mode" target="_blank">administrative mode</a> cannot be sensed by sensors in the same region as the Linden.</li>
+    <li>Sensors placed in attachments will use the direction the avatar is facing as their forward vector. In mouselook, this means that it will be wherever the avatar is looking, while out of mouselook, this means whichever way the avatar is pointing. This does not include where the avatar's head is pointing, or what animation the avatar is doing, just the direction the avatar would move in if you walked forward. This is the case, regardless of where the object is attached.</li>
+    <li>A sensor running in an attachment will not detect the avatar wearing it.</li>
+    <li>Only 32 objects will be scanned each time. (Increased from 16 with Release 2024-03-18.8333615376 on Tuesday, March 19, 2024)</li>
+    <li>This event is not executed when nothing is detected, means, you never get the result 0 returned. Use <a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a> for that.</li>
+    <li>on logout all avatars leave a Ghost for a few moments, this results in Failures in llDetected functions in sensor events.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    --  do a 10m spherical sweep
+    ll.Sensor("", NULL_KEY, AGENT_BY_LEGACY_NAME, 10.0, PI)
+end
+
+function LLEvents.sensor(events)
+    local num_detected = #events
+    local message = "Detected " .. tostring(num_detected) .. " avatar(s): " .. ll.DetectedName(0)
+
+    --  we already added the first avatar above, so continue from index 1
+    local index = 1
+    while index < num_detected do
+        message ..= ", " .. ll.DetectedName((function() local tmp = index index += 1 return tmp end)())
+    end
+
+    ll.Whisper(PUBLIC_CHANNEL, message)
+end
+
+function LLEvents.no_sensor()
+    ll.Whisper(PUBLIC_CHANNEL, "Nobody is near me at present.")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+    //  do a 10m spherical sweep
+        llSensor("", NULL_KEY, AGENT_BY_LEGACY_NAME, 10.0, PI);
+    }
+
+    sensor (integer num_detected)
+    {
+        string message = "Detected " + (string)num_detected + " avatar(s): " + llDetectedName(0);
+
+    //  we already added the first avatar above, so continue from index 1
+        integer index = 1;
+        while (index < num_detected)
+            message += ", " + llDetectedName(index++);
+
+        llWhisper(PUBLIC_CHANNEL, message);
+    }
+
+    no_sensor()
+    {
+        llWhisper(PUBLIC_CHANNEL, "Nobody is near me at present.");
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> You might want to use <a href="https://wiki.secondlife.com/wiki/LlGetAgentList" target="_blank">llGetAgentList</a> instead of using sensors to get a list of all avatars within the same parcel or region.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">Detected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void sensor( integer num_detected );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

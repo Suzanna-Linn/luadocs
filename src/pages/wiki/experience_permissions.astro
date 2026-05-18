@@ -1,0 +1,94 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`experience_permissions(agent_id: uuid)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`experience_permissions(key agent_id)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The agent has approved an <a href="https://wiki.secondlife.com/wiki/LlRequestExperiencePermissions" target="_blank">experience permissions request</a>. This may be through interaction with the experience permission dialog or the experience profile, or automatically if the agent has previously approved the experience.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>agent_id</td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;approving permission</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.RequestExperiencePermissions(ll.DetectedKey(0), "")
+end
+
+function LLEvents.experience_permissions(agent_id)
+    ll.Say(0, "Experience permissions granted for " .. tostring(agent_id))
+end
+
+function LLEvents.experience_permissions_denied(agent_id, reason)
+    ll.Say(0, "Experience permissions denied for " .. tostring(agent_id) .. " due to reason #" .. tostring(reason))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        llRequestExperiencePermissions(llDetectedKey(0), "");
+    }
+
+    experience_permissions(key agent_id)
+    {
+        llSay(0, "Experience permissions granted for " + (string)agent_id);
+    }
+
+    experience_permissions_denied(key agent_id, integer reason)
+    {
+        llSay(0, "Experience permissions denied for " + (string)agent_id + " due to reason #" + (string)reason);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <p><a href="https://wiki.secondlife.com/wiki/Experience_permissions_denied" target="_blank">experience_permissions_denied</a></p>
+  <h3>Functions</h3>
+  <p><a href="https://wiki.secondlife.com/wiki/LlRequestExperiencePermissions" target="_blank">llRequestExperiencePermissions</a></p>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void experience_permissions( key agent_id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

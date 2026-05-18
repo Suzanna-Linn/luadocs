@@ -1,0 +1,144 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestDisplayName(AvatarID: uuid): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llRequestDisplayName(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests the <b><a href="https://wiki.secondlife.com/wiki/Display_Names" target="_blank">Display Name</a></b> of the agent identified by <b>id</b>. When the Display Name is available the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event will be raised. The agent identified by <b>id</b> does not need to be in the same region or online at the time of the request.</p>
+  <p>Returns the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) that is used to identify the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event when it is raised.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>dataserver</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">361</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If the request fails for any reason, there will be no error notice or dataserver event. You may use a timer to check for stale requests.</li>
+    <li><p>If you merely wish to show the agent display name in the viewer window, it may be more straightforward to use <a href="https://wiki.secondlife.com/wiki/Viewer_URI_Name_Space" target="_blank">Viewer URI Name Space</a> and avoid a dataserver event, e.g.:</p>
+<p><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+llSay(0, "secondlife:///app/agent/" + (string)id + "/displayname");
+`} lang="lsl" /></div>
+
+</p></li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local owner_key = NULL_KEY
+local owner_name_query = NULL_KEY
+local owner_display_name = ""
+
+local function main()
+    owner_key = ll.GetOwner()
+    owner_name_query = ll.RequestDisplayName(owner_key)
+end
+function LLEvents.dataserver(queryid, data)
+    if owner_name_query == queryid then
+        owner_display_name = data
+        ll.Say(0, "The display name of the owner of this script : " .. owner_display_name)
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key owner_key;
+key owner_name_query;
+string owner_display_name;
+
+default
+{
+    state_entry()
+    {
+        owner_key = llGetOwner();
+        owner_name_query = llRequestDisplayName(owner_key);
+    }
+    dataserver(key queryid, string data)
+    {
+        if ( owner_name_query == queryid )
+        {
+            owner_display_name = data;
+            llSay(0, "The display name of the owner of this script : " + owner_display_name );
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetDisplayName" target="_blank">llGetDisplayName</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestUsername" target="_blank">llRequestUsername</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llRequestDisplayName( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

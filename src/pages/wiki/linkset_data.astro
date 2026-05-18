@@ -1,0 +1,139 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`linkset_data(action: number, name: string, value: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`linkset_data(integer action, string name, string value)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The linkset_data event fires in all scripts in a linkset whenever the datastore has been modified through a call to one of the <b>llLinksetData</b> functions.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>action</td>
+          <td>Action taken on the linkset Datastore</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>The <b>key</b> of the <b>name:value</b> pair.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>value</td>
+          <td>The new <b>value</b> of the pair. Empty string if pair was deleted or is password-protected (see <a href="https://wiki.secondlife.com/wiki/LlLinksetDataWriteProtected" target="_blank">llLinksetDataWriteProtected</a>).</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This event fires in all scripts in a linkset whenever the datastore is changed.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_RESET&action=edit&redlink=1" target="_blank">LINKSETDATA_RESET</a></td>
+        <td>0</td>
+        <td>The linkset's datastore has been cleared by a call to <a href="https://wiki.secondlife.com/wiki/LlLinksetDataReset" target="_blank">llLinksetDataReset</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_UPDATE&action=edit&redlink=1" target="_blank">LINKSETDATA_UPDATE</a></td>
+        <td>1</td>
+        <td>A <b>key</b> in the linkset's datastore has been assigned a new <b>value</b> with <a href="https://wiki.secondlife.com/wiki/LlLinksetDataWrite" target="_blank">llLinksetDataWrite</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_DELETE&action=edit&redlink=1" target="_blank">LINKSETDATA_DELETE</a></td>
+        <td>2</td>
+        <td>A <b>key</b> in the linkset's datastore has been deleted. Either through a call to <a href="https://wiki.secondlife.com/wiki/LlLinksetDataDelete" target="_blank">llLinksetDataDelete</a> or <a href="https://wiki.secondlife.com/wiki/LlLinksetDataWrite" target="_blank">llLinksetDataWrite</a> with an empty <b>value</b>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_MULTIDELETE&action=edit&redlink=1" target="_blank">LINKSETDATA_MULTIDELETE</a></td>
+        <td>3</td>
+        <td>A comma separated list of the <b>keys</b> in the linkset's datastore which have been deleted through a call to <a href="https://wiki.secondlife.com/wiki/LlLinksetDataDeleteFound" target="_blank">llLinksetDataDeleteFound</a>.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.linkset_data(action, name, value)
+    if action == LINKSETDATA_RESET then
+        ll.OwnerSay("Link set datastore has been cleared.")
+    -- name and value will both be empty strings, ""
+    elseif action == LINKSETDATA_DELETE then
+        ll.OwnerSay("Link set datastore key \"" .. name .. "\" has been deleted.")
+    -- value is an empty string, ""
+    elseif action == LINKSETDATA_UPDATE then
+        ll.OwnerSay("Link set datastore key \"" .. name .. "\" = \"" .. value .. "\".")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    linkset_data(integer action, string name, string value)
+    {
+        if (action == LINKSETDATA_RESET)
+        {
+            llOwnerSay("Link set datastore has been cleared.");
+            // name and value will both be empty strings, ""
+        }
+        else if (action == LINKSETDATA_DELETE)
+        {
+            llOwnerSay("Link set datastore key \"" + name + "\" has been deleted.");
+            // value is an empty string, ""
+        }
+        else if (action == LINKSETDATA_UPDATE)
+        {
+            llOwnerSay("Link set datastore key \"" + name + "\" = \"" + value + "\".");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDelete" target="_blank">llLinksetDataDelete</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlLinksetDataReset" target="_blank">llLinksetDataReset</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlLinksetDataWrite" target="_blank">llLinksetDataWrite</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlLinksetDataWriteProtected" target="_blank">llLinksetDataWriteProtected</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void linkset_data( integer action, string name, string value );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

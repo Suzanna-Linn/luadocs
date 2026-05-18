@@ -1,0 +1,151 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ListenRemove(ChannelHandle: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llListenRemove(integer ChannelHandle);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Removes listen event callback <b>handle</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>ChannelHandle / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/handle" target="_blank">handle</a></td>
+          <td>handle to control <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> event</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_communication</li>
+        <li>chat</li>
+        <li>script_communication</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">27</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>On <a href="https://wiki.secondlife.com/wiki/State" target="_blank">state</a> change or <a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">script reset</a> all listens are removed automatically.
+    <ul>
+      <li>A state change can be used as a shortcut to releasing all listens in the script.</li>
+    </ul>
+  
+    </li>
+    <li>No error is thrown if <b>handle</b> has already been released or is invalid.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Listen for one line of chat from the owner, echo it back to them, then stop listening
+local ListenHandle = 0
+local function main()
+    -- Start listening on channel 0, for text from owner only
+    ListenHandle = ll.Listen(0, "", ll.GetOwner(), "")
+end
+function LLEvents.listen(channel, name, id, message)
+    ll.OwnerSay(message)  -- Echo the message back to the owner
+    ll.ListenRemove(ListenHandle)  -- Stop listening
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Listen for one line of chat from the owner, echo it back to them, then stop listening
+integer ListenHandle;
+default
+{
+    state_entry()
+    {
+        // Start listening on channel 0, for text from owner only
+        ListenHandle = llListen(0, "", llGetOwner(), "");
+    }
+    listen(integer channel, string name, key id, string message)
+    {
+        llOwnerSay(message);            // Echo the message back to the owner
+        llListenRemove(ListenHandle);   // Stop listening
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>It is good practice to remove listeners when they are no longer required, or set them inactive via <a href="https://wiki.secondlife.com/wiki/LlListenControl" target="_blank">llListenControl</a></li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListenControl" target="_blank">llListenControl</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llListenRemove( integer handle );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Wee break of the day</p>
+<p>A good listener removed</p>
+<p>out of primitive</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

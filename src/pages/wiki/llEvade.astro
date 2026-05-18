@@ -1,0 +1,158 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Evade(TargetID: uuid, Options: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llEvade(key TargetID, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Characters will (roughly) try to hide from their pursuers if there is a good hiding spot along their fleeing path. Hiding means no direct line of sight from the head of the character (center of the top of its physics bounding box) to the head of its pursuer and no direct path between the two on the navmesh.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>TargetID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/target" target="_blank">target</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;to evade</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">options</a></td>
+          <td>No options currently available</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>pathfinding</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">407</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Must use <a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a> or script will shout an error "You must call llCreateCharacter before llEvade.".</li>
+    <li>If the <b>target</b> is an object, it must be unlinked or be the root prim of a linkset.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local start_position = ZERO_VECTOR
+
+function LLEvents.on_rez(start_param)
+    ll.ResetScript()
+end
+
+local function main()
+    ll.DeleteCharacter()
+    ll.CreateCharacter({CHARACTER_MAX_SPEED, 25, CHARACTER_DESIRED_SPEED, 15.0})
+
+    start_position = ll.GetPos()
+    ll.WanderWithin(start_position, vector(10.0, 10.0, 2.0), {})
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    ll.Evade(ll.DetectedKey(0), {})
+    ll.SetTimerEvent(20.0)
+end
+
+function LLEvents.timer()
+    --  do not keep running away...
+    ll.SetTimerEvent(0.0)
+
+    ll.WanderWithin(start_position, vector(10.0, 10.0, 2.0), {})
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector start_position;
+
+default
+{
+    on_rez(integer start_param)
+    {
+        llResetScript();
+    }
+
+    state_entry()
+    {
+        llDeleteCharacter();
+        llCreateCharacter([CHARACTER_MAX_SPEED, 25, CHARACTER_DESIRED_SPEED, 15.0]);
+
+        start_position = llGetPos();
+        llWanderWithin(start_position, <10.0, 10.0, 2.0>, [] );
+    }
+ 
+    touch_start(integer num_detected)
+    {
+        llEvade(llDetectedKey(0), []);
+        llSetTimerEvent(20.0);
+    }
+
+    timer()
+    {
+    //  do not keep running away...
+        llSetTimerEvent(0.0);
+
+        llWanderWithin(start_position, <10.0, 10.0, 2.0>, [] );
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a></li>
+  </ul>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDeleteCharacter" target="_blank">llDeleteCharacter</a></li>
+    <li>llEvade</li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlExecCharacterCmd" target="_blank">llExecCharacterCmd</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetClosestNavPoint" target="_blank">llGetClosestNavPoint</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlFleeFrom" target="_blank">llFleeFrom</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlNavigateTo" target="_blank">llNavigateTo</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPatrolPoints" target="_blank">llPatrolPoints</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlUpdateCharacter" target="_blank">llUpdateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlWanderWithin" target="_blank">llWanderWithin</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.31.262785" target="_blank"> 31/07/2012 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llEvade( key target, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

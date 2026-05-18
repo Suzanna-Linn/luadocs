@@ -1,0 +1,397 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetCameraParams(Parameters: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetCameraParams(list Parameters);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets multiple camera parameters at once.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Parameters / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">rules</a></td>
+          <td>Format is [ rule1, data1, rule2, data2 . . . rulen, datan ]</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>camera</li>
+        <li>permissions</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_CONTROL_CAMERA</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">313</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target="_blank">PERMISSION_CONTROL_CAMERA</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Rule</th>
+        <th></th>
+        <th>Parameter</th>
+        <th>Default</th>
+        <th>Value Range</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_ACTIVE" target="_blank">CAMERA_ACTIVE</a></td>
+        <td>12</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> isActive</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td>Turns on or off <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">scripted</a> control of the camera.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_BEHINDNESS_ANGLE" target="_blank">CAMERA_BEHINDNESS_ANGLE</a></td>
+        <td>8</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> degrees</td>
+        <td>10.0</td>
+        <td>0 to 180</td>
+        <td>Sets the angle in degrees within which the camera is not constrained by changes in target rotation.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_BEHINDNESS_LAG" target="_blank">CAMERA_BEHINDNESS_LAG</a></td>
+        <td>9</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> seconds</td>
+        <td>0.0</td>
+        <td>0 to 3</td>
+        <td>Sets how strongly the camera is forced to stay behind the target if outside of behindness angle.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_DISTANCE" target="_blank">CAMERA_DISTANCE</a></td>
+        <td>7</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> meters</td>
+        <td>3.0</td>
+        <td>0.5 to 50</td>
+        <td>Sets how far away the camera wants to be from its target.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS" target="_blank">CAMERA_FOCUS</a></td>
+        <td>17</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> position</td>
+        <td>n/a</td>
+        <td>n/a</td>
+        <td>Sets camera focus (target position) in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_LAG" target="_blank">CAMERA_FOCUS_LAG</a></td>
+        <td>6</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> seconds</td>
+        <td>0.1</td>
+        <td>0 to 3</td>
+        <td>How much the camera lags as it tries to aim towards the target.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_LOCKED" target="_blank">CAMERA_FOCUS_LOCKED</a></td>
+        <td>22</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> isLocked</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td>Locks the camera focus so it will not move.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_OFFSET" target="_blank">CAMERA_FOCUS_OFFSET</a></td>
+        <td>1</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> <a href="https://wiki.secondlife.com/w/index.php?title=Meter&action=edit&redlink=1" target="_blank">meters</a></td>
+        <td><0.0,0.0,0.0></td>
+        <td><-10,-10,-10> to <10,10,10></td>
+        <td>Adjusts the camera focus <a href="https://wiki.secondlife.com/wiki/Position" target="_blank">position</a> relative to the target.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_THRESHOLD" target="_blank">CAMERA_FOCUS_THRESHOLD</a></td>
+        <td>11</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> meters</td>
+        <td>1.0</td>
+        <td>0 to 4</td>
+        <td>Sets the radius of a sphere around the camera's target position within which its focus is not affected by target motion.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_PITCH" target="_blank">CAMERA_PITCH</a></td>
+        <td>0</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> degrees</td>
+        <td>0.0</td>
+        <td>-45 to 80</td>
+        <td>Adjusts the angular amount that the camera aims straight ahead vs. straight down, maintaining the same distance; analogous to 'incidence'."</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_POSITION" target="_blank">CAMERA_POSITION</a></td>
+        <td>13</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> position</td>
+        <td>n/a</td>
+        <td>n/a</td>
+        <td>Sets camera position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_POSITION_LAG" target="_blank">CAMERA_POSITION_LAG</a></td>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> seconds</td>
+        <td>0.1</td>
+        <td>0 to 3</td>
+        <td>How much the camera lags as it tries to move towards its 'ideal' position.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_POSITION_LOCKED" target="_blank">CAMERA_POSITION_LOCKED</a></td>
+        <td>21</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> isLocked</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td>Locks the camera position so it will not move.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CAMERA_POSITION_THRESHOLD" target="_blank">CAMERA_POSITION_THRESHOLD</a></td>
+        <td>10</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> meters</td>
+        <td>1.0</td>
+        <td>0 to 4</td>
+        <td>Sets the radius of a sphere around the camera's ideal position within which it is not affected by target motion.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target="_blank">PERMISSION_CONTROL_CAMERA</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+The <a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target="_blank">PERMISSION_CONTROL_CAMERA</a> permission is automatically revoked when the avatar stands up from or detaches the object, and any scripted camera parameters are automatically cleared.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Camera control currently (server 1.38) only supported for attachments and objects on which you are sitting. An attempt otherwise will result in an error being shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>Scripted camera parameters are overriden for agents who are in <a href="https://wiki.secondlife.com/wiki/Flycam" target="_blank">Free Camera mode</a> <i>(Alt + Click)</i>. <b>No error is returned if this is the case</b>; however when the agent returns to regular camera mode, their camera will go to the scripted camera position.</li>
+    <li>When <a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS" target="_blank">CAMERA_FOCUS</a> is not defined, it is advised that <a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_THRESHOLD" target="_blank">CAMERA_FOCUS_THRESHOLD</a> is set to 0.0 - this is because when left at it's default value, it may prevent the camera from focusing on the correct point, instead focusing just to the side of the intended point.</li>
+    <li>A <a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_OFFSET" target="_blank">CAMERA_FOCUS_OFFSET</a> of <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> will always look at the same position as returned by llGetPos() for the avatar
+    <ul>
+      <li>When seated, this is also the position of "Avatar Center" when hover height is 0</li>
+      <li>When standing, this has a shape-dependent z-offset from "Avatar Center". (currently investigating <a href="https://wiki.secondlife.com/wiki/User:Tapple_Gao" target="_blank">Tapple Gao</a> (<a href="https://wiki.secondlife.com/wiki/User_talk:Tapple_Gao" target="_blank">talk</a>))</li>
+    </ul>
+  
+    </li>
+    <li>Cannot be used to control the camera in Mouselook.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>You can either set the camera in region relative coordinates or you can make the camera follow your avatar.</p>
+  <p><b>Region relative coordinates, an example:</b></p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`lookAtMe( integer perms )
+{
+    if ( perms & PERMISSION_CONTROL_CAMERA )
+    {
+        vector camPos = llGetPos() + (relCamP * llGetRot() * turnOnChair) ;
+        vector camFocus = llGetPos() ;
+        llClearCameraParams(); // reset camera to default
+        llSetCameraParams([
+            CAMERA_ACTIVE, 1, // 1 is active, 0 is inactive
+            CAMERA_FOCUS, camFocus, // region relative position
+            CAMERA_FOCUS_LOCKED, TRUE, // (TRUE or FALSE)
+            CAMERA_POSITION, camPos, // region relative position
+            CAMERA_POSITION_LOCKED, TRUE // (TRUE or FALSE)
+        ]);
+    }
+}`} lang="lsl" /></div>
+  <p>Note that Focus and Position are both locked. This first example makes the camera look at <i>camFocus</i> from <i>camPos</i>.</p>
+  <p><b>Camera follow avatar, an example:</b></p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function lookAtMe(perms)
+    if bit32.btest(perms, PERMISSION_CONTROL_CAMERA) then
+        ll.ClearCameraParams()  -- reset camera to default
+        -- 1 is active, 0 is inactive
+        -- (0 to 180) degrees
+        -- (0 to 3) seconds
+        -- ( 0.5 to 10) meters
+        --CAMERA_FOCUS, <0,0,5>, // region relative position
+        -- (0 to 3) seconds
+        -- (TRUE or FALSE)
+        -- (0 to 4) meters
+        -- (-45 to 80) degrees
+        --CAMERA_POSITION, <0,0,0>, // region relative position
+        -- (0 to 3) seconds
+        -- (TRUE or FALSE)
+        -- (0 to 4) meters
+        -- <-10,-10,-10> to <10,10,10> meters
+        ll.SetCameraParams({CAMERA_ACTIVE, 1, CAMERA_BEHINDNESS_ANGLE, 30.0, CAMERA_BEHINDNESS_LAG, 0.0, CAMERA_DISTANCE, 10.0, CAMERA_FOCUS_LAG, 0.05, CAMERA_FOCUS_LOCKED, if false then 1 else 0, CAMERA_FOCUS_THRESHOLD, 0.0, CAMERA_PITCH, 10.0, CAMERA_POSITION_LAG, 0.0, CAMERA_POSITION_LOCKED, if false then 1 else 0, CAMERA_POSITION_THRESHOLD, 0.0, CAMERA_FOCUS_OFFSET, vector(2.0, 0.0, 0.0)})
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`lookAtMe( integer perms )
+{
+    if ( perms & PERMISSION_CONTROL_CAMERA )
+    {
+        llClearCameraParams(); // reset camera to default
+        llSetCameraParams([
+            CAMERA_ACTIVE, 1, // 1 is active, 0 is inactive
+            CAMERA_BEHINDNESS_ANGLE, 30.0, // (0 to 180) degrees
+            CAMERA_BEHINDNESS_LAG, 0.0, // (0 to 3) seconds
+            CAMERA_DISTANCE, 10.0, // ( 0.5 to 10) meters
+          //CAMERA_FOCUS, <0,0,5>, // region relative position
+            CAMERA_FOCUS_LAG, 0.05 , // (0 to 3) seconds
+            CAMERA_FOCUS_LOCKED, FALSE, // (TRUE or FALSE)
+            CAMERA_FOCUS_THRESHOLD, 0.0, // (0 to 4) meters
+            CAMERA_PITCH, 10.0, // (-45 to 80) degrees
+          //CAMERA_POSITION, <0,0,0>, // region relative position
+            CAMERA_POSITION_LAG, 0.0, // (0 to 3) seconds
+            CAMERA_POSITION_LOCKED, FALSE, // (TRUE or FALSE)
+            CAMERA_POSITION_THRESHOLD, 0.0, // (0 to 4) meters
+            CAMERA_FOCUS_OFFSET, <2.0, 0.0, 0.0> // <-10,-10,-10> to <10,10,10> meters
+        ]);
+    }
+}`} lang="lsl" /></div>
+  <p>Note that in this second example Focus and Position are NOT locked and not even set. This is appropriate for making the camera follow a pilot on a vehicle.</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlClearCameraParams" target="_blank">llClearCameraParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetCameraPos" target="_blank">llGetCameraPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetCameraRot" target="_blank">llGetCameraRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkCamera" target="_blank">llSetLinkCamera</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraEyeOffset" target="_blank">llSetCameraEyeOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraAtOffset" target="_blank">llSetCameraAtOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FollowCam" target="_blank">FollowCam</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraParams_Test" target="_blank">llSetCameraParams Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetCameraParams( list rules );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

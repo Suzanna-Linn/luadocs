@@ -1,0 +1,174 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Abs(Value: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llAbs(integer Value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.abs because Double precision; fastcall.</span></p>
+      <p>  <p>Returns an integer that is the positive version of <b>val</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Value / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/val" target="_blank">val</a></td>
+          <td>Any integer value</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">6</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This function is similar to functions (e.g. <a href="http://www.cplusplus.com/reference/cstdlib/abs/" target="_blank">abs</a>) found in many other languages:</p>
+  <table>
+    <tbody>
+      <tr>
+        <td><b>C++</b></td>
+      </tr>
+      <tr>
+        <td><a href="http://www.cplusplus.com/reference/cstdlib/abs/" target="_blank">abs</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The llAbs of -2147483648 is -2147483648. This is because the positive integer 2147483648 is outside the range of allowed LSL <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer" target="_blank">integer values</a>.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    --      returns: "The absolute value of -4 is: 4"
+    ll.Say(PUBLIC_CHANNEL, "The absolute value of -4 is: " .. tostring(ll.Abs(-4)))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+//      returns: "The absolute value of -4 is: 4"
+        llSay(PUBLIC_CHANNEL, "The absolute value of -4 is: "+(string)llAbs(-4) );
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Here's a more elaborate example.
+
+local function ShowAbsolute(inputInteger)
+    local output = "llAbs(" .. tostring(inputInteger) .. ") --> " .. tostring(ll.Abs(inputInteger))
+
+    ll.Say(PUBLIC_CHANNEL, output)
+end
+
+local function main()
+    ShowAbsolute(-3)  --  llAbs(-3)  --> 3
+    ShowAbsolute(5)  --  llAbs(5)   --> 5
+    ShowAbsolute(-20)  --  llAbs(-20) --> 20
+    ShowAbsolute(0)  --  llAbs(0)   --> 0
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Here's a more elaborate example.
+
+ShowAbsolute(integer inputInteger)
+{
+    string output = "llAbs(" + (string)inputInteger + ") --> " + (string)llAbs(inputInteger);
+
+    llSay(PUBLIC_CHANNEL, output);
+}
+
+default
+{
+    state_entry()
+    {
+        ShowAbsolute(-3);   //  llAbs(-3)  --> 3
+        ShowAbsolute(5);    //  llAbs(5)   --> 5
+        ShowAbsolute(-20);  //  llAbs(-20) --> 20
+        ShowAbsolute(0);    //  llAbs(0)   --> 0
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>Using `<b>val</b>-(<b>val</b><<1)*(<b>val</b><0)` is roughly two times faster than llAbs, as it avoids a function call and produces identical results.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlFabs" target="_blank">llFabs</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> version of llAbs</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Absolute_value" target="_blank">Absolute value</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llAbs( integer val );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Whether good or bad,</p>
+<p>we are not here to judge you.</p>
+<p>Just to ask... How much?</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

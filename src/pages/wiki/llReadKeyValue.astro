@@ -1,0 +1,208 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ReadKeyValue(Key: string): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llReadKeyValue(string Key);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Start an asynchronous transaction to read the value associated with the specified key (<b>k</b>) and the script's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) that can be used to identify the corresponding <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event to determine if this command succeeded or failed and the results.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Key / k</td>
+          <td>The key for the key-value pair</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>dataserver</li>
+        <li>experience</li>
+        <li>experience_data</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">388</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-experience">Experience</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If the key does not exist the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> will return a failure along with the error <a href="https://wiki.secondlife.com/w/index.php?title=XP_ERROR_KEY_NOT_FOUND&action=edit&redlink=1" target="_blank">XP_ERROR_KEY_NOT_FOUND</a>.</p>
+  <p>For this function to work, the script must be compiled into an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>.</p>
+  <h2>Specification</h2>
+  <ul>
+    <li>Maximum memory storage: 128 MiB</li>
+  </ul>
+  <p>Dataserver</p>
+  <p>The <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> callback parameters are:</p>
+  <ul>
+    <li>A key containing the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> returned from llReadKeyValue</li>
+    <li>A string containing a comma-delimited list (<b>cdl</b>). `llDumpList2String(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> <b>success</b> ] + <b>components</b>);`
+    <ul>
+      <li><b>components</b> vary depending upon success or failure of request.</li>
+      <li>Failure: `<b>cdl</b> = <a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> 0, [integer</a> <b>error</b>],",")`</li>
+      <li>Success: `<b>cdl</b> = <a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a>(<a href="https://wiki.secondlife.com/wiki/String" target="_blank"> 1, [string</a> <b>value</b> ],",")`</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <p>String Components</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">success</a></td>
+        <td>–</td>
+        <td>A boolean specifying if the transaction succeeded (1) or not (0).</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/experience_error" target="_blank">error</a></td>
+        <td>–</td>
+        <td>An <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/experience_error" target="_blank">XP_ERROR_*</a> flag that describes why the operation failed.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• string</td>
+        <td>value</td>
+        <td>–</td>
+        <td>The value for the key-value pair. Maximum 2047 characters, or 4095 if using Mono. Note! This value may contain commas.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If you recompile a script that was previously associated with an Experience but do so with a client that lacks the ability to compile scripts into an experience the script will lose the associated Experience.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+local trans = NULL_KEY
+local function main()
+    trans = ll.ReadKeyValue("FOO")
+end
+function LLEvents.dataserver(t, value)
+    if t == trans then
+        -- our llReadKeyValue transaction is done
+        if ll.GetSubString(value, 0, 0) == "1" then
+            -- the key-value pair was successfully read
+            ll.Say(0, "New key-value pair value: " .. ll.GetSubString(value, 2, -1))
+        else
+            -- the key-value pair failed to read
+            local error = integer(ll.GetSubString(value, 2, -1))
+            ll.Say(0, "Key-value failed to read: " .. ll.GetExperienceErrorMessage(error))
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key trans;
+default
+{
+    state_entry()
+    {
+        trans = llReadKeyValue("FOO");
+    }
+    dataserver(key t, string value)
+    {
+        if (t == trans)
+        {
+            // our llReadKeyValue transaction is done
+            if (llGetSubString(value, 0, 0) == "1")
+            {
+                // the key-value pair was successfully read
+                llSay(0, "New key-value pair value: " + llGetSubString(value, 2, -1));
+            }
+            else
+            {
+                // the key-value pair failed to read
+                integer error =  (integer)llGetSubString(value, 2, -1);
+                llSay(0, "Key-value failed to read: " + llGetExperienceErrorMessage(error));
+            }
+        } 
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Compiling</p>
+  <p>For a script to be associated with an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>...</p>
+  <ul>
+    <li>It must be compiled with a client that is Experience aware,</li>
+    <li>The "Use Experience" checkbox must be checked,</li>
+    <li>And one of the users Experience keys selected.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> Not all <a href="https://wiki.secondlife.com/wiki/TPV" target="_blank">TPVs</a> have this functionality.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetExperienceErrorMessage" target="_blank">llGetExperienceErrorMessage</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCreateKeyValue" target="_blank">llCreateKeyValue</a></li>
+    <li>llReadKeyValue</li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlUpdateKeyValue" target="_blank">llUpdateKeyValue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDeleteKeyValue" target="_blank">llDeleteKeyValue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDataSizeKeyValue" target="_blank">llDataSizeKeyValue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlKeyCountKeyValue" target="_blank">llKeyCountKeyValue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlKeysKeyValue" target="_blank">llKeysKeyValue</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llReadKeyValue( string k );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Async read starts now,</p>
+<p>Key sought in Experience,</p>
+<p>Hope it's not missing!</p>
+<p><i> — ChatGPT</i></p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

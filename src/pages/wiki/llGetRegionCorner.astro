@@ -1,0 +1,119 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetRegionCorner(): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGetRegionCorner();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a vector in meters that is the global location of the south-west corner of the region the object is in. The z component is 0.0</p>
+  <p>Divide the returned value by 256 to get the region offset.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">199</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Calculates your position relative to <0,0,0> of 'Da Boom' in meters when you touch it
+local vecrel = ZERO_VECTOR  --a sum of llgetpos and llgetregioncorner (and another vector). Saving time doing vector math.
+
+local function main()
+    ll.SetText("Touch me to get your position", vector(1.0, 1.0, 1.0), 1.0)
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    vecrel = ll.GetRegionCorner() + ll.DetectedPos(0)
+    ll.Whisper(0, "llGetRegionCorner() is:" .. tostring(vecrel))  --for debugging before vector addition
+
+    vecrel -= vector(256000.0, 256000.0, 0.0)  --Da Boom's region corner is at <256000.0, 256000.0, 0.0>
+    ll.Whisper(0, "Position relative to <0,0,0> of 'Da Boom': " .. tostring(ll.Round(vecrel.x)) .. ", " .. tostring(ll.Round(vecrel.y)) .. ", " .. tostring(ll.Round(vecrel.z)) .. ".")
+
+    ll.Whisper(0, "Position relative to <0,0,0> of 'Da Boom':" .. tostring(vecrel))  --faster but unformatted output
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Calculates your position relative to <0,0,0> of 'Da Boom' in meters when you touch it
+vector vecrel; //a sum of llgetpos and llgetregioncorner (and another vector). Saving time doing vector math.
+
+default
+{
+    state_entry()
+    {
+        llSetText("Touch me to get your position", <1.0,1.0,1.0>, 1.0);
+    }
+    
+    touch_start(integer total_number)
+    {
+        vecrel = llGetRegionCorner() + llDetectedPos(0);
+        llWhisper(0, "llGetRegionCorner() is:"+(string)vecrel); //for debugging before vector addition
+        
+        vecrel -= <256000.0, 256000.0, 0.0>;//Da Boom's region corner is at <256000.0, 256000.0, 0.0>
+        llWhisper (0, "Position relative to <0,0,0> of 'Da Boom': " + 
+        (string)llRound(vecrel.x) + ", " + (string)llRound(vecrel.y) + ", " + (string)llRound(vecrel.z) + ".");
+        
+        llWhisper(0, "Position relative to <0,0,0> of 'Da Boom':" +(string)vecrel); //faster but unformatted output
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>The great zero is at region offset <1000,1000>, <a href="http://slurl.com/secondlife/Da+Boom/0/0/0/?&title=Great+Zero" target="_blank"> Great Zero</a><a href="secondlife://Da%20Boom/0/0/0" target="_blank">🖈</a></p>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetRegionCorner()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llGetRegionCorner();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Code lines whisper low</p>
+<p>llGetRegionCorner unfolds</p>
+<p>Meters reveal truth.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

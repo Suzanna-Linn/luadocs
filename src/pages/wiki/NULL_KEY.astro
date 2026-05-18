@@ -1,0 +1,214 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`NULL_KEY: string = 00000000-0000-0000-0000-000000000000`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string NULL_KEY = 00000000-0000-0000-0000-000000000000;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The string constant NULL_KEY has the value "00000000-0000-0000-0000-000000000000"</p>
+  <p><b>NULL_KEY is a <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a>.</b> However it is only really useful as a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>.</p>
+  <p>For <a href="https://wiki.secondlife.com/wiki/Category:LSL_Conditional" target="_blank">Conditional</a> tests, NULL_KEY evaluates to <b>TRUE</b> like other strings.</p>
+  <p>For list search (like <a href="https://wiki.secondlife.com/wiki/LlListFindList" target="_blank">llListFindList</a>), NULL_KEY won't match null keys whose type is <b>key</b> without typecasting.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAvatarOnSitTarget" target="_blank">llAvatarOnSitTarget</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedKey" target="_blank">llDetectedKey</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNotecardLine" target="_blank">llGetNotecardLine</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLandOwnerAt" target="_blank">llGetLandOwnerAt</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTexture" target="_blank">llGetTexture</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Attach" target="_blank">attach</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Returns 2 for valid keys, 1 for NULL_KEY, 0 for invalid keys.
+local function isKey(input)
+    if input.istruthy then
+        return 2
+    end
+    return input == NULL_KEY
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Returns 2 for valid keys, 1 for NULL_KEY, 0 for invalid keys.
+integer isKey(key input)
+{
+    if (input) return 2;
+    return (input == NULL_KEY);
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    -- NULL_KEY itself is evaluated as FALSE only when typecast to key.
+    if NULL_KEY.istruthy then  -- Correct.
+        ll.OwnerSay("NULL_KEY is TRUE")
+    else  -- Never.
+        ll.OwnerSay("NULL_KEY is FALSE")
+    end
+
+    if (uuid(NULL_KEY)).istruthy then  -- Never.
+        ll.OwnerSay("Casted NULL_KEY is TRUE")
+    else  -- Correct.
+        ll.OwnerSay("Casted NULL_KEY is FALSE")
+    end
+
+    -- NULL_KEY won't match keys in lists without typecasting.
+    -- The following list contains a null key because avatars don't have creators:
+    local details = ll.GetObjectDetails(ll.GetOwner(), {OBJECT_CREATOR})
+    local index = ll.ListFindList(details, {NULL_KEY})
+    if index >= 0 then  -- Never.
+        ll.OwnerSay("NULL_KEY was found in list")
+    else  -- Correct.
+        ll.OwnerSay("NULL_KEY was NOT found in list")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        // NULL_KEY itself is evaluated as FALSE only when typecast to key.
+        if (NULL_KEY) { llOwnerSay("NULL_KEY is TRUE");  } // Correct.
+        else          { llOwnerSay("NULL_KEY is FALSE"); } // Never.
+
+        if ((key) NULL_KEY) { llOwnerSay("Casted NULL_KEY is TRUE");  } // Never.
+        else                { llOwnerSay("Casted NULL_KEY is FALSE"); } // Correct.
+
+        // NULL_KEY won't match keys in lists without typecasting.
+        // The following list contains a null key because avatars don't have creators:
+        list details = llGetObjectDetails(llGetOwner(), [OBJECT_CREATOR]);
+        integer index = llListFindList(details, [NULL_KEY]);
+        if (index >= 0) { llOwnerSay("NULL_KEY was found in list"); } // Never.
+        else             { llOwnerSay("NULL_KEY was NOT found in list"); } // Correct.
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Like any <a href="https://wiki.secondlife.com/wiki/LSO" target="_blank">LSO</a> string constants longer then 3 characters and used in multiple places in the code, they should be stored in a global variable. The result will be a considerable memory savings. This does not apply to scripts compiled with <a href="https://wiki.secondlife.com/wiki/Mono" target="_blank">Mono</a>. See <a href="https://wiki.secondlife.com/wiki/LSL_Constants_vs_Globals" target="_blank">LSL Constants vs Globals</a> for more information about this and examples.</p>
+  <p>In most situations NULL_KEY isn't needed; an empty string ("") will suffice. To take advantage of this certain practices have to be avoided. In many applications keys are checked against NULL_KEY to determine if they are valid; this is bad practice.</p>
+  <p>LSL makes it easy to check if a key is valid. Simply use the key as the parameter for a conditional.</p>
+  <p>That is, instead of `if(uuid != NULL_KEY)`, use `if(uuid)`. `if(uuid)` will only return <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if it is a valid key that is also not a null key.</p>
+  <h2>Deep Notes</h2>
+  <p>All Issues ~ <a href="https://secondlife.canny.io/?search=NULL_KEY" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/SVC-5772" target="_blank">SVC-5772</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/SVC-5772" target="_blank">A</a></td>
+        <td></td>
+        <td>NULL_KEY is no longer a NULL_KEY when passed to a function</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+NULL_KEY = uuid("00000000-0000-0000-0000-000000000000")
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+string NULL_KEY = "00000000-0000-0000-0000-000000000000";
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>My hopes for nothing</p>
+<p>but for thirty two zeros,</p>
+<p>have been dashed, four times.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

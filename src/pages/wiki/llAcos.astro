@@ -1,0 +1,160 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Acos(Value: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llAcos(float Value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.acos because Double precision; fastcall.</span></p>
+      <p>  <p>Returns a float that is the arccosine in radians of <b>val</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Value / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/val" target="_blank">val</a></td>
+          <td>must fall in the range [-1.0, 1.0]</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_trig</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">172</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The returned value is in the range <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">0.0, [PI</a>][[1]](#footnote_1), or NaN signifying a complex result when the parameter is out of range.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Triggers a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Error/Math" target="_blank">Math Error</a> for complex results if not compiled in Mono.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  This example exercises the full valid range of argument from -1.0 to +1.0
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local random = ll.Frand(2.0) - 1.0
+
+    ll.OwnerSay("The arccosine of " .. tostring(random) .. " is " .. tostring(ll.Acos(random)))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  This example exercises the full valid range of argument from -1.0 to +1.0
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        float random = llFrand(2.0) - 1.0;
+
+        llOwnerSay("The arccosine of " + (string)random + " is " + (string)llAcos(random));
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--An example for the Law of Cosines to calculate any angle of a triangle from 3 known side lengths.
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local t = vector(ll.Frand(9.0) + 1.0, ll.Frand(9.0) + 1.0, ll.Frand(9.0) + 1.0)  --the 3 values of this vector are used to set the lengths of 3 sides of a triangle.
+
+    local anglexy = ll.Acos((t.x * t.x + t.y * t.y - (t.z * t.z)) / (2 * t.x * t.y))  --Law Of Cosines
+
+    ll.OwnerSay("Using the Law Of Cosines, the angle of a triangle between side a=" .. tostring(t.x) .. "and side b=" .. tostring(t.y) .. "is = " .. tostring(anglexy) .. " radians=" .. tostring(anglexy * RAD_TO_DEG) .. "° and that angle is not on side c=" .. tostring(t.z))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//An example for the Law of Cosines to calculate any angle of a triangle from 3 known side lengths.
+
+default
+{
+    touch_start(integer num_detected)
+    {        
+        vector t=< llFrand(9.0)+1.0 , llFrand(9.0)+1.0 , llFrand(9.0)+1.0 >; //the 3 values of this vector are used to set the lengths of 3 sides of a triangle.
+
+        float anglexy=llAcos( (t.x*t.x+t.y*t.y-(t.z*t.z)) / ( 2*t.x*t.y) ) //Law Of Cosines
+
+        llOwnerSay("Using the Law Of Cosines, the angle of a triangle between side a="+(string)t.x+"and side b="+(string)t.y+"is = "+(string)anglexy+" radians="+(string)(anglexy*RAD_TO_DEG)+"° and that angle is not on side c="+(string)t.z);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlSin" target="_blank">llSin</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAsin" target="_blank">llAsin</a></td>
+        <td>–</td>
+        <td>sine & inverse Sine</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlCos" target="_blank">llCos</a></td>
+        <td></td>
+        <td>–</td>
+        <td>cosine</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlTan" target="_blank">llTan</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAtan2" target="_blank">llAtan2</a></td>
+        <td>–</td>
+        <td>tangent & inverse tangent</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_function" target="_blank">Inverse trigonometric function</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llAcos( float val );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,264 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PARCEL_DETAILS_SEE_AVATARS: number = 6`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PARCEL_DETAILS_SEE_AVATARS = 6;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PARCEL_DETAILS_SEE_AVATARS has the value 6</p>
+  <p>This is a flag used with <a href="https://wiki.secondlife.com/wiki/LlGetParcelDetails" target="_blank">llGetParcelDetails</a> to get the "See and chat with residents on this parcel" setting.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ParcelDetailsParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Flag</th>
+        <th></th>
+        <th>Meaning</th>
+        <th>Max Length</th>
+        <th>Return</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_DETAILS_NAME" target="_blank">PARCEL_DETAILS_NAME</a></td>
+        <td>0</td>
+        <td>The name of the parcel.</td>
+        <td>63 Characters</td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_DETAILS_DESC" target="_blank">PARCEL_DETAILS_DESC</a></td>
+        <td>1</td>
+        <td>The description of the parcel.</td>
+        <td>127 Characters</td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_DETAILS_OWNER" target="_blank">PARCEL_DETAILS_OWNER</a></td>
+        <td>2</td>
+        <td>The parcel <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a>'s key.</td>
+        <td>(36 Characters)</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_DETAILS_GROUP" target="_blank">PARCEL_DETAILS_GROUP</a></td>
+        <td>3</td>
+        <td>The parcel <a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>'s key.</td>
+        <td>(36 Characters)</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_DETAILS_AREA" target="_blank">PARCEL_DETAILS_AREA</a></td>
+        <td>4</td>
+        <td>The parcel's area, in sqm.</td>
+        <td>(5 Characters)</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_DETAILS_ID" target="_blank">PARCEL_DETAILS_ID</a></td>
+        <td>5</td>
+        <td>The parcel's key.</td>
+        <td>(36 Characters)</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a></td>
+      </tr>
+      <tr>
+        <td>PARCEL_DETAILS_SEE_AVATARS</td>
+        <td>6</td>
+        <td>The parcel's avatar visibility setting[[1]](#footnote_1)</td>
+        <td>(1 character)</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> - boolean</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_DETAILS_PRIM_CAPACITY&action=edit&redlink=1" target="_blank">PARCEL_DETAILS_PRIM_CAPACITY</a></td>
+        <td>7</td>
+        <td>The total prim capacity on this and all same-owner parcels, sim-wide.
+See <a href="https://wiki.secondlife.com/wiki/LlGetParcelMaxPrims" target="_blank">llGetParcelMaxPrims</a> for same-parcel-only and/or sim-wide reporting.</td>
+        <td></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_DETAILS_PRIM_USED&action=edit&redlink=1" target="_blank">PARCEL_DETAILS_PRIM_USED</a></td>
+        <td>8</td>
+        <td>The total prim usage on this and all same-owner parcels, sim-wide.
+See <a href="https://wiki.secondlife.com/wiki/LlGetParcelPrimCount" target="_blank">llGetParcelPrimCount</a> to get prim count by parcel owner, group, temp, etc. for same-parcel-only and/or sim-wide reporting.</td>
+        <td></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_DETAILS_LANDING_POINT&action=edit&redlink=1" target="_blank">PARCEL_DETAILS_LANDING_POINT</a></td>
+        <td>9</td>
+        <td>Landing point set for this parcel, if any.</td>
+        <td></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_DETAILS_LANDING_LOOKAT&action=edit&redlink=1" target="_blank">PARCEL_DETAILS_LANDING_LOOKAT</a></td>
+        <td>10</td>
+        <td>Look at vector set for the landing point on this parcel, if any.</td>
+        <td></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_DETAILS_TP_ROUTING&action=edit&redlink=1" target="_blank">PARCEL_DETAILS_TP_ROUTING</a></td>
+        <td>11</td>
+        <td>Teleport routing for this parcel.
+0 = TP_ROUTING_BLOCKED
+1 = TP_ROUTING_LANDINGP
+2 = TP_ROUTING_FREE
+Note that routing rules are only enforced if the landing point is set.</td>
+        <td></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_DETAILS_FLAGS" target="_blank">PARCEL_DETAILS_FLAGS</a></td>
+        <td>12</td>
+        <td>Parcel flags set for this parcel.
+See <a href="https://wiki.secondlife.com/wiki/LlGetParcelFlags" target="_blank">llGetParcelFlags</a> for a listing of the flags and their meaning.</td>
+        <td></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_DETAILS_SCRIPT_DANGER&action=edit&redlink=1" target="_blank">PARCEL_DETAILS_SCRIPT_DANGER</a></td>
+        <td>13</td>
+        <td>Is the script in danger in the indicated parcel.
+See <a href="https://wiki.secondlife.com/wiki/LlScriptDanger" target="_blank">llScriptDanger</a> for a discussion of script danger.</td>
+        <td></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> - boolean</td>
+      </tr>
+      <tr>
+        <td colspan="5">Max Lengths in parentheses represent how many characters required when it is <a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">typecast</a> to a string.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelDetails" target="_blank">llGetParcelDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- returns parcel data. 
+local function getParcelDataRequest()
+    local message = ""  --stores a temp message.
+
+    -- get parcel name and details on if others can see avatars on the parcel from other parcels
+    local parcelData = ll.GetParcelDetails(ll.GetPos(), {PARCEL_DETAILS_NAME, PARCEL_DETAILS_SEE_AVATARS})
+
+    -- name the parcel and prepare the message. 
+    message = "Parcel name is: " .. ll.List2String(parcelData, 0)
+
+    -- determine if people can see avatars (1 = can see, 0 = can't see)
+    if ll.List2String(parcelData, 1) == "0" then
+        message ..= ", avatars on other parcels can't see avatars on this parcel."
+
+    -- else they can see
+    else
+        message ..= ", avatars on other parcels can see avatars on this parcel."
+    end
+
+    return message
+end
+
+local function main()
+    -- calls the method for getting parcel data.
+    ll.OwnerSay(getParcelDataRequest())
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// returns parcel data. 
+string getParcelDataRequest() 
+{
+    string message; //stores a temp message.
+    
+    // get parcel name and details on if others can see avatars on the parcel from other parcels
+    list parcelData = llGetParcelDetails( llGetPos(), [PARCEL_DETAILS_NAME, PARCEL_DETAILS_SEE_AVATARS] );
+    
+    // name the parcel and prepare the message. 
+    message = "Parcel name is: " + llList2String( parcelData, 0 );
+    
+    // determine if people can see avatars (1 = can see, 0 = can't see)
+    if( llList2String( parcelData, 1 ) == "0" )
+    {
+        message += ", avatars on other parcels can't see avatars on this parcel.";
+    }
+    
+    // else they can see
+    else
+    {
+        message +=", avatars on other parcels can see avatars on this parcel.";
+    }
+    
+    return message;
+}
+
+default
+{
+    state_entry()
+    {
+        // calls the method for getting parcel data.
+        llOwnerSay( getParcelDataRequest() );
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PARCEL_DETAILS_SEE_AVATARS" target="_blank">Search Canny for related Issues</a> Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The parcel avatar visibility setting is used to hide avatars, their chat, and objects they sit on when they are in other parcels.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PARCEL_DETAILS_SEE_AVATARS = 6
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PARCEL_DETAILS_SEE_AVATARS = 6;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

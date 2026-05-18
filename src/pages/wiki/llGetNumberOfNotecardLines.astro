@@ -1,0 +1,297 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetNumberOfNotecardLines(NotecardName: string|uuid): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llGetNumberOfNotecardLines(string NotecardName);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests the number of lines in notecard <b>name</b> via the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event (cast dataserver value to integer)</p>
+  <p>Returns the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) for a <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event response.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>NotecardName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>a notecard in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a notecard</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>dataserver</li>
+        <li>notecard</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">276</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.1 seconds.</li>
+    <li>If <b>name</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a notecard then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>If <b>name</b> is a new empty notecard (never saved) then an error "Couldn't find notecard ~NAME~" (~NAME~ being the value of <b>name</b>) will be shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. This is because until a notecard is saved for the first time, it does not exist as an asset only as an inventory placeholder.
+    <ul>
+      <li>If the notecard is <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a> you can check for this with <a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a> which will return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> in this case. However if notecard is not <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a>, there is no way to avoid the error message.</li>
+    </ul>
+  
+    </li>
+    <li>If notecard contains embedded inventory items (such as textures and landmarks), invalid data will be returned.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+-- Ascertain the number of lines in a notecard in the prim's contents
+
+local gNotecard = "Config"  -- Name of notecard to be examined
+local gLineRequestID = NULL_KEY  -- Identity of expected dataserver event
+local gLineCounter = 0  -- The number of lines in the NC, as determined by this script
+
+local function main()
+    -- Ask how many lines are in the notecard.
+    -- The answer will arrive via a dataserver event
+    gLineRequestID = ll.GetNumberOfNotecardLines(gNotecard)
+end
+
+function LLEvents.dataserver(requested, data)
+    if requested == gLineRequestID then
+        ll.OwnerSay("The notecard '" .. gNotecard .. "' contains " .. data .. " lines")
+        -- cast the data string to an integer if you need to access the counter later
+        gLineCounter = integer(data)
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Ascertain the number of lines in a notecard in the prim's contents
+
+string  gNotecard = "Config";       // Name of notecard to be examined
+key     gLineRequestID;             // Identity of expected dataserver event
+integer gLineCounter;               // The number of lines in the NC, as determined by this script
+
+default
+{
+    state_entry()
+    {
+        // Ask how many lines are in the notecard.
+        // The answer will arrive via a dataserver event
+        gLineRequestID = llGetNumberOfNotecardLines(gNotecard);
+    }
+    
+    dataserver(key requested, string data)
+    {
+        if (requested == gLineRequestID)
+        {
+            llOwnerSay( "The notecard '" + gNotecard + "' contains " + data + " lines" );
+            // cast the data string to an integer if you need to access the counter later
+            gLineCounter = (integer) data;
+        }        
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+-- Check for a valid existant notecard, and read it into a list
+-- On touch, say the total number of lines, number of lines containing data, and say each line
+-- Omei Qunhua  7-Jan-2013
+
+local gNotecard = "Config"  -- Name of notecard to be examined
+local gLineRequestID = NULL_KEY  -- Identity of expected line count dataserver event
+local gReadRequestID = NULL_KEY  -- Identity of expected data read dataserver event
+local gLineTotal = 0  -- The number of lines in the NC, as determined by this script
+local gLineIndex = 0  -- Index for data read requests
+local gDataLines = {}  -- List containing all data lines from notecard, excluding blank and comment lines
+local gStatus = ""  -- Will contain EOF when notecard reading has finished
+
+local function main()
+    if ll.GetInventoryKey(gNotecard).istruthy then  -- Test if notecard exists and has been saved (returned key will be NULL_KEY otherwise)
+        gLineRequestID = ll.GetNumberOfNotecardLines(gNotecard)  -- Kick off a request for the total number of lines that the notecard contains
+    else
+        ll.OwnerSay("Notecard '" .. gNotecard .. "' does not exist or has no saved data")
+    end
+end
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_INVENTORY) then
+        ll.ResetScript()
+    end
+end
+function LLEvents.dataserver(requested, data)
+    if requested == gLineRequestID then
+        gLineTotal = integer(data)  -- Cast the data string to an integer to get the number of lines
+        gReadRequestID = ll.GetNotecardLine(gNotecard, gLineIndex)  -- Request a read of the first notecard line
+        return
+    end
+    if requested ~= gReadRequestID then
+        return
+    end
+    if ((function() gStatus = data return gStatus end)()) == EOF then  -- Save and test the current data (so that other code can tell when we've finished too)
+        return
+    end
+
+    -- A notecard line has been read. Kick off the process of fetching the next line, while we process this line
+    gReadRequestID = ll.GetNotecardLine(gNotecard, (function() gLineIndex += 1 return gLineIndex end)())
+
+    data = ll.StringTrim(data, STRING_TRIM)  -- chop off any leading or trailing blanks
+    if data == "" or ll.GetSubString(data, 0, 0) == "#" then
+        return  -- ignore blank or comment lines
+    end
+
+    -- Do any further processing of the data here
+    gDataLines = ll.ListInsertList(gDataLines, {data}, #gDataLines)  -- Add this data line to our global list
+end
+function LLEvents.touch_start(events)
+    local total_number = #events
+    if gStatus ~= EOF then
+        ll.OwnerSay("Please wait")  -- Still reading the notecard
+        return
+    end
+    local count = (#gDataLines)  -- Get list length (efficient shortcut)
+    ll.OwnerSay(gNotecard .. " had a total of  " .. tostring(gLineTotal) .. " lines, of which " .. tostring(count) .. " contained data.")
+
+    local x = 0
+    while x < count do  -- Loop through the data list
+        ll.OwnerSay(ll.List2String(gDataLines, x))
+        x += 1
+    end
+    ll.OwnerSay("---- end of data ----")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Check for a valid existant notecard, and read it into a list
+// On touch, say the total number of lines, number of lines containing data, and say each line
+// Omei Qunhua  7-Jan-2013
+
+string  gNotecard = "Config";       // Name of notecard to be examined
+key     gLineRequestID;             // Identity of expected line count dataserver event
+key     gReadRequestID;             // Identity of expected data read dataserver event
+integer gLineTotal;                 // The number of lines in the NC, as determined by this script
+integer gLineIndex;                 // Index for data read requests
+list    gDataLines;                 // List containing all data lines from notecard, excluding blank and comment lines
+string  gStatus;                    // Will contain EOF when notecard reading has finished
+
+default
+{
+    state_entry()
+    {
+        if (llGetInventoryKey(gNotecard) )         // Test if notecard exists and has been saved (returned key will be NULL_KEY otherwise)
+            gLineRequestID = llGetNumberOfNotecardLines(gNotecard);       // Kick off a request for the total number of lines that the notecard contains
+        else
+            llOwnerSay("Notecard '" + gNotecard + "' does not exist or has no saved data");
+    }
+    changed(integer change)
+    {
+        if (change & CHANGED_INVENTORY)
+            llResetScript();
+    }
+    dataserver(key requested, string data)
+    {
+        if (requested == gLineRequestID)
+        {
+            gLineTotal = (integer) data;           // Cast the data string to an integer to get the number of lines
+            gReadRequestID = llGetNotecardLine(gNotecard, gLineIndex);      // Request a read of the first notecard line
+            return;
+        }
+        if (requested != gReadRequestID)
+            return;
+        if ( (gStatus = data) == EOF)              // Save and test the current data (so that other code can tell when we've finished too)
+            return;
+
+        // A notecard line has been read. Kick off the process of fetching the next line, while we process this line
+        gReadRequestID = llGetNotecardLine(gNotecard, ++gLineIndex);
+
+        data = llStringTrim(data, STRING_TRIM);    // chop off any leading or trailing blanks
+        if (data == "" || llGetSubString(data, 0, 0) == "#")     
+            return;                                // ignore blank or comment lines
+        
+        // Do any further processing of the data here
+        gDataLines += data;                        // Add this data line to our global list
+    }
+    touch_start(integer total_number)
+    {
+        if (gStatus != EOF)
+        {
+            llOwnerSay("Please wait");             // Still reading the notecard
+            return;
+        }
+        integer count = (gDataLines != [] );       // Get list length (efficient shortcut)
+        llOwnerSay(gNotecard + " had a total of  " + (string) gLineTotal + " lines, of which " + (string) count + " contained data." );
+
+        integer x;
+        for ( ; x < count; ++x)                    // Loop through the data list
+        {
+            llOwnerSay( llList2String(gDataLines, x) );
+        }
+        llOwnerSay("---- end of data ----");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNotecardLine" target="_blank">llGetNotecardLine</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llGetNumberOfNotecardLines( string name );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

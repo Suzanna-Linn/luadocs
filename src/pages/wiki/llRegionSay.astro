@@ -1,0 +1,208 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RegionSay(Channel: number, Text: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRegionSay(integer Channel, string Text);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Says the string <b>msg</b> on channel number <b>channel</b> that can be heard anywhere in the <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a> by a script <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listening</a> on <b>channel</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Channel / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/channel" target="_blank">channel</a></td>
+          <td>output <a href="https://wiki.secondlife.com/wiki/Category:LSL_Chat" target="_blank">chat</a> channel, any integer value except zero</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/msg" target="_blank">msg</a></td>
+          <td>message to be transmitted</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>chat</li>
+        <li>script_communication</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">331</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Regardless of where the prim is, the message will not travel over region borders.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Channel Constant</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a></td>
+        <td>0x7FFFFFFF</td>
+        <td>Chat channel reserved for script debugging and error messages, broadcasts to all nearby users.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Messages sent on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> are throttled to a rate of <200/10sec, per region, per owner/user.
+    <ul>
+      <li>Once the rate is exceeded, all following messages on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> will be dropped until the send rate is again below 200/10sec for the previous 10 sec. Dropped messages, despite being dropped still count against the limit.</li>
+    </ul>
+  
+    </li>
+    <li>This function cannot transmit on <a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a> channel 0, this is a design feature and not a bug.</li>
+    <li>If <b>msg</b> is longer than 1024 characters it is truncated to 1024 characters. (Note that in Mono, each character occupies 2 memory bytes).</li>
+    <li>A prim can <b>not</b> hear itself, this to prevent problems with recursion. It can however hear other prims within the same object. Use <a href="https://wiki.secondlife.com/wiki/LlMessageLinked" target="_blank">llMessageLinked</a> instead for intra-prim messaging.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.RegionSay(25, "This is an incredibly useless program.")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llRegionSay(25,"This is an incredibly useless program." );
+    }
+}`} lang="lsl" /></div>
+  <p>To avoid making your object spam its neighborhood, use <a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a> or <a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a>.</p>
+  <h2>Notes</h2>
+  <p>If one object 'says' something to another object (e.g., a button that, when touched,
+turns on a lamp), consider a very negative channel, e.g.,</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RegionSay(-5243212, "turn on")`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRegionSay(-5243212,"turn on");`} lang="lsl" /></div>
+  <p>Using negative channels for script communications remains a common practice because, prior to September 2016, the standard SL client was unable to chat on negative channels. The only way to do so prior to <a href="https://wiki.secondlife.com/wiki/LlTextBox" target="_blank">llTextBox</a> was to use <a href="https://wiki.secondlife.com/wiki/LlDialog" target="_blank">llDialog</a> which was limited to 24 bytes. However, since 2016, viewers have been able to chat on negative channels, with messages capped to 254 bytes.</p>
+  <p>If DEBUG_CHANNEL is used as <b>channel</b>, the script will say <b>msg</b> to the Script Warning/Error window.</p>
+  <p>If you wish two objects owned by the same person to communicate within a SIM, one idea is to make both scripts compute the channel based on the owner UUID. e.g. :-</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`gChannel = 0x80000000 | (integer) ( "0x" + (string) llGetOwner() );`} lang="lsl" /></div>
+  <ul>
+    <li>As of 1.18.3, using llRegionSay on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> will wrap around and display on channel 0, with a range of 100m.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a></td>
+        <td>–</td>
+        <td>Sends chat directly to specified target within region</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a></td>
+        <td>–</td>
+        <td>Sends chat to the owner only</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlWhisper" target="_blank">llWhisper</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 10 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 20 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">llShout</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 100 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDialog" target="_blank">llDialog</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTextBox" target="_blank">llTextBox</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Introduced with SL 1.16.0</li>
+    <li>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.16" target="_blank"> 23-05-2007 </a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRegionSay( integer channel, string msg );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

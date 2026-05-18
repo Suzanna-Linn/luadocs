@@ -1,0 +1,255 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_TEXT: number = 26`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_TEXT = 26;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_TEXT has the value 26</p>
+  <p>Used to get or set the object's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Floating_Text" target="_blank">floating text</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/String" target="_blank"> PRIM_TEXT,&#32;[string</a> text, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha ]); </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• string</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/text" target="_blank">text</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Floating_Text" target="_blank">floating text</a> to display</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
+        <td>–</td>
+        <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Syntax for: <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>, <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_TEXT ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> text, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• string</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/text" target="_blank">text</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Floating_Text" target="_blank">floating text</a> displayed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
+        <td>–</td>
+        <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Syntax for: <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>, <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Do not rely on <a href="https://wiki.secondlife.com/wiki/Category:LSL_Floating_Text" target="_blank">Floating Text</a> as a storage medium; it is neither secure nor finalized.
+    <ul>
+      <li>Floating text has been altered in past server updates, breaking existing content; future changes may occur.</li>
+      <li>Even "invisible"[[1]](#footnote_1) floating text is transmitted to the client.
+      <ul>
+        <li>It can be viewed by anyone with a client that is capable of rendering text that is supposed to be invisible.</li>
+        <li>The network packets that contain the text can be sniffed and the text read.</li>
+      </ul>
+    
+      </li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetText" target="_blank">llSetText</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Limits" target="_blank">Limits</a></td>
+        <td>–</td>
+        <td>SL limits and constrictions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">Color in LSL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Alpha" target="_blank">Translucent Color</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    -- a string to display
+    local displayMessage = ll.GetDisplayName(ll.GetOwner()) .. ", test number "
+
+    -- just so could test changing the displayMessage
+    local loopControl = 0
+    loopControl = 1
+    while loopControl < 3 do
+        -- on first iteration set the text 
+        if loopControl == 1 then
+            ll.SetPrimitiveParams({PRIM_TEXT, displayMessage .. tostring(loopControl) .. ".", vector(1, 0, 0), 1.0})
+
+        -- on second iteration get the text and say it. 
+        elseif loopControl == 2 then
+            ll.Say(0, ll.DumpList2String(ll.GetPrimitiveParams({PRIM_TEXT}), " "))
+        end
+        loopControl += 1
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        // a string to display
+        string displayMessage = llGetDisplayName( llGetOwner() ) + ", test number "; 
+        
+        // just so could test changing the displayMessage
+        integer loopControl;
+        for( loopControl = 1; loopControl < 3; ++loopControl )
+        {
+            // on first iteration set the text 
+            if( loopControl == 1 )
+            {
+                llSetPrimitiveParams([PRIM_TEXT, displayMessage + (string)loopControl + ".", <1, 0, 0>, 1.0]);
+            }
+            
+            // on second iteration get the text and say it. 
+            else if( loopControl == 2 )
+            {
+                llSay(0, llDumpList2String(llGetPrimitiveParams([PRIM_TEXT]), " "));
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_TEXT" target="_blank">Search Canny for related Issues</a> Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Floating text with an <b>alpha</b> set to 0.0 is rendered "invisible"</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_TEXT = 26
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_TEXT = 26;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

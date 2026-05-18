@@ -1,0 +1,127 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetGeometricCenter(): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGetGeometricCenter();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns the vector that is the geometric center of the object <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">relative</a> to the root prim.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">278</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <p>The "geometric center" is different from the "center" in viewer's build tools and also different from what <a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a> considers to be the "center" of a linkset.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.OwnerSay("Geometric center of the object relative to the root prim: " .. tostring(ll.GetGeometricCenter()))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        llOwnerSay("Geometric center of the object relative to the root prim: " + (string)llGetGeometricCenter());
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>The "geometric center" is the average of all linked prim centers. Mathematically, it's the root-relative positions of all linked prims in the linkset added together and divided by the number of prims in the linkset.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetCenterOfMass" target="_blank">llGetCenterOfMass</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function GetGeometricCenter()
+    local center = ZERO_VECTOR
+    local p = ll.GetNumberOfPrims()
+    --since we skip the root prim, we can ignore the single prim case.
+    --If we weren't skipping the root, this would be more complicated.
+    local i = 1
+    while i < p do
+        center += ll.List2Vector(ll.GetLinkPrimitiveParams((function() i += 1 return i end)(), {PRIM_POS_LOCAL}), 0)
+    end
+    return center / p
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector GetGeometricCenter(){
+    vector center = ZERO_VECTOR;
+    integer p = llGetNumberOfPrims();
+    //since we skip the root prim, we can ignore the single prim case.
+    //If we weren't skipping the root, this would be more complicated.
+    integer i = 1;
+    while(i < p)
+        center += llList2Vector(llGetLinkPrimitiveParams(++i, [PRIM_POS_LOCAL]), 0);
+    return center / p;
+}`} lang="lsl" /></div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetGeometricCenter()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llGetGeometricCenter();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>With each added prim</p>
+<p>away shifts our origin</p>
+<p>to encompass all.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,500 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.CastRay(Start: vector, End: vector, Options: {any}): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llCastRay(vector Start, vector End, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Cast a line from <b>start</b> to <b>end</b> and report collision data for intersections with objects.</p>
+  <p>Returns a list of strided values on a successful hit, with an additional integer <a href="#status_code" target="_blank">status_code</a> at the end.</p>
+  <p>Each stride consists of two mandatory values {<a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> <b>uuid</b>, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> <b>position</b>} and optionally {<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> <b>link_number</b>, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> <b>normal</b>}. (See <a href="#RC_DATA_FLAGS" target="_blank">RC_DATA_FLAGS</a> for details.)</p>
+  <p>A negative <b>status_code</b> is an <a href="#error_code" target="_blank">error code</a>, otherwise it is the number of hits (and strides) returned.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Start / start</td>
+          <td>starting location</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>End / end</td>
+          <td>ending location</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">options</a></td>
+          <td>can consists of any number of <a href="#options" target="_blank">option flags</a> and their parameters.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>physics</li>
+        <li>sensor</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">363</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Example return of successful raycast, using the default options:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`[key object_uuid, vector hit_position, integer status_code]`} lang="lsl" /></div>
+  <p>In the case of an error, or if the ray hits nothing, the resulting list only contains the status code:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`[integer status_code]`} lang="lsl" /></div>
+  <h2>Specification</h2>
+  <p>status_code</p>
+  <p><b>status_code</b> is a number tacked onto the end of the strided list to give you extra information about the ray cast.</p>
+  <p>If the cast succeeded, it will be >=0 and will indicate the number of hits.</p>
+  <p>If the ray cast failed (which should only happen right now if the simulator performance is running low), you'll get a negative status code. <a href="https://wiki.secondlife.com/wiki/RCERR_SIM_PERF_LOW" target="_blank">RCERR_SIM_PERF_LOW</a> will be used as the status code if the overall physics time in the simulator is too high to perform raycasts. The idea is that you will know to try your cast again in a few frames.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Status Code</th>
+        <th>V</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RCERR_UNKNOWN" target="_blank">RCERR_UNKNOWN</a></td>
+        <td>-1</td>
+        <td>The raycast failed for an unspecified reason. Please submit a bug report.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RCERR_SIM_PERF_LOW" target="_blank">RCERR_SIM_PERF_LOW</a></td>
+        <td>-2</td>
+        <td>The raycast failed because simulator performance is low. Wait a while and then try again. If possible reduce the scene complexity.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RCERR_CAST_TIME_EXCEEDED" target="_blank">RCERR_CAST_TIME_EXCEEDED</a></td>
+        <td>-3</td>
+        <td>The raycast failed because the parcel or agent has exceeded the maximum time allowed for raycasting. This resource pool is continually replenished, so waiting a few frames and retrying is likely to succeed.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a href="https://wiki.secondlife.com/wiki/RCERR_CAST_TIME_EXCEEDED" target="_blank">RCERR_CAST_TIME_EXCEEDED</a></p>
+  <p><b>Note:</b> <a href="https://jira.secondlife.com/browse/SCR-199" target="_blank">SCR-199</a> indicates that pools have been removed from the main grid, so this return code should not appear.</p>
+  <p><b>Tips for Efficient Raycasts:</b></p>
+  <ul>
+    <li>Keep the max number of hits returned as small as possible</li>
+    <li>Set as many <a href="https://wiki.secondlife.com/wiki/RC_REJECT_TYPES" target="_blank">RC_REJECT_TYPES</a> as possible (of factors you can control, this will likely have the largest impact). For example, if you only want to know where the nearest agent is along a ray, use `<a href="https://wiki.secondlife.com/wiki/RC_REJECT_LAND" target="_blank">RC_REJECT_LAND</a> | <a href="https://wiki.secondlife.com/wiki/RC_REJECT_PHYSICAL" target="_blank">RC_REJECT_PHYSICAL</a> | <a href="https://wiki.secondlife.com/wiki/RC_REJECT_NONPHYSICAL" target="_blank">RC_REJECT_NONPHYSICAL</a>`</li>
+    <li>When possible, avoid raycasting through piles of prims and avoid raycasting against concave physics objects (anything with cut, hollow, twist, and so on, and any mesh object that has no decomposition and has physics type "prim"). Obviously this can't always be avoided, so some casts may take significantly longer than others. Plan for that with robust scripts that handle <a href="https://wiki.secondlife.com/wiki/RCERR_CAST_TIME_EXCEEDED" target="_blank">RCERR_CAST_TIME_EXCEEDED</a> responsibly, namely by sleeping briefly after the call and waiting for a few frames to go by before trying again.</li>
+  </ul>
+  <p>options parameter</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Flag</th>
+        <th>V</th>
+        <th>Parameters</th>
+        <th>Default Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_REJECT_TYPES" target="_blank"> [RC_REJECT_TYPES</a> ]</td>
+        <td>0</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> <b>filter</b> ]</td>
+        <td>[ 0 ]</td>
+        <td>Mask used to ignore specific types of objects (and avatars).</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_DATA_FLAGS" target="_blank"> [RC_DATA_FLAGS</a> ]</td>
+        <td>2</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> <b>flags</b> ]</td>
+        <td>[ 0 ]</td>
+        <td>Described in the <a href="#RC_DATA_FLAGS" target="_blank">RC_DATA_FLAGS</a> section.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_MAX_HITS" target="_blank"> [RC_MAX_HITS</a> ]</td>
+        <td>3</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> <b>max_hits</b> ]</td>
+        <td>[ 1 ]</td>
+        <td>Maximum number of hits to return. Maximum value is 256. <i>To avoid performance issues, keep it small.</i></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_DETECT_PHANTOM" target="_blank"> [RC_DETECT_PHANTOM</a> ]</td>
+        <td>1</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> <b>detect_phantom</b> ]</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank"> [FALSE</a> ]</td>
+        <td>Set to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> (or nonzero) to detect phantom AND volume detect objects. It is not possible to detect only phantom objects or only volume detect objects. If set to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, phantom and volume detect objects will always be detected, even if <a href="https://wiki.secondlife.com/wiki/RC_REJECT_NONPHYSICAL" target="_blank">RC_REJECT_NONPHYSICAL</a> and <a href="https://wiki.secondlife.com/wiki/RC_REJECT_PHYSICAL" target="_blank">RC_REJECT_PHYSICAL</a> are set in <a href="https://wiki.secondlife.com/wiki/RC_REJECT_TYPES" target="_blank">RC_REJECT_TYPES</a>.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a href="https://wiki.secondlife.com/wiki/RC_REJECT_TYPES" target="_blank">RC_REJECT_TYPES</a></p>
+  <p><b>filter</b> is a bitwise-or combination of the following constants: <a href="https://wiki.secondlife.com/wiki/RC_REJECT_AGENTS" target="_blank">RC_REJECT_AGENTS</a>, <a href="https://wiki.secondlife.com/wiki/RC_REJECT_PHYSICAL" target="_blank">RC_REJECT_PHYSICAL</a>, <a href="https://wiki.secondlife.com/wiki/RC_REJECT_NONPHYSICAL" target="_blank">RC_REJECT_NONPHYSICAL</a>, and <a href="https://wiki.secondlife.com/wiki/RC_REJECT_LAND" target="_blank">RC_REJECT_LAND</a>.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Reject Type</th>
+        <th>V</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_REJECT_AGENTS" target="_blank">RC_REJECT_AGENTS</a></td>
+        <td>1</td>
+        <td>Avatars won't be detected.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_REJECT_PHYSICAL" target="_blank">RC_REJECT_PHYSICAL</a></td>
+        <td>2</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Physical" target="_blank">Physical</a> objects won't be detected.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_REJECT_NONPHYSICAL" target="_blank">RC_REJECT_NONPHYSICAL</a></td>
+        <td>4</td>
+        <td>The opposite of the above flag. Objects without physics won't be detected. For phantom objects, see <a href="https://wiki.secondlife.com/wiki/RC_DETECT_PHANTOM" target="_blank">RC_DETECT_PHANTOM</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_REJECT_LAND" target="_blank">RC_REJECT_LAND</a></td>
+        <td>8</td>
+        <td>Land won't be detected. This refers to actual <a href="https://wiki.secondlife.com/wiki/LlGround" target="_blank">ground</a> only.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>If you reject everything, a script runtime error will be generated (as it makes no sense to do this). Using 0 as the filter value will accept all types (default).</p>
+  <p>Also note that seated agents are treated like unseated agents. As in, you either get seated and unseated agents in your results, or you use <a href="https://wiki.secondlife.com/wiki/RC_REJECT_AGENTS" target="_blank">RC_REJECT_AGENTS</a> and get neither.</p>
+  <p><a href="https://wiki.secondlife.com/wiki/RC_DATA_FLAGS" target="_blank">RC_DATA_FLAGS</a></p>
+  <p><b>flags</b> is a bitwise-or combination of: <a href="https://wiki.secondlife.com/wiki/RC_GET_NORMAL" target="_blank">RC_GET_NORMAL</a>, <a href="https://wiki.secondlife.com/wiki/RC_GET_ROOT_KEY" target="_blank">RC_GET_ROOT_KEY</a>, and <a href="https://wiki.secondlife.com/wiki/RC_GET_LINK_NUM" target="_blank">RC_GET_LINK_NUM</a>.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Data Flag</th>
+        <th>V</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_GET_NORMAL" target="_blank">RC_GET_NORMAL</a></td>
+        <td>1</td>
+        <td>Stride includes the surface normal that was hit.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_GET_ROOT_KEY" target="_blank">RC_GET_ROOT_KEY</a></td>
+        <td>2</td>
+        <td>The hit <b>uuid</b> will be replaced by the object's root instead of any child.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RC_GET_LINK_NUM" target="_blank">RC_GET_LINK_NUM</a></td>
+        <td>4</td>
+        <td>Stride includes the link number that was hit.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Depending upon the value of <b>flags</b> (provided via <a href="#RC_DATA_FLAGS" target="_blank">RC_DATA_FLAGS</a>), the number and types of values in the strides will vary. See <a href="#RC_DATA_FLAGS" target="_blank">RC_DATA_FLAGS</a> for details.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetRot" target="_blank">llGetRot</a> will not return an avatar's exact visual rotation because the viewer doesn't update the avatar's rotation under a threshold (see <a href="https://jira.secondlife.com/browse/VWR-1331" target="_blank">VWR-1331</a>). To get an avatar's exact looking direction while in mouselook, use <a href="https://wiki.secondlife.com/wiki/LlGetCameraRot" target="_blank">llGetCameraRot</a> instead.</li>
+    <li>llCastRay will not detect prims having no physics shape (<a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_TYPE" target="_blank">PRIM_PHYSICS_SHAPE_TYPE</a> = <a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_NONE" target="_blank">PRIM_PHYSICS_SHAPE_NONE</a>).</li>
+    <li>llCastRay will not detect a prim if the line starts inside the prim. This makes it safe to use the prim position as the start location.</li>
+    <li>llCastRay can detect the prim the script is in, if the start location is outside the prim.</li>
+    <li>The result of this function has been noted to be <b>unreliable when the end point is out-of-bounds</b> (Occasionally returns status code 0 regardless of amount of objects hit). (See <a href="https://community.secondlife.com/forums/topic/486603-llcastray-returning-zero-hits-seemingly-at-random/" target="_blank">this forum post</a>)
+    <ul>
+      <li>The random failures seem to happen if the ray begins or ends more than 8 meters outside of current region bounds. Changes in only the ray's angle, or only in its position, may change the result. The result does not change if the exact same ray is cast again.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <p>This basic example will cast a ray from the center of the object, 10 meters forward, depending on the object's rotation.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    local start = ll.GetPos()
+    local end_t = start + vector(10, 0, 0) * ll.GetRot()
+
+    local data = ll.CastRay(start, end_t, {})
+    ll.OwnerSay(ll.List2CSV(data))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        vector start = llGetPos();
+        vector end = start + <10,0,0> * llGetRot();
+
+        list data = llCastRay(start, end, []);
+        llOwnerSay(llList2CSV(data));
+    }
+}`} lang="lsl" /></div>
+  <p>This is an example attachment that casts a ray based on the owner's camera in mouselook. It has many applications for things like weapons, scripted interactions with the world (like allowing a HUD to display information about things the user is looking at), etc.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local gTargetChan = -9934917
+
+function LLEvents.attach(id)
+    if id ~= NULL_KEY then
+        ll.RequestPermissions(id, bit32.bor(PERMISSION_TAKE_CONTROLS, PERMISSION_TRACK_CAMERA))
+    end
+end
+
+function LLEvents.run_time_permissions(perm)
+    if bit32.bor(bit32.band(perm, PERMISSION_TAKE_CONTROLS), PERMISSION_TRACK_CAMERA) ~= 0 then
+        ll.TakeControls(bit32.bor(CONTROL_LBUTTON, CONTROL_ML_LBUTTON), true, false)
+    end
+end
+
+function LLEvents.control(id, level, edge)
+    -- User must be in mouselook to aim the weapon
+    if bit32.btest(level, edge, CONTROL_LBUTTON) then
+        ll.Say(0, "You must be in Mouselook to shoot.  Type \"CTRL + M\" or type \"Esc\" and scroll your mouse wheel forward to enter Mouselook.")
+    end
+    -- User IS in mouselook        
+    if bit32.btest(level, edge, CONTROL_ML_LBUTTON) then
+        local start = ll.GetCameraPos()
+        -- Detect only a non-physical, non-phantom object. Report its root prim's UUID.
+        local results = ll.CastRay(start, start + vector(60.0, 0.0, 0.0) * ll.GetCameraRot(), {RC_REJECT_TYPES, bit32.bor(RC_REJECT_PHYSICAL, RC_REJECT_AGENTS, RC_REJECT_LAND), RC_DETECT_PHANTOM, if false then 1 else 0, RC_DATA_FLAGS, RC_GET_ROOT_KEY, RC_MAX_HITS, 1})
+        ll.TriggerSound(ll.GetInventoryName(INVENTORY_SOUND, 0), 1.0)
+        ll.Sleep(0.03)
+        local target = ll.List2Key(results, 0)
+        -- Tell target that it has been hit. 
+        ll.RegionSayTo(target, gTargetChan, "HIT")
+    -- Target, scripted to listen on gTargetChan, can explode, change color, fall over .....
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer gTargetChan = -9934917;
+
+default
+{
+    attach(key id)
+    {
+        if (id != NULL_KEY)
+        { 
+            llRequestPermissions(id,PERMISSION_TAKE_CONTROLS|PERMISSION_TRACK_CAMERA);
+        }
+    }
+
+    run_time_permissions (integer perm)
+    {
+        if (perm & PERMISSION_TAKE_CONTROLS|PERMISSION_TRACK_CAMERA) 
+        {
+            llTakeControls(CONTROL_LBUTTON|CONTROL_ML_LBUTTON,TRUE,FALSE);
+        }
+    }
+
+    control (key id, integer level, integer edge)
+    {
+        // User must be in mouselook to aim the weapon
+        if (level & edge & CONTROL_LBUTTON)
+        {
+            llSay(0,"You must be in Mouselook to shoot.  Type \"CTRL + M\" or type \"Esc\" and scroll your mouse wheel forward to enter Mouselook.");
+        }
+        // User IS in mouselook        
+        if (level & edge & CONTROL_ML_LBUTTON)
+        {
+            vector start = llGetCameraPos();
+            // Detect only a non-physical, non-phantom object. Report its root prim's UUID.
+            list results = llCastRay(start, start+<60.0,0.0,0.0>*llGetCameraRot(),[RC_REJECT_TYPES,RC_REJECT_PHYSICAL|RC_REJECT_AGENTS|RC_REJECT_LAND,RC_DETECT_PHANTOM,FALSE,RC_DATA_FLAGS,RC_GET_ROOT_KEY,RC_MAX_HITS,1]);
+            llTriggerSound(llGetInventoryName(INVENTORY_SOUND,0),1.0);
+            llSleep(0.03);
+            key target = llList2Key(results,0);
+            // Tell target that it has been hit. 
+            llRegionSayTo(target,gTargetChan,"HIT");
+            // Target, scripted to listen on gTargetChan, can explode, change color, fall over .....
+        }
+    }            
+}`} lang="lsl" /></div>
+  <p>This example handles the caveat about rays extending outside of region bounds by calculating the point where the ray intersects with the region's edge.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetRegionEdge(start, dir)
+    local scaleGuess = 0
+    local scaleFactor = 4095.99
+    if dir.x ~= 0 then
+        scaleFactor = ((if dir.x > 0 then 1 else 0) * 255.99 - start.x) / dir.x
+    end
+    if dir.y ~= 0 then
+        scaleGuess = ((if dir.y > 0 then 1 else 0) * 255.99 - start.y) / dir.y
+        if scaleGuess < scaleFactor then
+            scaleFactor = scaleGuess
+        end
+    end
+    if dir.z ~= 0 then
+        scaleGuess = ((if dir.z > 0 then 1 else 0) * 4095.99 - start.z) / dir.z
+        if scaleGuess < scaleFactor then
+            scaleFactor = scaleGuess
+        end
+    end
+    return start + dir * scaleFactor
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local start = ll.GetPos()
+    local direction = vector(1, 0, 0) * ll.GetRot()
+    local end_t = GetRegionEdge(start, direction)
+
+    local data = ll.CastRay(start, end_t, {})
+    ll.OwnerSay(ll.List2CSV(data))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector GetRegionEdge(vector start, vector dir)
+{
+    float scaleGuess;
+    float scaleFactor = 4095.99;
+    if (dir.x)
+    {
+        scaleFactor = ((dir.x > 0) * 255.99 -start.x) / dir.x;
+    }
+    if (dir.y)
+    {
+        scaleGuess = ((dir.y > 0) * 255.99 - start.y) / dir.y;
+        if (scaleGuess < scaleFactor) scaleFactor = scaleGuess;
+    }
+    if (dir.z)
+    {
+        scaleGuess = ((dir.z > 0) * 4095.99 - start.z) / dir.z;
+        if (scaleGuess < scaleFactor) scaleFactor = scaleGuess;
+    }
+    return start + dir * scaleFactor;
+}
+
+default
+{
+    touch_start(integer total_number)
+    {
+        vector start = llGetPos();
+        vector direction = <1,0,0> * llGetRot();
+        vector end = GetRegionEdge(start, direction);
+
+        list data = llCastRay(start, end, []);
+        llOwnerSay(llList2CSV(data));
+    }
+}`} lang="lsl" /></div>
+  <p>This example casts a ray from the center of the object, 25 meters north, while applying different <a href="https://wiki.secondlife.com/wiki/RC_REJECT_TYPES" target="_blank">RC_REJECT_TYPES</a> each time.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local filter = 0  -- default is 0
+
+local function main()
+    local ownerName = ll.Key2Name(ll.GetOwner())
+    ll.OwnerSay("Hello, " .. ownerName .. "!")
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local start = ll.GetPos()
+    local end_t = start - vector(0.0, -25.0, 0.0)
+
+    if filter > 8 then
+        filter = 0
+    end
+
+    ll.OwnerSay("Filter " .. tostring(filter))
+
+    local results = ll.CastRay(start, end_t, {RC_REJECT_TYPES, filter, RC_MAX_HITS, 4})
+
+    local hitNum = 0
+    -- Handle error conditions here by checking llList2Integer(results, -1) >= 0
+    while hitNum < ll.List2Integer(results, -1) do
+        -- Stride is 2 because we didn't request normals or link numbers
+        local uuid = ll.List2Key(results, 2 * hitNum)
+
+        local name = "Land"  -- if (uuid == NULL_KEY)
+
+        if uuid ~= NULL_KEY then
+            name = ll.Key2Name(uuid)
+        end
+
+        ll.OwnerSay("Hit " .. name .. ".")
+
+        hitNum += 1
+    end
+
+    filter += 1
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer filter;// default is 0
+
+default
+{
+    state_entry()
+    {
+        string ownerName = llKey2Name(llGetOwner());
+        llOwnerSay("Hello, " + ownerName + "!");
+    }
+
+    touch_start(integer total_number)
+    {
+        vector start = llGetPos();
+        vector end = start - <0.0, -25.0, 0.0>;
+
+        if ( filter > 8 )
+            filter = 0;
+
+        llOwnerSay("Filter " + (string)filter);
+
+        list results = llCastRay(start, end, [RC_REJECT_TYPES, filter, RC_MAX_HITS, 4] );
+
+        integer hitNum = 0;
+        // Handle error conditions here by checking llList2Integer(results, -1) >= 0
+        while (hitNum < llList2Integer(results, -1))
+        {
+            // Stride is 2 because we didn't request normals or link numbers
+            key uuid = llList2Key(results, 2*hitNum);
+
+            string name = "Land"; // if (uuid == NULL_KEY)
+
+            if (uuid != NULL_KEY)
+                name = llKey2Name(uuid);
+
+            llOwnerSay("Hit " + name + ".");
+
+            ++hitNum;
+        }
+
+        ++filter;
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Use <a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a> to see what the output looks like when you try a new set of flags.</p>
+  <p>To quickly get the status code use `<a href="https://wiki.secondlife.com/wiki/LlList2Integer" target="_blank">llList2Integer</a>(result, -1)`.</p>
+  <p><b>Ideas for uses</b>:</p>
+  <ul>
+    <li><b>Weapons</b> - Raycasts are the traditional tool used in game development for simulating projectile weapons. They are orders of magnitude more efficient than rezzing a prim and launching it from a weapon.</li>
+    <li><b>AI Objects</b> - Line-of-sight detection of avatars and other objects, or for navigating an environment by tracing rays about themselves. For example; casting rays directly downwards to determine the height and angle (normal) of the current floor surface, useful for non-physical object movement.</li>
+    <li><b>Intelligent Object Placement</b> - Static objects can be placed in-scene, but adjust themselves to their environment. For example; an object rezzed too high up may adjust its height to floor-level, or a computer console placed low down may cause an avatar to kneel to use it rather than standing.</li>
+    <li><b>Environment Analysis</b> - Can be used to determine the limitations of a surrounding area, such as determining if an object has been placed within a closed room. Not a test to be performed frequently due to quantity of rays required, but could be used by objects to switch off effects if unobserved (no-one within the room). Auto-adjusting furniture or objects to snap to walls, floors, and ceilings.</li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.09.23.241511" target="_blank"> 23/09/2011 </a></li>
+    <li><a href="https://jira.secondlife.com/browse/SCR-199" target="_blank">SCR-199</a> - fixed - The throttle was too low and thus rendered the function not as useful as it could be.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llCastRay( vector start, vector end, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

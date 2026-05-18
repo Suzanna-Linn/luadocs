@@ -1,0 +1,179 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetGMTclock(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetGMTclock();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the time in seconds since midnight GMT. Value appears to be truncated to the second.</p>
+  <p>For SL time, which is the same as California time, use <a href="https://wiki.secondlife.com/wiki/LlGetWallclock" target="_blank">llGetWallclock</a></p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>time</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">282</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+----// GMT function with local offsets in 12hr format //--//
+
+local gIntMinute = 60  ---- 1 minute in seconds
+local gIntHour = 3600  ---- 1 hour in seconds
+local gInt12Hr = 43200  ---- 12hrs in seconds
+local gIntDay = 86400  ---- 1 day in seconds
+
+local function fStrGMTwOffset(vIntLocalOffset)
+    ---- get the correct time in seconds for the given offset
+    local vIntBaseTime = (integer(ll.GetGMTclock()) + gIntDay + vIntLocalOffset * gIntHour) % gIntDay
+    local vStrReturn = ""
+
+    ---- store morning or night and reduce to 12hour format if needed
+    if vIntBaseTime < gInt12Hr then
+        vStrReturn = " AM"
+    else
+        vStrReturn = " PM"
+        vIntBaseTime = vIntBaseTime % gInt12Hr
+    end
+
+    ---- get and format minutes
+    local vIntMinutes = (vIntBaseTime % gIntHour) // gIntMinute
+    vStrReturn = tostring(vIntMinutes) .. vStrReturn
+    if 10 > vIntMinutes then
+        vStrReturn = "0" .. vStrReturn
+    end
+
+    ---- add in the correct hour, force 0 to 12
+    if vIntBaseTime < gIntHour then
+        vStrReturn = "12:" .. vStrReturn
+    else
+        vStrReturn = tostring(vIntBaseTime // gIntHour) .. ":" .. vStrReturn
+    end
+    return vStrReturn
+end
+
+function LLEvents.touch_start(events)
+    local vIntTouched = #events
+    ---- '-8' is california time, no adjustment for DST
+    ll.Say(0, "The time is now " .. fStrGMTwOffset(-8))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//--// GMT function with local offsets in 12hr format //--//
+ 
+integer gIntMinute = 60;    //-- 1 minute in seconds
+integer gIntHour   = 3600;  //-- 1 hour in seconds
+integer gInt12Hr   = 43200; //-- 12hrs in seconds
+integer gIntDay    = 86400; //-- 1 day in seconds
+ 
+string fStrGMTwOffset( integer vIntLocalOffset ){
+   //-- get the correct time in seconds for the given offset
+  integer vIntBaseTime = ((integer)llGetGMTclock() + gIntDay + vIntLocalOffset * gIntHour) % gIntDay;
+  string vStrReturn;
+ 
+   //-- store morning or night and reduce to 12hour format if needed
+  if (vIntBaseTime < gInt12Hr){
+    vStrReturn = " AM";
+  }else{
+    vStrReturn = " PM";
+    vIntBaseTime = vIntBaseTime % gInt12Hr;
+  }
+ 
+   //-- get and format minutes
+  integer vIntMinutes = (vIntBaseTime % gIntHour) / gIntMinute;
+  vStrReturn = (string)vIntMinutes + vStrReturn;
+  if (10 > vIntMinutes){
+    vStrReturn = "0" + vStrReturn;
+  }
+ 
+   //-- add in the correct hour, force 0 to 12
+  if (vIntBaseTime < gIntHour){
+    vStrReturn = "12:" + vStrReturn;
+  }else{
+    vStrReturn = (string)(vIntBaseTime / gIntHour) + ":" + vStrReturn;
+  }
+  return vStrReturn;
+}
+ 
+default{
+  touch_start( integer vIntTouched ){
+     //-- '-8' is california time, no adjustment for DST
+    llSay( 0, "The time is now " + fStrGMTwOffset( -8 ) );
+  }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+-- Gets the number of milliseconds since midnight UTC.
+local function GetGMTmsclock()
+    local stamp = ll.GetTimestamp()
+    return integer(ll.GetSubString(stamp, 11, 12)) * 3600000 + integer(ll.GetSubString(stamp, 14, 15)) * 60000 + ll.Round(tonumber(ll.GetSubString(stamp, 17, -2)) * 1000.0)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Gets the number of milliseconds since midnight UTC.
+integer GetGMTmsclock()
+{
+    string stamp = llGetTimestamp();
+    return
+        (integer) llGetSubString(stamp, 11, 12) * 3600000 +
+        (integer) llGetSubString(stamp, 14, 15) * 60000 +
+        llRound((float) llGetSubString(stamp, 17, -2) * 1000.0);
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetWallclock" target="_blank">llGetWallclock</a></td>
+        <td>–</td>
+        <td>Seconds since midnight SLT (i.e. PST or PDT)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetGMTclock()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGetGMTclock();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

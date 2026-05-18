@@ -1,0 +1,163 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.EdgeOfWorld(Position: vector, Direction: vector): boolean`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llEdgeOfWorld(vector Position, vector Direction);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Checks to see whether the border hit by <b>dir</b> from <b>pos</b> is the edge of the world (has no neighboring simulator).</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) value. <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> indicating there is a simulator in the direction indicated.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Direction / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Vector/direction" target="_blank">dir</a></td>
+          <td>direction</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">205</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The <b>z</b> component of <b>dir</b> is ignored.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If the <b>x</b> and <b>y</b> components of <b>dir</b> are zero (like with <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>), <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> is always returned.</li>
+    <li><b>pos</b> must be in the region.</li>
+    <li>Can only be used to detect directly adjacent regions, not diagonally adjacent regions</li>
+    <li>This function will also return <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if <a href="https://wiki.secondlife.com/wiki/LlRequestSimulatorData" target="_blank">llRequestSimulatorData</a>() returns "up" for an adjacent region but that region doesn't visibly show when standing next to its border.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+----// Tells if there are neighboring sims on touch //--//
+
+function LLEvents.touch_start(events)
+    local vIntTouched = #events
+    local vPosObject = ll.GetPos()
+    if not (ll.EdgeOfWorld(vPosObject, vector(0.0, 1.0, 0.0)) ~= 0) then
+        ll.OwnerSay("There is a Sim to the North")
+    end
+    if not (ll.EdgeOfWorld(vPosObject, vector(1.0, 0.0, 0.0)) ~= 0) then
+        ll.OwnerSay("There is a Sim to the East")
+    end
+    if not (ll.EdgeOfWorld(vPosObject, vector(0.0, -1.0, 0.0)) ~= 0) then
+        ll.OwnerSay("There is a Sim to the South")
+    end
+    if not (ll.EdgeOfWorld(vPosObject, vector(-1.0, 0.0, 0.0)) ~= 0) then
+        ll.OwnerSay("There is a Sim to the West")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//--// Tells if there are neighboring sims on touch //--//
+
+default{
+  touch_start( integer vIntTouched ){
+    vector vPosObject = llGetPos();
+    if (!llEdgeOfWorld( vPosObject, <0.0, 1.0, 0.0> )){
+      llOwnerSay( "There is a Sim to the North" );
+    }
+    if (!llEdgeOfWorld( vPosObject, <1.0, 0.0, 0.0> )){
+      llOwnerSay( "There is a Sim to the East" );
+    }
+    if (!llEdgeOfWorld( vPosObject, <0.0, -1.0, 0.0> )){
+      llOwnerSay( "There is a Sim to the South" );
+    }
+    if (!llEdgeOfWorld( vPosObject, <-1.0, 0.0, 0.0> )){
+      llOwnerSay( "There is a Sim to the West" );
+    }
+  }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_DIE_AT_EDGE" target="_blank">STATUS_DIE_AT_EDGE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_RETURN_AT_EDGE" target="_blank">STATUS_RETURN_AT_EDGE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlScriptDanger" target="_blank">llScriptDanger</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llEdgeOfWorld( vector pos, vector dir );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>The world once though flat</p>
+<p>indeed has come full circle</p>
+<p>here there be dragons.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

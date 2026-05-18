@@ -1,0 +1,142 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.DetectedOwner(Number: number): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llDetectedOwner(integer Number);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns the key (<a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>) of the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> of the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Number / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/number" target="_blank">number</a></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Index of detection information</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>detected</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">33</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-detected">Detected Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>number</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>Returns an empty key if <b>number</b> does not relate to a valid sensed object</p>
+  <h2>Specification</h2>
+  <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions only work if called from within Detection events (<a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a>, <a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a>, <a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a>, <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a>, <a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a>, <a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a>, <a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a>) or in functions called by Detection events. They will fail silently and return unusable values if called during other events.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>number</b> is out of bounds the script continues to execute without an error message.</li>
+    <li>Events that enable the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions always return at least one detected item.
+    <ul>
+      <li>Detection events are not raised if there is nothing detected.[[1]](#footnote_1)</li>
+      <li>The detection event's items detected parameter is initially never less than 1.[[2]](#footnote_2)</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.collision_start(events)
+    local num_detected = #events
+    local output = "\nkey of colliding object's owner ... or the colliding avatar: " .. tostring(ll.DetectedOwner(0)) .. "\nkey of this object's owner: " .. tostring(ll.GetOwner()) .. "\nname of colliding object/avatar: " .. ll.DetectedName(0) .. "\nkey of colliding object/avatar: " .. tostring(ll.DetectedKey(0)) .. "\nkey of the prim containing this script: " .. tostring(ll.GetKey()) .. "\nkey of this object's root prim: " .. tostring(ll.GetLinkKey(LINK_ROOT))
+    ll.Say(0, output)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    collision_start(integer num_detected)
+    {
+        string output =
+            "\nkey of colliding object's owner ... or the colliding avatar: " + (string)llDetectedOwner(0)
+            + "\nkey of this object's owner: " + (string)llGetOwner()
+            + "\nname of colliding object/avatar: " + llDetectedName(0)
+            + "\nkey of colliding object/avatar: " + (string)llDetectedKey(0)
+            + "\nkey of the prim containing this script: " + (string)llGetKey()
+            + "\nkey of this object's root prim: " + (string)llGetLinkKey(LINK_ROOT);        
+        llSay(0, output);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>If the <a href="https://wiki.secondlife.com/wiki/LlDetectedType" target="_blank">detected type</a> is an <a href="https://wiki.secondlife.com/wiki/AGENT_BY_LEGACY_NAME" target="_blank">avatar</a> the key of that avatar is returned. Avatars are owned by themselves. <a href="https://wiki.secondlife.com/wiki/LlGetOwnerKey" target="_blank">llGetOwnerKey</a> works the same way with regards to avatar UUIDs.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetOwnerKey" target="_blank">llGetOwnerKey</a></td>
+        <td>–</td>
+        <td>llGetOwnerKey(llDetectedKey(number)) is the same as llDetectedOwner(number) only if the detected object is in the same region.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetOwner" target="_blank">llGetOwner</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">Detected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The exception is <a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a> but it doesn't enable <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Like all event parameters, the user can overwrite the initial value.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llDetectedOwner( integer number );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

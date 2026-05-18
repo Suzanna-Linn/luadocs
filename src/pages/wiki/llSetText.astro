@@ -1,0 +1,511 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetText(Text: string, Color: vector, Opacity: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetText(string Text, vector Color, float Opacity);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Displays <b>text</b> that hovers over the prim with specific <b>color</b> and translucency (specified with <b>alpha</b>).</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/text" target="_blank">text</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Floating_Text" target="_blank">floating text</a> to display</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Color / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Opacity / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
+          <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_communication</li>
+        <li>effects</li>
+        <li>prim_appearance</li>
+        <li>prim_properties</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">152</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Do not rely on <a href="https://wiki.secondlife.com/wiki/Category:LSL_Floating_Text" target="_blank">Floating Text</a> as a storage medium; it is neither secure nor finalized.
+    <ul>
+      <li>Floating text has been altered in past server updates, breaking existing content; future changes may occur.</li>
+      <li>Even "invisible"[[1]](#footnote_1) floating text is transmitted to the client.
+      <ul>
+        <li>It can be viewed by anyone with a client that is capable of rendering text that is supposed to be invisible.</li>
+        <li>The network packets that contain the text can be sniffed and the text read.</li>
+      </ul>
+    
+      </li>
+    </ul>
+  
+    </li>
+    <li>If more than one llSetText is called (By reset,interaction or script state) within a prim the latest call will take priority over the previous.</li>
+    <li><b>text</b> is limited to 254 <a href="https://wiki.secondlife.com/wiki/Bytes" target="_blank">bytes</a> (compare <a href="https://wiki.secondlife.com/wiki/Limits#Building" target="_blank">Limits#Building</a>) in UTF-8 encoding. If the <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> is longer it will be truncated to 254 <a href="https://wiki.secondlife.com/wiki/Bytes" target="_blank">bytes</a>, and any multibyte characters getting split will be removed entirely.</li>
+    <li>An unbroken line of text of a great length may be broken automatically into two lines (one above the other).</li>
+    <li><b>text</b> can be seen through walls and other object. Be considerate of neighbors in malls and apartment buildings.
+    <ul>
+      <li>Visibility distance increases with prim size.</li>
+    </ul>
+  
+    </li>
+    <li>Removing the script or deactivating it <b>will not remove</b> a prim's <b>text</b> property. Floating <b>text</b> is not dependent on a script for its continued existence but only when wanting to change it.</li>
+    <li>To remove a prim's <b>text</b>, use the following:</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Preferred method to remove a prim's floating </b>text****</th>
+        <th><b>Second method does the same effect-wise.</b></th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+--  empty string & black & transparent
+ll.SetText("", ZERO_VECTOR, 0)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+//  empty string & black & transparent
+    llSetText("", ZERO_VECTOR, 0);
+`} lang="lsl" /></div>
+
+</td>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+--  empty string & black & transparent
+ll.SetText("", vector(0.0, 0.0, 0.0), 0.0)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+//  empty string & black & transparent
+    llSetText("", <0.0, 0.0, 0.0>, 0.0);
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>Vertical whitespace is removed from the end of the <b>text</b> string, so if you want vertical whitespace put any character (like a space) on the last line.</li>
+    <li>Multiple linebreaks with empty lines are converted to a single linebreak, so add a whitespace character on every line you want to skip:</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Good</b></th>
+        <th><b>Bad</b></th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+local COLOR_WHITE = vector(1.0, 1.0, 1.0)
+local OPAQUE = 1.0
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+vector COLOR_WHITE = <1.0, 1.0, 1.0>;
+    float  OPAQUE      = 1.0;
+
+
+    llSetText("Monkeys\n \n \n \n \n ", COLOR_WHITE, OPAQUE);
+`} lang="lsl" /></div>
+
+</td>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+local COLOR_WHITE = vector(1.0, 1.0, 1.0)
+local OPAQUE = 1.0
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+vector COLOR_WHITE = <1.0, 1.0, 1.0>;
+    float  OPAQUE      = 1.0;
+
+
+    llSetText("Monkeys\n\n\n\n\n", COLOR_WHITE, OPAQUE);
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><b>Measurements showed a high impact of process time when doing numerous iterations in a while loop</b>. For approx. 65 thousand iterations the process times are ca. 5 seconds without floating text, 24 seconds with llSetText and 96 seconds when using <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams#llSetLinkPrimitiveParamsFast" target="_blank">llSetPrimitiveParams#llSetLinkPrimitiveParamsFast</a> in combination with <a href="https://wiki.secondlife.com/wiki/PRIM_TEXT" target="_blank">PRIM_TEXT</a>. Thats why you are <b>not advised</b> to make excessive use of changing a prim's <b>text</b> within such iterations.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Example of how llSetText could be used to show prim's name in green <b>text</b>:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local COLOR_GREEN = vector(0.0, 1.0, 0.0)
+    local OPAQUE = 1.0
+
+    --      prim's name (not necessarily object's)
+    ll.SetText(ll.GetObjectName(), COLOR_GREEN, OPAQUE)
+
+    --      delete the script as we only needed it to change the floating text property
+    ll.RemoveInventory(ll.GetScriptName())
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        vector COLOR_GREEN = <0.0, 1.0, 0.0>;
+        float  OPAQUE      = 1.0;
+
+//      prim's name (not necessarily object's)
+        llSetText(llGetObjectName(), COLOR_GREEN, OPAQUE );
+
+//      delete the script as we only needed it to change the floating text property
+        llRemoveInventory(llGetScriptName());
+    }
+}`} lang="lsl" /></div>
+  <p>By default the floating <b>text</b> will appear on a single line. However, it can be spread over multiple lines by using a line break `"\n"` (read <a href="https://wiki.secondlife.com/wiki/SplitLine" target="_blank">SplitLine</a> in section 'See Also').</p>
+  <h3>String escape codes:</h3>
+  <p>LSL has four <a href="https://wiki.secondlife.com/wiki/String#Escape_Codes" target="_blank">string escape codes</a>:</p>
+  <ul>
+    <li>`\n` for a new line</li>
+    <li>`\\` for a backslash</li>
+    <li>`\t` for a tab</li>
+    <li>`\"` for a double-quote</li>
+  </ul>
+  <h3>Color & Alpha</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Color</th>
+        <th>Code</th>
+      </tr>
+      <tr>
+        <td>NAVY</td>
+        <td>`<0.000, 0.122, 0.247>`</td>
+      </tr>
+      <tr>
+        <td>BLUE</td>
+        <td>`<0.000, 0.455, 0.851>`</td>
+      </tr>
+      <tr>
+        <td>AQUA</td>
+        <td>`<0.498, 0.859, 1.000>`</td>
+      </tr>
+      <tr>
+        <td>TEAL</td>
+        <td>`<0.224, 0.800, 0.800>`</td>
+      </tr>
+      <tr>
+        <td>OLIVE</td>
+        <td>`<0.239, 0.600, 0.439>`</td>
+      </tr>
+      <tr>
+        <td>GREEN</td>
+        <td>`<0.180, 0.800, 0.251>`</td>
+      </tr>
+      <tr>
+        <td>LIME</td>
+        <td>`<0.004, 1.000, 0.439>`</td>
+      </tr>
+      <tr>
+        <td>YELLOW</td>
+        <td>`<1.000, 0.863, 0.000>`</td>
+      </tr>
+      <tr>
+        <td>ORANGE</td>
+        <td>`<1.000, 0.522, 0.106>`</td>
+      </tr>
+      <tr>
+        <td>RED</td>
+        <td>`<1.000, 0.255, 0.212>`</td>
+      </tr>
+      <tr>
+        <td>MAROON</td>
+        <td>`<0.522, 0.078, 0.294>`</td>
+      </tr>
+      <tr>
+        <td>FUCHSIA</td>
+        <td>`<0.941, 0.071, 0.745>`</td>
+      </tr>
+      <tr>
+        <td>PURPLE</td>
+        <td>`<0.694, 0.051, 0.788>`</td>
+      </tr>
+      <tr>
+        <td>WHITE</td>
+        <td>`<1.000, 1.000, 1.000>`</td>
+      </tr>
+      <tr>
+        <td>SILVER</td>
+        <td>`<0.867, 0.867, 0.867>`</td>
+      </tr>
+      <tr>
+        <td>GRAY</td>
+        <td>`<0.667, 0.667, 0.667>`</td>
+      </tr>
+      <tr>
+        <td>BLACK</td>
+        <td>`<0.000, 0.000, 0.000>`</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The x, y & z <a href="https://wiki.secondlife.com/wiki/Vector#Components" target="_blank">components of the vector</a> are used to represent red, green, and blue respectively. The range is different from traditional RGB, instead of being 0 -> 255, LSL uses 0 -> 1. `<1.0, 1.0, 1.0>` represents "white" and `<0.0, 0.0, 0.0>` represents "black":</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  white & opaque
+ll.SetText("I am white", vector(1.0, 1.0, 1.0), 1.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  white & opaque
+    llSetText("I am white", <1.0, 1.0, 1.0>, 1.0);`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local myColor = ZERO_VECTOR  -- defaults to ZERO_VECTOR or <0.0, 0.0, 0.0> which is black
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector myColor;// defaults to ZERO_VECTOR or <0.0, 0.0, 0.0> which is black
+
+    llSetText("I am black and 30% transparent.", myColor, 0.7);
+
+    llSleep(7.5);   // before: <0.0, 0.0, 0.0> black
+    myColor.x = 1.0;// now:    <1.0, 0.0, 0.0> red
+
+    llSetText("I am now red and 10% transparent.", myColor, 0.9);`} lang="lsl" /></div>
+  <p>If <b>alpha</b> is 1.0 it means the <b>text</b> is fully opaque (alpha), 0.0 would make it completely transparent (invisible):</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetText("green text with alpha 0.7", vector(0.0, 1.0, 0.0), 0.7)
+
+ll.SetText("white text with alpha 0.4\n60% transparent", vector(1.0, 1.0, 1.0), 0.4)
+ll.SetText("white text with alpha 1.0\nfully opaque", vector(1.0, 1.0, 1.0), 1.0)
+
+--  next to lines have the same effect
+ll.SetText("invisible black text with alpha 0.0\nfully transparent", ZERO_VECTOR, 0)
+ll.SetText("invisible black text with alpha 0.0\nfully transparent", vector(0.0, 0.0, 0.0), 0.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetText("green text with alpha 0.7", <0.0, 1.0, 0.0>, 0.7);
+
+    llSetText("white text with alpha 0.4\n60% transparent", <1.0, 1.0, 1.0>, 0.4);
+    llSetText("white text with alpha 1.0\nfully opaque", <1.0, 1.0, 1.0>, 1.0);
+
+//  next to lines have the same effect
+    llSetText("invisible black text with alpha 0.0\nfully transparent", ZERO_VECTOR, 0);
+    llSetText("invisible black text with alpha 0.0\nfully transparent", <0.0, 0.0, 0.0>, 0.0);`} lang="lsl" /></div>
+  <h3>Multiple lines</h3>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  two lines of orange text
+
+ll.SetText("I am\non two lines!", vector(1.0, 0.4, 0.0), 1.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  two lines of orange text
+
+    llSetText("I am\non two lines!", <1.0, 0.4, 0.0>, 1.0);`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <p>Drag this script out of inventory onto an object to erase its set text:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- http://wiki.secondlife.com/wiki/llSetText
+
+local function main()
+    --      remove floating text (empty string & black & 100% transparent)
+    ll.SetText("", ZERO_VECTOR, 0.0)
+
+    --      delete the script as we only needed it to change the floating text property
+    ll.RemoveInventory(ll.GetScriptName())
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// http://wiki.secondlife.com/wiki/llSetText
+
+default
+{
+    state_entry()
+    {
+//      remove floating text (empty string & black & 100% transparent)
+        llSetText("", ZERO_VECTOR, 0.0);
+
+//      delete the script as we only needed it to change the floating text property
+        llRemoveInventory(llGetScriptName());
+    }
+}`} lang="lsl" /></div>
+  <p>Code to easily specify appearance of hovertext:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local NAVY = vector(0, 0.122, 0.247)
+local BLUE = vector(0, 0.455, 0.851)
+local AQUA = vector(0.498, 0.859, 1)
+local TEAL = vector(0.224, 0.8, 0.8)
+local OLIVE = vector(0.239, 0.6, 0.439)
+local GREEN = vector(0.18, 0.8, 0.251)
+local LIME = vector(0.004, 1, 0.439)
+local YELLOW = vector(1, 0.863, 0)
+local ORANGE = vector(1, 0.522, 0.106)
+local RED = vector(1, 0.255, 0.212)
+local MAROON = vector(0.522, 0.078, 0.294)
+local FUCHSIA = vector(0.941, 0.071, 0.745)
+local PURPLE = vector(0.694, 0.051, 0.788)
+local WHITE = vector(1, 1, 1)
+local SILVER = vector(0.867, 0.867, 0.867)
+local GRAY = vector(0.667, 0.667, 0.667)
+local BLACK = vector(0.000, 0.000, 0.000)
+
+local hoverText = "TEXT GOES HERE"
+local hoverColor = LIME  --  set predefined color or any RGB color vector in float form
+local hoverAlpha = 1.0  -- Sets the text's transparency, 1.0 being opaque, while 0.0 would be transparent
+
+local function main()
+    ll.SetText(hoverText, hoverColor, hoverAlpha)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector NAVY    = <0,     0.122, 0.247>;
+vector BLUE    = <0,     0.455, 0.851>;
+vector AQUA    = <0.498, 0.859, 1    >;
+vector TEAL    = <0.224, 0.8,   0.8  >;
+vector OLIVE   = <0.239, 0.6,   0.439>;
+vector GREEN   = <0.18,  0.8,   0.251>;
+vector LIME    = <0.004, 1    , 0.439>;
+vector YELLOW  = <1    , 0.863, 0    >;
+vector ORANGE  = <1    , 0.522, 0.106>;
+vector RED     = <1    , 0.255, 0.212>;
+vector MAROON  = <0.522, 0.078, 0.294>;
+vector FUCHSIA = <0.941, 0.071, 0.745>;
+vector PURPLE  = <0.694, 0.051, 0.788>;
+vector WHITE   = <1    , 1    , 1    >;
+vector SILVER  = <0.867, 0.867, 0.867>;
+vector GRAY    = <0.667, 0.667, 0.667>;
+vector BLACK   = <0.000, 0.000, 0.000>;
+
+string  hoverText   = "TEXT GOES HERE";
+vector  hoverColor  = LIME;//  set predefined color or any RGB color vector in float form
+float   hoverAlpha  = 1.0; // Sets the text's transparency, 1.0 being opaque, while 0.0 would be transparent
+
+default
+{
+    state_entry()
+    {
+        llSetText(hoverText, hoverColor, hoverAlpha);
+    }
+}`} lang="lsl" /></div>
+  <p>To make hovertext when using linked prims you can use this simple function:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function mySetLinkText(linknum, text, color, alpha)
+    ll.SetLinkPrimitiveParamsFast(linknum, {PRIM_TEXT, text, color, alpha})
+end
+
+-- For example:
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    mySetLinkText(LINK_SET, "TEST", vector(0, 1, 0), 0.5)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`mySetLinkText(integer linknum, string text, vector color, float alpha) {
+    llSetLinkPrimitiveParamsFast(linknum, [PRIM_TEXT, text, color, alpha]);
+}
+
+// For example:
+
+default
+{
+    touch_start(integer total_number)
+    {
+        mySetLinkText(LINK_SET, "TEST", <0, 1, 0>, 0.5);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>To actually display text on a prim, see <a href="https://wiki.secondlife.com/wiki/XyzzyText" target="_blank">XyzzyText</a>, or consider using parcel prim <a href="https://wiki.secondlife.com/wiki/Category:LSL_Media" target="_blank">Media</a> options (useful only if you have control over the land's media settings.)</p>
+  <p>The function displays <b>text</b> that hover over the prim's center, the prim position. The height over the center is proportional to the prim's Z-dimension exclusively</p>
+  <ul>
+    <li>It doesn't matter how the prim is rotated, so if Z is smaller than X and Y the <b>text</b> may be seen <b>on</b> the prim</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TEXT" target="_blank">PRIM_TEXT</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Limits" target="_blank">Limits</a></td>
+        <td>–</td>
+        <td>SL limits and constrictions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">Color in LSL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Alpha" target="_blank">Translucent Color</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Examples" target="_blank">Examples</a>: <a href="https://wiki.secondlife.com/wiki/SplitLine" target="_blank">SplitLine</a></td>
+        <td>–</td>
+        <td>Insert 'new line' escape codes at certain positions of a string</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td>Useful snippet: <a href="https://wiki.secondlife.com/wiki/LlGetObjectPermMask" target="_blank">llGetObjectPermMask</a></td>
+        <td>–</td>
+        <td>Label an object with text and newlines to give away or sell</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Escape_codes" target="_blank">escape codes</a></td>
+        <td>–</td>
+        <td>for details on how and when they work</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Floating text with an <b>alpha</b> set to 0.0 is rendered "invisible"</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetText( string text, vector color, float alpha );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

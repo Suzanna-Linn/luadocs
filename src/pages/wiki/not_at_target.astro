@@ -1,0 +1,164 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`not_at_target()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`not_at_target()`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Triggered if an object has not yet reached the target set by the call to <a href="https://wiki.secondlife.com/wiki/LlTarget" target="_blank">llTarget</a>.</p>
+  <p>This event may be triggered multiple times if the target has not been reached.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local target_id = 0
+local target_pos = ZERO_VECTOR
+
+local function main()
+    target_pos = ll.GetPos() + vector(5.0, 0.0, 0.0)
+    target_id = ll.Target(target_pos, 0.5)
+    ll.SetStatus(STATUS_PHYSICS, true)
+    ll.MoveToTarget(target_pos, 0.4)
+end
+function LLEvents.at_target(tnum, targetpos, ourpos)
+    if tnum == target_id then
+        ll.OwnerSay("object is within range of target")
+        ll.OwnerSay("target position: " .. tostring(targetpos) .. ", object is now at: " .. tostring(ourpos))
+        ll.OwnerSay("this is " .. tostring(ll.VecDist(targetpos, ourpos)) .. " meters from the target")
+        ll.TargetRemove(target_id)
+    end
+end
+function LLEvents.not_at_target()
+    ll.OwnerSay("not there yet - object is at " .. tostring(ll.GetPos()) .. ", which is " .. tostring(ll.VecDist(target_pos, ll.GetPos())) .. " meters from the target (" .. tostring(target_pos) .. ")")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer target_id;
+vector target_pos;
+
+default
+{
+    state_entry()
+    {
+        target_pos = llGetPos() + <5.0, 0.0, 0.0>;
+        target_id = llTarget(target_pos, 0.5);
+        llSetStatus(STATUS_PHYSICS, TRUE);
+        llMoveToTarget(target_pos, 0.4);
+    }
+    at_target(integer tnum, vector targetpos, vector ourpos)
+    {
+        if (tnum == target_id)
+        {
+            llOwnerSay("object is within range of target");
+            llOwnerSay("target position: " + (string)targetpos + ", object is now at: " + (string)ourpos);
+            llOwnerSay("this is " + (string)llVecDist(targetpos, ourpos) + " meters from the target");
+            llTargetRemove(target_id);
+        }
+    }
+    not_at_target()
+    {
+        llOwnerSay(
+            "not there yet - object is at " + (string)llGetPos() + 
+            ", which is " + (string)llVecDist(target_pos, llGetPos()) + 
+            " meters from the target (" + (string)target_pos + ")"
+        );
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/At_target" target="_blank">at_target</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/At_rot_target" target="_blank">at_rot_target</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Not_at_rot_target" target="_blank">not_at_rot_target</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTarget" target="_blank">llTarget</a></td>
+        <td>–</td>
+        <td>Setup a target position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTargetRemove" target="_blank">llTargetRemove</a></td>
+        <td>–</td>
+        <td>Stop a target position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotTarget" target="_blank">llRotTarget</a></td>
+        <td>–</td>
+        <td>Setup a target rotation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotTargetRemove" target="_blank">llRotTargetRemove</a></td>
+        <td>–</td>
+        <td>Stop a target rotation</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void not_at_target(  );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

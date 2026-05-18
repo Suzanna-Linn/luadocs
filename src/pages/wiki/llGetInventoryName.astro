@@ -1,0 +1,264 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetInventoryName(InventoryType: number, Index: number): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetInventoryName(integer InventoryType, integer Index);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the name of the inventory item <b>number</b> of <b>type</b>. Returns an empty string if no item of the specified type is found in the prim's inventory (or there are less than or equal to <b>number</b> items of the type).</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>InventoryType / type</td>
+          <td>INVENTORY_* flag</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Index / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/number" target="_blank">number</a></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Beginning from 0</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">147</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>number</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>Inventory items are sorted in alphabetical order (not chronological order).</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b>Flag</b></th>
+        <th><b>Inventory Type</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_NONE" target="_blank">INVENTORY_NONE</a></td>
+        <td>-1</td>
+        <td>Item does not exist.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_ALL" target="_blank">INVENTORY_ALL</a></td>
+        <td>Any inventory type.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_TEXTURE" target="_blank">INVENTORY_TEXTURE</a></td>
+        <td>0</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Texture" target="_blank">texture</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_SOUND" target="_blank">INVENTORY_SOUND</a></td>
+        <td>1</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Sound" target="_blank">sound</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_LANDMARK" target="_blank">INVENTORY_LANDMARK</a></td>
+        <td>3</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Landmark" target="_blank">landmark</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_CLOTHING" target="_blank">INVENTORY_CLOTHING</a></td>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Clothing" target="_blank">clothing</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_OBJECT" target="_blank">INVENTORY_OBJECT</a></td>
+        <td>6</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b>Flag</b></th>
+        <th><b>Inventory Type</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_NOTECARD" target="_blank">INVENTORY_NOTECARD</a></td>
+        <td>7</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Notecard" target="_blank">notecard</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_SCRIPT" target="_blank">INVENTORY_SCRIPT</a></td>
+        <td>10</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_BODYPART" target="_blank">INVENTORY_BODYPART</a></td>
+        <td>13</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Body_part" target="_blank">body part</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_ANIMATION" target="_blank">INVENTORY_ANIMATION</a></td>
+        <td>20</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Animation" target="_blank">animation</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_GESTURE" target="_blank">INVENTORY_GESTURE</a></td>
+        <td>21</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Gesture" target="_blank">gesture</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_SETTING" target="_blank">INVENTORY_SETTING</a></td>
+        <td>56</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Environmental_Enhancement_Project" target="_blank">setting</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_MATERIAL" target="_blank">INVENTORY_MATERIAL</a></td>
+        <td>57</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PBR_Materials" target="_blank">material</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>number</b> is out of bounds the script continues to execute without an error message.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Box Unpacker</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Give all prim contents to anyone touching this object,
+-- But don't give this script itself.
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local InventoryList = {}
+    local count = ll.GetInventoryNumber(INVENTORY_ALL)  -- Count of all items in prim's contents
+    local ItemName = ""
+    while (function() local tmp = count count -= 1 return tmp end)() ~= 0 do
+        ItemName = ll.GetInventoryName(INVENTORY_ALL, count)
+        if ItemName ~= ll.GetScriptName() then
+            InventoryList = ll.ListInsertList(InventoryList, {ItemName}, #InventoryList)  -- add all contents except this script, to a list
+        end
+    end
+    -- Give all the items to the toucher, in a folder named as per this prim's name
+    ll.GiveInventoryList(ll.DetectedKey(0), ll.GetObjectName(), InventoryList)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Give all prim contents to anyone touching this object,
+// But don't give this script itself.
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        list    InventoryList;
+        integer count = llGetInventoryNumber(INVENTORY_ALL);  // Count of all items in prim's contents
+        string  ItemName;
+        while (count--)
+        {
+            ItemName = llGetInventoryName(INVENTORY_ALL, count);
+            if (ItemName != llGetScriptName() )  
+                InventoryList += ItemName;   // add all contents except this script, to a list
+        }
+        // Give all the items to the toucher, in a folder named as per this prim's name
+        llGiveInventoryList(llDetectedKey(0), llGetObjectName(), InventoryList);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>The maximum number of characters for an object inventory item is currently 63 characters.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryAcquireTime" target="_blank">llGetInventoryAcquireTime</a></td>
+        <td>–</td>
+        <td>Returns the time the item was added to the prim's inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryNumber" target="_blank">llGetInventoryNumber</a></td>
+        <td>–</td>
+        <td>Returns the number of items of a specific type in inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryType" target="_blank">llGetInventoryType</a></td>
+        <td>–</td>
+        <td>Tests to see if an inventory item exists and returns its type.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryCreator" target="_blank">llGetInventoryCreator</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's creator</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">llGetInventoryPermMask</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> (if full perm)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveInventory_All_Test" target="_blank">llGiveInventory_All_Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetInventoryName( integer type, integer number );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,298 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetEnergy(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetEnergy();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is how much energy is in the object as a percentage of maximum</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">149</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- This script tests the energy use of most of the physics functions
+-- Last version: 07 October 2009 by Gianni Lupindo
+
+local homePos = ZERO_VECTOR
+local timerCount = 0
+local testCount = 0
+local space = "  "
+
+-- move more than 10m
+local function moveTo(origin, destination)
+    local dist = ll.VecDist(origin, destination)
+    local passes = ll.Ceil(ll.Log(dist / 10.0) / ll.Log(2.0))
+    local i = 0
+    local params = {PRIM_POSITION, destination}
+    for i = 0, passes - 1 do
+        params = ll.ListInsertList(ll.ListInsertList(((function() params = {} return params end)()), params, #((function() params = {} return params end)())), params, #ll.ListInsertList(((function() params = {} return params end)()), params, #((function() params = {} return params end)())))
+    end
+    -- actually move the prim, now
+    ll.SetPrimitiveParams(params)
+end
+
+local function returnHome()
+    ll.SetTimerEvent(0)
+    ll.SetStatus(STATUS_PHYSICS, false)
+    ll.Sleep(0.2)
+    moveTo(ll.GetPos(), homePos)
+    ll.SetRot(ZERO_ROTATION)
+end
+
+local function main()
+    homePos = ll.GetPos()
+    ll.OwnerSay("Mass is " .. tostring(ll.GetMass()))
+end
+function LLEvents.on_rez(_n)
+    ll.ResetScript()
+end
+function LLEvents.touch_start(events)
+    local n = #events
+    space = "  "
+    repeat
+        ll.Sleep(0.5)
+    until not (ll.GetEnergy() < 0.998)
+    ll.SetPos(ll.GetPos() + vector(0, 0, 5))
+    ll.SetStatus(STATUS_PHYSICS, true)
+    ll.SetTimerEvent(1.0)
+
+    local impulse = vector(0, 0, 5) * ll.GetMass()
+    if testCount == 0 then
+        ll.OwnerSay("ApplyImpulse (test 0)")
+        ll.ApplyImpulse(impulse, true)
+    elseif testCount == 1 then
+        ll.OwnerSay("ApplyRotImpulse (test 1)")
+        ll.ApplyRotationalImpulse(impulse, true)
+    elseif testCount == 2 then
+        ll.OwnerSay("PushObject (test 2)")
+        ll.PushObject(ll.GetKey(), impulse, ZERO_VECTOR, true)
+    elseif testCount == 3 then
+        ll.SetForceAndTorque(ZERO_VECTOR, ZERO_VECTOR, true)
+        ll.OwnerSay("Force (test 3)")
+        ll.SetForce(impulse, true)
+    elseif testCount == 4 then
+        ll.SetForceAndTorque(ZERO_VECTOR, ZERO_VECTOR, true)
+        ll.OwnerSay("Torque (test 4)")
+        ll.SetTorque(impulse, true)
+    elseif testCount == 5 then
+        ll.SetForceAndTorque(ZERO_VECTOR, ZERO_VECTOR, true)
+        ll.OwnerSay("Force and Torque (test 5)")
+        ll.SetForceAndTorque(impulse, impulse, true)
+    elseif testCount == 6 then
+        ll.SetForceAndTorque(ZERO_VECTOR, ZERO_VECTOR, true)
+        ll.OwnerSay("MoveToTarget (test 6)")
+        ll.MoveToTarget(impulse, 0.4)
+    elseif testCount == 7 then
+        ll.StopMoveToTarget()
+        ll.OwnerSay("RotLookAt (test 7)")
+        ll.RotLookAt(ll.Euler2Rot(impulse * DEG_TO_RAD), 0.4, 0.4)
+    elseif testCount == 8 then
+        ll.StopLookAt()
+        ll.OwnerSay("LookAt (test 8)")
+        ll.LookAt(impulse, 0.4, 0.4)
+    elseif testCount == 9 then
+        ll.StopLookAt()
+        ll.OwnerSay("Hover Height (test 9)")
+        ll.SetHoverHeight(5.0, true, 0.5)
+    elseif testCount == 10 then
+        ll.SetHoverHeight(0, true, 0.5)
+        ll.OwnerSay("Ground Repel (test 10)")
+        ll.GroundRepel(5, true, 0.5)
+    elseif testCount == 11 then
+        ll.GroundRepel(0, true, 0.5)
+        ll.OwnerSay("Buoyancy (test 11)")
+        ll.SetBuoyancy(0.997)
+    else
+        ll.SetBuoyancy(0.0)
+        ll.OwnerSay("Done")
+    end
+    timerCount = 0
+    if testCount ~= 12 then
+        ll.OwnerSay(tostring(timerCount) .. ". Energy:    " .. space .. tostring(ll.GetEnergy()))
+        testCount += 1
+    else
+        testCount = 0
+        returnHome()
+    end
+end
+function LLEvents.timer()
+    timerCount += 1
+    if timerCount >= 10 then
+        space = ""
+    end
+    ll.OwnerSay(tostring(timerCount) .. ". Energy:    " .. space .. tostring(ll.GetEnergy()))
+    if timerCount >= 10 then
+        returnHome()
+    end
+end
+function LLEvents.collision(events)
+    local n = #events
+    ll.OwnerSay("*. Energy:    " .. space .. tostring(ll.GetEnergy()) .. " (collision)")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// This script tests the energy use of most of the physics functions
+// Last version: 07 October 2009 by Gianni Lupindo
+ 
+vector homePos;
+integer timerCount = 0;
+integer testCount = 0;
+string space = "  "; 
+ 
+// move more than 10m
+moveTo(vector origin, vector destination) {
+    float dist = llVecDist(origin, destination);
+    integer passes = llCeil( llLog(dist/10.0) / llLog(2.0) );
+    integer i;
+    list params = [PRIM_POSITION, destination];
+    for (i=0; i<passes; i++) {
+        params = (params=[]) + params + params;
+    }
+    // actually move the prim, now
+    llSetPrimitiveParams(params);
+}
+ 
+returnHome()
+{
+    llSetTimerEvent(0);
+    llSetStatus(STATUS_PHYSICS, FALSE);
+    llSleep(0.2);
+    moveTo(llGetPos(),homePos);
+    llSetRot(ZERO_ROTATION);
+}
+ 
+default
+{
+    state_entry() {
+        homePos = llGetPos();
+        llOwnerSay("Mass is "+(string)llGetMass());
+    }
+    on_rez(integer _n) {
+        llResetScript();
+    }
+    touch_start(integer n) {
+        space = "  ";
+        do {
+          llSleep(0.5);
+        } while (llGetEnergy() < 0.998);
+        llSetPos( llGetPos()+<0,0,5>);
+        llSetStatus(STATUS_PHYSICS,TRUE);
+        llSetTimerEvent(1.0);
+ 
+        vector impulse = <0,0,5>*llGetMass();
+        if (testCount == 0) {
+            llOwnerSay("ApplyImpulse (test 0)");
+            llApplyImpulse( impulse, TRUE ); 
+        } else if (testCount == 1) {
+            llOwnerSay("ApplyRotImpulse (test 1)");
+            llApplyRotationalImpulse( impulse, TRUE);
+        } else if (testCount == 2) {
+            llOwnerSay("PushObject (test 2)");
+            llPushObject(llGetKey(), impulse, ZERO_VECTOR, TRUE); 
+        } else if (testCount == 3) {
+            llSetForceAndTorque( ZERO_VECTOR, ZERO_VECTOR, TRUE ); 
+            llOwnerSay("Force (test 3)");
+            llSetForce( impulse, TRUE ); 
+        } else if (testCount == 4) {
+            llSetForceAndTorque( ZERO_VECTOR, ZERO_VECTOR, TRUE ); 
+            llOwnerSay("Torque (test 4)");
+            llSetTorque( impulse, TRUE ); 
+        } else if (testCount == 5) {
+            llSetForceAndTorque( ZERO_VECTOR, ZERO_VECTOR, TRUE ); 
+            llOwnerSay("Force and Torque (test 5)");
+            llSetForceAndTorque( impulse, impulse, TRUE ); 
+        } else if (testCount == 6) {
+            llSetForceAndTorque( ZERO_VECTOR, ZERO_VECTOR, TRUE ); 
+            llOwnerSay("MoveToTarget (test 6)");
+            llMoveToTarget( impulse, 0.4 ); 
+        } else if (testCount == 7) {
+            llStopMoveToTarget ( ); 
+            llOwnerSay("RotLookAt (test 7)");
+            llRotLookAt( llEuler2Rot(impulse*DEG_TO_RAD), 0.4, 0.4 ); 
+        } else if (testCount == 8) {
+            llStopLookAt ( ); 
+            llOwnerSay("LookAt (test 8)");
+            llLookAt( impulse, 0.4, 0.4 ); 
+        } else if (testCount == 9) {
+            llStopLookAt ( ); 
+            llOwnerSay("Hover Height (test 9)");
+            llSetHoverHeight( 5.0, TRUE, 0.5);
+        } else if (testCount == 10) {
+            llSetHoverHeight( 0, TRUE, 0.5);
+            llOwnerSay("Ground Repel (test 10)");
+            llGroundRepel( 5, TRUE, 0.5);
+        } else if (testCount == 11) {
+            llGroundRepel( 0, TRUE, 0.5);
+            llOwnerSay("Buoyancy (test 11)");
+            llSetBuoyancy( 0.997 );
+        } else {
+            llSetBuoyancy( 0.0 );
+            llOwnerSay("Done");
+        }
+        timerCount = 0;
+        if (testCount != 12) {
+            llOwnerSay((string)timerCount+". Energy:    "+space+(string)llGetEnergy());
+            testCount++;
+        }
+        else {
+            testCount = 0; 
+            returnHome();
+        }
+    }
+    timer() {
+        timerCount++;
+        if (timerCount >= 10) space = "";
+        llOwnerSay((string)timerCount+". Energy:    "+space+(string)llGetEnergy());
+        if (timerCount>=10) {
+            returnHome();
+        }
+    }
+    collision(integer n) {
+        llOwnerSay("*. Energy:    "+space+(string)llGetEnergy()+" (collision)");
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Vigor of the script.</p>
+<p>Impulses, force, torque and push.</p>
+<p>Tenebrous design.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

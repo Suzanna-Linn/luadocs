@@ -1,0 +1,173 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.FleeFrom(Source: vector, Distance: number, Options: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llFleeFrom(vector Source, float Distance, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Directs a character to keep a specific <b>distance</b> from a specific <b>position</b> in the region or adjacent regions.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Source / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;from which to flee.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Distance / distance</td>
+          <td>Distance in meters to flee from <b>position</b>.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">options</a></td>
+          <td>No options available at this time.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>pathfinding</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">402</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Must use llCreateCharacter or script won't compile.</li>
+    <li>The <b>position</b> to flee from must be near the nav mesh; otherwise, this behavior will fail and trigger <a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path update</a> with PU_FAILURE_INVALID_GOAL.</li>
+    <li>If you want to avoid an agent or object as per the example below, it's much more elegant and less sim resource intensive to use <a href="https://wiki.secondlife.com/wiki/LlEvade" target="_blank">llEvade</a> instead.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local last_touched_pos = ZERO_VECTOR
+local last_touched_key = NULL_KEY
+
+local function main()
+    ll.CreateCharacter({CHARACTER_DESIRED_SPEED, 50.0})
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    last_touched_key = ll.DetectedKey(0)
+    last_touched_pos = ll.DetectedPos(0)
+    ll.FleeFrom(last_touched_pos, 10, {})
+    ll.SetTimerEvent(0.2)
+end
+
+function LLEvents.timer()
+    local last_touched_pos_now = ll.List2Vector(ll.GetObjectDetails(last_touched_key, {OBJECT_POS}), 0)
+    if ll.VecDist(last_touched_pos, last_touched_pos_now) > 1 then
+        last_touched_pos = last_touched_pos_now
+        ll.FleeFrom(last_touched_pos, 10, {})
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector last_touched_pos;
+key last_touched_key;
+
+default
+{
+    state_entry()
+    {
+        llCreateCharacter([CHARACTER_DESIRED_SPEED, 50.0]);
+    }
+
+    touch_start(integer total_number)
+    {
+	last_touched_key = llDetectedKey(0);
+	last_touched_pos = llDetectedPos(0);
+	llFleeFrom(last_touched_pos, 10, []);
+	llSetTimerEvent(0.2);
+    }
+	
+    timer()
+    {
+	vector last_touched_pos_now = llList2Vector(llGetObjectDetails(last_touched_key, [OBJECT_POS]), 0);
+	if ( llVecDist(last_touched_pos, last_touched_pos_now) > 1 )
+	{
+	    last_touched_pos = last_touched_pos_now;
+	    llFleeFrom(last_touched_pos, 10, []);
+	}
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>The position vector can be set outside the current region by using extended range region coordinates: e.g., to avoid the SE corner of the region to the East of the current one, you could</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.FleeFrom(vector(0.0, 512.0, 0.0), 20.0, {})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llFleeFrom(<0.0, 512.0, 0.0>, 20.0, []);`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a></li>
+  </ul>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDeleteCharacter" target="_blank">llDeleteCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlEvade" target="_blank">llEvade</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlExecCharacterCmd" target="_blank">llExecCharacterCmd</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetClosestNavPoint" target="_blank">llGetClosestNavPoint</a></li>
+    <li>llFleeFrom</li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlNavigateTo" target="_blank">llNavigateTo</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPatrolPoints" target="_blank">llPatrolPoints</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlUpdateCharacter" target="_blank">llUpdateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlWanderWithin" target="_blank">llWanderWithin</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.31.262785" target="_blank"> 31/07/2012 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llFleeFrom( vector position, float distance, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Alarming nighttime</p>
+<p>A bitter, enemy flees</p>
+<p>before the vector</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

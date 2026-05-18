@@ -1,0 +1,187 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.CollisionFilter(ObjectName: string, ObjectID: uuid, Accept: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llCollisionFilter(string ObjectName, key ObjectID, integer Accept);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the collision filter, exclusively or inclusively.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>ObjectName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>filter for specific object name or avatar <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ObjectID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>filter by&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Accept / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">accept</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> only process collisions that match, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> instead excludes matches</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>physics</li>
+        <li>sensor</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">110</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>accept</b> == <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, only accept collisions with objects <b>name</b> AND <b>id</b> (either is optional), otherwise with objects not <b>name</b> AND <b>id</b></p>
+  <p>If <b>name</b> or <b>id</b> are blank they are not used to filter incoming messages (or you could say they match everything).
+If <b>id</b> is an invalid key or a <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">null key</a>, it is considered blank.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Any call of llCollisionFilter in the same event as <a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">llVolumeDetect</a> changing (not just being called, but actually moving from <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or vice versa) will be disregarded (before or after), <b>if</b> the event handler previously called a user-defined function. See <a href="#SVC-2490" target="_blank">#SVC-2490</a>
+    <ul>
+      <li>You can get around this by calling them in separate events, such as <a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a> and <a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a>.</li>
+    </ul>
+  
+    </li>
+    <li>Damage caused by <a href="https://wiki.secondlife.com/wiki/LlSetDamage" target="_blank">llSetDamage</a> will still apply to a filtered avatar.
+    <ul>
+      <li>Consequently, the object will immediately die on collision with the avatar. (And kill the avatar their health reaches 0.)</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <ul>
+    <li>Stop filtering:</li>
+  </ul>
+  <p>`llCollisionFilter("", NULL_KEY, TRUE);`</p>
+  <ul>
+    <li>Filter out all collisions:</li>
+  </ul>
+  <p>`llCollisionFilter("", NULL_KEY, FALSE);`</p>
+  <p>This script, placed in a wearable object, detects a collision when the person wearing it collides with an object named "Post":</p>
+  <ul>
+    <li>1st instance :</li>
+  </ul>
+  <p>an object named "Post" has several child prims named "Object" .
+The prim named "Post" hits the scripted object or scripted prim , the collision will be detected</p>
+  <ul>
+    <li>2nd instance :</li>
+  </ul>
+  <p>an object named "Post" has several child prims named "Object" .
+A child prim named "Object" hits the scripted object or scripted prim, the collision will be detected</p>
+  <ul>
+    <li>3rd instance :</li>
+  </ul>
+  <p>an object named "Object" has several child prims named "Post" .
+A prim named "Post" hits the scripted object or scripted prim, the collision will not be detected</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.CollisionFilter("Post", "", true)
+end
+
+function LLEvents.collision_start(events)
+    local total_number = #events
+    ll.Say(0, "OUCH!")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llCollisionFilter("Post","",TRUE);
+    }
+
+    collision_start(integer total_number)
+    {
+        llSay(0, "OUCH!");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassCollisions" target="_blank">llPassCollisions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">llVolumeDetect</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llCollisionFilter( string name, key id, integer accept );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

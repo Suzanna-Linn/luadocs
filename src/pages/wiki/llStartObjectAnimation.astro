@@ -1,0 +1,191 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.StartObjectAnimation(Animation: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llStartObjectAnimation(string Animation);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Start animation for the current object.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Animation / anim</td>
+          <td>an item in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is inname of an animation in the inventory of the current object</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>object_animation</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">504</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>anim</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>Unlike with <a href="https://wiki.secondlife.com/wiki/LlStartAnimation" target="_blank">llStartAnimation</a>, Animesh non-looping animations must explicitly be removed from the <a href="https://wiki.secondlife.com/wiki/LlGetObjectAnimationNames" target="_blank">llGetObjectAnimationNames</a> list with <a href="https://wiki.secondlife.com/wiki/LlStopObjectAnimation" target="_blank">llStopObjectAnimation</a>, and cannot be started again until they are removed. This persists through script resets. <a href="https://jira.secondlife.com/browse/BUG-215954" target="_blank">BUG-21594</a></li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--This script animates the object for as long as it is touched.
+local function main()
+end
+
+-- This assumes that an animation called "MyFancyWalk" is present in the inventory of the current object.
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.Say(0, "Starting animation")
+    ll.StartObjectAnimation("MyFancyWalk")
+end
+
+function LLEvents.touch_end(events)
+    local total_number = #events
+    ll.Say(0, "Stopping animation")
+    ll.StopObjectAnimation("MyFancyWalk")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//This script animates the object for as long as it is touched.
+default
+{
+    state_entry()
+    {
+    }
+
+    // This assumes that an animation called "MyFancyWalk" is present in the inventory of the current object.
+    touch_start(integer total_number)
+    {
+        llSay(0, "Starting animation");
+        llStartObjectAnimation("MyFancyWalk");
+    }
+    
+    touch_end(integer total_number)
+    {
+        llSay(0, "Stopping animation");
+        llStopObjectAnimation("MyFancyWalk");
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--This script creates a menu of animations to play for your Animesh.
+local animations = {"*STOP*", "Running Man", "Guitar Dance", "YMCA Dance"}  --list of up to 11 animations (inside the contents of the Animesh) w/ the stop button.
+local dialogChannel = -100  --Choose a more "random" if you want.
+
+local latestAnimation = ""  --used to stop animation when selecting new one
+local listenHandler = 0  --Always create your listener when needed and remove when done
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local owner = ll.GetOwner()  --initialize the variable owner storing llGetOwner because we use it 3 times within this event
+    if ll.DetectedKey(0) == owner then
+        ll.ListenRemove(listenHandler)  --If having touched the object but not select a dialog option the listener will still be active, so remove just in case
+        listenHandler = ll.Listen(dialogChannel, "", owner, "")  --Listen to the owner on the dialog channel selected on line 1
+        ll.Dialog(owner, "Select an animation.", animations, dialogChannel)  --Show a dialog menu to the owner with the animations list (line 0) as the buttons
+    --Only 12 buttons can fit one menu, to do more buttons look into DialogPlus on the wiki
+    end
+end
+
+function LLEvents.listen(channel, name, id, text)
+    --Typically you add checks to make sure the right id or channel is used but we clear out any existing ghost listeners prior to listening which prevents us from having to
+
+    if latestAnimation ~= "" and latestAnimation ~= "*STOP*" then  --If latestAnimation isn't blank AND isn't *STOP*, stop the latestAnimation
+        ll.StopObjectAnimation(latestAnimation)
+    end
+    if text ~= "*STOP*" then  --If the button pressed was not *STOP*, play the animation selected
+        ll.StartObjectAnimation(text)
+    end
+    latestAnimation = text  --Set the latestAnimation to the button pressed so when this event is ran again we can stop the animation
+    ll.ListenRemove(listenHandler)  --Remove the listener since we are done
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//This script creates a menu of animations to play for your Animesh.
+list animations = ["*STOP*", "Running Man", "Guitar Dance", "YMCA Dance"]; //list of up to 11 animations (inside the contents of the Animesh) w/ the stop button.
+integer dialogChannel = -100; //Choose a more "random" if you want.
+
+string latestAnimation = ""; //used to stop animation when selecting new one
+integer listenHandler; //Always create your listener when needed and remove when done
+default
+{
+    touch_start(integer total_number)
+    {
+        key owner = llGetOwner(); //initialize the variable owner storing llGetOwner because we use it 3 times within this event
+        if(llDetectedKey(0) == owner)
+        {
+            llListenRemove(listenHandler);  //If having touched the object but not select a dialog option the listener will still be active, so remove just in case
+            listenHandler = llListen(dialogChannel, "", owner, ""); //Listen to the owner on the dialog channel selected on line 1
+            llDialog(owner, "Select an animation.", animations, dialogChannel); //Show a dialog menu to the owner with the animations list (line 0) as the buttons
+                                                                                //Only 12 buttons can fit one menu, to do more buttons look into DialogPlus on the wiki
+        }
+    }
+    
+    listen(integer channel, string name, key id, string text)
+    {
+        //Typically you add checks to make sure the right id or channel is used but we clear out any existing ghost listeners prior to listening which prevents us from having to
+        
+        if(latestAnimation != "" && latestAnimation != "*STOP*") llStopObjectAnimation(latestAnimation); //If latestAnimation isn't blank AND isn't *STOP*, stop the latestAnimation
+        if(text != "*STOP*") llStartObjectAnimation(text); //If the button pressed was not *STOP*, play the animation selected
+        latestAnimation = text; //Set the latestAnimation to the button pressed so when this event is ran again we can stop the animation
+        llListenRemove(listenHandler); //Remove the listener since we are done
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Animated objects work by associating a skeleton with a linkset containing one or more rigged mesh primitives. When animations are played by a script in any of the prims in the linkset, the skeleton will animate and any rigged meshes in the linkset will move accordingly. A script running in any prim of the linkset can start, stop or query animations using the new commands. The typical usage of these functions is to do all object animation scripting in the root prim of the linkset; in this scenario, the animations and scripts would all be part of the inventory of this prim, and so of the object as a whole. However, if scripts and animations are present in multiple prims of a linkset, it is important to understand that animations are started, stopped and tracked independently in each prim.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStopObjectAnimation" target="_blank">llStopObjectAnimation</a></td>
+        <td>–</td>
+        <td>Stop playing an animation in the current object</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectAnimationNames" target="_blank">llGetObjectAnimationNames</a></td>
+        <td>–</td>
+        <td>List currently playing animations in the current object</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llStartObjectAnimation( string anim );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

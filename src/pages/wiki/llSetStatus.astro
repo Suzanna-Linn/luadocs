@@ -1,0 +1,209 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetStatus(Status: number, Value: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetStatus(integer Status, integer Value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the object status attributes indicated in the <b>status</b>} mask to <b>value</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Status / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_mask" target="_blank">status</a></td>
+          <td>bit mask, STATUS_* flags</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Value / value</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> disables</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>linkset</li>
+        <li>physics</li>
+        <li>prim_properties</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">45</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">STATUS_PHYSICS</a></td>
+        <td>0x001</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td>Object is <a href="https://wiki.secondlife.com/wiki/LSL_Glossary#physical" target="_blank">physical</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_X" target="_blank">STATUS_ROTATE_X</a></td>
+        <td>0x002</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a></td>
+        <td>Can turn along this axis (physical objects only)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_Y" target="_blank">STATUS_ROTATE_Y</a></td>
+        <td>0x004</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a></td>
+        <td>Can turn along this axis (physical objects only)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_Z" target="_blank">STATUS_ROTATE_Z</a></td>
+        <td>0x008</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a></td>
+        <td>Can turn along this axis (physical objects only)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_PHANTOM" target="_blank">STATUS_PHANTOM</a></td>
+        <td>0x010</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td>Object is <a href="https://wiki.secondlife.com/wiki/LSL_Glossary#phantom" target="_blank">phantom</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_SANDBOX" target="_blank">STATUS_SANDBOX</a></td>
+        <td>0x020</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td>Keep object within 10 meters and in the same region</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_BLOCK_GRAB" target="_blank">STATUS_BLOCK_GRAB</a></td>
+        <td>0x040</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td>Prevent click-and-drag movement on the root prim</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Default</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_DIE_AT_EDGE" target="_blank">STATUS_DIE_AT_EDGE</a></td>
+        <td>0x080</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a><a href="#srae-t" target="_blank">*</a></td>
+        <td>Delete and do not return object if it goes off world</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_RETURN_AT_EDGE" target="_blank">STATUS_RETURN_AT_EDGE</a></td>
+        <td>0x100</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td>Return object to owner if it goes off world</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_CAST_SHADOWS" target="_blank">STATUS_CAST_SHADOWS</a></td>
+        <td>0x200</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a></td>
+        <td><i>not currently used</i></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_BLOCK_GRAB_OBJECT" target="_blank">STATUS_BLOCK_GRAB_OBJECT</a></td>
+        <td>0x400</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td>Prevent click-and-drag movement on all prims in the object</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_DIE_AT_NO_ENTRY" target="_blank">STATUS_DIE_AT_NO_ENTRY</a></td>
+        <td>0x800</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a><a href="#srae-v" target="_blank">†</a></td>
+        <td>Delete and do not return object if it cannot enter a parcel</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a href="#srae-s" target="_blank">*</a> STATUS_DIE_AT_EDGE - If the object is <a href="https://wiki.secondlife.com/wiki/Category:LSL_Rez" target="_blank">rezzed</a> by a script, the default is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a></p>
+  <p><a href="#srae-u" target="_blank">†</a> STATUS_DIE_AT_NO_ENTRY - <a href="https://wiki.secondlife.com/wiki/Permission#Copy" target="_blank">No-copy</a> objects ignore this flag and remain in-world</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Status is an object attribute; all prims in an object share the same status.
+    <ul>
+      <li>Except for <a href="https://wiki.secondlife.com/wiki/STATUS_BLOCK_GRAB" target="_blank">STATUS_BLOCK_GRAB</a>, this only affects the prim the script is in, child prims in linked objects will not be affected.
+      <ul>
+        <li>Use <a href="https://wiki.secondlife.com/wiki/STATUS_BLOCK_GRAB_OBJECT" target="_blank">STATUS_BLOCK_GRAB_OBJECT</a> to block grabbing of a link_set.</li>
+      </ul>
+    
+      </li>
+    </ul>
+  
+    </li>
+    <li>Setting <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">STATUS_PHYSICS</a> fails silently in attached objects. ~ <a href="#SVC-6549" target="_blank">#SVC-6549</a></li>
+    <li>The <a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_X" target="_blank">STATUS_ROTATE_X</a>, <a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_Y" target="_blank">STATUS_ROTATE_Y</a> and <a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_Z" target="_blank">STATUS_ROTATE_Z</a> flags all require that the object first be made physical to have any effect.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.SetStatus(bit32.bor(STATUS_DIE_AT_EDGE, STATUS_PHYSICS), true)
+    ll.SetStatus(bit32.bor(STATUS_ROTATE_X, STATUS_ROTATE_Y), false)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSetStatus( STATUS_DIE_AT_EDGE | STATUS_PHYSICS, TRUE);
+        llSetStatus( STATUS_ROTATE_X | STATUS_ROTATE_Y, FALSE);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetStatus" target="_blank">llGetStatus</a></td>
+        <td>–</td>
+        <td>Gets the object status.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetStatus( integer status, integer value );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

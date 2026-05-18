@@ -1,0 +1,264 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`JSON_OBJECT: string = \u{FDD1}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string JSON_OBJECT = \u{FDD1};`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use lljson.object_mt</span></p>
+      <p>  <p>The string constant JSON_OBJECT has the value "﷑"</p>
+  <p>Used with the <a href="https://wiki.secondlife.com/wiki/LlList2Json" target="_blank">llList2Json</a> function to indicate that the list provided is a strided list of "Key", Value pairs (which may be empty), and that a string representing a Json object will be returned.</p>
+  <p>Also a possible return value for the <a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a> function that indicates the Json data type of at the specifier location within a given Json text is, in fact, a JSON_OBJECT.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Type Flags</th>
+        <th>Value</th>
+        <th>Unicode</th>
+        <th><a href="https://wiki.secondlife.com/wiki/LlOrd" target="_blank">Integer</a></th>
+        <th><a href="https://wiki.secondlife.com/wiki/Category:LSL_Encoding/URL" target="_blank">URL Encoded</a></th>
+        <th>HTML Encoded</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a></td>
+        <td>&#xfdd0;</td>
+        <td>U+FDDO</td>
+        <td>64976</td>
+        <td>"%EF%B7%90"</td>
+        <td>&#xFDD0;</td>
+        <td>Value returned when inputs are not well formed.</td>
+      </tr>
+      <tr>
+        <td>JSON_OBJECT</td>
+        <td>&#xfdd1;</td>
+        <td>U+FDD1</td>
+        <td>64977</td>
+        <td>"%EF%B7%91"</td>
+        <td>&#xFDD1;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_ARRAY" target="_blank">JSON_ARRAY</a></td>
+        <td>&#xfdd2;</td>
+        <td>U+FDD2</td>
+        <td>64978</td>
+        <td>"%EF%B7%92"</td>
+        <td>&#xFDD2;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_NUMBER" target="_blank">JSON_NUMBER</a></td>
+        <td>&#xfdd3;</td>
+        <td>U+FDD3</td>
+        <td>64979</td>
+        <td>"%EF%B7%93"</td>
+        <td>&#xFDD3;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_STRING" target="_blank">JSON_STRING</a></td>
+        <td>&#xfdd4;</td>
+        <td>U+FDD4</td>
+        <td>64980</td>
+        <td>"%EF%B7%94"</td>
+        <td>&#xFDD4;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_NULL" target="_blank">JSON_NULL</a></td>
+        <td>&#xfdd5;</td>
+        <td>U+FDD5</td>
+        <td>64981</td>
+        <td>"%EF%B7%95"</td>
+        <td>&#xFDD5;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_TRUE" target="_blank">JSON_TRUE</a></td>
+        <td>&#xfdd6;</td>
+        <td>U+FDD6</td>
+        <td>64982</td>
+        <td>"%EF%B7%96"</td>
+        <td>&#xFDD6;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_FALSE" target="_blank">JSON_FALSE</a></td>
+        <td>&#xfdd7;</td>
+        <td>U+FDD7</td>
+        <td>64983</td>
+        <td>"%EF%B7%97"</td>
+        <td>&#xFDD7;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_DELETE" target="_blank">JSON_DELETE</a></td>
+        <td>&#xfdd8;</td>
+        <td>U+FDD8</td>
+        <td>64984</td>
+        <td>"%EF%B7%98"</td>
+        <td>&#xFDD8;</td>
+        <td>Used with <a href="https://wiki.secondlife.com/wiki/LlJsonSetValue" target="_blank">llJsonSetValue</a> to remove a key-value pair.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2Json" target="_blank">llList2Json</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+  <p>Showing use to form a Json object:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local jsonText = ""
+
+local function main()
+    -- NOTE: All even numbered elements in the supplied list MUST be strings or JSON_INVALID will be returned!
+    jsonText = ll.List2Json(JSON_OBJECT, {"A", 3, "B", vector(1.0, 1.0, 1.0), "C", "A phrase", "D", PI})
+end
+function LLEvents.touch_start(events)
+    local total_number = #events
+    -- In the resulting Json object, "Keys" are separarted from Values by a colon (:)
+    -- and "Key":Value pairs by a comma (,).
+    ll.OwnerSay(jsonText)  --  {"A":3,"B":"<1.000000, 1.000000, 1.000000>","C":"A phrase","D":3.141593}
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string jsonText;
+
+default
+{
+	state_entry()
+	{
+		// NOTE: All even numbered elements in the supplied list MUST be strings or JSON_INVALID will be returned!
+		jsonText = llList2Json(JSON_OBJECT, ["A", 3, "B", <1.0,1.0,1.0>, "C", "A phrase", "D", PI]);
+	}
+	touch_start(integer total_number)
+	{
+		// In the resulting Json object, "Keys" are separarted from Values by a colon (:)
+		// and "Key":Value pairs by a comma (,).
+		llOwnerSay(jsonText); //  {"A":3,"B":"<1.000000, 1.000000, 1.000000>","C":"A phrase","D":3.141593}
+	}
+}`} lang="lsl" /></div>
+  <p>Showing usage to determine if a Value within a Json text is an object:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local jsonText = ""
+
+local function main()
+    -- Set jsonText to [3,{"A":77,"B":66},"A phrase"]
+    -- A Json array whose second element is a Json object
+    jsonText = "[3,{\"A\":77,\"B\":66},\"A phrase\"]"
+    ll.OwnerSay(jsonText)
+end
+function LLEvents.touch_start(events)
+    local total_number = #events
+    -- Test the entirety of the Json text to see if it's an object
+    -- Note use of the empty list for this
+    if ll.JsonValueType(jsonText, {}) == JSON_OBJECT then
+        ll.OwnerSay("The supplied string is a Json object.")
+    else
+        ll.OwnerSay("The supplied string is not a Json object.")  -- TRUE
+    end
+
+    -- Test second element of the array
+    if ll.JsonValueType(jsonText, {1}) == JSON_OBJECT then
+        ll.OwnerSay("The second element of the array is a Json object.")  -- TRUE
+    else
+        ll.OwnerSay("The second element of the array is not a Json object.")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string jsonText;
+
+default
+{
+	state_entry()
+	{
+		// Set jsonText to [3,{"A":77,"B":66},"A phrase"]
+		// A Json array whose second element is a Json object
+		jsonText = "[3,{\"A\":77,\"B\":66},\"A phrase\"]";
+		llOwnerSay(jsonText);
+	}
+	touch_start(integer total_number)
+	{
+		// Test the entirety of the Json text to see if it's an object
+		// Note use of the empty list for this
+		if (llJsonValueType(jsonText, []) == JSON_OBJECT)
+		{
+			llOwnerSay("The supplied string is a Json object.");
+		} else {
+			llOwnerSay("The supplied string is not a Json object."); // TRUE
+		}
+
+		// Test second element of the array
+		if (llJsonValueType(jsonText, [1]) == JSON_OBJECT)
+		{
+			llOwnerSay("The second element of the array is a Json object."); // TRUE
+		} else {
+			llOwnerSay("The second element of the array is not a Json object.");
+		}
+	}
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=JSON_OBJECT" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+JSON_OBJECT = "﷑"
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+string JSON_OBJECT = "﷑";
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

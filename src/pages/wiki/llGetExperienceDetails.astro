@@ -1,0 +1,119 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetExperienceDetails(ExperienceID: uuid): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llGetExperienceDetails(key ExperienceID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a list of details about the experience. This list has 6 components: `[string experience_name, key owner_id, key experience_id, integer state, string state_message, key group_id]`</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ExperienceID / experience_id</td>
+          <td>The ID of the experience to query.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>experience</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">409</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-experience">Experience</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>experience_id</b> is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>, then information about the script's experience is returned. In this situation, if the script isn't associated with an experience, an empty list is returned.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    local xp = uuid("9170c22b-f445-ea5d-89fa-0f2f1e144f04")
+    ll.OwnerSay(ll.DumpList2String(ll.GetExperienceDetails(xp), "\n"))
+    -- Prints:
+    -- Linden Realms
+    -- id
+    -- status msg
+
+    ll.OwnerSay(ll.DumpList2String(ll.GetExperienceDetails(NULL_KEY), "\n"))
+-- Print nothing if not associated with an XP or info about the associated experience
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+   {
+       touch_start(integer total_number)
+       {
+           key xp = "9170c22b-f445-ea5d-89fa-0f2f1e144f04";
+           llOwnerSay(llDumpList2String(llGetExperienceDetails(xp), "\n"));
+           // Prints:
+           // Linden Realms
+           // id
+           // status msg
+           
+           llOwnerSay(llDumpList2String(llGetExperienceDetails(NULL_KEY), "\n"));
+           // Print nothing if not associated with an XP or info about the associated experience
+       }
+   }`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Compiling</p>
+  <p>For a script to be associated with an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>...</p>
+  <ul>
+    <li>It must be compiled with a client that is Experience aware,</li>
+    <li>The "Use Experience" checkbox must be checked,</li>
+    <li>And one of the users Experience keys selected.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> Not all <a href="https://wiki.secondlife.com/wiki/TPV" target="_blank">TPVs</a> have this functionality.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlAgentInExperience" target="_blank">llAgentInExperience</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="https://jira.secondlife.com/browse/BUG-7048" target="_blank">BUG-7048</a> - llGetExperienceDetails returns 4 for <b>state</b> and "operation not permitted" for <b>state_message</b> while over mainland parcels that have the experience allowed.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llGetExperienceDetails( key experience_id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

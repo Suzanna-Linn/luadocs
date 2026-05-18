@@ -1,0 +1,171 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ComputeHash(Message: string, Algorithm: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llComputeHash(string Message, string Algorithm);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string hex-encoded hash digest of <b>message</b> using cryptographic <b>algorithm</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Message / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/message" target="_blank">message</a></td>
+          <td>The message to be hashed.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Algorithm / algorithm</td>
+          <td>The digest algorithm: md5, sha1, sha224, sha256, sha384, sha512.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>cryptography</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">548</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Supported values of <b>algorithm</b> are <b>md5</b>, <b>md5_sha1</b>, <b>sha1</b>, <b>sha224</b>, <b>sha256</b>, <b>sha384</b>, <b>sha512</b>.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.OwnerSay("Ready")
+end
+
+function LLEvents.touch_start(events)
+    local touch_count = #events
+    local message = "your-test-message-here"
+
+    local algorithms = {"md5", "md5_sha1", "sha1", "sha224", "sha256", "sha384", "sha512"}
+
+    local num_algorithms = #algorithms
+    ll.OwnerSay("message='" .. message .. "'")
+
+    local i = 0
+    i = 0
+    while i < num_algorithms do
+        local algorithm = ll.List2String(algorithms, i)
+        local hash = ll.ComputeHash(message, algorithm)
+        ll.OwnerSay(algorithm .. " : " .. hash)
+        i += 1
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llOwnerSay("Ready");
+    }
+
+    touch_start(integer touch_count)
+    {
+        string message = "your-test-message-here";
+
+        list algorithms = ["md5", "md5_sha1", "sha1", "sha224", "sha256", "sha384", "sha512" ];
+        
+        integer num_algorithms = llGetListLength(algorithms);
+        llOwnerSay("message='" + message + "'");
+        
+        integer i = 0;
+        for (i = 0; i < num_algorithms; ++i)
+        {
+            string algorithm = llList2String(algorithms, i);
+            string hash = llComputeHash(message, algorithm);
+            llOwnerSay(algorithm + " : " + hash);
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSignRSA" target="_blank">llSignRSA</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlVerifyRSA" target="_blank">llVerifyRSA</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlHMAC" target="_blank">llHMAC</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSHA1String" target="_blank">llSHA1String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSHA256String" target="_blank">llSHA256String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlMD5String" target="_blank">llMD5String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llComputeHash( string message, string algorithm );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,283 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetAlpha(Opacity: number, Face: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetAlpha(float Opacity, integer Face);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> <b>alpha</b> on <b>face</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Opacity / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
+          <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">51</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function works on all sides.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
+    <li>llSetAlpha will have no visible effect on faces with a PBR material. To work on faces both with and without a PBR material, use one of these snippets:
+    <ul>
+      <li><p>invisible</p>
+  <p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+  
+  
+  
+  if ll.IsLinkGLTFMaterial(LINK_THIS, ALL_SIDES) ~= 0 then
+      ll.SetLinkGLTFOverrides(LINK_THIS, ALL_SIDES, {OVERRIDE_GLTF_BASE_ALPHA_MODE, PRIM_GLTF_ALPHA_MODE_BLEND, OVERRIDE_GLTF_BASE_ALPHA, 0.0})
+  else
+      ll.SetAlpha(0.0, ALL_SIDES)
+  end
+  `} lang="slua" /></div>
+  <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+  if (llIsLinkGLTFMaterial(LINK_THIS, ALL_SIDES)) {
+      llSetLinkGLTFOverrides(LINK_THIS, ALL_SIDES, [OVERRIDE_GLTF_BASE_ALPHA_MODE, PRIM_GLTF_ALPHA_MODE_BLEND, OVERRIDE_GLTF_BASE_ALPHA, 0.0]);
+  } else {
+      llSetAlpha(0.0, ALL_SIDES);
+  }
+  `} lang="lsl" /></div>
+  
+  </p></li>
+      <li><p>visible</p>
+  <p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+  
+  
+  
+  if ll.IsLinkGLTFMaterial(LINK_THIS, ALL_SIDES) ~= 0 then
+      ll.SetLinkGLTFOverrides(LINK_THIS, ALL_SIDES, {OVERRIDE_GLTF_BASE_ALPHA_MODE, "", OVERRIDE_GLTF_BASE_ALPHA, ""})
+  else
+      ll.SetAlpha(1.0, ALL_SIDES)
+  end
+  `} lang="slua" /></div>
+  <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+  if (llIsLinkGLTFMaterial(LINK_THIS, ALL_SIDES)) {
+      llSetLinkGLTFOverrides(LINK_THIS, ALL_SIDES, [OVERRIDE_GLTF_BASE_ALPHA_MODE, "", OVERRIDE_GLTF_BASE_ALPHA, ""]);
+  } else {
+      llSetAlpha(1.0, ALL_SIDES);
+  }
+  `} lang="lsl" /></div>
+  
+  </p></li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+local cloakSpeed = 0.1
+local default, cloaked = {}, {}
+
+function default.touch_end(events)
+    local total_number = #events
+    local alpha = 1.0
+    while alpha > 0.0 do
+        alpha -= 0.1
+        ll.SetAlpha(alpha, ALL_SIDES)
+        ll.Sleep(cloakSpeed)
+    end
+    state(cloaked)
+end
+
+function cloaked.touch_end(events)
+    local total_number = #events
+    local alpha = 0
+    while alpha < 1.0 do
+        alpha += 0.1
+        ll.SetAlpha(alpha, ALL_SIDES)
+        ll.Sleep(cloakSpeed)
+    end
+    state(default)
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float cloakSpeed = 0.1;
+
+default
+{
+    touch_end(integer total_number)
+    {
+        float alpha = 1.0;
+        while(alpha > 0.0)
+        {
+            alpha -= 0.1;
+            llSetAlpha(alpha, ALL_SIDES);
+            llSleep(cloakSpeed);
+        }
+        state cloaked;
+    }
+}
+
+state cloaked
+{
+    touch_end(integer total_number)
+    {
+        float alpha;
+        while (alpha < 1.0)
+        {
+            alpha += 0.1;
+            llSetAlpha(alpha, ALL_SIDES);
+            llSleep(cloakSpeed);
+        }
+        state default;
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>In practical terms, "alpha" means "transparency" or "visibility".</p>
+  <p>To be clear, llSetAlpha will only affect the prim that the script it is in. It will not affect any linked prims. To set the alpha state for those, use <a href="https://wiki.secondlife.com/wiki/LlSetLinkAlpha" target="_blank">llSetLinkAlpha</a></p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_COLOR" target="_blank">CHANGED_COLOR</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAlpha" target="_blank">llGetAlpha</a></td>
+        <td>–</td>
+        <td>Gets the prim's alpha</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetColor" target="_blank">llGetColor</a></td>
+        <td>–</td>
+        <td>Gets the prim's color</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetColor" target="_blank">llSetColor</a></td>
+        <td>–</td>
+        <td>Sets the prim's color</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkColor" target="_blank">llSetLinkColor</a></td>
+        <td>–</td>
+        <td>Sets link's color</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkAlpha" target="_blank">llSetLinkAlpha</a></td>
+        <td>–</td>
+        <td>Sets link's alpha</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_COLOR" target="_blank">PRIM_COLOR</a></td>
+        <td>–</td>
+        <td>The equivilant parameter for <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_BASE_COLOR" target="_blank">PRIM_GLTF_BASE_COLOR</a></td>
+        <td>–</td>
+        <td>The equivilant PBR parameter for <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Alpha" target="_blank">Translucent Color</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetAlpha( float alpha, integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

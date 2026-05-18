@@ -1,0 +1,140 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Floor(Value: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llFloor(float Value);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.floor because Fastcall.</span></p>
+      <p>  <p>Returns an integer that is the integer value of <b>val</b> rounded towards negative infinity `(return <= <b>val</b>)`.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Value / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/val" target="_blank">val</a></td>
+          <td>Any valid float value</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">9</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The returned value is -2147483648 (0x80000000) if the arithmetic result is outside of the range of valid integers (-2147483648 to 2147483647 inclusive).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.Say(0, "The floor value of -4.5 is: " .. tostring(ll.Floor(-4.5)))
+    --Returns "The floor value of -4.5 is: -5"
+
+    ll.Say(0, "The floor value of -4.9 is: " .. tostring(ll.Floor(-4.9)))
+    --Returns "The floor value of -4.9 is: -5"
+
+    ll.Say(0, "The floor value of -4.1 is: " .. tostring(ll.Floor(-4.1)))
+    --Returns "The floor value of -4.1 is: -5"
+
+    ll.Say(0, "The floor value of 4.5 is: " .. tostring(ll.Floor(4.5)))
+    --Returns "The floor value of 4.5 is: 4"
+
+    ll.Say(0, "The floor value of 4.9 is: " .. tostring(ll.Floor(4.9)))
+    --Returns "The floor value of 4.9 is: 4"
+
+    ll.Say(0, "The floor value of 4.1 is: " .. tostring(ll.Floor(4.1)))
+--Returns "The floor value of 4.1 is: 4"
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+   state_entry()
+   {
+       llSay(0,  "The floor value of -4.5 is: "+(string)llFloor(-4.5) );
+       //Returns "The floor value of -4.5 is: -5"
+
+       llSay(0,  "The floor value of -4.9 is: "+(string)llFloor(-4.9) );
+       //Returns "The floor value of -4.9 is: -5"
+
+       llSay(0,  "The floor value of -4.1 is: "+(string)llFloor(-4.1) );
+       //Returns "The floor value of -4.1 is: -5"
+
+       llSay(0,  "The floor value of 4.5 is: "+(string)llFloor(4.5) );
+       //Returns "The floor value of 4.5 is: 4"
+
+       llSay(0,  "The floor value of 4.9 is: "+(string)llFloor(4.9) );
+       //Returns "The floor value of 4.9 is: 4"
+
+       llSay(0,  "The floor value of 4.1 is: "+(string)llFloor(4.1) );
+       //Returns "The floor value of 4.1 is: 4"
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>For positive values, it is quicker and shorter to simply cast the float to an integer. i=(integer)f is 32 bytes shorter than i=llFloor(f) (in Byte Code) and about 30 times faster in execution, while giving the same result.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRound" target="_blank">llRound</a></td>
+        <td>–</td>
+        <td>Rounds the float to an integer towards the closest integer</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCeil" target="_blank">llCeil</a></td>
+        <td>–</td>
+        <td>Rounds the float to an integer towards positive infinity</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llFloor( float val );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

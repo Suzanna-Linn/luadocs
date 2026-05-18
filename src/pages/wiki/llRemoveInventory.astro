@@ -1,0 +1,139 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RemoveInventory(InventoryItem: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRemoveInventory(string InventoryItem);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Remove the named inventory <b>item</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InventoryItem / item</td>
+          <td>an item in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">151</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>item</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If the current script is removed it will continue to run for a short period of time after this call.</li>
+    <li>With multiple executions an llSleep(0.1) after llRemoveInventory will allow edit window contents to refresh correctly and avoid errors on phantom contents.</li>
+    <li>llRemoveInventory will not trigger a changed event.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Remove the current script from the object
+
+local function main()
+    ll.RemoveInventory(ll.GetScriptName())
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Remove the current script from the object
+
+default
+{
+    state_entry()
+    {
+        llRemoveInventory(llGetScriptName());
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- user-function to include in your script
+-- deletes all other contents of any type except the script itself
+local function delete_all_other_contents()
+    local thisScript = ll.GetScriptName()
+    local inventoryItemName = ""
+
+    local index = ll.GetInventoryNumber(INVENTORY_ALL)
+    while index ~= 0 do
+        index -= 1  -- (faster than index--;)
+
+        inventoryItemName = ll.GetInventoryName(INVENTORY_ALL, index)
+
+        if inventoryItemName ~= thisScript then
+            ll.RemoveInventory(inventoryItemName)
+        end
+    end
+end
+
+local function main()
+    delete_all_other_contents()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// user-function to include in your script
+// deletes all other contents of any type except the script itself
+delete_all_other_contents()
+{
+    string thisScript = llGetScriptName();
+    string inventoryItemName;
+
+    integer index = llGetInventoryNumber(INVENTORY_ALL);
+    while (index)
+    {
+        --index;        // (faster than index--;)
+
+        inventoryItemName = llGetInventoryName(INVENTORY_ALL, index);
+
+        if (inventoryItemName != thisScript)   
+            llRemoveInventory(inventoryItemName);     
+    }
+}
+
+default
+{
+    state_entry()
+    {
+        delete_all_other_contents();
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRemoveInventory( string item );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

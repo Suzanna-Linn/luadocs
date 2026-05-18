@@ -1,0 +1,154 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetParcelForSale(ForSale: boolean, Options: {any}): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llSetParcelForSale(integer ForSale, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the parcel the object is on for sale.\nForSale is a boolean, if TRUE
+the parcel is put up for sale. Options is a list of options to set for the sale,
+such as price, authorized buyer, and whether to include objects on the parcel.\n
+Setting ForSale to FALSE will remove the parcel from sale and clear any options
+that were set.</p>
+  <p>This function requires that the script be owned by the parcel owner and that they have granted the <a href="https://wiki.secondlife.com/wiki/PERMISSION_PRIVILEGED_LAND_ACCESS" target="_blank">PERMISSION_PRIVILEGED_LAND_ACCESS</a> permission.</p>
+  <p>Returns an integer Error code or 0 if successful.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">ForSale</a></td>
+          <td>If TRUE, the parcel is put up for sale.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options</td>
+          <td>A list of options to set for the sale.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>parcel</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_PRIVILEGED_LAND_ACCESS</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">561</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_SALE_AGENT&action=edit&redlink=1" target="_blank">PARCEL_SALE_AGENT</a></td>
+        <td>2</td>
+        <td>The agent id authorized to purchase the parcel. If none set, any agent may purchase.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_SALE_OBJECTS&action=edit&redlink=1" target="_blank">PARCEL_SALE_OBJECTS</a></td>
+        <td>3</td>
+        <td>If TRUE, objects on the parcel are included in the sale.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_SALE_PRICE&action=edit&redlink=1" target="_blank">PARCEL_SALE_PRICE</a></td>
+        <td>1</td>
+        <td>The price of the parcel. If no authorized agent is set, must be greater than 0.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_SALE_OK&action=edit&redlink=1" target="_blank">PARCEL_SALE_OK</a></td>
+        <td>0</td>
+        <td>The sale information was successfully set.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_SALE_ERROR_NO_PARCEL&action=edit&redlink=1" target="_blank">PARCEL_SALE_ERROR_NO_PARCEL</a></td>
+        <td>1</td>
+        <td>The parcel could not be found.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_SALE_ERROR_NO_PERMISSIONS&action=edit&redlink=1" target="_blank">PARCEL_SALE_ERROR_NO_PERMISSIONS</a></td>
+        <td>2</td>
+        <td>The script does not have the required permissions to set the sale information.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_SALE_ERROR_IN_ESCROW&action=edit&redlink=1" target="_blank">PARCEL_SALE_ERROR_IN_ESCROW</a></td>
+        <td>3</td>
+        <td>The parcel is currently in escrow and cannot be set for sale.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_SALE_ERROR_INVALID_PRICE&action=edit&redlink=1" target="_blank">PARCEL_SALE_ERROR_INVALID_PRICE</a></td>
+        <td>4</td>
+        <td>The price set for the parcel is invalid (e.g., less than or equal to 0).</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PARCEL_SALE_ERROR_BAD_PARAMS&action=edit&redlink=1" target="_blank">PARCEL_SALE_ERROR_BAD_PARAMS</a></td>
+        <td>5</td>
+        <td>The parameters provided to set the sale information are invalid.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request script permissions</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llSetParcelForSale( integer ForSale, list Options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

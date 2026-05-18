@@ -1,0 +1,254 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_COLOR: number = 18`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_COLOR = 18;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_COLOR has the value 18</p>
+  <p>Used to get or set the <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> color and alpha of a prim's face.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_COLOR,&#32;[integer</a> face, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
+        <td>–</td>
+        <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_COLOR,&#32;[integer</a> face ]); </b></p>
+  <p>Returns the <a href="https://wiki.secondlife.com/wiki/List" target="_blank">list</a> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> [vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha ]</p>
+  <p>If <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> is used, the returned list contains each color and alpha values in order per face.</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
+        <td>–</td>
+        <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p><b>Caveats:</b></p>
+  <ul>
+    <li>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the PRIM_COLOR works on all sides.</li>
+    <li>If <b>face</b> indicates a face that does not exist the PRIM_COLOR return is <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank"> [ZERO_VECTOR</a>, 0.0 ]</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">Color in LSL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Alpha" target="_blank">Translucent Color</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Useful Snippets</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Color</th>
+        <th>Code</th>
+      </tr>
+      <tr>
+        <td>NAVY</td>
+        <td>`<0.000, 0.122, 0.247>`</td>
+      </tr>
+      <tr>
+        <td>BLUE</td>
+        <td>`<0.000, 0.455, 0.851>`</td>
+      </tr>
+      <tr>
+        <td>AQUA</td>
+        <td>`<0.498, 0.859, 1.000>`</td>
+      </tr>
+      <tr>
+        <td>TEAL</td>
+        <td>`<0.224, 0.800, 0.800>`</td>
+      </tr>
+      <tr>
+        <td>OLIVE</td>
+        <td>`<0.239, 0.600, 0.439>`</td>
+      </tr>
+      <tr>
+        <td>GREEN</td>
+        <td>`<0.180, 0.800, 0.251>`</td>
+      </tr>
+      <tr>
+        <td>LIME</td>
+        <td>`<0.004, 1.000, 0.439>`</td>
+      </tr>
+      <tr>
+        <td>YELLOW</td>
+        <td>`<1.000, 0.863, 0.000>`</td>
+      </tr>
+      <tr>
+        <td>ORANGE</td>
+        <td>`<1.000, 0.522, 0.106>`</td>
+      </tr>
+      <tr>
+        <td>RED</td>
+        <td>`<1.000, 0.255, 0.212>`</td>
+      </tr>
+      <tr>
+        <td>MAROON</td>
+        <td>`<0.522, 0.078, 0.294>`</td>
+      </tr>
+      <tr>
+        <td>FUCHSIA</td>
+        <td>`<0.941, 0.071, 0.745>`</td>
+      </tr>
+      <tr>
+        <td>PURPLE</td>
+        <td>`<0.694, 0.051, 0.788>`</td>
+      </tr>
+      <tr>
+        <td>WHITE</td>
+        <td>`<1.000, 1.000, 1.000>`</td>
+      </tr>
+      <tr>
+        <td>SILVER</td>
+        <td>`<0.867, 0.867, 0.867>`</td>
+      </tr>
+      <tr>
+        <td>GRAY</td>
+        <td>`<0.667, 0.667, 0.667>`</td>
+      </tr>
+      <tr>
+        <td>BLACK</td>
+        <td>`<0.067, 0.067, 0.067>`</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_COLOR" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_COLOR = 18
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_COLOR = 18;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

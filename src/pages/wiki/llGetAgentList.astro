@@ -1,0 +1,226 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetAgentList(Scope: number, Options: {any}): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llGetAgentList(integer Scope, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests a <a href="https://wiki.secondlife.com/wiki/List" target="_blank">list</a> of <a href="https://wiki.secondlife.com/wiki/Agent" target="_blank">agents</a> currently in the <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>, limited by the <b>scope</b> parameter.</p>
+  <p>Returns a list `<a href="https://wiki.secondlife.com/wiki/Key" target="_blank">[key</a> id0, <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> id1, ..., <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> idn]` or `<a href="https://wiki.secondlife.com/wiki/String" target="_blank">[string</a> error_msg]` - returns avatar <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">keys</a> for all agents in the region limited to the area(s) specified by scope</p>
+  <p>• integer</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/scope" target="_blank">scope</a></p>
+  <p>–</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Scope</td>
+          <td>The scope (region, parcel, parcel same owner) to return agents for.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options</td>
+          <td>List of options to apply. Current unused.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>parcel</li>
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">412</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>• list</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">options</a></p>
+  <p>–</p>
+  <p>Unused.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>There is no guaranteed understandable order or randomness to the list returned.</li>
+    <li>Will only return up to 100 agents.</li>
+    <li>Ghosts, agents that leave behind a corrupted presence and agents in <a href="https://wiki.secondlife.com/wiki/God_Mode" target="_blank">God Mode</a> depending on the level will have NULL_KEY returned instead of their real key with llGetAgentList(). There is also an issue with a certain type of ghosted agent still returning a key too. Perhaps check each key against <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a>() to verify if they're really in the sim or not; none of the above anomalies affect <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a>().</li>
+  </ul>
+  <h2>Examples</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> To check if an avatar is in the same sim, please check whether <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a> does NOT return <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>. It's much faster and easier than calling llGetAgentList and running through the list to compare a given key with each list item.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> As of now, this function does not have a delimiter for its option list. This means, the function MIGHT return up to a hundred avatar keys. You'll need a lot of free memory to be able to store those keys, be warned of possible <a href="https://wiki.secondlife.com/wiki/STACK_HEAP_COLLISION_ERROR" target="_blank">STACK_HEAP_COLLISION_ERRORs</a>.</td>
+      </tr>
+    </tbody>
+  </table>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--Displays up to 100 avatar key: name pairs detected in the entire region
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local avatarsInRegion = ll.GetAgentList(AGENT_LIST_REGION, {})
+    local numOfAvatars = #avatarsInRegion
+
+    -- if no avatars, abort avatar listing process and give a short notice
+    if not (numOfAvatars ~= 0) then
+        ll.OwnerSay("No avatars found within the region!")
+        return
+    end
+
+    local index = 0
+    while index < numOfAvatars do
+        local id = ll.List2Key(avatarsInRegion, index)
+        local name = ll.Key2Name(id)
+
+        ll.OwnerSay(name .. " [ " .. tostring(id) .. " ]")
+        index += 1
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Displays up to 100 avatar key: name pairs detected in the entire region
+
+default
+{
+    touch_start(integer total_number)
+    {
+        list avatarsInRegion = llGetAgentList(AGENT_LIST_REGION, []);
+        integer numOfAvatars = llGetListLength(avatarsInRegion);
+
+        // if no avatars, abort avatar listing process and give a short notice
+        if (!numOfAvatars)
+        {
+            llOwnerSay("No avatars found within the region!");
+            return;
+        }
+
+        integer index;
+        while (index < numOfAvatars)
+        {
+            key id = llList2Key(avatarsInRegion, index);
+            string name = llKey2Name(id);
+
+            llOwnerSay(name + " [ " + (string)id + " ]");
+            ++index;
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--  Orders new list based on distance
+--  and returns names and distances on touch
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local keys = ll.GetAgentList(AGENT_LIST_REGION, {})
+    local numberOfKeys = #keys
+
+    local currentPos = ll.GetPos()
+    local newkeys = {}
+    local thisAvKey = NULL_KEY
+
+    local i = 0
+    i = 0
+    while i < numberOfKeys do
+        thisAvKey = ll.List2Key(keys, i)
+        newkeys = ll.ListInsertList(newkeys, {ll.Round(ll.VecDist(currentPos, ll.List2Vector(ll.GetObjectDetails(thisAvKey, {OBJECT_POS}), 0))), thisAvKey}, #newkeys)
+        i += 1
+    end
+
+    newkeys = ll.ListSort(newkeys, 2, false)  --  sort strided list by descending distance
+
+    i = 0
+    while i < (numberOfKeys * 2) do
+        ll.OwnerSay(ll.GetDisplayName(ll.List2Key(newkeys, i + 1)) .. " [" .. tostring(ll.List2Integer(newkeys, i)) .. "m]")
+        i += 2
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  Orders new list based on distance
+//  and returns names and distances on touch
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        list keys = llGetAgentList(AGENT_LIST_REGION, []);
+        integer numberOfKeys = llGetListLength(keys);
+
+        vector currentPos = llGetPos();
+        list newkeys;
+        key thisAvKey;
+
+        integer i;
+        for (i = 0; i < numberOfKeys; ++i) {
+            thisAvKey = llList2Key(keys,i);
+            newkeys += [llRound(llVecDist(currentPos,
+                            llList2Vector(llGetObjectDetails(thisAvKey, [OBJECT_POS]), 0))),
+                        thisAvKey];
+        }
+  
+        newkeys = llListSort(newkeys, 2, FALSE);     //  sort strided list by descending distance
+
+        for (i = 0; i < (numberOfKeys * 2); i += 2) {
+            llOwnerSay(llGetDisplayName(llList2Key(newkeys, i+1))
+                +" ["+ (string) llList2Integer(newkeys, i) + "m]");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetRegionAgentCount" target="_blank">llGetRegionAgentCount</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>New function proposed by LL, reconciling the feature suggestions <a href="https://jira.secondlife.com/browse/SVC-805" target="_blank">SVC-805</a>, <a href="https://jira.secondlife.com/browse/SVC-6427" target="_blank">SVC-6427</a>, <a href="https://jira.secondlife.com/browse/MISC-243" target="_blank">MISC-243</a> and <a href="https://jira.secondlife.com/browse/SVC-5488" target="_blank">SVC-5488</a>.</li>
+    <li>Pre-Released <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_RC_Magnum/12" target="_blank">Release_Notes/Second_Life_RC_Magnum/12</a> - Original JIRA requested llGetRegionAgents(), the name changed since the released function does more.</li>
+    <li>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.04.30.255166" target="_blank"> 30/04/2012 </a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llGetAgentList( integer scope, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

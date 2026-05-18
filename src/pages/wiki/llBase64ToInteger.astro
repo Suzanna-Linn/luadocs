@@ -1,0 +1,112 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Base64ToInteger(Text: string): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llBase64ToInteger(string Text);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  Use 'llbase64.decode' and 'string.unpack' or 'buffer.readi32' instead.</span></p>
+      <p>  <p>Returns an integer that is <b>str</b> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Base64" target="_blank">Base64</a> decoded as a big endian integer.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / str</td>
+          <td>Base64 string</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">281</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>str</b> contains fewer than 6 characters, any incomplete least-significant bytes of the integer are set to 0.
+    <ul>
+      <li>For example, the Base64 value `"qqqqqq=="` corresponds to the hexadecimal value `0xAAAAAAAA`. If the padding "=" characters and the last "q" are dropped, there are 5*6=30 bits remaining and those can form only 3 full bytes (24 bits). The result is `0xAAAAAA00`.</li>
+      <li>The Base64 value `"qqqq"` has 4*6=24 bits available, which is enough for the same 3 full bytes. The result is also `0xAAAAAA00`.</li>
+      <li>Similarly, 3-character Base64 has 18 bits, enough for 2 bytes, and 2-character Base64 has 12 bits, enough for one byte.</li>
+      <li>Finally, single-character Base64 has only 6 bits and thus no complete bytes, and the result is always zero.</li>
+    </ul>
+  
+    </li>
+    <li>Returns zero if <b>str</b> is longer than 8 characters.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local value = ll.Base64ToInteger("3q0AAA==")
+
+-- writes out -559087616
+ll.OwnerSay(tostring(value))`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer value = llBase64ToInteger("3q0AAA==");
+
+// writes out -559087616
+llOwnerSay((string)value);`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlIntegerToBase64" target="_blank">llIntegerToBase64</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Base64" target="_blank">Base64</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llBase64ToInteger( string str );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

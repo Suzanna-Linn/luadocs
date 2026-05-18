@@ -1,0 +1,129 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetRegionFlags(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetRegionFlags();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns an integer that is the region flags (REGION_FLAG_*) for the region the object is in.</p>
+  <p>Only a small number of flags are actually used; the rest (shown below in strike-through) are always zero. In particular, it is not possible to detect the status of "Allow Land Resell", "Allow Land Join/Divide", or "Block Land Show in Search"; nor, obviously, it is possible for a script to detect that "Disable Scripts" has been set.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">318</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <td>†</td>
+        <td>REGION_FLAGS_* are internal and not exposed to the compiler (hence the strike through), despite this their values may be valid in the mask. In other words, there may be no nice name for the constant that the compiler will accept but the values may work. Remember that LL does not support these; they may redefine the flags without notice, this has happened in the past.</td>
+      </tr>
+      <tr>
+        <td>*</td>
+        <td>REGION_FLAGS_* flags in red have been removed from the <a href="https://github.com/secondlife/viewer/blob/master/indra/llmessage/llregionflags.h#" target="_blank">source code</a>, the values may get reassigned and reused!</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    if bit32.btest(ll.GetRegionFlags(), REGION_FLAG_SANDBOX) then
+        ll.OwnerSay("Region is a sandbox.")
+    else
+        ll.OwnerSay("Region is not a sandbox.")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        if( llGetRegionFlags() & REGION_FLAG_SANDBOX )
+        {
+            llOwnerSay("Region is a sandbox.");
+        }
+        else
+        {
+            llOwnerSay("Region is not a sandbox.");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetEnv" target="_blank">llGetEnv</a></td>
+        <td>–</td>
+        <td>for region settings that don't fit in a flag</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelFlags" target="_blank">llGetParcelFlags</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestSimulatorData" target="_blank">llRequestSimulatorData</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/960?new_path=%2F#file25" target="_blank">SVN:960 r93583 Branch:Release&#32;s:1.23.4.93096&#32;Saturday, 02 August 2008</a> REGION_FLAGS_SKIP_MONO_SCRIPTS added.</li>
+  </ul>
+  <p>Source</p>
+  <p><a href="https://github.com/secondlife/viewer/blob/master/indra/llmessage/llregionflags.h#" target="_blank">viewer - indra/llmessage/llregionflags.h </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetRegionFlags()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetRegionFlags();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

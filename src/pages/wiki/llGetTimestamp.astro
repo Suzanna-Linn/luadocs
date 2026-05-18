@@ -1,0 +1,229 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetTimestamp(): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetTimestamp();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the current date and time in the UTC time zone in the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> format `"YYYY-MM-DDThh:mm:ss.ff..fZ"`</p>
+  <p>Appears to be accurate to milliseconds.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>time</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">273</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Reset tracker
+
+local BOOT_TIME = ""
+
+local function main()
+    BOOT_TIME = ll.GetTimestamp()  -- state_entry is triggered on script reset.
+end
+
+function LLEvents.touch_start(events)
+    local num = #events
+    ll.Say(PUBLIC_CHANNEL, "The last script was last reset @ " .. BOOT_TIME)
+    ll.Say(PUBLIC_CHANNEL, "Right now it is " .. ll.GetTimestamp())
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Reset tracker
+
+string BOOT_TIME;
+
+default
+{
+    state_entry()
+    {
+        BOOT_TIME = llGetTimestamp(); // state_entry is triggered on script reset.
+    }
+    
+    touch_start(integer num)
+    {
+        llSay(PUBLIC_CHANNEL, "The last script was last reset @ " + BOOT_TIME);
+        llSay(PUBLIC_CHANNEL, "Right now it is " + llGetTimestamp());
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Greeting
+
+local function main()
+    ll.SetTouchText("Greet")
+end
+function LLEvents.touch_start(events)
+    local num = #events
+    local TimeStamp = ll.ParseString2List(ll.GetTimestamp(), {"-", ":"}, {"T"})  --Get timestamp and split into parts in a list
+    local Hour = ll.List2Integer(TimeStamp, 4)
+    if Hour < 12 then
+        ll.Say(PUBLIC_CHANNEL, "Good Morning, Oliver Sintim-Aboagye!")
+    elseif Hour < 17 then
+        ll.Say(PUBLIC_CHANNEL, "Good Afternoon, " .. ll.DetectedName(0))
+    else
+        ll.Say(PUBLIC_CHANNEL, "Good Evening, " .. ll.Key2Name(ll.DetectedKey(0)))
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Greeting
+
+default
+{
+    state_entry()
+    {
+        llSetTouchText("Greet");
+    }
+    touch_start(integer num)
+    {
+        list TimeStamp = llParseString2List(llGetTimestamp(),["-",":"],["T"]); //Get timestamp and split into parts in a list
+        integer Hour = llList2Integer(TimeStamp,4);
+        if(Hour<12)		
+            llSay(PUBLIC_CHANNEL,"Good Morning, Oliver Sintim-Aboagye!");	
+        else if(Hour<17)
+            llSay(PUBLIC_CHANNEL,"Good Afternoon, " + llDetectedName(0));		
+        else
+            llSay(PUBLIC_CHANNEL,"Good Evening, " + llKey2Name(llDetectedKey(0)));
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <h3>Helper Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Stamp2UnixInt" target="_blank">Stamp2UnixInt</a> - List format to Unix timestamp. ex: [2009, 2, 13, 3, 31, 30] to 1234567890
+    <ul>
+      <li>compatible with <i><b>llParseString2List( llGetTimestamp(), ["-", "T", ":", "."], [] )</b></i></li>
+    </ul>
+  
+    </li>
+    <li><a href="https://wiki.secondlife.com/wiki/Stamp2WeekdayStr" target="_blank">Stamp2WeekdayStr</a> - Weekday from (Y, M, D) ex: "Friday" from (2009, 2, 13)</li>
+    <li><a href="https://wiki.secondlife.com/wiki/Millisec" target="_blank">Millisec</a> - Converts a timestamp string to integer milliseconds accurate to within a month.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/Unix2PST_PDT" target="_blank">Unix2PST_PDT</a> - Converts a Unix Time stamp to an SLT date/time string with PST or PDT indication as appropriate.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/Unix2GMTorBST" target="_blank">Unix2GMTorBST</a> - Converts a Unix Time stamp to a UK date/time string with GMT or BST indication as appropriate.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetDate" target="_blank">llGetDate</a></td>
+        <td>–</td>
+        <td>Same format but without the time.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetUnixTime" target="_blank">llGetUnixTime</a></td>
+        <td>–</td>
+        <td>Time in seconds since the epoch.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTime" target="_blank">llGetTime</a></td>
+        <td>–</td>
+        <td>Elapsed script-time.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="http://www.cl.cam.ac.uk/~mgk25/iso-time.html" target="_blank">ISO 8601</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Code_Racer" target="_blank">Code Racer</a></td>
+        <td></td>
+        <td></td>
+        <td>- useful benchmarks within 100 trials</td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Efficiency_Tester" target="_blank">Efficiency Tester</a></td>
+        <td></td>
+        <td></td>
+        <td>- more accurate benchmarks within 10,000 trials</td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LSL_Script_Efficiency" target="_blank">LSL_Script_Efficiency</a></td>
+        <td></td>
+        <td></td>
+        <td>- in-depth discussion of the Efficiency Tester</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetTimestamp()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetTimestamp();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>As time ticks away,</p>
+<p>Tic-tac, tic-tac, on the clock,</p>
+<p>No script ever stops.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

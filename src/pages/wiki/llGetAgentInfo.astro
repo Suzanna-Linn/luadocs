@@ -1,0 +1,282 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetAgentInfo(AvatarID: uuid): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetAgentInfo(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_field" target="_blank">bit field</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) containing the agent information about <b>id</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">206</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th>Val</th>
+        <th>Returned if agent...</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_ALWAYS_RUN" target="_blank">AGENT_ALWAYS_RUN</a></td>
+        <td>0x1000</td>
+        <td>has running ("Always Run") enabled, or is using tap-tap-hold</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_ATTACHMENTS" target="_blank">AGENT_ATTACHMENTS</a></td>
+        <td>0x0002</td>
+        <td>has attachments</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_AUTOMATED" target="_blank">AGENT_AUTOMATED</a></td>
+        <td>0x4000</td>
+        <td>is marked as a scripted agent/bot</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_AUTOPILOT" target="_blank">AGENT_AUTOPILOT</a></td>
+        <td>0x2000</td>
+        <td>is in "autopilot" mode</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_AWAY" target="_blank">AGENT_AWAY</a></td>
+        <td>0x0040</td>
+        <td>is in "away" mode</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_BUSY" target="_blank">AGENT_BUSY</a></td>
+        <td>0x0800</td>
+        <td>is in "busy" mode</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_CROUCHING" target="_blank">AGENT_CROUCHING</a></td>
+        <td>0x0400</td>
+        <td>is crouching</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_FLOATING_VIA_SCRIPTED_ATTACHMENT" target="_blank">AGENT_FLOATING_VIA_SCRIPTED_ATTACHMENT</a></td>
+        <td>0x8000</td>
+        <td>is floating or hovering because of a scripted attachment</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_FLYING" target="_blank">AGENT_FLYING</a></td>
+        <td>0x0001</td>
+        <td>is flying or hovering</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_IN_AIR" target="_blank">AGENT_IN_AIR</a></td>
+        <td>0x0100</td>
+        <td>is in the air (jumping, flying or falling)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_MOUSELOOK" target="_blank">AGENT_MOUSELOOK</a></td>
+        <td>0x0008</td>
+        <td>is in mouselook</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_ON_OBJECT" target="_blank">AGENT_ON_OBJECT</a></td>
+        <td>0x0020</td>
+        <td>is sitting on an object (and linked to it)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_SCRIPTED" target="_blank">AGENT_SCRIPTED</a></td>
+        <td>0x0004</td>
+        <td>has scripted attachments</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_SITTING" target="_blank">AGENT_SITTING</a></td>
+        <td>0x0010</td>
+        <td>is sitting[[1]](#footnote_1)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_TYPING" target="_blank">AGENT_TYPING</a></td>
+        <td>0x0200</td>
+        <td>is typing</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_WALKING" target="_blank">AGENT_WALKING</a></td>
+        <td>0x0080</td>
+        <td>is walking, running or crouch walking</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/AGENT_BUSY" target="_blank">AGENT_BUSY</a> indicates that the "busy" <a href="https://wiki.secondlife.com/wiki/Internal_Animations" target="_blank">internal animation</a> is playing, even if the user is not truly in busy mode.</li>
+    <li><b>On server 1.40 and below</b>, <a href="https://wiki.secondlife.com/wiki/AGENT_TYPING" target="_blank">AGENT_TYPING</a> indicated that the "type" internal animation is playing, it would not be set if the user disabled <a href="https://wiki.secondlife.com/wiki/Debug_Settings" target="_blank">PlayTypingAnim</a>. <b>On server 1.42 and up</b>, it reflects <a href="https://wiki.secondlife.com/wiki/ChatFromViewer" target="_blank">typing start/stop messages</a> from the client and does not depend on the animation. If the old behavior is desired, use <a href="https://wiki.secondlife.com/wiki/LlGetAnimationList" target="_blank">llGetAnimationList</a> and look for "c541c47f-e0c0-058b-ad1a-d6ae3a4584d9" &#8212; <a href="https://jira.secondlife.com/browse/SVC-787" target="_blank">SVC-787</a></li>
+    <li>`<a href="https://wiki.secondlife.com/wiki/AGENT_ALWAYS_RUN" target="_blank">AGENT_ALWAYS_RUN</a> | <a href="https://wiki.secondlife.com/wiki/AGENT_WALKING" target="_blank">AGENT_WALKING</a>` indicates that the user requested to run using standard viewer controls. Use <a href="https://wiki.secondlife.com/wiki/LlGetAnimation" target="_blank">llGetAnimation</a> to also detect running caused by physics.</li>
+    <li>This function does not return reliable information immediately after a border crossing. Use <a href="https://wiki.secondlife.com/wiki/LlGetAnimation" target="_blank">llGetAnimation</a> instead, if you can. &#8212; <a href="https://jira.secondlife.com/browse/SVC-3177" target="_blank">SVC-3177</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/AGENT_AUTOMATED" target="_blank">AGENT_AUTOMATED</a> may unexpectedly be enabled, see <a href="https://wiki.secondlife.com/wiki/AGENT_AUTOMATED" target="_blank">its caveats</a> for more detail.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local buf = #events
+    buf = ll.GetAgentInfo(ll.DetectedKey(0))
+    local out = ""
+    if bit32.btest(buf, AGENT_FLYING) then
+        out ..= "The agent is flying.\n"
+    else
+        out ..= "The agent is not flying.\n"
+    end
+
+    if bit32.btest(buf, AGENT_ATTACHMENTS) then
+        if bit32.btest(buf, AGENT_SCRIPTED) then
+            out ..= "The agent has scripted attachments.\n"
+        else
+            out ..= "The agent's attachments are unscripted.\n"
+        end
+    else
+        out ..= "The agent does not have attachments.\n"
+    end
+
+    if bit32.btest(buf, AGENT_MOUSELOOK) then
+        out ..= "the agent is in mouselook."
+    else
+        out ..= "the agent is in normal camera mode."
+    end
+    ll.Whisper(0, out)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer buf)
+    {
+        buf = llGetAgentInfo(llDetectedKey(0));
+        string out;
+        if(buf & AGENT_FLYING)
+            out += "The agent is flying.\n";
+        else
+            out += "The agent is not flying.\n";
+ 
+        if(buf & AGENT_ATTACHMENTS)
+        {
+            if(buf & AGENT_SCRIPTED)
+                out += "The agent has scripted attachments.\n";
+            else
+                out += "The agent's attachments are unscripted.\n";
+        }
+        else
+            out += "The agent does not have attachments.\n";
+ 
+        if(buf & AGENT_MOUSELOOK)
+            out += "the agent is in mouselook.";
+        else
+            out += "the agent is in normal camera mode.";
+        llWhisper(0, out);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>This is not a good way of testing if an avatar is in the region, use <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a> instead.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestAgentData" target="_blank">llRequestAgentData</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAnimation" target="_blank">llGetAnimation</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAnimationList" target="_blank">llGetAnimationList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llGetAgentInfo Added in <a href="http://secondlife.wikia.com/wiki/Version_0.4.0#Scripting" target="_blank">SL 0.4.0</a>[[2]](#footnote_2) along with these flags <a href="https://wiki.secondlife.com/wiki/AGENT_FLYING" target="_blank">AGENT_FLYING</a>, <a href="https://wiki.secondlife.com/wiki/AGENT_ATTACHMENTS" target="_blank">AGENT_ATTACHMENTS</a>, & <a href="https://wiki.secondlife.com/wiki/AGENT_SCRIPTED" target="_blank">AGENT_SCRIPTED</a>.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/AGENT_AUTOPILOT" target="_blank">AGENT_AUTOPILOT</a> was added in <a href="http://svn.secondlife.com/trac/linden/changeset/2900?new_path=%2F#file21" target="_blank">SVN:2900 r136439 Trunk&#32;s:1.33.0</a></li>
+  </ul>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo_Test" target="_blank">llGetAgentInfo_Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> "Sit down" on the avatar context menu allows ground sits anywhere: atop the terrain, on objects or even in the air, so it is possible to sit "on" an object without linking.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetAgentInfo( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Information search:</p>
+<p>The avatar was revealed,</p>
+<p>Mystery solved.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

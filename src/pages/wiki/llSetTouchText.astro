@@ -1,0 +1,137 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTouchText(Text: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTouchText(string Text);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Displays <b>text</b> rather than the default "Touch" in the right-click menu</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/text" target="_blank">text</a></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_properties</li>
+        <li>touch</li>
+        <li>user_interface</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">241</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This is very similar to <a href="https://wiki.secondlife.com/wiki/LlSetSitText" target="_blank">LlSetSitText</a>.</p>
+  <p>To restore the default value, use an empty string for <b>text</b>.</p>
+  <p>To make it appear as if there is no text, use some combination of whitespace characters for <b>text</b>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li><b>text</b> will only be displayed if set by a script calling this function in the root. If <b>text</b> is set by a script in a child the <b>text</b> will only be displayed after unlinking it or relinking it as the root. If either a child or the root is selected as an individual prim and right clicked, the <b>text</b> displayed will be the default even if a script in the root has set <b>text</b>. More simply - The <b>text</b> property displayed on right click will always be that of the root unless, right clicking a prim under individual edit when it will always be the LL default.</li>
+    <li>Note that like particles, and the other set text functions, all <b>text</b> set via llSetTouchText becomes a property of a prim, not a script. For that reason, the <b>text</b> will remain if the script that set it is deactivated or even removed.</li>
+    <li>You have no control over the face, size or colour of the displayed <b>text</b>.</li>
+    <li><b>text</b> is limited to 9 characters[[1]](#footnote_1).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.SetTouchText("Touch me!")
+end
+function LLEvents.touch_start(events)
+    local detected = #events
+    ll.Say(0, "you touched me!")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSetTouchText("Touch me!");
+    }
+    touch_start(integer detected)
+    {
+        llSay(0, "you touched me!");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetSitText" target="_blank">llSetSitText</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">Touch</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> This function also accepts the UTF-8 character set, in which case the number of displayed characters <i>may</i> be even less than 9 ASCII characters</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetTouchText( string text );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Glorious morning</p>
+<p>Curious avatar clicks</p>
+<p>at the perfect touch</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

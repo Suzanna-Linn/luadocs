@@ -1,0 +1,273 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetSimStats(StatType: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetSimStats(integer StatType);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the requested statistic.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>StatType / stat_type</td>
+          <td>SIM_STAT_* flag</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">415</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <th></th>
+        <th>Possible Return</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_PCT_CHARS_STEPPED" target="_blank">SIM_STAT_PCT_CHARS_STEPPED</a></td>
+        <td>0</td>
+        <td>[0.0, 100.0]</td>
+        <td>The % of pathfinding characters updated each frame, averaged over the last minute. The value corresponds to the "Characters Updated" stat in the viewer's Statistics Bar.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_PHYSICS_FPS" target="_blank">SIM_STAT_PHYSICS_FPS</a></td>
+        <td>1</td>
+        <td>[0.0, Inf]</td>
+        <td>Physics simulation FPS.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_AGENT_UPDATES" target="_blank">SIM_STAT_AGENT_UPDATES</a></td>
+        <td>2</td>
+        <td>[0.0, Inf]</td>
+        <td>Agent updates per second.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_FRAME_MS" target="_blank">SIM_STAT_FRAME_MS</a></td>
+        <td>3</td>
+        <td>[0.0, Inf]</td>
+        <td>Total frame time.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_NET_MS" target="_blank">SIM_STAT_NET_MS</a></td>
+        <td>4</td>
+        <td>[0.0, Inf]</td>
+        <td>Time spent in 'network' segment of simulation frame.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_OTHER_MS" target="_blank">SIM_STAT_OTHER_MS</a></td>
+        <td>5</td>
+        <td>[0.0, Inf]</td>
+        <td>Main simulation segment of frame, encapsulating task, script and misc. updates.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_PHYSICS_MS" target="_blank">SIM_STAT_PHYSICS_MS</a></td>
+        <td>6</td>
+        <td>[0.0, Inf]</td>
+        <td>Time spent in 'physics' segment of simulation frame.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_AGENT_MS" target="_blank">SIM_STAT_AGENT_MS</a></td>
+        <td>7</td>
+        <td>[0.0, Inf]</td>
+        <td>Time spent in 'agent' segment of simulation frame.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_IMAGE_MS" target="_blank">SIM_STAT_IMAGE_MS</a></td>
+        <td>8</td>
+        <td>[0.0, Inf]</td>
+        <td>Time spent in 'image' segment of simulation frame.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_SCRIPT_MS" target="_blank">SIM_STAT_SCRIPT_MS</a></td>
+        <td>9</td>
+        <td>[0.0, Inf]</td>
+        <td>Time spent in 'script' segment of simulation frame.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_AGENT_COUNT" target="_blank">SIM_STAT_AGENT_COUNT</a></td>
+        <td>10</td>
+        <td>[0.0, Inf]</td>
+        <td>Number of agents in region.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_CHILD_AGENT_COUNT" target="_blank">SIM_STAT_CHILD_AGENT_COUNT</a></td>
+        <td>11</td>
+        <td>[0.0, Inf]</td>
+        <td>Number of child (neighboring) agents in region.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_ACTIVE_SCRIPT_COUNT" target="_blank">SIM_STAT_ACTIVE_SCRIPT_COUNT</a></td>
+        <td>12</td>
+        <td>[0.0, Inf]</td>
+        <td>Number of active scripts in region.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_PACKETS_IN" target="_blank">SIM_STAT_PACKETS_IN</a></td>
+        <td>13</td>
+        <td>[0.0, Inf]</td>
+        <td>Average packets in per second.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_PACKETS_OUT" target="_blank">SIM_STAT_PACKETS_OUT</a></td>
+        <td>14</td>
+        <td>[0.0, Inf]</td>
+        <td>Average packets out per second.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_ASSET_DOWNLOADS" target="_blank">SIM_STAT_ASSET_DOWNLOADS</a></td>
+        <td>15</td>
+        <td>[0.0, Inf]</td>
+        <td>Pending asset download count.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_ASSET_UPLOADS" target="_blank">SIM_STAT_ASSET_UPLOADS</a></td>
+        <td>16</td>
+        <td>[0.0, Inf]</td>
+        <td>Pending asset upload count.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_UNACKED_BYTES" target="_blank">SIM_STAT_UNACKED_BYTES</a></td>
+        <td>17</td>
+        <td>[0.0, Inf]</td>
+        <td>Total unacknowledged bytes.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_PHYSICS_STEP_MS" target="_blank">SIM_STAT_PHYSICS_STEP_MS</a></td>
+        <td>18</td>
+        <td>[0.0, Inf]</td>
+        <td>Average physics step time.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_PHYSICS_SHAPE_MS" target="_blank">SIM_STAT_PHYSICS_SHAPE_MS</a></td>
+        <td>19</td>
+        <td>[0.0, Inf]</td>
+        <td>Average physics 'shape' segment update time.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_PHYSICS_OTHER_MS" target="_blank">SIM_STAT_PHYSICS_OTHER_MS</a></td>
+        <td>20</td>
+        <td>[0.0, Inf]</td>
+        <td>Average physics 'other' segment update time.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_SCRIPT_EPS" target="_blank">SIM_STAT_SCRIPT_EPS</a></td>
+        <td>21</td>
+        <td>[0.0, Inf]</td>
+        <td>Script events per second.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_SPARE_MS" target="_blank">SIM_STAT_SPARE_MS</a></td>
+        <td>22</td>
+        <td>[0.0, Inf]</td>
+        <td>Spare time left after frame.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_SLEEP_MS" target="_blank">SIM_STAT_SLEEP_MS</a></td>
+        <td>23</td>
+        <td>[0.0, Inf]</td>
+        <td>Time spent sleeping.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_IO_PUMP_MS" target="_blank">SIM_STAT_IO_PUMP_MS</a></td>
+        <td>24</td>
+        <td>[0.0, Inf]</td>
+        <td>PumpIO time.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_SCRIPT_RUN_PCT" target="_blank">SIM_STAT_SCRIPT_RUN_PCT</a></td>
+        <td>25</td>
+        <td>[0.0, 100.0]</td>
+        <td>Percent of scripts run during frame.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SIM_STAT_AI_MS" target="_blank">SIM_STAT_AI_MS</a></td>
+        <td>26</td>
+        <td>[0.0, Inf]</td>
+        <td>Time spent on AI step.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local num_detected = #events
+    local pct_chars_stepped = ll.GetSimStats(SIM_STAT_PCT_CHARS_STEPPED)
+    ll.Say(0, "The percentage of pathfinding characters updated each frame was " .. tostring(pct_chars_stepped) .. "averaged over the last minute. The " .. "value corresponds to the 'Characters Updated' stat in the " .. "viewer's Statistics Bar. ")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        float pct_chars_stepped = llGetSimStats(SIM_STAT_PCT_CHARS_STEPPED);
+        llSay(0,
+            "The percentage of pathfinding characters updated each frame was "
+            + (string)pct_chars_stepped + "averaged over the last minute. The "
+            + "value corresponds to the 'Characters Updated' stat in the "
+            + "viewer's Statistics Bar. ");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAbs" target="_blank">llAbs</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> version of llFabs</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.10.26.266333" target="_blank"> 26/10/2012 </a></p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGetSimStats( integer stat_type );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,272 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetPayPrice(Price: number, QuickButtons: {number})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetPayPrice(integer Price, list QuickButtons);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Suggest default amounts for the pay text field and pay buttons of the appearing dialog when someone chooses to pay this object.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Price / price</td>
+          <td>PAY_* constant or positive value (including zero)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{number}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>QuickButtons / quick_pay_buttons</td>
+          <td>Four PAY_* constants and/or positive integer values (zero is not shown)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>money</li>
+        <li>prim_properties</li>
+        <li>user_interface</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">302</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Constant</th>
+        <th>Alt</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PAY_HIDE" target="_blank">PAY_HIDE</a></td>
+        <td>-1</td>
+        <td>0</td>
+        <td>Hides this quick pay button.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PAY_DEFAULT" target="_blank">PAY_DEFAULT</a></td>
+        <td>-2</td>
+        <td></td>
+        <td>Use the default value for this quick pay button.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Button Order</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>4</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Defaults</th>
+      </tr>
+      <tr>
+        <td>$1</td>
+        <td>$5</td>
+      </tr>
+      <tr>
+        <td>$10</td>
+        <td>$20</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function should not be trusted to limit the values of money payable to the object; <i>always</i> verify the amount paid is the amount expected.</li>
+    <li>Use only one call to this function in all the scripts on an object to prevent confusion about which values are used. You still need to check in the money event that the amount is as expected.</li>
+    <li>This function only works when called from the root prim of an object. Its effect applies to all the prims in the object. Calling it from a child prim has no effect.
+    <ul>
+      <li>There is currently a <a href="https://feedback.secondlife.com/slua-alpha/p/child-prim-in-linkset-cannot-be-paid-if-previously-a-root-prim-with-llsetpaypric" target="_blank">viewer bug</a> where calls from child prims will <b>prevent</b> payment to the object.</li>
+    </ul>
+  
+    </li>
+    <li>Payment to a prim can be blocked by the llSetPayPrice() setting in the prim, which persists even if the script with llSetPayPrice() is removed.</li>
+    <li><b>Caution:</b> Calling this function will enable payment on the prim (or the whole object if it is the root prim) for the current state, even when this state has no money event.</li>
+    <li>Otherwise, the pay option will only be shown in prims having a running script with a <a href="https://wiki.secondlife.com/wiki/Money" target="_blank">money</a> event (or in all the prims of the object if the root has a running script with a money event).</li>
+    <li>The effect seems to persist even if the script is recompiled with out the llSetPayPrice function, even if the script is replaced with another one which includes a <a href="https://wiki.secondlife.com/wiki/Money" target="_blank">money</a> event, but not llSetPayPrice.</li>
+    <li>Money cannot be paid to an attachment; "Pay" will go directly to the wearer instead.</li>
+    <li>If <b>quick_pay_buttons</b> contains a negative value or zero, the button will not be shown at all.
+    <ul>
+      <li>However, zero is allowed for <b>price</b>, which is used to set the custom text field's value within the Pay window.</li>
+    </ul>
+  
+    </li>
+    <li>If <i>price</i> is <a href="https://wiki.secondlife.com/wiki/PAY_HIDE" target="_blank">PAY_HIDE</a> and a payment is made that does not match any value in <i>quick_pay_buttons</i>, then the simulator will block the payment and the payer will receive an error message.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>This will give the user a dialog box without the <b>price</b> field and only one button with a value of 150.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetPayPrice(PAY_HIDE, {150, PAY_HIDE, PAY_HIDE, PAY_HIDE})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetPayPrice(PAY_HIDE, [150,PAY_HIDE,PAY_HIDE,PAY_HIDE])`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+local price = 10
+local default, cash = {}, {}
+
+function default.state_entry()
+    ll.SetPayPrice(PAY_HIDE, {PAY_HIDE, PAY_HIDE, PAY_HIDE, PAY_HIDE})
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_DEBIT)
+end
+function default.run_time_permissions(perm)
+    if bit32.btest(perm, PERMISSION_DEBIT) then
+        state(cash)
+    end
+end
+
+function cash.state_entry()
+    ll.SetPayPrice(price, {price, PAY_HIDE, PAY_HIDE, PAY_HIDE})
+end
+function cash.money(id, amount)
+    if amount ~= price then
+        ll.GiveMoney(id, amount)
+        ll.InstantMessage(id, "You paid " .. tostring(amount) .. ", which is the wrong price, the price is: " .. tostring(price))
+    else
+        --insert your give code here.
+        ll.InstantMessage(id, "You paid the right price")
+    end
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer price = 10;
+
+default
+{
+    state_entry()
+    {
+        llSetPayPrice(PAY_HIDE, [PAY_HIDE ,PAY_HIDE, PAY_HIDE, PAY_HIDE]);
+        llRequestPermissions(llGetOwner(), PERMISSION_DEBIT);
+    }
+    run_time_permissions(integer perm)
+    {
+        if(perm & PERMISSION_DEBIT)
+            state cash;
+    }
+}
+
+state cash
+{
+    state_entry()
+    {
+        llSetPayPrice(price, [price ,PAY_HIDE, PAY_HIDE, PAY_HIDE]);
+    }
+    money(key id, integer amount)
+    {
+        if(amount != price)
+        {
+            llGiveMoney(id, amount);
+            llInstantMessage(id, "You paid "+(string)amount+", which is the wrong price, the price is: "+(string)price);
+        }
+        else
+        {
+            //insert your give code here.
+            llInstantMessage(id, "You paid the right price");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Money" target="_blank">money</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGiveMoney" target="_blank">llGiveMoney</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPayPrice_Test" target="_blank">llSetPayPrice Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetPayPrice( integer price, list quick_pay_buttons );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

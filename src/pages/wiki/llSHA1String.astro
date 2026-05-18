@@ -1,0 +1,115 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SHA1String(Text: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llSHA1String(string Text);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string of 40 hex characters that is the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/SHA-1" target="_blank">SHA-1</a> security hash of <b>src</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / src</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>cryptography</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">343</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>LSL strings are stored in the UTF-8 format.</p>
+  <h2>Caveats</h2>
+  <p>There's no way to input a zero-byte value into this function, nor any byte value from 128-255, therefore it's currently broken for many purposes (like HMAC-SHA1). The reason is because LSL strings cannot have a unicode null character (U+0000) in them, and LSL has no escape code for the null character (many programming languages use \0 but LSL does not have this feature). llEscapeURL("%00") yields an empty string. As well, inside this function, each character with a Unicode integer value over U+0127 / 007F are dealt with in UTF-8 fashion: in the hex values, 0xC2 is appended to the byte value (hence 0x0080-0x00FF become 0xC280-0xC2FF inside the llSHA1String() routine). A JIRA has been filed for this.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Say(0, ll.SHA1String("Hello, Avatar!"))  -- returns 2E73318E547AF1B28CC0C96F95DDC9B1EE906B8D`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSay(0, llSHA1String("Hello, Avatar!")); // returns 2E73318E547AF1B28CC0C96F95DDC9B1EE906B8D`} lang="lsl" /></div>
+  <p>Linux Example</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`$ echo -n 'Hello, Avatar!' | openssl sha1
+2E73318E547AF1B28CC0C96F95DDC9B1EE906B8D`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlMD5String" target="_blank">llMD5String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSHA256String" target="_blank">llSHA256String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/SHA-1" target="_blank">SHA-1</a> (script implementation)</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Prior to this, the only way to get the SHA-1 hash was to use the LSL SHA-1 port: <a href="https://wiki.secondlife.com/wiki/SHA-1" target="_blank">SHA-1</a></p>
+  <p>History</p>
+  <ul>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/1291?new_path=%2F#file13" target="_blank">SVN:1291 r98903 Trunk&#32;c:1.21.5.97417&#32;s:1.24.9.98650</a> Initial introduction.</li>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/1298?new_path=branches/openal/indra/lscript/lscript_library/lscript_library.cpp" target="_blank">SVN:1298 r99021 Branch:OpenAL&#32;c:1.21.5.97417&#32;s:1.24.9.98650</a></li>
+  </ul>
+  <p>Integration into OpenAL branch.</p>
+  <ul>
+    <li>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Beta_Server/1.25#Server_Release_Notes.2C_Second_Life_Beta_Server_1.25.0" target="_blank"> 2008-10-31 </a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llSHA1String( string src );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

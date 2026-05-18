@@ -1,0 +1,153 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetScale(Scale: vector)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetScale(vector Scale);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the size of the prim according to <b>size</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Scale / size</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">47</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The components of <b>size</b> (<b>x</b>, <b>y</b> & <b>z</b>) each need to be in the range [0.01, 64.0][[1]](#footnote_1), if they are out of the range they are rounded to the nearest endpoint.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function only changes the size of the <i>prim</i> that the script is in. <b>Not</b> the entire object.</li>
+    <li>If the prim is part of a link set, rescaling will fail if the new size is too large or small to satisfy the <a href="https://wiki.secondlife.com/wiki/Linkability_Rules" target="_blank">linkability rules</a>.</li>
+    <li>Does not work on <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physical</a> prims.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--A basic door that opens and closes when an avatar collides with it.
+--Not very effective, as it would be better to use llSetStatus(STATUS_PHANTOM, 1)...
+--But, it works.
+local startingSize = ZERO_VECTOR
+local function main()
+    startingSize = ll.GetScale()
+end
+function LLEvents.collision_start(events)
+    local i = #events
+    ll.SetScale(vector(0.1, 0.1, 0.1))  --Shrink
+    ll.SetPos(ll.GetPos() + vector(0.0, 0.0, 10.0))  --Hide us
+    ll.SetTimerEvent(3.0)
+end
+function LLEvents.timer()
+    ll.SetTimerEvent(0.0)
+    ll.SetScale(startingSize)  --Go back to normal size
+    ll.SetPos(ll.GetPos() - vector(0.0, 0.0, 10.0))  --And where we started
+end
+  --Code by Xaviar Czervik.
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//A basic door that opens and closes when an avatar collides with it.
+//Not very effective, as it would be better to use llSetStatus(STATUS_PHANTOM, 1)...
+//But, it works.
+vector startingSize;
+default {
+     state_entry() {
+          startingSize = llGetScale();
+     }
+     collision_start(integer i) {
+          llSetScale(<0.1, 0.1, 0.1>); //Shrink
+          llSetPos(llGetPos() + <0.0,0.0,10.0>); //Hide us
+          llSetTimerEvent(3.0);
+     }
+     timer() {
+          llSetTimerEvent(0.0);
+          llSetScale(startingSize); //Go back to normal size
+          llSetPos(llGetPos() - <0.0,0.0,10.0>); //And where we started
+     }
+} //Code by Xaviar Czervik.`} lang="lsl" /></div>
+  <p><b>Curtain/Door script</b></p>
+  <p>For a flexible curtain or door script using llSetScale(), see [[[1]](http://wiki.secondlife.com/wiki/Curtain_script)]</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetScale" target="_blank">llGetScale</a></td>
+        <td>–</td>
+        <td>Gets the prims size</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlScaleByFactor" target="_blank">llScaleByFactor</a></td>
+        <td>–</td>
+        <td>Uniformly rescale a linkset</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td>–</td>
+        <td>Sets prims attributes</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td>–</td>
+        <td>Gets prims attributes</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetScale( vector size );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

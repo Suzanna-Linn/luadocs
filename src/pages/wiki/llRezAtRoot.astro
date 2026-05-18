@@ -1,0 +1,334 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RezAtRoot(InventoryItem: string, Position: vector, Velocity: vector, Rotation: rotation, StartParameter: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRezAtRoot(string InventoryItem, vector Position, vector Velocity, rotation Rotation, integer StartParameter);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Instantiate <b>inventory</b> object rotated to <b>rot</b> with its root at <b>position</b>, moving at <b>velocity</b>, using <b>param</b> as the start parameter</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InventoryItem / inventory</td>
+          <td>an object in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;to place the object</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Velocity / velocity</td>
+          <td>initial velocity</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>Rotation / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+          <td>initial rotation</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>StartParameter / param</td>
+          <td><a href="https://wiki.secondlife.com/wiki/On_rez" target="_blank">on_rez</a> event parameter and value returned by <a href="https://wiki.secondlife.com/wiki/LlGetStartParameter" target="_blank">llGetStartParameter</a> in the rezzed object (or by each of the items in a coalesced object).</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+        <li>rez</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">200</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">286</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To rez an object so its <a href="https://wiki.secondlife.com/wiki/LlGetGeometricCenter" target="_blank">center</a> is at <b>position</b> (instead of the root) use <a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a> instead.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.1 seconds.</li>
+    <li>If <b>inventory</b> is missing from the prim's inventory or it is not an object then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>Silently fails to rez <b>inventory</b> if <b>position</b> is more than 10 meters away from the prim trying to rez <b>inventory</b>. (Note: the max distance is actually 10.0 + llVecMag(llGetScale()/2))</li>
+    <li>If the object is unattached and the owner of the object does not have copy permission on <b>inventory</b>, the object will no longer be present in inventory after it is rezzed (so another attempt to rez (the same object) will fail); if the owner does have copy permission, then a copy is rezzed, and the original <b>inventory</b> remains in inventory.</li>
+    <li>If the object is attached and the owner of the object does not have copy permission on <b>inventory</b>, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>: "Cannot rez no copy objects from an attached object."</li>
+    <li>Silently fails if you don't have offline building rights on the land. To have the right, your objects needs to <i>either</i>:
+    <ul>
+      <li>Be on land you own yourself.</li>
+      <li>Be on land where anyone is allowed to build, e.g. a sandbox.</li>
+      <li>Be deeded to the group that owns the land.</li>
+      <li>Be set to the same group that owns the land and the land have the parcel flag 'allow group to build' set.</li>
+    </ul>
+  
+    </li>
+    <li>The group role "Always allow 'Create Objects'" will only work to override this when you are online, in the region, or have a child agent in the region. See the issues under Deep Notes for more information.</li>
+    <li>See <a href="https://wiki.secondlife.com/wiki/Object_rez" target="_blank">object_rez</a> for examples on how to establish communications between the rezzing object and the new prim.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Rez an object on touch
+local object = "Object"  --Object in inventory
+local start_param = 10
+local rot = ZERO_ROTATION
+
+local function main()
+    rot = ll.Euler2Rot(vector(0, 90, 90) * DEG_TO_RAD)
+end
+function LLEvents.touch_start(events)
+    local a = #events
+    local vec = ll.GetPos() + vector(0.0, 0.0, 5.0)  -- 5 meter above this
+    local speed = ll.GetVel()
+    ll.RezAtRoot(object, vec, speed, rot, start_param)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Rez an object on touch
+string object = "Object";//Object in inventory
+integer start_param = 10;
+rotation rot;
+
+default
+{
+    state_entry()
+    {
+        rot = llEuler2Rot(< 0, 90, 90> * DEG_TO_RAD);
+    }
+    touch_start(integer a)
+    {
+        vector vec = llGetPos() + < 0.0, 0.0, 5.0>; // 5 meter above this
+        vector speed = llGetVel();
+        llRezAtRoot(object, vec, speed, rot, start_param);
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Rez an object on touch, with relative position, rotation, and velocity all described in the rezzing prim's coordinate system.
+local object = "Object"  -- Name of object in inventory
+local relativePosOffset = vector(2.0, 0.0, 1.0)  -- "Forward" and a little "above" this prim
+local relativeVel = vector(1.0, 0.0, 0.0)  -- Traveling in this prim's "forward" direction at 1m/s
+local relativeRot = rotation(0.707107, 0.0, 0.0, 0.707107)  -- Rotated 90 degrees on the x-axis compared to this prim
+local startParam = 10
+
+function LLEvents.touch_start(events)
+    local a = #events
+    local myPos = ll.GetPos()
+    local myRot = ll.GetRot()
+
+    local rezPos = myPos + relativePosOffset * myRot
+    local rezVel = relativeVel * myRot
+    local rezRot = relativeRot * myRot
+
+    ll.RezAtRoot(object, rezPos, rezVel, rezRot, startParam)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Rez an object on touch, with relative position, rotation, and velocity all described in the rezzing prim's coordinate system.
+string object = "Object"; // Name of object in inventory
+vector relativePosOffset = <2.0, 0.0, 1.0>; // "Forward" and a little "above" this prim
+vector relativeVel = <1.0, 0.0, 0.0>; // Traveling in this prim's "forward" direction at 1m/s
+rotation relativeRot = <0.707107, 0.0, 0.0, 0.707107>; // Rotated 90 degrees on the x-axis compared to this prim
+integer startParam = 10;
+
+default
+{
+    touch_start(integer a)
+    {
+        vector myPos = llGetPos();
+        rotation myRot = llGetRot();
+
+        vector rezPos = myPos+relativePosOffset*myRot;
+        vector rezVel = relativeVel*myRot;
+        rotation rezRot = relativeRot*myRot;
+
+        llRezAtRoot(object, rezPos, rezVel, rezRot, startParam);
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--[[ 
+    NO COPY Rezzer Example by Daemonika Nightfire
+    Always rez the first object at touch, removing it from the content,
+    when the first one is removed, the next object automatically moves to the first position.
+
+    Content example:
+    object (no copy)
+    object 1 (no copy)
+    object 2 (no copy)
+    object 3 (no copy)
+    object 4 (no copy)
+    ...
+
+]]
+local relativePosOffset = vector(2.0, 0.0, 1.0)  -- "Forward" and a little "above" this prim
+local relativeVel = vector(1.0, 0.0, 0.0)  -- Traveling in this prim's "forward" direction at 1m/s
+local relativeRot = vector(90, 0, 0)  -- Rotated 90 degrees on the x-axis compared to this prim
+local startParam = 10
+
+function LLEvents.touch_start(events)
+    local a = #events
+    if ll.GetInventoryNumber(INVENTORY_OBJECT) > 0 then  -- checks if at least 1 object is present.
+        local object = ll.GetInventoryName(INVENTORY_OBJECT, 0)  -- name of the first object in inventory
+        local myPos = ll.GetPos()
+        local myRot = ll.GetRot()
+
+        local rezPos = myPos + relativePosOffset * myRot
+        local rezVel = relativeVel * myRot
+        local rezRot = ll.Euler2Rot(relativeRot * DEG_TO_RAD) * myRot
+
+        ll.RezAtRoot(object, rezPos, rezVel, rezRot, startParam)
+    else
+        ll.Say(0, "This rezzer is empty")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`/* 
+    NO COPY Rezzer Example by Daemonika Nightfire
+    Always rez the first object at touch, removing it from the content,
+    when the first one is removed, the next object automatically moves to the first position.
+
+    Content example:
+    object (no copy)
+    object 1 (no copy)
+    object 2 (no copy)
+    object 3 (no copy)
+    object 4 (no copy)
+    ...
+    
+*/
+
+vector relativePosOffset = <2.0, 0.0, 1.0>; // "Forward" and a little "above" this prim
+vector relativeVel = <1.0, 0.0, 0.0>; // Traveling in this prim's "forward" direction at 1m/s
+vector relativeRot = <90, 0, 0>; // Rotated 90 degrees on the x-axis compared to this prim
+integer startParam = 10;
+ 
+default
+{
+    touch_start(integer a)
+    {
+        if(llGetInventoryNumber(INVENTORY_OBJECT) > 0) // checks if at least 1 object is present.
+        {
+            string object = llGetInventoryName(INVENTORY_OBJECT, 0); // name of the first object in inventory
+            vector myPos = llGetPos();
+            rotation myRot = llGetRot();
+     
+            vector rezPos = myPos+relativePosOffset*myRot;
+            vector rezVel = relativeVel*myRot;
+            rotation rezRot = llEuler2Rot(relativeRot*DEG_TO_RAD)*myRot;
+     
+            llRezAtRoot(object, rezPos, rezVel, rezRot, startParam);
+        }
+        else
+        {
+            llSay(0, "This rezzer is empty");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TEMP_ON_REZ" target="_blank">PRIM_TEMP_ON_REZ</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Object_rez" target="_blank">object_rez</a></td>
+        <td>–</td>
+        <td>triggered when this object rezzes an object from inventory</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezObjectWithParams" target="_blank">llRezObjectWithParams</a></td>
+        <td>–</td>
+        <td>Modern alternative with more parameters.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetStartParameter" target="_blank">llGetStartParameter</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGodLikeRezObject" target="_blank">llGodLikeRezObject</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRezAtRoot( string inventory, vector position, vector velocity, rotation rot, integer param );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Abracadabra!</p>
+<p>Velvet ears and twitching nose</p>
+<p>Emerge from his hat.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

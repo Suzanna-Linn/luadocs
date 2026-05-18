@@ -1,0 +1,168 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetInventoryPermMask(InventoryItem: string, PermissionFlag: number, PermissionMask: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetInventoryPermMask(string InventoryItem, integer PermissionFlag, integer PermissionMask);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the given permission <b>category</b> to the new <b>value</b> on the inventory <b>item</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InventoryItem / item</td>
+          <td>an item in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>PermissionFlag / category</td>
+          <td>MASK_* flag</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>PermissionMask / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_field" target="_blank">value</a></td>
+          <td>Permission bit field (PERM_* flags)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>asset_permissions</li>
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">290</span></div>
+
+      <div class="label-stack">
+        <span class="lua-section attr-label bg-godmode">God Mode</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Category</b></th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_BASE" target="_blank">MASK_BASE</a></td>
+        <td>0</td>
+        <td>The base permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_OWNER" target="_blank">MASK_OWNER</a></td>
+        <td>1</td>
+        <td>Current owner permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_GROUP" target="_blank">MASK_GROUP</a></td>
+        <td>2</td>
+        <td>Active group permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_EVERYONE" target="_blank">MASK_EVERYONE</a></td>
+        <td>3</td>
+        <td>Permissions everyone has.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_NEXT" target="_blank">MASK_NEXT</a></td>
+        <td>4</td>
+        <td>Permissions the next owner will have.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=MASK_COMBINED&action=edit&redlink=1" target="_blank">MASK_COMBINED</a></td>
+        <td>16</td>
+        <td><p>Include object inventory contents when calculating perms.</p>
+<p>Combine with other mask flags, for instance MASK_OWNER|MASK_COMBINED</p></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_ALL" target="_blank">PERM_ALL</a></td>
+        <td>0x7FFFFFFF</td>
+        <td>Move/Modify/Copy/Transfer permissions</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_COPY" target="_blank">PERM_COPY</a></td>
+        <td>0x00008000</td>
+        <td>Copy permission</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_MODIFY" target="_blank">PERM_MODIFY</a></td>
+        <td>0x00004000</td>
+        <td>Modify permission</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_MOVE" target="_blank">PERM_MOVE</a></td>
+        <td>0x00080000</td>
+        <td>Move permission</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_TRANSFER" target="_blank">PERM_TRANSFER</a></td>
+        <td>0x00002000</td>
+        <td>Transfer permission</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function can only be executed in <a href="https://wiki.secondlife.com/wiki/God_Mode" target="_blank">God Mode</a>.</li>
+    <li>If <b>item</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">llGetInventoryPermMask</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetInventoryPermMask( string item, integer category, integer value );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

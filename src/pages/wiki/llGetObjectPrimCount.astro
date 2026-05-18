@@ -1,0 +1,124 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetObjectPrimCount(ObjectID: uuid): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetObjectPrimCount(key ObjectID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns an integer that is the total number of prims in the object that contains <b>prim</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ObjectID / prim</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>object</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">323</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Avatars sitting on the object are not counted[[1]](#footnote_1). Zero is returned if <b>prim</b>: (A) is not found, (B) is part of an attachment[[2]](#footnote_2), or (C) is not a prim.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This cannot be used to detect if an avatar is seated (by checking for a non-zero return), use <a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo" target="_blank">llGetAgentInfo</a> instead.</li>
+    <li>The prim count for attachments are not returned[[2]](#footnote_2). If possible use <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> instead.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local num = #events
+    local prims = ll.GetObjectPrimCount(ll.GetKey())
+    if prims == 0 then
+        -- llGetObjectPrimCount returns zero for attachments.
+        prims = ll.GetNumberOfPrims()
+    -- Avatars can't sit on attachments so this is ok.
+    end
+    ll.OwnerSay("This object has " .. tostring(prims) .. " prims and " .. tostring(ll.GetNumberOfPrims() - prims) .. " avatars.")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num)
+    {
+        integer prims = llGetObjectPrimCount(llGetKey());
+        if (prims == 0)
+        {
+            // llGetObjectPrimCount returns zero for attachments.
+            prims = llGetNumberOfPrims();
+            // Avatars can't sit on attachments so this is ok.
+        }
+        llOwnerSay("This object has "
+                    + (string)prims
+                    + " prims and "
+                    + (string)(llGetNumberOfPrims() - prims)
+                    + " avatars.");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a></td>
+        <td>–</td>
+        <td>Returns the number of prims in the current object.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectLinkKey" target="_blank">llGetObjectLinkKey</a></td>
+        <td>–</td>
+        <td>Returns the key of the link in the linkset an object.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> on the other hand does count avatars sitting on the object.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Whether the attachment exception is a bug or a feature is unclear.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetObjectPrimCount( key prim );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

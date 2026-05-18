@@ -1,0 +1,247 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LoopSoundMaster(Sound: string|uuid, Volume: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llLoopSoundMaster(string Sound, float Volume);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Plays attached <b>sound</b> looping at <b>volume</b>, declares it a sync master.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Sound / sound</td>
+          <td>a sound in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a sound</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Volume / volume</td>
+          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>volume</b> <&#61; 1.0`)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>sound</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">88</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>sound</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a sound then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>sound</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>This function is affected by the <a href="https://wiki.secondlife.com/wiki/LlSetSoundQueueing" target="_blank">Sound Queueing</a> property of the parent prim - this means it's possible to queue a slave sound prior to starting a master, without having to use more than one prim as an emitter. (See below).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- for an uploaded .wav file called "MasterLoop" in inventory
+ll.LoopSoundMaster("MasterLoop", 1.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// for an uploaded .wav file called "MasterLoop" in inventory
+llLoopSoundMaster("MasterLoop", 1.0);`} lang="lsl" /></div>
+  <p>The script below is an example of how using <a href="https://wiki.secondlife.com/wiki/LlSetSoundQueueing" target="_blank">llSetSoundQueueing</a> affects the interaction between master and slave sounds. In the example, it is used to run a car engine.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local playState = 0  --see LUT below.
+
+local lut = {"Engine start, idle.", "Accelerate, speed loop.", "Decelerate, idle.", "Idle, stop"}
+
+local function main()
+    ll.SetSoundQueueing(true)  --Set this so the we don't skip the 1st 'slave' sound.
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.Whisper(0, "Sound: " .. ll.List2String(lut, playState))
+    if not (playState ~= 0) then  --start engine.
+        ll.PlaySoundSlave("engine start", 1)  --This sound is skipped if Sound Queueing is not set.
+        ll.LoopSoundMaster("idle", 1)
+    elseif playState == 1 then  --accelerate, then play driving loop
+        ll.PlaySoundSlave("accelerate", 1)
+        ll.LoopSoundMaster("speed", 1)
+    elseif playState == 2 then  --decelerate to idle.
+        ll.PlaySoundSlave("decelerate", 1)
+        ll.LoopSoundMaster("idle", 1)
+    else  --stop the engine.
+        ll.PlaySoundSlave("engine stop", 1)
+        ll.Sleep(2)  --Wait until the above sound completes.
+        ll.StopSound()  --Call this to prevent the master loop from restarting randomly (e.g. upon script reset or region change).
+        playState = -1  --This actually resets to 0, as it's incremented below.
+    end
+    playState += 1  --increment playState.
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer playState; //see LUT below.
+
+list lut = ["Engine start, idle.","Accelerate, speed loop.","Decelerate, idle.", "Idle, stop"];
+
+default
+{
+    state_entry()
+    {
+        llSetSoundQueueing(TRUE); //Set this so the we don't skip the 1st 'slave' sound.
+    }
+
+    touch_start(integer total_number)
+    {
+        llWhisper(0, "Sound: " + llList2String(lut,playState));
+        if(!playState) //start engine.
+        {
+            llPlaySoundSlave("engine start",1); //This sound is skipped if Sound Queueing is not set.
+            llLoopSoundMaster("idle",1);
+        }
+        else if(playState == 1) //accelerate, then play driving loop
+        {
+            llPlaySoundSlave("accelerate",1);
+            llLoopSoundMaster("speed",1);
+        }
+        else if(playState == 2) //decelerate to idle.
+        {
+            llPlaySoundSlave("decelerate",1);
+            llLoopSoundMaster("idle",1);
+        }
+        else //stop the engine.
+        {
+            llPlaySoundSlave("engine stop",1);
+            llSleep(2); //Wait until the above sound completes.
+            llStopSound(); //Call this to prevent the master loop from restarting randomly (e.g. upon script reset or region change).
+            playState = -1; //This actually resets to 0, as it's incremented below.
+        }
+        ++playState; //increment playState.
+    }
+}`} lang="lsl" /></div>
+  <p>The script below can be added to an object, to toggle a SoundMaster on and off. Note that the script requires a sound in inventory called MasterLoop, or you need to change the argument in the function for it to work.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--This integer (actually a boolean) will be used to manage the toggle effect.
+local soundState = false
+--Change MasterLoop to the sound clip you want to use.
+local soundClip = "MasterLoop"
+local function main()
+    --Displays red "OFF" as floating text above the prim
+    ll.SetText("OFF", vector(1, 0, 0), 1.0)
+end
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    --When touched, soundState inverts its current boolean value. 1 becomes 0, 0 becomes 1. 
+    soundState = not soundState
+    if soundState then
+        --Run this code when entering soundState 'on'
+        --Displays green "ON" as floating text above the prim
+        ll.SetText("ON", vector(0, 1, 0), 1.0)
+        ll.LoopSoundMaster(soundClip, 1.0)
+    else
+        --Run this code when entering soundState 'off'
+        --When touched, stop sound & display red "OFF" as floating text.
+        ll.SetText("OFF", vector(1, 0, 0), 1.0)
+        ll.StopSound()
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//This integer (actually a boolean) will be used to manage the toggle effect.
+integer soundState = FALSE;
+//Change MasterLoop to the sound clip you want to use.
+string soundClip = "MasterLoop";
+default {
+    state_entry()
+    {
+        //Displays red "OFF" as floating text above the prim
+        llSetText("OFF", <1,0,0>, 1.0);
+    }
+    touch_start(integer num_detected)
+    {
+        //When touched, soundState inverts its current boolean value. 1 becomes 0, 0 becomes 1. 
+        soundState = !soundState;
+        if(soundState)
+        {
+            //Run this code when entering soundState 'on'
+            //Displays green "ON" as floating text above the prim
+            llSetText("ON", <0,1,0>, 1.0);
+            llLoopSoundMaster(soundClip, 1.0);
+        }else
+        {   //Run this code when entering soundState 'off'
+            //When touched, stop sound & display red "OFF" as floating text.
+            llSetText("OFF", <1,0,0>, 1.0);
+            llStopSound();
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSound" target="_blank">llLoopSound</a></td>
+        <td>–</td>
+        <td>Plays a sound attached indefinitely.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLoopSoundSlave" target="_blank">llLoopSoundSlave</a></td>
+        <td>–</td>
+        <td>Plays a sound attached indefinitely, and declares it as a sync slave.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPlaySoundSlave" target="_blank">llPlaySoundSlave</a></td>
+        <td>–</td>
+        <td>Plays a sound attached once.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetSoundQueueing" target="_blank">llSetSoundQueueing</a></td>
+        <td>–</td>
+        <td>Enables the ability to queue sounds.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llLoopSoundMaster( string sound, float volume );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

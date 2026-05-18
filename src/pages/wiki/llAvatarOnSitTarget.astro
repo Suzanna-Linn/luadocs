@@ -1,0 +1,328 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.AvatarOnSitTarget(): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llAvatarOnSitTarget();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a key that is the <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> of the user seated on the prim.</p>
+  <p>If the prim lacks a <a href="https://wiki.secondlife.com/wiki/LlSitTarget" target="_blank">sit target</a> or there is no avatar sitting on the prim, then <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>prim</li>
+        <li>sit</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">239</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>A prim does not have a sit target unless <a href="https://wiki.secondlife.com/wiki/LlSitTarget" target="_blank">llSitTarget</a> has been called with a <b>nonzero</b> vector as the first argument.</li>
+    <li>If the prim lacks a sit target or the avatar is seated upon a different prim, the only way to determine how many and which avatars are seated upon the object is to scan the link set (for an example of this, see <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims#Useful_Snippets" target="_blank">llGetNumberOfPrims</a>).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    -- set sit target, otherwise this will not work 
+    ll.SitTarget(vector(0.0, 0.0, 0.1), ZERO_ROTATION)
+end
+
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_LINK) then
+        local av = ll.AvatarOnSitTarget()
+        if av.istruthy then  -- evaluated as true if key is valid and not NULL_KEY
+            ll.Say(0, "Hello " .. ll.Key2Name(av) .. ", thank you for sitting down")
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        // set sit target, otherwise this will not work 
+        llSitTarget(<0.0, 0.0, 0.1>, ZERO_ROTATION);
+    }
+
+    changed(integer change)
+    {
+        if (change & CHANGED_LINK)
+        { 
+            key av = llAvatarOnSitTarget();
+            if (av) // evaluated as true if key is valid and not NULL_KEY
+            {
+                llSay(0, "Hello " + llKey2Name(av) + ", thank you for sitting down");
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Gets the link number of a seated avatar
+local function GetAgentLinkNumber(avatar)
+    local link_num = ll.GetNumberOfPrims()
+    while link_num > 1 do  -- Check only child prims.
+        if ll.GetLinkKey(link_num) == avatar then  -- If it is the avatar we want
+            return link_num  -- then return the link number
+        end
+        link_num -= 1  -- else go on with next child.
+    end
+    -- Avatar wasn't found
+    return false  -- 0 (zero) for easy testing.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Gets the link number of a seated avatar
+integer GetAgentLinkNumber(key avatar)
+{
+    integer link_num = llGetNumberOfPrims();
+    while (link_num > 1) // Check only child prims.
+    {
+        if (llGetLinkKey(link_num) == avatar) // If it is the avatar we want
+        {
+            return link_num; // then return the link number
+        }
+        --link_num; // else go on with next child.
+    }
+    // Avatar wasn't found
+    return FALSE; // 0 (zero) for easy testing.
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+local default, sitting = {}, {}
+
+--It's sometimes useful to use a state change
+--useful when the prim is linked to an other prim
+--and useful with a dialog box
+function default.state_entry()
+    --"Sit target is a prim property."
+    ll.SitTarget(vector(0.0, 0.0, 0.1), ZERO_ROTATION)
+end
+
+function default.changed(change)
+    if bit32.btest(change, CHANGED_LINK) then
+        local av_sit = ll.AvatarOnSitTarget()
+        if av_sit.istruthy then
+            --Someone is on the sit target.
+            state(sitting)
+        end
+    end
+end
+
+function sitting.state_entry()
+    --Open a dialog box when an avatar is sitting on the prim
+    local av_menu = ll.AvatarOnSitTarget()
+    ll.Listen(-99, "", av_menu, "Yes")
+    ll.Dialog(av_menu, "\nDo you like this example?", {"Yes", "No"}, -99)
+end
+
+function sitting.changed(change)
+    if bit32.btest(change, CHANGED_LINK) then
+        local av_unsit = ll.AvatarOnSitTarget()
+        if av_unsit == NULL_KEY then
+            --No one is on the sit target.
+            --"On state change all listens are removed automatically."
+            state(default)
+        end
+    end
+end
+
+function sitting.listen(channel, name, id, message)
+    -- If the user clicked the "Yes" button
+    ll.Whisper(0, "Thank you")
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//It's sometimes useful to use a state change
+//useful when the prim is linked to an other prim
+//and useful with a dialog box
+default
+{
+    state_entry()  
+    {
+        //"Sit target is a prim property."
+        llSitTarget(<0.0, 0.0, 0.1>, ZERO_ROTATION);
+    }
+    
+    changed(integer change)
+    {
+        if (change & CHANGED_LINK)
+        { 
+            key av_sit = llAvatarOnSitTarget();
+            if (av_sit) 
+            {
+                //Someone is on the sit target.
+                state sitting;
+            }
+        }
+    }
+}
+
+state sitting
+{
+    state_entry()
+    {
+        //Open a dialog box when an avatar is sitting on the prim
+        key av_menu = llAvatarOnSitTarget();
+        llListen(-99, "", av_menu, "Yes");
+        llDialog(av_menu, "\nDo you like this example?", ["Yes", "No" ] , -99);
+    }
+    
+    changed(integer change)
+    {
+        if (change & CHANGED_LINK)
+        { 
+            key av_unsit = llAvatarOnSitTarget();
+            if (av_unsit == NULL_KEY) 
+            {
+                //No one is on the sit target.
+                //"On state change all listens are removed automatically."
+                state default;
+            }
+        }
+    }
+
+    listen(integer channel, string name, key id, string message)
+    {
+        // If the user clicked the "Yes" button
+        llWhisper(0, "Thank you");
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>The position of an avatar on a sit target can be determined with the use of <a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a> (see <a href="https://wiki.secondlife.com/wiki/LlSitTarget#Useful_Snippets" target="_blank">llSitTarget</a> for an example).</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAvatarOnLinkSitTarget" target="_blank">llAvatarOnLinkSitTarget</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSitTarget" target="_blank">llSitTarget</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinkSitTarget" target="_blank">llLinkSitTarget</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkKey" target="_blank">llGetLinkKey</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_LINK" target="_blank">CHANGED_LINK</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.AvatarOnSitTarget()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llAvatarOnSitTarget();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Glorious sunset</p>
+<p>Lazy avatar enjoys</p>
+<p>sitting on a prim</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

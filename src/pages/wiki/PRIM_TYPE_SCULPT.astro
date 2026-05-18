@@ -1,0 +1,275 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_TYPE_SCULPT: number = 7`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_TYPE_SCULPT = 7;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_TYPE_SCULPT has the value 7</p>
+  <p>PRIM_TYPE_SCULPT is a parameter of <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank">PRIM_TYPE</a> used to make a prim into a sculpty of specific shape and type.</p>
+  <p><a href="https://wiki.secondlife.com/wiki/Sculpted_Prims:_FAQ" target="_blank">Sculpted Prims: FAQ</a></p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimType</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>PRIM_TYPE</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank"> [PRIM_TYPE</a>, PRIM_TYPE_SCULPT,&#32;<a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> map, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> type ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• string</td>
+        <td>map</td>
+        <td>–</td>
+        <td>a texture in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a texture</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• integer</td>
+        <td>type</td>
+        <td>–</td>
+        <td>PRIM_SCULPT_TYPE_<i> flag with optional additional PRIM_SCULPT_FLAG_</i> flags OR'ed on</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>For use with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> and <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>type Flags</th>
+        <th></th>
+        <th>Style</th>
+        <th colspan="3">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_SPHERE" target="_blank">PRIM_SCULPT_TYPE_SPHERE</a></td>
+        <td>1</td>
+        <td>Sphere</td>
+        <td colspan="3">Converge top & bottom, stitch left side to right</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_TORUS" target="_blank">PRIM_SCULPT_TYPE_TORUS</a></td>
+        <td>2</td>
+        <td>Torus</td>
+        <td colspan="3">Stitch top to bottom, stitch left side to right</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_PLANE" target="_blank">PRIM_SCULPT_TYPE_PLANE</a></td>
+        <td>3</td>
+        <td>Plane</td>
+        <td colspan="3">No stitching or converging</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_CYLINDER" target="_blank">PRIM_SCULPT_TYPE_CYLINDER</a></td>
+        <td>4</td>
+        <td>Cylinder</td>
+        <td colspan="3">Stitch left side to right.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_MESH" target="_blank">PRIM_SCULPT_TYPE_MESH</a></td>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Mesh" target="_blank">Mesh</a> model</td>
+        <td colspan="3">See: <a href="https://wiki.secondlife.com/wiki/Mesh" target="_blank">Mesh</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SCULPT_FLAG_ZZZZZZZZ&action=edit&redlink=1" target="_blank">PRIM_SCULPT_FLAG_ZZZZZZZZ</a></td>
+        <td>63</td>
+        <td colspan="6"></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_FLAG_ANIMESH" target="_blank">PRIM_SCULPT_FLAG_ANIMESH</a></td>
+        <td>0x20</td>
+        <td>Animesh</td>
+        <td colspan="3">Read-only flag to query <a href="https://wiki.secondlife.com/wiki/Animesh_User_Guide" target="_blank">Animated mesh</a> status.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_FLAG_INVERT" target="_blank">PRIM_SCULPT_FLAG_INVERT</a></td>
+        <td>0x40</td>
+        <td>Invert</td>
+        <td colspan="3">Render inside out (inverts the normals).</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_FLAG_MIRROR" target="_blank">PRIM_SCULPT_FLAG_MIRROR</a></td>
+        <td>0x80</td>
+        <td>Mirror</td>
+        <td colspan="3">Render an X axis mirror of the sculpty.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_MASK" target="_blank">PRIM_SCULPT_TYPE_MASK</a> can be used to filter out the PRIM_SCULPT_FLAG_<i> flags from the <b>type</b> to determine the PRIM_SCULPT_TYPE_</i> flag. The main application of this would be when using <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The value of <b>map</b> is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> when the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> does not have <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full permissions</a> to the object and the map asset is not in the prim's inventory.</li>
+    <li>If <b>map</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>map</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>While it is possible to use this to animate an object, it is not recommended. For details see: <a href="https://wiki.secondlife.com/wiki/Why_UUID_Flipping_is_Bad" target="_blank">Why UUID Flipping is Bad</a></li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank">PRIM_TYPE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_SHAPE" target="_blank">CHANGED_SHAPE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- sculpty texture
+-- type
+-- use pipe | to add each flag
+ll.SetPrimitiveParams({PRIM_TYPE, PRIM_TYPE_SCULPT, "d962089b-2197-993c-9ec9-4993eb0a95f2", bit32.bor(PRIM_SCULPT_TYPE_SPHERE, PRIM_SCULPT_FLAG_MIRROR)})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetPrimitiveParams([PRIM_TYPE, 
+                        PRIM_TYPE_SCULPT, 
+                            "d962089b-2197-993c-9ec9-4993eb0a95f2",  // sculpty texture
+                            PRIM_SCULPT_TYPE_SPHERE                  // type
+                            | PRIM_SCULPT_FLAG_MIRROR     // use pipe | to add each flag
+                      ]);`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--Rotates between the different sculpt types.
+function LLEvents.touch_start(events)
+    local a = #events
+    local b = ll.GetPrimitiveParams({PRIM_TYPE})
+    local type = ll.List2Integer(b, 2) % 4
+    ll.SetObjectDesc(ll.List2String({"Sphere", "Torus", "Plane", "Cylinder"}, type))
+    ll.SetPrimitiveParams(ll.ListInsertList(ll.ListInsertList(ll.List2List(b, 0, 1), {PRIM_TYPE}, 0), {type + 1}, #ll.ListInsertList(ll.List2List(b, 0, 1), {PRIM_TYPE}, 0)))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Rotates between the different sculpt types.
+default
+{
+    touch_start(integer a)
+    {
+        list b = llGetPrimitiveParams([PRIM_TYPE]);
+        integer type = llList2Integer(b,2) % 4;
+        llSetObjectDesc(llList2String([ "Sphere",
+                                        "Torus",
+                                        "Plane",
+                                        "Cylinder"], type));
+        llSetPrimitiveParams(PRIM_TYPE + llList2List(b, 0, 1) + (type + 1));
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--A simple script to setup a prim as a sculpty.
+local function main()
+    --comment out if not needed.
+    --          , PRIM_SIZE, <0.63,0.199,0.52> // If you need to change the scale (size) of the object, uncomment this line.
+    ll.SetPrimitiveParams({PRIM_TYPE, PRIM_TYPE_SCULPT, "your Sculpt map name in the object", PRIM_SCULPT_TYPE_SPHERE, PRIM_TEXTURE, ALL_SIDES, "your texture name in the object", vector(1.0, 1.0, 0.0), vector(0.0, 0.0, 0.0), 0.0})
+end  -- The gray color you see on your sculpt object is the SL no found texture that is gray.
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//A simple script to setup a prim as a sculpty.
+default
+{
+    state_entry()
+    {
+        llSetPrimitiveParams([
+            PRIM_TYPE, PRIM_TYPE_SCULPT, "your Sculpt map name in the object", PRIM_SCULPT_TYPE_SPHERE
+          , PRIM_TEXTURE, ALL_SIDES, "your texture name in the object", <1.0, 1.0, 0.0>, <0.0, 0.0, 0.0>, 0.0 //comment out if not needed.
+//          , PRIM_SIZE, <0.63,0.199,0.52> // If you need to change the scale (size) of the object, uncomment this line.
+        ]);
+    } // The gray color you see on your sculpt object is the SL no found texture that is gray.
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/1053?new_path=%2F" target="_blank">SVN:1053 r94734 Branch:trunk&#32;Tuesday, 19 August 2008</a> - PRIM_SCULPT_FLAG_* syntax merged into the Trunk. Support for syntax slated for Client 1.21.0</li>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/758?new_path=%2F" target="_blank">SVN:758 r91966 Branch:featurettes-5&#32;Thursday, 10 July 2008</a> - Introduction of PRIM_SCULPT_FLAG_* extended syntax.</li>
+  </ul>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_TYPE_SCULPT" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_TYPE_SCULPT = 7
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_TYPE_SCULPT = 7;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

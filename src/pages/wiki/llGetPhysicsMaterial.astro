@@ -1,0 +1,204 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetPhysicsMaterial(): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llGetPhysicsMaterial();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Used to get the physical characteristics of an object.</p>
+  <p>Returns a list in the form `<a href="https://wiki.secondlife.com/wiki/Float" target="_blank"> [float</a> <b>gravity_multiplier</b>, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> <b>restitution</b>, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> <b>friction</b>, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> <b>density</b> ]`</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>physics</li>
+        <li>prim</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">381</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The default values for <b>friction</b> and <b>restitution</b> depend upon the <a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">material type</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>A collision between two objects with <b>restitution</b> 1.0 will still not be perfectly elastic due to damping in the physics engine.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local params = ll.GetPhysicsMaterial()
+    ll.OwnerSay("\nGravity multiplier: " .. tostring(ll.List2Float(params, 0)) .. "\nRestitution: " .. tostring(ll.List2Float(params, 1)) .. "\nFriction: " .. tostring(ll.List2Float(params, 2)) .. "\nDensity: " .. tostring(ll.List2Float(params, 3)) .. "kg/m^3")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        list params = llGetPhysicsMaterial();
+        llOwnerSay(
+            "\nGravity multiplier: " + (string)llList2Float(params, 0) +
+            "\nRestitution: " + (string)llList2Float(params, 1) +
+            "\nFriction: " + (string)llList2Float(params, 2) +
+            "\nDensity: " + (string)llList2Float(params, 3) + "kg/m^3"
+        );
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">PRIM_MATERIAL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPhysicsMaterial" target="_blank">llSetPhysicsMaterial</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Material Defaults</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>material Flags</th>
+        <th></th>
+        <th colspan="4">Description</th>
+        <th><a href="https://wiki.secondlife.com/w/index.php?title=FRICTION&action=edit&redlink=1" target="_blank">Friction</a></th>
+        <th><a href="https://wiki.secondlife.com/wiki/RESTITUTION" target="_blank">Restitution</a></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_STONE" target="_blank">PRIM_MATERIAL_STONE</a></td>
+        <td>0</td>
+        <td colspan="4">stone</td>
+        <td>0.8</td>
+        <td>0.4</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_METAL" target="_blank">PRIM_MATERIAL_METAL</a></td>
+        <td>1</td>
+        <td colspan="4">metal</td>
+        <td>0.3</td>
+        <td>0.4</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_GLASS" target="_blank">PRIM_MATERIAL_GLASS</a></td>
+        <td>2</td>
+        <td colspan="4">glass</td>
+        <td>0.2</td>
+        <td>0.7</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_WOOD" target="_blank">PRIM_MATERIAL_WOOD</a></td>
+        <td>3</td>
+        <td colspan="4">wood</td>
+        <td>0.6</td>
+        <td>0.5</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_FLESH" target="_blank">PRIM_MATERIAL_FLESH</a></td>
+        <td>4</td>
+        <td colspan="4">flesh</td>
+        <td>0.9</td>
+        <td>0.3</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_PLASTIC" target="_blank">PRIM_MATERIAL_PLASTIC</a></td>
+        <td>5</td>
+        <td colspan="4">plastic</td>
+        <td>0.4</td>
+        <td>0.7</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_RUBBER" target="_blank">PRIM_MATERIAL_RUBBER</a></td>
+        <td>6</td>
+        <td colspan="4">rubber</td>
+        <td>0.9</td>
+        <td>0.9</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_LIGHT" target="_blank">PRIM_MATERIAL_LIGHT</a></td>
+        <td>7</td>
+        <td colspan="6">light, <b>DEPRECATED</b>: Looks the same as <a href="https://wiki.secondlife.com/wiki/PRIM_FULLBRIGHT" target="_blank"> [PRIM_FULLBRIGHT</a>, <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a>, <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> ]</td>
+        <td>0.6</td>
+        <td>0.5</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>History</p>
+  <ul>
+    <li>Content taken from <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.09.23.241511" target="_blank">Release Notes/Second Life Server/11#11.09.23.241511</a>**</li>
+    <li>Documentation expanded with information from <a href="https://wiki.secondlife.com/wiki/Physics_Material_Settings_test" target="_blank">Physics Material Settings test</a>.</li>
+  </ul>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.09.23.241511" target="_blank"> 23/09/2011 </a></p>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Physics_Material_Settings_test" target="_blank">Physics Material Settings test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The default values for friction and restitution depend upon the prim's <a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">material</a>.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetPhysicsMaterial()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llGetPhysicsMaterial();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

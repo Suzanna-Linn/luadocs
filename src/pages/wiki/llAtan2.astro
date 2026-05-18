@@ -1,0 +1,208 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Atan2(y: number, x: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llAtan2(float y, float x);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.atan2 because Double precision; fastcall.</span></p>
+      <p>  <p>Returns a float that is the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Atan2" target="_blank">arctangent2</a> of <b>y</b>, <b>x</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>y</td>
+          <td>A floating-point value.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>x</td>
+          <td>A floating-point value.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_trig</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">3</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Similar to the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions" target="_blank">arctangent</a>(<b>y</b>/<b>x</b>) except it utilizes the signs of <b>x</b> & <b>y</b> to determine the quadrant and avoids division by zero.</p>
+  <h2>Specification</h2>
+  <p>If <b>x</b> is positive zero and...</p>
+  <ul>
+    <li><b>y</b> is zero, <b>zero</b> is returned.</li>
+    <li><b>y</b> is positive, <b>PI/2</b> is returned.</li>
+    <li><b>y</b> is negative, <b>-PI/2</b> is returned.</li>
+  </ul>
+  <p>If <b>x</b> is negative zero and...</p>
+  <ul>
+    <li><b>y</b> is positive zero, <b>PI</b> is returned.</li>
+    <li><b>y</b> is negative zero, <b>-PI</b> is returned.</li>
+    <li><b>y</b> is positive, <b>PI/2</b> is returned.</li>
+    <li><b>y</b> is negative, <b>-PI/2</b> is returned.</li>
+  </ul>
+  <p>Or</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`if((string)x != (string)0.0 && y == 0.0)//negative zero
+    return PI * ~-2*((string)y != (string)0.0));
+return ((y > 0) - (y < 0)) * PI_BY_TWO;`} lang="lsl" /></div>
+  <p>The returned value is in the range <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">-[PI</a>, PI][[1]](#footnote_1).</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local num1 = ll.Frand(100.0)
+    local num2 = ll.Frand(100.0)
+
+    ll.OwnerSay("y = " .. tostring(num1))
+    ll.OwnerSay("x = " .. tostring(num2))
+
+    ll.OwnerSay("The arctangent of y divided by x is " .. tostring(ll.Atan2(num1, num2)))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+  state_entry()
+  {
+    float num1 = llFrand(100.0);
+    float num2 = llFrand(100.0);
+
+    llOwnerSay("y = " + (string)num1);
+    llOwnerSay("x = " + (string)num2);
+
+    llOwnerSay("The arctangent of y divided by x is " + (string)llAtan2(num1, num2));
+  }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--Function with input of a vector determining the position of a target and returning
+--a string with the literal compass-direction of that target towards your position
+--by Ramana Sweetwater 2009/01, any use allowed license :-)
+--corrected by Patrick Muggins
+
+local function compass(target)
+    local source = ll.GetPos()
+    local DIRS = {"W", "NW", "N", "NE", "E", "SE", "S", "SW", "W"}
+    local index = ll.Ceil(3.5 - (4 * ll.Atan2(target.y - source.y, target.x - source.x) / PI))
+    return ll.List2String(DIRS, index)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Function with input of a vector determining the position of a target and returning
+//a string with the literal compass-direction of that target towards your position
+//by Ramana Sweetwater 2009/01, any use allowed license :-)
+//corrected by Patrick Muggins
+
+string compass (vector target) 
+{
+    vector source = llGetPos();
+    list DIRS =["W","NW","N","NE","E","SE","S","SW","W"];
+    integer index = llCeil(3.5 - (4 * llAtan2(target.y - source.y, target.x - source.x) / PI));
+    return llList2String(DIRS, index);
+}`} lang="lsl" /></div>
+  <p><a href="https://wiki.secondlife.com/wiki/LlAtan2/Compass_QA" target="_blank">/Compass QA</a></p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlSin" target="_blank">llSin</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAsin" target="_blank">llAsin</a></td>
+        <td>–</td>
+        <td>sine & inverse Sine</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlCos" target="_blank">llCos</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAcos" target="_blank">llAcos</a></td>
+        <td>–</td>
+        <td>cosine & inverse cosine</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlTan" target="_blank">llTan</a></td>
+        <td></td>
+        <td>–</td>
+        <td>tangent</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Atan2" target="_blank">Atan2</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_function" target="_blank">Inverse trigonometric function</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llAtan2( float y, float x );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>An analog clock</p>
+<p>passes through infinity</p>
+<p>twice every single hour</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,138 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.IsLinkGLTFMaterial(link: number, face: number): boolean`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llIsLinkGLTFMaterial(integer link, integer face);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) that is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if the material is PBR and <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> if it is <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> diffuse texture on <b>face</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/link" target="_blank">link</a></td>
+          <td>Link to inspect for PBR, may be <a href="https://wiki.secondlife.com/wiki/LINK_THIS" target="_blank">LINK_THIS</a> or <a href="https://wiki.secondlife.com/wiki/LINK_ROOT" target="_blank">LINK_ROOT</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><b>Face</b> to examine for PBR, or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>linkset</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">559</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Returns <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> if link does not exist or refers to a multi-link target (such as <a href="https://wiki.secondlife.com/wiki/LINK_SET" target="_blank">LINK_SET</a>).</li>
+    <li>Returns <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> if face does not exist.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--Tells (on chat) if the materials are PBR
+local function main()
+    local link = LINK_THIS
+    local i = 0
+    while i < ll.GetLinkNumberOfSides(link) do
+        local message = "Side " .. tostring(i) .. " material is "
+        if ll.IsLinkGLTFMaterial(link, i) ~= 0 then
+            message ..= "glTF/PBR"
+        else
+            message ..= "Blinn-Phong"
+        end
+        ll.Say(0, message)
+        i += 1
+    end
+
+    if ll.IsLinkGLTFMaterial(link, ALL_SIDES) ~= 0 then
+        ll.Say(0, "All sides are PBR.")
+    else
+        ll.Say(0, "Some sides are Blinn-Phong (not PBR).")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Tells (on chat) if the materials are PBR
+default
+{
+    state_entry()
+    {
+        integer link = LINK_THIS;
+        integer i;
+        for(; i < llGetLinkNumberOfSides(link); ++i)
+        {
+            string message = "Side " + (string)i + " material is ";
+            if (llIsLinkGLTFMaterial(link, i))
+                message += "glTF/PBR";
+            else
+                message += "Blinn-Phong";
+            llSay(0, message);
+        }
+
+        if (llIsLinkGLTFMaterial(link, ALL_SIDES))
+            llSay(0, "All sides are PBR.");
+        else
+            llSay(0, "Some sides are Blinn-Phong (not PBR).");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNumberOfSides" target="_blank">llGetNumberOfSides</a></td>
+        <td>–</td>
+        <td>Gets the number of faces on the prim</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llIsLinkGLTFMaterial( integer link, integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

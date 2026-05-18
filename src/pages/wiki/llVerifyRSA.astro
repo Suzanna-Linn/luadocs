@@ -1,0 +1,272 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.VerifyRSA(PublicKey: string, Message: string, Signature: string, Algorithm: string): boolean`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llVerifyRSA(string PublicKey, string Message, string Signature, string Algorithm);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) indicating whether the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem" target="_blank">RSA</a>) <b>signature</b> is valid for <b>msg</b> when using hash algorithm <b>algorithm</b> and public RSA key <b>public_key</b>. Returns <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if the signature is verified, and <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> otherwise. Can be paired with <a href="https://wiki.secondlife.com/wiki/LlSignRSA" target="_blank">llSignRSA</a> to validate the authenticity of messages from other LSL scripts.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>PublicKey / public_key</td>
+          <td>The PEM-formatted public key for signature verifiation.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Message / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/msg" target="_blank">msg</a></td>
+          <td>The message that was signed.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Signature / signature</td>
+          <td>The base64-formatted signature of the message.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Algorithm / algorithm</td>
+          <td>The digest algorithm: sha1, sha224, sha256, sha384, sha512.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>cryptography</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">540</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This function supports sha1, sha224, sha256, sha384, sha512 for <b>algorithm</b>.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Generate an signature, then immediately verify if it is valid.
+
+local function main()
+    -- Key pair generated using LibreSSL 3.3.6
+    -- For demonstration purposes only
+    local private_key = [[-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAqxXSIhFHzYO9UNEUvMMXwhB4vf32fPirCxxV/w4m88jKPmFH
+QQe9DOwj7illmvg+81vzBNGt+uNYy/2zFegUtwvxKCEioeoanRpPcvn9r/d/kXad
+WL/DyKJwHbF1EtTfPAZSl6ZIBIYis8HQ/RAln3olS705AmCKBRkbz3cZ+dTzqX1v
+7ohqqPPoCaXQFgLTMYnqU8ZTsq1Sl8BwKK735HPmKLCEjZaMn97lvzGHufY/JdRs
+dwdRHqKnpe2w2c0AzNpQtjoRCnPtj7cFgCeztjAcbdtuS8ipJTEIuBLWHCVVXIlD
+DQ6jJvIEW7tt+6kde/NUskRASd7Rtoy5AeS7cwIDAQABAoIBABwvix/7stWj55Oh
+7oWuqoJZTlsWtP4fxaYd8/kCLt6o7NDcG+4VxUqUuNKq1UdzsINNWbsohD46KE3r
+LQ7l3kvN1twioV8Ff370b7RkhSvxXX3sib2uUiYCxO/PZZdFpMVx0TeUuHauVpdA
+zhpzB4+/gtd4hCTlHLf8S/2hBJGJA9e37Vo3MqXh43QRFTD8pgjb0mUWa4xJeZlz
+3vGmQl0uMS04wX+r7Pq1HKs7gk93WeLrNhEQgRwUPgumrMGHey9eF1kDb14m3O7Z
+qWU7MWWME2lxcUV0YT/iHPfvStvLHiEdi1z2TGKkMmlHX7RGpk7Js5GGQfeEKEsv
+ihXuFmkCgYEA2y6V2+HCmViA8V1qY907z5dvG3ar9zbm3qfcJDJFoNOzDZNU0NRJ
+eZu/LhwTHW7PArAuWhxh7ENu9Bhl5FjvMuyqrMPud1Tf0GsrYKQJITgbW6IC6w/N
+a+2ZMm6VDCztS5MNNmWRCTTEecd4lnPLfyX9XYfUvUovzv5mM65Hzl0CgYEAx9Ly
+RR1tkjgiIJHmpv95MkaHg4O4NZT0eiyykRz1qENESZOtJ00l+/p4vZSOdQjwPl+q
+vjMhlZc9a2292UEy3BsBOPB/nJybLXBDFa0KYUCc3/aHGSgq+ZbUKNhdBq2c83hb
+Dpw2ajHluLtXO7D4kDGvEDLPN+/19NElI6EL9A8CgYAVRu5xS/cyH69UvvbG/wEB
+Y/f7OIf1FbVPxAfQ07iCpkppdPX018bSMVZbyYnpf4pE/olhYgP3hYxN0diCVEfU
+L7lZ0CNkHi8j8mNhnErumJ2/RXj3DK+qXIRUqvt5FRtsDLhpoW508FRqZfzEzjTh
+APUZkUgLoBoIBBYzyiVaWQKBgD3GvHmbmHVc/0f8c0drsedWIK0K+tct3ssqqGXu
+gw/rA+CPVDfTRQv6qntJwyTxh3xxDRNSMW7S2/0rZ0cUPgoIGz+kMn+TdvH8Q/Ee
+lxfr5tPinm+rmGWjOKIMCe53nA81RUlmB/iaxn9vA5ADrUS+53Vlj+SmPe7a/dVf
+A5gHAoGAbS4sMlUkUd449PT33rqx26aNKkKLI9PLxgWE7YBfwzaUkG0MBryQqP5L
+aIY2a+8ZvUeHxmY0oQfPQkH5KKbAaC0ozaXf+3qX0Gfkt8vxsh41ON5esr0tfcm2
+BFdQrdBOACefo2kOFfdMSP6KWKI3HZMJAr9SDcAiL23IQZ/wl/c=
+-----END RSA PRIVATE KEY-----]]
+
+    local public_key = [[-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqxXSIhFHzYO9UNEUvMMX
+whB4vf32fPirCxxV/w4m88jKPmFHQQe9DOwj7illmvg+81vzBNGt+uNYy/2zFegU
+twvxKCEioeoanRpPcvn9r/d/kXadWL/DyKJwHbF1EtTfPAZSl6ZIBIYis8HQ/RAl
+n3olS705AmCKBRkbz3cZ+dTzqX1v7ohqqPPoCaXQFgLTMYnqU8ZTsq1Sl8BwKK73
+5HPmKLCEjZaMn97lvzGHufY/JdRsdwdRHqKnpe2w2c0AzNpQtjoRCnPtj7cFgCez
+tjAcbdtuS8ipJTEIuBLWHCVVXIlDDQ6jJvIEW7tt+6kde/NUskRASd7Rtoy5AeS7
+cwIDAQAB
+-----END PUBLIC KEY-----]]
+
+    -- Supported algorithims for llVerifyRSA() include:
+    -- sha1, sha224, sha256, sha384, sha512
+
+    local algorithm = "sha1"
+    local msg = "Hello, Avatar!"
+
+    local signature = ll.SignRSA(private_key, msg, algorithm)
+
+    -- For the given private_key/msg/algorithm, expect the signature
+    -- to resemble 'SgqafXI/M70FJr5th0VR3U36L...O76Bg=='
+    ll.Say(0, "RSA signature of message '" .. msg .. "' using algorithm " .. algorithm .. " is " .. signature)
+
+    --[[ Now, imagine that msg and signature were transmitted to another
+        script over chat or similar.  The other script has access to public_key
+        but not to private_key, but can still verify the authenticity of msg
+        using the signature. ]]
+    local valid_signature = ll.VerifyRSA(public_key, msg, signature, algorithm)
+
+    if valid_signature ~= 0 then
+        ll.Say(0, "Signature verified successfully!")
+    else
+        ll.Say(0, "Signature verification failed!")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Generate an signature, then immediately verify if it is valid.
+
+default
+{
+    state_entry()
+    {
+        // Key pair generated using LibreSSL 3.3.6
+        // For demonstration purposes only
+        string private_key = "-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAqxXSIhFHzYO9UNEUvMMXwhB4vf32fPirCxxV/w4m88jKPmFH
+QQe9DOwj7illmvg+81vzBNGt+uNYy/2zFegUtwvxKCEioeoanRpPcvn9r/d/kXad
+WL/DyKJwHbF1EtTfPAZSl6ZIBIYis8HQ/RAln3olS705AmCKBRkbz3cZ+dTzqX1v
+7ohqqPPoCaXQFgLTMYnqU8ZTsq1Sl8BwKK735HPmKLCEjZaMn97lvzGHufY/JdRs
+dwdRHqKnpe2w2c0AzNpQtjoRCnPtj7cFgCeztjAcbdtuS8ipJTEIuBLWHCVVXIlD
+DQ6jJvIEW7tt+6kde/NUskRASd7Rtoy5AeS7cwIDAQABAoIBABwvix/7stWj55Oh
+7oWuqoJZTlsWtP4fxaYd8/kCLt6o7NDcG+4VxUqUuNKq1UdzsINNWbsohD46KE3r
+LQ7l3kvN1twioV8Ff370b7RkhSvxXX3sib2uUiYCxO/PZZdFpMVx0TeUuHauVpdA
+zhpzB4+/gtd4hCTlHLf8S/2hBJGJA9e37Vo3MqXh43QRFTD8pgjb0mUWa4xJeZlz
+3vGmQl0uMS04wX+r7Pq1HKs7gk93WeLrNhEQgRwUPgumrMGHey9eF1kDb14m3O7Z
+qWU7MWWME2lxcUV0YT/iHPfvStvLHiEdi1z2TGKkMmlHX7RGpk7Js5GGQfeEKEsv
+ihXuFmkCgYEA2y6V2+HCmViA8V1qY907z5dvG3ar9zbm3qfcJDJFoNOzDZNU0NRJ
+eZu/LhwTHW7PArAuWhxh7ENu9Bhl5FjvMuyqrMPud1Tf0GsrYKQJITgbW6IC6w/N
+a+2ZMm6VDCztS5MNNmWRCTTEecd4lnPLfyX9XYfUvUovzv5mM65Hzl0CgYEAx9Ly
+RR1tkjgiIJHmpv95MkaHg4O4NZT0eiyykRz1qENESZOtJ00l+/p4vZSOdQjwPl+q
+vjMhlZc9a2292UEy3BsBOPB/nJybLXBDFa0KYUCc3/aHGSgq+ZbUKNhdBq2c83hb
+Dpw2ajHluLtXO7D4kDGvEDLPN+/19NElI6EL9A8CgYAVRu5xS/cyH69UvvbG/wEB
+Y/f7OIf1FbVPxAfQ07iCpkppdPX018bSMVZbyYnpf4pE/olhYgP3hYxN0diCVEfU
+L7lZ0CNkHi8j8mNhnErumJ2/RXj3DK+qXIRUqvt5FRtsDLhpoW508FRqZfzEzjTh
+APUZkUgLoBoIBBYzyiVaWQKBgD3GvHmbmHVc/0f8c0drsedWIK0K+tct3ssqqGXu
+gw/rA+CPVDfTRQv6qntJwyTxh3xxDRNSMW7S2/0rZ0cUPgoIGz+kMn+TdvH8Q/Ee
+lxfr5tPinm+rmGWjOKIMCe53nA81RUlmB/iaxn9vA5ADrUS+53Vlj+SmPe7a/dVf
+A5gHAoGAbS4sMlUkUd449PT33rqx26aNKkKLI9PLxgWE7YBfwzaUkG0MBryQqP5L
+aIY2a+8ZvUeHxmY0oQfPQkH5KKbAaC0ozaXf+3qX0Gfkt8vxsh41ON5esr0tfcm2
+BFdQrdBOACefo2kOFfdMSP6KWKI3HZMJAr9SDcAiL23IQZ/wl/c=
+-----END RSA PRIVATE KEY-----";
+        
+        string public_key = "-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqxXSIhFHzYO9UNEUvMMX
+whB4vf32fPirCxxV/w4m88jKPmFHQQe9DOwj7illmvg+81vzBNGt+uNYy/2zFegU
+twvxKCEioeoanRpPcvn9r/d/kXadWL/DyKJwHbF1EtTfPAZSl6ZIBIYis8HQ/RAl
+n3olS705AmCKBRkbz3cZ+dTzqX1v7ohqqPPoCaXQFgLTMYnqU8ZTsq1Sl8BwKK73
+5HPmKLCEjZaMn97lvzGHufY/JdRsdwdRHqKnpe2w2c0AzNpQtjoRCnPtj7cFgCez
+tjAcbdtuS8ipJTEIuBLWHCVVXIlDDQ6jJvIEW7tt+6kde/NUskRASd7Rtoy5AeS7
+cwIDAQAB
+-----END PUBLIC KEY-----";
+        
+        // Supported algorithims for llVerifyRSA() include:
+        // sha1, sha224, sha256, sha384, sha512
+        
+        string algorithm = "sha1";
+        string msg = "Hello, Avatar!";
+        
+        string signature = llSignRSA(private_key, msg, algorithm);
+        
+        // For the given private_key/msg/algorithm, expect the signature
+        // to resemble 'SgqafXI/M70FJr5th0VR3U36L...O76Bg=='
+        llSay(0, "RSA signature of message '" + msg + "' using algorithm "
+            +  algorithm + " is " + signature);
+            
+        /* Now, imagine that msg and signature were transmitted to another
+        script over chat or similar.  The other script has access to public_key
+        but not to private_key, but can still verify the authenticity of msg
+        using the signature. */
+        
+        integer valid_signature = llVerifyRSA(public_key, msg, signature, algorithm);
+        
+        if(valid_signature)
+        {
+            llSay(0, "Signature verified successfully!");
+        }
+        else
+        {
+            llSay(0, "Signature verification failed!");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSignRSA" target="_blank">llSignRSA</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlHMAC" target="_blank">llHMAC</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSHA1String" target="_blank">llSHA1String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSHA256String" target="_blank">llSHA256String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlMD5String" target="_blank">llMD5String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llVerifyRSA( string public_key, string msg, string signature, string algorithm );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

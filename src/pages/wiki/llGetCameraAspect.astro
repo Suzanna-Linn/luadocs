@@ -1,0 +1,248 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetCameraAspect(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetCameraAspect();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float value for the current camera's aspect ratio (e.g. width/height) of the agent for which the task has permissions.</p>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRACK_CAMERA" target="_blank">PERMISSION_TRACK_CAMERA</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>camera</li>
+        <li>permissions</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_TRACK_CAMERA</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">545</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRACK_CAMERA" target="_blank">PERMISSION_TRACK_CAMERA</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRACK_CAMERA" target="_blank">PERMISSION_TRACK_CAMERA</a> permission is granted there is no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or the script is reset or deleted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Returns zero when permissions have not been granted.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- say the camera aspect ratio and field of view (FOV)
+local has_perms = false
+function LLEvents.on_rez(a)
+    ll.ResetScript()
+end
+local function main()
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_TRACK_CAMERA)
+end
+function LLEvents.run_time_permissions(permission)
+    has_perms = (permission == PERMISSION_TRACK_CAMERA)
+end
+function LLEvents.touch_start(events)
+    local num_touches = #events
+    if has_perms then
+        local aspect = ll.GetCameraAspect()
+        local fov = ll.GetCameraFOV()
+        ll.OwnerSay("aspect = " .. tostring(aspect) .. "  FOV = " .. tostring(fov))
+    else
+        ll.RequestPermissions(ll.GetOwner(), PERMISSION_TRACK_CAMERA)
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// say the camera aspect ratio and field of view (FOV)
+integer has_perms = FALSE;
+default
+{
+    on_rez(integer a)
+    {
+        llResetScript();
+    }
+    state_entry()
+    {
+        llRequestPermissions(llGetOwner(), PERMISSION_TRACK_CAMERA);
+    }
+    run_time_permissions(integer permission)
+    {
+        has_perms = (permission == PERMISSION_TRACK_CAMERA);
+    }
+    touch_start(integer num_touches)
+    {
+        if (has_perms)
+        {
+            float aspect = llGetCameraAspect();
+            float fov = llGetCameraFOV();
+            llOwnerSay("aspect = " + (string)aspect + "  FOV = " + (string)fov);
+        }
+        else
+        {
+            llRequestPermissions(llGetOwner(), PERMISSION_TRACK_CAMERA);
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Scale an object to fit the aspect ratio of the viewer.
+local function fit_to_screen()
+    -- The X axis from the left to  the right edge of the screen is 0.0 to width value.
+    -- The Y axis is always 1.
+    local x = ll.GetCameraAspect()
+    local y = 1
+    ll.SetLinkPrimitiveParamsFast(LINK_THIS, {PRIM_SIZE, vector(0, x, y)})
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Scale an object to fit the aspect ratio of the viewer.
+fit_to_screen()
+{
+    // The X axis from the left to  the right edge of the screen is 0.0 to width value.
+    // The Y axis is always 1.
+    float x = llGetCameraAspect();
+    float y = 1;
+    llSetLinkPrimitiveParamsFast(LINK_THIS, [PRIM_SIZE, <0, x, y>]);
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>The reported aspect ratio is based on values provided by the viewer to the simulator. This may cause visual oddities if there's a discrepancy between the viewer's reported camera and what the viewer actually displays to the user. For example: entering mouselook may cause portions of the viewer interface to disappear, which alters the amount of space available to the HUD, which can lead to misaligned positioning or slightly-off aspect ratio. (This is currently considered a viewer-bug.)</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetCameraFOV" target="_blank">llGetCameraFOV</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetCameraPos" target="_blank">llGetCameraPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetCameraRot" target="_blank">llGetCameraRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraParams" target="_blank">llSetCameraParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraAtOffset" target="_blank">llSetCameraAtOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraEyeOffset" target="_blank">llSetCameraEyeOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetCameraAspect()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGetCameraAspect();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

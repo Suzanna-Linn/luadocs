@@ -1,0 +1,173 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.MinEventDelay(Delay: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llMinEventDelay(float Delay);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Set the minimum time between events being handled.</p>
+  <p>Defaults and minimums vary by the event type, see <a href="https://wiki.secondlife.com/wiki/LSL_Delay" target="_blank">LSL Delay</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Delay / delay</td>
+          <td>time in seconds</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">125</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <p>Minimum delay is maintained between state changes.</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.MinEventDelay(5.0)
+end
+function LLEvents.touch(events)
+    local detected = #events
+    ll.Say(0, "Touched.")  --Without the event delay set touch would cause the screen to fill 
+--with the word "Touched" in a split second if you held the mouse button down.
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llMinEventDelay(5.0);
+    }
+    touch(integer detected)
+    {
+        llSay(0, "Touched.");//Without the event delay set touch would cause the screen to fill 
+                             //with the word "Touched" in a split second if you held the mouse button down.
+    }
+}`} lang="lsl" /></div>
+  <p>Where as, if in one object you place this script (for the sake of fun call the object "Sandy Powell"). -</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch(events)
+    local detected = #events
+    ll.Say(0, "Can you hear me mother?")  --Northern English accent. Catch phase of Sandy Powell (comedian).
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch(integer detected)
+    {
+        llSay(0, "Can you hear me mother?"); //Northern English accent. Catch phase of Sandy Powell (comedian).
+    }
+}`} lang="lsl" /></div>
+  <p>and this in another object called "Mother" -</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.MinEventDelay(5.0)
+    ll.Listen(0, "Sandy Powell", "", "")
+end
+function LLEvents.listen(chan, name, id, msg)
+    ll.Say(0, "Eh?")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llMinEventDelay(5.0);
+        llListen(0, "Sandy Powell", "", "");
+    }
+    listen(integer chan, string name, key id, string msg)
+    {
+        llSay(0, "Eh?");
+    }
+}`} lang="lsl" /></div>
+  <p>the result in chat is as follows -</p>
+  <p>[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Mother: Eh?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Sandy Powell: Can you hear me mother?
+[12:51] Mother: Eh?
+[12:51] Mother: Eh?
+[12:51] Mother: Eh?
+[12:51] Mother: Eh?
+[12:51] Mother: Eh?
+[12:51] Mother: Eh?
+[12:52] Mother: Eh?
+[12:52] Mother: Eh?
+[12:52] Mother: Eh?
+[12:52] Mother: Eh?
+[12:52] Mother: Eh?
+[12:52] Mother: Eh?
+[12:52] Mother: Eh?</p>
+  <p>and no more events are triggered. This is an example of lost transferred info because of llMinEventDelay so be careful with it.</p>
+  <h2>See Also</h2>
+  <h3>Articles</h3>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llMinEventDelay( float delay );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

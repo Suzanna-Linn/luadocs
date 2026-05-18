@@ -1,0 +1,191 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetLocalRot(Rotation: rotation)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetLocalRot(rotation Rotation);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the rotation of a child prim relative to the root prim</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>Rotation / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>prim</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.2s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">284</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.2 seconds.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Drop this script into a <i>child</i> prim to rotate it in 1 degree increments on each <a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a>.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local rot_xyzs = ZERO_ROTATION
+
+local function main()
+    local xyz_angles = vector(0, 1.0, 0)  -- This defines a 1 degree change on the Y axis
+    local angles_in_radians = xyz_angles * DEG_TO_RAD  -- Change to radians
+    rot_xyzs = ll.Euler2Rot(angles_in_radians)  -- Convert to a rotation
+end
+
+function LLEvents.touch_start(events)
+    local s = #events
+    ll.SetLocalRot(ll.GetLocalRot() * rot_xyzs)  -- Apply the increment rotation to the prim's current rotation ...
+
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation rot_xyzs;
+ 
+default
+{
+    state_entry()
+    {
+        vector xyz_angles = <0,1.0,0>; // This defines a 1 degree change on the Y axis
+        vector angles_in_radians = xyz_angles*DEG_TO_RAD; // Change to radians
+        rot_xyzs = llEuler2Rot(angles_in_radians); // Convert to a rotation
+    }
+ 
+    touch_start(integer s)
+    {
+        llSetLocalRot(llGetLocalRot()*rot_xyzs); // Apply the increment rotation to the prim's current rotation ...
+ 
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`---- this is an equivalent call from any prim in the same link set
+ll.SetLinkPrimitiveParamsFast(target_prim, {PRIM_ROT_LOCAL, rot})
+---- where "target_prim" is the link number of the prim you want to set the local rotation of`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- this is an equivalent call from any prim in the same link set
+llSetLinkPrimitiveParamsFast( target_prim, [PRIM_ROT_LOCAL, rot] );
+//-- where "target_prim" is the link number of the prim you want to set the local rotation of`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRot" target="_blank">llGetRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLocalRot" target="_blank">llGetLocalRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRootRotation" target="_blank">llGetRootRotation</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetRot" target="_blank">llSetRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetLocalRot( rotation rot );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Carousel horses</p>
+<p>Race, ever facing forward.</p>
+<p>Turn without turning.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,130 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`on_rez(StartParameter: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`on_rez(integer StartParameter)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Triggered when an object is rezzed (by script or by user). Also triggered in attachments when a user logs in, or when the object is <a href="https://wiki.secondlife.com/wiki/Attach" target="_blank">attached</a> from inventory.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>StartParameter / start_param</td>
+          <td>parameter supplied to <a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a> or <a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>start_param</b> is always zero when an object is not rezzed by <a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a> or <a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a>.</p>
+  <p>When an object is rezzed by <a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a> or <a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a>, then <b>start_param</b> will be the value given as the last parameter of the rezzing command.</p>
+  <p><b>start_param</b> is available at any subsequent time by calling <a href="https://wiki.secondlife.com/wiki/LlGetStartParameter" target="_blank">llGetStartParameter</a> (unless it has been overridden by <a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a>).</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If an object is rezzed by another object then the <a href="https://wiki.secondlife.com/wiki/Object_rez" target="_blank">object_rez</a> event in the parent object does not trigger at the same time as the on_rez event in the child object and the order of the events is not guaranteed. See the examples in <a href="https://wiki.secondlife.com/wiki/Object_rez" target="_blank">object_rez</a> for how to reliably establish communications between objects when rezzing.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.on_rez(start_param)
+    -- Restarts the script every time the object is rezzed
+    ll.ResetScript()
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    on_rez(integer start_param)
+    {
+        // Restarts the script every time the object is rezzed
+        llResetScript(); 
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <h3><a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a> & on_rez</h3>
+  <p><a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a> will be triggered prior to on_rez if <a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a> has not been run prior.</p>
+  <h3>on_rez & <a href="https://wiki.secondlife.com/wiki/Attach" target="_blank">attach</a></h3>
+  <p>on_rez will be triggered prior to <a href="https://wiki.secondlife.com/wiki/Attach" target="_blank">attach</a> when attaching from inventory or during login.</p>
+  <h3>on_rez & slow events</h3>
+  <p>If the script was already processing an event at rez time, on_rez does not <b>not</b> trigger until the current event handler is completed. (same with <a href="https://wiki.secondlife.com/wiki/Attach" target="_blank">attach</a>)</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Object_rez" target="_blank">object_rez</a></td>
+        <td>–</td>
+        <td>triggered when this object rezzes an object from inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a></td>
+        <td>–</td>
+        <td>triggered during script startup, reset and state change</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetStartParameter" target="_blank">llGetStartParameter</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void on_rez( integer start_param );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

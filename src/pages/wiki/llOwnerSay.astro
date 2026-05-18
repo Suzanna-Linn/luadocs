@@ -1,0 +1,215 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.OwnerSay(Text: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llOwnerSay(string Text);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use print</span></p>
+      <p>  <p>Says <b>msg</b> to the object's owner only, if the owner is currently in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/msg" target="_blank">msg</a></td>
+          <td>message to be transmitted</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_communication</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">292</span></div>
+
+      <div class="label-stack">
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>msg</b> is longer than 1024 bytes, it will be truncated to 1024 bytes. This can convey 1024 ASCII characters, or fewer if non-ASCII are present.</li>
+    <li>Silently fails ~45 seconds after the owner leaves the region the object is in.</li>
+    <li>Silently fails when the object to which the script is attached is <a href="https://wiki.secondlife.com/wiki/Deed" target="_blank">deeded</a> to a group.</li>
+    <li>Some viewers do not display llOwnerSay text when <b>msg</b> is empty ("").</li>
+    <li>Produces swirly particle effects for the owner (who sees the message) but these effects do not appear to be visible to other avatars (who don't).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local num_detected = #events
+    ll.OwnerSay("Ouch!")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        llOwnerSay("Ouch!");
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- llOwnerSay extension for preventing silent failures
+-- paste this code at the top of the script and replace
+-- any calls to llOwnerSay with uOwnerSayPlus
+
+local function uOwnerSayPlus(inputString)
+    local owner = ll.GetOwner()
+
+    -- single owner that the region still has a handle for
+    if ll.Key2Name(owner) ~= "" then
+        ll.OwnerSay(inputString)
+    -- group owned, must send the message publicly
+    elseif ll.List2Key(ll.GetObjectDetails(ll.GetKey(), {OBJECT_GROUP}), 0) == owner then
+        ll.Whisper(0, "/me : " .. inputString)
+    -- single owner, not present, send them an IM
+    else
+        ll.InstantMessage(owner, inputString)
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// llOwnerSay extension for preventing silent failures
+// paste this code at the top of the script and replace
+// any calls to llOwnerSay with uOwnerSayPlus
+
+uOwnerSayPlus(string inputString)
+{
+    key owner = llGetOwner();
+
+    // single owner that the region still has a handle for
+    if (llKey2Name(owner))
+    {
+        llOwnerSay(inputString);
+    }
+    // group owned, must send the message publicly
+    else if (llList2Key(llGetObjectDetails(llGetKey(), [OBJECT_GROUP]), 0) == owner)
+    {
+        llWhisper(0, "/me : " + inputString);
+    }
+    // single owner, not present, send them an IM
+    else
+    {
+        llInstantMessage(owner, inputString);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSay" target="_blank">llRegionSay</a></td>
+        <td>–</td>
+        <td>Sends chat region wide</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlWhisper" target="_blank">llWhisper</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 10 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 20 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">llShout</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 100 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a></td>
+        <td>–</td>
+        <td>Sends private chat region wide</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a></td>
+        <td>–</td>
+        <td>Sends private chat anywhere on the grid</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Limits" target="_blank">Limits</a></td>
+        <td>–</td>
+        <td>SL limits and constrictions</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlOwnerSay_Test" target="_blank">llOwnerSay Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llOwnerSay( string msg );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Speak to me only.</p>
+<p>Murmur secrets in my ear:</p>
+<p>Clandestine whispers.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

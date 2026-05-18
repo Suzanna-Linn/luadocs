@@ -1,0 +1,247 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.UpdateCharacter(Options: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llUpdateCharacter(list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Updates settings for a character</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">options</a></td>
+          <td>Character configuration options.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>pathfinding</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">406</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Option</th>
+        <th></th>
+        <th>Default</th>
+        <th>Range / Values</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_SPEED" target="_blank">CHARACTER_DESIRED_SPEED</a></td>
+        <td>1</td>
+        <td>6</td>
+        <td>[0.2, 40.0]</td>
+        <td>Speed of pursuit in meters per second.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_RADIUS" target="_blank">CHARACTER_RADIUS</a></td>
+        <td>2</td>
+        <td></td>
+        <td>[0.125, 5.0]</td>
+        <td>Set collision capsule radius.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_LENGTH" target="_blank">CHARACTER_LENGTH</a></td>
+        <td>3</td>
+        <td></td>
+        <td>(0.0, 10.0]</td>
+        <td>Set collision capsule length
+If the value is less than twice the <b>radius</b> plus 0.1m, it will be set to twice the radius plus 0.1m.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_ORIENTATION" target="_blank">CHARACTER_ORIENTATION</a></td>
+        <td>4</td>
+        <td><a href="https://wiki.secondlife.com/wiki/VERTICAL" target="_blank">VERTICAL</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/VERTICAL" target="_blank">VERTICAL</a>, <a href="https://wiki.secondlife.com/wiki/HORIZONTAL" target="_blank">HORIZONTAL</a></td>
+        <td>Set the character orientation.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/TRAVERSAL_TYPE" target="_blank">TRAVERSAL_TYPE</a></td>
+        <td>7</td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_SLOW</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_FAST</a>, <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_SLOW</a>, <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_NONE&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_NONE</a></td>
+        <td>Controls the speed at which characters moves on terrain that is less than 100% walkable will move faster (e.g., a cat crossing a street) or slower (e.g., a car driving in a swamp).
+To use <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">_FAST</a> or <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">_SLOW</a>, you must specify a <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a></td>
+        <td>6</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_NONE" target="_blank">CHARACTER_TYPE_NONE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_A" target="_blank">CHARACTER_TYPE_A</a>, <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_B" target="_blank">CHARACTER_TYPE_B</a>, <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_C" target="_blank">CHARACTER_TYPE_C</a>, <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_D" target="_blank">CHARACTER_TYPE_D</a>, <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_NONE" target="_blank">CHARACTER_TYPE_NONE</a></td>
+        <td>Specifies which walkability coefficient will be used by this character.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_AVOIDANCE_MODE" target="_blank">CHARACTER_AVOIDANCE_MODE</a></td>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&action=edit&redlink=1" target="_blank">AVOID_CHARACTERS</a> | <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_DYNAMIC_OBSTACLES&action=edit&redlink=1" target="_blank">AVOID_DYNAMIC_OBSTACLES</a></td>
+        <td><p>Combinable Flags:</p>
+<p><a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&action=edit&redlink=1" target="_blank">AVOID_CHARACTERS</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_DYNAMIC_OBSTACLES&action=edit&redlink=1" target="_blank">AVOID_DYNAMIC_OBSTACLES</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_NONE&action=edit&redlink=1" target="_blank">AVOID_NONE</a></p></td>
+        <td>Allows you to specify that a character should not try to avoid other characters, should not try to avoid dynamic obstacles (relatively fast moving objects and avatars), or both. This is framed in the positive sense (`<a href="https://wiki.secondlife.com/wiki/CHARACTER_AVOIDANCE_MODE" target="_blank">[CHARACTER_AVOIDANCE_MODE</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&action=edit&redlink=1" target="_blank">AVOID_CHARACTERS</a>]` would create a character that avoided other characters but not agents or moving vehicles). Setting this parameter to <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_NONE&action=edit&redlink=1" target="_blank">AVOID_NONE</a> causes the character to not avoid either category.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_ACCEL" target="_blank">CHARACTER_MAX_ACCEL</a></td>
+        <td>8</td>
+        <td>20</td>
+        <td>[0.5, 40.0]</td>
+        <td>The character's maximum acceleration rate.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_DECEL" target="_blank">CHARACTER_MAX_DECEL</a></td>
+        <td>9</td>
+        <td>30</td>
+        <td>[0.5, 60.0]</td>
+        <td>The character's maximum deceleration rate.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_TURN_SPEED" target="_blank">CHARACTER_DESIRED_TURN_SPEED</a></td>
+        <td>12</td>
+        <td>6</td>
+        <td>[0.02, 40.0]</td>
+        <td>The character's maximum speed while turning--note that this is only loosely enforced (i.e., a character may turn at higher speeds under certain conditions)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_TURN_RADIUS" target="_blank">CHARACTER_MAX_TURN_RADIUS</a></td>
+        <td>10</td>
+        <td>1.25</td>
+        <td>[0.1, 10.0]</td>
+        <td>The character's turn radius when traveling at <a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_TURN_SPEED" target="_blank">CHARACTER_DESIRED_TURN_SPEED</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_SPEED" target="_blank">CHARACTER_MAX_SPEED</a></td>
+        <td>13</td>
+        <td>20</td>
+        <td>[1, 40.0]</td>
+        <td>The character's maximum speed. Affects speed when avoiding dynamic obstacles and when traversing low-walkability objects in <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_FAST</a> mode.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_ACCOUNT_FOR_SKIPPED_FRAMES" target="_blank">CHARACTER_ACCOUNT_FOR_SKIPPED_FRAMES</a></td>
+        <td>14</td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> matches pre-existing behavior. If set to <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>, character will not attempt to catch up on lost time when pathfinding performance is low, potentially providing more reliable movement (albeit while potentially appearing to be more stuttery).</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_STAY_WITHIN_PARCEL" target="_blank">CHARACTER_STAY_WITHIN_PARCEL</a></td>
+        <td>15</td>
+        <td>Depends<a href="https://wiki.secondlife.com/wiki/LlCreateCharacter#ct-caveat" target="_blank">*</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> matches traditional behavior. If set to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, treat the parcel boundaries as one-way obstacles (will re-enter but can't leave on it's own).</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <p>(subject to change)</p>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_SPEED" target="_blank">CHARACTER_DESIRED_SPEED</a> ranges from 0.2 to 40.0.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/CHARACTER_RADIUS" target="_blank">CHARACTER_RADIUS</a> ranges from 0.1 to 5.0.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/CHARACTER_LENGTH" target="_blank">CHARACTER_LENGTH</a> ranges from 0.0 to 10.0.</li>
+    <li><a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_SLOW</a> | <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_FAST</a> | <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_NONE&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_NONE</a> - only use one of these parameters or omit. Defaults to <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_NONE&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_NONE</a> to if omitted. This affects whether a character moving on terrain that is less than 100% walkable will move faster (e.g., a cat crossing a street) or slower (e.g., a car driving in a swamp).</li>
+    <li><a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_A" target="_blank">CHARACTER_TYPE_A</a> | <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_B" target="_blank">CHARACTER_TYPE_B</a> | <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_C" target="_blank">CHARACTER_TYPE_C</a> | <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_D" target="_blank">CHARACTER_TYPE_D</a> | <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_NONE" target="_blank">CHARACTER_TYPE_NONE</a> - only use one of these parameters or omit. Defaults to <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_NONE" target="_blank">CHARACTER_TYPE_NONE</a> if omitted. This determines which of the 4 walkability coefficients the character pays attention to.</li>
+    <li>The character's shape is a capsule (cylinder with spherical ends) with a length (from tip to tip) and a circular cross section of some radius. These two size parameters are what is controlled by the <a href="https://wiki.secondlife.com/wiki/CHARACTER_LENGTH" target="_blank">CHARACTER_LENGTH</a> and <a href="https://wiki.secondlife.com/wiki/CHARACTER_RADIUS" target="_blank">CHARACTER_RADIUS</a> params respectively.</li>
+    <li>Note that the characters true "length" cannot be smaller than twice the radius however you're welcome to specify a value lower than that (but more than zero) -- the script shouldn't complain.</li>
+    <li>The capsule is usually oriented vertically. It is possible to make the capsule lie horizontal by using an object that is long in its local X-axis, however these characters might not be able to navigate through gaps that cannot fit them lengthwise.
+    <ul>
+      <li>Use a vertical capsule whenever possible; horizontal capsules may become stuck more easily than vertical capsules.</li>
+    </ul>
+  
+    </li>
+    <li>Removing the script from a prim will not stop pathing behavior, in the same way that particles and hover text remain. To stop a pathing command use `<a href="https://wiki.secondlife.com/wiki/LlExecCharacterCmd" target="_blank">llExecCharacterCmd</a>(<a href="https://wiki.secondlife.com/w/index.php?title=CHARACTER_CMD_STOP&action=edit&redlink=1" target="_blank">CHARACTER_CMD_STOP</a>, [])`.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.CreateCharacter({CHARACTER_DESIRED_SPEED, 10.0})
+
+    local points = {ll.GetPos() + vector(5, 0, 0), ll.GetPos() - vector(5, 0, 0)}
+    ll.PatrolPoints(points, {})
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.UpdateCharacter({CHARACTER_DESIRED_SPEED, 50.0})
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llCreateCharacter([CHARACTER_DESIRED_SPEED, 10.0]);
+        
+        list points = [llGetPos() + <5,0,0>, llGetPos() - <5,0,0>];
+        llPatrolPoints(points, []);
+    }
+    
+    touch_start(integer total_number)
+    {
+        llUpdateCharacter([CHARACTER_DESIRED_SPEED, 50.0]);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a></li>
+  </ul>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlDeleteCharacter" target="_blank">llDeleteCharacter</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlEvade" target="_blank">llEvade</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlExecCharacterCmd" target="_blank">llExecCharacterCmd</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetClosestNavPoint" target="_blank">llGetClosestNavPoint</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlFleeFrom" target="_blank">llFleeFrom</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlNavigateTo" target="_blank">llNavigateTo</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPatrolPoints" target="_blank">llPatrolPoints</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a></li>
+    <li>llUpdateCharacter</li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlWanderWithin" target="_blank">llWanderWithin</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.31.262785" target="_blank"> 31/07/2012 </a></p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llUpdateCharacter( list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

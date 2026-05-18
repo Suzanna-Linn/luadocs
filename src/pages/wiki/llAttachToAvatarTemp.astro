@@ -1,0 +1,826 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.AttachToAvatarTemp(AttachPoint: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llAttachToAvatarTemp(integer AttachPoint);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Follows the same convention as <a href="https://wiki.secondlife.com/wiki/LlAttachToAvatar" target="_blank">llAttachToAvatar</a>, with the exception that the object will not create new inventory for the user, and will disappear on detach or disconnect. Also, this function can be used on avatars other than the owner (if granted permission) in which case the ownership is changed to the new wearer.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>AttachPoint / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/attach_point" target="_blank">attach_point</a></td>
+          <td>ATTACH_* constant or valid value (see the tables below)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>attachments</li>
+        <li>avatar</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_ATTACH</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">391</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>.</p>
+  <p>It should be noted that when an object is attached temporarily, a user cannot 'take' or 'drop' the object that is attached to them.</p>
+  <p>The user does not have to be the owner of the object in advance; this function transfers ownership automatically (the usual permissions required to transfer objects apply).</p>
+  <p>If <b>attach_point</b> is zero, then the object attaches to the attach point it was most recently attached to.</p>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Note:</b> Constants in <i>italic</i> require a viewer compatible with the <a href="https://wiki.secondlife.com/wiki/Project_Bento_Skeleton_Guide" target="_blank">Project Bento</a> skeleton.</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th>#</th>
+        <th>Name</th>
+        <th>Comment</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HEAD" target="_blank">ATTACH_HEAD</a></td>
+        <td>2</td>
+        <td>Skull</td>
+        <td>head</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_NOSE" target="_blank">ATTACH_NOSE</a></td>
+        <td>17</td>
+        <td>Nose</td>
+        <td>nose</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_MOUTH" target="_blank">ATTACH_MOUTH</a></td>
+        <td>11</td>
+        <td>Mouth</td>
+        <td>mouth</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_FACE_TONGUE" target="_blank"><i>ATTACH_FACE_TONGUE</i></a></td>
+        <td>52</td>
+        <td>Tongue</td>
+        <td>tongue</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_CHIN" target="_blank">ATTACH_CHIN</a></td>
+        <td>12</td>
+        <td>Chin</td>
+        <td>chin</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_FACE_JAW" target="_blank"><i>ATTACH_FACE_JAW</i></a></td>
+        <td>47</td>
+        <td>Jaw</td>
+        <td>jaw</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LEAR" target="_blank">ATTACH_LEAR</a></td>
+        <td>13</td>
+        <td>Left Ear</td>
+        <td>left ear</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_REAR" target="_blank">ATTACH_REAR</a></td>
+        <td>14</td>
+        <td>Right Ear</td>
+        <td>right ear</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_FACE_LEAR" target="_blank"><i>ATTACH_FACE_LEAR</i></a></td>
+        <td>48</td>
+        <td>Alt Left Ear</td>
+        <td>left ear (extended)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_FACE_REAR" target="_blank"><i>ATTACH_FACE_REAR</i></a></td>
+        <td>49</td>
+        <td>Alt Right Ear</td>
+        <td>right ear (extended)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LEYE" target="_blank">ATTACH_LEYE</a></td>
+        <td>15</td>
+        <td>Left Eye</td>
+        <td>left eye</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_REYE" target="_blank">ATTACH_REYE</a></td>
+        <td>16</td>
+        <td>Right Eye</td>
+        <td>right eye</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_FACE_LEYE" target="_blank"><i>ATTACH_FACE_LEYE</i></a></td>
+        <td>50</td>
+        <td>Alt Left Eye</td>
+        <td>left eye (extended)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_FACE_REYE" target="_blank"><i>ATTACH_FACE_REYE</i></a></td>
+        <td>51</td>
+        <td>Alt Right Eye</td>
+        <td>right eye (extended)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_NECK" target="_blank">ATTACH_NECK</a></td>
+        <td>39</td>
+        <td>Neck</td>
+        <td>neck</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LSHOULDER" target="_blank">ATTACH_LSHOULDER</a></td>
+        <td>3</td>
+        <td>Left Shoulder</td>
+        <td>left shoulder</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RSHOULDER" target="_blank">ATTACH_RSHOULDER</a></td>
+        <td>4</td>
+        <td>Right Shoulder</td>
+        <td>right shoulder</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LUARM" target="_blank">ATTACH_LUARM</a></td>
+        <td>20</td>
+        <td>L Upper Arm</td>
+        <td>left upper arm</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RUARM" target="_blank">ATTACH_RUARM</a></td>
+        <td>18</td>
+        <td>R Upper Arm</td>
+        <td>right upper arm</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LLARM" target="_blank">ATTACH_LLARM</a></td>
+        <td>21</td>
+        <td>L Lower Arm</td>
+        <td>left lower arm</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RLARM" target="_blank">ATTACH_RLARM</a></td>
+        <td>19</td>
+        <td>R Lower Arm</td>
+        <td>right lower arm</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LHAND" target="_blank">ATTACH_LHAND</a></td>
+        <td>5</td>
+        <td>Left Hand</td>
+        <td>left hand</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RHAND" target="_blank">ATTACH_RHAND</a></td>
+        <td>6</td>
+        <td>Right Hand</td>
+        <td>right hand</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LHAND_RING1" target="_blank"><i>ATTACH_LHAND_RING1</i></a></td>
+        <td>41</td>
+        <td>Left Ring Finger</td>
+        <td>left ring finger</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RHAND_RING1" target="_blank"><i>ATTACH_RHAND_RING1</i></a></td>
+        <td>42</td>
+        <td>Right Ring Finger</td>
+        <td>right ring finger</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LWING" target="_blank"><i>ATTACH_LWING</i></a></td>
+        <td>45</td>
+        <td>Left Wing</td>
+        <td>left wing</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RWING" target="_blank"><i>ATTACH_RWING</i></a></td>
+        <td>46</td>
+        <td>Right Wing</td>
+        <td>right wing</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_CHEST" target="_blank">ATTACH_CHEST</a></td>
+        <td>1</td>
+        <td>Chest</td>
+        <td>chest/sternum</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LEFT_PEC" target="_blank">ATTACH_LEFT_PEC</a></td>
+        <td>29</td>
+        <td>Left Pec</td>
+        <td>left pectoral</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RIGHT_PEC" target="_blank">ATTACH_RIGHT_PEC</a></td>
+        <td>30</td>
+        <td>Right Pec</td>
+        <td>right pectoral</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_BELLY" target="_blank">ATTACH_BELLY</a></td>
+        <td>28</td>
+        <td>Stomach</td>
+        <td>belly/stomach/tummy</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_BACK" target="_blank">ATTACH_BACK</a></td>
+        <td>9</td>
+        <td>Spine</td>
+        <td>back</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_TAIL_BASE" target="_blank"><i>ATTACH_TAIL_BASE</i></a></td>
+        <td>43</td>
+        <td>Tail Base</td>
+        <td>tail base</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_TAIL_TIP" target="_blank"><i>ATTACH_TAIL_TIP</i></a></td>
+        <td>44</td>
+        <td>Tail Tip</td>
+        <td>tail tip</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_AVATAR_CENTER" target="_blank">ATTACH_AVATAR_CENTER</a></td>
+        <td>40</td>
+        <td>Avatar Center</td>
+        <td>avatar center/root</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_PELVIS" target="_blank">ATTACH_PELVIS</a></td>
+        <td>10</td>
+        <td>Pelvis</td>
+        <td>pelvis</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_GROIN" target="_blank"><i>ATTACH_GROIN</i></a></td>
+        <td>53</td>
+        <td>Groin</td>
+        <td>groin</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LHIP" target="_blank">ATTACH_LHIP</a></td>
+        <td>25</td>
+        <td>Left Hip</td>
+        <td>left hip</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RHIP" target="_blank">ATTACH_RHIP</a></td>
+        <td>22</td>
+        <td>Right Hip</td>
+        <td>right hip</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LULEG" target="_blank">ATTACH_LULEG</a></td>
+        <td>26</td>
+        <td>L Upper Leg</td>
+        <td>left upper leg</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RULEG" target="_blank">ATTACH_RULEG</a></td>
+        <td>23</td>
+        <td>R Upper Leg</td>
+        <td>right upper leg</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RLLEG" target="_blank">ATTACH_RLLEG</a></td>
+        <td>24</td>
+        <td>R Lower Leg</td>
+        <td>right lower leg</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LLLEG" target="_blank">ATTACH_LLLEG</a></td>
+        <td>27</td>
+        <td>L Lower Leg</td>
+        <td>left lower leg</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_LFOOT" target="_blank">ATTACH_LFOOT</a></td>
+        <td>7</td>
+        <td>Left Foot</td>
+        <td>left foot</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_RFOOT" target="_blank">ATTACH_RFOOT</a></td>
+        <td>8</td>
+        <td>Right Foot</td>
+        <td>right foot</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HIND_LFOOT" target="_blank"><i>ATTACH_HIND_LFOOT</i></a></td>
+        <td>54</td>
+        <td>Left Hind Foot</td>
+        <td>left hind foot</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HIND_RFOOT" target="_blank"><i>ATTACH_HIND_RFOOT</i></a></td>
+        <td>55</td>
+        <td>Right Hind Foot</td>
+        <td>right hind foot</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Constant</th>
+        <th>Comment</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HUD_CENTER_2" target="_blank">ATTACH_HUD_CENTER_2</a></td>
+        <td>31</td>
+        <td>HUD Center 2</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HUD_TOP_RIGHT" target="_blank">ATTACH_HUD_TOP_RIGHT</a></td>
+        <td>32</td>
+        <td>HUD Top Right</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HUD_TOP_CENTER" target="_blank">ATTACH_HUD_TOP_CENTER</a></td>
+        <td>33</td>
+        <td>HUD Top</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HUD_TOP_LEFT" target="_blank">ATTACH_HUD_TOP_LEFT</a></td>
+        <td>34</td>
+        <td>HUD Top Left</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HUD_CENTER_1" target="_blank">ATTACH_HUD_CENTER_1</a></td>
+        <td>35</td>
+        <td>HUD Center</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HUD_BOTTOM_LEFT" target="_blank">ATTACH_HUD_BOTTOM_LEFT</a></td>
+        <td>36</td>
+        <td>HUD Bottom Left</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HUD_BOTTOM" target="_blank">ATTACH_HUD_BOTTOM</a></td>
+        <td>37</td>
+        <td>HUD Bottom</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ATTACH_HUD_BOTTOM_RIGHT" target="_blank">ATTACH_HUD_BOTTOM_RIGHT</a></td>
+        <td>38</td>
+        <td>HUD Bottom Right</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Constant</th>
+        <th>Comment</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=ATTACH_ANY_HUD&action=edit&redlink=1" target="_blank">ATTACH_ANY_HUD</a></td>
+        <td>-1</td>
+        <td>A special constant representing all HUD attachment points when filtering.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a> permission is granted there is no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or the script is reset or deleted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>When object ownership changes, any granted permissions are reset. After a successful attach, you will need a fresh call to <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> to allow <a href="https://wiki.secondlife.com/wiki/LlDetachFromAvatar" target="_blank">llDetachFromAvatar</a> and other permission-required functions to work.
+    <ul>
+      <li>Until successful attachment via this method, previously granted permissions are retained as normal.</li>
+    </ul>
+  
+    </li>
+    <li>The attach step is not guaranteed to succeed, and this function should not be relied on as a security measure. Use the same permission and script precautions you would use with conventional inventory transfers.</li>
+    <li>If you use llAttachToAvatarTemp in an object that you do not have permission to transfer, the function will fail with a script error <i>No permission to transfer</i>, even if you are trying to attach it to yourself.</li>
+    <li>Temporary attachments cannot request the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a>, the following error will be returned: <i>"Temporary attachments cannot request runtime permissions to teleport"</i></li>
+    <li>Attach points can be occupied by multiple attachments.[[1]](#footnote_1)
+    <ul>
+      <li>This was not always the case, previously if <b>attach_point</b> was occupied, the existing object was detached and the new attachment took it's place.</li>
+    </ul>
+  
+    </li>
+    <li>Objects attached to the head (and any attachment position within the head) will not be visible in First Person view (aka <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">Mouselook</a>) if "show attachments in mouselook" is disabled.</li>
+    <li>If <b>attach_point</b> is zero but the object was never previously attached, it defaults to the right hand (<a href="https://wiki.secondlife.com/wiki/ATTACH_RHAND" target="_blank">ATTACH_RHAND</a>).</li>
+    <li>If the object is already attached the function fails silently, regardless of the <b>attach_point</b> being a different <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/attach_point" target="_blank">attach point</a>.</li>
+    <li>If attached via a Land Scope <a href="https://wiki.secondlife.com/wiki/Category:Experience_Tools" target="_blank">Experience</a> script, the object will be force-detached by the server if the owner enters a parcel that does not have the Experience allowed.</li>
+    <li>If the target agent is already wearing the maximum number of attachments, the object will remain on the ground with the target agent as owner. Scripters may wish to do one or more workarounds:
+    <ul>
+      <li>check for successful attachment and <a href="https://wiki.secondlife.com/wiki/LlDie" target="_blank">llDie</a>() after a timeout or if the object is manipulated while unattached</li>
+      <li>check <a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a>(avatarKey, [OBJECT_ATTACHED_SLOTS_AVAILABLE]) beforehand, and avoid attaching if zero slots available</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`---- rez object on ground, drop in this script, it will request permissions to attach,
+---- and then attach to the left hand if permission is granted. if permission is denied,
+---- then the script complains.
+local function main()
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_ATTACH)
+end
+
+function LLEvents.run_time_permissions(vBitPermissions)
+    if bit32.btest(vBitPermissions, PERMISSION_ATTACH) then
+        ll.AttachToAvatarTemp(ATTACH_LHAND)
+    else
+        ll.OwnerSay("Permission to attach denied")
+    end
+end
+
+function LLEvents.on_rez(rez)
+    if not (ll.GetAttached() ~= 0) then
+        --reset the script if it's not attached.
+        ll.ResetScript()
+    end
+end
+
+function LLEvents.attach(AvatarKey)
+    if AvatarKey.istruthy then
+        --event is called on both attach and detach, but Key is only valid on attach
+        local test = ll.GetAttached()
+        if test ~= 0 then
+            ll.OwnerSay("The object is attached")
+        else
+            ll.OwnerSay("The object is not attached")
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- rez object on ground, drop in this script, it will request permissions to attach,
+//-- and then attach to the left hand if permission is granted. if permission is denied,
+//-- then the script complains.
+default
+{
+    state_entry()
+    {
+        llRequestPermissions( llGetOwner(), PERMISSION_ATTACH );
+    }
+
+    run_time_permissions( integer vBitPermissions )
+    {
+        if( vBitPermissions & PERMISSION_ATTACH )
+        {
+            llAttachToAvatarTemp( ATTACH_LHAND );
+        }
+        else
+        {
+            llOwnerSay( "Permission to attach denied" );
+        }
+    }
+
+    on_rez(integer rez)
+    {
+        if(!llGetAttached())
+        { //reset the script if it's not attached.
+            llResetScript();
+        }
+    }
+
+    attach(key AvatarKey)
+    {
+        if(AvatarKey)
+        {//event is called on both attach and detach, but Key is only valid on attach
+            integer test = llGetAttached();
+            if (test) {
+                llOwnerSay( "The object is attached" );
+            } else {
+                llOwnerSay( "The object is not attached");
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+---- This example can demonstrate ownership transfer of an object on a temporary basis using llAttachToAvatarTemp()
+---- Whoever touches will be asked for permission to attach, and upon granting permission will have the item attach,
+---- But not appear in Inventory.
+function LLEvents.touch_start(events)
+    local num_touches = #events
+    ll.RequestPermissions(ll.DetectedKey(0), PERMISSION_ATTACH)
+end
+
+function LLEvents.run_time_permissions(vBitPermissions)
+    if bit32.btest(vBitPermissions, PERMISSION_ATTACH) then
+        ll.AttachToAvatarTemp(ATTACH_LHAND)
+    else
+        ll.OwnerSay("Permission to attach denied")
+    end
+end
+
+function LLEvents.on_rez(rez)
+    if not (ll.GetAttached() ~= 0) then
+        --reset the script if it's not attached.
+        ll.ResetScript()
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- This example can demonstrate ownership transfer of an object on a temporary basis using llAttachToAvatarTemp()
+//-- Whoever touches will be asked for permission to attach, and upon granting permission will have the item attach,
+//-- But not appear in Inventory.
+default
+{
+    touch_start(integer num_touches)
+    {
+        llRequestPermissions( llDetectedKey(0), PERMISSION_ATTACH );
+    }
+
+    run_time_permissions( integer vBitPermissions )
+    {
+        if( vBitPermissions & PERMISSION_ATTACH )
+        {
+            llAttachToAvatarTemp( ATTACH_LHAND );
+        }
+        else
+        {
+            llOwnerSay( "Permission to attach denied" );
+        }
+    }
+
+    on_rez(integer rez)
+    {
+        if(!llGetAttached())
+        { //reset the script if it's not attached.
+            llResetScript();
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- This example illustrates how to handle permissions before and after llAttachToAvatarTemp has been called. Because ownership
+-- changes when the object is attached, the initial PERMISSION_ATTACH is revoked, and new permissions need to be requested.
+
+local gAttach = true
+
+function LLEvents.touch_start(events)
+    local num = #events
+    if gAttach then  -- Object has not been attached yet
+        ll.RequestPermissions(ll.DetectedKey(0), PERMISSION_ATTACH)
+        gAttach = false
+    else  -- Object has been attached, but you still need PERMISSION_ATTACH in order to detach the object
+        if bit32.bor(bit32.band(ll.GetPermissions(), PERMISSION_TRIGGER_ANIMATION), PERMISSION_ATTACH) ~= 0 then
+            ll.DetachFromAvatar()  -- Note that the object vanishes when detached, so there is no need to set gAttach = TRUE again
+        end
+    end
+end
+
+function LLEvents.attach(id)
+    if id.istruthy then  -- Object has been attached, so request permissions again
+        ll.RequestPermissions(id, bit32.bor(PERMISSION_ATTACH, PERMISSION_TRIGGER_ANIMATION))
+    end
+end
+
+function LLEvents.run_time_permissions(perm)
+    if not gAttach then  --First time
+        if bit32.btest(perm, PERMISSION_ATTACH) then
+            gAttach = true
+            ll.AttachToAvatarTemp(ATTACH_HEAD)  -- Initial PERMISSION_ATTACH is revoked at this point
+        end
+    else  -- Second time
+        if bit32.bor(bit32.band(perm, PERMISSION_ATTACH), PERMISSION_TRIGGER_ANIMATION) ~= 0 then
+            ll.StartAnimation(ll.GetInventoryName(INVENTORY_ANIMATION, 0))
+        end
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// This example illustrates how to handle permissions before and after llAttachToAvatarTemp has been called. Because ownership
+// changes when the object is attached, the initial PERMISSION_ATTACH is revoked, and new permissions need to be requested.
+
+integer gAttach = TRUE;
+
+default
+{
+
+    touch_start(integer num)
+    {
+        if (gAttach)  // Object has not been attached yet
+        {
+            llRequestPermissions(llDetectedKey(0),PERMISSION_ATTACH);
+            gAttach = FALSE;
+        }
+        else   // Object has been attached, but you still need PERMISSION_ATTACH in order to detach the object
+        {
+            if (llGetPermissions() & PERMISSION_TRIGGER_ANIMATION | PERMISSION_ATTACH)
+            {
+                llDetachFromAvatar();  // Note that the object vanishes when detached, so there is no need to set gAttach = TRUE again
+            }
+        }
+    }
+
+    attach(key id)
+    {
+        if (id)  // Object has been attached, so request permissions again
+        {
+            llRequestPermissions(id,PERMISSION_ATTACH | PERMISSION_TRIGGER_ANIMATION);
+        }
+    }
+
+    run_time_permissions (integer perm)
+    {
+        if (!gAttach)  //First time
+        {
+            if (perm & PERMISSION_ATTACH)
+            {
+                gAttach = TRUE;
+                llAttachToAvatarTemp(ATTACH_HEAD);  // Initial PERMISSION_ATTACH is revoked at this point
+            }
+        }
+        else  // Second time
+        {
+            if (perm & PERMISSION_ATTACH | PERMISSION_TRIGGER_ANIMATION)
+            {
+                llStartAnimation(llGetInventoryName(INVENTORY_ANIMATION,0));
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <p>An alternative solution:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Because ownership changes when the object is attached, the initial PERMISSION_ATTACH is revoked, and new permissions need to be requested.
+
+function LLEvents.touch_start(events)
+    local num = #events
+    if not (ll.GetAttached() ~= 0) then
+        ll.RequestPermissions(ll.DetectedKey(0), PERMISSION_ATTACH)
+    elseif bit32.btest(ll.GetPermissions(), PERMISSION_ATTACH) then
+        ll.DetachFromAvatar()
+    end
+end
+function LLEvents.attach(id)
+    if id.istruthy then
+        ll.RequestPermissions(id, bit32.bor(PERMISSION_ATTACH, PERMISSION_TRIGGER_ANIMATION))
+    end
+end
+function LLEvents.run_time_permissions(perm)
+    if not (ll.GetAttached() ~= 0) and bit32.btest(perm, PERMISSION_ATTACH) then
+        ll.AttachToAvatarTemp(ATTACH_NOSE)
+    end
+    if bit32.btest(perm, PERMISSION_TRIGGER_ANIMATION) then
+        ll.StartAnimation(ll.GetInventoryName(INVENTORY_ANIMATION, 0))
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Because ownership changes when the object is attached, the initial PERMISSION_ATTACH is revoked, and new permissions need to be requested.
+
+default
+{
+    touch_start(integer num)
+    {
+        if (!llGetAttached()) llRequestPermissions( llDetectedKey(0), PERMISSION_ATTACH);
+        else if ( llGetPermissions() & PERMISSION_ATTACH) llDetachFromAvatar();
+    }
+    attach(key id)
+    {
+        if (id) llRequestPermissions( id, PERMISSION_ATTACH | PERMISSION_TRIGGER_ANIMATION);
+    }
+    run_time_permissions (integer perm)
+    {
+        if (!llGetAttached() && (perm & PERMISSION_ATTACH)) llAttachToAvatarTemp( ATTACH_NOSE);
+        if (perm & PERMISSION_TRIGGER_ANIMATION) llStartAnimation( llGetInventoryName( INVENTORY_ANIMATION, 0));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetachFromAvatar" target="_blank">llDetachFromAvatar</a></td>
+        <td>–</td>
+        <td>Detaches the object from the avatar</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAttached" target="_blank">llGetAttached</a></td>
+        <td>–</td>
+        <td>Gets the attach point number</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/12#12.07.24.262437" target="_blank"> 24/07/2012 </a></p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Multiple attachments per attach point were added as result of <a href="https://jira.secondlife.com/browse/SCR-277" target="_blank">SCR-277</a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llAttachToAvatarTemp( integer attach_point );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Embrace me. I'm yours</p>
+<p>If only for a short time</p>
+<p>Rejected, we part.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

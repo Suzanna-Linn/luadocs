@@ -1,0 +1,169 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`EOF: string = 0`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string EOF = 0;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The string constant EOF has the value "\n\n\n"</p>
+  <p>EOF is a value returned by the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event, as a result of a call to <a href="https://wiki.secondlife.com/wiki/LlGetNotecardLine" target="_blank">llGetNotecardLine</a>, specifically when the requested line is past the end of the notecard. The value returned equals "\n\n\n", which is to say, three newline characters (0x0a).</p>
+  <p>Essentially, it is used to let you know when you have finished reading information (usually user configurable parameters) from a notecard, and are ready to move onto the next stage or state of the script.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNotecardLine" target="_blank">llGetNotecardLine</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+local iLine = 0
+local card = "~config"
+local myquery = NULL_KEY
+local default, ready = {}, {}
+
+function default.state_entry()
+    if ll.GetInventoryType(card) ~= INVENTORY_NONE then
+        myquery = ll.GetNotecardLine(card, (function() iLine = 0 return iLine end)())
+    else
+        ll.Say(0, "The \"" .. card .. "\" notecard is missing! Cannot proceed!")
+    end
+end
+
+function default.dataserver(request, sdata)
+    if request == myquery then
+        if sdata == EOF then  -- no more text in the notecard
+            state(ready)  --move to the next state
+        else
+            --here you would process the data
+            --llOwnerSay(sdata);
+            myquery = ll.GetNotecardLine(card, (function() iLine += 1 return iLine end)())  -- now read in next line, and start the dataserver process all over again
+        end
+    end
+end
+
+function ready.state_entry()
+    ll.OwnerSay("I'm ready for action!")
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer iLine;
+string card = "~config";
+key myquery;
+
+default{
+    state_entry() {
+        if(llGetInventoryType(card) != INVENTORY_NONE)
+            myquery = llGetNotecardLine(card, iLine = 0);
+        else
+            llSay(0,"The \"" + card + "\" notecard is missing! Cannot proceed!");
+    }
+     
+    dataserver(key request, string sdata){
+        if(request == myquery){
+            if(sdata == EOF){ // no more text in the notecard
+                state ready; //move to the next state
+            }
+            else {
+                //here you would process the data
+                //llOwnerSay(sdata);
+                myquery = llGetNotecardLine(card, ++iLine); // now read in next line, and start the dataserver process all over again
+            }
+        }
+    }
+}
+
+state ready{
+    state_entry(){
+        llOwnerSay("I'm ready for action!");
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>EOF is an acronym that stands for "End Of File".</p>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=EOF" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+EOF = "\n\n\n"  --Three newline characters (0x0a)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+string EOF = "\n\n\n";//Three newline characters (0x0a)
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

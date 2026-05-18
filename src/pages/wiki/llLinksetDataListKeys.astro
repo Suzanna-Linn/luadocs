@@ -1,0 +1,155 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LinksetDataListKeys(start: number, count: number): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llLinksetDataListKeys(integer start, integer count);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The <b>llLinksetDataListKeys</b> function returns a list of up to <b>count</b> keys in the datastore, starting at the one indicated by <b>start</b>. If <b>count</b> is less than 1, then all keys between <b>start</b> and the end are returned. If <b>count</b> minus <b>start</b> exceeds the total number of keys, the returned list will be shorter than <b>count</b>, down to a zero-length list if <b>start</b> equals or exceeds the total number of keys.</p>
+  <p>Returns a list of the keys in the datastore, ordered alphabetically.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>start</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>The first key to return.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>count</td>
+          <td>The number of keys to return.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>linkset</li>
+        <li>linkset_data</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">656</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+  <p>The following code will list all the keys in a object. Only 1024 characters will be displayed due to limitations of <a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a>.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Retrieving too many entries from LinksetData can trigger a stack or heap error if the number of entries exceeds the available memory.  Use with caution.
+
+local function main()
+    ll.Say(0, ll.DumpList2String(ll.LinksetDataListKeys(0, 0), "\n"))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Retrieving too many entries from LinksetData can trigger a stack or heap error if the number of entries exceeds the available memory.  Use with caution.
+
+default
+{
+    state_entry()
+    {
+        llSay(0, llDumpList2String(llLinksetDataListKeys(0, 0), "\n"));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataAvailable" target="_blank">llLinksetDataAvailable</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataCountKeys" target="_blank">llLinksetDataCountKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDelete" target="_blank">llLinksetDataDelete</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDeleteFound" target="_blank">llLinksetDataDeleteFound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataFindKeys" target="_blank">llLinksetDataFindKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataRead" target="_blank">llLinksetDataRead</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataReset" target="_blank">llLinksetDataReset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataWrite" target="_blank">llLinksetDataWrite</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llLinksetDataListKeys( integer start, integer count );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

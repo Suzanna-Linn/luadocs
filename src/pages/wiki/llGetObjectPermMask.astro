@@ -1,0 +1,354 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetObjectPermMask(Category: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetObjectPermMask(integer Category);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_field" target="_blank">bit field</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) of the requested permission <b>category</b> for the object containing this script.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Category / category</td>
+          <td>MASK_* flag</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>asset_permissions</li>
+        <li>linkset</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">287</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Category</b></th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_BASE" target="_blank">MASK_BASE</a></td>
+        <td>0</td>
+        <td>The base permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_OWNER" target="_blank">MASK_OWNER</a></td>
+        <td>1</td>
+        <td>Current owner permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_GROUP" target="_blank">MASK_GROUP</a></td>
+        <td>2</td>
+        <td>Active group permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_EVERYONE" target="_blank">MASK_EVERYONE</a></td>
+        <td>3</td>
+        <td>Permissions everyone has.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_NEXT" target="_blank">MASK_NEXT</a></td>
+        <td>4</td>
+        <td>Permissions the next owner will have.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=MASK_COMBINED&action=edit&redlink=1" target="_blank">MASK_COMBINED</a></td>
+        <td>16</td>
+        <td><p>Include object inventory contents when calculating perms.</p>
+<p>Combine with other mask flags, for instance MASK_OWNER|MASK_COMBINED</p></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_ALL" target="_blank">PERM_ALL</a></td>
+        <td>0x7FFFFFFF</td>
+        <td>Move/Modify/Copy/Transfer permissions</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_COPY" target="_blank">PERM_COPY</a></td>
+        <td>0x00008000</td>
+        <td>Copy permission</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_MODIFY" target="_blank">PERM_MODIFY</a></td>
+        <td>0x00004000</td>
+        <td>Modify permission</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_MOVE" target="_blank">PERM_MOVE</a></td>
+        <td>0x00080000</td>
+        <td>Move permission</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_TRANSFER" target="_blank">PERM_TRANSFER</a></td>
+        <td>0x00002000</td>
+        <td>Transfer permission</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`if ((permsYouHave & permsYouWant) == permsYouWant)
+    llSay(0, "You have the perms you want.");
+else
+    llSay(0, "You don't have the perms you want.");`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local ownerPerms = ll.GetObjectPermMask(MASK_OWNER)
+local copyAndModPerms = bit32.bor(PERM_COPY, PERM_MODIFY)
+
+if bit32.band(ownerPerms, copyAndModPerms) == copyAndModPerms then
+    ll.Say(0, "Owner has copy & modify perms.")
+else
+    ll.Say(0, "Owner does not have copy & modify perms.")
+end`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer ownerPerms = llGetObjectPermMask(MASK_OWNER);
+integer copyAndModPerms = PERM_COPY | PERM_MODIFY;
+
+if ((ownerPerms & copyAndModPerms) == copyAndModPerms)
+    llSay(0, "Owner has copy & modify perms.");
+else
+    llSay(0, "Owner does not have copy & modify perms.");`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function getPermsAsReadableString(perm)
+    local allPerms = PERM_ALL
+    local fullPerms = bit32.bor(PERM_COPY, PERM_MODIFY, PERM_TRANSFER)
+
+    local copyModMovePerms = bit32.bor(PERM_COPY, PERM_MODIFY, PERM_MOVE)
+    local copyModPerms = bit32.bor(PERM_COPY, PERM_MODIFY)
+
+    local copyTransMovePerms = bit32.bor(PERM_COPY, PERM_TRANSFER, PERM_MOVE)
+    local copyTransPerms = bit32.bor(PERM_COPY, PERM_TRANSFER)
+
+    local modTransMovePerms = bit32.bor(PERM_MODIFY, PERM_TRANSFER, PERM_MOVE)
+    local modTransPerms = bit32.bor(PERM_MODIFY, PERM_TRANSFER)
+
+    local copyMovePerms = bit32.bor(PERM_COPY, PERM_MOVE)
+
+    local transMovePerms = bit32.bor(PERM_TRANSFER, PERM_MOVE)
+
+    local output = " perms: "
+
+    if bit32.band(perm, allPerms) == allPerms then
+        output ..= "full and move"
+    elseif bit32.band(perm, fullPerms) == fullPerms then
+        output ..= "full"
+    elseif bit32.band(perm, copyModMovePerms) == copyModMovePerms then
+        output ..= "copy & modify & move"
+    elseif bit32.band(perm, copyModPerms) == copyModPerms then
+        output ..= "copy & modify"
+    elseif bit32.band(perm, copyTransMovePerms) == copyTransMovePerms then
+        output ..= "copy & transfer & move"
+    elseif bit32.band(perm, copyTransPerms) == copyTransPerms then
+        output ..= "copy & transfer"
+    elseif bit32.band(perm, modTransMovePerms) == modTransMovePerms then
+        output ..= "modify & transfer & move"
+    elseif bit32.band(perm, modTransPerms) == modTransPerms then
+        output ..= "modify & transfer"
+    elseif bit32.band(perm, copyMovePerms) == copyMovePerms then
+        output ..= "copy & move"
+    elseif bit32.band(perm, PERM_COPY) == PERM_COPY then
+        output ..= "copy"
+    elseif bit32.band(perm, transMovePerms) == transMovePerms then
+        output ..= "transfer & move"
+    elseif bit32.band(perm, PERM_TRANSFER) == PERM_TRANSFER then
+        output ..= "transfer"
+    elseif bit32.band(perm, PERM_MOVE) == PERM_MOVE then
+        output ..= "move"
+    else
+        output ..= "none"
+    end
+
+    --  Remember, items in Second Life must have either
+    --  PERM_COPY or PERM_TRANSFER when "talking about"
+    --  owner perms or perms for next owner.
+
+    return output
+end
+local function main()
+    local basePerms = ll.GetObjectPermMask(MASK_BASE)
+    local ownerPerms = ll.GetObjectPermMask(MASK_OWNER)
+    local nextOwnerPerms = ll.GetObjectPermMask(MASK_NEXT)
+    local groupPerms = ll.GetObjectPermMask(MASK_GROUP)
+    local everyonePerms = ll.GetObjectPermMask(MASK_EVERYONE)
+
+    ll.Say(0, "base" .. getPermsAsReadableString(basePerms))
+    ll.Say(0, "owner" .. getPermsAsReadableString(ownerPerms))
+    ll.Say(0, "next owner" .. getPermsAsReadableString(nextOwnerPerms))
+    ll.Say(0, "group" .. getPermsAsReadableString(groupPerms))
+    ll.Say(0, "everyone" .. getPermsAsReadableString(everyonePerms))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string getPermsAsReadableString(integer perm)
+{
+    integer allPerms = PERM_ALL;
+    integer fullPerms = PERM_COPY | PERM_MODIFY | PERM_TRANSFER;
+
+    integer copyModMovePerms = PERM_COPY | PERM_MODIFY | PERM_MOVE;
+    integer copyModPerms = PERM_COPY | PERM_MODIFY;
+
+    integer copyTransMovePerms = PERM_COPY | PERM_TRANSFER | PERM_MOVE;
+    integer copyTransPerms = PERM_COPY | PERM_TRANSFER;
+
+    integer modTransMovePerms = PERM_MODIFY | PERM_TRANSFER | PERM_MOVE;
+    integer modTransPerms = PERM_MODIFY | PERM_TRANSFER;
+
+    integer copyMovePerms = PERM_COPY | PERM_MOVE;
+
+    integer transMovePerms = PERM_TRANSFER | PERM_MOVE;
+
+    string output = " perms: ";
+
+    if ((perm & allPerms) == allPerms)
+        output += "full and move";
+    else if ((perm & fullPerms) == fullPerms)
+        output += "full";
+    else if ((perm & copyModMovePerms) == copyModMovePerms)
+        output += "copy & modify & move";
+    else if ((perm & copyModPerms) == copyModPerms)
+        output += "copy & modify";
+    else if ((perm & copyTransMovePerms) == copyTransMovePerms)
+        output += "copy & transfer & move";
+    else if ((perm & copyTransPerms) == copyTransPerms)
+        output += "copy & transfer";
+    else if ((perm & modTransMovePerms) == modTransMovePerms)
+        output += "modify & transfer & move";
+    else if ((perm & modTransPerms) == modTransPerms)
+        output += "modify & transfer";
+    else if ((perm & copyMovePerms) == copyMovePerms)
+        output += "copy & move";
+    else if ((perm & PERM_COPY) == PERM_COPY)
+        output += "copy";
+    else if ((perm & transMovePerms) == transMovePerms)
+        output += "transfer & move";
+    else if ((perm & PERM_TRANSFER) == PERM_TRANSFER)
+        output += "transfer";
+    else if ((perm & PERM_MOVE) == PERM_MOVE)
+        output += "move";
+    else
+        output += "none";
+
+    //  Remember, items in Second Life must have either
+    //  PERM_COPY or PERM_TRANSFER when "talking about"
+    //  owner perms or perms for next owner.
+
+    return
+        output;
+}
+default
+{
+    state_entry()
+    {
+        integer basePerms      = llGetObjectPermMask(MASK_BASE);
+        integer ownerPerms     = llGetObjectPermMask(MASK_OWNER);
+        integer nextOwnerPerms = llGetObjectPermMask(MASK_NEXT);
+        integer groupPerms     = llGetObjectPermMask(MASK_GROUP);
+        integer everyonePerms  = llGetObjectPermMask(MASK_EVERYONE);
+
+        llSay(0, "base"       + getPermsAsReadableString(basePerms));
+        llSay(0, "owner"      + getPermsAsReadableString(ownerPerms));
+        llSay(0, "next owner" + getPermsAsReadableString(nextOwnerPerms));
+        llSay(0, "group"      + getPermsAsReadableString(groupPerms));
+        llSay(0, "everyone"   + getPermsAsReadableString(everyonePerms));
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function isLocked()
+    return not bit32.btest(ll.GetObjectPermMask(MASK_OWNER), PERM_MOVE)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer isLocked()
+{
+    return !(llGetObjectPermMask(MASK_OWNER) & PERM_MOVE);
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>The perms of a newly created object are often:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`Base = PERM_ALL
+ Owner = PERM_ALL
+ Next = PERM_MOVE or PERM_TRANSFER
+ Group = 0 (none)
+ Everyone = 0 (none)`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">llGetInventoryPermMask</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Hex" target="_blank">hex</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectPermMask_Test" target="_blank">llGetObjectPermMask_Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetObjectPermMask( integer category );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

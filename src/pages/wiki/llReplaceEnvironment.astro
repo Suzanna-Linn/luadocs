@@ -1,0 +1,185 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ReplaceEnvironment(position: vector, environment: string|uuid, track_no: number, day_length: number, day_offset: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llReplaceEnvironment(vector position, string environment, integer track_no, integer day_length, integer day_offset);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The llReplaceEnvironment function replaces the environment in a parcel or a region. Either for a single elevation track or the entire environment. The owner of the script must have permission to edit the environment on the destination parcel, or be an estate manage in the case of an entire region.
+In most cases errors are reported as a return value from the function (see table below). However, issues with the environment assets may be reported in the debug chat.</p>
+  <p>Returns an integer</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
+          <td>The position in the region of the parcel that will receive the new environment. To change the entire region use <-1, -1, -1>. The z component of the vector is ignored.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>environment</td>
+          <td>The name of an environmental setting in the object's inventory or the asset ID for an environment. NULL_KEY or empty string to remove the environment.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>track_no</td>
+          <td>The elevation zone to change. 0 for water, 1 for ground level, 2 for sky 1000m, 3 for sky 2000m, 4 for sky 3000m. -1 to change all tracks.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>day_length</td>
+          <td>The length in seconds for the day cycle. -1 to leave unchanged.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>day_offset</td>
+          <td>The offset in positive seconds from UTC. -1 (or other negative number) to leave unchanged. 43200 for +12/-12h. 61200 for SLT (+17/-7). Both 0 and 86400 represent UTC.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>parcel</li>
+        <li>parcel_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">718</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Value</th>
+        <th>Constant</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>The parcel or region will attempt to change the applied environment.</td>
+      </tr>
+      <tr>
+        <td>ENV_NO_ENVIRONMENT</td>
+        <td>-3</td>
+        <td>The environment inventory object could not be found.</td>
+      </tr>
+      <tr>
+        <td>ENV_THROTTLE</td>
+        <td>-8</td>
+        <td>The scripts have exceeded the throttle. Wait and retry the request.</td>
+      </tr>
+      <tr>
+        <td>ENV_NO_PERMISSIONS</td>
+        <td>-9</td>
+        <td><p>The script does not have permission to change the environment at the selected location.</p>
+<p>OR</p>
+<p>there was an attempt to remove altitude track 0 or 1 (in this case a message will also be chatted to the debug channel).</p></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>An environment set locally on the viewer will override any environment set from this function.</li>
+    <li>A parameter override set by <a href="https://wiki.secondlife.com/wiki/LlSetEnvironment" target="_blank">llSetEnvironment</a> will be preserved after the environment is replaced by this function. Call <a href="https://wiki.secondlife.com/wiki/LlSetEnvironment" target="_blank">llSetEnvironment</a> with an empty list parameter to clear any straggling overrides.</li>
+    <li>The environment specified by this function is applied asynchronously, as the simulator must download the environment asset before applying it. This means that <a href="https://wiki.secondlife.com/wiki/LlGetEnvironment" target="_blank">llGetEnvironment</a> will not immediately reflect the new environment's parameters, although the delay is typically quite small.</li>
+    <li>If a UUID is passed as the environment parameter and that UUID does not specify an environment setting or one can not be constructed, the function will return success (1) but will post a message to the debug channel.</li>
+    <li>If the parcel is group-owned, the script must either be deeded to the group, or the script owner must have "Modify environment settings and day cycle" group ability <b>and</b> have an active agent in the sim.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  Will set the entire region to the "Tropicalia" EEP from the Linden inventory when touched. 
+--  It will set all the tracks to the same EEP with 24 hour day and a -8 hour Day Offset.
+--  The "Tropicalia" must be in the prims inventory with the script.  
+--
+--  Limited to Estate Managers or Region owners.
+--  Madi Perth - 4/17/2023
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.ReplaceEnvironment(vector(-1, -1, -1), "Tropicalia", -1, 86400, 86400 - 28800)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  Will set the entire region to the "Tropicalia" EEP from the Linden inventory when touched. 
+//  It will set all the tracks to the same EEP with 24 hour day and a -8 hour Day Offset.
+//  The "Tropicalia" must be in the prims inventory with the script.  
+//
+//  Limited to Estate Managers or Region owners.
+//  Madi Perth - 4/17/2023
+
+default
+{
+
+    touch_start(integer total_number)
+    {
+        llReplaceEnvironment(<-1, -1, -1>, "Tropicalia", -1, 86400, (86400-28800));
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetAgentEnvironment" target="_blank">llSetAgentEnvironment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetEnvironment" target="_blank">llGetEnvironment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetEnvironment" target="_blank">llSetEnvironment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://releasenotes.secondlife.com/simulator/2022-08-12.574216.html" target="_blank">12/08/2022</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llReplaceEnvironment( vector position, string environment, integer track_no, integer day_length, integer day_offset );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,231 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.TextBox(AvatarID: uuid, Text: string, Channel: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llTextBox(key AvatarID, string Text, integer Channel);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Shows a dialog box on <b>avatar</b>'s screen with the text <b>message</b>. It contains a text box for input, any text that is entered is <a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">said</a> by <b>avatar</b> on <b>channel</b> when the "Submit" button is clicked.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/message" target="_blank">message</a></td>
+          <td>message to be displayed in the text box</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Channel / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/channel" target="_blank">channel</a></td>
+          <td>output <a href="https://wiki.secondlife.com/wiki/Category:LSL_Chat" target="_blank">chat</a> channel, any integer value</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_communication</li>
+        <li>chat</li>
+        <li>user_interface</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">335</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Channel Constant</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a></td>
+        <td>0x7FFFFFFF</td>
+        <td>Chat channel reserved for script debugging and error messages, broadcasts to all nearby users.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a></td>
+        <td>0x0</td>
+        <td>Chat channel that broadcasts to all nearby users. This channel is sometimes referred to as: open chat, local chat and public chat.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 1.0 seconds.</li>
+    <li>Not supported in official Linden Lab viewers prior to version 2.4, and some <a href="https://wiki.secondlife.com/wiki/Third_Party_Viewer_Directory" target="_blank">TPVs</a> may not support it. Unsupported viewers will display a dialog box with a single option of "!!llTextBox!!".</li>
+    <li>There is no way by script to kill a text box.</li>
+    <li>There is no way for the script to detect if the user clicked the small "ignore" button (no chat is generated as a result of pressing this button).</li>
+    <li>If the listening prim is out of the 20 meter range of the sending prim when the "Submit" button is pressed, it will not be able to hear the response.
+    <ul>
+      <li>This limitation affects attachments too if the wearer moves more than 20 meters from where the listener is located.</li>
+    </ul>
+  
+    </li>
+    <li>The textbox input is limited to 250 bytes (characters). This can be a problem for larger text input; if the input can be over 250 characters, you will have to accept it through chat.</li>
+    <li>There is an undocumented throttle on llTextBox requests. Exceeding it will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> until the "average" falls.</li>
+  </ul>
+  <h3>message limits</h3>
+  <ul>
+    <li>If it exceeds 7 (Viewer 3) or 8 (Viewer 1) lines a scroll bar will appear.</li>
+    <li><p><b>message</b> must be less than 512 bytes and not empty. Otherwise, it will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. One easy way to create an empty message is to use a line feed, as in</p>
+<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+ll.TextBox(avatar_key, " \n", dialog_channel)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+llTextBox(avatar_key," \n",dialog_channel);
+`} lang="lsl" /></div>
+
+</p></li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local gListener = 0
+function LLEvents.touch_start(events)
+    local total_number = #events
+    -- See 'discussion' page for more comments on choosing a channel and possible left-open listener
+    local channel = -13572468
+    -- "" saves byte-code over NULL_KEY
+    gListener = ll.Listen(channel, "", "", "")
+    ll.TextBox(ll.DetectedKey(0), "Some info text for the top of the window...", channel)
+end
+function LLEvents.listen(channel, name, id, message)
+    ll.ListenRemove(gListener)
+    ll.Say(0, "You wrote: " .. message)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer  gListener;
+default
+{
+    touch_start(integer total_number)
+    {
+        // See 'discussion' page for more comments on choosing a channel and possible left-open listener
+        integer channel = -13572468;
+        // "" saves byte-code over NULL_KEY
+        gListener = llListen( channel, "", "", "");     
+        llTextBox(llDetectedKey(0), "Some info text for the top of the window...", channel);
+    }
+    listen(integer channel, string name, key id, string message)
+    {
+        llListenRemove(gListener);
+        llSay(0, "You wrote: " + message);
+    }
+}`} lang="lsl" /></div>
+  <p>If the user hits Enter ↵ before clicking the `"Submit"` button, there will be a final carriage return in the message. In the rare event that this could be a problem, it is easily removed:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`message = llStringTrim(message,STRING_TRIM);`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Instead of mouse clicking: "Submit", you can use keyboard keys: press Tab ⇆ and then Enter ↵</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDialog" target="_blank">llDialog</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlWhisper" target="_blank">llWhisper</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">llShout</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSay" target="_blank">llRegionSay</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Introduced in <a href="http://svn.secondlife.com/trac/linden/changeset/568?new_path=%2F#file33" target="_blank">SVN:568 r88085 Trunk&#32;Wednesday, 21 May 2008</a></p>
+  <p>Source</p>
+  <p><a href="https://github.com/secondlife/indra/llcommon/lllslconstants.h/blob/master/viewer#L189" target="_blank">indra/llcommon/lllslconstants.h - viewer </a>
+<cpp>// llTextBox() magic token string - yes this is a hack. sue me.
+const std::string TEXTBOX_MAGIC_TOKEN = "!!llTextBox!!";</cpp></p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Channel zero is also known as: <a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a>, open chat, local chat and public chat</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llTextBox( key avatar, string message, integer channel );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,171 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.DetectedRot(Number: number): rotation`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation llDetectedRot(integer Number);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns the rotation of detected object <b>number</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Number / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/number" target="_blank">number</a></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Index of detection information</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>detected</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">38</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+        <span class="attr-label bg-detected">Detected Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>number</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>Returns <a href="https://wiki.secondlife.com/wiki/ZERO_ROTATION" target="_blank"><0.0, 0.0, 0.0, 1.0></a> if <b>number</b> is not valid sensed object.</p>
+  <h2>Specification</h2>
+  <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions only work if called from within Detection events (<a href="https://wiki.secondlife.com/wiki/Collision" target="_blank">collision</a>, <a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a>, <a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a>, <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a>, <a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a>, <a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a>, <a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a>) or in functions called by Detection events. They will fail silently and return unusable values if called during other events.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>number</b> is out of bounds this function returns <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank"><0.0, 0.0, 0.0, 1.0></a> and the script continues to execute without an error message.</li>
+    <li>Events that enable the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions always return at least one detected item.
+    <ul>
+      <li>Detection events are not raised if there is nothing detected.[[1]](#footnote_1)</li>
+      <li>The detection event's items detected parameter is initially never less than 1.[[2]](#footnote_2)</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+----// get compass facing of Avatar that touches this object //--//
+
+---- list of compass directions starting at East, rotated clockwise
+local gLstCompassPoints = {"East", "NorthEast", "North", "NorthWest", "West", "SouthWest", "South", "SouthEast"}
+
+---- convert rotation to z-axis compass direction
+local function CompassDirection(rRotBase)
+    local iCountCompassPoints = #gLstCompassPoints
+    ---- convert rotation to a direction
+    local vDirection = vector(0.0, 1.0, 0.0) / rRotBase
+    ---- take the direction and determine the z rotation
+    local fAngle = ll.Atan2(vDirection.x, vDirection.y)
+    ---- take the angle and find the compass point
+    local iCompassPoint = ll.Round(fAngle * iCountCompassPoints / TWO_PI)
+    ---- convert to string
+    return ll.List2String(gLstCompassPoints, iCompassPoint)
+end
+
+local function main()
+    ll.Say(0, "Touch me to get your compass facing")
+end
+
+function LLEvents.touch_start(events)
+    local vIntTouchCount = #events
+    local vIntCounter = 0
+    repeat
+        ---- next line gets avatar rotation and converts to compass direction
+        ll.Say(0, ll.DetectedName(vIntCounter) .. " is facing " .. CompassDirection(ll.DetectedRot(vIntCounter)))
+    until not ((function() vIntCounter += 1 return vIntCounter end)() < vIntTouchCount)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//--// get compass facing of Avatar that touches this object //--//
+
+ //-- list of compass directions starting at East, rotated clockwise
+list gLstCompassPoints = [ "East", "NorthEast", "North", "NorthWest", "West", "SouthWest", "South", "SouthEast" ];
+
+ //-- convert rotation to z-axis compass direction
+string CompassDirection( rotation rRotBase )
+{
+  integer iCountCompassPoints = llGetListLength(gLstCompassPoints);
+   //-- convert rotation to a direction
+  vector vDirection = <0.0, 1.0, 0.0> / rRotBase;
+   //-- take the direction and determine the z rotation
+  float fAngle = llAtan2(vDirection.x, vDirection.y);
+   //-- take the angle and find the compass point
+  integer iCompassPoint = llRound(fAngle * iCountCompassPoints / TWO_PI);
+   //-- convert to string
+  return llList2String( gLstCompassPoints, iCompassPoint );
+}
+
+default{
+  state_entry()
+  {
+    llSay( 0, "Touch me to get your compass facing" );
+  }
+
+  touch_start( integer vIntTouchCount )
+  {
+    integer vIntCounter = 0;
+    do
+    {
+      llSay( 0,
+             llDetectedName( vIntCounter )
+             + " is facing "
+              //-- next line gets avatar rotation and converts to compass direction
+             + CompassDirection( llDetectedRot( vIntCounter ) ) );
+    } while ( ++vIntCounter < vIntTouchCount );
+  }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">Detected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The exception is <a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a> but it doesn't enable <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">llDetected*</a> functions.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Like all event parameters, the user can overwrite the initial value.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function rotation llDetectedRot( integer number );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

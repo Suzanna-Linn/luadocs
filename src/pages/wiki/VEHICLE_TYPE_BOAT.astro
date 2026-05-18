@@ -1,0 +1,153 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`VEHICLE_TYPE_BOAT: number = 3`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer VEHICLE_TYPE_BOAT = 3;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant VEHICLE_TYPE_BOAT has the value 3</p>
+  <p>Hovers over water with lots of friction and some anglar deflection.</p>
+  <p>Setting the vehicle type to boat enables the vehicle system and additionally has the same effect of executing the following:</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>VehicleType</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h3>Effects</h3>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// least for forward-back, most friction for up-down
+llSetVehicleVectorParam( VEHICLE_LINEAR_FRICTION_TIMESCALE, <10, 3, 2> );
+// uniform angular friction (setting it as a scalar rather than a vector)
+llSetVehicleFloatParam( VEHICLE_ANGULAR_FRICTION_TIMESCALE, 10 );
+// linear motor wins after about five seconds, decays after about a minute
+llSetVehicleVectorParam( VEHICLE_LINEAR_MOTOR_DIRECTION, <0, 0, 0> );
+llSetVehicleFloatParam( VEHICLE_LINEAR_MOTOR_TIMESCALE, 5 );
+llSetVehicleFloatParam( VEHICLE_LINEAR_MOTOR_DECAY_TIMESCALE, 60 );
+// agular motor wins after four seconds, decays in same amount of time
+llSetVehicleVectorParam( VEHICLE_ANGULAR_MOTOR_DIRECTION, <0, 0, 0> );
+llSetVehicleFloatParam( VEHICLE_ANGULAR_MOTOR_TIMESCALE, 4 );
+llSetVehicleFloatParam( VEHICLE_ANGULAR_MOTOR_DECAY_TIMESCALE, 4 );
+// hover
+llSetVehicleFloatParam( VEHICLE_HOVER_HEIGHT, 0 );
+llSetVehicleFloatParam( VEHICLE_HOVER_EFFICIENCY, 0.5 );
+llSetVehicleFloatParam( VEHICLE_HOVER_TIMESCALE, 2.0 );
+llSetVehicleFloatParam( VEHICLE_BUOYANCY, 1 );
+// halfway linear deflection with timescale of 3 seconds
+llSetVehicleFloatParam( VEHICLE_LINEAR_DEFLECTION_EFFICIENCY, 0.5 );
+llSetVehicleFloatParam( VEHICLE_LINEAR_DEFLECTION_TIMESCALE, 3 );
+// angular deflection
+llSetVehicleFloatParam( VEHICLE_ANGULAR_DEFLECTION_EFFICIENCY, 0.5 );
+llSetVehicleFloatParam( VEHICLE_ANGULAR_DEFLECTION_TIMESCALE, 5 );
+// somewhat bounscy vertical attractor
+llSetVehicleFloatParam( VEHICLE_VERTICAL_ATTRACTION_EFFICIENCY, 0.5 );
+llSetVehicleFloatParam( VEHICLE_VERTICAL_ATTRACTION_TIMESCALE, 5 );
+// weak negative damped banking
+llSetVehicleFloatParam( VEHICLE_BANKING_EFFICIENCY, -0.3 );
+llSetVehicleFloatParam( VEHICLE_BANKING_MIX, 0.8 );
+llSetVehicleFloatParam( VEHICLE_BANKING_TIMESCALE, 1 );
+// default rotation of local frame
+llSetVehicleRotationParam( VEHICLE_REFERENCE_FRAME, <0, 0, 0, 1> );
+// remove these flags
+llRemoveVehicleFlags( VEHICLE_FLAG_HOVER_TERRAIN_ONLY
+    | VEHICLE_FLAG_LIMIT_ROLL_ONLY
+    | VEHICLE_FLAG_HOVER_GLOBAL_HEIGHT);
+// set these flags
+llSetVehicleFlags( VEHICLE_FLAG_NO_DEFLECTION_UP
+    | VEHICLE_FLAG_HOVER_WATER_ONLY
+    | VEHICLE_FLAG_HOVER_UP_ONLY
+    | VEHICLE_FLAG_LIMIT_MOTOR_UP );`} lang="lsl" /></div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Flags</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_TYPE_NONE" target="_blank">VEHICLE_TYPE_NONE</a></td>
+        <td>0</td>
+        <td>Turns off vehicle support</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_TYPE_SLED" target="_blank">VEHICLE_TYPE_SLED</a></td>
+        <td>1</td>
+        <td>Simple vehicle that bumps along the ground, and likes to move along its local x-axis</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_TYPE_CAR" target="_blank">VEHICLE_TYPE_CAR</a></td>
+        <td>2</td>
+        <td>Vehicle that bounces along the ground but needs the motors to be driven from external controls or <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a> events</td>
+      </tr>
+      <tr>
+        <td>VEHICLE_TYPE_BOAT</td>
+        <td>3</td>
+        <td>Hovers over water with lots of friction and some angular deflection</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_TYPE_AIRPLANE" target="_blank">VEHICLE_TYPE_AIRPLANE</a></td>
+        <td>4</td>
+        <td>Uses linear deflection for lift, no hover, and banking to turn</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_TYPE_BALLOON" target="_blank">VEHICLE_TYPE_BALLOON</a></td>
+        <td>5</td>
+        <td>Hover, and friction, but no deflection</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetVehicleType" target="_blank">llSetVehicleType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=VEHICLE_TYPE_BOAT" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+VEHICLE_TYPE_BOAT = 3
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer VEHICLE_TYPE_BOAT = 3;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,140 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SensorRemove()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSensorRemove();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Removes the sensor setup by <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a>.</p>
+  <p>There are no parameters or return value for this function, as only one <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a> can be specified per script.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>sensor</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">30</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If called within the <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a> event then it also removes all of the sensor data that is accessed by the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">detection</a> functions.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>The following basic example shows an object that when touched starts scanning for avatars in 10m every 30 seconds, and stops as soon as at least one is found, and returns their name.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local x = #events
+    ll.SensorRepeat("", NULL_KEY, AGENT, 10.0, PI, 30.0)
+end
+
+function LLEvents.sensor(events)
+    local x = #events
+    ll.Say(0, ll.DetectedName(0) .. " was found first!")
+    ll.SensorRemove()
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default {
+    touch_start(integer x) {
+        llSensorRepeat("", NULL_KEY, AGENT, 10.0, PI, 30.0);
+    }
+ 
+    sensor(integer x) {
+        llSay(0, llDetectedName(0) + " was found first!");
+        llSensorRemove();
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a></td>
+        <td>–</td>
+        <td>Triggered when a sensor detects something</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a></td>
+        <td>–</td>
+        <td>Triggered when a sensor detects nothing</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a></td>
+        <td>–</td>
+        <td>Scans for agents or objects every time period</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a></td>
+        <td>–</td>
+        <td>Runs a sensor once</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+void
+ll.SensorRemove()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSensorRemove();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Call off the hounds.</p>
+<p>The quarry has escaped us.</p>
+<p>Back to the stables.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

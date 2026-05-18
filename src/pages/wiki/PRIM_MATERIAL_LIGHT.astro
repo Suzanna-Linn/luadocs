@@ -1,0 +1,195 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_MATERIAL_LIGHT: number = 7`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_MATERIAL_LIGHT = 7;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"">Deprecated:  use PRIM_FULLBRIGHT</p>
+      <p>  <p>The integer constant PRIM_MATERIAL_LIGHT has the value 7</p>
+  <p>This constant and it's underlying functionality is deprecated.</p>
+  <p>Light is no longer a prim property, it is now a face property. The same functionality is reproduced with `<a href="https://wiki.secondlife.com/wiki/PRIM_FULLBRIGHT" target="_blank"> [PRIM_FULLBRIGHT</a>, <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a>, <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> ]`</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PhysicsMaterialPreset</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-deprecated">Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This constant has been deprecated.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">PRIM_MATERIAL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>material Flags</th>
+        <th></th>
+        <th colspan="4">Description</th>
+        <th><a href="https://wiki.secondlife.com/w/index.php?title=FRICTION&action=edit&redlink=1" target="_blank">Friction</a></th>
+        <th><a href="https://wiki.secondlife.com/wiki/RESTITUTION" target="_blank">Restitution</a></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_STONE" target="_blank">PRIM_MATERIAL_STONE</a></td>
+        <td>0</td>
+        <td colspan="4">stone</td>
+        <td>0.8</td>
+        <td>0.4</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_METAL" target="_blank">PRIM_MATERIAL_METAL</a></td>
+        <td>1</td>
+        <td colspan="4">metal</td>
+        <td>0.3</td>
+        <td>0.4</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_GLASS" target="_blank">PRIM_MATERIAL_GLASS</a></td>
+        <td>2</td>
+        <td colspan="4">glass</td>
+        <td>0.2</td>
+        <td>0.7</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_WOOD" target="_blank">PRIM_MATERIAL_WOOD</a></td>
+        <td>3</td>
+        <td colspan="4">wood</td>
+        <td>0.6</td>
+        <td>0.5</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_FLESH" target="_blank">PRIM_MATERIAL_FLESH</a></td>
+        <td>4</td>
+        <td colspan="4">flesh</td>
+        <td>0.9</td>
+        <td>0.3</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_PLASTIC" target="_blank">PRIM_MATERIAL_PLASTIC</a></td>
+        <td>5</td>
+        <td colspan="4">plastic</td>
+        <td>0.4</td>
+        <td>0.7</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_RUBBER" target="_blank">PRIM_MATERIAL_RUBBER</a></td>
+        <td>6</td>
+        <td colspan="4">rubber</td>
+        <td>0.9</td>
+        <td>0.9</td>
+      </tr>
+      <tr>
+        <td>PRIM_MATERIAL_LIGHT</td>
+        <td>7</td>
+        <td colspan="6">light, <b>DEPRECATED</b>: Looks the same as <a href="https://wiki.secondlife.com/wiki/PRIM_FULLBRIGHT" target="_blank"> [PRIM_FULLBRIGHT</a>, <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a>, <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> ]</td>
+        <td>0.6</td>
+        <td>0.5</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_POINT_LIGHT" target="_blank">PRIM_POINT_LIGHT</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Lighting in SL has had a complex history , for a long time SL had software lighting but it was a major bottle neck for SL rendering. It was with the 2.0 rendering engine that LL dropped software lighting and introduced <a href="https://wiki.secondlife.com/wiki/PRIM_FULLBRIGHT" target="_blank">FullBright</a>, most applications of lighting at that time were to make prims fullbright (lighting causes colors to dull). Later on lighting was reintroduced this time as hardware lighting.</p>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_MATERIAL_LIGHT" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_MATERIAL_LIGHT = 7
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_MATERIAL_LIGHT = 7;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

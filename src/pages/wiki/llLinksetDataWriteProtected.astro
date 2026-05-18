@@ -1,0 +1,647 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LinksetDataWriteProtected(name: string, value: string, pass: string): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llLinksetDataWriteProtected(string name, string value, string pass);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Creates or updates an unprotected <b>name:value</b> pair from the linkset's datastore.</p>
+  <p>Returns an integer success or failure code.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>The key of the <b>name:value</b> pair in the datastore to be updated or created.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>value</td>
+          <td>The <b>value</b> of the <b>name:value</b> pair.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>pass</td>
+          <td>Pass phrase to access protected data.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>linkset</li>
+        <li>linkset_data</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">658</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Untitled Section</h2>
+  <h3>llLinksetDataWriteProtected</h3>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Functions" target="_blank">Function</a>: <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> </b>llLinksetDataWriteProtected<b>( <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> name, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> value, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> pass );</b></p>
+  <p>Creates or updates a protected <b>name:value</b> pair from the linkset's datastore. Further attempts to read, write or update the <b>name:value</b> pair must use the protected versions of those functions and must supply the same string that was used in <b>pass</b>.</p>
+  <p>Returns an integer success or failure code.</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• string</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+        <td>–</td>
+        <td>The key of the <b>name:value</b> pair in the datastore to be updated or created.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• string</td>
+        <td>value</td>
+        <td>–</td>
+        <td>The <b>value</b> of the <b>name:value</b> pair.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• string</td>
+        <td>pass</td>
+        <td>–</td>
+        <td>A pass phrase used to protect the <b>name:value</b> pair.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Caveats</p>
+  <ul>
+    <li>Protecting a <b>name:value</b> pair adds an additional 32 bytes to its size in the datastore regardless of the length of <b>pass</b>. The length of <b>pass</b> itself is not counted against the data storage limit.</li>
+    <li>When writing a protected name, the <a href="https://wiki.secondlife.com/wiki/Linkset_data" target="_blank">linkset_data</a> event fires as normal, however the value parameter will be an empty string.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_OK&action=edit&redlink=1" target="_blank">LINKSETDATA_OK</a></td>
+        <td>0</td>
+        <td>The <b>name:value</b> pair was written to the datastore.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_EMEMORY&action=edit&redlink=1" target="_blank">LINKSETDATA_EMEMORY</a></td>
+        <td>1</td>
+        <td>A <b>name:value</b> pair was too large to write to the linkset datastore.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_ENOKEY&action=edit&redlink=1" target="_blank">LINKSETDATA_ENOKEY</a></td>
+        <td>2</td>
+        <td>The name supplied to llLinksetDataWrite was empty.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_EPROTECTED&action=edit&redlink=1" target="_blank">LINKSETDATA_EPROTECTED</a></td>
+        <td>3</td>
+        <td>The <b>name:value</b> pair has been protected from overwrite in the linkset's datastore.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_NOTFOUND&action=edit&redlink=1" target="_blank">LINKSETDATA_NOTFOUND</a></td>
+        <td>4</td>
+        <td>The named key could not be found in the linkset's datastore when attempting to delete it.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_NOUPDATE&action=edit&redlink=1" target="_blank">LINKSETDATA_NOUPDATE</a></td>
+        <td>5</td>
+        <td>The <b>name:value</b> stored in the linkset was not changed by the write operation because the value stored matches the value written.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Events are only fired if the linkset's datastore is changed.
+    <ul>
+      <li>Rewriting an existing value to a <b>name:value</b> pair returns LINKSETDATA_NOUPDATE.</li>
+      <li>Writing an empty string to a nonexistent name in the datastore returns LINKSETDATA_NOTFOUND.</li>
+    </ul>
+  
+    </li>
+    <li>There is currently no way to write to or read from a linkset datastore from another linkset.</li>
+    <li>The datastore is accessible from the entire linkset but acts as a property of the root prim alone. Therefore, linking and unlinking prims produces the following results:
+    <ul>
+      <li>When linking one linkset to another linkset, the combined linkset datastore includes all pairs from both datastores.
+      <ul>
+        <li>If any pairs have conflicting <b>name</b>s, the combined linkset datastore will keep the pair from the original linkset and will silently drop conflicting pairs from newly added prim(s).</li>
+        <li>If the combined linkset datastore would exceed 131072 bytes, pairs from the newly linked prim(s) will be added to the combined linkset datastore up to the limit. It is not currently clear in what order pairs are added, so there is no way to predict which will be dropped.</li>
+      </ul>
+    
+      </li>
+      <li>When unlinking a child prim from a linkset, the datastore remains in the original linkset and the child prim (now its own root prim) has an empty datastore.
+      <ul>
+        <li>If the datastore is too large to cache in a script to be rewritten after unlinking, you may need to devise a custom method of porting the datastore from the original linkset to the child prim, if necessary.</li>
+      </ul>
+    
+      </li>
+      <li>When unlinking a root prim from a linkset, the datastore remains in the newly-unlinked root prim and the remaining prims in the original linkset have an empty datastore.</li>
+    </ul>
+  
+    </li>
+    <li>There is no limit on the size of <b>value</b> aside from the total datastore limit, so care should be taken when writing very large values that could crash other scripts in the linkset via <a href="https://wiki.secondlife.com/wiki/Linkset_data" target="_blank">linkset_data</a>.
+    <ul>
+      <li>If a script does not define a <a href="https://wiki.secondlife.com/wiki/Linkset_data" target="_blank">linkset_data</a> event, it will not load any event parameters into its memory when the datastore is written to, so the script should not crash from another script in the linkset writing to the datastore.</li>
+      <li>If this is a possible risk, consider using <b>llLinksetDataWriteProtected</b>, which does not send <b>value</b> in <a href="https://wiki.secondlife.com/wiki/Linkset_data" target="_blank">linkset_data</a>, with a static <b>pass</b>.</li>
+    </ul>
+  
+    </li>
+    <li>It is possible for data to be rolled back to a previous state if the datastore is stored in an object that is restored via a simulator rollback, or in an attachment that is not properly saved back to the server on logout.
+    <ul>
+      <li>Viewer crashes can cause attachment states to not be saved, so care should be taken when using these functions in attachments, because datastore rollbacks are likely to occur on occasion for attachments.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local num_detected = #events
+    ll.LinksetDataWrite("test-name", "See you on the other side!")
+    ll.ResetScript()
+end
+local function main()
+    ll.OwnerSay(ll.LinksetDataRead("test-name"))  -- Should print "See you on the other side!" to the owner
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        llLinksetDataWrite("test-name", "See you on the other side!");
+        llResetScript();
+    }
+    state_entry()
+    {
+        llOwnerSay(llLinksetDataRead("test-name")); // Should print "See you on the other side!" to the owner
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <h3>Securing Against Tampering</h3>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- While there is no "standard" for names, it's a good idea to take some steps to prevent against other scripts accidentally overwriting your data.
+-- Since the datastore is shared among the entire linkset, one way to avoid name conflicts is to include the prim's UUID in the data pair's name.
+-- This example also monitors for llLinksetDataReset/unlinks and refreshes the datastore in response, which is usually good practice if you want to keep your data!
+
+local this_uuid = NULL_KEY
+local lsd_data = ""
+
+local function main()
+    this_uuid = ll.GetKey()  -- Save the current key into this_uuid for checking later
+    lsd_data = "bar"  -- Store the data locally so it can be rewritten if the datastore gets erased for whatever reason
+    ll.LinksetDataWrite(tostring(ll.GetKey()) .. "-foo", lsd_data)  -- Write the data
+end
+function LLEvents.on_rez(start_param)
+    if ll.GetKey() ~= this_uuid then
+        -- Prim UUID has changed!
+        -- This should always be the case when on_rez is called, but is included here for clarity.
+        ll.LinksetDataWrite(tostring(ll.GetKey()) .. "-foo", ll.LinksetDataRead(tostring(this_uuid) .. "-foo"))  -- Read the data from the last prim UUID's pair and write it into this prim UUID's pair
+        -- Note that you could also just write the lsd_data string instead of calling llLinksetDataRead, but this method is theoretically a little more robust if you expect other scripts to manipulate the data.
+        ll.LinksetDataDelete(tostring(this_uuid) .. "-foo")  -- Erase the original data to free up memory
+        this_uuid = ll.GetKey()  -- Update the UUID variable to the new UUID
+    end
+end
+function LLEvents.linkset_data(action, name, value)
+    if action == LINKSETDATA_UPDATE or action == LINKSETDATA_DELETE then
+        if name == tostring(ll.GetKey()) .. "-foo" then
+            -- Somebody else wrote to our pair - we'll just save it in case we need it later, but you could re-write the original data instead if desired.
+            lsd_data = value  -- Note that in the case of LINKSETDATA_DELETE, value will be an empty string (""), which may or may not be how you want to handle that case
+        end
+    elseif action == LINKSETDATA_RESET then
+        -- Linkset datastore has been reset!
+        ll.LinksetDataWrite(tostring(ll.GetKey()) .. "-foo", lsd_data)  -- Write the lsd_data string into this prim UUID's pair - in this case we can't use llLinksetDataRead because the datastore is empty
+    end
+end
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_LINK) then
+        -- Linkset has changed!
+        -- Generally, this can happen for a few reasons (see Caveats above), including when an avatar sits on the object. In certain circumstances, this resets the datastore.
+        -- However, since the linkset data functions are very quick, it is easier to just write the data on every change to be safe for this example whether or not the datastore was reset.
+        ll.LinksetDataWrite(tostring(ll.GetKey()) .. "-foo", lsd_data)  -- Write the lsd_data string into this prim UUID's pair - in this case we can't use llLinksetDataRead because the datastore might be empty
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// While there is no "standard" for names, it's a good idea to take some steps to prevent against other scripts accidentally overwriting your data.
+// Since the datastore is shared among the entire linkset, one way to avoid name conflicts is to include the prim's UUID in the data pair's name.
+// This example also monitors for llLinksetDataReset/unlinks and refreshes the datastore in response, which is usually good practice if you want to keep your data!
+
+key this_uuid;
+string lsd_data;
+
+default
+{
+    state_entry()
+    {
+        this_uuid = llGetKey(); // Save the current key into this_uuid for checking later
+        lsd_data = "bar"; // Store the data locally so it can be rewritten if the datastore gets erased for whatever reason
+        llLinksetDataWrite((string)llGetKey() + "-foo", lsd_data); // Write the data
+    }
+    on_rez(integer start_param)
+    {
+        if (llGetKey() != this_uuid)
+        {
+            // Prim UUID has changed!
+            // This should always be the case when on_rez is called, but is included here for clarity.
+            llLinksetDataWrite((string)llGetKey() + "-foo", llLinksetDataRead((string)this_uuid + "-foo")); // Read the data from the last prim UUID's pair and write it into this prim UUID's pair
+            // Note that you could also just write the lsd_data string instead of calling llLinksetDataRead, but this method is theoretically a little more robust if you expect other scripts to manipulate the data.
+            llLinksetDataDelete((string)this_uuid + "-foo"); // Erase the original data to free up memory
+            this_uuid = llGetKey(); // Update the UUID variable to the new UUID
+        }
+    }
+    linkset_data(integer action, string name, string value)
+    {
+        if (action == LINKSETDATA_UPDATE || action == LINKSETDATA_DELETE)
+        {
+            if (name == (string)llGetKey() + "-foo")
+            {
+                // Somebody else wrote to our pair - we'll just save it in case we need it later, but you could re-write the original data instead if desired.
+                lsd_data = value; // Note that in the case of LINKSETDATA_DELETE, value will be an empty string (""), which may or may not be how you want to handle that case
+            }
+        }
+        else if (action == LINKSETDATA_RESET) 
+        {
+            // Linkset datastore has been reset!
+            llLinksetDataWrite((string)llGetKey() + "-foo", lsd_data); // Write the lsd_data string into this prim UUID's pair - in this case we can't use llLinksetDataRead because the datastore is empty
+        }
+    }
+    changed(integer change)
+    {
+        if (change & CHANGED_LINK)
+        {
+            // Linkset has changed!
+            // Generally, this can happen for a few reasons (see Caveats above), including when an avatar sits on the object. In certain circumstances, this resets the datastore.
+            // However, since the linkset data functions are very quick, it is easier to just write the data on every change to be safe for this example whether or not the datastore was reset.
+            llLinksetDataWrite((string)llGetKey() + "-foo", lsd_data); // Write the lsd_data string into this prim UUID's pair - in this case we can't use llLinksetDataRead because the datastore might be empty
+        }
+    }
+}`} lang="lsl" /></div>
+  <h3>Simple blacklist management</h3>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+local gDialogChannel = 0
+local gDialogHandle = 0
+local gManagingBlocks = 0
+
+local function startDialog(person)
+    gManagingBlocks = 0
+    gDialogHandle = ll.Listen(gDialogChannel, "", person, "")
+    ll.Dialog(person, "\nSelect action", {"List blocks", "Add block", "Remove block"}, gDialogChannel)
+    ll.SetTimerEvent(60)
+end
+
+local function stopDialog()
+    ll.SetTimerEvent(0)
+    ll.ListenRemove(gDialogHandle)
+end
+
+function LLEvents.on_rez(sp)
+    ll.ResetScript()
+end
+
+local function main()
+    gDialogChannel = integer(ll.Frand(-10000000) - 10000000)
+    ll.Listen(PUBLIC_CHANNEL, "", NULL_KEY, "")
+end
+
+function LLEvents.timer()
+    stopDialog()
+end
+
+function LLEvents.touch_start(events)
+    local nd = #events
+    local toucherKey = ll.DetectedKey(0)
+    if toucherKey == ll.GetOwner() then
+        startDialog(toucherKey)
+    end
+end
+
+function LLEvents.listen(channel, name, id, message)
+
+    if ll.GetAgentSize(id) == ZERO_VECTOR then
+        return
+    end
+
+    if channel == gDialogChannel then
+        stopDialog()
+        if gManagingBlocks ~= 0 then
+            message = ll.StringTrim(message, STRING_TRIM)
+            if (uuid(message)).istruthy then
+                if gManagingBlocks == 1 then
+                    ll.OwnerSay("Addition request has been sent to the blacklist storage")
+                    ll.LinksetDataWrite("blocklist:" .. message, "1")
+                else
+                    ll.OwnerSay("Removal request has been sent to the blacklist storage.")
+                    ll.LinksetDataDelete("blocklist:" .. message)
+                end
+            else
+                ll.OwnerSay("The UUID '" .. message .. "' appears to be invalid.")
+            end
+            startDialog(id)
+        elseif message == "List blocks" then
+            local blocks = ll.LinksetDataFindKeys("^blocklist:", 0, 0)
+            local listLength = #blocks
+            ll.OwnerSay("Blacklist items: " .. tostring(listLength))
+            local i = 0
+            while i < listLength do
+                local record = ll.GetSubString(ll.List2String(blocks, i), 10, -1)
+                ll.OwnerSay("- secondlife:///app/agent/" .. record .. "/about" .. " - " .. record)
+                i += 1
+            end
+            blocks = {}
+            startDialog(id)
+        elseif message == "Add block" or message == "Remove block" then
+            local label = "add to"
+            gManagingBlocks = 1
+            if message == "Remove block" then
+                gManagingBlocks = 2
+                label = "remove from"
+            end
+            gDialogHandle = ll.Listen(gDialogChannel, "", id, "")
+            ll.TextBox(id, "\nPlease specify one single avatar UUID you'd like to " .. label .. " the blacklist storage.", gDialogChannel)
+            ll.SetTimerEvent(60)
+        end
+        return
+    end
+
+    if #ll.LinksetDataFindKeys("blocklist:" .. tostring(id), 0, 1) > 0 then
+        ll.RegionSayTo(id, 0, "You're blacklisted.")
+        return
+    end
+
+    ll.RegionSayTo(id, 0, "Hello there, secondlife:///app/agent/" .. tostring(id) .. "/about - your message: " .. message)
+
+end
+
+function LLEvents.linkset_data(action, name, value)
+    if action == LINKSETDATA_RESET or action == LINKSETDATA_DELETE or action == LINKSETDATA_UPDATE then
+        ll.OwnerSay("Blacklist storage modified.")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer gDialogChannel;
+integer gDialogHandle;
+integer gManagingBlocks;
+
+startDialog(key person)
+{
+    gManagingBlocks = 0;
+    gDialogHandle = llListen(gDialogChannel, "", person, "");
+    llDialog(person, "\nSelect action", ["List blocks", "Add block", "Remove block"], gDialogChannel);
+    llSetTimerEvent(60);
+}
+
+stopDialog()
+{
+    llSetTimerEvent(0);
+    llListenRemove(gDialogHandle);
+}
+
+default
+{
+
+    on_rez(integer sp)
+    {
+        llResetScript();
+    }
+
+    state_entry()
+    {
+        gDialogChannel = (integer)(llFrand(-10000000)-10000000);
+        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");;
+    }
+
+    timer()
+    {
+        stopDialog();
+    }
+
+    touch_start(integer nd)
+    {
+        key toucherKey = llDetectedKey(0);
+        if (toucherKey == llGetOwner())
+        {
+            startDialog(toucherKey);
+        }
+    }
+
+    listen(integer channel, string name, key id, string message)
+    {
+
+        if (llGetAgentSize(id) == ZERO_VECTOR)
+        {
+            return;
+        }
+
+        if (channel == gDialogChannel)
+        {
+            stopDialog();
+            if (gManagingBlocks)
+            {
+                message = llStringTrim(message, STRING_TRIM);
+                if ((key)message)
+                {
+                    if (gManagingBlocks == 1)
+                    {
+                        llOwnerSay("Addition request has been sent to the blacklist storage");
+                        llLinksetDataWrite("blocklist:" + message, "1");
+                    }
+                    else
+                    {
+                        llOwnerSay("Removal request has been sent to the blacklist storage.");
+                        llLinksetDataDelete("blocklist:" + message);
+                    }
+                }
+                else
+                {
+                    llOwnerSay("The UUID '" + message + "' appears to be invalid.");
+                }
+                startDialog(id);
+            }
+            else if (message == "List blocks")
+            {
+                list blocks = llLinksetDataFindKeys("^blocklist:", 0, 0);
+                integer listLength = llGetListLength(blocks);
+                llOwnerSay("Blacklist items: " + (string)listLength);
+                integer i;
+                while (i < listLength)
+                {
+                    string record = llGetSubString(llList2String(blocks, i), 10, -1);
+                    llOwnerSay("- secondlife:///app/agent/" + record + "/about" + " - " + record);
+                    ++i;
+                }
+                blocks = [];
+                startDialog(id);
+            }
+            else if (message == "Add block" || message == "Remove block")
+            {
+                string label = "add to";
+                gManagingBlocks = 1;
+                if (message == "Remove block")
+                {
+                    gManagingBlocks = 2;
+                    label = "remove from";
+                }
+                gDialogHandle = llListen(gDialogChannel, "", id, "");
+                llTextBox(id, "\nPlease specify one single avatar UUID you'd like to " + label + " the blacklist storage.", gDialogChannel);
+                llSetTimerEvent(60);
+            }
+            return;
+        }
+
+        if (llGetListLength(llLinksetDataFindKeys("blocklist:" + (string)id, 0, 1)) > 0)
+        {
+            llRegionSayTo(id, 0, "You're blacklisted.");
+            return;
+        }
+
+        llRegionSayTo(id, 0, "Hello there, secondlife:///app/agent/" + (string)id + "/about - your message: " + message);
+
+    }
+
+    linkset_data(integer action, string name, string value)
+    {
+        if (action == LINKSETDATA_RESET || action == LINKSETDATA_DELETE || action == LINKSETDATA_UPDATE)
+        {
+            llOwnerSay("Blacklist storage modified.");
+        }
+    }
+
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>Linkset datastore operations are synchronous and are usually processed within one server frame. Therefore, it is possible to synchronize variables between multiple scripts using the datastore alone without resorting to <a href="https://wiki.secondlife.com/wiki/LlMessageLinked" target="_blank">llMessageLinked</a>, or to use the datastore directly as extended memory for specific workloads that need to work with extremely large datasets.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Linkset_data" target="_blank">linkset_data</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataAvailable" target="_blank">llLinksetDataAvailable</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataCountKeys" target="_blank">llLinksetDataCountKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDelete" target="_blank">llLinksetDataDelete</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDeleteProtected" target="_blank">llLinksetDataDeleteProtected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDeleteFound" target="_blank">llLinksetDataDeleteFound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataFindKeys" target="_blank">llLinksetDataFindKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataListKeys" target="_blank">llLinksetDataListKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataRead" target="_blank">llLinksetDataRead</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataReadProtected" target="_blank">llLinksetDataReadProtected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataReset" target="_blank">llLinksetDataReset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llLinksetDataWrite( string name, string value );
+function integer llLinksetDataWriteProtected( string name, string value, string pass );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

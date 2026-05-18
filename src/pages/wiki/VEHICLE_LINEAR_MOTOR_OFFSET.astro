@@ -1,0 +1,86 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`VEHICLE_LINEAR_MOTOR_OFFSET: number = 20`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer VEHICLE_LINEAR_MOTOR_OFFSET = 20;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant VEHICLE_LINEAR_MOTOR_OFFSET has the value 20</p>
+  <p>Used with <a href="https://wiki.secondlife.com/wiki/LlSetVehicleVectorParam" target="_blank">llSetVehicleVectorParam</a> to set the offset for where the linear motor is to be applied from the vehicle's <a href="https://wiki.secondlife.com/wiki/LlGetCenterOfMass" target="_blank">center of mass</a>.</p>
+  <p>If the vehicle does not set the VEHICLE_LINEAR_MOTOR_OFFSET, then it defaults to <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank"><0.0, 0.0, 0.0></a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>VehicleVectorParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetVehicleVectorParam" target="_blank">llSetVehicleVectorParam</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Linden_Vehicle_Tutorial" target="_blank">Linden Vehicle Tutorial</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Notes</h2>
+  <p>This could be useful in vehicles where the source of thrust is important, such as a rocket or an air ship. Most vehicles do not need to change this value from the default.</p>
+  <p>In rockets using this offset gives that very distinctive spiraling out of control.</p>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=VEHICLE_LINEAR_MOTOR_OFFSET" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+VEHICLE_LINEAR_MOTOR_OFFSET = 20
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer VEHICLE_LINEAR_MOTOR_OFFSET = 20;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

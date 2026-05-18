@@ -1,0 +1,16 @@
+---
+import { Code } from 'astro:components';
+
+import lsl from '/src/grammars/lsl.tmLanguage.json';
+import slua from '/src/grammars/slua.tmLanguage.json';
+
+const { code, lang } = Astro.props;
+
+const resolvedLang = lang === 'lsl' ? lsl : lang === 'slua' ? slua : lang;
+---
+
+<Code 
+    code={code} 
+    lang={resolvedLang} 
+    themes={{ light: 'github-light', dark: 'github-dark' }}
+/>

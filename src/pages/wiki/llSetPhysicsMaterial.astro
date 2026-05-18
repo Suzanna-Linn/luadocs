@@ -1,0 +1,264 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetPhysicsMaterial(MaterialBits: number, GravityMultiplier: number, Restitution: number, Friction: number, Density: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetPhysicsMaterial(integer MaterialBits, float GravityMultiplier, float Restitution, float Friction, float Density);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Used to set the physical characteristics of an object.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>MaterialBits / mask</td>
+          <td>bitwise combination of <a href="https://wiki.secondlife.com/w/index.php?title=DENSITY&action=edit&redlink=1" target="_blank">DENSITY</a>, <a href="https://wiki.secondlife.com/w/index.php?title=FRICTION&action=edit&redlink=1" target="_blank">FRICTION</a>, <a href="https://wiki.secondlife.com/wiki/RESTITUTION" target="_blank">RESTITUTION</a>, and <a href="https://wiki.secondlife.com/wiki/GRAVITY_MULTIPLIER" target="_blank">GRAVITY_MULTIPLIER</a> and specifies which floats to actually apply</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>GravityMultiplier / gravity_multiplier</td>
+          <td>range [-1.0, +28.0], default: 1.0</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Restitution / restitution</td>
+          <td>range [0.0, 1.0], default: [0.3, 0.9] [[1]](#footnote_1)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Friction / friction</td>
+          <td>range [0.0, 255.0], default: [0.2, 0.9][[1]](#footnote_1)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Density / density</td>
+          <td>range [1.0, 22587.0] <a href="https://wiki.secondlife.com/wiki/LlGetMassMKS" target="_blank">kg</a>/m^3, default: 1000.0</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>physics</li>
+        <li>prim</li>
+        <li>prim_properties</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">380</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The default values for <b>friction</b> and <b>restitution</b> depend upon the <a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">material type</a>.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>mask</b> Flags</th>
+        <th>V</th>
+        <th colspan="6">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=DENSITY&action=edit&redlink=1" target="_blank">DENSITY</a></td>
+        <td>1</td>
+        <td colspan="6">Indicates that <b>density</b> parameter is enabled and will override the previous value.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=FRICTION&action=edit&redlink=1" target="_blank">FRICTION</a></td>
+        <td>2</td>
+        <td colspan="6">Indicates that <b>friction</b> parameter is enabled and will override the previous value.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/RESTITUTION" target="_blank">RESTITUTION</a></td>
+        <td>4</td>
+        <td colspan="6">Indicates that <b>restitution</b> parameter is enabled and will override the previous value.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/GRAVITY_MULTIPLIER" target="_blank">GRAVITY_MULTIPLIER</a></td>
+        <td>8</td>
+        <td colspan="6">Indicates that <b>gravity_multiplier</b> parameter is enabled and will override the previous value.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>A collision between two objects with <b>restitution</b> 1.0 will still not be perfectly elastic due to damping in the physics engine.</li>
+    <li>Using <a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">PRIM_MATERIAL</a> to set the material type will reset the values for <b>friction</b> and <b>restitution</b> to that material's defaults.</li>
+    <li>llSetPhysicsMaterial silently fails if called from an attachment.</li>
+  </ul>
+  <h2>Examples</h2>
+  <ul>
+    <li>Basic Example</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetPhysicsMaterial(FRICTION, 1.0, 0.9, 0.1, 0.5)  -- Sets FRICTION to 0.1`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetPhysicsMaterial(FRICTION, 1.0,0.9,0.1,0.5); // Sets FRICTION to 0.1`} lang="lsl" /></div>
+  <ul>
+    <li>Multiple Settings</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetPhysicsMaterial(bit32.bor(GRAVITY_MULTIPLIER, RESTITUTION, FRICTION, DENSITY), 0.5, 0.9, 0.1, 1.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetPhysicsMaterial(GRAVITY_MULTIPLIER | RESTITUTION | FRICTION | DENSITY, 0.5,0.9,0.1,1.0);`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">PRIM_MATERIAL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPhysicsMaterial" target="_blank">llGetPhysicsMaterial</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetBuoyancy" target="_blank">llSetBuoyancy</a></td>
+        <td>–</td>
+        <td>Set how gravity interacts with an object. Works in attachments (changes are applied to the avatar).</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Material Defaults</h3>
+  <p>Using <a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">PRIM_MATERIAL</a> changes the the values for friction and restitution to the values listed for the material type.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>material Flags</th>
+        <th></th>
+        <th colspan="4">Description</th>
+        <th><a href="https://wiki.secondlife.com/w/index.php?title=FRICTION&action=edit&redlink=1" target="_blank">Friction</a></th>
+        <th><a href="https://wiki.secondlife.com/wiki/RESTITUTION" target="_blank">Restitution</a></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_STONE" target="_blank">PRIM_MATERIAL_STONE</a></td>
+        <td>0</td>
+        <td colspan="4">stone</td>
+        <td>0.8</td>
+        <td>0.4</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_METAL" target="_blank">PRIM_MATERIAL_METAL</a></td>
+        <td>1</td>
+        <td colspan="4">metal</td>
+        <td>0.3</td>
+        <td>0.4</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_GLASS" target="_blank">PRIM_MATERIAL_GLASS</a></td>
+        <td>2</td>
+        <td colspan="4">glass</td>
+        <td>0.2</td>
+        <td>0.7</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_WOOD" target="_blank">PRIM_MATERIAL_WOOD</a></td>
+        <td>3</td>
+        <td colspan="4">wood</td>
+        <td>0.6</td>
+        <td>0.5</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_FLESH" target="_blank">PRIM_MATERIAL_FLESH</a></td>
+        <td>4</td>
+        <td colspan="4">flesh</td>
+        <td>0.9</td>
+        <td>0.3</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_PLASTIC" target="_blank">PRIM_MATERIAL_PLASTIC</a></td>
+        <td>5</td>
+        <td colspan="4">plastic</td>
+        <td>0.4</td>
+        <td>0.7</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_RUBBER" target="_blank">PRIM_MATERIAL_RUBBER</a></td>
+        <td>6</td>
+        <td colspan="4">rubber</td>
+        <td>0.9</td>
+        <td>0.9</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_LIGHT" target="_blank">PRIM_MATERIAL_LIGHT</a></td>
+        <td>7</td>
+        <td colspan="6">light, <b>DEPRECATED</b>: Looks the same as <a href="https://wiki.secondlife.com/wiki/PRIM_FULLBRIGHT" target="_blank"> [PRIM_FULLBRIGHT</a>, <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a>, <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> ]</td>
+        <td>0.6</td>
+        <td>0.5</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>llSetPhysicsMaterial cannot use these flags.</p>
+  <p>History</p>
+  <ul>
+    <li>Content taken from <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.09.23.241511" target="_blank">Release Notes/Second Life Server/11#11.09.23.241511</a>**</li>
+    <li>Documentation expanded with information from <a href="https://wiki.secondlife.com/wiki/Physics_Material_Settings_test" target="_blank">Physics Material Settings test</a>.</li>
+  </ul>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.09.23.241511" target="_blank"> 23/09/2011 </a></p>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Physics_Material_Settings_test" target="_blank">Physics Material Settings test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The default values for friction and restitution depend upon the prim's <a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">material</a>.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetPhysicsMaterial( integer mask, float gravity_multiplier, float restitution, float friction, float density );
+integer DENSITY = 1;//range 1.0 to 22587.0 (in kg/m^3), default: 1000.0
+integer FRICTION = 2;//range 0.0 to 255.0, default values are in the range 0.2 to 0.9
+integer RESTITUTION = 4;//range 0.0 to 1.0, default values are in the range 0.3 to 0.9 (note, a collision between two objects with restitution 1.0 will still not be perfectly elastic due to damping in the physics engine)
+integer GRAVITY_MULTIPLIER = 8;//range -1.0 to +28.0, default: 1.0
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

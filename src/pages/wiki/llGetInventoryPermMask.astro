@@ -1,0 +1,423 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetInventoryPermMask(InventoryItem: string, BitMask: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetInventoryPermMask(string InventoryItem, integer BitMask);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_field" target="_blank">bit field</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) of the requested permission <b>category</b> for the inventory <b>item</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InventoryItem / item</td>
+          <td>an item in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>BitMask / category</td>
+          <td>MASK_* flag</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">289</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Category</b></th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_BASE" target="_blank">MASK_BASE</a></td>
+        <td>0</td>
+        <td>The base permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_OWNER" target="_blank">MASK_OWNER</a></td>
+        <td>1</td>
+        <td>Current owner permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_GROUP" target="_blank">MASK_GROUP</a></td>
+        <td>2</td>
+        <td>Active group permissions.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_EVERYONE" target="_blank">MASK_EVERYONE</a></td>
+        <td>3</td>
+        <td>Permissions everyone has.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/MASK_NEXT" target="_blank">MASK_NEXT</a></td>
+        <td>4</td>
+        <td>Permissions the next owner will have.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=MASK_COMBINED&action=edit&redlink=1" target="_blank">MASK_COMBINED</a></td>
+        <td>16</td>
+        <td><p>Include object inventory contents when calculating perms.</p>
+<p>Combine with other mask flags, for instance MASK_OWNER|MASK_COMBINED</p></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_ALL" target="_blank">PERM_ALL</a></td>
+        <td>0x7FFFFFFF</td>
+        <td>Move/Modify/Copy/Transfer permissions</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_COPY" target="_blank">PERM_COPY</a></td>
+        <td>0x00008000</td>
+        <td>Copy permission</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_MODIFY" target="_blank">PERM_MODIFY</a></td>
+        <td>0x00004000</td>
+        <td>Modify permission</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_MOVE" target="_blank">PERM_MOVE</a></td>
+        <td>0x00080000</td>
+        <td>Move permission</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PERM_TRANSFER" target="_blank">PERM_TRANSFER</a></td>
+        <td>0x00002000</td>
+        <td>Transfer permission</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>item</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>Note that including the <a href="https://wiki.secondlife.com/w/index.php?title=MASK_COMBINED&action=edit&redlink=1" target="_blank">MASK_COMBINED</a> bit does not impact the output of this function, as the combined permissions are the only accessible permissions for inventory items.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`if ((permsYouHave & permsYouWant) == permsYouWant)
+    llSay(PUBLIC_CHANNEL, "You have the perms you want.");
+else
+    llSay(PUBLIC_CHANNEL, "You don't have the perms you want.");`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local ownerPerms = ll.GetInventoryPermMask("inventory item name goes here", MASK_OWNER)
+local copyAndModPerms = bit32.bor(PERM_COPY, PERM_MODIFY)
+
+if bit32.band(ownerPerms, copyAndModPerms) == copyAndModPerms then
+    ll.Say(PUBLIC_CHANNEL, "Owner has copy & modify perms.")
+else
+    ll.Say(PUBLIC_CHANNEL, "Owner does not have copy & modify perms.")
+end`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer ownerPerms = llGetInventoryPermMask("inventory item name goes here", MASK_OWNER);
+integer copyAndModPerms = PERM_COPY | PERM_MODIFY;
+
+if ((ownerPerms & copyAndModPerms) == copyAndModPerms)
+    llSay(PUBLIC_CHANNEL, "Owner has copy & modify perms.");
+else
+    llSay(PUBLIC_CHANNEL, "Owner does not have copy & modify perms.");`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function getPermsAsReadableString(perm)
+    local fullPerms = bit32.bor(PERM_COPY, PERM_MODIFY, PERM_TRANSFER)
+    local copyModPerms = bit32.bor(PERM_COPY, PERM_MODIFY)
+    local copyTransPerms = bit32.bor(PERM_COPY, PERM_TRANSFER)
+    local modTransPerms = bit32.bor(PERM_MODIFY, PERM_TRANSFER)
+
+    local output = " perms: "
+
+    if bit32.band(perm, fullPerms) == fullPerms then
+        output ..= "full"
+    elseif bit32.band(perm, copyModPerms) == copyModPerms then
+        output ..= "copy & modify"
+    elseif bit32.band(perm, copyTransPerms) == copyTransPerms then
+        output ..= "copy & transfer"
+    elseif bit32.band(perm, modTransPerms) == modTransPerms then
+        output ..= "modify & transfer"
+    elseif bit32.band(perm, PERM_COPY) == PERM_COPY then
+        output ..= "copy"
+    elseif bit32.band(perm, PERM_TRANSFER) == PERM_TRANSFER then
+        output ..= "transfer"
+    else
+        output ..= "none"
+    end
+
+    --  Remember, items in Second Life must have either
+    --  PERM_COPY or PERM_TRANSFER when "talking about"
+    --  owner perms or perms for next owner.
+
+    return output
+end
+
+local function main()
+    local inventoryItemName = "inventory item name goes here"
+
+    local basePerms = ll.GetInventoryPermMask(inventoryItemName, MASK_BASE)
+    local ownerPerms = ll.GetInventoryPermMask(inventoryItemName, MASK_OWNER)
+    local nextOwnerPerms = ll.GetInventoryPermMask(inventoryItemName, MASK_NEXT)
+    local groupPerms = ll.GetInventoryPermMask(inventoryItemName, MASK_GROUP)
+    local everyonePerms = ll.GetInventoryPermMask(inventoryItemName, MASK_EVERYONE)
+
+    ll.Say(0, "/me [" .. inventoryItemName .. "]: base" .. getPermsAsReadableString(basePerms))
+    ll.Say(0, "/me [" .. inventoryItemName .. "]: owner" .. getPermsAsReadableString(ownerPerms))
+    ll.Say(0, "/me [" .. inventoryItemName .. "]: next owner" .. getPermsAsReadableString(nextOwnerPerms))
+    ll.Say(0, "/me [" .. inventoryItemName .. "]: group" .. getPermsAsReadableString(groupPerms))
+    ll.Say(0, "/me [" .. inventoryItemName .. "]: everyone" .. getPermsAsReadableString(everyonePerms))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string getPermsAsReadableString(integer perm)
+{
+    integer fullPerms = PERM_COPY | PERM_MODIFY | PERM_TRANSFER;
+    integer copyModPerms = PERM_COPY | PERM_MODIFY;
+    integer copyTransPerms = PERM_COPY | PERM_TRANSFER;
+    integer modTransPerms = PERM_MODIFY | PERM_TRANSFER;
+ 
+    string output = " perms: ";
+
+    if ((perm & fullPerms) == fullPerms)
+        output += "full";
+    else if ((perm & copyModPerms) == copyModPerms)
+        output += "copy & modify";
+    else if ((perm & copyTransPerms) == copyTransPerms)
+        output += "copy & transfer";
+    else if ((perm & modTransPerms) == modTransPerms)
+        output += "modify & transfer";
+    else if ((perm & PERM_COPY) == PERM_COPY)
+        output += "copy";
+    else if ((perm & PERM_TRANSFER) == PERM_TRANSFER)
+        output += "transfer";
+    else
+        output += "none";
+
+    //  Remember, items in Second Life must have either
+    //  PERM_COPY or PERM_TRANSFER when "talking about"
+    //  owner perms or perms for next owner.
+
+    return  output;
+}
+
+default
+{
+    state_entry()
+    {
+        string inventoryItemName = "inventory item name goes here";
+
+        integer basePerms      = llGetInventoryPermMask(inventoryItemName, MASK_BASE);
+        integer ownerPerms     = llGetInventoryPermMask(inventoryItemName, MASK_OWNER);
+        integer nextOwnerPerms = llGetInventoryPermMask(inventoryItemName, MASK_NEXT);
+        integer groupPerms     = llGetInventoryPermMask(inventoryItemName, MASK_GROUP);
+        integer everyonePerms  = llGetInventoryPermMask(inventoryItemName, MASK_EVERYONE);
+
+        llSay(0, "/me [" + inventoryItemName
+            + "]: base" + getPermsAsReadableString(basePerms));
+        llSay(0, "/me [" + inventoryItemName
+            + "]: owner" + getPermsAsReadableString(ownerPerms));
+        llSay(0, "/me [" + inventoryItemName
+            + "]: next owner" + getPermsAsReadableString(nextOwnerPerms));
+        llSay(0, "/me [" + inventoryItemName
+            + "]: group" + getPermsAsReadableString(groupPerms));
+        llSay(0, "/me [" + inventoryItemName
+            + "]: everyone" + getPermsAsReadableString(everyonePerms));
+    }
+}`} lang="lsl" /></div>
+  <p>To test for the opposite (e.g. to see if something is NOT copy):</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`if (!(PERM_COPY & llGetInventoryPermMask(myitem, MASK_OWNER)))
+        llSay(PUBLIC_CHANNEL, "/me [" + myitem + "]: owner doesn't have copy perms.");`} lang="lsl" /></div>
+  <p>To remind the next owner what permissions to set before selling on
+choose which need to be set;</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function CheckPerms()
+    local item = ll.GetScriptName()
+    local nextOwnerPerms = ll.GetInventoryPermMask(item, MASK_NEXT)
+
+    if bit32.btest(PERM_COPY, nextOwnerPerms) then
+        ll.OwnerSay("Set no copy")
+    end
+
+    if bit32.btest(PERM_MODIFY, nextOwnerPerms) then
+        ll.OwnerSay("Set no mod")
+    end
+
+    if bit32.btest(PERM_TRANSFER, nextOwnerPerms) then
+        ll.OwnerSay("Set no transfer")
+    end
+end
+
+function LLEvents.on_rez(start_param)
+    ll.ResetScript()
+end
+
+local function main()
+    if ll.GetOwner() ~= ll.GetInventoryCreator(ll.GetScriptName()) then
+        CheckPerms()
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`CheckPerms()
+{        
+    string item = llGetScriptName();
+    integer nextOwnerPerms = llGetInventoryPermMask(item, MASK_NEXT);
+
+    if(PERM_COPY & nextOwnerPerms)
+        llOwnerSay("Set no copy");
+
+    if(PERM_MODIFY & nextOwnerPerms)
+        llOwnerSay("Set no mod");
+
+    if(PERM_TRANSFER & nextOwnerPerms)
+        llOwnerSay("Set no transfer");
+}
+ 
+default
+{
+    on_rez(integer start_param)
+    {
+        llResetScript();
+    }
+
+    state_entry()
+    {
+        if(llGetOwner() != llGetInventoryCreator(llGetScriptName()))
+            CheckPerms();
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>In effect, the perms for articles published on this Wiki are <a href="https://wiki.secondlife.com/wiki/PERM_COPY" target="_blank">PERM_COPY</a> and <a href="https://wiki.secondlife.com/wiki/PERM_TRANSFER" target="_blank">PERM_TRANSFER</a> until you log in, then <a href="https://wiki.secondlife.com/wiki/PERM_MODIFY" target="_blank">PERM_MODIFY</a>, <a href="https://wiki.secondlife.com/wiki/PERM_MOVE" target="_blank">PERM_MOVE</a>, <a href="https://wiki.secondlife.com/wiki/PERM_COPY" target="_blank">PERM_COPY</a> and <a href="https://wiki.secondlife.com/wiki/PERM_TRANSFER" target="_blank">PERM_TRANSFER</a>.</li>
+    <li>The default perms of a newly created script are: Base = <a href="https://wiki.secondlife.com/wiki/PERM_ALL" target="_blank">PERM_ALL</a>, Owner = <a href="https://wiki.secondlife.com/wiki/PERM_ALL" target="_blank">PERM_ALL</a>, Next = <a href="https://wiki.secondlife.com/wiki/PERM_MOVE" target="_blank">PERM_MOVE</a> or <a href="https://wiki.secondlife.com/wiki/PERM_TRANSFER" target="_blank">PERM_TRANSFER</a>, Group = 0 (none), Everyone = 0 (none). These perms are the same, no matter if the script is created in user inventory or in an object.
+    <ul>
+      <li>However, an option in the <i><a href="https://wiki.secondlife.com/wiki/Preferences_window" target="_blank">Preferences</a> > Advanced</i> menu allows to set the <b>Default Creation Permissions</b> of all items that can be created or uploaded in-world.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectPermMask" target="_blank">llGetObjectPermMask</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryAcquireTime" target="_blank">llGetInventoryAcquireTime</a></td>
+        <td>–</td>
+        <td>Returns the time the item was added to the prim's inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryName" target="_blank">llGetInventoryName</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryType" target="_blank">llGetInventoryType</a></td>
+        <td>–</td>
+        <td>Tests to see if an inventory item exists and returns its type</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryNumber" target="_blank">llGetInventoryNumber</a></td>
+        <td>–</td>
+        <td>Returns the number of items of a specific type in inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> (if full perm)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryCreator" target="_blank">llGetInventoryCreator</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's creator</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Hex" target="_blank">hex</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask_Test" target="_blank">llGetInventoryPermMask Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetInventoryPermMask( string item, integer category );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

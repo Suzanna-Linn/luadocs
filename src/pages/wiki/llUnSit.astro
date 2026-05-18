@@ -1,0 +1,208 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.UnSit(AvatarID: uuid)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llUnSit(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The agent identified by <b>id</b> is forced to stand up if any of the following apply:</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>sit</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">220</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <ul>
+    <li>The agent is sitting on the scripted object</li>
+    <li>The agent is over land owned by the scripted object's owner and/or a group the owner has land rights for.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- UnSit on Sit, Using a sit target
+local function main()
+    ll.SitTarget(vector(0.0, 0.0, 0.1), ZERO_ROTATION)  -- Needed for llAvatarOnSitTarget to work. The vectors components must not all be set to 0.0
+end
+function LLEvents.changed(change)  -- Triggered when various changes are sensed.
+    if bit32.btest(change, CHANGED_LINK) then  -- When an agent sits on an object they become a new link.
+        local user = ll.AvatarOnSitTarget()  -- Store the UUID of any agent sitting on the sit target.
+        if user.istruthy then  -- An avatar is on the sit target.
+            ll.UnSit(user)  -- Un-Sit the avatar.
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// UnSit on Sit, Using a sit target
+default
+{
+    state_entry()
+    {
+        llSitTarget(<0.0, 0.0, 0.1>, ZERO_ROTATION); // Needed for llAvatarOnSitTarget to work. The vectors components must not all be set to 0.0
+    }
+    changed(integer change) // Triggered when various changes are sensed.
+    {
+        if(change & CHANGED_LINK) // When an agent sits on an object they become a new link.
+        {
+            key user = llAvatarOnSitTarget(); // Store the UUID of any agent sitting on the sit target.
+            if(user) // An avatar is on the sit target.
+                llUnSit(user); // Un-Sit the avatar.
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- UnSit on Sit, NOT using a sit target
+
+function LLEvents.changed(change)  -- Triggered when various changes are sensed.
+    if bit32.btest(change, CHANGED_LINK) then  -- When an agent sits on an object they become a new link.
+        local links = 0  -- Create an integer type variable.
+        if ll.GetObjectPrimCount(ll.GetKey()) < ((function() links = ll.GetNumberOfPrims() return links end)()) then  -- During the check store the number of links.
+            -- If the number of prims is fewer than the number of links, the last must be an avatar.
+            ll.UnSit(ll.GetLinkKey(links))  -- Use the key of the last link to be added (the avatar) to call llUnSit().
+        else
+            ll.OwnerSay("Some kind of linking or unlinking has changed me but, I am not being sat on.")
+        end
+    -- llUnSit() triggers the changed event too (the number of links is reduced by 1).
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// UnSit on Sit, NOT using a sit target
+
+default
+{
+    changed(integer change) // Triggered when various changes are sensed.
+    {
+        if(change & CHANGED_LINK) // When an agent sits on an object they become a new link.
+        {
+            integer links = 0; // Create an integer type variable.
+            if(llGetObjectPrimCount(llGetKey()) < (links = llGetNumberOfPrims())) // During the check store the number of links.
+            // If the number of prims is fewer than the number of links, the last must be an avatar.
+                llUnSit(llGetLinkKey(links)); // Use the key of the last link to be added (the avatar) to call llUnSit().
+            else
+                llOwnerSay("Some kind of linking or unlinking has changed me but, I am not being sat on.");
+            // llUnSit() triggers the changed event too (the number of links is reduced by 1).
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function unsit_all_avatars()
+    local objectPrimCount = ll.GetObjectPrimCount(ll.GetKey())
+    local currentLinkNumber = ll.GetNumberOfPrims()
+
+    while objectPrimCount < currentLinkNumber do
+        ll.UnSit(ll.GetLinkKey(currentLinkNumber))
+        currentLinkNumber -= 1
+    end
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    unsit_all_avatars()
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`unsit_all_avatars()
+{
+    integer objectPrimCount = llGetObjectPrimCount(llGetKey());
+    integer currentLinkNumber = llGetNumberOfPrims();
+
+    for (; objectPrimCount < currentLinkNumber; --currentLinkNumber)
+        llUnSit(llGetLinkKey(currentLinkNumber));
+}
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        unsit_all_avatars();
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAvatarOnSitTarget" target="_blank">llAvatarOnSitTarget</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSitTarget" target="_blank">llSitTarget</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llUnSit( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Beauty at the bar</p>
+<p>Not an empty seat in sight.</p>
+<p>Owner clears me one.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

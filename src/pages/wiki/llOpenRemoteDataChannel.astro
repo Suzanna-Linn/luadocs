@@ -1,0 +1,114 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.OpenRemoteDataChannel()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llOpenRemoteDataChannel();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"">Deprecated: </p>
+      <p>  <p>Creates a channel to listen for XML-RPC calls. Will trigger a <a href="https://wiki.secondlife.com/wiki/Remote_data" target="_blank">remote_data</a> event with channel id once it is available.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script_communication</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">1s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">254</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-deprecated">Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 1.0 seconds.</li>
+    <li>This function has been deprecated, please use <a href="https://wiki.secondlife.com/wiki/LSL_http_server" target="_blank">LSL_http_server</a> instead.</li>
+    <li><b>XML-RPC should not be used anymore. Use http-in instead, see <a href="https://wiki.secondlife.com/wiki/LSL_http_server" target="_blank">LSL_http_server</a>.</b></li>
+    <li>If an object moves from one region to another it must re-open the channel
+    <ul>
+      <li>The object will get the <i>same</i> channel as before, but without re-opening no requests will get through</li>
+    </ul>
+  
+    </li>
+    <li>Any channel that is not used for 14 days will be cleaned up.
+    <ul>
+      <li>May be advisable to somewhat regularly (before expected use or on a regular schedule) check that the channel is good and hasn't changed by calling llOpenRemoteDataChannel and comparing to the previous channel.</li>
+    </ul>
+  
+    </li>
+    <li>Note: XML-RPC requests often time-out due to the front-end server being overloaded. LL has continued to upgrade the server hardware periodically, but it has remained unreliable. LL developers have advised that the XML-RPC design isn't scalable (due to the single server bottle-neck) and that the service is "deprecated". They suggest using <a href="https://wiki.secondlife.com/wiki/HTTP_Polling" target="_blank">HTTP Polling</a> as an alternative. If an XML-RPC request does time-out the script's remote_data event may or may not be triggered (and any script response is lost).</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.OpenRemoteDataChannel()
+end
+function LLEvents.changed(c)
+    if bit32.btest(c, bit32.bor(CHANGED_REGION, CHANGED_TELEPORT)) then
+        ll.OpenRemoteDataChannel()
+    end
+end
+function LLEvents.remote_data(event_type, channel, message_id, sender, idata, sdata)
+    if event_type == REMOTE_DATA_CHANNEL then  -- channel created
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llOpenRemoteDataChannel();
+    }
+    changed(integer c)
+    {
+        if(c & (CHANGED_REGION | CHANGED_TELEPORT))
+            llOpenRemoteDataChannel();
+    }
+    remote_data( integer event_type, key channel, key message_id, string sender, integer idata, string sdata )
+    {
+        if (event_type == REMOTE_DATA_CHANNEL) { // channel created
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+void
+ll.OpenRemoteDataChannel()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llOpenRemoteDataChannel();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

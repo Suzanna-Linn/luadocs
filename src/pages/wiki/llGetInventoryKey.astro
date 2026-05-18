@@ -1,0 +1,290 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetInventoryKey(InventoryItem: string): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llGetInventoryKey(string InventoryItem);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a key that is the <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> of the inventory <b>name</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InventoryItem / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">175</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>name</b> is not <a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">copy, mod, trans</a> then the return is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.</p>
+  <p>Use <a href="https://wiki.secondlife.com/wiki/LlGetInventoryType" target="_blank">llGetInventoryType</a> instead of this function to verify the existence of inventory.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Inventory items are records that usually <i>point</i> to assets, but they are not the actual assets.
+    <ul>
+      <li>Multiple inventory items can point to the same asset and return the same key.</li>
+      <li>Some newly created inventory entries get default keys until they are edited and saved:
+      <ul>
+        <li>Newly created notecard entries use <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> at present, until they are edited and saved.</li>
+        <li>Newly created script entries point to the "<a href="https://wiki.secondlife.com/wiki/Hello_Avatar" target="_blank">Hello Avatar</a>" script ("d0d40b7c-e32b-3bcb-3346-2be8470093c0" at this writing, not a guaranteed default) until they are edited and saved.</li>
+        <li>Most other inventory entries are given unique asset keys at creation time.</li>
+      </ul>
+    
+      </li>
+      <li>When an asset is "edited" a new asset key is assigned to the edit. The inventory item used to open the asset for editing is updated with the new asset key.
+      <ul>
+        <li>No other inventory items that share the original asset are updated with the new asset key.</li>
+      </ul>
+    
+      </li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Put this script in an empty prim, and drag a full-perm texture into the prim's contents to find out its UUID
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_INVENTORY) then  -- if there has been a change to the prim's contents ...
+        local name = ll.GetInventoryName(INVENTORY_TEXTURE, 0)
+        if name ~= "" then  -- if a texture exists ...
+            local uuid = ll.GetInventoryKey(name)
+            if uuid.istruthy then  -- if the uuid is valid ...
+                ll.OwnerSay("The UUID of '" .. name .. "' is " .. tostring(uuid))
+            else  -- texture was not full-perm
+                ll.OwnerSay("The UUID of '" .. name .. "' could not be determined")
+            end
+        end
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Put this script in an empty prim, and drag a full-perm texture into the prim's contents to find out its UUID
+default
+{
+    changed(integer change)
+    {
+        if (change & CHANGED_INVENTORY)    // if there has been a change to the prim's contents ...
+        {
+            string name = llGetInventoryName(INVENTORY_TEXTURE, 0);
+            if (name)        // if a texture exists ...
+            {
+                key uuid = llGetInventoryKey(name);
+                if (uuid)    // if the uuid is valid ...
+                    llOwnerSay( "The UUID of '" + name + "' is " + (string) uuid);
+                else         // texture was not full-perm
+                    llOwnerSay( "The UUID of '" + name + "' could not be determined");
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local item = "Default"
+
+local function main()
+    ll.OwnerSay("Touch to get information about \"" .. item .. "\".")
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local type = ll.GetInventoryType(item)
+    local index = ll.ListFindList({INVENTORY_NONE, INVENTORY_TEXTURE, INVENTORY_SOUND, INVENTORY_LANDMARK, INVENTORY_CLOTHING, INVENTORY_OBJECT, INVENTORY_NOTECARD, INVENTORY_SCRIPT, INVENTORY_BODYPART, INVENTORY_ANIMATION, INVENTORY_GESTURE}, {type})
+    local name = ll.List2String({"does not exist", "texture", "sound", "landmark", "clothing", "object", "notecard", "script", "body part", "animation", "gesture"}, index)
+
+    ll.OwnerSay("Type: " .. name)
+
+    if type == INVENTORY_NONE then
+        return
+    end
+
+    local owner_perms = ll.GetInventoryPermMask(item, MASK_OWNER)
+    local perms = {}
+    if bit32.btest(owner_perms, PERM_COPY) then
+        perms = ll.ListInsertList(perms, {"Copy"}, #perms)
+    end
+
+    if bit32.btest(owner_perms, PERM_MODIFY) then
+        perms = ll.ListInsertList(perms, {"Modify"}, #perms)
+    end
+
+    if bit32.btest(owner_perms, PERM_TRANSFER) then
+        perms = ll.ListInsertList(perms, {"Transfer"}, #perms)
+    end
+
+    if bit32.btest(owner_perms, PERM_MOVE) then
+        perms = ll.ListInsertList(perms, {"Move"}, #perms)
+    end
+
+    ll.OwnerSay("Perms: " .. ll.List2CSV(perms))
+
+    local temp = bit32.bor(PERM_COPY, PERM_MODIFY, PERM_TRANSFER)
+    if bit32.band(owner_perms, temp) ~= temp then
+        return
+    end
+
+    ll.OwnerSay("Key: " .. tostring(ll.GetInventoryKey(item)))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string item = "Default";
+
+default
+{
+    state_entry()
+    {
+        llOwnerSay("Touch to get information about \"" + item + "\".");
+    }
+
+    touch_start(integer total_number)
+    {
+        integer type = llGetInventoryType(item);
+        integer index = llListFindList([ INVENTORY_NONE, 
+            INVENTORY_TEXTURE, INVENTORY_SOUND, INVENTORY_LANDMARK, INVENTORY_CLOTHING, 
+            INVENTORY_OBJECT, INVENTORY_NOTECARD, INVENTORY_SCRIPT, INVENTORY_BODYPART, 
+            INVENTORY_ANIMATION, INVENTORY_GESTURE], [type]);
+        string name = llList2String(["does not exist", 
+            "texture", "sound", "landmark", "clothing",
+            "object", "notecard", "script", "body part",
+            "animation", "gesture"], index);
+
+        llOwnerSay("Type: " + name);
+        
+        if(type == INVENTORY_NONE)
+            return;
+        
+        integer owner_perms = llGetInventoryPermMask(item, MASK_OWNER);
+        list perms;
+        if(owner_perms & PERM_COPY)
+            perms += "Copy";
+        
+        if(owner_perms & PERM_MODIFY)
+            perms += "Modify";
+        
+        if(owner_perms & PERM_TRANSFER)
+            perms += "Transfer";
+
+        if(owner_perms & PERM_MOVE)
+            perms += "Move";
+        
+        llOwnerSay("Perms: " + llList2CSV(perms));
+        
+        integer temp = PERM_COPY | PERM_MODIFY | PERM_TRANSFER;
+        if((owner_perms & temp) != temp)
+            return;
+
+        llOwnerSay("Key: " + (string)llGetInventoryKey(item));
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>The UUID returned is that of the asset to which the inventory item points, it is not the UUID of the inventory item itself. The assets themselves are immutable (they never change, they are only ever created and deleted); this allows multiple inventory handles to refer to the same asset without having to duplicate the asset. When it appears an asset is being modified, it is saved as a new asset. The consequence of this is that multiple copies of items in inventory all share the same asset UUID.</li>
+    <li>It is still possible to inspect the UUID of any animation in inventory by triggering it and using <a href="https://wiki.secondlife.com/wiki/LlGetAnimationList" target="_blank">llGetAnimationList()</a> like so:</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+ll.StartAnimation("myAnim")
+ll.OwnerSay("myAnim's UUID is " .. ll.List2String(ll.GetAnimationList(ll.GetPermissionsKey()), -1))`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llStartAnimation("myAnim");
+llOwnerSay("myAnim's UUID is " + llList2String(llGetAnimationList(llGetPermissionsKey()), -1));`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryAcquireTime" target="_blank">llGetInventoryAcquireTime</a></td>
+        <td>–</td>
+        <td>Returns the time the item was added to the prim's inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryName" target="_blank">llGetInventoryName</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryType" target="_blank">llGetInventoryType</a></td>
+        <td>–</td>
+        <td>Tests to see if an inventory item exists and returns its type</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryNumber" target="_blank">llGetInventoryNumber</a></td>
+        <td>–</td>
+        <td>Returns the number of items of a specific type in inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">llGetInventoryPermMask</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryCreator" target="_blank">llGetInventoryCreator</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's creator</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>0.2 - Introduced during the closed beta period.</li>
+    <li>1.2 - Restricted to full perm inventory items only.</li>
+    <li>1.24 - Objects and scripts no longer return their actual UUID but a hash (i.e. pseudo UUID which is consistent with the object/script) instead. -- <a href="https://jira.secondlife.com/browse/SVC-3670" target="_blank">SVC-3670</a></li>
+  </ul>
+  <p>The preceding version numbers are approximations.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llGetInventoryKey( string name );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,249 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`on_damage(Detected: {DetectedEvent})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`on_damage(integer count)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>This event is triggered when damage has been inflicted on an avatar or task in the world but before damage has been applied or distributed.</p>
+  <p>All llDetected* functions that are normally available within a collision event are available while processing this event. Additionally the <a href="https://wiki.secondlife.com/wiki/LlDetectedDamage" target="_blank">llDetectedDamage</a> and <a href="https://wiki.secondlife.com/wiki/LlAdjustDamage" target="_blank">llAdjustDamage</a> methods may be called while processing this event.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Detected / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span>count / num_detected</span></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Table with the detected events / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span>The number of damage events pending against the avatar or task.</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-detected">Detected Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Requires the region to <a href="https://wiki.secondlife.com/wiki/LlGetEnv" target="_blank">allow damage adjustment</a> for the event to run</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function damageType2String(type)
+    if type == DAMAGE_TYPE_GENERIC then
+        return "generic"
+    elseif type == DAMAGE_TYPE_ACID then
+        return "acid"
+    elseif type == DAMAGE_TYPE_BLUDGEONING then
+        return "bludgeoning"
+    elseif type == DAMAGE_TYPE_COLD then
+        return "cold"
+    elseif type == DAMAGE_TYPE_ELECTRIC then
+        return "electric"
+    elseif type == DAMAGE_TYPE_FIRE then
+        return "fire"
+    elseif type == DAMAGE_TYPE_FORCE then
+        return "force"
+    elseif type == DAMAGE_TYPE_NECROTIC then
+        return "necrotic"
+    elseif type == DAMAGE_TYPE_PIERCING then
+        return "piercing"
+    elseif type == DAMAGE_TYPE_POISON then
+        return "poison"
+    elseif type == DAMAGE_TYPE_PSYCHIC then
+        return "psychic"
+    elseif type == DAMAGE_TYPE_RADIANT then
+        return "radiant"
+    elseif type == DAMAGE_TYPE_SLASHING then
+        return "slashing"
+    elseif type == DAMAGE_TYPE_SONIC then
+        return "sonic"
+    elseif type == DAMAGE_TYPE_EMOTIONAL then
+        return "emotional"
+    end
+
+    return "type " .. tostring(type)
+end
+
+function LLEvents.on_death()
+    ll.Say(0, "I'll be back!")
+end
+
+function LLEvents.on_damage(events)
+    local count = #events
+    local index = 0
+    index = 0
+    while index < count do
+        local object = ll.DetectedKey(index)
+        local object_name = ll.DetectedName(index)
+        local owner = ll.DetectedOwner(index)
+        local rezzer = ll.DetectedRezzer(index)
+        local damage = ll.DetectedDamage(index)
+
+        local owner_name = ll.Key2Name(owner)
+        local rezzer_name = ll.Key2Name(rezzer)
+
+        ll.Say(0, "I was struck by " .. object_name .. "{" .. tostring(object) .. "} owned by " .. owner_name .. "{" .. tostring(owner) .. "} rezzed by " .. rezzer_name .. "{" .. tostring(rezzer) .. "} for " .. tostring(ll.List2Float(damage, 0)) .. " points of " .. damageType2String(ll.List2Integer(damage, 1)) .. " damage (originally " .. tostring(ll.List2Float(damage, 2)))
+
+        local new_damage = ll.List2Float(damage, 0) / 2.0
+
+        ll.Say(0, "Reducing damage by 50% to " .. tostring(new_damage))
+        ll.AdjustDamage(index, new_damage)
+        ll.Say(0, "llDetectDamage = [" .. ll.DumpList2String(ll.DetectedDamage(index), ", ") .. "]")
+        index += 1
+    end
+
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string damageType2String(integer type)
+{
+    if (type == DAMAGE_TYPE_GENERIC)
+        return "generic";
+    else if (type == DAMAGE_TYPE_ACID)
+        return "acid";
+    else if (type == DAMAGE_TYPE_BLUDGEONING)
+        return "bludgeoning";
+    else if (type == DAMAGE_TYPE_COLD)
+        return "cold";
+    else if (type == DAMAGE_TYPE_ELECTRIC)
+        return "electric";
+    else if (type == DAMAGE_TYPE_FIRE)
+        return "fire";
+    else if (type == DAMAGE_TYPE_FORCE)
+        return "force";
+    else if (type == DAMAGE_TYPE_NECROTIC)
+        return "necrotic";
+    else if (type == DAMAGE_TYPE_PIERCING)
+        return "piercing";
+    else if (type == DAMAGE_TYPE_POISON)
+        return "poison";
+    else if (type == DAMAGE_TYPE_PSYCHIC)
+        return "psychic";
+    else if (type == DAMAGE_TYPE_RADIANT)
+        return "radiant";
+    else if (type == DAMAGE_TYPE_SLASHING)
+        return "slashing";
+    else if (type == DAMAGE_TYPE_SONIC)
+        return "sonic";
+    else if (type == DAMAGE_TYPE_EMOTIONAL)
+        return "emotional";
+
+    return "type " + (string)type;
+}
+
+default
+{
+    on_death()
+    {
+        llSay(0, "I'll be back!");
+    }
+    
+    on_damage(integer count)
+    {
+        integer index;
+        for (index = 0; index < count; ++index)
+        {
+            key object = llDetectedKey(index);
+            string object_name = llDetectedName(index);
+            key owner = llDetectedOwner(index);
+            key rezzer = llDetectedRezzer(index);
+            list damage = llDetectedDamage(index);
+            
+            string owner_name = llKey2Name(owner);
+            string rezzer_name = llKey2Name(rezzer);
+            
+            llSay(0, "I was struck by " + object_name + "{" + (string)object + "} owned by " +        
+                owner_name + "{" + (string)owner + "} rezzed by " +
+                rezzer_name + "{" + (string)rezzer + "} for " +
+                (string)llList2Float(damage, 0) + " points of " + damageType2String(llList2Integer(damage, 1)) +
+                " damage (originally " + (string)llList2Float(damage, 2));
+            
+            float new_damage = llList2Float(damage, 0) / 2.0;
+            
+            llSay(0, "Reducing damage by 50% to " + (string)new_damage);
+            llAdjustDamage(index, new_damage);
+            llSay(0, "llDetectDamage = [" + llDumpList2String(llDetectedDamage(index), ", ") + "]");
+        }
+        
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/On_death" target="_blank">on_death</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Final_damage" target="_blank">final_damage</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedDamage" target="_blank">llDetectedDamage</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAdjustDamage" target="_blank">llAdjustDamage</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDamage" target="_blank">llDamage</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void on_damage( integer num_detected );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,160 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LinksetDataReset()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llLinksetDataReset();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The <b>llLinksetDataReset</b> function erases all <b>name:value</b> pairs stored in the linkset's datastore. When this function is called the <a href="https://wiki.secondlife.com/wiki/Linkset_data" target="_blank">linkset_data</a> event is triggered in all scripts running in the linkset with an action of <a href="https://wiki.secondlife.com/wiki/Template:LSL_Constants_Linkset_Data" target="_blank">LINKSETDATA_RESET</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>linkset</li>
+        <li>linkset_data</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">655</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <p>llLinksetDataReset removes all keys. Even those that were created by llLinksetDataWriteProtected.</p>
+  <h2>Examples</h2>
+  <p>The following code will delete all the keys in a object.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Removes all the keys in linksetdata without a saving throw.
+-- Warning: This will delete in password protected keys and is irreversible.
+-- -- Madi Melodious --
+
+local function main()
+    ll.LinksetDataReset()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Removes all the keys in linksetdata without a saving throw.
+// Warning: This will delete in password protected keys and is irreversible.
+// -- Madi Melodious --
+
+default
+{
+    state_entry()
+    {
+       llLinksetDataReset();
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Linkset_data" target="_blank">linkset_data</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataAvailable" target="_blank">llLinksetDataAvailable</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataCountKeys" target="_blank">llLinksetDataCountKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDelete" target="_blank">llLinksetDataDelete</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDeleteFound" target="_blank">llLinksetDataDeleteFound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataFindKeys" target="_blank">llLinksetDataFindKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataListKeys" target="_blank">llLinksetDataListKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataRead" target="_blank">llLinksetDataRead</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataWrite" target="_blank">llLinksetDataWrite</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+void
+ll.LinksetDataReset()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llLinksetDataReset();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

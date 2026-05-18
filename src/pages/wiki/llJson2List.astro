@@ -1,0 +1,161 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Json2List(JSON: string): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llJson2List(string JSON);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use lljson.decode</span></p>
+      <p>  <p>This function takes a string representing <a href="http://json.org" target="_blank">JSON</a>, and returns a list of the top level.</p>
+  <p>Returns a list made by parsing <b>src</b>, a string representing json.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>JSON / src</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+        <li>json</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">513</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To convert a list into a json formatted string use <a href="https://wiki.secondlife.com/wiki/LlList2Json" target="_blank">llList2Json</a>.</p>
+  <h2>Specification</h2>
+  <p>See <a href="https://wiki.secondlife.com/wiki/Json_usage_in_LSL" target="_blank">Json_usage_in_LSL</a></p>
+  <ul>
+    <li>If the json represents a single item (number, string, true, false or null) then a list with 1 item will be returned.</li>
+    <li>If the json represents an object then a strided list of key, value pairs is returned. All values that are objects or arrays are returned as json strings.</li>
+    <li>If the json represents an array then a list of all items is returned. All values that are objects or arrays are returned as json strings.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local items = {}
+
+    local value = "89556747-24cb-43ed-920b-47caed15465f"
+    items = ll.Json2List(value)
+    -- ["89556747-24cb-43ed-920b-47caed15465f"]
+
+    local object = "{\"pi\": 3.14, \"set\": [1,2,3], \"status\": \"ok\"}"
+    items = ll.Json2List(object)
+    -- ["pi", 3.140000, "set", "[1,2,3]", "status", "ok"]
+
+    local array = "[0, 3.14, [1,2,3], {}]"
+    items = ll.Json2List(array)
+-- [0, 3.140000, "[1,2,3]", "{}"]
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        list items;
+
+        string value = "89556747-24cb-43ed-920b-47caed15465f";
+        items = llJson2List(value);
+        // ["89556747-24cb-43ed-920b-47caed15465f"]
+
+        string object = "{\"pi\": 3.14, \"set\": [1,2,3], \"status\": \"ok\"}";
+        items = llJson2List(object);
+        // ["pi", 3.140000, "set", "[1,2,3]", "status", "ok"]
+
+        string array = "[0, 3.14, [1,2,3], {}]";
+        items = llJson2List(array);
+        // [0, 3.140000, "[1,2,3]", "{}"]
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2Json" target="_blank">llList2Json</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonGetValue" target="_blank">llJsonGetValue</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonSetValue" target="_blank">llJsonSetValue</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">Typecast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/13#13.05.20.276191" target="_blank"> 20/05/2013 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llJson2List( string src );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

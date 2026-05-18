@@ -1,0 +1,219 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_TYPE: number = 9`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_TYPE = 9;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_TYPE has the value 9</p>
+  <p>Gets or sets the <b>type</b> of the prim and associated type <b>parameters</b>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_TYPE,&#32;[integer</a> flag ] + </b>flag_parameters<b> </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td>flag</td>
+        <td>–</td>
+        <td>PRIM_TYPE_* flag</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a>.</p>
+  <p>The values needed for <b>flag_parameters</b> is dependent on <b>flag</b>, please refer to the individual PRIM_TYPE_* articles for additional information.</p>
+  <h3>Caveats</h3>
+  <ul>
+    <li>PRIM_TYPE can only be used with <a href="https://wiki.secondlife.com/wiki/LINK_SET" target="_blank">LINK_SET</a> if the object contains 10 or fewer prims. It can only be used with <a href="https://wiki.secondlife.com/wiki/LINK_ALL_OTHERS" target="_blank">LINK_ALL_OTHERS</a> or <a href="https://wiki.secondlife.com/wiki/LINK_ALL_CHILDREN" target="_blank">LINK_ALL_CHILDREN</a> if the object contains 11 or fewer prims. If there are more prims, the operation will fail and an error will be shouted to <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. Work around this by looping through the prims with <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a>.</li>
+    <li>PRIM_TYPE will silently fail when executed by a script placed inside a mesh, whether the affect object is the mesh or not (in linksets for example), use a normal prim as your root prim.</li>
+    <li>While it is possible to use <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE_SCULPT" target="_blank">PRIM_TYPE_SCULPT</a> to animate an object, it is not recommended. For details see: <a href="https://wiki.secondlife.com/wiki/Why_UUID_Flipping_is_Bad" target="_blank">Why UUID Flipping is Bad</a></li>
+  </ul>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_TYPE ]); </b></p>
+  <p>Returns the list `<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> flag ] + flag_parameters`</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td>flag</td>
+        <td>–</td>
+        <td>PRIM_TYPE_* flag</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The values that follow after <b>flag</b>, the <b>flag_parameters</b>, are dependent on the value of <b>flag</b>, please refer to the individual PRIM_TYPE_* articles for further information.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>flag Constants</th>
+        <th></th>
+        <th colspan="6"><b>flag_parameters</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE_BOX" target="_blank">PRIM_TYPE_BOX</a></td>
+        <td>0</td>
+        <td colspan="6"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear ]</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE_CYLINDER" target="_blank">PRIM_TYPE_CYLINDER</a></td>
+        <td>1</td>
+        <td colspan="6"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear ]</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE_PRISM" target="_blank">PRIM_TYPE_PRISM</a></td>
+        <td>2</td>
+        <td colspan="6"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear ]</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE_SPHERE" target="_blank">PRIM_TYPE_SPHERE</a></td>
+        <td>3</td>
+        <td colspan="6"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> dimple]</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE_TORUS" target="_blank">PRIM_TYPE_TORUS</a></td>
+        <td>4</td>
+        <td colspan="6"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> hole_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> advanced_cut, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> taper, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> revolutions, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> radius_offset, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> skew ]</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE_TUBE" target="_blank">PRIM_TYPE_TUBE</a></td>
+        <td>5</td>
+        <td colspan="6"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> hole_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> advanced_cut, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> taper, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> revolutions, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> radius_offset, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> skew ]</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE_RING" target="_blank">PRIM_TYPE_RING</a></td>
+        <td>6</td>
+        <td colspan="6"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> hole_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> advanced_cut, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> taper, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> revolutions, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> radius_offset, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> skew ]</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE_SCULPT" target="_blank">PRIM_TYPE_SCULPT</a></td>
+        <td>7</td>
+        <td colspan="6"><a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> map, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> type ]</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">hole_shape Flags</th>
+        <th>Shape</th>
+        <th colspan="2">hole_shape Flags</th>
+        <th>Shape</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_DEFAULT" target="_blank">PRIM_HOLE_DEFAULT</a></td>
+        <td>0x00</td>
+        <td>Default</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_SQUARE" target="_blank">PRIM_HOLE_SQUARE</a></td>
+        <td>0x20</td>
+        <td>Square</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_CIRCLE" target="_blank">PRIM_HOLE_CIRCLE</a></td>
+        <td>0x10</td>
+        <td>Circle</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_TRIANGLE" target="_blank">PRIM_HOLE_TRIANGLE</a></td>
+        <td>0x30</td>
+        <td>Triangle</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_SHAPE" target="_blank">CHANGED_SHAPE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_TYPE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_TYPE = 9
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_TYPE = 9;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

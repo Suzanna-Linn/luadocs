@@ -1,0 +1,309 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ResetAnimationOverride(AnimationState: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llResetAnimationOverride(string AnimationState);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Resets the animation override of the specified animation state (<b>anim_state</b>) to the corresponding default value.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>AnimationState / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/anim_state" target="_blank">anim_state</a></td>
+          <td>animation state to be reset</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_animation</li>
+        <li>permissions</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_OVERRIDE_ANIMATIONS</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">502</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_OVERRIDE_ANIMATIONS" target="_blank">PERMISSION_OVERRIDE_ANIMATIONS</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>.</p>
+  <p>If <b>anim_state</b> equals "ALL", all animation states are reset.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Value</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+      <tr>
+        <td>"ALL"</td>
+        <td>Macro</td>
+        <td>Used to reset all overrides.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>"Crouching"</td>
+        <td>State</td>
+        <td></td>
+        <td>crouch</td>
+      </tr>
+      <tr>
+        <td>"CrouchWalking"</td>
+        <td>State</td>
+        <td></td>
+        <td>crouchwalk</td>
+      </tr>
+      <tr>
+        <td>"Falling Down"</td>
+        <td>State</td>
+        <td></td>
+        <td>falldown</td>
+      </tr>
+      <tr>
+        <td>"Flying"</td>
+        <td>State</td>
+        <td></td>
+        <td>fly</td>
+      </tr>
+      <tr>
+        <td>"FlyingSlow"</td>
+        <td>State</td>
+        <td>Transition between hovering and forward flight.</td>
+        <td>flyslow</td>
+      </tr>
+      <tr>
+        <td>"Hovering"</td>
+        <td>State</td>
+        <td></td>
+        <td>hover</td>
+      </tr>
+      <tr>
+        <td>"Hovering Down"</td>
+        <td>State</td>
+        <td></td>
+        <td>hover_down</td>
+      </tr>
+      <tr>
+        <td>"Hovering Up"</td>
+        <td>State</td>
+        <td></td>
+        <td>hover_up</td>
+      </tr>
+      <tr>
+        <td>"Jumping"</td>
+        <td>State</td>
+        <td>While still in the air during a jump.</td>
+        <td>jump</td>
+      </tr>
+      <tr>
+        <td>"Landing"</td>
+        <td>Transition</td>
+        <td>When landing from a jump.</td>
+        <td>land</td>
+      </tr>
+      <tr>
+        <td>"PreJumping"</td>
+        <td>Transition</td>
+        <td>At the beginning of a jump.</td>
+        <td>prejump</td>
+      </tr>
+      <tr>
+        <td>"Running"</td>
+        <td>State</td>
+        <td></td>
+        <td>run</td>
+      </tr>
+      <tr>
+        <td>"Sitting"</td>
+        <td>State</td>
+        <td>Sitting on an object (and linked to it).</td>
+        <td>sit</td>
+      </tr>
+      <tr>
+        <td>"Sitting on Ground"</td>
+        <td>State</td>
+        <td>Sitting, but not linked to an object.[[1]](#footnote_1)</td>
+        <td>sit_ground_constrained</td>
+      </tr>
+      <tr>
+        <td>"Standing"</td>
+        <td>State</td>
+        <td></td>
+        <td>stand</td>
+      </tr>
+      <tr>
+        <td>"Standing Up"</td>
+        <td>Transition</td>
+        <td>After falling a great distance. Sometimes referred to as Hard Landing.</td>
+        <td>standup</td>
+      </tr>
+      <tr>
+        <td>"Striding"</td>
+        <td>State</td>
+        <td>When the avatar is stuck on the edge of an object or on top of another avatar.</td>
+        <td>stride</td>
+      </tr>
+      <tr>
+        <td>"Soft Landing"</td>
+        <td>Transition</td>
+        <td>After falling a small distance.</td>
+        <td>soft_land</td>
+      </tr>
+      <tr>
+        <td>"Taking Off"</td>
+        <td>State</td>
+        <td></td>
+        <td>hover_up</td>
+      </tr>
+      <tr>
+        <td>"Turning Left"</td>
+        <td>State</td>
+        <td></td>
+        <td>turnleft</td>
+      </tr>
+      <tr>
+        <td>"Turning Right"</td>
+        <td>State</td>
+        <td></td>
+        <td>turnright</td>
+      </tr>
+      <tr>
+        <td>"Walking"</td>
+        <td>State</td>
+        <td></td>
+        <td>walk</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_OVERRIDE_ANIMATIONS" target="_blank">PERMISSION_OVERRIDE_ANIMATIONS</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_OVERRIDE_ANIMATIONS" target="_blank">PERMISSION_OVERRIDE_ANIMATIONS</a> permission is granted there may be no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or if the script is reset. Furthermore even if the script loses the permission (or is derezzed), it will not reset/revert the overridable animations.
+<i>For Viewer 3.6.7 and up:</i> If the object is <i>not</i> attached to the permission granter but <i>is</i> in the same region, then <b>Me>Movement>Stop Animating Me</b> will revoke both <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRIGGER_ANIMATION" target="_blank">PERMISSION_TRIGGER_ANIMATION</a> and <a href="https://wiki.secondlife.com/wiki/PERMISSION_OVERRIDE_ANIMATIONS" target="_blank">PERMISSION_OVERRIDE_ANIMATIONS</a> (other permissions will remain). In this case, overrides <i>are</i> reset.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAnimationOverride" target="_blank">llGetAnimationOverride</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td>llResetAnimationOverride</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Internal_Animations" target="_blank">Internal_Animations</a></td>
+        <td>–</td>
+        <td>lists internal Animations always available</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/13#13.04.12.273874" target="_blank"> 12/04/2013 </a></p>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> "Sit down" on the avatar context menu allows ground sits anywhere: atop the terrain, objects or even in the air.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llResetAnimationOverride( string anim_state );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,339 @@
+---
+// You can accept props here to change the title dynamically per-page
+const { title = "Lua & LSL Docs" } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSL & Lua Reference</title>
+    <style is:global>
+        :root {
+            --bg-color: #f9f9f9; --text-color: #2c3e50; --header-bg: #ffffff;
+            --border-color: #dee2e6; --accent-lsl: #007bff; --accent-lua: #e67e22;
+            --table-head: #f2f2f2; --card-bg: #ffffff; 
+            /* Removed --code-bg from here, it is now controlled by the code theme */
+        }
+        body.dark-mode {
+            --bg-color: #121212; --text-color: #e0e0e0; --header-bg: #1f1f1f;
+            --border-color: #333; --accent-lsl: #3796ff; --accent-lua: #ff9f43;
+            --table-head: #2a2a2a; --card-bg: #1e1e1e; 
+            /* Removed --code-bg from here */
+        }
+
+        /* --- NEW: Independent Code Theme Variables --- */
+        body {
+            --code-bg: #f1f1f1; /* Light mode default for code */
+        }
+        body.code-dark {
+            --code-bg: #2d2d2d; /* Dark mode override for code */
+        }
+        
+        /* Shiki highlighter dark overrides bound to the new code-dark class */
+        .astro-code, 
+        .astro-code span, 
+        .astro-code code {
+          font-family: monospace !important;
+          font-size: 20px !important;
+          line-height: 1.6;
+        }
+
+        body.code-dark .astro-code,
+        body.code-dark .astro-code span {
+            color: var(--shiki-dark) !important;
+            background-color: var(--shiki-dark-bg, var(--code-bg)) !important;
+            font-style: var(--shiki-dark-font-style) !important;
+            font-weight: var(--shiki-dark-font-weight) !important;
+            text-decoration: var(--shiki-dark-text-decoration) !important;
+        }
+        /* --------------------------------------------- */
+
+        body { font-family: system-ui, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; transition: background 0.3s; line-height: 1.5; }
+        header { position: sticky; top: 0; background: var(--header-bg); border-bottom: 1px solid var(--border-color); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+        .controls { display: flex; gap: 15px; font-size: 0.9em; font-weight: bold; align-items: center; }
+        
+        /* Styled buttons nicely for the header */
+        .controls button { cursor: pointer; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); font-weight: bold; }
+        .controls button:hover { opacity: 0.8; }
+
+        main {
+            width: 95%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        body.hide-lua .lua-block { display: none !important; }
+        body.hide-lsl .lsl-block { display: none !important; }
+        body.hide-lua .lua-section { display: none !important; }
+        body.hide-lsl .lsl-section { display: none !important; }
+
+        .item-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+
+        .lsl-block, .lua-block {
+            display: block;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+            padding: 12px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-left: 6px solid var(--accent-lsl); 
+        }
+        .lua-block { 
+            border-left-color: var(--accent-lua); 
+        }
+        .lsl-block pre, .lua-block pre {
+            margin: 0;
+            background: var(--code-bg);
+            border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .lua-section, .lsl-section {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+
+        .lua-section .astro-code, 
+        .lsl-section .astro-code {
+            display: inline-block !important; 
+            margin: 0 !important;
+            padding: 4px 10px !important;
+            vertical-align: middle;
+        }
+
+        h2 { color: var(--text-color); border-bottom: 2px solid var(--border-color); padding-bottom: 5px; margin-top: 30px; }
+        h3 { color: var(--text-color); margin-top: 20px; }
+        p { margin-bottom: 15px; }
+        a { color: #2980b9; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        ul, ol { margin-bottom: 15px; }
+        li { margin-bottom: 5px; }
+        
+        pre { background: var(--code-bg); padding: 12px; border-radius: 5px; overflow-x: auto; font-family: monospace; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid var(--border-color); padding: 10px; text-align: left; }
+        th { background: var(--table-head); }
+        .tag { display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 0.7em; text-transform: uppercase; color: white; margin-bottom: 8px; margin-right: 10px; }
+        .lsl-tag { background: var(--accent-lsl); }
+        .lua-tag { background: var(--accent-lua); }
+        
+        #loader { text-align: center; margin-top: 100px; font-size: 1.2em; color: #888; }
+
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .dashboard.summary-function { border-left: 6px solid #3498db; }
+        .dashboard.summary-constant { border-left: 6px solid #27ae60; }
+        .dashboard.summary-event    { border-left: 6px solid #8e44ad; }
+        .dashboard-header {
+            padding: 20px;
+            background: rgba(128,128,128,0.05);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .dashboard-body {
+            display: grid;
+            grid-template-columns: 1fr 150px 100px;
+            gap: 25px;
+            padding: 25px;
+        }
+        .dash-section-title {
+            font-size: 0.7em;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #95a5a6;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+      
+        /* Left Column Styles */
+        .description-text { 
+            margin-top: 0; 
+            font-style: italic; 
+            font-size: 1.05em; 
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        .param-table { 
+            border-collapse: collapse; 
+            border: none; 
+            width: auto; 
+        }
+        .param-table td { 
+            border: none; 
+            padding: 0 15px 12px 0; 
+            vertical-align: top; 
+        }
+      
+        /* Middle Column Styles */
+        .meta-list { list-style: none; padding: 0; margin: 0 0 20px 0; }
+        .meta-list li { 
+            padding: 5px 10px; 
+            margin-bottom: 5px; 
+            background: rgba(128,128,128,0.08); 
+            border-radius: 4px; 
+            font-size: 0.85em; 
+            border: 1px solid rgba(128,128,128,0.1);
+        }
+      
+        /* Right Column Styles */
+        .tech-item { display: flex; justify-content: space-between; font-size: 0.85em; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px inset rgba(128,128,128,0.05); }
+        .tech-label { color: #7f8c8d; font-weight: 500; }
+        .tech-val { font-family: monospace; font-weight: bold; }
+        
+        .label-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 15px; }
+        .attr-label { 
+            font-size: 0.65em; 
+            font-weight: bold; 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            color: white; 
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .bg-pure       { background: #27ae60; }
+        .bg-mandatory  { background: #e67e22; }
+        .bg-native     { background: #2980b9; }
+        .bg-experience { background: #d35400; }
+        .bg-detected   { background: #8e44ad; }
+        .bg-deprecated { background: #c0392b; }
+        .bg-godmode    { background: #f1c40f; }
+        .bg-lindenexp { background: #1abc9c; }
+      
+        .alt-code {
+            display: block;
+            background: #fdf2f2;
+            color: #c0392b;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid #f5c6cb;
+        }
+        body.dark-mode .alt-code { background: #2d1a1a; border-color: #602020; color: #ff8080; }
+      
+        @media (max-width: 1000px) {
+            .dashboard-body { grid-template-columns: 1.5fr 1fr; }
+            .dash-col:last-child { grid-column: span 2; }
+        }
+        @media (max-width: 700px) {
+            .dashboard-body { grid-template-columns: 1fr; }
+            .dash-col:last-child { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body id="page-body">
+
+    <header>
+        <div>Lua / LSL Reference</div>
+        <div id="header-item"></div>
+        <div class="controls">
+            <label><input type="checkbox" id="lsl-toggle" checked> LSL</label>
+            <label><input type="checkbox" id="lua-toggle" checked> Lua</label>
+            <button id="theme-toggle">🌓 Page</button>
+            <button id="code-theme-toggle">💻 Code</button>
+        </div>
+    </header>
+
+    <main>
+        <slot />
+    </main>
+    
+    <script is:inline>
+        // Make sure body is explicitly defined 
+        const body = document.getElementById('page-body') || document.body;
+        const themeNight = document.getElementById('theme-night');
+        const themeDay = document.getElementById('theme-day');
+
+        function initSettings() {
+            // 1. Initialize Page Theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'dark') body.classList.add('dark-mode');
+            
+            if (themeNight && themeDay) {
+                if (savedTheme === 'light') {
+                    themeNight.disabled = true;
+                    themeDay.disabled = false;
+                } else {
+                    themeNight.disabled = false;
+                    themeDay.disabled = true;
+                }
+            }
+
+            // 2. Initialize Code Theme (NEW)
+            const savedCodeTheme = localStorage.getItem('code-theme') || 'dark';
+            if (savedCodeTheme === 'dark') {
+                body.classList.add('code-dark');
+            }
+
+            // 3. Initialize Language Toggles
+            const lsl = localStorage.getItem('lsl') !== 'off';
+            const lua = localStorage.getItem('lua') !== 'off';
+            document.getElementById('lsl-toggle').checked = lsl;
+            document.getElementById('lua-toggle').checked = lua;
+            if (!lsl) body.classList.add('hide-lsl');
+            if (!lua) body.classList.add('hide-lua');
+        }
+
+        const updateToggleState = (key, isChecked) => {
+            body.classList.toggle(`hide-${key}`, !isChecked);
+            localStorage.setItem(key, isChecked ? 'on' : 'off');
+        };
+        
+        const lslToggle = document.getElementById('lsl-toggle');
+        const luaToggle = document.getElementById('lua-toggle');
+        
+        lslToggle.onchange = (e) => {
+            if (!e.target.checked) {
+                luaToggle.checked = true;
+                updateToggleState('lua', true);
+            }
+            updateToggleState('lsl', e.target.checked);
+        };
+        
+        luaToggle.onchange = (e) => {
+            if (!e.target.checked) {
+                lslToggle.checked = true;
+                updateToggleState('lsl', true);
+            }
+            updateToggleState('lua', e.target.checked);
+        };
+
+        // Toggle Main Page Theme
+        document.getElementById('theme-toggle').onclick = () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            if (themeNight && themeDay) {
+                themeNight.disabled = !isDark;
+                themeDay.disabled = isDark;
+            }
+        };
+
+        // Toggle Independent Code Theme (NEW)
+        document.getElementById('code-theme-toggle').onclick = () => {
+            body.classList.toggle('code-dark');
+            const isCodeDark = body.classList.contains('code-dark');
+            localStorage.setItem('code-theme', isCodeDark ? 'dark' : 'light');
+        };
+
+        initSettings();
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,145 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetCameraAtOffset(Offset: vector)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetCameraAtOffset(vector Offset);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the point the camera is looking at to <b>offset</b> for avatars that sit on the object.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Offset / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/offset" target="_blank">offset</a></td>
+          <td>offset relative to the prim's position and expressed in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>camera</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">244</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This is the point the camera looks at, not the <a href="https://wiki.secondlife.com/wiki/LlSetCameraEyeOffset" target="_blank">position of the camera's eye</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Setting this will not update the cameras of seated avatars, it will only effect avatars that subsequently sit down. The camera settings have to be prepared in advance.</li>
+    <li>The <b>offset</b> is <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">locally relative</a> to the object, if you want it relative to the seated <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Agent" target="_blank">avatar</a> (which likely has a custom sit rotation and offset) or the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a>, you must do the computation yourself.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> <b>offset</b> will cancel any offset.</li>
+    <li>Camera focus set by this function is a <b>Prim Property</b>. <b>It will survive the script</b> and it will survive prim taking and prim rezzing</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Set the seated avatar looking at an arbitrary direction
+-- Look over the avatar's shoulders from behind once it sits down
+
+local function back_view(degrees)
+    local sitRot = ll.AxisAngle2Rot(vector(0, 0, 1), degrees * DEG_TO_RAD)
+
+    ll.SitTarget(vector(0, 0, 0.1), sitRot)
+
+    ll.SetCameraEyeOffset(vector(-2, 0, 1) * sitRot)
+    ll.SetCameraAtOffset(vector(2, 0, 1) * sitRot)
+end
+
+local function main()
+    back_view(208)
+    ll.Say(0, "Please sit down")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Set the seated avatar looking at an arbitrary direction
+// Look over the avatar's shoulders from behind once it sits down
+
+back_view(float degrees)
+{
+     rotation sitRot = llAxisAngle2Rot(<0, 0, 1>, degrees * DEG_TO_RAD);
+    
+     llSitTarget(<0, 0, 0.1>, sitRot);
+        
+     llSetCameraEyeOffset(<-2, 0, 1> * sitRot);
+     llSetCameraAtOffset(<2, 0, 1> * sitRot);
+}
+
+default
+{
+    state_entry()
+    {
+        back_view( 208 );
+        llSay(0, "Please sit down");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkCamera" target="_blank">llSetLinkCamera</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraEyeOffset" target="_blank">llSetCameraEyeOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlForceMouselook" target="_blank">llForceMouselook</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraParams" target="_blank">llSetCameraParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetCameraAtOffset( vector offset );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

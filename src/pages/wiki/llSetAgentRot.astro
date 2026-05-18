@@ -1,0 +1,149 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetAgentRot(rot: rotation, flags: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetAgentRot(rotation rot, integer flags);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the rotation the avatar to <b>rot</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+          <td>Rotation for avatar.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>flags</td>
+          <td>Flags to control behavior of llSetAgentRot.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">515</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>This function turns the avatar to face the direction indicated by <b>rot</b>.</p>
+  <p><b>flags</b> is a placeholder for future expansion. There are no flags defined at this time, pass a constant value of 0.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function requires PERMISSION_TRIGGER_ANIMATION.</li>
+    <li>This function will only rotate an avatar around the yaw angle.
+    <ul>
+      <li>More complex rotations may be passed in, but the yaw is extracted and then renormalized.</li>
+    </ul>
+  
+    </li>
+    <li>Rotating to ZERO_ROTATION will face an avatar due east.</li>
+    <li>This function will not change the rotation for a seated avatar. Update the agent's sit target instead.
+    <ul>
+      <li>Special case: If the agent is seated on a prim WITHOUT a sit target they will be turned to face the set rotation when they stand.</li>
+    </ul>
+  
+    </li>
+    <li>Viewers prior to 7.2.1.17108480561 will not show your own avatar's rotation being affected by this function, but others will see your rotation update.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Turn the touching avatar to face the same direction as the prim.
+
+local function main()
+    ll.SetText("Avatar Rotator", ll.GetColor(ALL_SIDES), 1.0)
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.RequestPermissions(ll.DetectedKey(0), PERMISSION_TRIGGER_ANIMATION)
+end
+
+function LLEvents.run_time_permissions(perm)
+    if bit32.btest(perm, PERMISSION_TRIGGER_ANIMATION) then
+        ll.SetAgentRot(ll.GetRot(), 0)
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Turn the touching avatar to face the same direction as the prim.
+
+default
+{
+    state_entry()
+    {
+        llSetText("Avatar Rotator", llGetColor(ALL_SIDES), 1.0);
+    }
+
+    touch_start(integer total_number)
+    {
+        llRequestPermissions(llDetectedKey(0), PERMISSION_TRIGGER_ANIMATION);
+    }
+    
+    run_time_permissions(integer perm)
+    {
+        if (perm & PERMISSION_TRIGGER_ANIMATION)
+        {
+            llSetAgentRot(llGetRot(), 0);
+        }
+    }
+
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetAgentRot( rotation rot, integer flags );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,184 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.List2Vector(ListVariable: {any}, Index: number): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llList2Vector(list ListVariable, integer Index);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use </span></p>
+      <p>  <p>Returns a vector that is at <b>index</b> in <b>src</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>ListVariable / src</td>
+          <td>List containing the element of interest.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Index / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/index" target="_blank">index</a></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Index of the element of interest.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+        <li>list</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">190</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>index</b> supports <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>If <b>index</b> describes a location not in <b>src</b> then <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> is returned.</p>
+  <p>If the type of the element at <b>index</b> in <b>src</b> is not a <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> then <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> is returned.</p>
+  <p>Here is a workaround: `(<a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a>)<a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a>(src, index);`</p>
+  <h2>Specification</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Index</th>
+        <th>Positive</th>
+        <th>Negative</th>
+      </tr>
+      <tr>
+        <td>First</td>
+        <td>`0`</td>
+        <td>`-length`</td>
+      </tr>
+      <tr>
+        <td>Last</td>
+        <td>`length - 1`</td>
+        <td>`-1`</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Indexes</h3>
+  <ul>
+    <li>Positive indexes count from the beginning, the first item being indexed as `0`, the last as `(length - 1)`.</li>
+  </ul>
+  <ul>
+    <li>Negative indexes count from the far end, the first item being indexed as `-length`, the last as `-1`.</li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>index</b> is out of bounds the script continues to execute without an error message.</li>
+    <li>When used to typecast from a string it will result in a <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>
+    <ul>
+      <li>A true typecast will solve this: (<a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a>)<a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a>(src, index);
+      <ul>
+        <li>Unfortunately, if it was already a vector type, using <a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a> will cause the decimal values to be truncated to six decimal places.</li>
+        <li>In any string representation of a vector such as <a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a>(src, index), or (string) llList2Vector (src, index), spaces are automatically added after the commas. When received by a <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a>, make sure NOT to parse by spaces.</li>
+      </ul>
+    
+      </li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Best viewed in Chat History (ctrl-h)
+local function main()
+    local my_list = {"a", 1, 2.0, vector(1, 2, 3), rotation(1, 2, 3, 4), ll.GetOwner()}
+    local i = bit32.bnot(#my_list)
+    while (function() i += 1 return i end)() ~= 0 do
+        ll.OwnerSay("string=" .. ll.List2String(my_list, i) .. "\n   integer=" .. tostring(ll.List2Integer(my_list, i)) .. "\n   float=" .. tostring(ll.List2Float(my_list, i)) .. "\n   vector=" .. tostring(ll.List2Vector(my_list, i)) .. "\n   rot=" .. tostring(ll.List2Rot(my_list, i)) .. "\n   key=" .. tostring(ll.List2Key(my_list, i)))
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Best viewed in Chat History (ctrl-h)
+default
+{
+    state_entry()
+    {
+        list my_list = ["a", 1, 2.0, <1,2,3>, <1,2,3,4>, llGetOwner()];
+        integer i = ~llGetListLength(my_list);
+        while(++i)
+        {
+            llOwnerSay("string=" + llList2String(my_list,i)
+                        + "\n   integer=" + (string)llList2Integer(my_list,i)
+                        + "\n   float=" + (string)llList2Float(my_list,i)
+                        + "\n   vector=" + (string)llList2Vector(my_list,i)
+                        + "\n   rot=" + (string)llList2Rot(my_list,i)
+                        + "\n   key=" + (string)llList2Key(my_list,i) );
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetListEntryType" target="_blank">llGetListEntryType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">Negative Index</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llList2Vector( list src, integer index );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,214 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Key2Name(ID: uuid): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llKey2Name(key ID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a> of the prim or avatar specified by <b>id</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>object</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">210</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>id</b> must specify a valid rezzed prim or avatar key, present in or otherwise known to the sim in which the script is running, otherwise an empty string is returned. In the case of an avatar, this function will still return a valid name if the avatar is a child agent of the sim (i.e., in an adjacent sim, but presently able to see into the one the script is in), or for a short period after the avatar leaves the sim (specifically, when the client completely disconnects from the sim, either as a main or child agent).</p>
+  <p>Keys of inventory items will not work; in the case of these, use <a href="https://wiki.secondlife.com/wiki/LlGetInventoryName" target="_blank">llGetInventoryName</a> instead.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>It is difficult to tell the difference between a prim that has a name that is an empty string and a prim that is not in the sim, or because an invalid key was specified. Use <a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a> to avoid this problem.</li>
+    <li>To get around the "avatar must be present" limitation, you can use the <a href="https://wiki.secondlife.com/wiki/LlRequestAgentData" target="_blank">llRequestAgentData</a> function and the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event to obtain the avatar's name from a key.</li>
+    <li>The opposite function (<a href="https://wiki.secondlife.com/wiki/LlName2Key" target="_blank">llName2Key</a>) can be used to find the user key associated with an avatar in the same region. To find the user key of an avatar anywhere on the grid, use <a href="https://wiki.secondlife.com/wiki/LlRequestUserKey" target="_blank">llRequestUserKey</a>, which triggers a <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event.</li>
+    <li>If an avatar is "ghosted" (which occasionally happens due to a longstanding server bug), an empty string is returned even though the avatar is seemingly present and shows up in <a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a> and the <a href="https://wiki.secondlife.com/wiki/Mini-Map" target="_blank">Mini-Map</a>. This fact can be used as the basis of a <a href="https://wiki.secondlife.com/wiki/Ghost_Detector" target="_blank">Ghost Detector</a> script.</li>
+    <li>Unlike the related functions <a href="https://wiki.secondlife.com/wiki/LlGetUsername" target="_blank">llGetUsername</a> and <a href="https://wiki.secondlife.com/wiki/LlRequestUsername" target="_blank">llRequestUsername</a>, this function returns a 'nice' name in proper case and - if applicable - with a space, e.g. "Peter Stindberg", instead of "peter.stindberg" (or "Josh" instead of "josh.resident") as returned by the other two functions.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Best viewed in Chat History (ctrl-h)
+
+function LLEvents.collision_start(events)
+    local num_detected = #events
+    local id = ll.DetectedKey(0)
+    local name = ll.Key2Name(id)
+
+    local detectedName = ll.DetectedName(0)
+
+    ll.Say(0, "llKey2Name: " .. name .. "\nllDetectedName: " .. detectedName)
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local id = ll.DetectedKey(0)
+    local name = ll.Key2Name(id)
+
+    local detectedName = ll.DetectedName(0)
+
+    ll.Say(0, "llKey2Name: " .. name .. "\nllDetectedName: " .. detectedName)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Best viewed in Chat History (ctrl-h)
+
+default
+{
+    collision_start(integer num_detected)
+    {
+        key id = llDetectedKey(0);
+        string name = llKey2Name(id);
+
+        string detectedName = llDetectedName(0);
+
+        llSay(0, "llKey2Name: " + name
+            + "\nllDetectedName: " + detectedName);
+    }
+
+    touch_start(integer num_detected)
+    {
+        key id = llDetectedKey(0);
+        string name = llKey2Name(id);
+
+        string detectedName = llDetectedName(0);
+
+        llSay(0, "llKey2Name: " + name
+            + "\nllDetectedName: " + detectedName);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p><b>World Wide Web Consortium</b></p>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/w/index.php?title=N2K&action=edit&redlink=1" target="_blank">N2K</a> - Independent of databases or bots, this uses the <a href="http://cgi.w3.org/cgi-bin/html2txt" target="_blank">W3C html2text</a> to convert the viewer search to text and extract the key from Second Life's own services.</li>
+  </ul>
+  <p><b>Active Name2Key Databases:</b></p>
+  <ul>
+    <li><a href="http://w-hat.com/name2key" target="_blank">W-Hat name2key</a> (last names replaced with the <i>Resident</i> word for the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Username" target="_blank">Usernames</a>)</li>
+    <li><a href="http://kdc.ethernia.net/sys/name2key.php" target="_blank">KDC name2key</a></li>
+  </ul>
+  <p><b>Dead Name2Key Databases:</b></p>
+  <ul>
+    <li><a href="http://kubwa.net/index.php?cmd=name2key" target="_blank">Kubwa name2key</a> (Bot based name2key Database; Supports: <a href="https://wiki.secondlife.com/wiki/Category:LSL_Legacy_Name" target="_blank">Legacy</a> and <a href="https://wiki.secondlife.com/wiki/Category:LSL_Username" target="_blank">Username</a> formats; Shows related names; SSL support.) (Appears to be gone as of Apr 2013 [Reports Error 404])</li>
+    <li><a href="http://wiki.apez.biz/Development" target="_blank">http://wiki.apez.biz/Development</a> (web-service API functions getAvatarKey and getAvatarName) (Apez seems to be gone ? - May 2011)</li>
+    <li><a href="http://www.libsecondlife.org/protocol/index.php/Name2key" target="_blank">http://www.libsecondlife.org/protocol/index.php/Name2key</a>(Appears to be gone as of Apr 2008, but search for name2key on that site for more information)</li>
+    <li><a href="http://www.ulrikasheim.org/tools/name2key.html" target="_blank">http://www.ulrikasheim.org/tools/name2key.html</a>(Appears to be gone as of Apr 2008)</li>
+    <li><a href="http://www.db4mv.info" target="_blank">DB4MV name2key</a> (Name2Key Database for Avatars (<a href="https://wiki.secondlife.com/wiki/Category:LSL_Legacy_Name" target="_blank">Legacy Names</a>,<a href="https://wiki.secondlife.com/wiki/Category:LSL_Username" target="_blank">Usernames</a>, and <a href="https://wiki.secondlife.com/wiki/Category:LSL_Display_Name" target="_blank">Display Names</a>, GroupNames and Keys, LSL API)(Currently listed as non-existant by host)</li>
+  </ul>
+  <p><b>Name2Key Libraries:</b></p>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Name2Key_in_LSL" target="_blank">Name2Key_in_LSL</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/User:Ugleh_Ulrik/Name2Key" target="_blank">Ugleh Ulrik's Name2Key PHP script</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/Failsafename2key" target="_blank">Failsafe name2key script</a></li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetUsername" target="_blank">llGetUsername</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetDisplayName" target="_blank">llGetDisplayName</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestAgentData" target="_blank">llRequestAgentData</a></td>
+        <td>–</td>
+        <td>Uses the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> to request avatar information</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Prim_Attribute_Overloading" target="_blank">Prim Attribute Overloading</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llKey2Name Added in <a href="http://secondlife.wikia.com/wiki/Version_0.4.0#Scripting" target="_blank">SL 0.4.0</a>[[1]](#footnote_1)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llKey2Name( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Numbers in machines,</p>
+<p>Faceless, inhuman, sterile.</p>
+<p>Bleak identities.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,739 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LinksetDataFindKeys(search: string, start: number, count: number): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llLinksetDataFindKeys(string search, integer start, integer count);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The <b>llLinksetDataFindKeys</b> function returns a list of up to <b>count</b> keys from the datastore that match <b>pattern</b>, starting at the one indicated by <b>start</b>. If <b>count</b> is less than 1, then all keys between <b>start</b> and the end which match <b>pattern</b> are returned. If <b>count</b> minus <b>start</b> exceeds the number of matching keys, the returned list will be shorter than <b>count</b>, down to a zero-length list if <b>start</b> equals or exceeds the number of matching keys. The list is ordered alphabetically.</p>
+  <p>Returns a list of the keys in the datastore.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>search / pattern</td>
+          <td>A regular expression describing which keys to return.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>start</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>The first key to return.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>count</td>
+          <td>The number of keys to return.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>linkset</li>
+        <li>linkset_data</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">657</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p><b>pattern</b> is a <a href="https://en.wikipedia.org/wiki/Regular_expression" target="_blank">Regular expression</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The maximum length for <b>pattern</b> seems to be 800 characters.</li>
+    <li>There seems to be a timing restriction. If the time limit is exceeded, the function fails silently.
+    <ul>
+      <li>Returns an empty list and the script continues execution.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <p>When <b>pattern</b> matches multiple keys, <b>start</b> can be used to skip over some of the first matches.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.LinksetDataWrite("ThingA_config", "value")
+    ll.LinksetDataWrite("ThingA_data", "value")
+    ll.LinksetDataWrite("ThingB_config", "value")
+    ll.LinksetDataWrite("ThingB_data", "value")
+    ll.LinksetDataWrite("ThingC_config", "value")
+    ll.LinksetDataWrite("ThingC_data", "value")
+    local keys = {}
+
+    -- Return 1 key starting from the first match.
+    keys = ll.LinksetDataFindKeys("Thing", 0, 1)
+    ll.OwnerSay(ll.List2CSV(keys))  -- ThingA_config
+
+    -- Return 1 key after skipping the first 3 matches.
+    keys = ll.LinksetDataFindKeys("Thing", 3, 1)
+    ll.OwnerSay(ll.List2CSV(keys))  -- ThingB_data
+
+    -- Return up to 10 keys after skipping the first match.
+    keys = ll.LinksetDataFindKeys("_data", 1, 10)
+    ll.OwnerSay(ll.List2CSV(keys))  -- ThingB_data, ThingC_data
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llLinksetDataWrite("ThingA_config", "value");
+        llLinksetDataWrite("ThingA_data",   "value");
+        llLinksetDataWrite("ThingB_config", "value");
+        llLinksetDataWrite("ThingB_data",   "value");
+        llLinksetDataWrite("ThingC_config", "value");
+        llLinksetDataWrite("ThingC_data",   "value");
+        list keys;
+
+        // Return 1 key starting from the first match.
+        keys = llLinksetDataFindKeys("Thing", 0, 1); 
+        llOwnerSay(llList2CSV(keys)); // ThingA_config
+
+        // Return 1 key after skipping the first 3 matches.
+        keys = llLinksetDataFindKeys("Thing", 3, 1); 
+        llOwnerSay(llList2CSV(keys)); // ThingB_data
+
+        // Return up to 10 keys after skipping the first match.
+        keys = llLinksetDataFindKeys("_data", 1, 10); 
+        llOwnerSay(llList2CSV(keys)); // ThingB_data, ThingC_data
+    }
+}`} lang="lsl" /></div>
+  <p>The following regular expression code can be used to find UUID keys. (Such as those use to identify user UUID)</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local keysFound = ll.LinksetDataFindKeys("(?i)^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$", 0, 0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list keysFound = llLinksetDataFindKeys("(?i)^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$",  0, 0);`} lang="lsl" /></div>
+  <p>The following code can also be used to find UUID keys in LinksetData memory.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local keysFound = ll.LinksetDataFindKeys("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", 0, 0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list keysFound = llLinksetDataFindKeys("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",  0, 0);`} lang="lsl" /></div>
+  <p><i>Warning: Keep track of how many UUIDs will be returned, as too many can overwhelm script memory and cause a stack-heap crash.</i></p>
+  <p>The script below uses llLinksetDataFindKeys for blacklist management.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+local gDialogChannel = 0
+local gDialogHandle = 0
+local gManagingBlocks = 0
+
+local function startDialog(person)
+    gManagingBlocks = 0
+    gDialogHandle = ll.Listen(gDialogChannel, "", person, "")
+    ll.Dialog(person, "\nSelect action", {"List blocks", "Add block", "Remove block"}, gDialogChannel)
+    ll.SetTimerEvent(60)
+end
+
+local function stopDialog()
+    ll.SetTimerEvent(0)
+    ll.ListenRemove(gDialogHandle)
+end
+
+function LLEvents.on_rez(sp)
+    ll.ResetScript()
+end
+
+local function main()
+    gDialogChannel = integer(ll.Frand(-10000000) - 10000000)
+    ll.Listen(PUBLIC_CHANNEL, "", NULL_KEY, "")
+end
+
+function LLEvents.timer()
+    stopDialog()
+end
+
+function LLEvents.touch_start(events)
+    local nd = #events
+    local toucherKey = ll.DetectedKey(0)
+    if toucherKey == ll.GetOwner() then
+        startDialog(toucherKey)
+    end
+end
+
+function LLEvents.listen(channel, name, id, message)
+
+    if ll.GetAgentSize(id) == ZERO_VECTOR then
+        return
+    end
+
+    if channel == gDialogChannel then
+        stopDialog()
+        if gManagingBlocks ~= 0 then
+            message = ll.StringTrim(message, STRING_TRIM)
+            if (uuid(message)).istruthy then
+                if gManagingBlocks == 1 then
+                    ll.OwnerSay("Addition request has been sent to the blacklist storage")
+                    ll.LinksetDataWrite("blocklist:" .. message, "1")
+                else
+                    ll.OwnerSay("Removal request has been sent to the blacklist storage.")
+                    ll.LinksetDataDelete("blocklist:" .. message)
+                end
+            else
+                ll.OwnerSay("The UUID '" .. message .. "' appears to be invalid.")
+            end
+            startDialog(id)
+        elseif message == "List blocks" then
+            local blocks = ll.LinksetDataFindKeys("^blocklist:", 0, 0)
+            local listLength = #blocks
+            ll.OwnerSay("Blacklist items: " .. tostring(listLength))
+            local i = 0
+            while i < listLength do
+                local record = ll.GetSubString(ll.List2String(blocks, i), 10, -1)
+                ll.OwnerSay("- secondlife:///app/agent/" .. record .. "/about" .. " - " .. record)
+                i += 1
+            end
+            blocks = {}
+            startDialog(id)
+        elseif message == "Add block" or message == "Remove block" then
+            local label = "add to"
+            gManagingBlocks = 1
+            if message == "Remove block" then
+                gManagingBlocks = 2
+                label = "remove from"
+            end
+            gDialogHandle = ll.Listen(gDialogChannel, "", id, "")
+            ll.TextBox(id, "\nPlease specify one single avatar UUID you'd like to " .. label .. " the blacklist storage.", gDialogChannel)
+            ll.SetTimerEvent(60)
+        end
+        return
+    end
+
+    if #ll.LinksetDataFindKeys("blocklist:" .. tostring(id), 0, 1) > 0 then
+        ll.RegionSayTo(id, 0, "You're blacklisted.")
+        return
+    end
+
+    ll.RegionSayTo(id, 0, "Hello there, secondlife:///app/agent/" .. tostring(id) .. "/about - your message: " .. message)
+
+end
+
+function LLEvents.linkset_data(action, name, value)
+    if action == LINKSETDATA_RESET or action == LINKSETDATA_DELETE or action == LINKSETDATA_UPDATE then
+        ll.OwnerSay("Blacklist storage modified.")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer gDialogChannel;
+integer gDialogHandle;
+integer gManagingBlocks;
+
+startDialog(key person)
+{
+    gManagingBlocks = 0;
+    gDialogHandle = llListen(gDialogChannel, "", person, "");
+    llDialog(person, "\nSelect action", ["List blocks", "Add block", "Remove block"], gDialogChannel);
+    llSetTimerEvent(60);
+}
+
+stopDialog()
+{
+    llSetTimerEvent(0);
+    llListenRemove(gDialogHandle);
+}
+
+default
+{
+
+    on_rez(integer sp)
+    {
+        llResetScript();
+    }
+
+    state_entry()
+    {
+        gDialogChannel = (integer)(llFrand(-10000000)-10000000);
+        llListen(PUBLIC_CHANNEL, "", NULL_KEY, "");;
+    }
+
+    timer()
+    {
+        stopDialog();
+    }
+
+    touch_start(integer nd)
+    {
+        key toucherKey = llDetectedKey(0);
+        if (toucherKey == llGetOwner())
+        {
+            startDialog(toucherKey);
+        }
+    }
+
+    listen(integer channel, string name, key id, string message)
+    {
+
+        if (llGetAgentSize(id) == ZERO_VECTOR)
+        {
+            return;
+        }
+
+        if (channel == gDialogChannel)
+        {
+            stopDialog();
+            if (gManagingBlocks)
+            {
+                message = llStringTrim(message, STRING_TRIM);
+                if ((key)message)
+                {
+                    if (gManagingBlocks == 1)
+                    {
+                        llOwnerSay("Addition request has been sent to the blacklist storage");
+                        llLinksetDataWrite("blocklist:" + message, "1");
+                    }
+                    else
+                    {
+                        llOwnerSay("Removal request has been sent to the blacklist storage.");
+                        llLinksetDataDelete("blocklist:" + message);
+                    }
+                }
+                else
+                {
+                    llOwnerSay("The UUID '" + message + "' appears to be invalid.");
+                }
+                startDialog(id);
+            }
+            else if (message == "List blocks")
+            {
+                list blocks = llLinksetDataFindKeys("^blocklist:", 0, 0);
+                integer listLength = llGetListLength(blocks);
+                llOwnerSay("Blacklist items: " + (string)listLength);
+                integer i;
+                while (i < listLength)
+                {
+                    string record = llGetSubString(llList2String(blocks, i), 10, -1);
+                    llOwnerSay("- secondlife:///app/agent/" + record + "/about" + " - " + record);
+                    ++i;
+                }
+                blocks = [];
+                startDialog(id);
+            }
+            else if (message == "Add block" || message == "Remove block")
+            {
+                string label = "add to";
+                gManagingBlocks = 1;
+                if (message == "Remove block")
+                {
+                    gManagingBlocks = 2;
+                    label = "remove from";
+                }
+                gDialogHandle = llListen(gDialogChannel, "", id, "");
+                llTextBox(id, "\nPlease specify one single avatar UUID you'd like to " + label + " the blacklist storage.", gDialogChannel);
+                llSetTimerEvent(60);
+            }
+            return;
+        }
+
+        if (llGetListLength(llLinksetDataFindKeys("blocklist:" + (string)id, 0, 1)) > 0)
+        {
+            llRegionSayTo(id, 0, "You're blacklisted.");
+            return;
+        }
+
+        llRegionSayTo(id, 0, "Hello there, secondlife:///app/agent/" + (string)id + "/about - your message: " + message);
+
+    }
+
+    linkset_data(integer action, string name, string value)
+    {
+        if (action == LINKSETDATA_RESET || action == LINKSETDATA_DELETE || action == LINKSETDATA_UPDATE)
+        {
+            llOwnerSay("Blacklist storage modified.");
+        }
+    }
+
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <h3>Regular Expression Cheat Sheet</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="3">Wildcard</th>
+      </tr>
+      <tr>
+        <th>.</th>
+        <th>Matches any character</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Anchors</th>
+      </tr>
+      <tr>
+        <th>^</th>
+        <th>Matches the beginning of the string.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>$</th>
+        <th>Matches the end of the string.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Expression Prefixes</th>
+      </tr>
+      <tr>
+        <th>(?i)</th>
+        <th>Makes search string case insensitive.</th>
+        <th>This must be the first thing that appears in the search string.
+"(?i)apple" will match "apple", "APPLE", "ApPlE", and any other combination of upper and lower case characters.</th>
+      </tr>
+      <tr>
+        <th>$</th>
+        <th>Matches the end of the string.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Repeats</th>
+      </tr>
+      <tr>
+        <th>*</th>
+        <th>Matches the preceding atom 0 or more times.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>+</th>
+        <th>Matches the preceding atom 1 or more times.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>?</th>
+        <th>Matches the preceding atom 0 or 1 times.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>{<i>n</i>}
+{<i>n</i>,}
+{<i>n</i>, <i>m</i>}</th>
+        <th>Matches the preceding atom <i>n</i>, <i>n</i> or more, or between <i>n</i> and <i>m</i> times.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Sub-expressions</th>
+      </tr>
+      <tr>
+        <th>(<i>expression</i>)</th>
+        <th>Text enclosed in parentheses is a marked sub-expression. Text matched as part of a sub-expressions is split out and may be repeated.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Alternation</th>
+      </tr>
+      <tr>
+        <th><i>a</i> | <i>b</i></th>
+        <th>Match either <i>a</i> or <i>b</i>.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Character Sets</th>
+      </tr>
+      <tr>
+        <th>[<i>abc</i>]</th>
+        <th>Matches any one of the enumerated characters.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>[<i>a</i>-<i>c</i>]</th>
+        <th>Matches any character in the specified range.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>[^<i>abc</i>]</th>
+        <th>Matches any character other than the enumerated characters.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>[[:<i>name</i>:]]</th>
+        <th>Matches any character of the named class.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>Any of the above character set definitions may be combined.</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="3">Escape Sequences</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2"><b>Specific Characters</b></td>
+      </tr>
+      <tr>
+        <th>\e</th>
+        <th colspan="2">ASCII 0x1B, ESC</th>
+      </tr>
+      <tr>
+        <th>\n</th>
+        <th colspan="2">New line</th>
+      </tr>
+      <tr>
+        <th>\r</th>
+        <th colspan="2">Carriage return</th>
+      </tr>
+      <tr>
+        <th>\t</th>
+        <th colspan="2">Tab</th>
+      </tr>
+      <tr>
+        <th>\x<i>dd</i></th>
+        <th colspan="2">Matches an ASCII character with the code <i>dd</i></th>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2"><b>Single character classes</b></td>
+      </tr>
+      <tr>
+        <th>\d
+\D</th>
+        <th>Any decimal digit.</th>
+        <th><b>\d</b> &#8594; [[:digit:]] or [0-9]
+<b>\D</b> &#8594; [^[:digit:]] or [^0-9]</th>
+      </tr>
+      <tr>
+        <th>\l
+\L</th>
+        <th>Any lower case character.</th>
+        <th><b>\l</b> &#8594; [[:lower:]] or [a-z]
+<b>\L</b> &#8594; [^[:lower:]] or [^a-z]</th>
+      </tr>
+      <tr>
+        <th>\s
+\S</th>
+        <th>Any whitespace character.</th>
+        <th><b>\s</b> &#8594; [[:space:]] or [ \t\r\n]
+<b>\S</b> &#8594; [^[:space:]] or [^ \t\r\n]</th>
+      </tr>
+      <tr>
+        <th>\u
+\U</th>
+        <th>Any upper case character.</th>
+        <th><b>\u</b> &#8594; [[:upper:]] or [A-Z]
+<b>\U</b> &#8594; [^[:upper:]] or [^A-Z]</th>
+      </tr>
+      <tr>
+        <th>\w
+\W</th>
+        <th>Any "word" character.
+Alphanumeric plus underscore</th>
+        <th><b>\w</b> &#8594; [[:upper:][:lower:][:digit:]_] or [A-Za-z0-9_]
+<b>\W</b> &#8594; [^[:upper:][:lower:][:digit:]_] or [^A-Za-z0-9_]</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="2"><b>Word boundaries</b></td>
+      </tr>
+      <tr>
+        <th>\<</th>
+        <th>Start of word.</th>
+      </tr>
+      <tr>
+        <th>\></th>
+        <th>End of word</th>
+      </tr>
+      <tr>
+        <th>\b</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>\B</th>
+        <th>Not a word boundary.</th>
+      </tr>
+      <tr>
+        <td colspan="3"><i><b>Note</b></i> LSL uses '\' as an escape character in strings. The escape characters above must be double escaped. So "\d" needs to be written in LSL as "\\d"
+Please see <a href="https://wiki.secondlife.com/wiki/Category:LSL_String#Escape_Codes" target="_blank">LSL Strings, Escape Codes</a></td>
+      </tr>
+      <tr>
+        <th colspan="3">Named Character Classes</th>
+      </tr>
+      <tr>
+        <th>alnum</th>
+        <th>Any alpha-numeric character.</th>
+        <th>[[:alnum:]] &#8594; [0-9a-zA-Z]
+[^[:alnum:]] &#8594; [^0-9a-zA-Z]</th>
+      </tr>
+      <tr>
+        <th>alpha</th>
+        <th>Any alphabetic character.</th>
+        <th>[[:alpha:]] &#8594; [a-zA-Z]
+[^[:alpha:]] &#8594; [^a-zA-Z]</th>
+      </tr>
+      <tr>
+        <th>blank</th>
+        <th>Any whitespace character that is not a line separator.</th>
+      </tr>
+      <tr>
+        <th>cntrl</th>
+        <th>Any control character</th>
+        <th>[[:cntrl:]] &#8594; [\x01-\x31]
+[^[:cntrl:]] &#8594; [^\x01-\x31]</th>
+      </tr>
+      <tr>
+        <th>digit
+d</th>
+        <th>Any decimal digit</th>
+        <th>[[:digit:]] &#8594; [0-9]
+[^[:digit:]] &#8594; [^0-9]</th>
+      </tr>
+      <tr>
+        <th>lower
+l</th>
+        <th>Any lower case character.</th>
+        <th>[[:lower:]] &#8594; [a-z]
+[^[:lower:]] &#8594; [^a-z]</th>
+      </tr>
+      <tr>
+        <th>print</th>
+        <th>Any printable character.</th>
+      </tr>
+      <tr>
+        <th>punct</th>
+        <th>Any punctiation character.</th>
+      </tr>
+      <tr>
+        <th>space
+s</th>
+        <th>Any whitespace character.</th>
+      </tr>
+      <tr>
+        <th>upper
+u</th>
+        <th>Any upper case character.</th>
+        <th>[[:upper:]] &#8594; [A-Z]
+[^[:upper:]] &#8594; [^A-Z]</th>
+      </tr>
+      <tr>
+        <th>word
+w</th>
+        <th>Any control character</th>
+        <th>[[:word:]] &#8594; [0-9a-zA-Z_]
+[^[:word:]] &#8594; [^0-9a-zA-Z_]</th>
+      </tr>
+      <tr>
+        <th>xdigit</th>
+        <th>Any hexadecimal digit character</th>
+        <th>[[:xdigit:]] &#8594; [0-9a-fA-F]
+[^[:xdigit:]] &#8594; [^0-9a-fA-F]</th>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataAvailable" target="_blank">llLinksetDataAvailable</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataCountKeys" target="_blank">llLinksetDataCountKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDelete" target="_blank">llLinksetDataDelete</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataDeleteProtected" target="_blank">llLinksetDataDeleteProtected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataListKeys" target="_blank">llLinksetDataListKeys</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataRead" target="_blank">llLinksetDataRead</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataReadProtected" target="_blank">llLinksetDataReadProtected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataReset" target="_blank">llLinksetDataReset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataWrite" target="_blank">llLinksetDataWrite</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlLinksetDataWriteProtected" target="_blank">llLinksetDataWriteProtected</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llLinksetDataFindKeys( string pattern, integer start, integer count );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

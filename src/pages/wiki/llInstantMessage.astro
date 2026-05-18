@@ -1,0 +1,200 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.InstantMessage(AvatarID: uuid, Text: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llInstantMessage(key AvatarID, string Text);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sends an Instant Message specified in the <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> <b>message</b> to the user specified by <b>user</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / user</td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/message" target="_blank">message</a></td>
+          <td>message to be transmitted</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_communication</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">2s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">118</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To send a message directly to an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, use <a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a>.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 2.0 seconds.</li>
+    <li>All <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> IMs are throttled at a maximum of 2500 per 30mins, per owner, per <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>, in a rolling window. This includes IMs sent after the throttle is in place.
+    <ul>
+      <li>Throttled IMs are dropped. for implementation see <a href="#Notes" target="_blank">notes</a> below.</li>
+    </ul>
+  
+    </li>
+    <li>Messages longer than 1023 bytes will be truncated to 1023 bytes[[1]](#footnote_1). This can convey 1023 ASCII characters, or fewer[[2]](#footnote_2) if non-ASCII characters are present.</li>
+  </ul>
+  <ul>
+    <li>If the specified user is logged in, <b>message</b> will appear in the chat window and will not logged by the InstantMessage logging facility.</li>
+    <li>If the specified user is not signed in, the messages will be delivered to their email just like a regular instant message, if the user has enabled email for their account.
+    <ul>
+      <li>If messages are sent to the same user by the same object within about 65 seconds, they will be bundled together in a single email.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Tell the owner somebody touched the object:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_num = #events
+    ll.InstantMessage(ll.GetOwner(), "Someone touched me")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start( integer total_num )
+    {        
+        llInstantMessage( llGetOwner(), "Someone touched me" );
+    }
+}`} lang="lsl" /></div>
+  <p>Send an IM to a detected avatar only</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local total_num = #events
+    ll.InstantMessage(ll.DetectedKey(0), "Hands Off!")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start( integer total_num )
+    {
+        llInstantMessage( llDetectedKey(0), "Hands Off!");
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a> may be a better choice if the target is in the same region as the object sending the message, as it has no built-in delay and can communicate directly with objects, as well as with avatars and their attachments.</li>
+    <li>Instant Messaging allows communication from an object to an avatar anywhere on the Grid. However, an object cannot receive an Instant Message.</li>
+    <li>Using llInstantMessage from one or more child scripts will avoid delays in the main script. Child scripts will still be subject to delays, <a href="https://wiki.secondlife.com/w/index.php?title=LSL_Event_Queue&action=edit&redlink=1" target="_blank">message queue</a> limits, and region throttles.</li>
+    <li>Throttling Implementation (Kelly Linden):
+    <ul>
+      <li>The throttle is on all IMs from the object owner. It does not disable all IMs in the region, but does disable all IMs from the owner of the object.</li>
+      <li>The throttle is not per object, but per owner. Splitting the spamming object into multiple objects will not help unless owned by different people. This also means that owning multiple almost too spammy objects will cause you to hit the limit.</li>
+      <li>2500 IMs in 30 minutes will trigger the block.</li>
+      <li>IMs that are blocked continue to count against the throttle. The IM count must drop below 2500 before any IMs will be delivered.</li>
+      <li>The IM count of the previous window is used to approximate the rolling window. If it is 20% into the current window the IM count will be the current count + 80% of the previous count. This allows us to approximate a rolling average, however it has the behavior that a flood of IMs can have an effect on the throttle for double the window length. This is why in practice the throttle behaves more like 5k in 1hr than 2.5k in 30min.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a></td>
+        <td>–</td>
+        <td>Sends chat region wide to owner</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSay" target="_blank">llRegionSay</a></td>
+        <td>–</td>
+        <td>Sends chat region wide</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a></td>
+        <td>–</td>
+        <td>Sends chat region wide to a specific prim/avatar</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlWhisper" target="_blank">llWhisper</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 10 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 20 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">llShout</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 100 meters</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> As of Feb 26th, 2013, in all sims, instant messages are now truncated to 1023 bytes to prevent certain types of delivery failure. (See <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/13#13.02.15.270481" target="_blank">Release Notes for Second Life Server 13.02.15.270481</a>).</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Around 512 UTF-8 characters such as <b>á</b>.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llInstantMessage( key user, string message );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Laggy neighborhood</p>
+<p>An urgent, swift message sent</p>
+<p>by the avatar</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

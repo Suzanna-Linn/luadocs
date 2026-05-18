@@ -1,0 +1,304 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.TakeControls(Controls: number, Accept: boolean, PassOn: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llTakeControls(integer Controls, integer Accept, integer PassOn);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Allows for intercepting of keyboard and mouse clicks, specifically those specified by <b>controls</b>, from the agent the script has permissions for.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Controls / controls</td>
+          <td>bitfield of CONTROL_* flags</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Accept / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">accept</a></td>
+          <td>boolean, determines whether <a href="https://wiki.secondlife.com/wiki/Control" target="_blank">control</a> events are generated</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>PassOn / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">pass_on</a></td>
+          <td>boolean, determines whether controls perform their normal functions</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>input</li>
+        <li>permissions</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_TAKE_CONTROLS</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">111</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TAKE_CONTROLS" target="_blank">PERMISSION_TAKE_CONTROLS</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>.</p>
+  <p>If <b>accept</b> is <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> and <b>pass_on</b> is <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>, the behavior is not intuitive. In this case, the complement of the specified controls do not generate events and do not perform their normal functions. They are effectively disabled. Certain control bits (e.g. CONTROL_ROT_LEFT) are also disabled when specified, in this case.</p>
+  <p>If <b>accept</b> is <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> and <b>pass_on</b> is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, then the specified controls do not generate events but perform their normal functions.</p>
+  <p>If <b>accept</b> is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> and <b>pass_on</b> is <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>, then the specified controls generate events but do not perform their normal functions.</p>
+  <p>If <b>accept</b> is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> and <b>pass_on</b> is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, then the specified controls generate events and perform their normal functions.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_FWD" target="_blank">CONTROL_FWD</a></td>
+        <td>0x00000001</td>
+        <td>Move forward control (↑ or W)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_BACK" target="_blank">CONTROL_BACK</a></td>
+        <td>0x00000002</td>
+        <td>Move back control (↓ or S)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_LEFT" target="_blank">CONTROL_LEFT</a></td>
+        <td>0x00000004</td>
+        <td>Move left control (⇧ Shift-← or ⇧ Shift-A <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">← or A in [mouselook</a>])</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_RIGHT" target="_blank">CONTROL_RIGHT</a></td>
+        <td>0x00000008</td>
+        <td>Move right control (⇧ Shift-→ or ⇧ Shift-D <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">→ or D in [mouselook</a>])</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_ROT_LEFT" target="_blank">CONTROL_ROT_LEFT</a></td>
+        <td>0x00000100</td>
+        <td>Rotate left control (← or A)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_ROT_RIGHT" target="_blank">CONTROL_ROT_RIGHT</a></td>
+        <td>0x00000200</td>
+        <td>Rotate right control (→ or D)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_UP" target="_blank">CONTROL_UP</a></td>
+        <td>0x00000010</td>
+        <td>Move up control (PgUp or E)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_DOWN" target="_blank">CONTROL_DOWN</a></td>
+        <td>0x00000020</td>
+        <td>Move down control (PgDn or C)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_LBUTTON" target="_blank">CONTROL_LBUTTON</a></td>
+        <td>0x10000000</td>
+        <td>Left mouse button control</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/CONTROL_ML_LBUTTON" target="_blank">CONTROL_ML_LBUTTON</a></td>
+        <td>0x40000000</td>
+        <td>Left mouse button control while in <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">mouselook</a></td>
+      </tr>
+      <tr>
+        <td>(undocumented)</td>
+        <td>0x02000000</td>
+        <td>Avatar left rotation detected. Triggers <a href="https://wiki.secondlife.com/wiki/LlGetAnimation" target="_blank">llGetAnimation</a> == "Turning Left"</td>
+      </tr>
+      <tr>
+        <td>(undocumented)</td>
+        <td>0x04000000</td>
+        <td>Avatar right rotation detected. Triggers <a href="https://wiki.secondlife.com/wiki/LlGetAnimation" target="_blank">llGetAnimation</a> == "Turning Right"</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_TAKE_CONTROLS" target="_blank">PERMISSION_TAKE_CONTROLS</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TAKE_CONTROLS" target="_blank">PERMISSION_TAKE_CONTROLS</a> permission is granted, it can be revoked from inside the script (with <a href="https://wiki.secondlife.com/wiki/LlReleaseControls" target="_blank">llReleaseControls</a> or a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call), or if the user chooses Release Keys from the viewer. The script will also lose this permission on reset, or if the object is deleted, detached, or dropped.</td>
+      </tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>There appears to be no penalty for using <b>accept</b> = TRUE, <b>pass_on</b> = TRUE when there is no <a href="https://wiki.secondlife.com/wiki/Control" target="_blank">control</a> event in the script (such as is used in AO's to ensure they work on no-script land)
+    <ul>
+      <li>There is a bug in some permissions that prevents left clicks from working in mouselook if they are set to <b>accept</b> = FALSE, <b>pass_on</b> = TRUE</li>
+    </ul>
+  
+    </li>
+    <li>If you sit/are sitting on the object that has taken your controls using <b>accept</b> = <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> and <b>pass_on</b> = <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, then <a href="https://wiki.secondlife.com/wiki/CONTROL_FWD" target="_blank">CONTROL_FWD</a>, <a href="https://wiki.secondlife.com/wiki/CONTROL_BACK" target="_blank">CONTROL_BACK</a>, <a href="https://wiki.secondlife.com/wiki/CONTROL_ROT_LEFT" target="_blank">CONTROL_ROT_LEFT</a>, and <a href="https://wiki.secondlife.com/wiki/CONTROL_ROT_RIGHT" target="_blank">CONTROL_ROT_RIGHT</a> will never generate events; instead these controls will only perform their normal functions.</li>
+    <li>if the undocumented controls 0x02000000 or 0x04000000 are taken with <b>pass_on</b> = FALSE, then <a href="https://wiki.secondlife.com/wiki/LlGetAnimation" target="_blank">llGetAnimation</a> will never be "Turning Left" or "Turning Right", respectively, and those animations set by <a href="https://wiki.secondlife.com/wiki/LlSetAnimationOverride" target="_blank">llSetAnimationOverride</a> will never play
+    <ul>
+      <li>all control flags documented in <a href="https://github.com/openmetaversefoundation/libopenmetaverse/blob/master/OpenMetaverse/AgentManagerMovement.cs#L42" target="_blank">libopenmetaverse</a> <a href="https://github.com/secondlife/viewer/blob/c7053a6928fd5eafdc935453742e92951ae4e0c1/indra/llcommon/indra_constants.h#L255" target="_blank">secondlife viewer</a></li>
+    </ul>
+  
+    </li>
+    <li>If your viewer's 'Single click on land' setting is set to 'Move to clicked point', then CONTROL_LBUTTON might not be sent to the server when taken by llTakeControls().</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_TAKE_CONTROLS)
+end
+function LLEvents.run_time_permissions(perm)
+    if bit32.btest(PERMISSION_TAKE_CONTROLS, perm) then
+        ll.TakeControls(bit32.bor(CONTROL_FWD, CONTROL_BACK, CONTROL_LEFT, CONTROL_RIGHT, CONTROL_ROT_LEFT, CONTROL_ROT_RIGHT, CONTROL_UP, CONTROL_DOWN, CONTROL_LBUTTON, CONTROL_ML_LBUTTON), true, true)
+
+    end
+end
+function LLEvents.control(id, level, edge)
+    local start = bit32.band(level, edge)
+    local end_t = bit32.band(bit32.bnot(level), edge)
+    local held = bit32.band(level, bit32.bnot(edge))
+    local untouched = bit32.bnot(bit32.bor(level, edge))
+    ll.OwnerSay(ll.List2CSV({level, edge, start, end_t, held, untouched}))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llRequestPermissions(llGetOwner(), PERMISSION_TAKE_CONTROLS);
+    }
+    run_time_permissions(integer perm)
+    {
+        if(PERMISSION_TAKE_CONTROLS & perm)
+        {
+            llTakeControls(
+                            CONTROL_FWD |
+                            CONTROL_BACK |
+                            CONTROL_LEFT |
+                            CONTROL_RIGHT |
+                            CONTROL_ROT_LEFT |
+                            CONTROL_ROT_RIGHT |
+                            CONTROL_UP |
+                            CONTROL_DOWN |
+                            CONTROL_LBUTTON |
+                            CONTROL_ML_LBUTTON ,
+                            TRUE, TRUE);
+                           
+        }
+    }
+    control(key id, integer level, integer edge)
+    {
+        integer start = level & edge;
+        integer end = ~level & edge;
+        integer held = level & ~edge;
+        integer untouched = ~(level | edge);
+        llOwnerSay(llList2CSV([level, edge, start, end, held, untouched]));
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>If a script has taken controls, it and other scripts in the same prim will not be stopped if the Agent enters a "No Outside Scripts" parcel. This is done to keep vehicle control alive and AOs functional. This is an intentional feature. This only applies to the object containing the script - child objects in a linkset (wheels, particle emitters, in vehicles, child objects in huds, etc) will not inherit this immunity. To preserve functionality in child objects, llTakeControls must be issued in each scripted child as well.</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Control" target="_blank">control</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReleaseControls" target="_blank">llReleaseControls</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llTakeControls( integer controls, integer accept, integer pass_on );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

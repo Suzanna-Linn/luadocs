@@ -1,0 +1,150 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ForceMouselook(Enable: boolean)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llForceMouselook(integer Enable);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets if a sitting avatar should be forced into <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">mouselook</a> when they sit on this prim.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Enable / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">mouselook</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> when an avatar sits on the prim, the avatar will be forced into <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">mouselook</a> mode, if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>&#32;(default) the avatar will keep their current camera mode.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>camera</li>
+        <li>permissions</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">294</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>A <a href="https://wiki.secondlife.com/wiki/LlSitTarget" target="_blank">sit target</a> is not necessary for this function to work.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function has no effect on avatars already seated.</li>
+    <li>The user may exit mouselook mode at any time.
+    <ul>
+      <li>This can be detected by polling <a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo" target="_blank">llGetAgentInfo</a>.</li>
+    </ul>
+  
+    </li>
+    <li>There is nothing stopping someone from modifying or making a client that ignores this.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p><b>Force Mouselook on Sit</b></p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.ForceMouselook(true)  -- Forces sitting avatars into mouselook.
+
+    ll.ForceMouselook(false)  -- Reverts the setting to the default...
+-- ...as with a newly created prim.
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llForceMouselook(TRUE); // Forces sitting avatars into mouselook.
+
+        llForceMouselook(FALSE); // Reverts the setting to the default...
+                                 // ...as with a newly created prim.
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAvatarOnSitTarget" target="_blank">llAvatarOnSitTarget</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo" target="_blank">llGetAgentInfo</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetCameraRot" target="_blank">llGetCameraRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraAtOffset" target="_blank">llSetCameraAtOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraEyeOffset" target="_blank">llSetCameraEyeOffset</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlForceMouseLook_Test" target="_blank">llForceMouseLook Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llForceMouselook( integer mouselook );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

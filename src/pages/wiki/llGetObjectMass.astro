@@ -1,0 +1,120 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetObjectMass(ID: uuid): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetObjectMass(key ID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the mass of <b>id</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>object</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">295</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Returns zero if <b>id</b> is not found in the region.</li>
+    <li><b>id</b> can be any prim in the object.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch(events)
+    local n = #events
+    ll.Say(0, ll.DetectedName(0) .. " your mass is " .. tostring(ll.GetObjectMass(ll.DetectedKey(0))) .. " lindogram.")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch(integer n)
+    {
+        llSay(0, llDetectedName(0) + " your mass is " + (string)llGetObjectMass(llDetectedKey(0)) + " lindogram.");
+    }
+}
+//Anylyn Hax 15:02, 28 July 2007 (PDT)`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li><a href="http://en.wikipedia.org/wiki/Mass" target="_blank">Mass</a> in SL is expressed as <i>lindogram</i>. One lindogram appears to be equal to 100 kilograms.</li>
+    <li>Mass for avatars is relative to shape/size, and unaffected by attachments. However, a survey of masses for avatars shows less variation than one would expect relative to shape/size, and the lindogram masses do not appear in any way realistic.</li>
+    <li>Sitting avatars add their mass to the object.</li>
+    <li>This function returns a mass of 0.01 for child agents.</li>
+    <li>This function is a handy way to determine if an object or avatar still exists on a region. Other methods exist (such as checking that <a href="https://wiki.secondlife.com/wiki/OBJECT_OWNER" target="_blank">OBJECT_OWNER</a> returned by <a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a> is a valid key), but this has slightly less overhead.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetMass" target="_blank">llGetMass</a></td>
+        <td>–</td>
+        <td>Gets the current object mass.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Prior to server code version 1.18.6.76747 avatar mass was fixed at 1.954922 lindogram. It is now relative to Avatar shape/size.</p>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectMass_Test" target="_blank">llGetObjectMass_Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGetObjectMass( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,437 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetListEntryType(ListVariable: {any}, Index: number): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetListEntryType(list ListVariable, integer Index);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use typeof</span></p>
+      <p>  <p>Returns the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/type" target="_blank">type</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) of the entry at <b>index</b> in <b>src</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>ListVariable / src</td>
+          <td>List containing the element of interest.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Index / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/index" target="_blank">index</a></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Index of the element of interest.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>list</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">194</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="attr-label bg-native">Native Coded</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>index</b> supports <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>If <b>index</b> describes a location not in <b>src</b> then <a href="https://wiki.secondlife.com/wiki/TYPE_INVALID" target="_blank">TYPE_INVALID</a> is returned.</p>
+  <h2>Specification</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Index</th>
+        <th>Positive</th>
+        <th>Negative</th>
+      </tr>
+      <tr>
+        <td>First</td>
+        <td>`0`</td>
+        <td>`-length`</td>
+      </tr>
+      <tr>
+        <td>Last</td>
+        <td>`length - 1`</td>
+        <td>`-1`</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Indexes</h3>
+  <ul>
+    <li>Positive indexes count from the beginning, the first item being indexed as `0`, the last as `(length - 1)`.</li>
+  </ul>
+  <ul>
+    <li>Negative indexes count from the far end, the first item being indexed as `-length`, the last as `-1`.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Type</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/TYPE_INTEGER" target="_blank">TYPE_INTEGER</a></td>
+        <td>1</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/TYPE_FLOAT" target="_blank">TYPE_FLOAT</a></td>
+        <td>2</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/TYPE_STRING" target="_blank">TYPE_STRING</a></td>
+        <td>3</td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/TYPE_KEY" target="_blank">TYPE_KEY</a></td>
+        <td>4</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/TYPE_VECTOR" target="_blank">TYPE_VECTOR</a></td>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/TYPE_ROTATION" target="_blank">TYPE_ROTATION</a></td>
+        <td>6</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/TYPE_INVALID" target="_blank">TYPE_INVALID</a></td>
+        <td>0</td>
+        <td>none</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>index</b> is out of bounds the script continues to execute without an error message.</li>
+    <li>If a vector is stored in a list as "<7,5,0>" (as a string type, as opposed to <7,5,0> which is a vector type), its type will be returned as <a href="https://wiki.secondlife.com/wiki/TYPE_STRING" target="_blank">TYPE_STRING</a>, not <a href="https://wiki.secondlife.com/wiki/TYPE_VECTOR" target="_blank">TYPE_VECTOR</a>. The same applies for "1" being returned as a string instead of an integer, etc. There is no easy way to guess what the type should be from a string value.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function get_list_entry_type_info(inputInteger)
+    if inputInteger == TYPE_INTEGER then
+        return "integer"
+
+    elseif inputInteger == TYPE_FLOAT then
+        return "float"
+
+    elseif inputInteger == TYPE_STRING then
+        return "string"
+
+    elseif inputInteger == TYPE_KEY then
+        return "key"
+
+    elseif inputInteger == TYPE_VECTOR then
+        return "vector"
+
+    elseif inputInteger == TYPE_ROTATION then
+        return "rotation"
+    end
+
+    --  else
+    return "<!-- invalid type --!>"
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local listOfStuff = {rotation(1.0, 2.0, 3.0, 4.0), vector(1.0, 2.0, 3.0), ll.GetKey(), "some random text", 382.4, 1}
+
+    local index = bit32.bnot(#listOfStuff)
+
+    -- start with -length and end with -1
+    while (function() index += 1 return index end)() ~= 0 do
+        local type = ll.GetListEntryType(listOfStuff, index)
+        local entry2string = ll.List2String(listOfStuff, index)
+
+        ll.Say(0, "'" .. entry2string .. "' has the list-entry-type: '" .. get_list_entry_type_info(type) .. "'")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string get_list_entry_type_info(integer inputInteger)
+{
+    if (inputInteger == TYPE_INTEGER)
+        return "integer";
+ 
+    else if (inputInteger == TYPE_FLOAT)
+        return "float";
+ 
+    else if (inputInteger == TYPE_STRING)
+        return "string";
+ 
+    else if (inputInteger == TYPE_KEY)
+        return "key";
+ 
+    else if (inputInteger == TYPE_VECTOR)
+        return "vector";
+ 
+    else if (inputInteger == TYPE_ROTATION)
+        return "rotation";
+ 
+//  else
+        return "<!-- invalid type --!>";
+}
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        list listOfStuff = [
+            <1.0, 2.0, 3.0, 4.0>,
+            <1.0, 2.0, 3.0>,
+            llGetKey(),
+            "some random text",
+            382.4,
+            1];
+
+        integer index = ~llGetListLength(listOfStuff);
+
+        // start with -length and end with -1
+        while (++index)
+        {
+            integer type = llGetListEntryType(listOfStuff, index);
+            string entry2string = llList2String(listOfStuff, index);
+
+            llSay(0, "'" + entry2string + "' has the list-entry-type: '" + get_list_entry_type_info(type) + "'");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <p>This function has two primary uses: serializing a list to a string, debugging.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+--A simple list serializer and deserializer.
+--This will round floats to 6 decimal places and not handle strings with embedded "|" characters
+
+local function serialize(input)
+    local len = bit32.bnot(#input)
+    local build = tostring(bit32.bnot(len))
+    while (function() len += 1 return len end)() ~= 0 do
+        build ..= "|" .. tostring(ll.GetListEntryType(input, len)) .. "=" .. ll.List2String(input, len)  --not safe if list item could contain "|" character
+    end
+    return build
+end
+
+local function deserialize(input)
+    local len = bit32.bnot(integer(input))  --the length is everything before the "|", which is where (integer) stops
+    local build = {}
+    local pair = ll.ParseString2List(input, {"|"}, {})
+    local value = ""
+    local replace = {}
+    while (function() len += 1 return len end)() ~= 0 do
+        local type = integer((function() value = ll.List2String(pair, len) return value end)())
+        value = ll.DeleteSubString(value, 0, ll.SubStringIndex(value, "="))
+        if type == TYPE_INTEGER then
+            replace = {integer(value)}
+        elseif type == TYPE_FLOAT then
+            replace = {tonumber(value)}
+        elseif type == TYPE_STRING then
+            replace = {value}
+        elseif type == TYPE_KEY then
+            replace = {uuid(value)}
+        elseif type == TYPE_VECTOR then
+            replace = {tovector(value)}
+        elseif type == TYPE_ROTATION then
+            replace = {torotation(value)}
+        end
+        pair = ll.ListReplaceList(pair, replace, len, len)
+    end
+    return pair
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//A simple list serializer and deserializer.
+//This will round floats to 6 decimal places and not handle strings with embedded "|" characters
+
+string serialize(list input){
+    integer len = ~llGetListLength(input);
+    string build = (string)(~len);
+    while(++len)
+    {
+        build += "|" + (string) llGetListEntryType(input, len) + 
+             "=" + llList2String(input, len);        //not safe if list item could contain "|" character
+    }
+    return build;
+}
+
+list deserialize(string input){
+    integer len = ~(integer)input;//the length is everything before the "|", which is where (integer) stops
+    list build = [];
+    list pair = llParseString2List(input, ["|"], []);
+    string value;
+    list replace;
+    while(++len)
+    {
+        integer type = (integer)(value = llList2String(pair, len));
+        value = llDeleteSubString(value, 0, llSubStringIndex(value, "="));
+        if (type == TYPE_INTEGER)
+            replace = [(integer)value];
+        else if (type == TYPE_FLOAT)
+            replace = [(float)value];
+        else if (type == TYPE_STRING )
+            replace = [value];
+        else if (type == TYPE_KEY)
+            replace = [(key)value];
+        else if (type == TYPE_VECTOR)
+            replace = [(vector)value];
+        else if (type == TYPE_ROTATION)
+            replace = [(rotation)value];
+        pair = llListReplaceList(pair, replace, len, len);
+    }
+    return pair;
+}`} lang="lsl" /></div>
+  <p>This snippet produces an LSL formatted dump of a list that can be pasted back into LSL.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--A list dumper that produces an output suitable for pasting back into LSL as a variable initialization.
+local function list_dump(mylist)
+    local output = "["
+    local i = 0
+    local count = (#mylist)  -- length of list (shorthand)
+    local type = 0
+    while i < count do
+        if i ~= 0 then
+            output ..= ","
+        end
+        type = ll.GetListEntryType(mylist, i)
+        if type == TYPE_KEY then
+            output ..= "(key)"
+        end
+        if type == TYPE_STRING or type == TYPE_KEY then
+            output ..= "\""
+        end
+        output ..= ll.List2String(mylist, i)
+        if type == TYPE_STRING or type == TYPE_KEY then
+            output ..= "\""
+        end
+        i += 1
+    end
+    return output .. "]"
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//A list dumper that produces an output suitable for pasting back into LSL as a variable initialization.
+string list_dump(list mylist)
+{
+    string output = "[";
+    integer i;
+    integer count = (mylist != [] );   // length of list (shorthand)
+    integer type;
+    for ( ; i < count; ++i) 
+    {
+        if (i) 
+            output += ","; 
+        type = llGetListEntryType(mylist, i); 
+        if (type == TYPE_KEY)
+            output += "(key)";
+        if (type == TYPE_STRING || type == TYPE_KEY)  
+            output += "\""; 
+        output += llList2String(mylist, i); 
+        if (type == TYPE_STRING || type == TYPE_KEY)
+            output += "\""; 
+    }
+    return (output + "]");
+}`} lang="lsl" /></div>
+  <p>For a more complex and robust list (de)serializer see <a href="https://wiki.secondlife.com/wiki/TightList" target="_blank">TightListType</a>.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2Float" target="_blank">llList2Float</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2Integer" target="_blank">llList2Integer</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2Key" target="_blank">llList2Key</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2Rot" target="_blank">llList2Rot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2Vector" target="_blank">llList2Vector</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">Negative Index</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetListEntryType( list src, integer index );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

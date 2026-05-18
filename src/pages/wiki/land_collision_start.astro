@@ -1,0 +1,119 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`land_collision_start(Position: vector)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`land_collision_start(vector Position)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Triggered in the root when a physical object or attached avatar starts colliding with land</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td>position of collision with the ground</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Put script into physical object and drop to ground.  It will say position of initial impact.
+function LLEvents.land_collision_start(pos)
+    ll.OwnerSay("Land collision at: " .. tostring(pos.x) .. "," .. tostring(pos.y) .. "," .. tostring(pos.z))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Put script into physical object and drop to ground.  It will say position of initial impact.
+default
+{
+     land_collision_start( vector pos )
+    {
+       llOwnerSay("Land collision at: "+(string) pos.x + ","+(string) pos.y+","+(string)pos.z);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">Collision events & functions</a></li>
+  </ul>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Land_collision" target="_blank">land_collision</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Land_collision_end" target="_blank">land_collision_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGround" target="_blank">llGround</a></td>
+        <td>–</td>
+        <td>Gets the ground height</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Issues
+All Issues ~ <a href="https://secondlife.canny.io/?search=event+AND+land_collision_start" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/SVC-3304" target="_blank">SVC-3304</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/SVC-3304" target="_blank">A</a></td>
+        <td></td>
+        <td>presence of <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">collision</a><i> events influencing <a href="https://wiki.secondlife.com/wiki/Category:LSL_Land_Collision" target="_blank">land_collision</a></i> events</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void land_collision_start( vector pos );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

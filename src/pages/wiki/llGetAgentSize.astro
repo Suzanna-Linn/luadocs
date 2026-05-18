@@ -1,0 +1,220 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetAgentSize(AvatarID: uuid): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGetAgentSize(key AvatarID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a vector that is an estimated size of the requested <b>avatar</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">218</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> is returned if <b>avatar</b> is not in the region or if it is not an avatar.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The returned vector is an estimate calculated from the avatar's current shape including shoes. x is a constant 0.45[[1]](#footnote_1), y is a constant 0.60[[2]](#footnote_2), z is the approximate total height of all avatar's bones, with an arbitrary amount added or subtracted based on the current shape's "Hover" setting. Reported height is constrained to the range 1.1 to 2.45 meters, and does not include animation or mesh bone offsets. [[3]](#footnote_3)
+    <ul>
+      <li>Due to the shape Hover setting, and mesh and animation offsets, it is not possible to use this function to determine the rendered height of an avatar with any degree of confidence.</li>
+    </ul>
+  
+    </li>
+    <li>As of Second Life Server 13.11.19.284082, the return value is the avatar's reported <a href="https://wiki.secondlife.com/wiki/LlGetBoundingBox" target="_blank">bounding box</a> - <0.1, 0.1, 0.2> when standing. (Avatar bounding boxes have historically been redefined with major physics upgrades.) An avatar's bounding box changes when an avatar sits, while llGetAgentSize is constant for as long as the shape does not change.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--A simple script that makes a box hover above the owner's head.
+local function main()
+    local owner = ll.GetOwner()
+    local pos = ll.List2Vector(ll.GetObjectDetails(owner, {OBJECT_POS}), 0)
+    local agent = ll.GetAgentSize(owner)
+
+    --  "pos" needs to be adjusted so it appears above the owner.
+    pos = vector(pos.x, pos.y, pos.z + 0.5 + agent.z / 2)
+
+    --  makes sure it found the owner, a zero vector evaluates as false
+    if agent ~= ZERO_VECTOR then
+        ll.SetPos(pos)
+    end
+end
+
+function LLEvents.touch_start(events)
+    local num = #events
+    ll.ResetScript()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//A simple script that makes a box hover above the owner's head.
+default
+{
+    state_entry()
+    {
+        key    owner = llGetOwner();
+        vector pos   = llList2Vector(llGetObjectDetails(owner, [OBJECT_POS]), 0);
+        vector agent = llGetAgentSize(owner);
+
+    //  "pos" needs to be adjusted so it appears above the owner.
+        pos.z += 0.5 + agent.z / 2;
+
+    //  makes sure it found the owner, a zero vector evaluates as false
+        if(agent)
+            llSetPos(pos);
+    }
+
+    touch_start(integer num)
+    {
+        llResetScript();
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>This function is a good way to quickly test...
+    <ul>
+      <li>if an avatar is in the same region.</li>
+      <li>if a UUID known to be in the region is an avatar.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <p>To use this function to test either case use as follows</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`if ll.GetAgentSize(uuid) ~= ZERO_VECTOR then
+--uuid is an avatar in the region
+else
+--uuid is not an avatar in the region
+end`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`if(llGetAgentSize(uuid)) {
+    //uuid is an avatar in the region
+} else {
+    //uuid is not an avatar in the region
+}`} lang="lsl" /></div>
+  <ul>
+    <li>`DEFAULT_AGENT_HEIGHT` in <a href="https://github.com/secondlife/viewer/blob/0ca239e469b3/indra/llcommon/indra_constants.h#L96" target="_blank">indra/llcommon/indra_constants.h</a> is 1.9. This will be the z value if an avatar's shape has <a href="https://wiki.secondlife.com/wiki/Ruth" target="_blank">not loaded yet</a>. It is possible but extremely rare to see a fully loaded avatar with this exact size, so:</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local agentSize = ll.GetAgentSize(uuid)
+if agentSize.z == 1.9 then
+-- avatar is probably Ruthed
+end`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector agentSize = llGetAgentSize(uuid);
+if (agentSize.z == 1.9) {
+    // avatar is probably Ruthed
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetBoundingBox" target="_blank">llGetBoundingBox</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo" target="_blank">llGetAgentInfo</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestAgentData" target="_blank">llRequestAgentData</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Avatar_body_size" target="_blank">Avatar body size</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> <a href="https://github.com/secondlife/viewer/blob/bc61d5ad9162bd461c17d77728090fe5d8ead59e/indra/llcommon/indra_constants.h#L88" target="_blank">const F32 DEFAULT_AGENT_DEPTH = 0.45f;</a></li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> <a href="https://github.com/secondlife/viewer/blob/bc61d5ad9162bd461c17d77728090fe5d8ead59e/indra/llcommon/indra_constants.h#L92" target="_blank">const F32 DEFAULT_AGENT_WIDTH = 0.60f;</a></li>
+    <li><b><a href="#fn_3" target="_blank">^</a></b> llGetAgentSize returns the same value as <a href="https://github.com/secondlife/viewer/blob/bc61d5ad9162bd461c17d77728090fe5d8ead59e/indra/llappearance/llavatarappearance.cpp#L433" target="_blank">LLVOAvatar::computeBodySize()</a>. See <a href="https://github.com/secondlife/viewer/blob/bc61d5ad9162bd461c17d77728090fe5d8ead59e/indra/llcommon/indra_constants.h#L86" target="_blank">indra/llcommon/indra_constants.h</a> for defaults and limits.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llGetAgentSize( key avatar );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>For height (minus head)</p>
+<p>Or to tell if you're not there.</p>
+<p>Do not hope for "size".</p>
+<p>I just wanted size.</p>
+<p>It gave me something useless.</p>
+<p>How hard can it be?</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

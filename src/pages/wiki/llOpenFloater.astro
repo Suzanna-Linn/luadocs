@@ -1,0 +1,117 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.OpenFloater(floater_name: string, url: string, params: {any}): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llOpenFloater(string floater_name, string url, list params);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns an integer Error code, or 0 if no error.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>floater_name</td>
+          <td>Identifier of the viewer floater to open.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>url</td>
+          <td>URL to open in the floater.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/params" target="_blank">params</a></td>
+          <td>Options to apply to floater.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar_communication</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.2s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">604</span></div>
+
+      <div class="label-stack">
+        <span class="lua-section attr-label bg-lindenexp">Linden Experience</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>This function may be called only from a Linden owned experience.</p>
+  <h2>Specification</h2>
+  <p>The llOpenFloater function will send a request to the viewer requesting that it open a new floater with the provided title on the viewer. This function must be called from a script running within an attachment. The script must also have been compiled as part of a Linden owned experience.</p>
+  <p>If the request was successfully sent to the viewer this function will return 0.</p>
+  <p>In the event of an error the return value will be one of the values from the following table:</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th>Val</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>NOT_EXPERIENCE</td>
+        <td>-1</td>
+        <td>The script is not complied as part of an experience, or the experience is not privileged.</td>
+      </tr>
+      <tr>
+        <td>NOT_ATTACHMENT</td>
+        <td>-2</td>
+        <td>There was an issue finding the object, or the object is not an attachment.</td>
+      </tr>
+      <tr>
+        <td>BAD_AGENT</td>
+        <td>-3</td>
+        <td>There was an issue finding the owner.</td>
+      </tr>
+      <tr>
+        <td>NOT_EXPERIENCE_PERMISSIONS</td>
+        <td>-4</td>
+        <td>There was some other issue with the experience permissions.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Notes</h2>
+  <p>Known valid values for the floater_name parameter:</p>
+  <ul>
+    <li>guidebook</li>
+    <li>how_to</li>
+    <li>web_content</li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llOpenFloater( string floater_name, string url, list params );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

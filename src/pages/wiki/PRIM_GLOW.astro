@@ -1,0 +1,228 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_GLOW: number = 25`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_GLOW = 25;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_GLOW has the value 25</p>
+  <p>PRIM_GLOW is used to get or set the glow status of the <b>face</b>. Use the integer number 25 if the compiler rejects the named constant.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_GLOW,&#32;[integer</a> face, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> intensity ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>intensity</td>
+        <td>–</td>
+        <td>ranges from 0.0 to 1.0</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_GLOW,&#32;[integer</a> face ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Float" target="_blank"> [float</a> intensity ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+        <td>–</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>intensity</td>
+        <td>–</td>
+        <td>ranges from 0.0 to 1.0</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Caveats</p>
+  <ul>
+    <li>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the PRIM_GLOW works on all sides.</li>
+    <li>If <b>face</b> indicates a face that does not exist the PRIM_GLOW return is [ 0.0 ]</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_TEXTURE" target="_blank">CHANGED_TEXTURE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+  <p>basic syntax to set glow</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- adjust as desired .3 to a float number from 0 to 1.0 inclusive
+-- adjust as desired ALL_SIDES to specific prim faces if desired
+
+ll.SetPrimitiveParams({PRIM_GLOW, ALL_SIDES, .3})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// adjust as desired .3 to a float number from 0 to 1.0 inclusive
+// adjust as desired ALL_SIDES to specific prim faces if desired
+
+llSetPrimitiveParams( [ PRIM_GLOW, ALL_SIDES, .3 ] ) ;`} lang="lsl" /></div>
+  <p>basic syntax to get glow status</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local mylist = ll.GetPrimitiveParams({PRIM_GLOW, ALL_SIDES})
+ll.Say(0, ll.List2CSV(mylist))
+
+--Assuming for this example that all sides are set to the same float of .3 
+--In a box, which has 6 sides, the above example returns 0.300000, 0.300000, 0.300000, 0.300000, 0.300000, 0.300000
+--In a prism, which has 5 sides, returns 0.300000, 0.300000, 0.300000, 0.300000, 0.300000
+--In a sphere, which has only 1 side (as it were), returns 0.300000
+--change ALL_SIDES to a specific prim face if desired.`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list mylist = llGetPrimitiveParams([ PRIM_GLOW,ALL_SIDES] );
+llSay(0, llList2CSV(mylist));
+
+//Assuming for this example that all sides are set to the same float of .3 
+//In a box, which has 6 sides, the above example returns 0.300000, 0.300000, 0.300000, 0.300000, 0.300000, 0.300000
+//In a prism, which has 5 sides, returns 0.300000, 0.300000, 0.300000, 0.300000, 0.300000
+//In a sphere, which has only 1 side (as it were), returns 0.300000
+//change ALL_SIDES to a specific prim face if desired.`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Each time the prim is touched, the intensity of the glow is increased (until it maxes out and cycles back to zero).
+local steps = 10
+local counter = 0
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.SetPrimitiveParams({PRIM_GLOW, ALL_SIDES, counter / (steps - 1.0)})
+    counter = (counter + 1) % steps
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Each time the prim is touched, the intensity of the glow is increased (until it maxes out and cycles back to zero).
+integer steps = 10;
+integer counter = 0;
+
+default 
+{
+    touch_start(integer total_number) 
+    { 
+        llSetPrimitiveParams( [ PRIM_GLOW, ALL_SIDES,  counter / (steps - 1.0) ]);
+        counter = (counter + 1) % steps;
+    } 
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Each time the prim is touched, the intensity of the glow is decreased (until it hits zero and cycles back to one).
+local steps = 10
+local counter = 0
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.SetPrimitiveParams({PRIM_GLOW, ALL_SIDES, counter / (steps - 1.0)})
+    counter = (counter + steps - 1) % steps
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Each time the prim is touched, the intensity of the glow is decreased (until it hits zero and cycles back to one).
+integer steps = 10;
+integer counter = 0;
+
+default 
+{
+    touch_start(integer total_number) 
+    { 
+        llSetPrimitiveParams( [ PRIM_GLOW, ALL_SIDES,  counter / (steps - 1.0) ]);
+        counter = (counter + steps - 1) % steps;
+    } 
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Added in <a href="http://svn.secondlife.com/trac/linden/changeset/337?new_path=%2F#file6" target="_blank">SVN:337 r81900 Branch:Release&#32;c:1.20.0&#32;Monday, 10 March 2008</a></p>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_GLOW" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_GLOW = 25
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_GLOW = 25;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

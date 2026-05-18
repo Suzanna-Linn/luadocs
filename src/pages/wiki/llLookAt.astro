@@ -1,0 +1,246 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.LookAt(Target: vector, Strength: number, Damping: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llLookAt(vector Target, float Strength, float Damping);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Cause object to point its <b>up</b> axis (positive z) towards <b>target</b>, while keeping its <b>forward</b> axis (positive x) below the horizon.</p>
+  <p>Continues to track <b>target</b> until <a href="https://wiki.secondlife.com/wiki/LlStopLookAt" target="_blank">llStopLookAt</a> is called.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Target / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/target" target="_blank">target</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Strength / strength</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Damping / damping</td>
+          <td>seconds to critically damp in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">105</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To change the position in the same manner use <a href="https://wiki.secondlife.com/wiki/LlMoveToTarget" target="_blank">llMoveToTarget</a>.</p>
+  <h2>Specification</h2>
+  <p>Strength is an inverse value meaning lower values cause the object to turn faster. Damping smooths the objects movements out preventing jitter or sharp movements. Object size, mass, and shape do not effect the function other than a large physical object that is resting on or colliding with other objects might not be able to turn correctly or fully.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Object must be physical or this will do nothing.</li>
+    <li>If the prim is not the root, then <b>target</b> will need correction for the root prim's rotation (see example below).</li>
+    <li>If the object is an attachment, then <b>target</b> will need correction for the wearer's rotation.</li>
+    <li>Low strength values paired with low damping can cause the object to wobble and never fully face the <b>target</b>.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--Causes Object to look at nearest Avatar.
+local function main()
+    ll.SensorRepeat("", "", AGENT, 20.0, PI, 0.2)
+end
+
+function LLEvents.sensor(events)
+    local total_number = #events
+    ll.LookAt(ll.DetectedPos(0) + vector(0.0, 0.0, 1.0), 3.0, 1.0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Causes Object to look at nearest Avatar.
+default
+{
+    state_entry()
+    {
+        llSensorRepeat("", "", AGENT, 20.0, PI, 0.2);
+    }
+
+    sensor(integer total_number)
+    {
+        llLookAt( llDetectedPos(0) + <0.0, 0.0, 1.0>, 3.0, 1.0 );
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Same as above, but for use inside a child prim or the root of an attachment.
+-- Make the child or attachment look at nearest Avatar.
+
+local function main()
+    ll.SensorRepeat("", "", AGENT, 20.0, PI, 0.2)
+end
+
+function LLEvents.sensor(events)
+    local total_number = #events
+    local p = ll.GetPos()
+    ll.LookAt(p + (ll.DetectedPos(0) + vector(0.0, 0.0, 1.0) - p) / ll.GetRootRotation(), 3.0, 1.0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Same as above, but for use inside a child prim or the root of an attachment.
+// Make the child or attachment look at nearest Avatar.
+
+default
+{
+    state_entry()
+    {
+        llSensorRepeat("", "", AGENT, 20.0, PI, 0.2);
+    }
+ 
+    sensor(integer total_number)
+    {
+        vector p = llGetPos();
+        llLookAt(p + (llDetectedPos(0) + <0.0, 0.0, 1.0> - p) / llGetRootRotation(), 3.0, 1.0);
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <ul>
+    <li>If you want a (mostly) smooth, one time, constant rate of motion, (using the <b>x</b> axis) in a non-physical object try this instead...</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+---- rotate objects x axis toward vPosTarget (local offset), at vFltRate (in radians per second)
+---- vFltRate < ~0.00000003rad/sec, (~0.00002deg/sec) will result in errors (and is just too slow anyway)
+---- vFltRate >= (PI * 5.0)rad/sec, (900deg/sec) will result in a single snap move to vRotTarget
+local function uSteppedLookAt(vPosTarget, vFltRate)
+    local vRotTarget = ll.RotBetween(vector(1.0, 0.0, 0.0), vPosTarget)
+    if (integer((function() vFltRate = ll.Acos(vector.dot((function() vPosTarget = ll.VecNorm(vPosTarget) return vPosTarget end)(), vector(1.0, 0.0, 0.0) * ll.GetLocalRot())) / (vFltRate / 5.0) return vFltRate end)())) ~= 0 then
+        local vRotStep = ll.AxisAngle2Rot(ll.Rot2Axis(vRotTarget / ll.GetLocalRot()), (1.0 / vFltRate) * ll.Rot2Angle(vRotTarget / ll.GetLocalRot()))
+        vFltRate = integer(vFltRate)
+        repeat
+            ll.SetLocalRot(vRotStep * ll.GetLocalRot())
+        until not (((function() vFltRate -= 1 return vFltRate end)() ~= 0))
+    end
+    ll.SetLocalRot(vRotTarget)
+end  ---- for fixed time on any rotation try llKeyframeMotion
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- rotate objects x axis toward vPosTarget (local offset), at vFltRate (in radians per second)
+//-- vFltRate < ~0.00000003rad/sec, (~0.00002deg/sec) will result in errors (and is just too slow anyway)
+//-- vFltRate >= (PI * 5.0)rad/sec, (900deg/sec) will result in a single snap move to vRotTarget
+uSteppedLookAt( vector vPosTarget, float vFltRate ){
+	rotation vRotTarget = llRotBetween( <1.0, 0.0, 0.0>,  vPosTarget );
+	if ((integer)(vFltRate = llAcos( (vPosTarget = llVecNorm( vPosTarget )) *
+	                                 (<1.0, 0.0, 0.0> * llGetLocalRot()) ) / (vFltRate / 5.0))){
+		rotation vRotStep = llAxisAngle2Rot( llRot2Axis( vRotTarget / llGetLocalRot() ),
+		                    (1.0 / vFltRate) * llRot2Angle( vRotTarget / llGetLocalRot() ) );
+		vFltRate = (integer)vFltRate;
+		do{
+			llSetLocalRot( vRotStep * llGetLocalRot() );
+		}while( --vFltRate );
+	}
+	llSetLocalRot( vRotTarget );
+} //-- for fixed time on any rotation try llKeyframeMotion`} lang="lsl" /></div>
+  <ul>
+    <li>If you want to use the LookAt function on a linked object...</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function LinkedLookAt(Target)
+    local rotvec = ll.RotBetween(vector(0, 1, 0), ll.VecNorm(Target - ll.GetPos()))
+    local rotbet = rotvec / ll.GetRootRotation()
+    ll.SetRot(rotbet)
+end
+
+local function main()
+    ll.SensorRepeat("", "", AGENT, 20.0, PI, 1.0)
+end
+
+function LLEvents.sensor(events)
+    local total_number = #events
+    local p = ll.DetectedPos(0)
+    LinkedLookAt(p)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`LinkedLookAt( vector Target){
+    rotation rotvec = llRotBetween(<0,1,0>,llVecNorm((Target - llGetPos())));
+    rotation rotbet = rotvec/llGetRootRotation();
+    llSetRot(rotbet);
+}
+
+default
+{
+    state_entry()
+    {
+        llSensorRepeat("", "", AGENT, 20.0, PI, 1.0);
+    }
+
+    sensor(integer total_number)
+    {
+        vector p = llDetectedPos(0);
+        LinkedLookAt(p);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotLookAt" target="_blank">llRotLookAt</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlStopLookAt" target="_blank">llStopLookAt</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llLookAt( vector target, float strength, float damping );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

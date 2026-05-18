@@ -1,0 +1,320 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.MessageLinked(LinkNumber: number, Number: number, Text: string | uuid, ID: string | uuid)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llMessageLinked(integer LinkNumber, integer Number, string Text, key ID);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The purpose of this function is to allow scripts in the same object to communicate. It triggers a <a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link_message</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> with the same parameters <b>num</b>, <b>str</b>, and <b>id</b> in all scripts in the prim(s) described by <b>link</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>LinkNumber / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">link</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims&#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>, controls which prim(s) receive the <a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link_message</a>.&#32;</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Number / num</td>
+          <td>Value of the second parameter of the resulting <a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link_message</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string | uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / str</td>
+          <td>Value of the third parameter of the resulting <a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link_message</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string | uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>Value of the fourth parameter of the resulting <a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link_message</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a>.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script_communication</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">164</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>You can use <b>id</b> as a second string field[[2]](#footnote_2). The sizes of <b>str</b> and <b>id</b> are only limited by available script memory.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Flag</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_ROOT" target="_blank">LINK_ROOT</a></td>
+        <td>1</td>
+        <td>sends to the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim in a multi-prim linked set[[1]](#footnote_1)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_SET" target="_blank">LINK_SET</a></td>
+        <td>-1</td>
+        <td>sends to all prims</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_ALL_OTHERS" target="_blank">LINK_ALL_OTHERS</a></td>
+        <td>-2</td>
+        <td>sends to all other prims</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Flag</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_ALL_CHILDREN" target="_blank">LINK_ALL_CHILDREN</a></td>
+        <td>-3</td>
+        <td>sends to all children, (everything but the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LINK_THIS" target="_blank">LINK_THIS</a></td>
+        <td>-4</td>
+        <td>sends to the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a> is in</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>A script can hear its own linked messages if <b>link</b> targets the prim it is in[[3]](#footnote_3). This creates the possibility of an infinite loop (a bad thing); be very careful about how messages are handled and passed along.</li>
+    <li>Messages sent via llMessageLinked to a script that is <a href="https://wiki.secondlife.com/wiki/LlSleep" target="_blank">sleeping</a>, <a href="https://wiki.secondlife.com/wiki/LSL_Delay" target="_blank">delayed</a>, or <a href="https://wiki.secondlife.com/wiki/Lag" target="_blank">lagged</a>, are queued until the end of the delay. The <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> queue can hold 64 <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">events</a>.
+    <ul>
+      <li>If an <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> is received and the queue is full the <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> is silently dropped.</li>
+      <li>Avoid sending link_messages to large numbers of scripts simultaneously as it can cause lag spike. This most often happens when using the multi-prim `LINK_*` flags and can cause script execution to slow or halts.</li>
+      <li>Avoid sending link_messages to a target faster than they can be handled. Doing so risks filling the <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> queue and subsequent messages being silently discarded.</li>
+    </ul>
+  
+    </li>
+    <li>When a script <a href="https://wiki.secondlife.com/wiki/State" target="_blank">state</a> changes, all pending <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">events</a> are deleted, including queued link_messages.</li>
+    <li>If <b>link</b> is an invalid link number then the function silently fails.</li>
+    <li>If <b>str</b> & <b>id</b> exceed the available memory of a script that catches the resulting <a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link_message</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a>, that script will crash with a <a href="https://wiki.secondlife.com/wiki/LSL_Errors#Script_run-time_error:_Stack-Heap_Collision" target="_blank">Stack-Heap Collision</a>.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- assumptions  // object name: LSLWiki // script name: _lslwiki
+local function main()
+    ll.MessageLinked(LINK_THIS, 0, ll.GetScriptName(), "")
+end
+
+function LLEvents.link_message(sender_num, num, msg, id)
+    ll.OwnerSay(msg)
+-- the owner of object LSLWiki will hear
+-- LSLWiki:_lslwiki
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    // assumptions  // object name: LSLWiki // script name: _lslwiki
+    state_entry()
+    {
+        llMessageLinked(LINK_THIS, 0, llGetScriptName(), "");
+    }
+
+    link_message(integer sender_num, integer num, string msg, key id)
+    {
+        llOwnerSay(msg);
+        // the owner of object LSLWiki will hear
+        // LSLWiki:_lslwiki
+    }
+}`} lang="lsl" /></div>
+  <h3>Infinite Loop</h3>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function Message_Control(l, n)  -- Message_Total_Lack_Of_Control
+    local r = ((function() n += 1 return n end)())  -- Increment the value of n.
+    ll.MessageLinked(l, r, "", "")  -- Send the result to l
+end
+
+local function main()
+    Message_Control(LINK_SET, 0)  -- Tell all the scripts in the object that we have state_entered.
+end
+function LLEvents.link_message(Sender, Number, String, Key)  -- This script is in the object too.
+    Message_Control(Sender, Number)  -- No filtering condition exists.
+    ll.OwnerSay(tostring(Number))  -- Look at all the pretty numbers!
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`Message_Control(integer l, integer n) // Message_Total_Lack_Of_Control
+{
+    integer r = (++n); // Increment the value of n.
+    llMessageLinked( l, r, "", ""); // Send the result to l
+}
+
+default
+{
+    state_entry()
+    {
+        Message_Control(LINK_SET, 0); // Tell all the scripts in the object that we have state_entered.
+    }
+    link_message(integer Sender, integer Number, string String, key Key) // This script is in the object too.
+    {
+        Message_Control(Sender, Number); // No filtering condition exists.
+        llOwnerSay(((string)Number)); // Look at all the pretty numbers!
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Quick and dirty debugging link_messages
+function LLEvents.link_message(sender_num, num, msg, id)
+    ll.Say(DEBUG_CHANNEL, ll.List2CSV({sender_num, num, msg, id}))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    // Quick and dirty debugging link_messages
+    link_message(integer sender_num, integer num, string msg, key id)
+    {
+        llSay(DEBUG_CHANNEL, llList2CSV([sender_num, num, msg, id]));
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- This is just an example script, you shouldn't handle link message within single script this way.
+
+-- To propagate an unlimted number of arguments of any type.
+-- Presumed, the separator string isn't used in any source string!
+local function main()
+    local my_list = {1, 2.0, "a string", vector(1, 2, 3), rotation(1, 2, 3, 4), ll.GetOwner()}
+    local list_parameter = ll.DumpList2String(my_list, "|")  -- Convert the list to a string
+    ll.MessageLinked(LINK_THIS, 0, list_parameter, "")
+end
+
+function LLEvents.link_message(sender_num, num, list_argument, id)
+    local re_list = ll.ParseString2List(list_argument, {"|"}, {})  -- Parse the string back to a list
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// This is just an example script, you shouldn't handle link message within single script this way.
+
+default
+{
+    // To propagate an unlimted number of arguments of any type.
+    // Presumed, the separator string isn't used in any source string!
+    state_entry()
+    {
+        list my_list = [1, 2.0, "a string", <1, 2, 3>, <1, 2, 3, 4>, llGetOwner()];
+        string list_parameter = llDumpList2String(my_list, "|");    // Convert the list to a string
+        llMessageLinked(LINK_THIS, 0, list_parameter, "");
+    }
+
+    link_message(integer sender_num, integer num, string list_argument, key id)
+    {
+        list re_list = llParseString2List(list_argument, ["|"], []);    // Parse the string back to a list
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <h3>Link Numbers</h3>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <ul>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+  </ul>
+  <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
+  <p>Counting Prims & Avatars</p>
+  <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
+  <ul>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
+    if ll.GetAttached() ~= 0 then  --Is it attached?
+        return ll.GetNumberOfPrims()  --returns avatars and prims but attachments can't be sat on.
+    end
+    return ll.GetObjectPrimCount(ll.GetKey())  --returns only prims but won't work on attachments.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer GetPrimCount() { //always returns only the number of prims
+    if(llGetAttached())//Is it attached?
+        return llGetNumberOfPrims();//returns avatars and prims but attachments can't be sat on.
+    return llGetObjectPrimCount(llGetKey());//returns only prims but won't work on attachments.
+}`} lang="lsl" /></div>
+  <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
+Errata</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <ul>
+    <li>Using llMessageLinked in a single prim object allows developers to mitigate some <a href="https://wiki.secondlife.com/wiki/Limits#Scripting" target="_blank">LSL limits</a> by breaking up functionality between cooperating scripts and synchronizing actions. When you do this, be extremely careful not to create infinite loops as mentioned above.</li>
+    <li>Estimated `.25` to `.50` delay between receiving and sending of llMessageLinked has been observed by some users</li>
+    <li>Some users have noted occasional failures of linked messages when sending a message to a large number of receiving scripts in different prims using <a href="https://wiki.secondlife.com/wiki/LINK_SET" target="_blank">LINK_SET</a>, <a href="https://wiki.secondlife.com/wiki/LINK_ALL_OTHERS" target="_blank">LINK_ALL_OTHERS</a>, & <a href="https://wiki.secondlife.com/wiki/LINK_ALL_CHILDREN" target="_blank">LINK_ALL_CHILDREN</a>. If you encounter this problem, a workaround is to place all child prim scripts in a single prim, using targeted functions like <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> to modify the prim in which the script previously resided. -- <a href="https://wiki.secondlife.com/wiki/User:Void_Singer" target="_blank">Void Singer</a></li>
+    <li>This function seems to create a lower lag level then <a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a> since it does not need a listener.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link_message</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a></td>
+        <td>–</td>
+        <td>Returns the link number of the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the script is in.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> LINK_ROOT does not work on single <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">objects</a>. Unless there is an avatar sitting on the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> In LSL the <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> type is implemented as a <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> (but with different operators and restrictions). <a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">Typecasting</a> between string and key types has no effect on the data contained.</li>
+    <li><b><a href="#fn_3" target="_blank">^</a></b> There are four ways for a script to target itself: by <a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">precise link number</a>, <a href="https://wiki.secondlife.com/wiki/LINK_THIS" target="_blank">LINK_THIS</a>, <a href="https://wiki.secondlife.com/wiki/LINK_SET" target="_blank">LINK_SET</a> and <a href="https://wiki.secondlife.com/wiki/LINK_ALL_CHILDREN" target="_blank">LINK_ALL_CHILDREN</a> (if the prim is a child prim).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llMessageLinked( integer link, integer num, string str, key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

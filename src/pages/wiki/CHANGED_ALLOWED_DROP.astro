@@ -1,0 +1,121 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`CHANGED_ALLOWED_DROP: number = 64`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer CHANGED_ALLOWED_DROP = 64;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant CHANGED_ALLOWED_DROP has the value 0x40</p>
+  <p>A user other then the owner (or the owner if the object is no-mod) has added inventory to the prim. This is only possible if enabled with <a href="https://wiki.secondlife.com/wiki/LlAllowInventoryDrop" target="_blank">llAllowInventoryDrop</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ChangeType</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_INVENTORY" target="_blank">CHANGED_INVENTORY</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAllowInventoryDrop" target="_blank">llAllowInventoryDrop</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.AllowInventoryDrop(true)  -- With this set to FALSE the drop (on a no mod object) will not be allowed.
+end  -- This means the allowance may be revoked by use of llAllowInventoryDrop(FALSE).
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_ALLOWED_DROP) then  --note that it's & and not &&... it's bitwise!
+        ll.OwnerSay("The inventory has changed as a result of a user without mod permissions " .. "dropping an item on the prim and it being allowed by the script.")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llAllowInventoryDrop(TRUE)// With this set to FALSE the drop (on a no mod object) will not be allowed.
+    }                             // This means the allowance may be revoked by use of llAllowInventoryDrop(FALSE).
+    changed(integer change)
+    {
+        if (change & CHANGED_ALLOWED_DROP) //note that it's & and not &&... it's bitwise!
+        {
+            llOwnerSay("The inventory has changed as a result of a user without mod permissions "+
+                       "dropping an item on the prim and it being allowed by the script.");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=CHANGED_ALLOWED_DROP" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+CHANGED_ALLOWED_DROP = 0x40
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer CHANGED_ALLOWED_DROP = 0x40;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

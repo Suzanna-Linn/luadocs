@@ -1,0 +1,141 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`DATA_SIM_STATUS: number = 6`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer DATA_SIM_STATUS = 6;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant DATA_SIM_STATUS has the value 6</p>
+  <p>Returns one of these strings.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>SimulatorData</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <ul>
+    <li>"up": simulator currently up and running</li>
+    <li>"down": simulator currently down</li>
+    <li>"starting": simulator currently starting</li>
+    <li>"stopping": simulator currently stopping</li>
+    <li>"crashed": simulator has crashed</li>
+    <li>"unknown": simulator status unknown or unknown simulator</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestSimulatorData" target="_blank">llRequestSimulatorData</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local queryData = NULL_KEY
+
+-- querry immediately for simulator data on current status of sim.
+local function main()
+    queryData = ll.RequestSimulatorData(ll.GetRegionName(), DATA_SIM_STATUS)
+end
+
+-- if another owner or the region changes where the script operates in reset script
+function LLEvents.changed(isChanged)
+    if bit32.btest(isChanged, CHANGED_REGION) then
+        ll.ResetScript()
+    end
+
+    if bit32.btest(isChanged, CHANGED_OWNER) then
+        ll.ResetScript()
+    end
+end
+
+-- how to handle the query information.
+function LLEvents.dataserver(queryID, info)
+    if queryID == queryData then
+        -- output to upper case characters the current state of the sim. 
+        ll.OwnerSay("This region is currently: " .. ll.ToUpper(info))
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key queryData;
+
+default
+{
+    // querry immediately for simulator data on current status of sim.
+    state_entry()
+    {
+        queryData = llRequestSimulatorData( llGetRegionName(), DATA_SIM_STATUS );
+    }
+    
+    // if another owner or the region changes where the script operates in reset script
+    changed( integer isChanged )
+    {
+        if( isChanged & CHANGED_REGION )
+        {
+            llResetScript();
+        }
+        
+        if( isChanged & CHANGED_OWNER )
+        {
+            llResetScript();
+        }
+    }
+    
+    // how to handle the query information.
+    dataserver( key queryID, string info )
+    {
+        if( queryID == queryData )
+        {
+            // output to upper case characters the current state of the sim. 
+            llOwnerSay( "This region is currently: " + llToUpper(info) );
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=DATA_SIM_STATUS" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+DATA_SIM_STATUS = 6
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer DATA_SIM_STATUS = 6;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,315 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Sensor(Name: string, ID: uuid, Type: number, Range: number, Arc: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSensor(string Name, key ID, integer Type, float Range, float Arc);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Performs a single scan for <b>name</b> and <b>id</b> with <b>type</b> within <b>radius</b> meters and <b>arc</b> radians of forward vector.</p>
+  <p>Script execution continues immediately. When the scan is completed, a <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a> or <a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a> event is put in the event queue.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Name / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>object or avatar name<a href="#NameFormat" target="_blank">!</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Type / type</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_field" target="_blank">bit field</a> (<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>, <a href="https://wiki.secondlife.com/wiki/AGENT_BY_LEGACY_NAME" target="_blank">AGENT_BY_LEGACY_NAME</a>, <a href="https://wiki.secondlife.com/wiki/AGENT_BY_USERNAME" target="_blank">AGENT_BY_USERNAME</a>, <a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>, <a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>, and/or <a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a>)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Range / radius</td>
+          <td>distance in meters from center, [0.0, 96.0]</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Arc / arc</td>
+          <td>the max angle between the object's local X-axis and detectable objects, <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">0.0, [PI</a>]</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>sensor</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">28</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>name</b> and/or <b>id</b> are empty, they are ignored.</p>
+  <p>If <b>id</b> is an invalid key or <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> it is treated as empty.</p>
+  <p>Depending upon which AGENT* flag is used determines the format requirements for <b>name</b></p>
+  <p>See: <a href="https://web.archive.org/web/20150426032518/http://www.lslwiki.net/lslwiki/wakka.php?wakka=llSensor" target="_blank">llSensor</a> for an excellent explanation of <b>arc</b>.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b>type Flag Mask</b></th>
+        <th><b>Description (<a href="https://wiki.secondlife.com/wiki/LlDetectedType" target="_blank">llDetectedType</a>())</b></th>
+        <th><b>Description (llSensor() and <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a>() mask)</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_BY_LEGACY_NAME" target="_blank">AGENT_BY_LEGACY_NAME</a></td>
+        <td>0x1</td>
+        <td>Agents</td>
+        <td>This is used to find agents by <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a></td>
+        <td>0x1</td>
+        <td>Agents</td>
+        <td>This is also used to find agents by <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a>, and is functionally identical to <a href="https://wiki.secondlife.com/wiki/AGENT_BY_LEGACY_NAME" target="_blank">AGENT_BY_LEGACY_NAME</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_BY_USERNAME" target="_blank">AGENT_BY_USERNAME</a></td>
+        <td>0x10</td>
+        <td><i>Reserved</i></td>
+        <td>This is used to find agents by <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">username</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a></td>
+        <td>0x2</td>
+        <td>Physical tasks. (Physical objects & agents)</td>
+        <td>Physical objects that are moving or objects containing an active script. Thus, it is using SL server resources now.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a></td>
+        <td>0x4</td>
+        <td>Non-physical objects.</td>
+        <td>Non-scripted or script is inactive and non-physical or, if physical, not moving. Thus, it is not using SL server resources now.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a></td>
+        <td>0x8</td>
+        <td>Objects containing any active script.</td>
+        <td>Objects that has any script, which is doing anything in simulator just now.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DAMAGEABLE" target="_blank">DAMAGEABLE</a></td>
+        <td>0x20</td>
+        <td>Objects & agents that are able to process damage.</td>
+        <td>Filter for objects in world that have a script with <a href="https://wiki.secondlife.com/wiki/On_damage" target="_blank">on_damage</a> or a <a href="https://wiki.secondlife.com/wiki/Final_damage" target="_blank">final_damage</a> event (able to process damage)</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th><a href="https://wiki.secondlife.com/wiki/LlDetectedType" target="_blank">llDetectedType</a>()</th>
+        <th>Scripted</th>
+        <th>Not Scripted</th>
+        <th>Agent Standing</th>
+        <th>Agent Sitting</th>
+      </tr>
+      <tr>
+        <th>Physical Movement</th>
+        <th>10 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>|<a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a>)</th>
+        <th>2 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>)</th>
+        <th>3 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>|<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+        <th>3 (<a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a>|<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+      </tr>
+      <tr>
+        <th>Non-Physical</th>
+        <th>12 (<a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>|<a href="https://wiki.secondlife.com/wiki/SCRIPTED" target="_blank">SCRIPTED</a>)</th>
+        <th>4 (<a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>)</th>
+        <th>1 (<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+        <th>5 (<a href="https://wiki.secondlife.com/wiki/PASSIVE" target="_blank">PASSIVE</a>|<a href="https://wiki.secondlife.com/wiki/AGENT" target="_blank">AGENT</a>)</th>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Float Constants</th>
+        <th>Arc</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PI_BY_TWO" target="_blank">PI_BY_TWO</a></td>
+        <td>A hemisphere scan</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a></td>
+        <td>A full sphere scan</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>When searching for an avatar but not by name, it doesn't matter which AGENT flag is used.</li>
+    <li>AGENT, PASSIVE and ACTIVE behave inclusively. SCRIPTED is <b>not</b> inclusive and will exclude non-scripted targets (like avatars) from the detected set.</li>
+    <li>Objects do not detect themselves, and attachments cannot detect their wearers (this includes HUD attachments).</li>
+    <li>Attachments cannot be detected by llSensor.</li>
+    <li>For an object to be detected, the center of its root prim (the same point it would report with <a href="https://wiki.secondlife.com/wiki/LlGetRootPosition" target="_blank">llGetRootPosition</a>) must be within the sensor beam.</li>
+    <li>For an agent to be detected, a point near the pelvis must be inside the sensor beam (the same as llGetRootPosition would report in a script attached to that avatar). This point is indicated by red crosshairs when Advanced>Character>Display Agent Target is turned on.
+    <ul>
+      <li>If the agent is sitting on an object, the root prim of the sat upon object becomes a second sensor target for the agent (but not if the avatar is outside the sensor arc, see <a href="https://jira.secondlife.com/browse/SVC-5145" target="_blank">SVC-5145</a>).</li>
+    </ul>
+  
+    </li>
+    <li>Sensors placed in the root prim of attachments will use the direction the avatar is facing as their forward vector. In mouselook, this means that it will be wherever the avatar is looking, while out of mouselook, this means whichever way the avatar is pointing. This does not include where the avatar's head is pointing, or what animation the avatar is doing, just the direction the avatar would move in if you walked forward. This is the case, regardless of where the object is attached.</li>
+    <li>Sensors placed in prims other than the root prim of an attachment will have their forward direction offset relative to the root prim's forward direction, e.g. a sensor in a prim whose +X direction is the reverse of the root +X will look backward.</li>
+    <li>llSensor does not detect objects or agents across region boundaries</li>
+    <li>If <b>type</b> is zero, the sensor will silently fail, neither <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a> or <a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a> will be triggered.</li>
+    <li>Only 32 objects will be scanned each time. (Increased from 16 with Release 2024-03-18.8333615376 on Tuesday, March 19, 2024)</li>
+    <li>DAMAGEABLE is a filter flag; it cannot be used on its own. It must be combined with at least one other flag. For example, AGENT &#124; ACTIVE &#124; PASSIVE &#124; DAMAGEABLE will return all damageable agents and objects, whether physical or not.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>This sensor scans a 45 degree cone about the x-axis (<a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a>/2 or <a href="https://wiki.secondlife.com/wiki/PI_BY_TWO" target="_blank">PI_BY_TWO</a> scans a hemisphere; <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a> is a spherical scan). Also it will only match an agent with the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a> "Governor Linden".</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Sensor("Governor Linden", NULL_KEY, AGENT_BY_LEGACY_NAME, 96.0, PI / 4)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSensor( "Governor Linden", NULL_KEY, AGENT_BY_LEGACY_NAME, 96.0, PI/4 );`} lang="lsl" /></div>
+  <p>This sensor detects all prims and agents with a given name within 15m of the sensor. (AGENT, PASSIVE and ACTIVE behave inclusively. SCRIPTED is not inclusive and will exclude non-scripted targets (like avatars) from the detected set.)</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Sensor("", NULL_KEY, bit32.bor(AGENT, PASSIVE, ACTIVE), 15.0, PI)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSensor( "", NULL_KEY, ( AGENT | PASSIVE | ACTIVE ), 15.0, PI );`} lang="lsl" /></div>
+  <p>Basic example script that when touched executes a sensor scan of agents. When the sensor event is processed it spits out messages to the owner of each detected agents' name.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.Sensor("", NULL_KEY, AGENT, 30.0, PI)
+end
+
+function LLEvents.sensor(events)
+    local detected = #events
+    while (function() local tmp = detected detected -= 1 return tmp end)() ~= 0 do
+        ll.OwnerSay(ll.DetectedName(detected))
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        llSensor("", NULL_KEY, AGENT, 30.0, PI);
+    }
+    
+    sensor( integer detected )
+    {
+        while(detected--)
+        {
+            llOwnerSay(llDetectedName(detected));
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> You might want to use <a href="https://wiki.secondlife.com/wiki/LlGetAgentList" target="_blank">llGetAgentList</a> instead of using sensors to get a list of all avatars within the same parcel or region.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Loops & Repetition</p>
+  <p>Using llSensor in a <a href="https://wiki.secondlife.com/wiki/For" target="_blank">for</a> loop is a beginners mistake, as events will not interrupt each other (the sensor event will not interrupt whatever event is currently being executed). To perform repeat sensor sweeps, <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a> is the better solution. While it is possible to call llSensor from a <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a> event, it is less efficient to do so; there is a limit to the number of events that can be processed in a second and using the timer just to call llSensor will result in your script getting less timeslice.</p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a></td>
+        <td>–</td>
+        <td>Triggered when a sensor detects something</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a></td>
+        <td>–</td>
+        <td>Triggered when a sensor detects nothing</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a></td>
+        <td>–</td>
+        <td>Runs a sensor on a timer</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSensorRemove" target="_blank">llSensorRemove</a></td>
+        <td>–</td>
+        <td>Stops the llSensorRepeat timer</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSensor( string name, key id, integer type, float radius, float arc );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>The hounds are straining.</p>
+<p>Elusive quarry sighted.</p>
+<p>The game's afoot!</p></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Gallery</h2>
+  <ul>
+    <li>[](https://wiki.secondlife.com/wiki/File:Sensor_pi_by_four.png)
+arc = PI / 4</li>
+    <li>[](https://wiki.secondlife.com/wiki/File:Sensor_pi_by_two.png)
+arc = PI / 2</li>
+    <li>[](https://wiki.secondlife.com/wiki/File:Sensor_pi.png)
+arc = PI</li>
+  </ul>
+
+</DocsLayout>
+      

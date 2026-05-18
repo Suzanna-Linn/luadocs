@@ -1,0 +1,173 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ParseStringKeepNulls(Text: string, Separators: {string}, Spacers: {string}): {any}`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`list llParseStringKeepNulls(string Text, list Separators, list Spacers);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a list that is <b>src</b> broken into a list, discarding <b>separators</b>, keeping <b>spacers</b>, keeping any null values generated.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Text / src</td>
+          <td>source string</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{string}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Separators / separators</td>
+          <td>separators to be discarded</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{string}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Spacers / spacers</td>
+          <td>spacers to be kept</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">285</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>The behavior is identical to that for <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a>, except blank strings found in the list are kept. This is useful when parsing a list that contains values that can be null or empty (and subsequently removing the nulls would upset the distribution of data and the element indexes).</p>
+  <p>llParseStringKeepNulls("", ["~"], []) will return [""]</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Only the first 8 <b>separators</b> and first 8 <b>spacers</b> will be used any extras will be ignored.</li>
+    <li>All <b>separators</b> and <b>spacers</b> must be strings, all other types will be ignored.</li>
+    <li><b>separators</b> take precedent over <b>spacers</b>. The string is parsed from start to finish, each position is compared against the <b>separators</b> then <b>spacers</b> before moving onto the next position. The first match is the one that is returned. Using the list ["A", "AB"] will always act with "A" and never "AB".</li>
+    <li>Duplicate or irrelevant <b>separators</b> or <b>spacers</b> count towards the limits and slow down parsing.</li>
+    <li>All entries in the return are typed as string. Use explicit typecasting on <a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a> to convert the values into other types. Do not rely upon the implicit typecasting of the other llList2* functions (as they typically return a default value).</li>
+    <li>Remember to capture the result of the operation with a variable, unless you are planning to act directly on the results.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    -- This will say:
+    -- <A><crazy><fox><.><Saw><the><moon><.><.>
+    local my_string = "A crazy fox.  Saw the moon.."
+    local my_list = ll.ParseString2List(my_string, {" "}, {"."})
+    ll.OwnerSay("<" .. ll.DumpList2String(my_list, "><") .. ">")
+
+    -- This will say:
+    --  <A><crazy><fox><.><><><Saw><the><moon><.><><.><>
+    my_list = ll.ParseStringKeepNulls(my_string, {" "}, {"."})
+    ll.OwnerSay("<" .. ll.DumpList2String(my_list, "><") .. ">")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        // This will say:
+        // <A><crazy><fox><.><Saw><the><moon><.><.>
+        string my_string = "A crazy fox.  Saw the moon..";
+        list my_list = llParseString2List(my_string,[" "],["."]);
+        llOwnerSay("<" + llDumpList2String(my_list,"><") + ">");
+        
+        // This will say:
+        //  <A><crazy><fox><.><><><Saw><the><moon><.><><.><>
+        my_list = llParseStringKeepNulls(my_string,[" "],["."]);
+        llOwnerSay("<" + llDumpList2String(my_list,"><") + ">");
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <p><b>Replacement functions without or very large separator/spacer count limits</b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/ParseString2List" target="_blank">ParseString2List</a></td>
+        <td>–</td>
+        <td>Functions exactly the same as <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a> and llParseStringKeepNulls.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Separate_Words" target="_blank">separateWords</a></td>
+        <td>–</td>
+        <td>Functions the same as <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a> unless certain preconditions are not met.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlList2CSV" target="_blank">llList2CSV</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function list llParseStringKeepNulls( string src, list separators, list spacers );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,112 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`timer()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`timer()`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use LLTimers</span></p>
+      <p>  <p>Repeats the code in the timer(). Result of the <a href="https://wiki.secondlife.com/wiki/LlSetTimerEvent" target="_blank">llSetTimerEvent</a> library function call.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The time between timer events can be longer than that specified with <a href="https://wiki.secondlife.com/wiki/LlSetTimerEvent" target="_blank">llSetTimerEvent</a>, this is caused by:
+    <ul>
+      <li><b>Time dilation</b> - See <a href="https://wiki.secondlife.com/wiki/LlGetRegionTimeDilation" target="_blank">llGetRegionTimeDilation</a> for more information;</li>
+      <li><b>Default event delay</b> - Only so many events can be triggered per second;</li>
+      <li><b>Event Execution</b> - If the execution of an event takes too long;</li>
+      <li><b>llSleep()</b>.</li>
+    </ul>
+  
+    </li>
+    <li>Only one timer can be active at one time.</li>
+    <li>The timer survives state changes, but does not survive resets.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local gap = 2.0
+local counter = 0.0
+
+local function main()
+    -- Activate the timer listener every 2 seconds
+    ll.SetTimerEvent(gap)
+end
+
+function LLEvents.timer()
+    counter = counter + gap
+    ll.Say(0, tostring(counter) .. " seconds have passed")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float gap = 2.0;
+float counter = 0.0;
+
+default
+{
+    state_entry()
+    {
+        // Activate the timer listener every 2 seconds
+        llSetTimerEvent(gap);
+    }
+
+    timer()
+    {
+        counter = counter + gap; 
+        llSay(0, (string)counter+" seconds have passed");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetTimerEvent" target="_blank">llSetTimerEvent</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void timer(  );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

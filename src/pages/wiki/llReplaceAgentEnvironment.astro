@@ -1,0 +1,214 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ReplaceAgentEnvironment(agent_id: uuid, transition: number, environment: string|uuid): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llReplaceAgentEnvironment(key agent_id, float transition, string environment);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The llReplaceAgentEnvironment function overrides the current region and parcel environment seen by an agent. The new environment persists until the agent crosses to a new region or this function is called with the NULL_KEY or empty string in the environment parameter for the particular agent, doing so will strip all environmental settings applied to this agent as part of the experience. This function must be executed as part of an experience.</p>
+  <p>Returns an integer</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>agent_id</td>
+          <td>The key for an agent in the region. The agent must be in the region and must be participating in the experience.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>transition</td>
+          <td>The number of seconds over which to transition to the new settings.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>environment</td>
+          <td>The name of an environmental setting in the object's inventory or the asset ID for an environment.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>experience</li>
+        <li>parcel_appearance</li>
+        <li>region_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">713</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-experience">Experience</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <table>
+    <tbody>
+      <tr>
+        <th>Value</th>
+        <th>Constant</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td>The agent has been instructed to change their environment.</td>
+      </tr>
+      <tr>
+        <td>ENV_NOT_EXPERIENCE</td>
+        <td>-1</td>
+        <td>The script is not running as part of an experience with a valid experience key.</td>
+      </tr>
+      <tr>
+        <td>ENV_NO_EXPERIENCE_PERMISSION</td>
+        <td>-2</td>
+        <td>The agent has not granted permission.</td>
+      </tr>
+      <tr>
+        <td>ENV_NO_ENVIRONMENT</td>
+        <td>-3</td>
+        <td>The environment inventory object could not be found.</td>
+      </tr>
+      <tr>
+        <td>ENV_INVALID_AGENT</td>
+        <td>-4</td>
+        <td>Unable to find specified agent.</td>
+      </tr>
+      <tr>
+        <td>ENV_NO_EXPERIENCE_LAND</td>
+        <td>-7</td>
+        <td>The experience has not been enabled or can not run on the land.</td>
+      </tr>
+      <tr>
+        <td>ENV_THROTTLE</td>
+        <td>-8</td>
+        <td>The scripts have exceeded the throttle. Wait and retry the request.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The agent's viewer may choose to ignore this command.</li>
+    <li>An environment set locally on the viewer will override any environment set from this function.</li>
+    <li>If a UUID is passed as the environment parameter and that UUID does not specify an environment setting, the viewer quietly ignores the instruction.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local gEnvironment = "A-12AM"  -- Can be asset's name in object's inventory or the asset ID
+local gTransitionTime = 3.0
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local person = ll.DetectedKey(0)
+    if ll.GetAgentSize(person) ~= ZERO_VECTOR then
+        ll.RequestExperiencePermissions(person, "")
+    else
+        ll.InstantMessage(person, "You need to be in the same region to change environment")
+    end
+end
+
+function LLEvents.experience_permissions(agent_id)
+    local envTest = ll.ReplaceAgentEnvironment(agent_id, gTransitionTime, gEnvironment)
+    if envTest == 1 then
+        ll.RegionSayTo(agent_id, 0, "Applying environment for " .. tostring(agent_id))
+    else
+        ll.RegionSayTo(agent_id, 0, "Cannot apply environment for " .. tostring(agent_id) .. " due to reason id: " .. tostring(envTest))
+    end
+end
+
+function LLEvents.experience_permissions_denied(agent_id, reason)
+    ll.RegionSayTo(agent_id, 0, "Denied experience permissions for " .. tostring(agent_id) .. " due to reason id: " .. tostring(reason))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string gEnvironment = "A-12AM"; // Can be asset's name in object's inventory or the asset ID
+float gTransitionTime = 3.0;
+
+default
+{
+    touch_start(integer total_number)
+    {
+        key person = llDetectedKey(0);
+        if (llGetAgentSize(person) != ZERO_VECTOR)
+        {
+            llRequestExperiencePermissions(person, "");
+        }
+        else
+        {
+            llInstantMessage(person, "You need to be in the same region to change environment");
+        }
+    }
+
+    experience_permissions(key agent_id)
+    {
+        integer envTest = llReplaceAgentEnvironment(agent_id, gTransitionTime, gEnvironment);
+        if (envTest == 1)
+        {
+            llRegionSayTo(agent_id, 0, "Applying environment for " + (string)agent_id);
+        }
+        else
+        {
+            llRegionSayTo(agent_id, 0, "Cannot apply environment for " + (string)agent_id + " due to reason id: " + (string)envTest);
+        }
+    }
+
+    experience_permissions_denied(key agent_id, integer reason)
+    {
+        llRegionSayTo(agent_id, 0, "Denied experience permissions for " + (string)agent_id + " due to reason id: " + (string)reason);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetAgentEnvironment" target="_blank">llSetAgentEnvironment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetEnvironment" target="_blank">llGetEnvironment</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llReplaceAgentEnvironment( key agent_id, float transition, string environment );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

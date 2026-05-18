@@ -1,0 +1,142 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetCenterOfMass(): vector`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llGetCenterOfMass();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns the vector position of the object's center of mass in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>.</p>
+  <p>If called from a child prim, the child's center of mass is returned instead (but still in region coordinates).</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>object</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">183</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>The Center Of Mass for a prim is only computed when an object is physical. When a value is computed it is cached as a prim attribute. If the object is non-physical and there is a cached value, that is the value returned, otherwise <a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">llGetPos</a>() is returned (this value is not cached).</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Works in <b>physical objects only</b>.
+    <ul>
+      <li>The value is stored as a prim property and will only change when Center Of Mass is computed.</li>
+      <li>If called from within a non-physical object it will return the stored COM value or in the absence of a stored COM value it will return <a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">llGetPos</a>().
+      <ul>
+        <li>It will not compute or recompute the COM if the object is non-physical.</li>
+        <li>The stored value can only be updated when the object is physical. Neither moving or changing the objects shape will update, invalidate or remove the stored COM value when it is non-physical.</li>
+      </ul>
+    
+      </li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  this example script will not check for physical status
+--  you'll usually need it though to get a correct vector
+
+local function main()
+    local massCenter = ll.GetCenterOfMass()
+    local link = ll.GetLinkNumber()
+
+    if link == 0 or link == 1 then
+        ll.Say(PUBLIC_CHANNEL, "The center of the mass of the object is " .. tostring(massCenter))
+
+    elseif 1 < link then
+        ll.Say(PUBLIC_CHANNEL, "The center of the mass of link no. " .. tostring(link) .. " is " .. tostring(massCenter))
+    end
+
+    --  this script was just a test, remove it again
+    local thisScript = ll.GetScriptName()
+    ll.RemoveInventory(thisScript)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  this example script will not check for physical status
+//  you'll usually need it though to get a correct vector
+
+default
+{
+    state_entry()
+    {
+        vector massCenter = llGetCenterOfMass();
+        integer link = llGetLinkNumber();
+
+        if (link == 0 || link == 1) llSay(PUBLIC_CHANNEL,
+            "The center of the mass of the object is " + (string)massCenter);
+
+        else if (1 < link) llSay(PUBLIC_CHANNEL,
+            "The center of the mass of link no. " + (string)link + " is " + (string)massCenter);
+
+        //  this script was just a test, remove it again
+        string thisScript = llGetScriptName();
+        llRemoveInventory(thisScript);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">llGetPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetGeometricCenter" target="_blank">llGetGeometricCenter</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetCenterOfMass()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function vector llGetCenterOfMass();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

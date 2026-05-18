@@ -1,0 +1,400 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetNotecardLineSync(NotecardName: string|uuid, LineNumber: number): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llGetNotecardLineSync(string NotecardName, integer LineNumber);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Gets the <b>line</b> of the notecard <b>name</b> from the region's notecard cache immediately without raising a dataserver event.</p>
+  <p>Returns the string containing the text of the requested line from the notecard.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>NotecardName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>a notecard in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a notecard</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>LineNumber / line</td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>It's 1 based</span>Line number in a notecard (the index starts at zero).</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_storage</li>
+        <li>notecard</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">549</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p><b>line</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>Returns <a href="https://wiki.secondlife.com/wiki/EOF" target="_blank">EOF</a> if <b>line</b> is past the end of the notecard.</p>
+  <h2>Specification</h2>
+  <p>This function returns a string containing the requested line from a notecard in prim inventory, without the need for an asynchronous dataserver event, if the notecard is cached/known in its entirety by the simulator. This speeds up acessing notecard lines tremendously, and allows for near instantaneous random access.</p>
+  <p>If the notecard does not exist it returns the constant <a href="https://wiki.secondlife.com/wiki/NAK" target="_blank">NAK</a> and will shout a message to the debug channel. If the notecard has not been previously cached on the simulator it will return the <a href="https://wiki.secondlife.com/wiki/NAK" target="_blank">NAK</a> constant.</p>
+  <p>Notecards are cached into a fixed-size buffer, with the oldest (least-recently read) notecard getting removed first. It is not safe to assume a notecard has been previously cached. Data for a previously cached notecard may be dropped from the cache at any time, especially on a busy server.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If <b>line</b> is out of bounds the script continues to execute without an error message.</li>
+    <li>If <b>name</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a notecard then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
+    <ul>
+      <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
+    </ul>
+  
+    </li>
+    <li>If <b>name</b> is a new empty notecard (never saved) then an error "Couldn't find notecard ~NAME~" (~NAME~ being the value of <b>name</b>) will be shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. This is because until a notecard is saved for the first time, it does not exist as an asset only as an inventory placeholder.
+    <ul>
+      <li>If the notecard is <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a> you can check for this with <a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a> which will return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> in this case. However if notecard is not <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a>, there is no way to avoid the error message.</li>
+    </ul>
+  
+    </li>
+    <li>If notecard contains embedded inventory items (such as textures and landmarks), <a href="https://wiki.secondlife.com/wiki/EOF" target="_blank">EOF</a> will be returned, regardless of the line requested.</li>
+    <li>If the requested line is longer than 1024 bytes (<i>not</i> characters), llGetNotecardLineSync will only return the first 1024 <i>bytes</i> of the line.
+    <ul>
+      <li>To check that the returned line has not been truncated, use the example snippet on <a href="https://wiki.secondlife.com/wiki/LlStringToBase64" target="_blank">llStringToBase64</a> to check the number of bytes returned by llGetNotecardLineSync. If the string is exactly 1024 bytes, it <i>may</i> have been truncated.
+      <ul>
+        <li>Do not use <a href="https://wiki.secondlife.com/wiki/LlStringLength" target="_blank">llStringLength</a> for this, because strings in LSL support multi-byte characters (UTF-8 for LSL-2, UTF-16 for Mono).</li>
+      </ul>
+    
+      </li>
+    </ul>
+  
+    </li>
+    <li>A <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event does <b>not</b> get raised. Therefore, other scripts in the linkset are unaware of the processed notecard lines.</li>
+    <li>Since this function does not idle the script while waiting for a <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event, garbage collection will not run while loading an entire notecard by calling llGetNotecardLineSync in a loop. For large notecards, you can quickly run out of free memory, even if you overwrite each line as you read it.
+    <ul>
+      <li>This does not occur with <a href="https://wiki.secondlife.com/wiki/LlGetNotecardLine" target="_blank">llGetNotecardLine</a>, which runs garbage collection while waiting for the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event.</li>
+      <li>This can be mitigated using <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timers</a> (any length will do), but not <a href="https://wiki.secondlife.com/wiki/LlSleep" target="_blank">llSleep</a>, which also blocks garbage collection.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+local NOTECARD_NAME = "notecard"
+local READ_KEY = NULL_KEY
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    READ_KEY = ll.GetNumberOfNotecardLines(NOTECARD_NAME)
+end
+
+function LLEvents.dataserver(request, data)
+    if request == READ_KEY then
+        local count = integer(data)
+        local index = 0
+
+        index = 0
+        while index < (count + 1) do
+            local line = ll.GetNotecardLineSync(NOTECARD_NAME, index)
+            if line == NAK then
+                ll.OwnerSay("---NAK---")
+            elseif line == EOF then
+                ll.OwnerSay("---EOF---")
+            else
+                ll.OwnerSay(line)
+            end
+            index += 1
+        end
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string NOTECARD_NAME = "notecard";
+key READ_KEY = NULL_KEY;
+
+default
+{
+
+    touch_start(integer total_number)
+    {
+        READ_KEY = llGetNumberOfNotecardLines(NOTECARD_NAME);
+    }
+    
+    dataserver(key request, string data)
+    {
+        if (request == READ_KEY)
+        {
+            integer count = (integer)data;
+            integer index;
+            
+            for (index = 0; index < (count+1); ++index)
+            {
+                string line = llGetNotecardLineSync(NOTECARD_NAME, index);
+                if (line == NAK)
+                {
+                    llOwnerSay("---NAK---");
+                }
+                else if (line == EOF)
+                {
+                    llOwnerSay("---EOF---");
+                }
+                else
+                {
+                    llOwnerSay(line);
+                }
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <p>Following example to call a normal <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> notecard read using <a href="https://wiki.secondlife.com/wiki/LlGetNotecardLine" target="_blank">llGetNotecardLine</a> if llGetNotecardlineSync fails with a NAK. Keep in mind to clear any lists you are reading data into when using the following example to keep from corrupting the integrity of the list data.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function integer(s) return tonumber(string.match(s, "^%s*([-+]?%d+)")) or 0 end
+
+-- llGetNotecardLineSync example with fall back to the old dataserver read
+-- if llGetNotecardLineSync fails with a NAK.
+
+local NOTECARD_NAME = "notecard"
+local READ_KEY = NULL_KEY
+
+local noteCard_qry = NULL_KEY
+local noteCard_line = 0
+
+local function main()
+    -- read the notecards number of lines to the
+    -- simulators cache memory
+    READ_KEY = ll.GetNumberOfNotecardLines(NOTECARD_NAME)
+end
+
+function LLEvents.dataserver(request, data)
+    -- read notecards using the new llGetNotecardLineSync function
+    -- from simulator cache.
+    if request == READ_KEY then
+        local count = integer(data)
+        local index = 0
+
+        index = 0
+        while index < (count + 1) do
+            local line = ll.GetNotecardLineSync(NOTECARD_NAME, index)
+            if line == NAK then
+                -- Got a notecard NAK meaning llGetNotecardLineSync had and error.
+                -- falling back to the old dataserver event to read notecards.
+                ll.OwnerSay("---NAK---")
+                noteCard_qry = ll.GetNotecardLine(NOTECARD_NAME, noteCard_line)
+                return  -- return is needed to break the for/next loop once the NAK is encountered.
+            elseif line == EOF then
+                -- End of notecard.
+                ll.OwnerSay("---EOF---")
+            else
+                -- do work here.
+                ll.OwnerSay(line)
+            end
+            index += 1
+        end
+    end
+
+    -- old system takes over if a NAK is encountered.
+    if request == noteCard_qry then
+        if data == EOF then
+            -- End of notecard encountered.
+            ll.OwnerSay("EOF encountered")
+        else
+            -- process normal notecard line, then read the next line
+            -- of the notecard.
+            ll.OwnerSay(data)
+            noteCard_qry = ll.GetNotecardLine(NOTECARD_NAME, (function() noteCard_line += 1 return noteCard_line end)())
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// llGetNotecardLineSync example with fall back to the old dataserver read
+// if llGetNotecardLineSync fails with a NAK.
+
+string  NOTECARD_NAME = "notecard";
+key     READ_KEY = NULL_KEY;
+
+key     noteCard_qry;
+integer noteCard_line;
+
+default
+{
+
+    state_entry()
+    {
+        // read the notecards number of lines to the
+        // simulators cache memory
+        READ_KEY = llGetNumberOfNotecardLines(NOTECARD_NAME);
+    }
+    
+    dataserver(key request, string data)
+    {
+        // read notecards using the new llGetNotecardLineSync function
+        // from simulator cache.
+        if (request == READ_KEY)
+        {
+            integer count = (integer)data;
+            integer index;
+            
+            for (index = 0; index < (count+1); ++index)
+            {
+                string line = llGetNotecardLineSync(NOTECARD_NAME, index);
+                if (line == NAK)
+                {
+                    // Got a notecard NAK meaning llGetNotecardLineSync had and error.
+                    // falling back to the old dataserver event to read notecards.
+                    llOwnerSay("---NAK---");
+                    noteCard_qry = llGetNotecardLine(NOTECARD_NAME, noteCard_line);
+                    return;  // return is needed to break the for/next loop once the NAK is encountered.
+                }
+                else if (line == EOF)
+                {
+                    // End of notecard.
+                    llOwnerSay("---EOF---");
+                }
+                else
+                {
+                    // do work here.
+                    llOwnerSay(line);
+                }
+            }
+        }
+
+        // old system takes over if a NAK is encountered.
+        if(request == noteCard_qry)
+        {
+            if(data == EOF)
+            {
+                // End of notecard encountered.
+                llOwnerSay("EOF encountered");
+            }
+            else 
+            {
+                // process normal notecard line, then read the next line
+                // of the notecard.
+                llOwnerSay(data);
+                noteCard_qry = llGetNotecardLine(NOTECARD_NAME, ++noteCard_line);
+            }
+        }
+    }
+}`} lang="lsl" /></div>
+  <p>Here is a more compact implementation that returns to using llGetNotecardLineSync whenever possible:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local file_name = ""
+local file_line_number = 0
+local file_request = NULL_KEY
+
+local function main()
+    file_name = ll.GetInventoryName(INVENTORY_NOTECARD, 0)  -- get the name of the first notecard in the object's inventory
+end
+
+function LLEvents.touch_start(events)
+    local n = #events
+    -- start reading text when the object is touched (you'll probably want to move these lines to another place depending on your needs):
+    file_line_number = 0
+    file_request = ll.GetNotecardLine(file_name, file_line_number)
+end
+
+function LLEvents.dataserver(id, message)
+    if id == file_request then
+        while message ~= EOF and message ~= NAK do
+            ll.OwnerSay(message)  -- do useful things with the text here
+            message = ll.GetNotecardLineSync(file_name, (function() file_line_number += 1 return file_line_number end)())
+        end
+        if message == NAK then
+            file_request = ll.GetNotecardLine(file_name, file_line_number)
+        end
+        if message == EOF then
+            ll.OwnerSay("End of file.")
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string file_name;
+integer file_line_number;
+key file_request;
+
+default {
+    state_entry() {
+        file_name = llGetInventoryName(INVENTORY_NOTECARD, 0); // get the name of the first notecard in the object's inventory
+    }
+    
+    touch_start(integer n) {
+        // start reading text when the object is touched (you'll probably want to move these lines to another place depending on your needs):
+        file_line_number = 0;
+        file_request = llGetNotecardLine(file_name, file_line_number);
+    }
+    
+    dataserver(key id, string message) {
+        if (id == file_request) {
+            while (message != EOF && message != NAK) {
+                llOwnerSay(message); // do useful things with the text here
+                message = llGetNotecardLineSync(file_name, ++file_line_number);
+            }
+            if (message == NAK)
+                file_request = llGetNotecardLine(file_name, file_line_number);
+            if (message == EOF)
+                llOwnerSay("End of file.");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNumberOfNotecardLines" target="_blank">llGetNumberOfNotecardLines</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetNotecardLine" target="_blank">llGetNotecardLine</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llGetNotecardLineSync( string name, integer line );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

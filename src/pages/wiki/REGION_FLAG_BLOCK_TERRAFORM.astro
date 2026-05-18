@@ -1,0 +1,125 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`REGION_FLAG_BLOCK_TERRAFORM: number = 64`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer REGION_FLAG_BLOCK_TERRAFORM = 64;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant REGION_FLAG_BLOCK_TERRAFORM has the value 0x00000040</p>
+  <p>This is a flag used with <a href="https://wiki.secondlife.com/wiki/LlGetRegionFlags" target="_blank">llGetRegionFlags</a> to check if terraforming is disabled in the region.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>RegionFlag</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Flag</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/REGION_FLAG_ALLOW_DAMAGE" target="_blank">REGION_FLAG_ALLOW_DAMAGE</a></td>
+        <td>0x00000001</td>
+        <td>Find if a region is entirely damage enabled</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/REGION_FLAG_FIXED_SUN" target="_blank">REGION_FLAG_FIXED_SUN</a></td>
+        <td>0x00000010</td>
+        <td>Find if a region has a fixed sun position</td>
+      </tr>
+      <tr>
+        <td>REGION_FLAG_BLOCK_TERRAFORM</td>
+        <td>0x00000040</td>
+        <td>Find if a region terraforming disabled</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/REGION_FLAG_SANDBOX" target="_blank">REGION_FLAG_SANDBOX</a></td>
+        <td>0x00000100</td>
+        <td>Find if a region is a sandbox</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/REGION_FLAG_DISABLE_COLLISIONS" target="_blank">REGION_FLAG_DISABLE_COLLISIONS</a></td>
+        <td>0x00001000</td>
+        <td>Find if a region has disabled collisions</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/REGION_FLAG_DISABLE_PHYSICS" target="_blank">REGION_FLAG_DISABLE_PHYSICS</a></td>
+        <td>0x00004000</td>
+        <td>Find if a region has disabled physics</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/REGION_FLAG_BLOCK_FLY" target="_blank">REGION_FLAG_BLOCK_FLY</a></td>
+        <td>0x00080000</td>
+        <td>Find if a region blocks flying</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/REGION_FLAG_ALLOW_DIRECT_TELEPORT" target="_blank">REGION_FLAG_ALLOW_DIRECT_TELEPORT</a></td>
+        <td>0x00100000</td>
+        <td>Find if a region allows direct teleports</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/REGION_FLAG_RESTRICT_PUSHOBJECT" target="_blank">REGION_FLAG_RESTRICT_PUSHOBJECT</a></td>
+        <td>0x00400000</td>
+        <td>Find if a region restricts <a href="https://wiki.secondlife.com/wiki/LlPushObject" target="_blank">llPushObject</a> calls</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionFlags" target="_blank">llGetRegionFlags</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=REGION_FLAG_BLOCK_TERRAFORM" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+REGION_FLAG_BLOCK_TERRAFORM = 0x00000040
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer REGION_FLAG_BLOCK_TERRAFORM = 0x00000040;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

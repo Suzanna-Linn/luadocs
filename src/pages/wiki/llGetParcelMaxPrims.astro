@@ -1,0 +1,107 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetParcelMaxPrims(Position: vector, SimWide: boolean): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetParcelMaxPrims(vector Position, integer SimWide);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns an integer that is the maximum combined <a href="http://community.secondlife.com/t5/English-Knowledge-Base/Calculating-land-impact/ta-p/974163" target="_blank">land impact</a> allowed for objects on the parcel at <b>pos</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;(z component is ignored)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>SimWide / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">sim_wide</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> treats all parcels owned by this parcel owner in the sim in a single maximum, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> determines the max for the specified parcel</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>parcel</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">326</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>If <b>sim_wide</b> is...</p>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> then the return is the maximum land impact supported by the parcel.</li>
+    <li><i>not</i> <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> then the return is the total land impact supported by all land in the region owned by the parcel owner.</li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If there is an Object Bonus for the region, the value returned may be more than the region's total limit.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.Say(0, "The total land impact of objects rezzed on this parcel is " .. tostring(ll.GetParcelPrimCount(ll.GetPos(), PARCEL_COUNT_TOTAL, false)) .. ", of " .. tostring(ll.GetParcelMaxPrims(ll.GetPos(), false)) .. " allowed.")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        llSay(0, "The total land impact of objects rezzed on this parcel is "
+             +(string)llGetParcelPrimCount(llGetPos(), PARCEL_COUNT_TOTAL, FALSE) +", of "
+             +(string)llGetParcelMaxPrims(llGetPos(), FALSE) + " allowed.");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelPrimCount" target="_blank">llGetParcelPrimCount</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetParcelMaxPrims( vector pos, integer sim_wide );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

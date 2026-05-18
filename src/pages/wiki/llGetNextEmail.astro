@@ -1,0 +1,144 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetNextEmail(Address: string, Subject: string)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llGetNextEmail(string Address, string Subject);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Get the next queued <a href="https://wiki.secondlife.com/wiki/Email" target="_blank">email</a> that comes from <b>address</b>, with specified <b>subject</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Address / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/address" target="_blank">address</a></td>
+          <td>Sender's mail address</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>Subject / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/subject" target="_blank">subject</a></td>
+          <td>Mail subject</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script_communication</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">120</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>address</b> or <b>subject</b> an empty string, then that parameter will be treated as a wildcard.</p>
+  <h2>Specification</h2>
+  <p>The <a href="https://wiki.secondlife.com/wiki/Email" target="_blank">email</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> will be triggered only if <b>address</b> and <b>subject</b> match</p>
+  <ul>
+    <li>Neither parameter is case sensitive.</li>
+    <li>If a parameter is an empty string, then that parameter will be treated as a wildcard, matches anything.</li>
+    <li>If both parameters are empty strings then the first email in the queue will be matched.</li>
+    <li>The email queue is FIFO.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.OwnerSay("My email address is: " .. tostring(ll.GetKey()) .. "@lsl.secondlife.com")
+
+    -- check every half minute
+    ll.SetTimerEvent(30.0)
+end
+
+function LLEvents.timer()
+    --Check for emails
+    ll.GetNextEmail("", "")
+end
+
+function LLEvents.email(time, address, subj, message, num_left)
+    ll.OwnerSay("I got an email: " .. subj .. "\n" .. message)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llOwnerSay("My email address is: " + (string)llGetKey() + "@lsl.secondlife.com");
+
+        // check every half minute
+        llSetTimerEvent(30.0);
+    }
+ 
+    timer()
+    {
+        //Check for emails
+        llGetNextEmail("", "");
+    }
+ 
+    email(string time, string address, string subj, string message, integer num_left)
+    {
+          llOwnerSay("I got an email: " + subj + "\n" + message);
+     }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Email" target="_blank">email</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlEmail" target="_blank">llEmail</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llGetNextEmail( string address, string subject );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,154 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.AngleBetween(Rot1: rotation, Rot2: rotation): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llAngleBetween(rotation Rot1, rotation Rot2);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the angle in radians between rotation <b>a</b> and rotation <b>b</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>Rot1 / a</td>
+          <td>start rotation</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>Rot2 / b</td>
+          <td>end rotation</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_3d</li>
+        <li>math_trig</li>
+        <li>quaternion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">174</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local num_detected = #events
+    local currentRootRotation = ll.GetRootRotation()
+    local angle = ll.AngleBetween(ZERO_ROTATION, currentRootRotation)
+
+    -- PUBLIC_CHANNEL has the integer value 0
+    ll.Say(PUBLIC_CHANNEL, "llAngleBetween(ZERO_ROTATION, " .. tostring(currentRootRotation) .. ") = " .. tostring(angle))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        rotation currentRootRotation = llGetRootRotation();
+        float angle = llAngleBetween(ZERO_ROTATION, currentRootRotation);
+
+        // PUBLIC_CHANNEL has the integer value 0
+        llSay(PUBLIC_CHANNEL,
+            "llAngleBetween(ZERO_ROTATION, " + (string)currentRootRotation + ") = " + (string)angle);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotBetween" target="_blank">llRotBetween</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Angle" target="_blank">llRot2Angle</a></td>
+        <td>–</td>
+        <td>Similar functionality used for the Axis-Angle format</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Reference</h3>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function AngleBetween(a, b)  --simple but turns out to not be very accurate.
+    return 2.0 * ll.Acos(ll.Fabs(a.x * b.x + a.y * b.y + a.z * b.z + a.s * b.s) / ll.Sqrt((a.x * a.x + a.y * a.y + a.z * a.z + a.s * a.s) * (b.x * b.x + b.y * b.y + b.z * b.z + b.s * b.s)))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float AngleBetween(rotation a, rotation b)//simple but turns out to not be very accurate.
+{
+    return 2.0 * llAcos( llFabs(a.x * b.x + a.y * b.y + a.z * b.z + a.s * b.s)
+                      / llSqrt((a.x * a.x + a.y * a.y + a.z * a.z + a.s * a.s)
+                             * (b.x * b.x + b.y * b.y + b.z * b.z + b.s * b.s)));
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function AngleBetween(a, b)  --more complex implementation but more accurate, and reasonably fast.
+    local r = b / a  -- calculate the rotation between the two arguments as quaternion
+    local s2 = r.s * r.s  -- square of the s-element
+    local v2 = r.x * r.x + r.y * r.y + r.z * r.z  -- sum of the squares of the v-elements
+
+    if s2 < v2 then  -- compare the s-component to the v-component
+        return 2.0 * ll.Acos(ll.Sqrt(s2 / (s2 + v2)))  -- use arccos if the v-component is dominant
+    end
+    if v2 ~= 0 then  -- make sure the v-component is non-zero
+        return 2.0 * ll.Asin(ll.Sqrt(v2 / (s2 + v2)))  -- use arcsin if the s-component is dominant
+    end
+
+    return 0.0  -- one or both arguments are scaled too small to be meaningful, or the values are the same, so return zero
+end  --Written by Moon Metty & Miranda Umino. Minor optimizations by Strife Onizuka
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float AngleBetween(rotation a, rotation b)//more complex implementation but more accurate, and reasonably fast.
+{
+    rotation r = b / a; // calculate the rotation between the two arguments as quaternion
+    float s2 = r.s * r.s; // square of the s-element
+    float v2 = r.x * r.x + r.y * r.y + r.z * r.z; // sum of the squares of the v-elements
+
+    if (s2 < v2) // compare the s-component to the v-component
+        return 2.0 * llAcos(llSqrt(s2 / (s2 + v2))); // use arccos if the v-component is dominant
+    if (v2) // make sure the v-component is non-zero
+        return 2.0 * llAsin(llSqrt(v2 / (s2 + v2))); // use arcsin if the s-component is dominant
+
+    return 0.0; // one or both arguments are scaled too small to be meaningful, or the values are the same, so return zero
+}//Written by Moon Metty & Miranda Umino. Minor optimizations by Strife Onizuka`} lang="lsl" /></div>
+  <p>Watch for developments on this function with <a href="https://jira.secondlife.com/browse/SVC-2424" target="_blank">SVC-2424</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llAngleBetween( rotation a, rotation b );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

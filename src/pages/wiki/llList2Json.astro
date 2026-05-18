@@ -1,0 +1,285 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.List2Json(JsonType: string, Values: {any}): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llList2Json(string JsonType, list Values);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use lljson.encode</span></p>
+      <p>  <p>This function takes a list and returns a <a href="http://json.org" target="_blank">JSON</a> string of that list as either a json object or json array.</p>
+  <p>Returns a string that is either <b>values</b> serialized as a JSON <b>type</b>, or if an error was encountered <a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>JsonType / type</td>
+          <td>Type is JSON_ARRAY or JSON_OBJECT.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Values / values</td>
+          <td>List of values to convert.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>data_conversion</li>
+        <li>json</li>
+        <li>list</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">514</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+        <span class="lua-section attr-label bg-deprecated">Lua Deprecated</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To convert a json formatted string into a list use <a href="https://wiki.secondlife.com/wiki/LlJson2List" target="_blank">llJson2List</a>.</p>
+  <h2>Specification</h2>
+  <p>See <a href="https://wiki.secondlife.com/wiki/Json_usage_in_LSL" target="_blank">Json_usage_in_LSL</a></p>
+  <ul>
+    <li>If type is <a href="https://wiki.secondlife.com/wiki/JSON_OBJECT" target="_blank">JSON_OBJECT</a> the list must be a strided list of key, value pairs and a string representing a json object will be returned.</li>
+    <li>If type is <a href="https://wiki.secondlife.com/wiki/JSON_ARRAY" target="_blank">JSON_ARRAY</a> then a string representing a json array will be returned.</li>
+    <li>If type is any other string then <a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a> will be returned.</li>
+    <li>Json types from the input list are inferred from the LSL data type
+    <ul>
+      <li><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> and <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> types are encoded as <a href="https://wiki.secondlife.com/wiki/JSON_NUMBER" target="_blank">JSON_NUMBER</a></li>
+      <li>"true" and "false" are encoded as <a href="https://wiki.secondlife.com/wiki/JSON_TRUE" target="_blank">JSON_TRUE</a> and <a href="https://wiki.secondlife.com/wiki/JSON_FALSE" target="_blank">JSON_FALSE</a>, respectively</li>
+      <li>"null" is encoded as <a href="https://wiki.secondlife.com/wiki/JSON_NULL" target="_blank">JSON_NULL</a></li>
+      <li>properly-formatted json strings in the input are kept as-is (will either be <a href="https://wiki.secondlife.com/wiki/JSON_STRING" target="_blank">JSON_STRING</a>, <a href="https://wiki.secondlife.com/wiki/JSON_OBJECT" target="_blank">JSON_OBJECT</a>, or <a href="https://wiki.secondlife.com/wiki/JSON_ARRAY" target="_blank">JSON_ARRAY</a>)</li>
+      <li>all other strings encoded as <a href="https://wiki.secondlife.com/wiki/JSON_STRING" target="_blank">JSON_STRING</a>. Strings are trimmed of whitespace at the beginning and end, as if passed thru <a href="https://wiki.secondlife.com/wiki/LlStringTrim" target="_blank">llStringTrim</a></li>
+      <li>Note in particular that strings containing valid JSON numbers are converted to JSON strings, not left as JSON numbers (<a href="https://jira.secondlife.com/browse/BUG-6284" target="_blank">BUG-6284</a>). This differs to the treatment that <a href="https://wiki.secondlife.com/wiki/LlJsonSetValue" target="_blank">llJsonSetValue</a> gives to strings that contain JSON numbers, which leaves them as numbers.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Type Flags</th>
+        <th>Value</th>
+        <th>Unicode</th>
+        <th><a href="https://wiki.secondlife.com/wiki/LlOrd" target="_blank">Integer</a></th>
+        <th><a href="https://wiki.secondlife.com/wiki/Category:LSL_Encoding/URL" target="_blank">URL Encoded</a></th>
+        <th>HTML Encoded</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a></td>
+        <td>&#xfdd0;</td>
+        <td>U+FDDO</td>
+        <td>64976</td>
+        <td>"%EF%B7%90"</td>
+        <td>&#xFDD0;</td>
+        <td>Value returned when inputs are not well formed.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_OBJECT" target="_blank">JSON_OBJECT</a></td>
+        <td>&#xfdd1;</td>
+        <td>U+FDD1</td>
+        <td>64977</td>
+        <td>"%EF%B7%91"</td>
+        <td>&#xFDD1;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_ARRAY" target="_blank">JSON_ARRAY</a></td>
+        <td>&#xfdd2;</td>
+        <td>U+FDD2</td>
+        <td>64978</td>
+        <td>"%EF%B7%92"</td>
+        <td>&#xFDD2;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Note that string <b>values</b> items are interpreted as JSON, not LSL strings. Quotation marks, if required, must be added explicitly. For example, `<a href="https://wiki.secondlife.com/wiki/LlJson2List" target="_blank">llJson2List</a>(llList2Json(<a href="https://wiki.secondlife.com/wiki/JSON_ARRAY" target="_blank">JSON_ARRAY</a>, ["bacon", "true", "false", "null"]))` returns the LSL list `<a href="https://wiki.secondlife.com/wiki/JSON_TRUE" target="_blank">"bacon", [JSON_TRUE</a>, <a href="https://wiki.secondlife.com/wiki/JSON_FALSE" target="_blank">JSON_FALSE</a>, <a href="https://wiki.secondlife.com/wiki/JSON_NULL" target="_blank">JSON_NULL</a>]`, while `<a href="https://wiki.secondlife.com/wiki/LlJson2List" target="_blank">llJson2List</a>(llList2Json(<a href="https://wiki.secondlife.com/wiki/JSON_ARRAY" target="_blank">JSON_ARRAY</a>, ["\"bacon\"", "\"true\"", "\"false\"", "\"null\""]))` returns the LSL list `["bacon", "true", "false", "null"]`</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    local items = {}
+    local json = ""
+
+    items = {"89556747-24cb-43ed-920b-47caed15465f"}
+    json = ll.List2Json(JSON_ARRAY, items)
+    -- ["89556747-24cb-43ed-920b-47caed15465f"]
+
+    items = {"pi", 3.14, "set", "[1,2,3]", "status", "ok"}
+    json = ll.List2Json(JSON_OBJECT, items)
+    -- {"pi":3.140000,"set":[1,2,3],"status":"ok"}
+
+    items = {0, 3.14, "[1,2,3]", "{}"}
+    json = ll.List2Json(JSON_ARRAY, items)
+-- [0,3.140000,[1,2,3],{}]
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        list items;
+        string json;
+
+        items = ["89556747-24cb-43ed-920b-47caed15465f"];
+        json = llList2Json(JSON_ARRAY, items);
+        // ["89556747-24cb-43ed-920b-47caed15465f"]
+
+        items = ["pi", 3.14, "set", "[1,2,3]", "status", "ok"];
+        json = llList2Json(JSON_OBJECT, items);
+        // {"pi":3.140000,"set":[1,2,3],"status":"ok"}
+
+        items = [0, 3.14, "[1,2,3]", "{}"];
+        json = llList2Json(JSON_ARRAY, items);
+        // [0,3.140000,[1,2,3],{}]
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function CSV2Json(csv)
+    local li = ll.CSV2List(csv)
+    return ll.List2Json(JSON_ARRAY, li)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string CSV2Json(string csv)
+{
+    list li = llCSV2List(csv);
+    return llList2Json(JSON_ARRAY, li);
+}
+// This function converts a comma separated values string to a Json array string. 
+// CSV strings are often used for link-messages, notecards and they are easier to type as input commands. 
+// A Json-Array can store multiple of those as a nested list within the same Json-string via JSON_APPEND.`} lang="lsl" /></div>
+  <ul>
+    <li>You could store multiple lists that set different particle effects in the same string. Use LlList2Json() to write the string and llJson2List() to read the particle system defining lists from it. The loss in float-accuracy (Json has BAD float-to-string-conversion) does not matter as much for particle effects.</li>
+  </ul>
+  <ul>
+    <li>You could store multiple lists, that set different llSetPrimitiveparamsFast() values for different situation (like different animation key frames), in the same Json String.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_ARRAY" target="_blank">JSON_ARRAY</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_OBJECT" target="_blank">JSON_OBJECT</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJson2List" target="_blank">llJson2List</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonGetValue" target="_blank">llJsonGetValue</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonSetValue" target="_blank">llJsonSetValue</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlJsonValueType" target="_blank">llJsonValueType</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">Typecast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/13#13.05.20.276191" target="_blank"> 20/05/2013 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llList2Json( string type, list values );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Their ships list to port</p>
+<p>for what reason I know not</p>
+<p>we list to JSON</p>
+<p>Listen to Jason</p>
+<p>cryptically my sensei said</p>
+<p>I must have misheard</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

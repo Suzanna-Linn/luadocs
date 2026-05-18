@@ -1,0 +1,173 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PARCEL_MEDIA_COMMAND_URL: number = 5`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PARCEL_MEDIA_COMMAND_URL = 5;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PARCEL_MEDIA_COMMAND_URL has the value 5</p>
+  <p>Used to get or set the parcel's media url.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ParcelMediaCommand</li>
+        <li>ParcelMediaQuery</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th></th>
+        <th>Constant</th>
+        <th>Parameter</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_STOP" target="_blank">PARCEL_MEDIA_COMMAND_STOP</a></td>
+        <td></td>
+        <td>Stop the media stream and go back to the first frame.</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_PAUSE" target="_blank">PARCEL_MEDIA_COMMAND_PAUSE</a></td>
+        <td></td>
+        <td>Pause the media stream (stop playing but stay on current frame).</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_PLAY" target="_blank">PARCEL_MEDIA_COMMAND_PLAY</a></td>
+        <td></td>
+        <td>Start the media stream playing from the current frame and stop when the end is reached.</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_LOOP" target="_blank">PARCEL_MEDIA_COMMAND_LOOP</a></td>
+        <td></td>
+        <td>Start the media stream playing from the current frame. When the end is reached, loop to the beginning and continue.</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_TEXTURE" target="_blank">PARCEL_MEDIA_COMMAND_TEXTURE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> uuid</td>
+        <td>Used to get or set the parcel's media texture.</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>PARCEL_MEDIA_COMMAND_URL</td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> url</td>
+        <td>Used to get or set the parcel's media url.</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_TIME" target="_blank">PARCEL_MEDIA_COMMAND_TIME</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> time</td>
+        <td>Move a media stream to a specific time in (floating point) seconds.</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_AGENT" target="_blank">PARCEL_MEDIA_COMMAND_AGENT</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> uuid</td>
+        <td>Applies the media command to the specified agent only.</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_UNLOAD" target="_blank">PARCEL_MEDIA_COMMAND_UNLOAD</a></td>
+        <td></td>
+        <td>Used to unload the movie and restores the original texture.</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_AUTO_ALIGN" target="_blank">PARCEL_MEDIA_COMMAND_AUTO_ALIGN</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> boolean</td>
+        <td>Used to set the parcel option 'Auto scale content'.</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_TYPE" target="_blank">PARCEL_MEDIA_COMMAND_TYPE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> mime_type</td>
+        <td>Used to get or set the parcel media MIME type (e.g. "text/html"). (1.19.1 RC0 or later)</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_SIZE" target="_blank">PARCEL_MEDIA_COMMAND_SIZE</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> x, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> y</td>
+        <td>Used to get or set the parcel media pixel resolution. (1.19.1 RC0 or later)</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_DESC" target="_blank">PARCEL_MEDIA_COMMAND_DESC</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> desc</td>
+        <td>Used to get or set the parcel media description. (1.19.1 RC0 or later)</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_MEDIA_COMMAND_LOOP_SET" target="_blank">PARCEL_MEDIA_COMMAND_LOOP_SET</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> loop</td>
+        <td>Used to get or set the parcel's media loop duration. (1.19.1 RC0 or later)</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlParcelMediaQuery" target="_blank">llParcelMediaQuery</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlParcelMediaCommandList" target="_blank">llParcelMediaCommandList</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PARCEL_MEDIA_COMMAND_URL" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PARCEL_MEDIA_COMMAND_URL = 5
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PARCEL_MEDIA_COMMAND_URL = 5;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

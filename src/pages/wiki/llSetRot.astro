@@ -1,0 +1,229 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetRot(Rotation: rotation)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetRot(rotation Rotation);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Sets the rotation of the prim to <b>rot</b>.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>Rotation / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>prim</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Sleep</span><span class="tech-val">0.2s</span></div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">61</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>This function is available for nonphysical root prims and all child prims. It has no effect on the root prim if the object is physical. It has no effect for "static objects" as type of <a href="https://wiki.secondlife.com/wiki/Pathfinding" target="_blank">pathfinding</a></p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.2 seconds.</li>
+    <li>If the prim is attached, then this function offsets the rotation by the avatar's rotation.</li>
+    <li>If the prim is not the root prim it is offset by the root's rotation.
+    <ul>
+      <li>If you are trying to set the rotation of a child prim relative to the root prim then divide the rotation by the root rotation.</li>
+      <li>If you are trying to set the rotation of a child prim to a global rotation then you need to divide the global rotation by the root rotation <b>twice</b>.</li>
+      <li>It is better to use <a href="https://wiki.secondlife.com/wiki/LlSetLocalRot" target="_blank">llSetLocalRot</a> to set the rotation of child prims, even if you are setting it to a global rotation (just divide by the root rotation in that case).</li>
+      <li>Alternatively see the <a href="#Useful_Snippets" target="_blank">Useful Snippets</a> for generalized workarounds that work with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>, <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a>, and <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></li>
+    </ul>
+  
+    </li>
+    <li>For small rotation changes, there is an update threshold depending on the time duration between changes. It does not appear to be limited to the 6deg rule any longer.</li>
+    <li>For "static objects" (type of <a href="https://wiki.secondlife.com/wiki/Pathfinding" target="_blank">pathfinding</a>), the script fails with the error in debug channel:
+    <ul>
+      <li>"Unable to set prim rotation: object contributes to the navmesh."</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Drop this script in the root prim of an object to have it rotate in 1 degree increments. Note that it won't work on child prims if the root is rotated.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local rot_xyzq = ZERO_ROTATION
+
+local function main()
+    local xyz_angles = vector(0, 1.0, 0)  -- This is to define a 1 degree change
+    local angles_in_radians = xyz_angles * DEG_TO_RAD  -- Change to Radians
+    rot_xyzq = ll.Euler2Rot(angles_in_radians)  -- Change to a Rotation
+end
+
+function LLEvents.touch_start(events)
+    local s = #events
+    ll.SetRot(ll.GetRot() * rot_xyzq)  --Do the Rotation...
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation rot_xyzq;
+
+default
+{
+    state_entry()
+    {
+        vector xyz_angles = <0,1.0,0>; // This is to define a 1 degree change
+        vector angles_in_radians = xyz_angles*DEG_TO_RAD; // Change to Radians
+        rot_xyzq = llEuler2Rot(angles_in_radians); // Change to a Rotation
+    }
+
+    touch_start(integer s)
+    {
+        llSetRot(llGetRot()*rot_xyzq); //Do the Rotation...
+    }
+}`} lang="lsl" /></div>
+  <p>Drop this one in a child prim to have it rotate around the world's Y axis in 1 degree increments. It won't work in the root if it is rotated.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local rot_xyzq = ZERO_ROTATION
+
+local function main()
+    local xyz_angles = vector(0, 1.0, 0)  -- This is to define a 1 degree change
+    local angles_in_radians = xyz_angles * DEG_TO_RAD  -- Change to Radians
+    rot_xyzq = ll.Euler2Rot(angles_in_radians)  -- Change to a Rotation
+end
+
+function LLEvents.touch_start(events)
+    local s = #events
+    ll.SetRot(ll.GetRot() * rot_xyzq / ll.GetRootRotation() / ll.GetRootRotation())  --Do the Rotation...
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation rot_xyzq;
+
+default
+{
+    state_entry()
+    {
+        vector xyz_angles = <0,1.0,0>; // This is to define a 1 degree change
+        vector angles_in_radians = xyz_angles*DEG_TO_RAD; // Change to Radians
+        rot_xyzq = llEuler2Rot(angles_in_radians); // Change to a Rotation
+    }
+
+    touch_start(integer s)
+    {
+        llSetRot(llGetRot()*rot_xyzq/llGetRootRotation()/llGetRootRotation()); //Do the Rotation...
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- These correctly set a global rotation for the root prim in all scenarios
+llSetLocalRot( rot )
+llSetPrimitiveParams( [PRIM_ROT_LOCAL, rot] )
+
+//-- These correctly set a global rotation for a child prim in all scenarios
+llSetLocalRot( rot / llGetRootRotation() )
+llSetPrimitiveParams( [PRIM_ROT_LOCAL, rot / llGetRootRotation() ] )`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRot" target="_blank">llGetRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLocalRot" target="_blank">llGetLocalRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLocalRot" target="_blank">llSetLocalRot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTargetOmega" target="_blank">llTargetOmega</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetRot( rotation rot );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

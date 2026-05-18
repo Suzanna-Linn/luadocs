@@ -1,0 +1,123 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GroundRepel(Height: number, Water: boolean, Tau: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llGroundRepel(float Height, integer Water, float Tau);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Critically damps to <b>height</b> if within `<b>height</b> * 0.5` of ground or water level (which ever is higher).</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Height / height</td>
+          <td>Distance above the ground</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Water / water</td>
+          <td>boolean, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> then hover above water too.</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Tau / tau</td>
+          <td>seconds to critically damp in</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">230</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Do not use with vehicles.</p>
+  <h2>Specification</h2>
+  <p>Does not pull the object down if it is stuck higher than that, unlike the similar <a href="https://wiki.secondlife.com/wiki/LlSetHoverHeight" target="_blank">llSetHoverHeight</a>.</p>
+  <p>To stop llGroundRepel, this seems to work: `llGroundRepel(0.0, FALSE, 0.0)`</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Only works in <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics-enabled</a> objects.</li>
+    <li>This is not a prim property; stopping or resetting the script stops llGroundRepel; same with the similar <a href="https://wiki.secondlife.com/wiki/LlSetHoverHeight" target="_blank">llSetHoverHeight</a></li>
+    <li>Crossing a sim border will cancel llGroundRepel, unlike <a href="https://wiki.secondlife.com/wiki/LlSetHoverHeight" target="_blank">llSetHoverHeight</a></li>
+    <li>A negative height value allows you to hover underwater, same as <a href="https://wiki.secondlife.com/wiki/LlSetHoverHeight" target="_blank">llSetHoverHeight</a></li>
+    <li>A previous version of this page suggested that <a href="https://wiki.secondlife.com/wiki/LlStopHover" target="_blank">llStopHover</a> will stop llGroundRepel, but it does not</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.SetStatus(STATUS_PHYSICS, true)
+    ll.GroundRepel(0.5, true, 0.2)  -- In a 1/2 meter cube this is roughly the minimum height for any noticeable effect.
+    -- to
+    ll.GroundRepel(4096.0, true, 0.2)  -- There is no restrictive maximum.
+-- However as the prim reaches 4096 meters (bear in mind the prim height will be (float height + ground height))
+-- it will be too high to be allowed to exist.
+end
+  -- This is actually a remarkably fast way to go straight up!!
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSetStatus(STATUS_PHYSICS, TRUE);
+        llGroundRepel(0.5, TRUE, 0.2); // In a 1/2 meter cube this is roughly the minimum height for any noticeable effect.
+        // to
+        llGroundRepel(4096.0, TRUE, 0.2); // There is no restrictive maximum.
+        // However as the prim reaches 4096 meters (bear in mind the prim height will be (float height + ground height))
+        // it will be too high to be allowed to exist.
+    }
+}// This is actually a remarkably fast way to go straight up!!`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetHoverHeight" target="_blank">llSetHoverHeight</a></td>
+        <td>–</td>
+        <td>Similar to llGroundRepel, but also pulls down</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llGroundRepel( float height, integer water, float tau );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

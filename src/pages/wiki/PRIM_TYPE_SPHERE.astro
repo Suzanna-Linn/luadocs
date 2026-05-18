@@ -1,0 +1,224 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_TYPE_SPHERE: number = 3`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_TYPE_SPHERE = 3;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_TYPE_SPHERE has the value 3</p>
+  <p>PRIM_TYPE_SPHERE is a parameter of <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank">PRIM_TYPE</a> used to make prim into a sphere and to change specific properties that define the shape of that sphere.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimType</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>PRIM_TYPE</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank"> [PRIM_TYPE</a>, PRIM_TYPE_SPHERE,&#32;<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> dimple ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• integer</td>
+        <td>hole_shape</td>
+        <td>–</td>
+        <td>PRIM_HOLE_* flag</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>cut</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>hollow</td>
+        <td>–</td>
+        <td>ranges from 0.0 (solid) to 0.95 (maximum hollowed)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>twist</td>
+        <td>–</td>
+        <td>ranges from -1.0 (-360 degree in the edit window) to 1.0 (+360 degree in the edit window) for both x and y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>dimple</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">hole_shape Flags</th>
+        <th>Shape</th>
+        <th colspan="2">hole_shape Flags</th>
+        <th>Shape</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_DEFAULT" target="_blank">PRIM_HOLE_DEFAULT</a></td>
+        <td>0x00</td>
+        <td>Default</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_SQUARE" target="_blank">PRIM_HOLE_SQUARE</a></td>
+        <td>0x20</td>
+        <td>Square</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_CIRCLE" target="_blank">PRIM_HOLE_CIRCLE</a></td>
+        <td>0x10</td>
+        <td>Circle</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_HOLE_TRIANGLE" target="_blank">PRIM_HOLE_TRIANGLE</a></td>
+        <td>0x30</td>
+        <td>Triangle</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>PRIM_TYPE_LEGACY</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> 1, PRIM_TYPE_SPHERE,&#32;[vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> dimple ] </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td>cut</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• float</td>
+        <td>hollow</td>
+        <td>–</td>
+        <td>ranges from 0.0 (solid) to 0.95 (maximum hollowed)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• vector</td>
+        <td>dimple</td>
+        <td>–</td>
+        <td>x and y range from 0.0 to 1.0, x must be at least 0.05 smaller than y (z is ignored)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>This is the old PRIM_TYPE format for the sphere (PRIM_TYPE used to be 1 instead of 9). Use the new format unless you are maintaining old code.</p>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank">PRIM_TYPE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/CHANGED_SHAPE" target="_blank">CHANGED_SHAPE</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- this makes a simple sphere
+local cut = vector(0.0, 1.0, 0.0)  -- 0.0 to 1.0
+local hollow = 0.0  -- 0.0 to 0.95
+local twist = vector(0.0, 0.0, 0.0)  -- -1.0 to 1.0
+local dimple = vector(0.0, 1.0, 0.0)  -- 0.0 to 1.0
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// this makes a simple sphere
+vector cut = <0.0, 1.0, 0.0>;      // 0.0 to 1.0
+float hollow = 0.0;                // 0.0 to 0.95
+vector twist = <0.0, 0.0, 0.0>;    // -1.0 to 1.0
+vector dimple = <0.0, 1.0, 0.0>;   // 0.0 to 1.0
+llSetPrimitiveParams( [PRIM_TYPE, PRIM_TYPE_SPHERE, PRIM_HOLE_DEFAULT,
+                        cut, hollow, twist, dimple ]  );`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_TYPE_SPHERE" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_TYPE_SPHERE = 3
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_TYPE_SPHERE = 3;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

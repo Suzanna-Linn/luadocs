@@ -1,0 +1,195 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.EscapeURL(URL: string): string`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`string llEscapeURL(string URL);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a string that is the escaped/encoded version of <b>url</b>, replacing spaces with `"%20"` etc. The function will escape any character not in [a-zA-Z0-9] to `"%xx"` where `"xx"` is the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Hexadecimal" target="_blank">hexadecimal</a> value of the character in [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Byte" target="_blank">byte</a> form.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>URL / url</td>
+          <td>A (preferably valid and unescaped URL) string.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>web</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">307</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>To clarify, numbers and ASCII7 alphabetical characters are NOT escaped. If a character requires more then one byte in [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Byte" target="_blank">byte</a> form then it returns multiple `"%xx"` sequences chained together.</p>
+  <p>This function is similar to functions (e.g. <a href="http://php.net/manual/en/function.rawurlencode.php" target="_blank">rawurlencode</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">encodeURIComponent</a>) found in many other languages:</p>
+  <table>
+    <tbody>
+      <tr>
+        <td><b>PHP</b></td>
+      </tr>
+      <tr>
+        <td><a href="http://php.net/manual/en/function.rawurlencode.php" target="_blank">rawurlencode</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <td><b>ECMAScript</b></td>
+      </tr>
+      <tr>
+        <td><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">encodeURIComponent</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <p>The function is not appropriate for escaping a <b>url</b> all at once, because the `":"` after the protocol, and all of the `"/"` characters delimiting the various parts, will be escaped. Instead, build the <b>url</b> in parts; escaping parts of the path and query string arguments as needed.</p>
+  <p>Sample URL: <a href="https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322/foo/bar?arg=gra" target="_blank">https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322/foo/bar?arg=gra</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>URL part</th>
+        <th>example</th>
+      </tr>
+      <tr>
+        <td>base URL</td>
+        <td>https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322</td>
+      </tr>
+      <tr>
+        <td>trailing path</td>
+        <td>/foo/bar</td>
+      </tr>
+      <tr>
+        <td>query string past the first "?" in the URL</td>
+        <td>arg=gra</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local str = "http://wiki.secondlife.com/wiki/LSL Portal"
+
+local function main()
+    ll.OwnerSay("Plain string:\n\t" .. str)
+    -- output: "http://wiki.secondlife.com/wiki/LSL Portal"
+
+    ll.OwnerSay("Escaped string:\n\t" .. ll.EscapeURL(str))
+    -- output: "http%3A%2F%2Fwiki%2Esecondlife%2Ecom%2Fwiki%2FLSL%20Portal"
+
+    ll.OwnerSay("Escaped string unescaped again:\n\t" .. ll.UnescapeURL(ll.EscapeURL(str)))
+    -- output: "http://wiki.secondlife.com/wiki/LSL Portal"
+
+    -- because escaping and unescaping are exact opposite
+    -- and unescaping an escaped string returns the original
+
+    --  For readability's sake it would make more sense to do:
+    ll.OwnerSay("For readability's sake:\n\t" .. "http://wiki.secondlife.com/wiki/" .. ll.EscapeURL("LSL Portal"))
+-- output: "http://wiki.secondlife.com/wiki/LSL%20Portal"
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string str = "http://wiki.secondlife.com/wiki/LSL Portal";
+ 
+default
+{
+    state_entry()
+    {
+        llOwnerSay("Plain string:\n\t" + str);
+        // output: "http://wiki.secondlife.com/wiki/LSL Portal"
+ 
+        llOwnerSay("Escaped string:\n\t" + llEscapeURL(str));
+        // output: "http%3A%2F%2Fwiki%2Esecondlife%2Ecom%2Fwiki%2FLSL%20Portal"
+ 
+        llOwnerSay("Escaped string unescaped again:\n\t" + llUnescapeURL( llEscapeURL(str) ));
+        // output: "http://wiki.secondlife.com/wiki/LSL Portal"
+ 
+        // because escaping and unescaping are exact opposite
+        // and unescaping an escaped string returns the original
+ 
+ 
+        //  For readability's sake it would make more sense to do:
+        llOwnerSay("For readability's sake:\n\t" + "http://wiki.secondlife.com/wiki/" + llEscapeURL("LSL Portal"));
+        // output: "http://wiki.secondlife.com/wiki/LSL%20Portal"
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>The SL viewer pretty prints URLs when converting them to clickable links in chat and dialogs. To confirm that a URL was escaped as intended, right-click the URL and copy, then paste to inspect it in the chat bar; or wrap it between "<nolink>...</nolink>"; or examine your chat log in an external editor; or display the string with an alternative function like <a href="https://wiki.secondlife.com/wiki/LlSetText" target="_blank">llSetText</a>.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/LlUnescapeURL" target="_blank">llUnescapeURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/UTF-8" target="_blank">UTF-8</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>• <a href="https://wiki.secondlife.com/wiki/Category:LSL_Base64" target="_blank">Base64</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>Prior to SL versions 1.19.1.81992, this function was limited to returning a maximum of 254 characters. <a href="https://jira.secondlife.com/browse/SVC-470" target="_blank">SVC-470</a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llEscapeURL( string url );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

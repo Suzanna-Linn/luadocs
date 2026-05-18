@@ -1,0 +1,430 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetKeyframedMotion(Keyframes: {any}, Options: {any})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetKeyframedMotion(list Keyframes, list Options);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Specify a list of positions, orientations, and timings to be followed by an object. The object will be smoothly moved between those keyframes by the simulator.</p>
+  <p>Collisions with other nonphysical or keyframed objects will be ignored (no script events will fire and collision processing will not occur). Collisions with physical objects will be computed and reported, but the keyframed object will be unaffected by those collisions. (The physical object will be affected, however.)</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Keyframes / keyframes</td>
+          <td><p>Strided keyframe list of the form:
+<i>vector</i> position (optional via <a href="https://wiki.secondlife.com/wiki/KFM_TRANSLATION" target="_blank">KFM_TRANSLATION</a> and <a href="https://wiki.secondlife.com/wiki/KFM_DATA" target="_blank">KFM_DATA</a>)
+<i>rotation</i> orientation (optional via <a href="https://wiki.secondlife.com/wiki/KFM_ROTATION" target="_blank">KFM_ROTATION</a> and <a href="https://wiki.secondlife.com/wiki/KFM_DATA" target="_blank">KFM_DATA</a>)
+<i>float</i> time
+Each keyframe is interpreted <b>relative</b> to the previous transform of the object. Translation positions are relative to the grid and are not affected by the object's rotation. Time values must be 1/9s. or greater. For example, consider the following list of keyframes:</p>
+
+<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+{vector(0, 0, 10), ZERO_ROTATION, 5, vector(0, 0, 0), ZERO_ROTATION, 5, vector(0, 0, -10), ZERO_ROTATION, 5}
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+[<0, 0, 10>, ZERO_ROTATION, 5, <0, 0, 0>, ZERO_ROTATION, 5, <0, 0, -10>, ZERO_ROTATION, 5]
+`} lang="lsl" /></div>
+
+</p>
+<p>This would cause the object to move up 10m over the course of 5s. It would then remain at the location for 5s before moving down 10m over the course of another 5s.
+An empty list will terminate any keyframed animation currently playing.</p></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>list</span></td>
+          <td>Options / <a href="https://wiki.secondlife.com/wiki/Category:LSL_List/instructions" target="_blank">options</a></td>
+          <td>modifiers and future options</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>movement</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">394</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Specification</h2>
+  <p>The following flags will be supported within the <i>options</i> list:</p>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/KFM_MODE" target="_blank">KFM_MODE</a> followed by one of: <a href="https://wiki.secondlife.com/wiki/KFM_LOOP" target="_blank">KFM_LOOP</a>, <a href="https://wiki.secondlife.com/wiki/KFM_REVERSE" target="_blank">KFM_REVERSE</a>, <a href="https://wiki.secondlife.com/wiki/KFM_FORWARD" target="_blank">KFM_FORWARD</a>, or <a href="https://wiki.secondlife.com/wiki/KFM_PING_PONG" target="_blank">KFM_PING_PONG</a> will specify the playback mode. Defaults to <a href="https://wiki.secondlife.com/wiki/KFM_FORWARD" target="_blank">KFM_FORWARD</a>. Must be specified when the keyframe list is provided.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/KFM_DATA" target="_blank">KFM_DATA</a> followed by a bitwise combination of: <a href="https://wiki.secondlife.com/wiki/KFM_TRANSLATION" target="_blank">KFM_TRANSLATION</a> and <a href="https://wiki.secondlife.com/wiki/KFM_ROTATION" target="_blank">KFM_ROTATION</a>. By default both rotations and translations must be provided. If you specify one or the other, you should only include translations or rotations in your keyframe list. Must be specified at the time the keyframe list is provided.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/KFM_COMMAND" target="_blank">KFM_COMMAND</a> followed by one of: <a href="https://wiki.secondlife.com/wiki/KFM_CMD_STOP" target="_blank">KFM_CMD_STOP</a>, <a href="https://wiki.secondlife.com/wiki/KFM_CMD_PLAY" target="_blank">KFM_CMD_PLAY</a>, <a href="https://wiki.secondlife.com/wiki/KFM_CMD_PAUSE" target="_blank">KFM_CMD_PAUSE</a>. STOP will pause the animation AND reset it to the beginning. PAUSE will pause the animation without resetting. PLAY will resume a paused or stopped animation.</li>
+  </ul>
+  <p>Note that if <a href="https://wiki.secondlife.com/wiki/KFM_COMMAND" target="_blank">KFM_COMMAND</a> is provided in the options list, it must be the only option in the list, and cannot be specified in the same function call that sets the keyframes list.</p>
+  <p>Inter-region movement is supported; simply specify a target keyframe that would place the object outside the sim boundaries and it will cross over. This seems to provide the same effect as pausing the animation when it is in limbo between the two regions, but the viewer continues to interpolate its movement. It will jump back to the sim border and continue on the same speed, although the time between waypoints will be increased due to the sim crossing. Make sure you factor this into your system.</p>
+  <p>Since keyframed motion is a prim property rather than restricted to the script that called it, you can use multiple scripts to control, pause, or restart the same keyframed motion without passing the original keyframe list provided. Just pass an empty list for keyframes list, and the <a href="https://wiki.secondlife.com/wiki/KFM_COMMAND" target="_blank">KFM_COMMAND</a> followed by the command in the options list.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b>options</b> flags</th>
+        <th colspan="2">Additional Parameters</th>
+        <th colspan="6">Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_COMMAND" target="_blank"> [KFM_COMMAND</a> ]</td>
+        <td>0</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> command ]</td>
+        <td colspan="6">Sets the command</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_CMD_PLAY" target="_blank">KFM_CMD_PLAY</a></td>
+        <td>0</td>
+        <td>?</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_CMD_STOP" target="_blank">KFM_CMD_STOP</a></td>
+        <td>1</td>
+        <td>?</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_CMD_PAUSE" target="_blank">KFM_CMD_PAUSE</a></td>
+        <td>2</td>
+        <td>?</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_MODE" target="_blank"> [KFM_MODE</a> ]</td>
+        <td>1</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> mode ]</td>
+        <td colspan="6"><p>Sets the playback mode</p>
+<p>Defaults to <a href="https://wiki.secondlife.com/wiki/KFM_FORWARD" target="_blank">KFM_FORWARD</a></p></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_FORWARD" target="_blank">KFM_FORWARD</a></td>
+        <td>0</td>
+        <td>?</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_LOOP" target="_blank">KFM_LOOP</a></td>
+        <td>1</td>
+        <td>?</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_PING_PONG" target="_blank">KFM_PING_PONG</a></td>
+        <td>2</td>
+        <td>?</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_REVERSE" target="_blank">KFM_REVERSE</a></td>
+        <td>3</td>
+        <td>?</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_DATA" target="_blank"> [KFM_DATA</a> ]</td>
+        <td>2</td>
+        <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> fields ]</td>
+        <td colspan="6"><p>Sets what data the <b>keyframes</b> contain</p>
+<p>Defaults to (<a href="https://wiki.secondlife.com/wiki/KFM_ROTATION" target="_blank">KFM_ROTATION</a> | <a href="https://wiki.secondlife.com/wiki/KFM_TRANSLATION" target="_blank">KFM_TRANSLATION</a>)</p></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_ROTATION" target="_blank">KFM_ROTATION</a></td>
+        <td>0x1</td>
+        <td>?</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/KFM_TRANSLATION" target="_blank">KFM_TRANSLATION</a></td>
+        <td>0x2</td>
+        <td>?</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function does not work in attachments.</li>
+    <li>This function can only be called on NON-physical objects. In the future it could be extended to support physical objects, but this is more complicated as collisions could prevent the object from reaching its goal positions on time.</li>
+    <li>You cannot use scripts to move any prim in the linkset while the keyframed motion is active. If you must, first pause and restart it with <a href="https://wiki.secondlife.com/wiki/KFM_CMD_PLAY" target="_blank">KFM_CMD_PLAY</a> when done. <a href="#Pause-Play" target="_blank">#Example</a></li>
+    <li>Collisions with avatars affect the angular movement of the object and it may not reach the final rotation.</li>
+    <li>This function can only be called on the root prim of a linkset.</li>
+    <li>This function requires the linkset to use the Prim Equivalency system. However, it keyframed objects will not receive the dynamics penalty and can have a physics weight of up to 64.</li>
+    <li>Linear velocity greater than Second Life's maximum of 250 meters per second will produce an error on DEBUG_CHANNEL.</li>
+    <li>llSetKeyframedMotion is implemented in terms of frames and not real time. To avoid a drift from the expected positions and rotations, use times which are integer multiples of 1/45, e.g. 20.0/45.0, 40.0/45.0, 90.0/45.0, etc. <a href="http://community.secondlife.com/t5/LSL-Scripting/llSetKeyframedMotion-turning-a-corner/td-p/1225219" target="_blank">Forum Thread</a> KFM claims delta times must be larger than 0.1 seconds; in practice, however, delta times slightly over 0.1 will produce an error on DEBUG_CHANNEL. Testing shows a minimum delta time is about 6/45 (.13333) seconds.
+    <ul>
+      <li>Natural drift can still occur; for best results use <a href="https://wiki.secondlife.com/wiki/Moving_end" target="_blank">moving_end</a> to determine when the animation has ended and confirm the target position with <a href="https://wiki.secondlife.com/wiki/LlSetPos" target="_blank">llSetPos</a>. Or you can use <a href="https://wiki.secondlife.com/wiki/At_target" target="_blank">at_target</a> or <a href="https://wiki.secondlife.com/wiki/At_rot_target" target="_blank">at_rot_target</a>.</li>
+    </ul>
+  
+    </li>
+    <li>There are a few bugs in the avatar animation system that may cause strange looking animations to play when standing on a moving platform (e.g., walking in place, feet-at-pelvis). We hope to fix these in the future, but doing so is out of scope for this feature.</li>
+    <li>As with dynamic objects, objects moving using this function are paused when they are selected by an avatar with adequate permissions (object owner, passenger, etc). When such an avatar deselects the object, motion resumes, even if the object had been paused using <a href="https://wiki.secondlife.com/wiki/KFM_CMD_PAUSE" target="_blank">KFM_CMD_PAUSE</a>.</li>
+    <li>A Key Framed Motion is a <b>prim property</b> in some respect. When a <a href="https://wiki.secondlife.com/wiki/KFM_LOOP" target="_blank">KFM_LOOP</a> or <a href="https://wiki.secondlife.com/wiki/KFM_PING_PONG" target="_blank">KFM_PING_PONG</a> is initiated the <b>the motion</b> is <b>preserved after the script is removed</b>. I.E. The prim will continue what motion it had. It will survive take and copy. It will survive server restart.</li>
+    <li>Inter region movement is far from perfect. Crossing from sim 1 to sim 2 using a Key Frame list with numerous frames on a curved path will pick up conspicuous errors on the crossing and when reversed by <a href="https://wiki.secondlife.com/wiki/KFM_MODE" target="_blank"> [KFM_MODE</a>, <a href="https://wiki.secondlife.com/wiki/KFM_REVERSE" target="_blank">KFM_REVERSE</a> ] the object will stay in sim 2 and never return to sim 1</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>A KFM object must use the new Prim Equivalency system in order to work. One of many ways to achieve this is to make sure the object uses Convex Hull for its physics shape. (Mainly new prims need a workaround like this. Mesh objects always use the new Prim Equivalency system.)</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetLinkPrimitiveParamsFast(LINK_THIS, {PRIM_PHYSICS_SHAPE_TYPE, PRIM_PHYSICS_SHAPE_CONVEX})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetLinkPrimitiveParamsFast(LINK_THIS, [PRIM_PHYSICS_SHAPE_TYPE, PRIM_PHYSICS_SHAPE_CONVEX]);`} lang="lsl" /></div>
+  <p>This is a simple example of back-and-forth or "ping pong" motion, using only positions and time.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetKeyframedMotion({vector(0.0, 0.0, 10.0), 5, vector(0.0, 0.0, -10.0), 5}, {KFM_DATA, KFM_TRANSLATION, KFM_MODE, KFM_PING_PONG})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetKeyframedMotion([<0.0, 0.0, 10.0>, 5, <0.0, 0.0, -10.0>, 5], [KFM_DATA, KFM_TRANSLATION, KFM_MODE, KFM_PING_PONG]);`} lang="lsl" /></div>
+  <p>This example includes position, rotation, and time.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetKeyframedMotion({vector(0.0, 0.0, 10.0), ll.Euler2Rot(vector(90, 45, 180) * DEG_TO_RAD), 5, vector(0.0, 0.0, -10.0), ll.Euler2Rot(vector(270, 225, 360) * DEG_TO_RAD), 5}, {KFM_MODE, KFM_REVERSE})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetKeyframedMotion(
+    [<0.0, 0.0, 10.0>, llEuler2Rot(<90, 45, 180> * DEG_TO_RAD), 5,
+     <0.0, 0.0, -10.0>, llEuler2Rot(<270, 225, 360> * DEG_TO_RAD), 5],
+    [KFM_MODE, KFM_REVERSE]);`} lang="lsl" /></div>
+  <h3>Pause-Play</h3>
+  <p>If you need to update a KFM object's position, you will need to pause KFM and continue it afterwards.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetKeyframedMotion({}, {KFM_COMMAND, KFM_CMD_PAUSE})
+-- Modify prim positions here
+ll.SetKeyframedMotion({}, {KFM_COMMAND, KFM_CMD_PLAY})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetKeyframedMotion([],[KFM_COMMAND, KFM_CMD_PAUSE]);
+// Modify prim positions here
+llSetKeyframedMotion([],[KFM_COMMAND, KFM_CMD_PLAY]);`} lang="lsl" /></div>
+  <h3>Sample Script - Key Framed Follower</h3>
+  <p>Under some circumstances, rotations will generate a run-time error unless they are normalized. This script illustrates a way to use llKeyframedMotion to create a follower -- think, for example, of a cart behind a vehicle -- using normalized target rotation.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local scriptedObjectToFollow = uuid("daf4847b-967d-bff6-69c0-fd7022241be7")
+local isSensorRepeatOn = false
+
+local function NormalizeRotation(Q)
+    local MagQ = ll.Sqrt(Q.x * Q.x + Q.y * Q.y + Q.z * Q.z + Q.s * Q.s)
+    return rotation(Q.x / MagQ, Q.y / MagQ, Q.z / MagQ, Q.s / MagQ)
+end
+
+local function main()
+    ll.SetLinkPrimitiveParamsFast(LINK_ROOT, {PRIM_PHYSICS_SHAPE_TYPE, PRIM_PHYSICS_SHAPE_CONVEX, PRIM_LINK_TARGET, LINK_ALL_CHILDREN, PRIM_PHYSICS_SHAPE_TYPE, PRIM_PHYSICS_SHAPE_NONE})
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    isSensorRepeatOn = not isSensorRepeatOn
+
+    if isSensorRepeatOn then
+        ll.Say(PUBLIC_CHANNEL, "Sensor repeat switched on!")
+        ll.SensorRepeat("", scriptedObjectToFollow, SCRIPTED, 10.0, PI, 0.3)
+    else
+        ll.SensorRemove()
+    end
+end
+
+function LLEvents.sensor(events)
+    local num_detected = #events
+    local ownPosition = ll.GetPos()
+    local ownRotation = ll.GetRot()
+    local detectedPosition = ll.DetectedPos(0)
+    local detectedRotation = ll.DetectedRot(0)
+
+    local kfmPosition = (detectedPosition - ownPosition) + vector(-1.0, 0.0, 0.2) * detectedRotation
+    local kfmRotation = NormalizeRotation(detectedRotation / ownRotation)
+    ll.SetKeyframedMotion({kfmPosition, kfmRotation, 0.15}, {})
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key scriptedObjectToFollow = "daf4847b-967d-bff6-69c0-fd7022241be7";
+integer isSensorRepeatOn;
+
+rotation NormalizeRotation(rotation Q)
+{
+    float MagQ = llSqrt(Q.x*Q.x + Q.y*Q.y +Q.z*Q.z + Q.s*Q.s);
+    return <Q.x/MagQ, Q.y/MagQ, Q.z/MagQ, Q.s/MagQ>;
+}
+
+default
+{
+    state_entry()
+    {
+        llSetLinkPrimitiveParamsFast(LINK_ROOT, [
+            PRIM_PHYSICS_SHAPE_TYPE, PRIM_PHYSICS_SHAPE_CONVEX,
+            PRIM_LINK_TARGET, LINK_ALL_CHILDREN,
+            PRIM_PHYSICS_SHAPE_TYPE, PRIM_PHYSICS_SHAPE_NONE
+        ]);
+    }
+
+    touch_start(integer total_number)
+    {
+        isSensorRepeatOn = !isSensorRepeatOn;
+
+        if (isSensorRepeatOn)
+        {
+            llSay(PUBLIC_CHANNEL, "Sensor repeat switched on!");
+            llSensorRepeat("", scriptedObjectToFollow, SCRIPTED, 10.0, PI, 0.3);
+        }
+        else
+        {
+            llSensorRemove();
+        }
+    }
+
+    sensor(integer num_detected)
+    {
+        vector ownPosition = llGetPos();
+        rotation ownRotation = llGetRot();
+        vector detectedPosition = llDetectedPos(0);
+        rotation detectedRotation = llDetectedRot(0);
+
+        vector kfmPosition = (detectedPosition - ownPosition) + <-1.0, 0.0, 0.2> * detectedRotation;
+        rotation kfmRotation = NormalizeRotation(detectedRotation / ownRotation);
+        llSetKeyframedMotion([kfmPosition, kfmRotation, 0.15], []);
+    }
+}`} lang="lsl" /></div>
+  <h3>Universal Hinged Motion in 8 Key Frames</h3>
+  <p>The script will turn a box prim around one edge parallel to the prim's Y-axis</p>
+  <p>The script will work for any prim orientation</p>
+  <p>Note that the smallest accepted time per frame is 1/9S=0.11111111S and NOT 0.1S</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float angleEnd=PI_BY_TWO;
+float speed=0.2; // m/S
+float steps=8.0; // number of Key Frames
+float step=0.0;
+list KFMlist=[];
+vector V;
+integer open=TRUE;
+vector basePos;
+rotation baseRot;
+
+float motion_time( float mt)
+{
+    mt = llRound(45.0*mt)/45.0;
+    if ( mt > 0.11111111 ) return mt;
+    else return 0.11111111;
+}
+
+default
+{
+    state_entry()
+    {
+        llSetMemoryLimit(0x2000);
+        llSetPrimitiveParams([PRIM_PHYSICS_SHAPE_TYPE, PRIM_PHYSICS_SHAPE_CONVEX]);
+        basePos = llGetPos();
+        baseRot = llGetRot();
+        vector v1 = 0.5*llGetScale()*llGetRot();
+        rotation deltaRot = llEuler2Rot(< 0.0, angleEnd/steps, 0.0>);
+        while ( step < steps )
+        {
+            V = v1*llAxisAngle2Rot(llRot2Left(llGetRot()), angleEnd*step/steps);
+            V = v1*llAxisAngle2Rot(llRot2Left(llGetRot()), angleEnd*(step+1.0)/steps) - V;
+            KFMlist += [V, deltaRot, motion_time(llVecMag(V)/speed)];
+            step += 1.0;
+        }
+    }
+    touch_end( integer n)
+    {
+        llSetKeyframedMotion( [], []);
+        if ( open )
+        {
+            llSetPrimitiveParams([PRIM_POSITION, basePos, PRIM_ROTATION, baseRot]);
+            llSetKeyframedMotion( KFMlist, []);
+        }
+        else
+        {
+            llSetKeyframedMotion( KFMlist, [KFM_MODE, KFM_REVERSE]);
+        }
+        open = !open;
+    }
+    on_rez( integer n) { llResetScript(); }
+}`} lang="lsl" /></div>
+  <p>After editing prim position, rotation and/or size the script should be reset in order to update the motion</p>
+  <h3>Continuous Spin</h3>
+  <p>The following example does the same thing as using llTargetOmega(<0.0,0.0,1.0>,PI,1.0) to make a prim rotate continuously around its Z-axis, assuming that the prim is set to convex hull and is non-physical.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local gON = false
+
+function LLEvents.touch_end(events)
+    local total_number = #events
+    if (function() gON = not gON return gON end)() then
+        -- Make repeated rotations of PI radians, each taking 1 seconds
+        local r = ll.Euler2Rot(vector(0.0, 0.0, PI))
+        ll.SetKeyframedMotion({r, 1, r, 1}, {KFM_DATA, KFM_ROTATION, KFM_MODE, KFM_LOOP})
+        return
+    end
+
+    ll.SetKeyframedMotion({}, {})
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer gON;
+
+default
+{
+    touch_end(integer total_number)
+    {
+        if (gON = !gON)
+        {
+            // Make repeated rotations of PI radians, each taking 1 seconds
+            rotation r = llEuler2Rot(<0.0, 0.0, PI>);
+            llSetKeyframedMotion(
+                [
+                    r, 1,
+                    r, 1
+                ], 
+                [KFM_DATA, KFM_ROTATION, KFM_MODE, KFM_LOOP]
+            );
+            return;
+        }
+
+        llSetKeyframedMotion([], []);
+    }
+}`} lang="lsl" /></div>
+  <h3>More Examples</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/User:Tapple_Gao/3D_Spinning_Pendulum_Motion" target="_blank">3D Spinning Pendulum Motion</a>, Suitable for spinning tops, swings, tire swings. Highly configurable</li>
+    <li><a href="https://wiki.secondlife.com/wiki/User:Dora_Gustafson/Harmonic_Oscillator_motion" target="_blank">Oscillator Motion in 12 Key Frames</a></li>
+    <li><a href="https://wiki.secondlife.com/wiki/User:Dora_Gustafson/Pendulum_motion" target="_blank">Simple Pendulum Motion in 24 Key Frames</a>, a good motion for a swing</li>
+  </ul>
+  <h2>Notes</h2>
+  <p>Potential Use Cases:</p>
+  <ul>
+    <li>Elevators</li>
+    <li>Moving platforms</li>
+    <li>Trains/Fixed-Track Vehicles</li>
+    <li>Moving doors/walls/gates</li>
+    <li>Windmills and other machines</li>
+  </ul>
+  <p>Targeted coordinate systems: The Translation is in Global coordinates, the Rotation in Local coordinates</p>
+  <ul>
+    <li>Say: a move on the X-axis will move the object along the global, region X-axis no matter how the object is rotated</li>
+    <li>Say: a rotate around the X-axis will rotate the object around it's local, prim X-axis no matter the object's rotation</li>
+    <li>When the object is not rotated in the global system you won't notice the difference</li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.11.09.244706" target="_blank"> 09/11/2011 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetKeyframedMotion( list keyframes, list options );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>This is how they move,</p>
+<p>Non-phys life for my critters</p>
+<p>Smooth, no collisions.</p>
+<p><i> — <a href="https://wiki.secondlife.com/wiki/User:Progenitor_Resident" target="_blank">Progenitor Resident</a></i></p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,174 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Rot2Angle(Rotation: rotation): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llRot2Angle(rotation Rotation);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the rotation angle represented by <b>rot</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
+          <td>Rotation / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>math</li>
+        <li>math_3d</li>
+        <li>math_trig</li>
+        <li>quaternion</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">171</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-pure">Side-Effect Free</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>Use in conjunction with <a href="https://wiki.secondlife.com/wiki/LlRot2Axis" target="_blank">llRot2Axis</a>.</p>
+  <p>To undo use <a href="https://wiki.secondlife.com/wiki/LlAxisAngle2Rot" target="_blank">llAxisAngle2Rot</a>.</p>
+  <h2>Caveats</h2>
+  <p>This always returns a positive angle <= PI radians, that is, it is the unsigned minimum angle. A rotation of 3/2 PI radians (270 degrees) will return an angle of PI / 2 radians, not -PI / 2.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAxisAngle2Rot" target="_blank">llAxisAngle2Rot</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Axis" target="_blank">llRot2Axis</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Up" target="_blank">llRot2Up</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Fwd" target="_blank">llRot2Fwd</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Left" target="_blank">llRot2Left</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAngleBetween" target="_blank">llAngleBetween</a></td>
+        <td>–</td>
+        <td>Similar functionality.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Reference Implementation</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td><p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+local function Rot2Angle(a)  --simple but turns out to not be very accurate.
+    return 2.0 <i> ll.Sqrt((a.s </i> a.s) / (a.x <i> a.x + a.y </i> a.y + a.z <i> a.z + a.s </i> a.s))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+float Rot2Angle(rotation a)//simple but turns out to not be very accurate.
+{ 
+    return 2.0 <i> llAcos(llSqrt((a.s </i> a.s) / (a.x <i> a.x + a.y </i> a.y + a.z <i> a.z + a.s </i> a.s));
+}
+`} lang="lsl" /></div>
+
+</p>
+
+<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+local function Rot2Angle(r)  --more complex implementation but more accurate, and reasonably fast.
+    local s2 = r.s <i> r.s  -- square of the s-element
+    local v2 = r.x </i> r.x + r.y <i> r.y + r.z </i> r.z  -- sum of the squares of the v-elements
+
+
+    if s2 < v2 then  -- compare the s-component to the v-component
+        return 2.0 <i> ll.Acos(ll.Sqrt(s2 / (s2 + v2)))  -- use arccos if the v-component is dominant
+    end
+    if v2 ~= 0 then  -- make sure the v-component is non-zero
+        return 2.0 </i> ll.Asin(ll.Sqrt(v2 / (s2 + v2)))  -- use arcsin if the s-component is dominant
+    end
+
+
+    return 0.0  -- argument is scaled too small to be meaningful, or it is a zero rotation, so return zero
+end  --Written by Moon Metty & Miranda Umino. Minor optimizations by Strife Onizuka
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+float Rot2Angle(rotation r)//more complex implementation but more accurate, and reasonably fast.
+{
+    float s2 = r.s <i> r.s; // square of the s-element
+    float v2 = r.x </i> r.x + r.y <i> r.y + r.z </i> r.z; // sum of the squares of the v-elements
+
+
+    if (s2 < v2) // compare the s-component to the v-component
+        return 2.0 <i> llAcos(llSqrt(s2 / (s2 + v2))); // use arccos if the v-component is dominant
+    if (v2) // make sure the v-component is non-zero
+        return 2.0 </i> llAsin(llSqrt(v2 / (s2 + v2))); // use arcsin if the s-component is dominant
+
+
+    return 0.0; // argument is scaled too small to be meaningful, or it is a zero rotation, so return zero
+}//Written by Moon Metty & Miranda Umino. Minor optimizations by Strife Onizuka
+`} lang="lsl" /></div>
+
+</p></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llRot2Angle( rotation rot );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

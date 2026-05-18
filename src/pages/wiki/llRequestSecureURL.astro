@@ -1,0 +1,331 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestSecureURL(): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llRequestSecureURL();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests one HTTPS:// ([](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/SSL" target="_blank">SSL</a>) [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/URL" target="_blank">URL</a> for use by this <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>. The <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> is triggered with result of the request. <a href="https://wiki.secondlife.com/wiki/LSL_HTTP_server#Introduction" target="_blank">HTTPS-in</a> uses port 12043.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) used for identifying the result of the request in the <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>media</li>
+        <li>script_communication</li>
+        <li>web</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">346</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>HTTPS-in uses port 12043 (that port is in the URL returned by this method).</li>
+    <li>When a <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a> is (re)started all <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">HTTP server</a> URLs are automatically released and invalidated.
+    <ul>
+      <li>Use <a href="https://wiki.secondlife.com/wiki/CHANGED_REGION_START" target="_blank">CHANGED_REGION_START</a> to detect this so a new URL can be requested.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><b>Important:</b> Never ever forget to release a URL again which you have requested! URLs are region resources just like prims. If you take them all you can get into big trouble with the <a href="https://wiki.secondlife.com/wiki/Private_Region" target="_blank">region owner</a> and/or <a href="https://wiki.secondlife.com/wiki/Estate_Manager" target="_blank">estate managers</a>.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Requesting a secure URL:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local secureUrl = ""
+local urlRequestId = NULL_KEY
+local selfCheckRequestId = NULL_KEY
+
+local function request_secure_url()
+    ll.ReleaseURL(secureUrl)
+    secureUrl = ""
+
+    urlRequestId = ll.RequestSecureURL()
+end
+
+local function throw_exception(inputString)
+    local owner = ll.GetOwner()
+    ll.InstantMessage(owner, inputString)
+
+    -- yeah, bad way to handle exceptions by restarting.
+    -- However this is just a demo script...
+
+    ll.ResetScript()
+end
+
+function LLEvents.on_rez(start_param)
+    ll.ResetScript()
+end
+
+function LLEvents.changed(change)
+    if bit32.btest(change, bit32.bor(CHANGED_OWNER, CHANGED_INVENTORY)) then
+        ll.ReleaseURL(secureUrl)
+        secureUrl = ""
+
+        ll.ResetScript()
+    end
+
+    if bit32.btest(change, bit32.bor(CHANGED_REGION, CHANGED_REGION_START, CHANGED_TELEPORT)) then
+        request_secure_url()
+    end
+end
+
+local function main()
+    request_secure_url()
+end
+
+function LLEvents.http_request(id, method, body)
+    local responseStatus = 400
+    local responseBody = "Unsupported method"
+
+    if method == URL_REQUEST_DENIED then
+        throw_exception("The following error occurred while attempting to get a free URL for this device:\n \n" .. body)
+
+    elseif method == URL_REQUEST_GRANTED then
+        secureUrl = body
+        local owner = ll.GetOwner()
+        ll.LoadURL(owner, "Click to visit my URL!", secureUrl)
+
+        -- check every 5 mins for dropped URL
+        ll.SetTimerEvent(300.0)
+    elseif method == "GET" then
+        responseStatus = 200
+        responseBody = "Hello world!"
+    end
+    -- else if (method == "POST") ...;
+    -- else if (method == "PUT") ...;
+    -- else if (method == "DELETE") { responseStatus = 403; responseBody = "forbidden"; }
+
+    ll.HTTPResponse(id, responseStatus, responseBody)
+end
+
+function LLEvents.http_response(id, status, metaData, body)
+    if id == selfCheckRequestId then
+        -- If you're not usually doing this,
+        -- now is a good time to get used to doing it!
+        selfCheckRequestId = NULL_KEY
+
+        if status ~= 200 then
+            request_secure_url()
+        end
+
+    elseif id == NULL_KEY then
+        throw_exception("Too many HTTP requests too fast!")
+    end
+end
+
+function LLEvents.timer()
+    selfCheckRequestId = ll.HTTPRequest(secureUrl, {HTTP_METHOD, "GET", HTTP_VERBOSE_THROTTLE, if false then 1 else 0, HTTP_BODY_MAXLENGTH, 16384}, "")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string secureUrl;
+key urlRequestId;
+key selfCheckRequestId;
+ 
+request_secure_url()
+{
+    llReleaseURL(secureUrl);
+    secureUrl = "";
+ 
+    urlRequestId = llRequestSecureURL();
+}
+ 
+throw_exception(string inputString)
+{
+    key owner = llGetOwner();
+    llInstantMessage(owner, inputString);
+ 
+    // yeah, bad way to handle exceptions by restarting.
+    // However this is just a demo script...
+ 
+    llResetScript();
+}
+ 
+default
+{
+    on_rez(integer start_param)
+    {
+        llResetScript();
+    }
+ 
+    changed(integer change)
+    {
+        if (change & (CHANGED_OWNER | CHANGED_INVENTORY))
+        {
+            llReleaseURL(secureUrl);
+            secureUrl = "";
+ 
+            llResetScript();
+        }
+ 
+        if (change & (CHANGED_REGION | CHANGED_REGION_START | CHANGED_TELEPORT))
+            request_secure_url();
+    }
+ 
+    state_entry()
+    {
+        request_secure_url();
+    }
+ 
+    http_request(key id, string method, string body)
+    {
+        integer responseStatus = 400;
+        string responseBody = "Unsupported method";
+ 
+        if (method == URL_REQUEST_DENIED)
+            throw_exception("The following error occurred while attempting to get a free URL for this device:\n \n" + body);
+ 
+        else if (method == URL_REQUEST_GRANTED)
+        {
+            secureUrl = body;
+            key owner = llGetOwner();
+            llLoadURL(owner, "Click to visit my URL!", secureUrl);
+ 
+            // check every 5 mins for dropped URL
+            llSetTimerEvent(300.0);
+        }
+        else if (method == "GET")
+        {
+            responseStatus = 200;
+            responseBody = "Hello world!";
+        }
+        // else if (method == "POST") ...;
+        // else if (method == "PUT") ...;
+        // else if (method == "DELETE") { responseStatus = 403; responseBody = "forbidden"; }
+ 
+        llHTTPResponse(id, responseStatus, responseBody);
+    }
+ 
+    http_response(key id, integer status, list metaData, string body)
+    {
+        if (id == selfCheckRequestId)
+        {
+            // If you're not usually doing this,
+            // now is a good time to get used to doing it!
+            selfCheckRequestId = NULL_KEY;
+ 
+            if (status != 200)
+                request_secure_url();
+        }
+ 
+        else if (id == NULL_KEY)
+            throw_exception("Too many HTTP requests too fast!");
+    }
+ 
+    timer()
+    {
+        selfCheckRequestId = llHTTPRequest(secureUrl,
+                                [HTTP_METHOD, "GET",
+                                    HTTP_VERBOSE_THROTTLE, FALSE,
+                                    HTTP_BODY_MAXLENGTH, 16384],
+                                "");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestURL" target="_blank">llRequestURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetFreeURLs" target="_blank">llGetFreeURLs</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReleaseURL" target="_blank">llReleaseURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlHTTPResponse" target="_blank">llHTTPResponse</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetHTTPHeader" target="_blank">llGetHTTPHeader</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LSL_http_server" target="_blank">LSL http server</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/1836?new_path=%2F#file22" target="_blank">SVN:1836 r112899 Trunk</a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.RequestSecureURL()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llRequestSecureURL();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

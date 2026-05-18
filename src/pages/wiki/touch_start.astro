@@ -1,0 +1,222 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`touch_start(Detected: {DetectedEvent})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`touch_start(integer NumberOfTouches)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Triggered by the start of agent clicking on task</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Detected / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span>NumberOfTouches / num_detected</span></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Table with the detected events / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span>Number of agents detected touching during the last clock cycle</span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-detected">Detected Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If a prim <a href="https://wiki.secondlife.com/wiki/Face" target="_blank">face</a> has <a href="https://wiki.secondlife.com/wiki/Navigating_Shared_Media" target="_blank">Shared Media</a> enabled and the avatar's viewer supports this feature, LSL scripts will not detect touches on that face. Touches from older clients will be detected.</li>
+    <li>The default behavior is: If you have a multi-prim object and the root has a touch_start handler AND one or more child prims has a touch_start handler, the root prim's handler will be called when it (the root) or a child without a handler is touched. If you touch a child prim that has a touch_start handler, it will receive the event and the root prim will not.
+    <ul>
+      <li>This behavior can be configured with <a href="https://wiki.secondlife.com/wiki/LlPassTouches" target="_blank">llPassTouches</a>. After configuring a prim's touch-passing behavior you can delete the script that configured the prim.</li>
+    </ul>
+  
+    </li>
+    <li>Rigged mesh attachments do not support touch events, this is because you can steer your avatar/camera by click dragging your avatar body which is what the rigged mesh replaces. The only way to get a touch event on a rigged mesh attachment is via the right click context menu and clicking the "Touch" button.</li>
+    <li><a href="https://feedback.secondlife.com/scripting-bugs/p/touch-start-only-triggers-on-the-second-touch-if-touch-is-already-active" target="_blank">Due to a known issue</a>, if a resident is already touching a scripted object, touch_start runs only every other time that other residents touch it.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>You can use index 0 through (`num_detected`-1) with the various llDetected... functions to handle simultaneous touches at once.</p>
+  <p>For most purposes, it's usually enough to handle just with the first toucher e.g. <a href="https://wiki.secondlife.com/wiki/LlDetectedKey" target="_blank">llDetectedKey</a>(0). It is rare (but not impossible) for `num_detected` to be greater than 1.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local avatarKey = ll.DetectedKey(0)
+    local avatarName = ll.DetectedName(0)
+
+    ll.InstantMessage(avatarKey, "Hello " .. avatarName)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{ 
+    touch_start(integer num_detected)
+    {
+        key    avatarKey  = llDetectedKey(0);
+        string avatarName = llDetectedName(0);
+
+        llInstantMessage(avatarKey, "Hello " + avatarName );
+    }
+}`} lang="lsl" /></div>
+  <p>This next example demonstrates detecting when the owner of the object clicks-and-holds on the object for 1 second in order perhaps to access a management menu or similar, Normal brief clicks are distinguished.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    ll.ResetTime()  -- Set llGetTime to 0
+end
+
+function LLEvents.touch_end(events)
+    local num_detected = #events
+    -- Check how much time elapsed since touch_start
+    if ll.GetTime() <= 1.0 then
+    -- The user did a normal quick click on the object
+    -- Execute actions for normal clicks...
+    else
+    -- The owner has touched this object for longer than 1 second
+    -- Execute some special feature such as issuing a management dialog...
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer num_detected)
+    {
+        llResetTime(); // Set llGetTime to 0
+    }
+
+    touch_end(integer num_detected)
+    {
+        // Check how much time elapsed since touch_start
+        if (llGetTime() <= 1.0)
+        {
+            // The user did a normal quick click on the object
+            // Execute actions for normal clicks...
+        }
+        else
+        {
+            // The owner has touched this object for longer than 1 second
+            // Execute some special feature such as issuing a management dialog...
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>If using a touch to change states be careful about the touch event order. <b>The best advice is not to do state changes from within touch_start.</b> Add a <a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a> handler and do the state change there. Changing state from within touch_start can cause the next occurrence of THIS touch_start code to be missed.</li>
+  </ul>
+  <ul>
+    <li>On clicking a prim with touch event handlers, the following handlers are triggered: touch_start (on first contact), <a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a> (during) and <a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a> (as released).</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch" target="_blank">touch</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetTouchText" target="_blank">llSetTouchText</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassTouches" target="_blank">llPassTouches</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchST" target="_blank">llDetectedTouchST</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchUV" target="_blank">llDetectedTouchUV</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchPos" target="_blank">llDetectedTouchPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchNormal" target="_blank">llDetectedTouchNormal</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedTouchBinormal" target="_blank">llDetectedTouchBinormal</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void touch_start( integer num_detected );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

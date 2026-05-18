@@ -1,0 +1,176 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ModifyLand(Action: number, Area: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llModifyLand(integer Action, integer Area);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Modify land with <b>action</b> on <b>brush</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Action / action</td>
+          <td>LAND_* flag</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Area / brush</td>
+          <td>LAND_*_BRUSH flag</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>region</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">159</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>The position of the prim is used to determine the input for various flags.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Action</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LAND_LEVEL" target="_blank">LAND_LEVEL</a></td>
+        <td>0</td>
+        <td>Levels on prim center</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LAND_RAISE" target="_blank">LAND_RAISE</a></td>
+        <td>1</td>
+        <td>Raises the land</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LAND_LOWER" target="_blank">LAND_LOWER</a></td>
+        <td>2</td>
+        <td>Lowers the land</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LAND_SMOOTH" target="_blank">LAND_SMOOTH</a></td>
+        <td>3</td>
+        <td>Smooths the land</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LAND_NOISE" target="_blank">LAND_NOISE</a></td>
+        <td>4</td>
+        <td>Makes the land rough</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LAND_REVERT" target="_blank">LAND_REVERT</a></td>
+        <td>5</td>
+        <td>Restores to baked value</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Brush</th>
+        <th>Value</th>
+        <th>Size</th>
+      </tr>
+      <tr>
+        <td>LAND_SMALL_BRUSH</td>
+        <td>0</td>
+        <td>2m x 2m</td>
+      </tr>
+      <tr>
+        <td>LAND_MEDIUM_BRUSH</td>
+        <td>1</td>
+        <td>4m x 4m</td>
+      </tr>
+      <tr>
+        <td>LAND_LARGE_BRUSH</td>
+        <td>2</td>
+        <td>8m x 8m</td>
+      </tr>
+      <tr>
+        <td colspan="3"><p>The constant values in the compiler are wrong.</p>
+<p>Use these values instead.</p></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function has no effect if the script's owner is offline or not in the same sim as the scripted object.</li>
+    <li>Uncontrolled use of llModifyLand in scripted objects may force the region's navmesh to rebake continually and cause Memory Allocated for the region to exceed its limit, making it impossible to rez objects. (<a href="https://jira.secondlife.com/browse/BUG-9047" target="_blank">BUG-9047</a>)</li>
+    <li>This function has no effect if the scripted object is deeded to a group.</li>
+    <li>Playing with this command, I have found that the LAND_SMALL_BRUSH edits a 4m x 4m area. The LAND_MEDIUM_BRUSH and the LAND_LARGE_BRUSH, both edit an 8m x 8m area. However using 0 instead of LAND_SMALL_BRUSH will edit a 2m x 2m area. I have bug reported this, but until it gets fixed, it should be noted. correct values for the brushes are 0, 1 and 2, not 1, 2, and 3. - <a href="https://wiki.secondlife.com/wiki/User:Beverly_Larkin" target="_blank">Bev</a></li>
+    <li>If the script is in a prim that is attached to an avatar or is in the child prim of a linkset, then the local position relative to it's attachment point or root prim is used rather than the position within the region. (<a href="https://jira.secondlife.com/browse/BUG-4929" target="_blank">BUG-4929</a>)</li>
+    <li>If land is not owned by script owner or the owner doesn't have terraform permissions, the script will silently fail.</li>
+    <li>You cannot change altitude beyond land terraform limits for the specified parcel..</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.SetTimerEvent(0.1)
+end
+
+function LLEvents.timer()
+    ll.ModifyLand(LAND_LEVEL, 0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSetTimerEvent(0.1);
+    }
+    
+    timer()
+    {
+        llModifyLand(LAND_LEVEL, 0);
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llModifyLand( integer action, integer brush );
+integer LAND_SMALL_BRUSH = 1;//Should do 2m x 2m but does 4m x 4m
+integer LAND_MEDIUM_BRUSH = 2;//Should do 4m x 4m but does 8m x 8m
+integer LAND_LARGE_BRUSH = 3;//8m x 8m
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

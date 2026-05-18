@@ -1,0 +1,204 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`PRIM_POSITION: number = 6`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer PRIM_POSITION = 6;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant PRIM_POSITION has the value 6</p>
+  <p>PRIM_POSITION is used to get or set the prim's position.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>PrimParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>llSetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">&#32;...,&#32;PRIM_POSITION,&#32;[vector</a> position,&#32;... ]); </b></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
+        <td>–</td>
+        <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> or <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a> depending upon the situation</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The same syntax applies to <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> and <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a> but with an additional prefixed <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/link" target="_blank">link</a> parameter in the function call.</p>
+  <h3>Caveats</h3>
+  <ul>
+    <li>Depending upon the situation <b>position</b> may need to be in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#local" target="_blank">local coordinates</a> or <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#region" target="_blank">region coordinates</a>, See <a href="https://wiki.secondlife.com/wiki/LlSetPos#Specification" target="_blank">llSetPos#Specification</a> for details.
+    <ul>
+      <li>It is usually not a good idea to combine PRIM_POSITION with <a href="https://wiki.secondlife.com/wiki/LINK_SET" target="_blank">LINK_SET</a>. The root will treat the coordinates as world or attachment, while the children will treat them as local, yielding inconsistent results or failure. If you want to move the object as a unit, use <a href="https://wiki.secondlife.com/wiki/LINK_ROOT" target="_blank">LINK_ROOT</a> instead.</li>
+    </ul>
+  
+    </li>
+    <li>The range the prim can move is limited if it is an unattached root prim. The distance is capped to 10m per PRIM_POSITION call. See <a href="https://wiki.secondlife.com/wiki/WarpPos" target="_blank">WarpPos</a>. This is a very special case. Do not rely on rule duplication of other flags - the results are undefined, and things <i>will</i> break in the future.</li>
+    <li>Moving <a href="https://wiki.secondlife.com/wiki/Avatar" target="_blank">avatars</a> with PRIM_POSITION
+    <ul>
+      <li>Moving the prim the avatar sat upon does not move the avatar.</li>
+      <li>Moving an avatar does not move the prim they sat upon.</li>
+      <li>Sit-target coordinates do not easily map to prim coordinates, use <a href="https://wiki.secondlife.com/wiki/LlSitTarget#Useful_Snippets" target="_blank">UpdateSitTarget</a>.</li>
+      <li>If you have explicitally set your object as "static obstacle" for pathfinding , the function will fail with the error in the debug channel : "Unable to set prim position or scale: object contributes to the navmesh."</li>
+      <li>If <b>position</b> is greater than 54 meters away from the center, the repositioning will silently fail.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h3><a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">Avatars</a></h3>
+  <p>Avatars sitting on the object can be moved with <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> and PRIM_POSITION. This was originally a mis-feature but according to <a href="http://jira.secondlife.com/browse/SVC-3408?focusedCommentId=88574#action_88574" target="_blank">Andrew Linden</a> LL has decided to support it.</p>
+  <p>Examples</p>
+  <p>The below example moves an avatar to x,y,z without moving the prim they are sitting on. If x,y,z is more than 54 meters away the call will silently fail. Remember x,y,z is in object relative coordinates just like any other linked prim in a set.</p>
+  <p>Avatars are always the last prims in the set, so <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> can be used for a single avatar sitting on a vehicle.</p>
+  <p>Example:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetLinkPrimitiveParams(ll.GetNumberOfPrims(), {PRIM_POSITION, vector(x, y, z)})`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetLinkPrimitiveParams(llGetNumberOfPrims(), [PRIM_POSITION, <x,y,z>]);`} lang="lsl" /></div>
+  <h2>llGetPrimitiveParams</h2>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([&#32;...,&#32;PRIM_POSITION,&#32;... ]); </b></p>
+  <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> [vector</a> position ]</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>• vector</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
+        <td>–</td>
+        <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The same syntax applies to <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a>, but with an additional prefixed <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/link" target="_blank">link</a> parameter in the function call.</p>
+  <h3>Caveats</h3>
+  <ul>
+    <li><b>position</b> is always in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#region" target="_blank">region coordinates</a>, even if the prim is a child or the root prim of an <a href="https://wiki.secondlife.com/wiki/Attachment" target="_blank">attachment</a>.</li>
+  </ul>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_ROTATION" target="_blank">PRIM_ROTATION</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">llGetPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetPos" target="_blank">llSetPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetLocalPos" target="_blank">llGetLocalPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRootPosition" target="_blank">llGetRootPosition</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/WarpPos" target="_blank">warpPos</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PRIM_POSITION" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PRIM_POSITION = 6
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PRIM_POSITION = 6;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

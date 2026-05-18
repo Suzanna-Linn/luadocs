@@ -1,0 +1,230 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ClearCameraParams()`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llClearCameraParams();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Resets all camera parameters to default values and turns off scripted camera control.</p>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target="_blank">PERMISSION_CONTROL_CAMERA</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>avatar</li>
+        <li>camera</li>
+        <li>permissions</li>
+      </ul>
+      <div class="dash-section-title">Permissions</div>
+      <ul class="meta-list">
+        <li>PERMISSION_CONTROL_CAMERA</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">314</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Permissions</th>
+      </tr>
+      <tr>
+        <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
+If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target="_blank">PERMISSION_CONTROL_CAMERA</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
+The <a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target="_blank">PERMISSION_CONTROL_CAMERA</a> permission is automatically revoked when the avatar stands up from or detaches the object, and any scripted camera parameters are automatically cleared.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local gEnabled = false
+
+local function askForPermissions()
+    ll.RequestPermissions(ll.GetOwner(), PERMISSION_CONTROL_CAMERA)
+end
+
+function LLEvents.on_rez(sp)
+    ll.ResetScript()
+end
+
+local function main()
+    askForPermissions()
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+
+    if ll.DetectedKey(0) ~= ll.GetOwner() then
+        return
+    elseif bit32.btest(if not (ll.GetPermissions() ~= 0) then 1 else 0, PERMISSION_CONTROL_CAMERA) then
+        ll.OwnerSay("I need permissions to control your camera.")
+        askForPermissions()
+        return
+    end
+
+    gEnabled = not gEnabled
+    if gEnabled then
+        ll.OwnerSay("Enabled.")
+        ll.SetCameraParams({CAMERA_ACTIVE, 1, CAMERA_DISTANCE, 50.0})
+    else
+        ll.OwnerSay("Disabled.")
+        ll.ClearCameraParams()
+    end
+
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer gEnabled;
+
+askForPermissions()
+{
+    llRequestPermissions(llGetOwner(), PERMISSION_CONTROL_CAMERA);
+}
+
+default
+{
+
+    on_rez(integer sp)
+    {
+        llResetScript();
+    }
+
+    state_entry()
+    {
+        askForPermissions();
+    }
+
+    touch_start(integer total_number)
+    {
+
+        if (llDetectedKey(0) != llGetOwner())
+        {
+            return;
+        }
+        else if (!llGetPermissions() & PERMISSION_CONTROL_CAMERA)
+        {
+            llOwnerSay("I need permissions to control your camera.");
+            askForPermissions();
+            return;
+        }
+
+        gEnabled = !gEnabled;
+        if (gEnabled)
+        {
+            llOwnerSay("Enabled.");
+            llSetCameraParams([
+                CAMERA_ACTIVE, 1, 
+                CAMERA_DISTANCE, 50.0
+            ]);
+        }
+        else
+        {
+            llOwnerSay("Disabled.");
+            llClearCameraParams();
+        }
+
+    }
+
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a></td>
+        <td>–</td>
+        <td>Permission receiving event</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a></td>
+        <td>–</td>
+        <td>Get the permissions granted</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a></td>
+        <td>–</td>
+        <td>Get the agent who granted permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a></td>
+        <td>–</td>
+        <td>Request permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetCameraParams" target="_blank">llSetCameraParams</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Script" target="_blank">Script permissions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+void
+ll.ClearCameraParams()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llClearCameraParams();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,180 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`STATUS_SANDBOX: number = 32`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer STATUS_SANDBOX = 32;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant STATUS_SANDBOX has the value 0x20</p>
+  <p>This status flag keeps the object from getting away.</p>
+  <p>It causes the object to be unable to leave the sim or move more than 10 meters from the location where the flag was set.</p>
+  <p>If the object tries to leave the sim or move more than 10 meters it ceases to be <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physical</a> and throws a "Hit Sandbox Limit" <a href="https://wiki.secondlife.com/wiki/Category:LSL_Error" target="_blank">error</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>ObjectStatusParam</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">STATUS_PHYSICS</a></td>
+        <td>0x001</td>
+        <td>Object is <a href="https://wiki.secondlife.com/wiki/LSL_Glossary#physical" target="_blank">physical</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_X" target="_blank">STATUS_ROTATE_X</a></td>
+        <td>0x002</td>
+        <td>Can turn along this axis (physical objects only)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_Y" target="_blank">STATUS_ROTATE_Y</a></td>
+        <td>0x004</td>
+        <td>Can turn along this axis (physical objects only)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_ROTATE_Z" target="_blank">STATUS_ROTATE_Z</a></td>
+        <td>0x008</td>
+        <td>Can turn along this axis (physical objects only)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_PHANTOM" target="_blank">STATUS_PHANTOM</a></td>
+        <td>0x010</td>
+        <td>Object is <a href="https://wiki.secondlife.com/wiki/LSL_Glossary#phantom" target="_blank">phantom</a></td>
+      </tr>
+      <tr>
+        <td>STATUS_SANDBOX</td>
+        <td>0x020</td>
+        <td>Keep object within 10 meters and in the same region</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_BLOCK_GRAB" target="_blank">STATUS_BLOCK_GRAB</a></td>
+        <td>0x040</td>
+        <td>Prevent click-and-drag movement on the root prim</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constants</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_DIE_AT_EDGE" target="_blank">STATUS_DIE_AT_EDGE</a></td>
+        <td>0x080</td>
+        <td>Delete and do not return object if it goes off world</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_RETURN_AT_EDGE" target="_blank">STATUS_RETURN_AT_EDGE</a></td>
+        <td>0x100</td>
+        <td>Return object to owner if it goes off world</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_CAST_SHADOWS" target="_blank">STATUS_CAST_SHADOWS</a></td>
+        <td>0x200</td>
+        <td><i>not currently used</i></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_BLOCK_GRAB_OBJECT" target="_blank">STATUS_BLOCK_GRAB_OBJECT</a></td>
+        <td>0x400</td>
+        <td>Prevent click-and-drag movement on all prims in the object</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/STATUS_DIE_AT_NO_ENTRY" target="_blank">STATUS_DIE_AT_NO_ENTRY</a></td>
+        <td>0x800</td>
+        <td>Delete and do not return object if it cannot enter a parcel</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetStatus" target="_blank">llSetStatus</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetStatus" target="_blank">llGetStatus</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+  <p>A demonstration script. The object containing this script will be stopped from reaching the programed destination. The physics will be removed and the script will error (needing to be reset).</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.SetStatus(bit32.bor(STATUS_PHYSICS, STATUS_SANDBOX), true)  -- Switch physical and sandbox on.
+    ll.MoveToTarget(ll.GetPos() + vector(0.0, 0.0, 20.0), 1.0)  -- Attempt to move to a point outside the "sandbox".
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSetStatus(STATUS_PHYSICS | STATUS_SANDBOX, TRUE); // Switch physical and sandbox on.
+        llMoveToTarget(llGetPos() + <0.0, 0.0, 20.0>, 1.0); // Attempt to move to a point outside the "sandbox".
+    }
+}
+// After being stopped, physics can only be enabled again when the object is moved back to within the "sandbox".
+// If the script is reset (manually or by a call to llResetOtherScript from another script in the same prim)...
+// ...the sandbox center will be reset to the objects position at that time.
+
+// Very handy when developing physical objects that may not behave as expected.`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=STATUS_SANDBOX" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+STATUS_SANDBOX = 0x20
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer STATUS_SANDBOX = 0x20;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

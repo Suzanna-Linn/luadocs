@@ -1,0 +1,310 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTextureAnim(Mode: number, Face: number, SizeX: number, SizeY: number, Start: number, Length: number, Rate: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTextureAnim(integer Mode, integer Face, integer SizeX, integer SizeY, float Start, float Length, float Rate);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Animate the texture on the specified face/faces by setting the texture scale and offset.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Mode / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_field" target="_blank">mode</a></td>
+          <td>Mask of Mode flags</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>SizeX / sizex</td>
+          <td>Horizontal frames (ignored for <a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a> and <a href="https://wiki.secondlife.com/wiki/SCALE" target="_blank">SCALE</a>)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td>SizeY / sizey</td>
+          <td>Vertical frames (ignored for <a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a> and <a href="https://wiki.secondlife.com/wiki/SCALE" target="_blank">SCALE</a>)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Start / start</td>
+          <td>Start position/frame number (or radians for <a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a>)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Length / length</td>
+          <td>Number of frames to display (or radians for <a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a>)</td>
+        </tr>
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Rate / rate</td>
+          <td>Frames per second, or radians per second when <a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a> is set, or UV coordinates when <a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a> is set (must not be zero)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>effects</li>
+        <li>prim</li>
+        <li>prim_appearance</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">211</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function works on all sides.</p>
+  <p><b>start</b> supports <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p>Frames are numbered from left to right, top to bottom, starting at 0.</p>
+  <p>If <b>rate</b> is negative, it has the same effect as using the <a href="https://wiki.secondlife.com/wiki/REVERSE" target="_blank">REVERSE</a> flag.[[1]](#footnote_1)</p>
+  <p>If <b>length</b> is 0, it is considered to be <b>sizex</b>*<b>sizey</b> if both are above 0, otherwise 1.</p>
+  <h2>Specification</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Index</th>
+        <th>Positive</th>
+        <th>Negative</th>
+      </tr>
+      <tr>
+        <td>First</td>
+        <td>`0`</td>
+        <td>`-length`</td>
+      </tr>
+      <tr>
+        <td>Last</td>
+        <td>`length - 1`</td>
+        <td>`-1`</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Indexes</h3>
+  <ul>
+    <li>Positive indexes count from the beginning, the first item being indexed as `0`, the last as `(length - 1)`.</li>
+  </ul>
+  <ul>
+    <li>Negative indexes count from the far end, the first item being indexed as `-length`, the last as `-1`.</li>
+  </ul>
+  <h3>Frames</h3>
+  <p>Frames are sub-rectangles within the texture. A set of frames with 2 horizontal (<b>sizex</b>) and 3 vertical (<b>sizey</b>) means the overall texture is divided into 3 rows of 2 columns of images, each of which is a frame. llSetTextureAnim will animate across these 6 starting with the top left image and going across and down, optionally repeating. If <a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a> is set, the frames slide smoothly from one to the next across each row but will "jump" from one row to the next, if off, each frame is displayed in turn centered on the face.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Modes</th>
+        <th></th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ANIM_ON" target="_blank">ANIM_ON</a></td>
+        <td>0x01</td>
+        <td>Texture animation is on. This must be set to start the animation, cleared to stop it.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/LOOP" target="_blank">LOOP</a></td>
+        <td>0x02</td>
+        <td>Loop the texture animation.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/REVERSE" target="_blank">REVERSE</a></td>
+        <td>0x04</td>
+        <td>Play animation in reverse direction.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PING_PONG" target="_blank">PING_PONG</a></td>
+        <td>0x08</td>
+        <td>Play animation going forwards, then backwards.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a></td>
+        <td>0x10</td>
+        <td><p>Slide in the X direction, instead of playing separate frames.</p>
+<p>In both <a href="https://wiki.secondlife.com/wiki/SCALE" target="_blank">SCALE</a> and <a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a> modes, causes smooth transitions.</p></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a></td>
+        <td>0x20</td>
+        <td><p>Animate texture rotation.</p>
+<p>Does not work with <a href="https://wiki.secondlife.com/wiki/SCALE" target="_blank">SCALE</a></p></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/SCALE" target="_blank">SCALE</a></td>
+        <td>0x40</td>
+        <td><p>Animate the texture scale.</p>
+<p>Does not work with <a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a></p></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
+    <li>If <b>start</b> is out of bounds the script continues to execute without an error message.</li>
+    <li>You can only have one texture animation on a prim.
+    <ul>
+      <li>Calling llSetTextureAnim more than once on a prim will reset the existing animation.</li>
+      <li>Calling llSetTextureAnim again with exact same values will not reset animation (a small difference in rate will suffice).</li>
+    </ul>
+  
+    </li>
+    <li>You cannot combine <a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a> and <a href="https://wiki.secondlife.com/wiki/SCALE" target="_blank">SCALE</a> flags.</li>
+    <li><b>sizex</b> and <b>sizey</b> are both limited to a range of 0 to 255.
+    <ul>
+      <li>Negative sizes behave as if texture repeats were set to 0, and cannot be used to mirror frames.</li>
+    </ul>
+  
+    </li>
+    <li>Different animation modes override some of the prim's texture parameters, but others can still be used:
+    <ul>
+      <li>Texture offsets are ignored in frame-based and <a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a> scrolling modes.
+      <ul>
+        <li>Repeats are ignored if <b>sizex</b> and <b>sizey</b> are not 0.</li>
+        <li>With either of the sizes set to 0, <a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a> scrolling will use the prim's texture repeats. In frame-based animation, there is no meaningful effect.</li>
+      </ul>
+    
+      </li>
+      <li>The texture rotation is ignored in <a href="https://wiki.secondlife.com/wiki/ROTATE" target="_blank">ROTATE</a> mode.</li>
+      <li>Texture repeats are ignored in <a href="https://wiki.secondlife.com/wiki/SCALE" target="_blank">SCALE</a> mode.</li>
+    </ul>
+  
+    </li>
+    <li>An animation using only <a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a> without <a href="https://wiki.secondlife.com/wiki/LOOP" target="_blank">LOOP</a> behaves poorly, whether scrolling, rotating or scaling. The animation timing is based on the object's time of existence for the viewer, so a non-looped SMOOTH animation may not play at all if the object time is out of bounds for the specified start/end, and attempting to replay it after it has stopped has no effect.
+    <ul>
+      <li>Playing a SMOOTH animation backwards may loop even if not told to do so, and will "rewind" the internal timer allowing it to play forwards afterwards, possibly longer than what the parameters specified suggest.</li>
+    </ul>
+  
+    </li>
+    <li>Selecting and un-selecting a prim with animation will reset animation from beginning.</li>
+    <li>While a texture animation is active on any face of a prim, <a href="https://wiki.secondlife.com/wiki/PRIM_NORMAL" target="_blank">PRIM_NORMAL</a> and <a href="https://wiki.secondlife.com/wiki/PRIM_SPECULAR" target="_blank">PRIM_SPECULAR</a> are usually forced to have their repeats, rotations and offsets to match the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXTURE" target="_blank">PRIM_TEXTURE</a> ones, even on faces that are <b>not</b> being animated. Non-animated PBR textured faces are unaffected by this limitation.</li>
+    <li>As of server version 2025-09-03.17442317385, this prim property is maintained when copying in-world.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>This slides a texture smoothly, along the horizontal U-axis, and loops it when it gets to the end.</p>
+  <p>For <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> materials, the texture's rotation for each side affects the apparent motion. So if the texture is rotated 90 degrees by use of the edit box, the texture may not flow in the direction expected.</p>
+  <p>For PBR materials, the Blinn-Phong texture rotation for each side affects the apparent motion, and any Blinn-Phong transform component (for example the offsets argument of <a href="https://wiki.secondlife.com/wiki/PRIM_TEXTURE" target="_blank">PRIM_TEXTURE</a>) which is not animated will be applied to the PBR material as well. Thus, a GLTF material without a GLTF texture transform will animate identically to a Blinn-Phong material. If a GLTF texture transform (for example <a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_BASE_COLOR" target="_blank">PRIM_GLTF_BASE_COLOR</a>) is applied, it will be in addition to the Blinn-Phong transform and texture animation. This allows for more flexibility; however, a more complex GLTF texture transform will not loop as easily.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTextureAnim(bit32.bor(ANIM_ON, SMOOTH, LOOP), ALL_SIDES, 1, 1, 1.0, 1.0, 1.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTextureAnim(ANIM_ON | SMOOTH | LOOP , ALL_SIDES, 1, 1, 1.0, 1.0, 1.0);`} lang="lsl" /></div>
+  <p>This slides a texture smoothly, along the horizontal U-axis, in the opposite direction.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTextureAnim(bit32.bor(ANIM_ON, SMOOTH, LOOP), ALL_SIDES, 1, 1, 1.0, 1.0, -1.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTextureAnim(ANIM_ON | SMOOTH | LOOP , ALL_SIDES, 1, 1, 1.0, 1.0, -1.0);`} lang="lsl" /></div>
+  <p>This divides a texture into 64 "cells", 8 across, and 8 down, and flips through them, left to right, top to bottom. This is useful for cell animation.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTextureAnim(bit32.bor(ANIM_ON, LOOP), ALL_SIDES, 8, 8, 0.0, 64.0, 6.4)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTextureAnim( ANIM_ON | LOOP, ALL_SIDES, 8, 8, 0.0, 64.0, 6.4 );`} lang="lsl" /></div>
+  <p>This rotates a texture counter-clockwise at 2 revolutions per second. Change the last value to -2*TWO_PI to rotate clockwise.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTextureAnim(bit32.bor(ANIM_ON, SMOOTH, ROTATE, LOOP), ALL_SIDES, 1, 1, 0, TWO_PI, 2 * TWO_PI)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTextureAnim(ANIM_ON | SMOOTH | ROTATE | LOOP, ALL_SIDES,1,1,0, TWO_PI, 2*TWO_PI);`} lang="lsl" /></div>
+  <p>This scales a texture larger and smaller.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTextureAnim(bit32.bor(ANIM_ON, SMOOTH, SCALE, PING_PONG, LOOP), ALL_SIDES, 1, 1, 1.0, 3.0, 2.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTextureAnim(ANIM_ON | SMOOTH | SCALE | PING_PONG | LOOP, ALL_SIDES, 1, 1, 1.0, 3.0, 2.0);`} lang="lsl" /></div>
+  <p>This turns off all texture animations.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetTextureAnim(false, ALL_SIDES, 0, 0, 0.0, 0.0, 1.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetTextureAnim(FALSE, ALL_SIDES, 0, 0, 0.0, 0.0, 1.0);`} lang="lsl" /></div>
+  <p>This toggles a looping animation to make it stop at a specific frame.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local textureIsBeingAnimated = false
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    if textureIsBeingAnimated then
+        ll.SetTextureAnim(bit32.bor(ANIM_ON, LOOP), ALL_SIDES, 1, 5, 0.0, 0.0, 1.0)
+    else
+        ll.SetTextureAnim(bit32.bor(ANIM_ON, SMOOTH), ALL_SIDES, 1, 5, 5.0, 1.0, 1.0)
+    end
+
+    -- toggle back and forth between TRUE (1) and FALSE (0)
+    textureIsBeingAnimated = not textureIsBeingAnimated
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer textureIsBeingAnimated;
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        if (textureIsBeingAnimated)
+            llSetTextureAnim(ANIM_ON | LOOP, ALL_SIDES, 1, 5, 0.0, 0.0, 1.0);
+        else
+            llSetTextureAnim(ANIM_ON | SMOOTH, ALL_SIDES, 1, 5, 5.0, 1.0, 1.0);
+
+        // toggle back and forth between TRUE (1) and FALSE (0)
+        textureIsBeingAnimated = !textureIsBeingAnimated;
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Texture animation is a property of the prim (i.e., you can remove the script that started the animation, and the prim will remember the settings anyway.)</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkTextureAnim" target="_blank">llSetLinkTextureAnim</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">Negative Index</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llSetTextureAnim Added in <a href="http://secondlife.wikia.com/wiki/Version_0.4.0#Scripting" target="_blank">SL 0.4.0</a>[[2]](#footnote_2)</li>
+  </ul>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Though if <b>rate</b> is negative and the <a href="https://wiki.secondlife.com/wiki/REVERSE" target="_blank">REVERSE</a> flag is used, they cancel each other out.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetTextureAnim( integer mode, integer face, integer sizex, integer sizey, float start, float length, float rate );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,172 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`collision(Detected: {DetectedEvent})`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`collision(integer NumberOfCollisions)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Triggered while task is <a href="https://wiki.secondlife.com/wiki/Colliding" target="_blank">colliding</a> with another task.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Detected / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span>NumberOfCollisions / num_detected</span></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Table with the detected events / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span></span></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-detected">Detected Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Max number detected is 8.</li>
+    <li>Smallest repeat rate is approximatively 0.13 seconds.</li>
+    <li>Will not detect collisions with <a href="https://wiki.secondlife.com/wiki/Ground" target="_blank">ground</a>; use <a href="https://wiki.secondlife.com/wiki/Land_collision" target="_blank">land_collision</a> instead.</li>
+    <li>Will not detect collisions between an avatar sitting on the task and the task itself (avatars are linked to objects they sit on so there is no collision, use the <a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a> event to detect sits).</li>
+    <li>Phantom objects can never receive trigger collision events.</li>
+    <li>`<a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">llVolumeDetect</a>(<a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>)` objects get trigger <a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a> and <a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a> but not collision() events.</li>
+    <li>A collision with a hovering avatar does not trigger collisions, unless the avatar turns or moves.</li>
+    <li>A collision with a physical object or avatar resting on object does not continuously trigger collisions but for a few times, unless there is movement.</li>
+    <li>Only a physical object will get collision events from colliding with a non-physical object.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--Will turn phantom when someone bumps into it if on the list
+
+local access_list = {"Governor Linden"}
+
+function LLEvents.collision(events)
+    local num_detected = #events
+    if bit32.bnot(ll.ListFindList(access_list, {ll.DetectedName(0)})) ~= 0 then
+        ll.SetStatus(STATUS_PHANTOM, true)
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Will turn phantom when someone bumps into it if on the list
+
+list access_list = ["Governor Linden"];
+
+default
+{
+    collision(integer num_detected)
+    {
+        if(~llListFindList(access_list, (list)llDetectedName(0)))
+        {
+            llSetStatus(STATUS_PHANTOM, TRUE);
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_start" target="_blank">collision_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Collision_end" target="_blank">collision_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassCollisions" target="_blank">llPassCollisions</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCollisionFilter" target="_blank">llCollisionFilter</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCollisionSound" target="_blank">llCollisionSound</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlCollisionSprite" target="_blank">llCollisionSprite</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">llVolumeDetect</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Issues
+All Issues ~ <a href="https://secondlife.canny.io/?search=event+AND+collision" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/SVC-3306" target="_blank">SVC-3306</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/SVC-3306" target="_blank">A</a></td>
+        <td></td>
+        <td><p>Add enumeration to <a href="https://wiki.secondlife.com/wiki/LlPassCollisions" target="_blank">llPassCollisions</a>() to provide <a href="https://wiki.secondlife.com/wiki/PASS_ALWAYS" target="_blank">PASS_ALWAYS</a>, <a href="https://wiki.secondlife.com/wiki/PASS_IF_NOT_HANDLED" target="_blank">PASS_IF_NOT_HANDLED</a>, and <a href="https://wiki.secondlife.com/wiki/PASS_NEVER" target="_blank">PASS_NEVER</a> as explicit options.</p>
+<p>(Was: <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">Collisions</a> passed to parent REGARDLESS <a href="https://wiki.secondlife.com/wiki/LlPassCollisions" target="_blank">llPassCollisions</a>(<a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>) in child)</p></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void collision( integer num_detected );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

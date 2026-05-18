@@ -1,0 +1,211 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`AGENT_WALKING: number = 128`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer AGENT_WALKING = 128;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant AGENT_WALKING has the value 0x0080</p>
+  <p>Used with <a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo" target="_blank">llGetAgentInfo</a> to determine if the queried avatar is walking.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Member Of</div>
+      <ul class="meta-list">
+        <li>AgentInfo</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Constant</th>
+        <th>Val</th>
+        <th>Returned if agent...</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_ALWAYS_RUN" target="_blank">AGENT_ALWAYS_RUN</a></td>
+        <td>0x1000</td>
+        <td>has running ("Always Run") enabled, or is using tap-tap-hold</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_ATTACHMENTS" target="_blank">AGENT_ATTACHMENTS</a></td>
+        <td>0x0002</td>
+        <td>has attachments</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_AUTOMATED" target="_blank">AGENT_AUTOMATED</a></td>
+        <td>0x4000</td>
+        <td>is marked as a scripted agent/bot</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_AUTOPILOT" target="_blank">AGENT_AUTOPILOT</a></td>
+        <td>0x2000</td>
+        <td>is in "autopilot" mode</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_AWAY" target="_blank">AGENT_AWAY</a></td>
+        <td>0x0040</td>
+        <td>is in "away" mode</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_BUSY" target="_blank">AGENT_BUSY</a></td>
+        <td>0x0800</td>
+        <td>is in "busy" mode</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_CROUCHING" target="_blank">AGENT_CROUCHING</a></td>
+        <td>0x0400</td>
+        <td>is crouching</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_FLOATING_VIA_SCRIPTED_ATTACHMENT" target="_blank">AGENT_FLOATING_VIA_SCRIPTED_ATTACHMENT</a></td>
+        <td>0x8000</td>
+        <td>is floating or hovering because of a scripted attachment</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_FLYING" target="_blank">AGENT_FLYING</a></td>
+        <td>0x0001</td>
+        <td>is flying or hovering</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_IN_AIR" target="_blank">AGENT_IN_AIR</a></td>
+        <td>0x0100</td>
+        <td>is in the air (jumping, flying or falling)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_MOUSELOOK" target="_blank">AGENT_MOUSELOOK</a></td>
+        <td>0x0008</td>
+        <td>is in mouselook</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_ON_OBJECT" target="_blank">AGENT_ON_OBJECT</a></td>
+        <td>0x0020</td>
+        <td>is sitting on an object (and linked to it)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_SCRIPTED" target="_blank">AGENT_SCRIPTED</a></td>
+        <td>0x0004</td>
+        <td>has scripted attachments</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_SITTING" target="_blank">AGENT_SITTING</a></td>
+        <td>0x0010</td>
+        <td>is sitting[[1]](#footnote_1)</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/AGENT_TYPING" target="_blank">AGENT_TYPING</a></td>
+        <td>0x0200</td>
+        <td>is typing</td>
+      </tr>
+      <tr>
+        <td>AGENT_WALKING</td>
+        <td>0x0080</td>
+        <td>is walking, running or crouch walking</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAgentInfo" target="_blank">llGetAgentInfo</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+  <p>Cause a sound to be played while the wearer of the hud or attachment is walking.
+Place this script in a Hud for the owner only to hear the sound,
+or in an attachment for others to hear your footsteps too.
+You'll need a sound file in the object too, with your choice of footstep sounds.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Play a sound whenever the owner is walking
+local gWasWalking = 0  -- TRUE when wearer is already walking
+local gSound = "footsteps"  -- name of soundfile in inventory
+local function main()
+    -- Start a timer to continuously check if the owner is walking
+    ll.SetTimerEvent(0.25)
+end
+function LLEvents.timer()
+    local NowWalking = bit32.band(ll.GetAgentInfo(ll.GetOwner()), AGENT_WALKING)
+    if NowWalking ~= gWasWalking then  -- walking has stopped or started
+        ll.StopSound()
+        if NowWalking ~= 0 then
+            ll.LoopSound(gSound, 1.0)
+        end
+    end
+    gWasWalking = NowWalking
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Play a sound whenever the owner is walking
+integer   gWasWalking;             // TRUE when wearer is already walking
+string    gSound = "footsteps";    // name of soundfile in inventory
+default
+{
+    state_entry()
+    {
+        // Start a timer to continuously check if the owner is walking
+        llSetTimerEvent(0.25);
+    }
+    timer()
+    {
+        integer NowWalking = llGetAgentInfo(llGetOwner()) & AGENT_WALKING;
+        if  (NowWalking != gWasWalking)        // walking has stopped or started
+        {
+            llStopSound();
+            if (NowWalking)      llLoopSound(gSound, 1.0);
+        }
+        gWasWalking = NowWalking;
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=AGENT_WALKING" target="_blank">Search Canny for related Issues</a> Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> "Sit down" on the avatar context menu allows ground sits anywhere: atop the terrain, on objects or even in the air, so it is possible to sit "on" an object without linking.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+AGENT_WALKING = 0x0080
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer AGENT_WALKING = 0x0080;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

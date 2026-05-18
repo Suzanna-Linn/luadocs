@@ -1,0 +1,393 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetInventoryType(InventoryItem: string): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llGetInventoryType(string InventoryItem);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns an integer that is the type of the inventory item <b>name</b></p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
+          <td>InventoryItem / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>name of an inventory item</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>prim_inventory</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">301</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <p>If <b>name</b> does not exist, <a href="https://wiki.secondlife.com/wiki/INVENTORY_NONE" target="_blank">INVENTORY_NONE</a> is returned (no errors or messages are generated), making this function ideal for testing the existence of a certain item in <a href="https://wiki.secondlife.com/wiki/Inventory" target="_blank">inventory</a>.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b>Flag</b></th>
+        <th><b>Inventory Type</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_NONE" target="_blank">INVENTORY_NONE</a></td>
+        <td>-1</td>
+        <td>Item does not exist.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_ALL" target="_blank">INVENTORY_ALL</a></td>
+        <td>Any inventory type.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_TEXTURE" target="_blank">INVENTORY_TEXTURE</a></td>
+        <td>0</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Texture" target="_blank">texture</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_SOUND" target="_blank">INVENTORY_SOUND</a></td>
+        <td>1</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Sound" target="_blank">sound</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_LANDMARK" target="_blank">INVENTORY_LANDMARK</a></td>
+        <td>3</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Landmark" target="_blank">landmark</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_CLOTHING" target="_blank">INVENTORY_CLOTHING</a></td>
+        <td>5</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Clothing" target="_blank">clothing</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_OBJECT" target="_blank">INVENTORY_OBJECT</a></td>
+        <td>6</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2"><b>Flag</b></th>
+        <th><b>Inventory Type</b></th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_NOTECARD" target="_blank">INVENTORY_NOTECARD</a></td>
+        <td>7</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Notecard" target="_blank">notecard</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_SCRIPT" target="_blank">INVENTORY_SCRIPT</a></td>
+        <td>10</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_BODYPART" target="_blank">INVENTORY_BODYPART</a></td>
+        <td>13</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Body_part" target="_blank">body part</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_ANIMATION" target="_blank">INVENTORY_ANIMATION</a></td>
+        <td>20</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Animation" target="_blank">animation</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_GESTURE" target="_blank">INVENTORY_GESTURE</a></td>
+        <td>21</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Gesture" target="_blank">gesture</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_SETTING" target="_blank">INVENTORY_SETTING</a></td>
+        <td>56</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Environmental_Enhancement_Project" target="_blank">setting</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/INVENTORY_MATERIAL" target="_blank">INVENTORY_MATERIAL</a></td>
+        <td>57</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PBR_Materials" target="_blank">material</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function get_type_info(inputInteger)
+    if inputInteger == INVENTORY_TEXTURE then
+        return "INVENTORY_TEXTURE"
+
+    elseif inputInteger == INVENTORY_SOUND then
+        return "INVENTORY_SOUND"
+
+    elseif inputInteger == INVENTORY_LANDMARK then
+        return "INVENTORY_LANDMARK"
+
+    elseif inputInteger == INVENTORY_CLOTHING then
+        return "INVENTORY_CLOTHING"
+
+    elseif inputInteger == INVENTORY_OBJECT then
+        return "INVENTORY_OBJECT"
+
+    elseif inputInteger == INVENTORY_NOTECARD then
+        return "INVENTORY_NOTECARD"
+
+    elseif inputInteger == INVENTORY_SCRIPT then
+        return "INVENTORY_SCRIPT"
+
+    elseif inputInteger == INVENTORY_BODYPART then
+        return "INVENTORY_BODYPART"
+
+    elseif inputInteger == INVENTORY_ANIMATION then
+        return "INVENTORY_ANIMATION"
+
+    elseif inputInteger == INVENTORY_GESTURE then
+        return "INVENTORY_GESTURE"
+
+    elseif inputInteger == INVENTORY_SETTING then
+        return "INVENTORY_SETTING"
+
+    else
+        return "inventory type unknown"
+    end
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local totalItems = ll.GetInventoryNumber(INVENTORY_ALL)
+
+    local index = 0
+    while index < totalItems do
+        local itemName = ll.GetInventoryName(INVENTORY_ALL, index)
+        local type = ll.GetInventoryType(itemName)
+
+        -- PUBLIC_CHANNEL has the integer value 0
+        ll.Say(PUBLIC_CHANNEL, "'" .. itemName .. "' (" .. get_type_info(type) .. ")")
+
+        index += 1
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string get_type_info(integer inputInteger)
+{
+    if (inputInteger == INVENTORY_TEXTURE)
+        return "INVENTORY_TEXTURE";
+ 
+    else if (inputInteger == INVENTORY_SOUND)
+        return "INVENTORY_SOUND";
+ 
+    else if (inputInteger == INVENTORY_LANDMARK)
+        return "INVENTORY_LANDMARK";
+ 
+    else if (inputInteger == INVENTORY_CLOTHING)
+        return "INVENTORY_CLOTHING";
+ 
+    else if (inputInteger == INVENTORY_OBJECT)
+        return "INVENTORY_OBJECT";
+ 
+    else if (inputInteger == INVENTORY_NOTECARD)
+        return "INVENTORY_NOTECARD";
+ 
+    else if (inputInteger == INVENTORY_SCRIPT)
+        return "INVENTORY_SCRIPT";
+ 
+    else if (inputInteger == INVENTORY_BODYPART)
+        return "INVENTORY_BODYPART";
+ 
+    else if (inputInteger == INVENTORY_ANIMATION)
+        return "INVENTORY_ANIMATION";
+ 
+    else if (inputInteger == INVENTORY_GESTURE)
+        return "INVENTORY_GESTURE";
+ 
+    else if (inputInteger == INVENTORY_SETTING)
+        return "INVENTORY_SETTING";
+ 
+    else
+        return "inventory type unknown";
+}
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        integer totalItems = llGetInventoryNumber(INVENTORY_ALL);
+
+        integer index;
+        while (index < totalItems)
+        {
+            string itemName = llGetInventoryName(INVENTORY_ALL, index);
+            integer type = llGetInventoryType(itemName);
+
+            // PUBLIC_CHANNEL has the integer value 0
+            llSay(PUBLIC_CHANNEL,
+                "'" + itemName + "' (" + get_type_info(type) + ")");
+
+            ++index;
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function InventoryName(name, type)
+    -- finds an item in a case insensitive fashion of the given type and returns its true name.
+    local a = ll.GetInventoryType(name)
+    if not (bit32.bnot(a) ~= 0) then  -- a == INVENTORY_NONE
+        -- it should be noted that INVENTORY_NONE == INVENTORY_ALL == -1; which is why '!~a' works.
+        local lc_name = ll.ToLower(name)
+        a = ll.GetInventoryNumber(type)
+        while a ~= 0 do
+            -- (a = ~-a) is equivalent to --a, but runs faster.
+            if ll.ToLower((function() name = ll.GetInventoryName(type, (function() a = bit32.bnot(-a) return a end)()) return name end)()) == lc_name then
+                -- we found a match ^_^
+                return name
+            end
+        end
+    elseif bit32.bxor(if a == type then 1 else 0, if not (bit32.bnot(type) ~= 0) then 1 else 0) ~= 0 then  -- return name, as long as a == type or type == INVENTORY_ALL
+        -- we already know that a != INVENTORY_NONE, but just in case we use xor instead of or.
+        return name
+    end
+    return ""  -- no match ~_~
+end
+
+local function InventoryExists(name, type)
+    -- only included to show how this type of check could be done if the value of 'type' is not constant and could be INVENTORY_ALL.
+    return bit32.bxor(if ll.GetInventoryType(name) == type then 1 else 0, if not (bit32.bnot(type) ~= 0) then 1 else 0)
+end  -- Since INVENTORY_ALL == INVENTORY_NONE, the extra part on the end is required to invert the result.
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string InventoryName(string name, integer type)
+{ // finds an item in a case insensitive fashion of the given type and returns its true name.
+    integer a = llGetInventoryType(name); 
+    if(!~a) // a == INVENTORY_NONE
+    { // it should be noted that INVENTORY_NONE == INVENTORY_ALL == -1; which is why '!~a' works.
+        string lc_name = llToLower(name);
+        a = llGetInventoryNumber(type);
+        while(a)
+        { // (a = ~-a) is equivalent to --a, but runs faster.
+            if(llToLower(name = llGetInventoryName(type, a = ~-a)) == lc_name)
+            { // we found a match ^_^
+                return name;
+            }
+        }
+    }
+    else if((a == type) ^ (!~type)) // return name, as long as a == type or type == INVENTORY_ALL
+    { // we already know that a != INVENTORY_NONE, but just in case we use xor instead of or.
+        return name;
+    }
+    return ""; // no match ~_~
+}
+
+integer InventoryExists(string name, integer type)
+{ // only included to show how this type of check could be done if the value of 'type' is not constant and could be INVENTORY_ALL.
+    return (llGetInventoryType(name) == type) ^ (!~type);
+} // Since INVENTORY_ALL == INVENTORY_NONE, the extra part on the end is required to invert the result.`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryAcquireTime" target="_blank">llGetInventoryAcquireTime</a></td>
+        <td>–</td>
+        <td>Returns the time the item was added to the prim's inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryName" target="_blank">llGetInventoryName</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's name</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryNumber" target="_blank">llGetInventoryNumber</a></td>
+        <td>–</td>
+        <td>Returns the number of items of a specific type in inventory</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryCreator" target="_blank">llGetInventoryCreator</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's creator</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">llGetInventoryPermMask</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's permissions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a></td>
+        <td>–</td>
+        <td>Returns the inventory item's <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> (if full perm)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryType_Test" target="_blank">llGetInventoryType_Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llGetInventoryType( string name );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Sleepy afternoon</p>
+<p>A large, inventory finds</p>
+<p>enjoying the type</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

@@ -1,0 +1,146 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.GetMassMKS(): number`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`float llGetMassMKS();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Returns a float that is the mass (in Kilograms) of object that script is attached to. Functionally identical to <a href="https://wiki.secondlife.com/wiki/LlGetMass" target="_blank">llGetMass</a> except for the unit used in the return value.</p>
+  <p><b>MKS</b> as used in the name of this function is likely a reference to the <a href="https://en.wikipedia.org/wiki/MKS_system_of_units" target="_blank">MKS system of units</a> (Meter, Kilogram, Second), which form the base of SI units (with some minor differences).</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>linkset</li>
+        <li>physics</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">382</span></div>
+
+      <div class="label-stack">
+        <span class="attr-label bg-mandatory">Use Return</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Attachments do not effect an avatar's mass, only certain Appearance settings.
+    <ul>
+      <li>Avatar mass is reported to either be unexpectedly low (when measured using <a href="https://wiki.secondlife.com/wiki/LlGetMass" target="_blank">llGetMass</a>) or unexpectedly high (when measured using llGetMassMKS). This is likely due to the weight being calculated based on a fixed value, with a modifier for height. The fixed value being used is incorrect, likely due to an incorrect density value being used.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Reports an object's mass in Lindograms and Kilograms.
+function LLEvents.touch_start()
+    local undefined = #events
+    ll.Say(0, "My weight in Lindograms: " .. tostring(ll.GetMass()) .. "\nMy weight in Kilograms: " .. tostring(ll.GetMassMKS()))
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Reports an object's mass in Lindograms and Kilograms.
+default
+{
+    touch_start()
+    {
+        llSay(0,"My weight in Lindograms: " + (string)llGetMass() + "\nMy weight in Kilograms: " + (string)llGetMassMKS());
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>the Kilogram value seems to be the Lindogram value multiplied by 100.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectMass" target="_blank">llGetObjectMass</a></td>
+        <td>–</td>
+        <td>Gets the object mass (in Lindograms)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetForce" target="_blank">llGetForce</a></td>
+        <td>–</td>
+        <td>Gets the objects force</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetOmega" target="_blank">llGetOmega</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetVel" target="_blank">llGetVel</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTorque" target="_blank">llGetTorque</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAccel" target="_blank">llGetAccel</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetMass" target="_blank">llGetMass</a></td>
+        <td>–</td>
+        <td>Get the mass of an object (in Lindograms)</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.09.23.241511" target="_blank"> 23/09/2011 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.GetMassMKS()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function float llGetMassMKS();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

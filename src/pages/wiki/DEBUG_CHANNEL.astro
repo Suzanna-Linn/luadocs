@@ -1,0 +1,163 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-constant">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`DEBUG_CHANNEL: number = 2147483647`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer DEBUG_CHANNEL = 2147483647;`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>The integer constant DEBUG_CHANNEL has the value 0x7FFFFFFF</p>
+  <p>Chat channel reserved for script debugging and error messages. The client will display chat on this channel in the script console if the avatar is within the appropriate distance for the communication type (see <a href="https://wiki.secondlife.com/wiki/Category:LSL_Chat" target="_blank">Chat</a> for details).</p>
+  <p>Server-generated errors are broadcast the same distance as <a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a>.</p>
+  <p>Regardless of the source, most viewers filter out messages received on <b>DEBUG_CHANNEL</b> from objects owned by others.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/COMBAT_CHANNEL" target="_blank">COMBAT_CHANNEL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlWhisper" target="_blank">llWhisper</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">llShout</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSay" target="_blank">llRegionSay</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Useful Snippets</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local owner = NULL_KEY
+
+--little link_message debugging script
+function LLEvents.link_message(a, b, c, d)
+    ll.Say(DEBUG_CHANNEL, ll.List2CSV({a, b, c, d}))
+    if ll.GetOwner() ~= owner then
+        ll.SetScriptState(ll.GetScriptName(), false)
+    end
+end
+local function main()
+    owner = ll.GetOwner()
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`key owner;
+
+default{//little link_message debugging script
+    link_message(integer a, integer b, string c, key d){
+        llSay(DEBUG_CHANNEL, llList2CSV([a,b,c,d]));
+        if(llGetOwner() != owner)
+            llSetScriptState(llGetScriptName(), FALSE);
+    }
+    state_entry(){
+        owner = llGetOwner();
+    }
+}`} lang="lsl" /></div>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=DEBUG_CHANNEL" target="_blank">Search Canny for related Issues</a> Source</p>
+  <p>'linden\indra\llcommon\indra_constants.h' as CHAT_CHANNEL_DEBUG (with a value of S32_MAX)</p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+DEBUG_CHANNEL = 0x7FFFFFFF  --Chat channel reserved for script debugging and error messages, broadcasts to all nearby users.
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer DEBUG_CHANNEL = 0x7FFFFFFF;//Chat channel reserved for script debugging and error messages, broadcasts to all nearby users.
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

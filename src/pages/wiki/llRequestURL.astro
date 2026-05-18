@@ -1,0 +1,294 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RequestURL(): uuid`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`key llRequestURL();`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Requests one `HTTP://` [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/URL" target="_blank">URL</a> for use by this <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a>. The <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> is triggered with the result of the request.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) used for identifying the result of the request in the <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a>.</p>
+</p>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>media</li>
+        <li>script_communication</li>
+        <li>web</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">Energy</span><span class="tech-val">10</span></div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">345</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>HTTP-in is not on the usual <a href="https://wiki.secondlife.com/wiki/HTTP" target="_blank">HTTP</a> port number; the URL it provided in the <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> event includes the correct port number.</li>
+    <li>Your script (and any client that uses it) should not "validate" the provided URL; in particular, do not assume that it maps to any particular address, or is in any particular domain. These will change during the uplift of Second Life to the cloud, and may be more dynamic following that uplift<a href="#cite_note-1" target="_blank">&#91;1&#93;</a>.</li>
+    <li>Use of this function is <a href="https://wiki.secondlife.com/wiki/Limits" target="_blank">throttled</a>. Although it has no forced sleep time, too many requests (5-ish) in a short period will cause all further requests to be denied until the script stops requesting URLs for at least 1 second. Using an <a href="https://wiki.secondlife.com/wiki/LlSleep" target="_blank">llSleep</a> of 0.6 seconds or greater between each request will prevent you from being throttled.</li>
+    <li>When a region is (re)started all <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">HTTP server</a> URLs are automatically released and invalidated.
+    <ul>
+      <li>Use <a href="https://wiki.secondlife.com/wiki/CHANGED_REGION_START" target="_blank">CHANGED_REGION_START</a> to detect this so new URL can be requested.</li>
+    </ul>
+  
+    </li>
+    <li>The number of available URLs is a limited resource, that is to say, a script can only have so many open URLs. See <a href="https://wiki.secondlife.com/wiki/LSL_http_server#Resource_Limitations" target="_blank">LSL http_server#Resource Limitations</a> for details.</li>
+    <li>When abandoning a URL, release it with <a href="https://wiki.secondlife.com/wiki/LlReleaseURL" target="_blank">llReleaseURL</a>, to avoid leaks. Resetting the script, or deleting the prim, will also suffice to release URLs.</li>
+    <li>Unlike <a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">listeners</a>, URLs persist across state changes</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>A fully worked out example that shows how to get a URL, register that URL with an external client, and do proper backoff and retry for contacting external services can be found at <a href="https://wiki.secondlife.com/wiki/HTTP_Server_URL_Registration" target="_blank">HTTP Server URL Registration</a>.</p>
+  <p>This script requests a new URL after region restart.</p>
+  <p>See the discussion page for explanations as to why this particular script never needs to use <a href="https://wiki.secondlife.com/wiki/LlReleaseURL" target="_blank">llReleaseURL</a>().</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local url = ""
+local urlRequestId = NULL_KEY
+
+local function main()
+    urlRequestId = ll.RequestURL()
+end
+
+function LLEvents.on_rez(start_param)
+    ll.ResetScript()
+end
+
+function LLEvents.changed(change)
+    if bit32.btest(change, bit32.bor(CHANGED_OWNER, CHANGED_INVENTORY)) then
+        ll.ResetScript()
+    end
+    if bit32.btest(change, bit32.bor(CHANGED_REGION, CHANGED_REGION_START, CHANGED_TELEPORT)) then
+        urlRequestId = ll.RequestURL()
+    end
+end
+
+function LLEvents.http_request(id, method, body)
+    if id == urlRequestId then
+        if method == URL_REQUEST_DENIED then
+            ll.OwnerSay("The following error occurred while attempting to get a free URL for this device:\n\n" .. body)
+        elseif method == URL_REQUEST_GRANTED then
+            url = body
+            ll.LoadURL(ll.GetOwner(), "Click to visit my URL!", url)
+        end
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`string url;
+key urlRequestId;
+
+default
+{
+	state_entry()
+	{
+		urlRequestId = llRequestURL();
+	}
+	
+	on_rez(integer start_param)
+	{
+		llResetScript();
+	}
+
+	changed(integer change)
+	{
+		if (change & (CHANGED_OWNER | CHANGED_INVENTORY))
+		{
+			llResetScript();
+		}
+		if (change & (CHANGED_REGION | CHANGED_REGION_START | CHANGED_TELEPORT))
+		{
+			urlRequestId = llRequestURL();
+		}
+	}
+
+	http_request(key id, string method, string body)
+	{
+		if (id == urlRequestId)
+		{
+			if (method == URL_REQUEST_DENIED)
+			{
+				llOwnerSay("The following error occurred while attempting to get a free URL for this device:\n\n" + body);
+			}
+			else if (method == URL_REQUEST_GRANTED)
+			{
+				url = body;
+				llLoadURL(llGetOwner(), "Click to visit my URL!", url);
+			}
+		}
+	}
+}`} lang="lsl" /></div>
+  <p>It's important to keep in mind that if you request another URL, that the old one will not be released, it will remain active. The following script drives home this point.</p>
+  <p>Try the following code ONLY if you can use all your URLs on your land.
+Removing the prim/script will release all URLs previous assigned.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- WARNING:
+--
+--      This script is only for proof-of-concept (demo purposes).
+--      DO NOT use it if you don't have the sim owners and/or
+--      estate managers OK to test this script.
+--      This script can possibly block HTTP communication from and to the sim.
+--      ...bringing down all networked vendors and/or similar machines.
+--
+--      This script allocates all available URLs.
+--      Deleting the script and/or derezzing the object containing the script,
+--      will release all previously taken URLs.
+
+local function main()
+    ll.RequestURL()
+end
+
+function LLEvents.http_request(id, method, body)
+    if method == URL_REQUEST_DENIED then
+        ll.SetText("No free URLs!", vector(1.0, 0.0, 0.0), 1.0)
+    elseif method == URL_REQUEST_GRANTED then
+        ll.SetText(tostring(ll.GetFreeURLs()) .. " URLs left\n" .. body, vector(1.0, 1.0, 1.0), 1.0)
+        ll.RequestURL()
+    elseif method == "GET" then
+        ll.HTTPResponse(id, 200, "Hello there!")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// WARNING:
+//
+//      This script is only for proof-of-concept (demo purposes).
+//      DO NOT use it if you don't have the sim owners and/or
+//      estate managers OK to test this script.
+//      This script can possibly block HTTP communication from and to the sim.
+//      ...bringing down all networked vendors and/or similar machines.
+//
+//      This script allocates all available URLs.
+//      Deleting the script and/or derezzing the object containing the script,
+//      will release all previously taken URLs.
+
+default
+{
+	state_entry()
+	{
+		llRequestURL();
+	}
+
+	http_request(key id, string method, string body)
+	{
+		if (method == URL_REQUEST_DENIED)
+		{
+			llSetText("No free URLs!", <1.0, 0.0, 0.0>, 1.0);
+		}
+		else if (method == URL_REQUEST_GRANTED)
+		{
+			llSetText((string)llGetFreeURLs() + " URLs left\n" + body, <1.0, 1.0, 1.0>, 1.0);
+			llRequestURL();
+		}
+		else if (method == "GET")
+		{
+			llHTTPResponse(id, 200, "Hello there!");
+		}
+	}
+}`} lang="lsl" /></div>
+  <p>This script will, as you can see, use all URLs available on your land because it does not remove the old URLs before requesting a new one.</p>
+  <p>Just store the old URL in a global variable and release it with <a href="https://wiki.secondlife.com/wiki/LlReleaseURL" target="_blank">llReleaseURL</a>.</p>
+  <h2>Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <td>Another comment on resilient programming: getting a global resource, an HTTP listener in this case, should always be considered an operation that can fail for transitory reasons (as well as permanent ones). In this case, LSL folds retryable and permanent errors into the same error status and there's no opportunity for a script writer to distinguish the two cases. But a reasonable way to handle this is sleeping with limited retries before failing hard in the LSL code.</td>
+      </tr>
+      <tr>
+        <td><a href="https://jira.secondlife.com/browse/BUG-3813?focusedCommentId=399955&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-399955" target="_blank">Monty Linden</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRequestSecureURL" target="_blank">llRequestSecureURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetFreeURLs" target="_blank">llGetFreeURLs</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlReleaseURL" target="_blank">llReleaseURL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlHTTPResponse" target="_blank">llHTTPResponse</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetHTTPHeader" target="_blank">llGetHTTPHeader</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LSL_http_server" target="_blank">LSL http server</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/1836?new_path=%2F#file22" target="_blank">SVN:1836 r112899 Trunk</a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+ll.RequestURL()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function key llRequestURL();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

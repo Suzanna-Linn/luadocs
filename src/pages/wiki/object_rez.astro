@@ -1,0 +1,481 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-event">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`object_rez(RezzedObjectsID: uuid)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`object_rez(key RezzedObjectsID)`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Triggered when the object rezzes an object.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
+          <td>RezzedObjectsID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> of object rezzed.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Triggers in all running scripts with an object_rez event, AND in the same <b>prim</b> as the script calling <a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a> or <a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a>.
+    <ul>
+      <li>Does NOT trigger in linked prims.</li>
+    </ul>
+  
+    </li>
+    <li>A message sent to the rezzed object may arrive before the object has had a chance to opened a listen channel and is ready to receive <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> events unless you provide for a communication handshake between the rezzer and the new object.
+    <ul>
+      <li>Objects that have opened a listen channel before being rezzed (for example in <a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a>) will be able to receive messages as soon as object_rez is triggered.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Rez with handshake communication</p>
+  <p>The rezzer script will create a new object ("rezzee") and wait for a message from it before sending inventory items to the new object. Once all inventory items have been sent, the rezzer will send a message to the new object, letting it know the process is finished.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+-- The rezzer and rezzee must use the same communication channel.
+local COM_CHANNEL = -17974594
+local REZZEE_NAME = "Rezzee"
+
+-- These are expected messages between rezzer and rezzee.
+local CMD_REZZEE_READY = "REZZEE_READY"
+local CMD_REZZER_DONE = "REZZER_DONE"
+
+local rezzee_key = NULL_KEY
+local default, rez_new_object = {}, {}
+
+function default.touch_start(events)
+    local num_detected = #events
+    -- A separate state is used to disable touch-events and remove listens.
+    -- This prevents multiple objects from being rezzed until the previous one
+    -- has finished receiving everything it needs.
+    state(rez_new_object)
+end
+
+function rez_new_object.state_entry()
+    -- Listen for messages on the shared channel, from objects with the correct name.
+    ll.Listen(COM_CHANNEL, REZZEE_NAME, "", "")
+
+    -- Rez the object with the shared channel as the rez-parameter.
+    local position = ll.GetPos() + vector(0, 0, 1)
+    ll.RezObject(REZZEE_NAME, position, ZERO_VECTOR, ZERO_ROTATION, COM_CHANNEL)
+end
+
+function rez_new_object.object_rez(id)
+    -- The object has rezzed in-world. It may not have called llListen yet,
+    -- so we'll save its UUID and wait for a message from it.
+    rezzee_key = id
+end
+
+function rez_new_object.listen(channel, name, id, message)
+    -- Check that the 'ready' message was sent by the object we rezzed last.
+    if message == CMD_REZZEE_READY and id == rezzee_key then
+        -- Send inventory to the new object.
+        local i = ll.GetInventoryNumber(INVENTORY_NOTECARD)
+        while (function() local tmp = i i -= 1 return tmp end)() ~= 0 do
+            local name = ll.GetInventoryName(INVENTORY_NOTECARD, i)
+            ll.GiveInventory(id, name)
+        end
+
+        -- Let the new object know it's ready, and return to original state.
+        ll.RegionSayTo(id, COM_CHANNEL, CMD_REZZER_DONE)
+        state(default)
+    end
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// The rezzer and rezzee must use the same communication channel.
+integer COM_CHANNEL = -17974594;
+string REZZEE_NAME = "Rezzee";
+
+// These are expected messages between rezzer and rezzee.
+string CMD_REZZEE_READY = "REZZEE_READY";
+string CMD_REZZER_DONE = "REZZER_DONE";
+
+key rezzee_key;
+
+default
+{
+	touch_start(integer num_detected)
+	{
+		// A separate state is used to disable touch-events and remove listens.
+		// This prevents multiple objects from being rezzed until the previous one
+		// has finished receiving everything it needs.
+		state rez_new_object;
+	}
+}
+
+state rez_new_object
+{
+	state_entry()
+	{
+		// Listen for messages on the shared channel, from objects with the correct name.
+		llListen(COM_CHANNEL, REZZEE_NAME, "", "");
+
+		// Rez the object with the shared channel as the rez-parameter.
+		vector position = llGetPos() + <0, 0, 1>;
+		llRezObject(REZZEE_NAME, position, ZERO_VECTOR, ZERO_ROTATION, COM_CHANNEL);
+	}
+
+	object_rez(key id)
+	{
+		// The object has rezzed in-world. It may not have called llListen yet,
+		// so we'll save its UUID and wait for a message from it.
+		rezzee_key = id;
+	}
+
+	listen(integer channel, string name, key id, string message)
+	{
+		// Check that the 'ready' message was sent by the object we rezzed last.
+		if (message == CMD_REZZEE_READY && id == rezzee_key)
+		{
+			// Send inventory to the new object.
+			integer i = llGetInventoryNumber(INVENTORY_NOTECARD);
+			while (i--)
+			{
+				string name = llGetInventoryName(INVENTORY_NOTECARD, i);
+				llGiveInventory(id, name);
+			}
+
+			// Let the new object know it's ready, and return to original state.
+			llRegionSayTo(id, COM_CHANNEL, CMD_REZZER_DONE);
+			state default;
+		}
+	}
+}`} lang="lsl" /></div>
+  <p>The script in the new object ("rezzee") will let the rezzer know when it's prepared to receive communications.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local _currentState = {}
+local function state(newState)
+    if newState ~= _currentState then
+        if _currentState and _currentState.state_exit then
+            _currentState.state_exit()
+        end
+        for _, eventName in LLEvents:eventNames() do
+            for _, handler in LLEvents:listeners(eventName) do
+                LLEvents:off(eventName, handler)
+            end
+        end
+        for eventName, handler in newState do
+            if eventName ~= "state_entry" and eventName ~= "state_exit" then
+                LLEvents:on(eventName, handler)
+            end
+        end
+        _currentState = newState
+        if _currentState.state_entry then
+            _currentState.state_entry()
+        end
+    end
+end
+
+-- These are expected messages between rezzer and rezzee.
+local CMD_REZZEE_READY = "REZZEE_READY"
+local CMD_REZZER_DONE = "REZZER_DONE"
+
+-- These will be determined after this object is created by another object.
+local com_channel = 0
+local rezzer_key = NULL_KEY
+local default, wait_for_configuration = {}, {}
+
+function default.on_rez(start_param)
+    -- A separate state is used to prevent other functionality from happening
+    -- while this object waits for its rezzer to finish sending everything it needs.
+    com_channel = start_param
+    state(wait_for_configuration)
+end
+
+function wait_for_configuration.state_entry()
+    -- Get the key of the object which rezzed this object.
+    local details = ll.GetObjectDetails(ll.GetKey(), {OBJECT_REZZER_KEY})
+    rezzer_key = ll.List2Key(details, 0)
+
+    -- Listen for messages on the shared channel, from only the rezzer.
+    ll.Listen(com_channel, "", rezzer_key, "")
+
+    -- Prepare to receive inventory, then tell the rezzer we're ready.
+    ll.AllowInventoryDrop(true)
+    ll.RegionSayTo(rezzer_key, com_channel, CMD_REZZEE_READY)
+end
+
+function wait_for_configuration.listen(channel, name, id, message)
+    -- Check that the 'done' message was sent by the rezzer.
+    if message == CMD_REZZER_DONE and id == rezzer_key then
+        -- Return to the original state to continue normal functionality.
+        state(default)
+    end
+end
+
+function wait_for_configuration.state_exit()
+    -- Turn off inventory drop. Changing state will also remove listens.
+    ll.AllowInventoryDrop(false)
+end
+
+state(default)
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// These are expected messages between rezzer and rezzee.
+string CMD_REZZEE_READY = "REZZEE_READY";
+string CMD_REZZER_DONE = "REZZER_DONE";
+
+// These will be determined after this object is created by another object.
+integer com_channel;
+key rezzer_key;
+
+default
+{
+	on_rez(integer start_param)
+	{
+		// A separate state is used to prevent other functionality from happening
+		// while this object waits for its rezzer to finish sending everything it needs.
+		com_channel = start_param;
+		state wait_for_configuration;
+	}
+}
+
+state wait_for_configuration
+{
+	state_entry()
+	{
+		// Get the key of the object which rezzed this object.
+		list details = llGetObjectDetails(llGetKey(), [OBJECT_REZZER_KEY]);
+		rezzer_key = llList2Key(details, 0);
+
+		// Listen for messages on the shared channel, from only the rezzer.
+		llListen(com_channel, "", rezzer_key, "");
+
+		// Prepare to receive inventory, then tell the rezzer we're ready.
+		llAllowInventoryDrop(TRUE);
+		llRegionSayTo(rezzer_key, com_channel, CMD_REZZEE_READY);
+	}
+
+	listen( integer channel, string name, key id, string message )
+	{
+		// Check that the 'done' message was sent by the rezzer.
+		if (message == CMD_REZZER_DONE && id == rezzer_key)
+		{
+			// Return to the original state to continue normal functionality.
+			state default;
+		}
+	}
+
+	state_exit()
+	{
+		// Turn off inventory drop. Changing state will also remove listens.
+		llAllowInventoryDrop(FALSE);
+	}
+}`} lang="lsl" /></div>
+  <p>Rez and communicate without handshake</p>
+  <p>If the new object has already opened a listen channel before being rezzed, a handshake is not necessary because the object_rez event will not trigger until the object is fully initialized.</p>
+  <p>This is how a script in the new object can pre-open a listen channel:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- The rezzer and rezzee must use the same communication channel.
+local COM_CHANNEL = -17974594
+
+-- This event is triggered when the script starts
+-- and doesn't trigger again when this object is rezzed,
+-- which means the listener will be open as soon as a new copy is rezzed.
+local function main()
+    ll.Listen(COM_CHANNEL, "", "", "")
+end
+
+function LLEvents.listen(channel, name, id, message)
+    -- Get the key of the object which rezzed this object.
+    local details = ll.GetObjectDetails(ll.GetKey(), {OBJECT_REZZER_KEY})
+    local rezzer_key = ll.List2Key(details, 0)
+
+    if id == rezzer_key then
+        -- The message could be anything useful, such as
+        -- position data, sound/texture/avatar UUID, etc.
+        ll.OwnerSay("I heard: " .. message)
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// The rezzer and rezzee must use the same communication channel.
+integer COM_CHANNEL = -17974594;
+
+default
+{
+    // This event is triggered when the script starts
+    // and doesn't trigger again when this object is rezzed,
+    // which means the listener will be open as soon as a new copy is rezzed.
+    state_entry()
+    {
+        llListen(COM_CHANNEL, "", "", "");
+    }
+
+    listen(integer channel, string name, key id, string message)
+    {
+        // Get the key of the object which rezzed this object.
+        list details = llGetObjectDetails(llGetKey(), [OBJECT_REZZER_KEY]);
+        key rezzer_key = llList2Key(details, 0);
+
+        if (id == rezzer_key)
+        {
+            // The message could be anything useful, such as
+            // position data, sound/texture/avatar UUID, etc.
+            llOwnerSay("I heard: " + message);
+        }
+    }
+}`} lang="lsl" /></div>
+  <p>And this is how it would simplify the rezzer script:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- The rezzer and rezzee must use the same communication channel.
+local COM_CHANNEL = -17974594
+local REZZEE_NAME = "Rezzee"
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    -- Rez the object. The shared channel isn't included
+    -- because the new object is already listening to it.
+    local position = ll.GetPos() + vector(0, 0, 1)
+    ll.RezObject(REZZEE_NAME, position, ZERO_VECTOR, ZERO_ROTATION, 0)
+end
+
+function LLEvents.object_rez(id)
+    -- The object has rezzed in-world.
+    -- We can message it directly because we know it's listening.
+    ll.RegionSayTo(id, COM_CHANNEL, "Are you there?")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// The rezzer and rezzee must use the same communication channel.
+integer COM_CHANNEL = -17974594;
+string REZZEE_NAME = "Rezzee";
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        // Rez the object. The shared channel isn't included
+        // because the new object is already listening to it.
+        vector position = llGetPos() + <0, 0, 1>;
+        llRezObject(REZZEE_NAME, position, ZERO_VECTOR, ZERO_ROTATION, 0);
+    }
+
+    object_rez(key id)
+    {
+        // The object has rezzed in-world.
+        // We can message it directly because we know it's listening.
+        llRegionSayTo(id, COM_CHANNEL, "Are you there?");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/On_rez" target="_blank">on_rez</a></td>
+        <td>–</td>
+        <td>Triggered when the object the script is in is rezzed</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezObject" target="_blank">llRezObject</a></td>
+        <td>–</td>
+        <td>Used to rez an object at the center of mass</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a></td>
+        <td>–</td>
+        <td>Used to rez an object at the root</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Issues
+All Issues ~ <a href="https://secondlife.canny.io/?search=event+AND+object_rez" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/SVC-2926" target="_blank">SVC-2926</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/SVC-2926" target="_blank">A</a></td>
+        <td></td>
+        <td>object_rez() erroneously triggers on full parcel</td>
+      </tr>
+      <tr>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#IssueTypes)</td>
+        <td>[](https://jira.secondlife.com/secure/ShowConstantsHelp.jspa?decorator=popup#StatusTypes)</td>
+        <td><a href="http://jira.secondlife.com/browse/SVC-3421" target="_blank">SVC-3421</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Template:Issues/SVC-3421" target="_blank">A</a></td>
+        <td></td>
+        <td>Possible Mono bug with object_rez</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void object_rez( key id );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      

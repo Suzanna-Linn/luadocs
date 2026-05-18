@@ -1,0 +1,161 @@
+
+---
+import DocsLayout from '/src/layouts/DocsLayout.astro';
+import DocsCode from '/src/components/DocsCode.astro';
+---
+
+<DocsLayout title="Lua & LSL Docs">
+<div class="dashboard summary-function">
+  <div class="dashboard-header">
+    <span class="lua-section"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Sleep(Time: number)`} lang="slua" /></span>
+    <span class="lsl-section"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSleep(float Time);`} lang="lsl" /></span>
+  </div>
+
+  <div class="dashboard-body">
+    <div class="dash-col">
+      <p>  <p>Puts the script to sleep for <b>sec</b> seconds. The script will not do anything during this time.</p>
+  <p>The script will sleep at least until the next server-frame, which happen every (1/45 = ~0.02222) seconds under normal conditions.</p>
+  <p>If <b>sec</b> is zero or less, the script will not sleep at all.</p>
+</p>
+      <table class="param-table" id="parameters">
+        <tr>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
+          <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
+          <td>Time / sec</td>
+          <td>seconds to sleep</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Categories</div>
+      <ul class="meta-list">
+        <li>script</li>
+        <li>time</li>
+      </ul>
+    </div>
+
+    <div class="dash-col">
+      <div class="dash-section-title">Tech Specs</div>
+      <div class="tech-item"><span class="tech-label">LSO ID</span><span class="tech-val">108</span></div>
+
+      <div class="label-stack">
+      </div>
+    </div>
+  </div>
+</div>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.Say(0, "I going to take a nap for 5 seconds.")
+    ll.Sleep(5.0)
+    ll.Say(0, "I feel so refreshed!")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSay(0, "I going to take a nap for 5 seconds.");
+        llSleep(5.0);
+        llSay(0, "I feel so refreshed!");
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function main()
+    ll.OwnerSay("Time between sleeps:")
+
+    local loops = 10
+    local last_time = 0.0
+
+    ll.ResetTime()
+    ll.Sleep(0.02)
+
+    while (function() loops -= 1 return loops end)() ~= 0 do
+        local time = ll.GetTime()
+        ll.OwnerSay(tostring(time - last_time))
+        last_time = time
+        ll.Sleep(0.0)  -- Try a value above zero
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llOwnerSay("Time between sleeps:");
+
+        integer loops = 10;
+        float last_time = 0.0;
+
+        llResetTime();
+        llSleep(0.02);
+
+        while (--loops)
+        {
+            float time = llGetTime();
+            llOwnerSay((string)(time - last_time));
+            last_time = time;
+            llSleep(0.0); // Try a value above zero
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetTimerEvent" target="_blank">llSetTimerEvent</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSleep( float sec );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Clouds drift, streams flow on.</p>
+<p>Yet in here, time holds its breath.</p>
+<p>The mind disconnects.</p></td>
+      </tr>
+    </tbody>
+  </table>
+
+</DocsLayout>
+      
