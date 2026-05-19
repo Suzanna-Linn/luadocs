@@ -13,19 +13,19 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Returns the rotation to rotate Vector1 to Vector2.
-Returns the rotation needed to rotate Vector1 to Vector2.</p>
+      <p>  <p>Returns a rotation that is the shortest rotation between the <i>direction</i> <b>start</b> and the <i>direction</i> <b>end</b></p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
-          <td>Vector1</td>
+          <td>Vector1 / start</td>
           <td></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
-          <td>Vector2</td>
+          <td>Vector2 / end</td>
           <td></td>
         </tr>
       </table>
@@ -52,6 +52,236 @@ Returns the rotation needed to rotate Vector1 to Vector2.</p>
     </div>
   </div>
 </div>
+  <h2>Specification</h2>
+  <p><b>start</b> and <b>end</b> are <i>directions</i> and are relative to the origin &lt;0.0, 0.0, 0.0&gt;. If you have coordinates relative to a different origin, subtract that origin from the input vectors.</p>
+  <p><b>Note that the input vectors are </b><i>directions</i><b>, NOT position coordinates.</b></p>
+  <p>Feeding position coordinates will <b>not</b> work, or at minimum be very inaccurate and / or inconsistent.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>`start * llRotBetween(start, end) == end` is only true if <b>start</b> and <b>end</b> have the same magnitude and neither have a magnitude of zero (see <a href="#Useful_Snippets" target="_blank">#Useful Snippets</a> for a workaround).
+    <ul>
+      <li>This of course is ignoring floating point precision errors.</li>
+    </ul>
+  
+    </li>
+    <li>The above is true because of vector magnitudes and not a shortcoming of this function. The <b>rotation</b> returned is <b>correct</b> regardless of magnitudes</li>
+    <li>Rotations are from -PI to +PI around each axis.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Drop the below script into a prim. This script will cause the object to orient it&#39;s positive X axis towards it&#39;s owner&#39;s avatar when touched.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local lTemp = ll.GetObjectDetails(ll.GetOwner(), {OBJECT_POS})  --Get the owner's position (region coordinates)
+    local start = ll.Rot2Fwd(ZERO_ROTATION)  --Object's X axis is forward. (Can be substituted with llRot2Left (Y axis) or llRot2Up (Z axis). Negative values (-llRot2Fwd) can be used to spin the prim 180 degrees)
+    --start = llRot2Fwd( llAxisAngle2Rot(<0,0,1>,45*DEG_TO_RAD) ); //Uncommenting this line will cause the prim to point one of it's corners towards the avatar, instead of the forward face.
+    local end_t = ll.VecNorm(ll.List2Vector(lTemp, 0) - ll.GetPos())  --Convert the owner's position into a normalized direction vector (relative to the prim).
+    ll.SetLinkPrimitiveParamsFast(LINK_THIS, {PRIM_ROTATION, ll.RotBetween(start, end_t)})  --Set the prim's rotation accordingly.
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number)
+    {
+        list lTemp = llGetObjectDetails(llGetOwner(),[OBJECT_POS]); //Get the owner's position (region coordinates)
+        vector start = llRot2Fwd(ZERO_ROTATION); //Object's X axis is forward. (Can be substituted with llRot2Left (Y axis) or llRot2Up (Z axis). Negative values (-llRot2Fwd) can be used to spin the prim 180 degrees)
+        //start = llRot2Fwd( llAxisAngle2Rot(<0,0,1>,45*DEG_TO_RAD) ); //Uncommenting this line will cause the prim to point one of it's corners towards the avatar, instead of the forward face.
+        vector end = llVecNorm(llList2Vector(lTemp,0) - llGetPos()); //Convert the owner's position into a normalized direction vector (relative to the prim).
+        llSetLinkPrimitiveParamsFast(LINK_THIS,[PRIM_ROTATION,llRotBetween(start,end)]); //Set the prim's rotation accordingly.
+    }
+    //llRot2Fwd(ZERO_ROTATION) is equivalent to <1,0,0> , llRot2Left would be <0,1,0> and llRot2Up would be <0,0,1>. Negative values ( -llRot2Fwd(ZERO_ROTATION) ) would be <-1,0,0>, -llRot2Left would be <0,-1,0> and -llRot2Up would be <0,0,-1>
+    //Note that a value other than ZERO_ROTATION may cause unexpected results. Unless you know the exact offset you need for your object, then leave this as-is.
+} //Jenna Huntsman`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RotBetween(vector(1.0, 0.0, 0.0), vector(0.0, -1.0, 0.0))
+-- will return <0.00000, 0.00000, -0.70711, 0.70711> (which represents -90 degrees on the z axis)
+
+ll.RotBetween(vector(0.0, 0.0, 0.0), vector(0.0, -1.0, 0.0))
+-- will return <0.00000, 0.00000, 0.00000, 1.00000> (which represents a zero angle on all axis)
+-- because <0.0, 0.0, 0.0> does not convey a direction.`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRotBetween(<1.0, 0.0, 0.0>, <0.0, -1.0, 0.0>)
+// will return <0.00000, 0.00000, -0.70711, 0.70711> (which represents -90 degrees on the z axis)
+
+llRotBetween(<0.0, 0.0, 0.0>, <0.0, -1.0, 0.0>)
+// will return <0.00000, 0.00000, 0.00000, 1.00000> (which represents a zero angle on all axis)
+// because <0.0, 0.0, 0.0> does not convey a direction.`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <p>This function adjusts the magnitude of the quaternion so `start * llRotBetween(start, end) == end` is true as long as neither have a magnitude really close to zero. They do not have to have the same magnitude. (If either is too close to zero than this will return an unadjusted quaternion). While this is mathematically correct, it won&#39;t help with floating point rounding errors, so it&#39;s more accurate to say `start * return ≈ end`.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function RotBetween(start, end_t)  --adjusts quaternion magnitude so (start * return == end) 
+    --Authors note: I have never had a use for this but it's good to know how to do it if I did.
+    local rot = ll.RotBetween(start, end_t)
+    local d = vector.dot(start, start)
+    if d ~= 0 then  --is 'start' zero?
+        if ((function() d = ll.Pow(vector.dot(end_t, end_t) / d, 0.25) return d end)()) ~= 0 then  --is 'end' zero?
+            return rotation(rot.x * d, rot.y * d, rot.z * d, rot.s * d)
+        end
+    end
+    return rot
+end  --Strife Onizuka
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation RotBetween(vector start, vector end) //adjusts quaternion magnitude so (start * return == end) 
+{//Authors note: I have never had a use for this but it's good to know how to do it if I did.
+    rotation rot = llRotBetween(start, end);
+    float d = start * start;
+    if(d)//is 'start' zero?
+        if((d = llPow(end * end / d, 0.25)))//is 'end' zero?
+            return <rot.x * d, rot.y * d, rot.z * d, rot.s * d>;
+    return rot;
+}//Strife Onizuka`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Vectors that are near opposite each other in direction may lead to erroneous results.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- First Vector is due north second vector is ALMOST due south.
+local lRotation = ll.RotBetween(vector(0., 1., 0.), vector(-0.001, -.1, 0.))
+ll.Say(0, lRotation)
+-- Provides a result of <1.00000, 0.00000, 0.00000, 0.00000>.`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// First Vector is due north second vector is ALMOST due south.
+rotation lRotation = llRotBetween( <0., 1., 0.>, <-0.001, -.1, 0.> );
+llSay(0, lRotation );
+// Provides a result of <1.00000, 0.00000, 0.00000, 0.00000>.`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlAngleBetween" target="_blank">llAngleBetween</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Fwd" target="_blank">llRot2Fwd</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Left" target="_blank">llRot2Left</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Up" target="_blank">llRot2Up</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlVecNorm" target="_blank">llVecNorm</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Replacement</h3>
+  <p>Due to the annoying quirks of this function <a href="https://wiki.secondlife.com/w/index.php?title=User:Moon_Metty&amp;action=edit&amp;redlink=1" target="_blank">Moon Metty</a> wrote a drop in replacement. - <a href="https://jira.secondlife.com/browse/SCR-309" target="_blank">SCR-309</a>.
+The maximum error is reported to be 2.7e-7 @ 2.2 radians.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function RotBetween(a, b)
+    local aabb = ll.Sqrt((vector.dot(a, a)) * (vector.dot(b, b)))  -- product of the lengths of the arguments
+    if aabb ~= 0 then
+        local ab = (vector.dot(a, b)) / aabb  -- normalized dotproduct of the arguments (cosine)
+        local c = vector((a.y * b.z - a.z * b.y) / aabb, (a.z * b.x - a.x * b.z) / aabb, (a.x * b.y - a.y * b.x) / aabb)  -- normalized crossproduct of the arguments
+        local cc = vector.dot(c, c)  -- squared length of the normalized crossproduct (sine)
+        if cc ~= 0 then  -- test if the arguments are not (anti)parallel
+            local s = 0
+            if ab > -0.707107 then
+                s = 1 + ab  -- use the cosine to adjust the s-element
+            else
+                s = cc / (1 + ll.Sqrt(1 - cc))  -- use the sine to adjust the s-element
+            end
+            local m = ll.Sqrt(cc + s * s)  -- the magnitude of the quaternion
+            return rotation(c.x / m, c.y / m, c.z / m, s / m)  -- return the normalized quaternion
+        end
+        if ab > 0 then
+            return ZERO_ROTATION  -- the arguments are parallel, or anti-parallel if not true:
+        end
+        local m = ll.Sqrt(a.x * a.x + a.y * a.y)  -- the length of one argument projected on the XY-plane
+        if m ~= 0 then
+            return rotation(a.y / m, -a.x / m, 0, 0)  -- return a rotation with the axis in the XY-plane
+        end
+        return rotation(1, 0, 0, 0)  -- the arguments are parallel to the Z-axis, rotate around the X-axis
+    end
+    return ZERO_ROTATION  -- the arguments are too small, return zero rotation
+end  --Written by Moon Metty, optimized by Strife Onizuka
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`rotation RotBetween(vector a, vector b)
+{
+    float aabb = llSqrt((a * a) * (b * b)); // product of the lengths of the arguments
+    if (aabb)
+    {
+        float ab = (a * b) / aabb; // normalized dotproduct of the arguments (cosine)
+        vector c = <(a.y * b.z - a.z * b.y) / aabb,
+                    (a.z * b.x - a.x * b.z) / aabb,
+                    (a.x * b.y - a.y * b.x) / aabb >; // normalized crossproduct of the arguments
+        float cc = c * c; // squared length of the normalized crossproduct (sine)
+        if (cc) // test if the arguments are not (anti)parallel
+        {
+            float s;
+            if (ab > -0.707107)
+                s = 1 + ab; // use the cosine to adjust the s-element
+            else 
+                s = cc / (1 + llSqrt(1 - cc)); // use the sine to adjust the s-element
+            float m = llSqrt(cc + s * s); // the magnitude of the quaternion
+            return <c.x / m, c.y / m, c.z / m, s / m>; // return the normalized quaternion
+        }
+        if (ab > 0) 
+            return ZERO_ROTATION; // the arguments are parallel, or anti-parallel if not true:
+        float m = llSqrt(a.x * a.x + a.y * a.y); // the length of one argument projected on the XY-plane
+        if (m) 
+            return <a.y / m, -a.x / m, 0, 0>; // return a rotation with the axis in the XY-plane
+        return <1, 0, 0, 0>; // the arguments are parallel to the Z-axis, rotate around the X-axis
+    }
+    return ZERO_ROTATION; // the arguments are too small, return zero rotation
+}//Written by Moon Metty, optimized by Strife Onizuka
+ 
+// This version keeps the axis in the XY-plane, in case of anti-parallel vectors (unlike the current LL implementation). -- Moon Metty`} lang="lsl" /></div>
+  <h3>Bad Reference Implementation</h3>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Loosely based on SL source code, like SL's version, it's not very accurate. You want to use the above version.
+rotation llRotBetween(vector start, vector end) {
+    vector v1 = llVecNorm(start);
+    vector v2 = llVecNorm(end);
+    float dot = v1 * v2;
+    vector axis = v1 % v2;
+    if (dot < -0.9999999) {
+        // 180 degrees or there abouts
+        vector ortho_axis = llVecNorm(<1.f, 0.f, 0.f> - (v1 * (v1.x / (v1 * v1))));
+        if (ortho_axis)
+            return < ortho_axis.x, ortho_axis.y, ortho_axis.z, 0.f>;
+        return <0.0, 0.0, 1.0, 0.0>;
+    }
+    else if(dot > 0.9999999) {
+        //parallel
+        return ZERO_ROTATION;
+    }
+    dot = dot + 1.0;
+    float m = llPow((axis * axis) + (dot * dot), -0.5);
+    return <axis.x * m, axis.y * m, axis.z * m, dot * m>;
+}`} lang="lsl" /></div>
+  <h3>llRotBetween alternatives</h3>
+  <p><a href="https://wiki.secondlife.com/wiki/User:Dora_Gustafson/llRotBetween_alternatives#llRotBetween.2C_some_alternatives_and_considerations" target="_blank">Alternatives and considerations</a></p>
+  <p>Source</p>
+  <p><a href="https://github.com/secondlife/viewer/blob/master/indra/llmath/llquaternion.cpp#L425" target="_blank">viewer - indra/llmath/llquaternion.cpp </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function rotation llRotBetween( vector start, vector end );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

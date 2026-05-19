@@ -14,12 +14,13 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  Use 'utf8.len' or '#' or 'string.len' instead.</span></p>
-      <p>Returns an integer that is the number of characters in Text (not counting the null).</p>
+      <p>  <p>Returns an integer that is the number of characters in <b>str</b>.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
-          <td>Text</td>
+          <td>Text / str</td>
           <td></td>
         </tr>
       </table>
@@ -44,6 +45,81 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The index of the last character is not equal to the string length.
+    <ul>
+      <li>Character indexes start at zero (the index of the first character is zero).</li>
+    </ul>
+  
+    </li>
+    <li>llStringLength returns the number of characters - not bytes - in the string.
+    <ul>
+      <li>Some functions that accept strings are limited to bytes, not characters.</li>
+      <li>LSL-2 uses UTF-8 strings and Mono uses UTF-16; both support multibyte characters.</li>
+      <li>To get the number of bytes in a string instead, use the example snippet on <a href="https://wiki.secondlife.com/wiki/LlStringToBase64" target="_blank">llStringToBase64</a> (there is no native LSL function to do this).</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- assumptions: 
+--    object name: LSLWiki
+--    script name: _lslwiki
+
+local function main()
+    local HowLongAmI = "123"
+    local strlen = ll.StringLength(HowLongAmI)
+    ll.OwnerSay("'" .. HowLongAmI .. "' has " .. tostring(strlen) .. " characters.")
+-- The owner of object LSLWiki will hear 
+-- LSLWiki: '123' has 3 characters.
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// assumptions: 
+//    object name: LSLWiki
+//    script name: _lslwiki
+
+default
+{
+    state_entry()
+    {
+        string HowLongAmI = "123";
+        integer strlen = llStringLength(HowLongAmI);
+        llOwnerSay( "'" + HowLongAmI + "' has " +(string) strlen + " characters.");
+        // The owner of object LSLWiki will hear 
+        // LSLWiki: '123' has 3 characters.
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetListLength" target="_blank">llGetListLength</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llStringLength( string str );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

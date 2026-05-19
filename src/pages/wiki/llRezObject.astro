@@ -13,37 +13,38 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Instantiate owners InventoryItem at Position with Velocity, Rotation and with start StartParameter.<br>Creates object's inventory item at Position with Velocity and Rotation supplied. The StartParameter value will be available to the newly created object in the on_rez event or through the llGetStartParameter function.<br>The Velocity parameter is ignored if the rezzed object is not physical.</p>
+      <p>  <p>Instantiate <b>inventory</b> object at <b>pos</b> with velocity <b>vel</b> and rotation <b>rot</b> with start parameter <b>param</b></p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
-          <td>InventoryItem</td>
-          <td></td>
+          <td>InventoryItem / inventory</td>
+          <td>an object in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
-          <td>Position</td>
-          <td></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
-          <td>Velocity</td>
-          <td></td>
+          <td>Velocity / vel</td>
+          <td>velocity (max <a href="https://wiki.secondlife.com/wiki/LlVecMag" target="_blank">magnitude</a> is approximately 200m/s)</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
-          <td>Rotation</td>
-          <td></td>
+          <td>Rotation / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+          <td>rotation</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>StartParameter</td>
-          <td></td>
+          <td>StartParameter / param</td>
+          <td><a href="https://wiki.secondlife.com/wiki/On_rez" target="_blank">on_rez</a> event parameter and value returned by <a href="https://wiki.secondlife.com/wiki/LlGetStartParameter" target="_blank">llGetStartParameter</a> in the rezzed object (or by each of the items in a coalesced object).</td>
         </tr>
       </table>
     </div>
@@ -67,6 +68,186 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <p>The root of <b>inventory</b> is not at <b>pos</b> but the <a href="https://wiki.secondlife.com/wiki/LlGetGeometricCenter" target="_blank">center</a> of <b>inventory</b> is.</p>
+  <p>To have the root prim at <b>pos</b> use <a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a> instead.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.1 seconds.</li>
+    <li>If <b>inventory</b> is missing from the prim&#39;s inventory or it is not an object then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>Silently fails to rez <b>inventory</b> (to have it&#39;s geometric center at <b>pos</b>) if <b>pos</b> is too far from the geometric center of the object trying to rez <b>inventory</b>.
+    <ul>
+      <li>If your script is mysteriously failing to rez things, make sure you haven&#39;t (say) written &quot;`&lt;0.0,0.0,1.0&gt;`&quot; for the <b>pos</b> parameter rather than (say) `[llGetPos](https://wiki.secondlife.com/wiki/LlGetPos)() + &lt;0.0,0.0,1.0&gt;`&quot;.</li>
+    </ul>
+  
+    </li>
+    <li>When scripting attachments meant to rez objects, remember that when used in the root of an (<a href="https://wiki.secondlife.com/wiki/Attach" target="_blank">attached</a>) <a href="https://wiki.secondlife.com/wiki/Attachment" target="_blank">attachment</a> `[llGetPos](https://wiki.secondlife.com/wiki/LlGetPos)` doesn&#39;t return the position of the attachment but instead returns the position of the avatar&#39;s bounding box geometric center. Read <a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">llGetPos</a> and <a href="https://wiki.secondlife.com/wiki/LlParticleSystem#Caveats" target="_blank"> llParticleSystem Caveats</a> for more information.</li>
+    <li>If the object is unattached and the owner of the object does not have copy permission on <b>inventory</b>, the object will no longer be present in inventory after it is rezzed (so another attempt to rez (the same object) will fail); if the owner does have copy permission, then a copy is rezzed, and the original <b>inventory</b> remains in inventory.</li>
+    <li>If the object is attached and the owner of the object does not have copy permission on <b>inventory</b>, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>: &quot;Cannot rez no copy objects from an attached object.&quot;</li>
+    <li>Silently fails if you don&#39;t have offline building rights on the land. To have the right, your objects needs to <i>either</i>:
+    <ul>
+      <li>Be on land you own yourself.</li>
+      <li>Be on land where anyone is allowed to build, e.g. a sandbox.</li>
+      <li>Be deeded to the group that owns the land.</li>
+      <li>Be set to the same group that owns the land and the land have the parcel flag &#39;allow group to build&#39; set.</li>
+      <li>The group role &quot;Always allow &#39;Create Objects&#39;&quot; will only work to override this when you are online, in the region, or have a child agent in the region. See <a href="#SVC-3145" target="_blank">SVC-3145</a> in the Issues subsection of Deep Notes for more information.</li>
+    </ul>
+  
+    </li>
+    <li>See <a href="https://wiki.secondlife.com/wiki/Object_rez" target="_blank">object_rez</a> for examples on how to establish communications between the rezzing object and the new prim.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local param = #events
+    ll.RezObject("Object", ll.GetPos() + vector(0.0, 0.0, 1.0), vector(0.0, 0.0, 0.0), rotation(0.0, 0.0, 0.0, 1.0), 0)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+     touch_start(integer param)
+     {
+          llRezObject("Object", llGetPos() + <0.0,0.0,1.0>, <0.0,0.0,0.0>, <0.0,0.0,0.0,1.0>, 0);
+     }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- Rez an object on touch, with relative position, rotation, and velocity all described in the rezzing prim's coordinate system.
+local object = "Object"  -- Name of object in inventory
+local relativePosOffset = vector(2.0, 0.0, 1.0)  -- "Forward" and a little "above" this prim
+local relativeVel = vector(1.0, 0.0, 0.0)  -- Traveling in this prim's "forward" direction at 1m/s
+local relativeRot = rotation(0.707107, 0.0, 0.0, 0.707107)  -- Rotated 90 degrees on the x-axis compared to this prim
+local startParam = 10
+
+function LLEvents.touch_start(events)
+    local a = #events
+    local myPos = ll.GetPos()
+    local myRot = ll.GetRot()
+
+    local rezPos = myPos + relativePosOffset * myRot
+    local rezVel = relativeVel * myRot
+    local rezRot = relativeRot * myRot
+
+    ll.RezObject(object, rezPos, rezVel, rezRot, startParam)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Rez an object on touch, with relative position, rotation, and velocity all described in the rezzing prim's coordinate system.
+string object = "Object"; // Name of object in inventory
+vector relativePosOffset = <2.0, 0.0, 1.0>; // "Forward" and a little "above" this prim
+vector relativeVel = <1.0, 0.0, 0.0>; // Traveling in this prim's "forward" direction at 1m/s
+rotation relativeRot = <0.707107, 0.0, 0.0, 0.707107>; // Rotated 90 degrees on the x-axis compared to this prim
+integer startParam = 10;
+
+default
+{
+    touch_start(integer a)
+    {
+        vector myPos = llGetPos();
+        rotation myRot = llGetRot();
+
+        vector rezPos = myPos+relativePosOffset*myRot;
+        vector rezVel = relativeVel*myRot;
+        rotation rezRot = relativeRot*myRot;
+
+        llRezObject(object, rezPos, rezVel, rezRot, startParam);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p><b>Maximum rez distance</b></p>
+  <ul>
+    <li>The <b>distance</b> scales with the size of the object the script is in.
+    <ul>
+      <li>The formula is `10 + llVecMag(llGetScale()) * 0.5`</li>
+    </ul>
+  
+    </li>
+    <li>The <b>distance</b> measured is between the <a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">center</a> of the rezzing <b>prim</b> and the <a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">center</a> of the <b>prim</b> that is rezzed.
+    <ul>
+      <li>The tests did not include rezzing from or the rezzing of link_set objects.</li>
+      <li>A `0.01` meter cube could rez just beyond `10.0` meters away.</li>
+      <li>A `10.0` meter cube could rez just beyond `18.66` meters away.</li>
+      <li>A `32.0` meter cube could rez just beyond `37.71` meters away.</li>
+      <li>A `64.0` meter cube could rez just beyond `65.42` meters away.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/PRIM_TEMP_ON_REZ" target="_blank">PRIM_TEMP_ON_REZ</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Object_rez" target="_blank">object_rez</a></td>
+        <td>–</td>
+        <td>triggered when this object rezzes an object from inventory</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezObjectWithParams" target="_blank">llRezObjectWithParams</a></td>
+        <td>–</td>
+        <td>Modern alternative with more parameters.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRezAtRoot" target="_blank">llRezAtRoot</a></td>
+        <td>–</td>
+        <td>Rezzes the object at the requested position</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetStartParameter" target="_blank">llGetStartParameter</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGodLikeRezObject" target="_blank">llGodLikeRezObject</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelFlags#Examples" target="_blank">LlGetParcelFlags#Examples</a></td>
+        <td>–</td>
+        <td>Test if the parcel allows this script to rez</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRezObject( string inventory, vector pos, vector vel, rotation rot, integer param );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

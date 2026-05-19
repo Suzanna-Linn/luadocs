@@ -13,31 +13,33 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Creates a listen callback for Text on Channel from SpeakersName and SpeakersID (SpeakersName, SpeakersID, and/or Text can be empty) and returns an identifier that can be used to deactivate or remove the listen.<br>Non-empty values for SpeakersName, SpeakersID, and Text will filter the results accordingly, while empty strings and NULL_KEY will not filter the results, for string and key parameters respectively.<br>PUBLIC_CHANNEL is the public chat channel that all avatars see as chat text. DEBUG_CHANNEL is the script debug channel, and is also visible to nearby avatars. All other channels are are not sent to avatars, but may be used to communicate with scripts.</p>
+      <p>  <p>Sets a <a href="http://foldoc.org/index.cgi?query=handle" target="_blank">handle</a> for <b>msg</b> on <b>channel</b> from <b>name</b> and <b>id</b>.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/handle" target="_blank">handle</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) that can be used to <a href="https://wiki.secondlife.com/wiki/LlListenControl" target="_blank">deactivate</a> or <a href="https://wiki.secondlife.com/wiki/LlListenRemove" target="_blank">remove</a> the listen.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>Channel</td>
-          <td></td>
+          <td>Channel / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/channel" target="_blank">channel</a></td>
+          <td>input <a href="https://wiki.secondlife.com/wiki/Category:LSL_Chat" target="_blank">chat</a> channel, any integer value&amp;#32;(-2147483648 through 2147483647)</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
-          <td>SpeakersName</td>
-          <td></td>
+          <td>SpeakersName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
+          <td>filter for specific prim name or avatar <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
-          <td>SpeakersID</td>
-          <td></td>
+          <td>SpeakersID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
+          <td>filter for specific&amp;#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
-          <td>Text</td>
-          <td></td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/msg" target="_blank">msg</a></td>
+          <td>filter for specific message</td>
         </tr>
       </table>
     </div>
@@ -61,6 +63,424 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <p>If <b>msg</b>, <b>name</b> or <b>id</b> are blank (i.e. `&quot;&quot;`) they are not used to filter incoming messages.
+If <b>id</b> is an invalid key or assigned the value <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>, it is considered blank as well.</p>
+  <h2>Specification</h2>
+  <p>For the <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> to be triggered it must first match the criteria set forth by the filters; only when all the criteria have been met is a listen event generated. First the message must have been transmitted on <b>channel</b>. If <b>id</b> is both a <a href="https://wiki.secondlife.com/wiki/Key#valid" target="_blank">valid</a> key and not a <a href="https://wiki.secondlife.com/wiki/Key#null_key" target="_blank">null</a> key, then the speaker&#39;s key must be equivalent[[2]](#footnote_2) to <b>id</b>. If <b>name</b> is set, then the speaker&#39;s <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a> must match <b>name</b> exactly (case sensitive). If <b>msg</b> is set, then the spoken message must match <b>msg</b> exactly (case sensitive).</p>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Channel Constant</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a></td>
+        <td>0x7FFFFFFF</td>
+        <td>Chat channel reserved for script debugging and error messages, broadcasts to all nearby users.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a></td>
+        <td>0x0</td>
+        <td>Chat channel that broadcasts to all nearby users. This channel is sometimes referred to as: open chat, local chat and public chat.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Messages sent on channel zero[[1]](#footnote_1) and <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> are throttled to a rate of &lt;200/10sec, per region, per owner/user.
+    <ul>
+      <li>Once the rate is exceeded, all following messages on channel zero or <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> will be dropped until the send rate is again below 200/10sec for the previous 10 sec. Dropped messages, despite being dropped still count against the limit.</li>
+    </ul>
+  
+    </li>
+    <li>On <a href="https://wiki.secondlife.com/wiki/State" target="_blank">state</a> change or <a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">script reset</a> all listens are removed automatically.
+    <ul>
+      <li>A <a href="https://wiki.secondlife.com/wiki/State" target="_blank">state</a> change can be used as a shortcut to releasing listens.</li>
+    </ul>
+  
+    </li>
+    <li>Only 65 listens can simultaneously be open in any single script.
+    <ul>
+      <li>If this number is exceeded <i>Script run-time error</i> and <i>Too Many Listens</i> errors occur.</li>
+    </ul>
+  
+    </li>
+    <li>For some time, the official SL viewer and several third-party viewers can use negative channels from the chat bar directly just as any other non-zero channel. Formerly, the standard SL viewer could only send chat on negative channels through <a href="https://wiki.secondlife.com/wiki/LlDialog" target="_blank">llDialog</a> or <a href="https://wiki.secondlife.com/wiki/LlTextBox" target="_blank">llTextBox</a> responses, meaning negative channels were best suited for applications that did not require direct avatar chat.</li>
+    <li>Be aware that if you mistakenly use an integer literal bigger than the maximum or smaller than the minimum, LSL will treat it as -1, <i>without</i> giving any compilation error. This means that all scripts listening to an out-of-range integer will be listening to channel -1 instead, or if the number has a minus sign in front, to channel 1. A safe rule is to never use more than 9 digits. If the channel number comes from a conversion from float (for example from <a href="https://wiki.secondlife.com/wiki/LlFrand" target="_blank">llFrand</a>), if the float is out of range for an integer, it will be converted to the number -2147483648 regardless of its sign or value.</li>
+    <li>Messages sent by script on positive and negative channels are truncated to 1024 bytes. Messages sent by chat on positive channels are truncated to 1023 bytes. Messages sent by chat from negative channels are truncated to 254 bytes.</li>
+    <li>Once a <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> is registered its filters cannot be updated, if the listen is registered to <a href="https://wiki.secondlife.com/wiki/LlGetOwner" target="_blank">llGetOwner</a>, the listen will remain registered to the previous owner upon owner change.
+    <ul>
+      <li><a href="https://wiki.secondlife.com/wiki/CHANGED_OWNER" target="_blank">Owner change</a> can be detected with the <a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a> event.</li>
+      <li>To work around this the old listen will need to be closed and a new one opened for the new owner.</li>
+    </ul>
+  
+    </li>
+    <li>A prim cannot hear/listen to chat it generates. It can, however, hear a linked prim.
+    <ul>
+      <li>Chat indirectly generated (as a result of <a href="https://wiki.secondlife.com/wiki/LlDialog" target="_blank">llDialog</a>, <a href="https://wiki.secondlife.com/wiki/LlTextBox" target="_blank">llTextBox</a> or from a <a href="https://wiki.secondlife.com/wiki/Link" target="_blank">linked prim</a>) can be heard if in range.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Examples</h2>
+  <p>Trivial example to listen to any chat from the object owner and respond once.</p>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Single listen handle</b></th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+--  Says beep to owner the first-time owner says something in main chat
+--  and then stops listening
+
+
+local listenHandle = 0
+
+
+local function remove_listen_handle()
+    ll.ListenRemove(listenHandle)
+end
+
+
+local function main()
+    --      Change the channel number to a positive integer 
+    --      to listen for '/5 hello' style of chat.
+
+
+    --      target only the owner's chat on channel 0 (PUBLIC_CHANNEL)
+    listenHandle = ll.Listen(0, "", ll.GetOwner(), "")
+end
+
+
+function LLEvents.listen(channel, name, id, message)
+    --      we filtered to only listen on channel 0
+    --      to the owner's chat in the llListen call above
+
+
+    ll.OwnerSay("beep")
+
+
+    --      stop listening until script is reset
+    remove_listen_handle()
+end
+
+
+function LLEvents.on_rez(start_param)
+    ll.ResetScript()
+end
+
+
+function LLEvents.changed(change)
+    if bit32.btest(change, CHANGED_OWNER) then
+        ll.ResetScript()
+    end
+end
+
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+//  Says beep to owner the first-time owner says something in main chat
+//  and then stops listening
+
+
+integer listenHandle;
+
+
+remove_listen_handle()
+{
+    llListenRemove(listenHandle);
+}
+
+
+default
+{
+    state_entry()
+    {
+//      Change the channel number to a positive integer 
+//      to listen for '/5 hello' style of chat.
+
+
+//      target only the owner's chat on channel 0 (PUBLIC_CHANNEL)
+        listenHandle = llListen(0, "", llGetOwner(), "");
+    }
+
+
+    listen(integer channel, string name, key id, string message)
+    {
+//      we filtered to only listen on channel 0
+//      to the owner's chat in the llListen call above
+
+
+        llOwnerSay("beep");
+
+
+//      stop listening until script is reset
+        remove_listen_handle();
+    }
+
+
+    on_rez(integer start_param)
+    {
+        llResetScript();
+    }
+
+
+    changed(integer change)
+    {
+        if (change & CHANGED_OWNER)
+        {
+            llResetScript();
+        }
+    }
+}
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th><b>Two listen handles</b></th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+
+--  Opens two listen handles upon touch_start and
+--  stops listening whenever something heard passes either filter
+
+
+local listenHandle_a = 0
+local listenHandle_b = 0
+
+
+local function remove_listen_handles()
+    ll.ListenRemove(listenHandle_a)
+    ll.ListenRemove(listenHandle_b)
+end
+
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    local id = ll.DetectedKey(0)
+    local name = ll.DetectedName(0)
+
+
+    listenHandle_a = ll.Listen(5, "", id, "")
+    listenHandle_b = ll.Listen(6, "", NULL_KEY, "")
+
+
+    ll.Say(0, "Listening now to '" .. name .. "' on channel 5.")
+    ll.Say(0, "Listening now to anybody/anything on channel 6.")
+end
+
+
+function LLEvents.listen(channel, name, id, message)
+    if channel == 5 then
+        ll.Say(0, name .. " said: '/5 " .. message .. "'")
+    end
+
+
+    if channel == 6 then
+        ll.Say(0, name .. " said: '/6 " .. message .. "'")
+    end
+
+
+    remove_listen_handles()
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+//  Opens two listen handles upon touch_start and
+//  stops listening whenever something heard passes either filter
+
+
+integer listenHandle_a;
+integer listenHandle_b;
+
+
+remove_listen_handles()
+{
+    llListenRemove(listenHandle_a);
+    llListenRemove(listenHandle_b);
+}
+
+
+default
+{
+    touch_start(integer num_detected)
+    {
+        key    id   = llDetectedKey(0);
+        string name = llDetectedName(0);
+
+
+        listenHandle_a = llListen(5, "", id, "");
+        listenHandle_b = llListen(6, "", NULL_KEY, "");
+
+
+        llSay(0, "Listening now to '" + name + "' on channel 5.");
+        llSay(0, "Listening now to anybody/anything on channel 6.");
+    }
+
+
+    listen(integer channel, string name, key id, string message)
+    {
+        if (channel == 5)
+            llSay(0, name + " said: '/5 " + message + "'");
+
+
+        if (channel == 6)
+            llSay(0, name + " said: '/6 " + message + "'");
+
+
+        remove_listen_handles();
+    }
+}
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Notes</h2>
+  <ul>
+    <li>Avoid channel zero (<a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a>) and set <b>name</b> or <b>id</b> where possible to avoid lag. `llListen(0, &quot;&quot;, NULL_KEY,&quot;&quot;)` can be laggy as it listens to all chat from everyone in chat range and so should be avoided.</li>
+  </ul>
+  <ul>
+    <li>In November 2007, <a href="https://wiki.secondlife.com/wiki/User:Kelly_Linden" target="_blank">Kelly Linden</a> offered <a href="https://lists.secondlife.com/pipermail/secondlifescripters/2007-November/001993.html" target="_blank">this explanation</a> to help scripters plan listeners more efficiently:</li>
+  </ul>
+  <ul>
+    <li>Chat that is said gets added to a history.</li>
+    <li>A script that is running and has a <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> will ask the history for a chat message during its slice of run time.</li>
+    <li>When the script asks the history for a chat message the checks are done in this order:
+    <ul>
+      <li><b>channel</b></li>
+      <li>self chat (prims can&#39;t hear themselves)</li>
+      <li>distance/<a href="https://wiki.secondlife.com/wiki/LlRegionSay" target="_blank">RegionSay</a></li>
+      <li><b>id</b></li>
+      <li><b>name</b></li>
+      <li><b>msg</b></li>
+    </ul>
+  
+    </li>
+    <li>If a <b>msg</b> is found then a <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> is added to the <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> queue.</li>
+  </ul>
+  <p>The <b>id</b>/<b>name</b>/<b>msg</b> checks only happen at all if those are specified of course.</p>
+  <p>So, the most efficient communication method is <a href="https://wiki.secondlife.com/wiki/LlRegionSay" target="_blank">llRegionSay</a> on a rarely used <b>channel</b>.
+Nowadays, <a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a> is to be preferred, where appropriate.</p>
+  <ul>
+    <li>The integer returned can be assigned to a variable (then called a handle) and used to control the listen via <a href="https://wiki.secondlife.com/wiki/LlListenRemove" target="_blank">llListenRemove</a> or <a href="https://wiki.secondlife.com/wiki/LlListenControl" target="_blank">llListenControl</a>. These handles are assigned sequentially starting at +1 through to +2,147,483,647, going beyond which, according to <a href="https://wiki.secondlife.com/w/index.php?title=User:Simon_Linden&amp;action=edit&amp;redlink=1" target="_blank">Simon Linden</a>, will roll the returned integer over to −2,147,483,648, when positive incrementation resumes. If an llListen is repeated with the exact same filters as a currently active listener, then the same handle number is returned. If an llListen&#39;s filters do not match any currently active listener, then the next handle in sequence is allocated (it will not re-allocate a recently removed handle).</li>
+    <li>If you are using multiple listens in one script, each listen can be assigned its own handle with which to control it.</li>
+    <li>Scripts can listen to and speak on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. Script errors generated by the server are broadcast the same distance as <a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a>, but any chat command can be used to speak on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.
+    <ul>
+      <li>Messages received on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> in the viewer are hidden unless the message is sent by an object owned by the current user.</li>
+      <li>Users may just see script errors as the hovering &#39;script error&#39; icon depending on their viewer settings, and in any case will be able to read errors regardless of whether they are errors thrown by the scripting engine or your own debugging messages.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListenRemove" target="_blank">llListenRemove</a></td>
+        <td>–</td>
+        <td>Removes a listen</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListenControl" target="_blank">llListenControl</a></td>
+        <td>–</td>
+        <td>Enables/Disables a listen</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlWhisper" target="_blank">llWhisper</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 10 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 20 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">llShout</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 100 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSay" target="_blank">llRegionSay</a></td>
+        <td>–</td>
+        <td>Sends chat limited current sim</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a></td>
+        <td>–</td>
+        <td>Sends chat region wide to a specific avatar, or their attachments, or to a rezzed object of known UUID</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Channel zero is also known as: <a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a>, open chat, local chat and public chat</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> In general terms this means the matching for <b>id</b> is not case sensitive. See <a href="https://wiki.secondlife.com/wiki/Key#equivalency" target="_blank">key#equivalency</a> for details on key equivalency.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llListen( integer channel, string name, key id, string msg );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Choose not much to say</p>
+<p>Someone might overhear it</p>
+<p>Blab no big secrets</p></td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

@@ -13,9 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>The integer constant PRIM_REFLECTION_PROBE_BOX has the value 1</p>
-  <p>Used with <a href="https://wiki.secondlife.com/wiki/PRIM_REFLECTION_PROBE" target="_blank">PRIM_REFLECTION_PROBE</a>. A reflection probe is a sphere by default, otherwise a box if this flag is set on the corresponding prim.</p>
-</p>
+      <p>This is a flag option used with llGetPrimitiveParams and related functions when the parameter is PRIM_REFLECTION_PROBE. When set, the reflection probe is a box. When unset, the reflection probe is a sphere.</p>
     </div>
 
     <div class="dash-col">
@@ -33,25 +31,6 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <h2>Deep Notes</h2>
-  <p><a href="https://secondlife.canny.io/?search=PRIM_REFLECTION_PROBE_BOX" target="_blank">Search Canny for related Issues</a></p>
-  <table>
-    <tbody>
-      <tr>
-        <th>Signature</th>
-      </tr>
-      <tr>
-        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
-PRIM_REFLECTION_PROBE_BOX = 1
-`} lang="slua" /></div>
-<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
-integer PRIM_REFLECTION_PROBE_BOX = 1;
-`} lang="lsl" /></div>
-
-</td>
-      </tr>
-    </tbody>
-  </table>
 
 </DocsLayout>
       

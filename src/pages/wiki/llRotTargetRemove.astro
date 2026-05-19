@@ -13,14 +13,14 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Removes rotational target number.
-Remove rotational target indicated by the handle.</p>
+      <p>  <p>Removes rotational target <b>handle</b> registered with <a href="https://wiki.secondlife.com/wiki/LlRotTarget" target="_blank">llRotTarget</a></p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>Handle</td>
-          <td></td>
+          <td>Handle / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/handle" target="_blank">handle</a></td>
+          <td>handle to control <a href="https://wiki.secondlife.com/wiki/At_rot_target" target="_blank">at_rot_target</a> and <a href="https://wiki.secondlife.com/wiki/Not_at_rot_target" target="_blank">not_at_rot_target</a> events</td>
         </tr>
       </table>
     </div>
@@ -43,6 +43,69 @@ Remove rotational target indicated by the handle.</p>
     </div>
   </div>
 </div>
+  <h2>Examples</h2>
+  <p>For an example, see <a href="https://wiki.secondlife.com/wiki/LlRotTarget" target="_blank">llRotTarget</a></p>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/At_rot_target" target="_blank">at_rot_target</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Not_at_rot_target" target="_blank">not_at_rot_target</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRotTarget" target="_blank">llRotTarget</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTarget" target="_blank">llTarget</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTargetRemove" target="_blank">llTargetRemove</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRotTargetRemove( integer handle );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

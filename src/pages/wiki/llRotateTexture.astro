@@ -13,20 +13,20 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Sets the texture rotation for the specified Face to angle Radians.
-If Face is ALL_SIDES, rotates the texture of all sides.</p>
+      <p>  <p>Sets the rotation of a texture on the chosen <b>face</b> to <b>angle</b>.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
-          <td>Radians</td>
-          <td></td>
+          <td>Radians / angle</td>
+          <td>angle expressed in <a href="https://wiki.secondlife.com/wiki/Radians" target="_blank">radians</a></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>Face</td>
-          <td></td>
+          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
         </tr>
       </table>
     </div>
@@ -50,6 +50,63 @@ If Face is ALL_SIDES, rotates the texture of all sides.</p>
     </div>
   </div>
 </div>
+  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function works on all sides.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function causes the script to sleep for 0.2 seconds.</li>
+    <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
+    local total_number = #events
+    -- Makes the object's texture rotate a quarter of turn
+    ll.RotateTexture(PI_BY_TWO, ALL_SIDES)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch_start(integer total_number) {
+        // Makes the object's texture rotate a quarter of turn
+        llRotateTexture(PI_BY_TWO, ALL_SIDES);
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>This function only sets the absolute orientation of the texture. See <a href="https://wiki.secondlife.com/wiki/LlSetTextureAnim" target="_blank">llSetTextureAnim</a> for animations.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTextureRot" target="_blank">llGetTextureRot</a></td>
+        <td>–</td>
+        <td>Gets the texture rotation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetTextureAnim" target="_blank">llSetTextureAnim</a></td>
+        <td>–</td>
+        <td>Animates the texture</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llRotateTexture( float angle, integer face );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

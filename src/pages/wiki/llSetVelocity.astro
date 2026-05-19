@@ -13,18 +13,19 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>If the object is physics-enabled, sets the object's linear velocity to Velocity.<br>If Local==TRUE, Velocity is treated as a local directional vector; otherwise, Velocity is treated as a global directional vector.</p>
+      <p>  <p>Applies velocity to object</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
-          <td>Velocity</td>
+          <td>Velocity / velocity</td>
           <td>The velocity to apply.</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>Local</td>
+          <td>Local / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">local</a></td>
           <td>If TRUE, the Velocity is treated as a local directional vector instead of a regional directional vector.</td>
         </tr>
       </table>
@@ -48,6 +49,48 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <p>Instantaneous velocity not dependent on object energy or mass.</p>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Only works in <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics-enabled</a> objects.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetAngularVelocity" target="_blank">llSetAngularVelocity</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlApplyImpulse" target="_blank">llApplyImpulse</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <p>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/11#11.08.10.238207" target="_blank"> 10/08/2011 </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetVelocity( vector velocity, integer local );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

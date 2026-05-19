@@ -14,13 +14,14 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p class="removed-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Removed from Lua. It can be used in the llcompat library</span></p>
-      <p>Causes the timer event to be triggered every Rate seconds. Passing in 0.0 stops further timer events.</p>
+      <p>  <p>Cause the <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a> event to be triggered a maximum of once every <b>sec</b> seconds. Passing in 0.0 stops further timer events.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
-          <td>Rate</td>
-          <td></td>
+          <td>Rate / sec</td>
+          <td>Any positive non-zero value to enable, zero (0.0) to disable.</td>
         </tr>
       </table>
     </div>
@@ -44,6 +45,259 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>The time between timer events can be longer, this is caused by:
+    <ul>
+      <li><b>Time dilation</b> - See <a href="https://wiki.secondlife.com/wiki/LlGetRegionTimeDilation" target="_blank">llGetRegionTimeDilation</a> for more information.</li>
+      <li><b><a href="https://wiki.secondlife.com/wiki/LSL_Delay#Events" target="_blank">Default event delay</a></b> - Only so many events can be triggered per second.</li>
+      <li><b>Event Execution</b> - If the execution of an event takes too long.</li>
+    </ul>
+  
+    </li>
+    <li>The timer persists across state changes, but gets removed when the script is reset. So if you change to a state that has a timer() event, with the timer still running, it will fire in the new state.</li>
+    <li>Setting a new timer replaces the old timer and resets the timer clock.
+    <ul>
+      <li>If you repeatedly call this function at some interval less than <b>sec</b> the timer event will never fire.</li>
+    </ul>
+  
+    </li>
+    <li>The <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a> event is not an interrupt, it will not pause the execution of the currently running event to execute the timer. The current event must finish executing before the timer executes.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- default of counter is 0 upon script load
+local counter = 0
+local gap = 2.0
+
+local function main()
+    ll.SetTimerEvent(gap)
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    ll.Say(0, "The timer stops.")
+    ll.SetTimerEvent(0.0)
+    counter = 0
+end
+
+function LLEvents.timer()
+    counter += 1
+    ll.Say(0, tostring(counter) .. " ticks have passed in " .. tostring(ll.GetTime()) .. " script seconds.\nEstimated elapsed time: " .. tostring(counter * gap))
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// default of counter is 0 upon script load
+integer counter;
+float   gap = 2.0;
+
+default
+{
+    state_entry()
+    {
+        llSetTimerEvent(gap);
+    }
+
+    touch_start(integer total_number)
+    {
+        llSay(0, "The timer stops.");
+        llSetTimerEvent(0.0);
+        counter = 0;
+    }
+
+    timer()
+    {
+        ++counter; 
+        llSay(0,
+            (string)counter+" ticks have passed in " + (string)llGetTime() 
+            + " script seconds.\nEstimated elapsed time: " + (string)(counter * gap));
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--  random period in between (+15.0, +30.0]
+--  which means the resulting float could be 30.0 but not 15.0
+
+ll.SetTimerEvent(30.0 - ll.Frand(15.0))
+
+--  same results for:
+--  llSetTimerEvent( 30.0 + llFrand(-15.0) );`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  random period in between (+15.0, +30.0]
+//  which means the resulting float could be 30.0 but not 15.0
+ 
+    llSetTimerEvent( 30.0 - llFrand(15.0) );
+ 
+//  same results for:
+//  llSetTimerEvent( 30.0 + llFrand(-15.0) );`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- The timer event will never fire.
+local function main()
+    ll.SetTimerEvent(5.0)
+    -- Sensor every 2.5 seconds
+    ll.SensorRepeat("", NULL_KEY, false, 0.0, 0.0, 2.5)
+end
+
+function LLEvents.no_sensor()
+    ll.SetTimerEvent(5.0)
+end
+
+function LLEvents.timer()
+    ll.Say(0, "I will never happen.")
+    ll.Say(0, "Well, unless llSensorRepeat() magically finds something," .. "or maybe there's 2.5+ seconds of lag and the timer()" .. "event queues.")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// The timer event will never fire.
+default
+{
+    state_entry()
+    {
+        llSetTimerEvent(5.0);
+        // Sensor every 2.5 seconds
+        llSensorRepeat("", NULL_KEY, FALSE, 0.0, 0.0, 2.5);
+    }
+
+    no_sensor()
+    {
+        llSetTimerEvent(5.0);
+    }
+    
+    timer()
+    {
+        llSay(0, "I will never happen.");
+        llSay(0, "Well, unless llSensorRepeat() magically finds something,"+
+                    "or maybe there's 2.5+ seconds of lag and the timer()"+
+                    "event queues.");
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Using a timer to simulate multiple timers
+local counter_a = 0
+local counter_b = 0
+
+local function main()
+    --Starting Timer Event
+    ll.SetTimerEvent(1.0)
+end
+
+function LLEvents.timer()
+    --Increment counters
+    counter_a += 1
+    counter_b += 1
+
+    if counter_a >= 100 then
+        --Resetting Counter A
+        counter_a = 0
+        ll.OwnerSay("Counter a has reached 100")
+    end
+
+    if counter_b >= 200 then
+        --Resetting counter B
+        counter_b = 0
+        ll.OwnerSay("Counter b has reached 200")
+    end
+
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Using a timer to simulate multiple timers
+integer counter_a = 0;
+integer counter_b = 0;
+
+default
+{
+    state_entry()
+    {
+        //Starting Timer Event
+        llSetTimerEvent(1.0);
+    }
+
+    timer()
+    {
+        //Increment counters
+        counter_a++;
+        counter_b++;
+
+        if(counter_a >= 100)
+        {
+            //Resetting Counter A
+            counter_a = 0;
+            llOwnerSay("Counter a has reached 100");
+        }
+
+        if(counter_b >= 200)
+        {
+            //Resetting counter B
+            counter_b = 0;
+            llOwnerSay("Counter b has reached 200");
+        }
+
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li><a href="http://community.secondlife.com/t5/LSL-Scripting/quot-on-mouselook-quot/m-p/768291#M545" target="_blank">Notes on minimum practical llSetTimerEvent values</a>, Second Life forum, 2011-03-21</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetRegionTimeDilation" target="_blank">llGetRegionTimeDilation</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetTime" target="_blank">llGetTime</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSetTimerEvent( float sec );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

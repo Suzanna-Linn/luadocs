@@ -13,19 +13,20 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Makes a listen event callback active or inactive. Pass in the value returned from llListen to the iChannelHandle parameter to specify which listener you are controlling.<br>Use boolean values to specify Active</p>
+      <p>  <p>Makes <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> event callback <b>handle</b> active or inactive</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>ChannelHandle</td>
-          <td></td>
+          <td>ChannelHandle / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/handle" target="_blank">handle</a></td>
+          <td>handle to control <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> event</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>Active</td>
-          <td></td>
+          <td>Active / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">active</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>&amp;#32;(default) activates, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> deactivates</td>
         </tr>
       </table>
     </div>
@@ -49,6 +50,120 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>On <a href="https://wiki.secondlife.com/wiki/State" target="_blank">state</a> change or <a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">script reset</a> all listens are removed automaticaly.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>a small example of an on and off switchable listen by use of llListenControl()</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local handle = 0
+local toggle = false
+local function main()
+    handle = ll.Listen(5, "", NULL_KEY, "")  -- Establish a listener to listen to anything on channel 5 ...
+    ll.ListenControl(handle, false)  -- ... but make the listener inactive for now
+    ll.SetText("not listening", vector(0.0, 0.0, 0.0), 1.0)
+end
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    toggle = not toggle
+    ll.ListenControl(handle, toggle)  -- Make the listener active or inactive as required
+
+    if toggle then
+        ll.Say(0, "now listening on channel 5")
+        ll.SetText("listening on ch 5", vector(1.0, 0.0, 0.0), 1.0)
+    else
+        ll.Say(0, "not listening any more")
+        ll.SetText("not listening", vector(0.0, 0.0, 0.0), 1.0)
+    end
+end
+
+function LLEvents.listen(channel, name, id, message)
+    ll.Say(0, name .. " just said " .. message)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer handle;
+integer toggle;
+default
+{
+    state_entry()
+    {
+        handle = llListen(5, "", NULL_KEY, "");    // Establish a listener to listen to anything on channel 5 ...
+        llListenControl(handle, FALSE);            // ... but make the listener inactive for now
+        llSetText("not listening", <0.0,0.0,0.0>, 1.0);
+    }
+
+    touch_start(integer total_number)
+    {
+        toggle = !toggle;
+        llListenControl(handle, toggle);           // Make the listener active or inactive as required
+
+        if(toggle)
+        {
+            llSay(0, "now listening on channel 5");
+            llSetText("listening on ch 5", <1.0,0.0,0.0>, 1.0);
+        }
+        else
+        {
+            llSay(0, "not listening any more");
+            llSetText("not listening", <0.0,0.0,0.0>, 1.0);
+        }     
+    }
+    
+    listen(integer channel, string name, key id, string message)
+    {
+        llSay(0, name + " just said " + message);
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListenRemove" target="_blank">llListenRemove</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llListenControl( integer handle, integer active );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

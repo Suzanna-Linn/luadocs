@@ -14,6 +14,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p class="deprecated-text"">Deprecated: </p>
+      <p>  <p>Stop agent that owns object pointing</p>
+</p>
     </div>
 
     <div class="dash-col">
@@ -35,6 +37,35 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>This function has been deprecated.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <ul>
+    <li><a href="https://wiki.secondlife.com/wiki/LlPointAt" target="_blank">llPointAt</a></li>
+  </ul>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+function_t
+void
+ll.StopPointAt()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llStopPointAt();
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

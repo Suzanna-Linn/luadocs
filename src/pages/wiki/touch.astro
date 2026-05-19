@@ -13,12 +13,14 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>This event is raised while a user is touching the object the script is attached to.<br>\t\t\tThe number of touching objects is passed to the script in the parameter.<br>\t\t\tInformation on those objects may be gathered via the llDetected* library functions.</p>
+      <p>  <p>Triggered whilst an agent is clicking the task. It will continue to be triggered until the the prim/object is stopped being clicked (it triggers multiple times).
+Triggered on touch start, each minimum event delay while held, and touch end.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Detected / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span>NumberOfTouches</span></td>
+          <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Detected / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span>NumberOfTouches / num_detected</span></td>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>Table with the detected events / </span><span class="lsl-section"><span class="tag lsl-tag">LSL</span></span></td>
         </tr>
       </table>
@@ -36,6 +38,163 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If a prim <a href="https://wiki.secondlife.com/wiki/Face" target="_blank">face</a> has <a href="https://wiki.secondlife.com/wiki/Navigating_Shared_Media" target="_blank">Shared Media</a> enabled and the avatar&#39;s viewer supports this feature, LSL scripts will not detect touches on that face. Touches from older clients will be detected.</li>
+    <li>Rigged mesh attachments do not support touch events, this is because you can steer your avatar/camera by click dragging your avatar body which is what the rigged mesh replaces. The only way to get a touch event on a rigged mesh attachment is via the right click context menu and clicking the &quot;Touch&quot; button.</li>
+  </ul>
+  <h2>Examples</h2>
+  <p>You can use index 0 through (`num_detected`-1) with the various llDetected... functions to handle simultaneous touches at once.</p>
+  <p>For example, the following script shows the names of everyone touching it (click and hold) as floating text.</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local touchers = {}
+
+-- Collect names of avatars touching the object.
+function LLEvents.touch(events)
+    local num_detected = #events
+    local i = 0
+    i = 0
+    while i < num_detected do
+        local name = ll.DetectedName(i)
+        if ll.ListFindList(touchers, {name}) == -1 then
+            touchers = ll.ListInsertList(touchers, {name}, #touchers)
+        end
+        i += 1
+    end
+    ll.SetText("I am being touched by " .. ll.List2CSV(touchers) .. ".", vector(1, 1, 1), 1)
+end
+
+-- Remove names of avatars as they let go.
+function LLEvents.touch_end(events)
+    local num_detected = #events
+    local i = 0
+    i = 0
+    while i < num_detected do
+        local name = ll.DetectedName(i)
+        local index = ll.ListFindList(touchers, {name})
+        touchers = ll.DeleteSubList(touchers, index, index)
+        i += 1
+    end
+    if #touchers > 0 then
+        ll.SetText("I am being touched by " .. ll.List2CSV(touchers) .. ".", vector(1, 1, 1), 1)
+    else
+        ll.SetText("", vector(1, 1, 1), 1)
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list touchers;
+
+default
+{
+    // Collect names of avatars touching the object.
+    touch(integer num_detected)
+    {
+        integer i;
+        for (i = 0; i < num_detected; ++i)
+        {
+            string name = llDetectedName(i);
+            if (llListFindList(touchers, [name]) == -1)
+            {
+                touchers += name;
+            }
+        }
+        llSetText("I am being touched by " + llList2CSV(touchers) + ".", <1,1,1>, 1);
+    }
+
+    // Remove names of avatars as they let go.
+    touch_end(integer num_detected)
+    {
+        integer i;
+        for (i = 0; i < num_detected; ++i)
+        {
+            string name = llDetectedName(i);
+            integer index = llListFindList(touchers, [name]);
+            touchers = llDeleteSubList(touchers, index, index);
+        }
+        if (llGetListLength(touchers) > 0)
+        {
+            llSetText("I am being touched by " + llList2CSV(touchers) + ".", <1,1,1>, 1);
+        }
+        else
+        {
+            llSetText("", <1,1,1>, 1);
+        }
+    }
+}`} lang="lsl" /></div>
+  <p>For most purposes, it&#39;s usually enough to handle just with the first toucher e.g. <a href="https://wiki.secondlife.com/wiki/LlDetectedKey" target="_blank">llDetectedKey</a>(0).</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+function LLEvents.touch(events)
+    local num_detected = #events
+    ll.OwnerSay("I am being touched by " .. ll.DetectedName(0) .. ".")
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    touch(integer num_detected)
+    {
+        llOwnerSay("I am being touched by " + llDetectedName(0) + ".");
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>On clicking a prim with touch events we trigger touch_start (on first contact), touch (during) and touch_end (as released).</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_start" target="_blank">touch_start</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Touch_end" target="_blank">touch_end</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSetTouchText" target="_blank">llSetTouchText</a></td>
+        <td>–</td>
+        <td>Set the pie menu&#39;s text for touch-action</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlPassTouches" target="_blank">llPassTouches</a></td>
+        <td>–</td>
+        <td>Allows clicks captured by a child prim to be passed to the root as well</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+event void touch( integer num_detected );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       
