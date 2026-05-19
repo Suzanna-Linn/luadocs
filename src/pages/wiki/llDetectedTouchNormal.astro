@@ -47,13 +47,13 @@ import DocsCode from '/src/components/DocsCode.astro';
 </div>
   <p><b>index</b> <i>does not</i> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
   <p>For the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> category of events only. The prim that was touched may not be the prim receiving the event, use <a href="https://wiki.secondlife.com/wiki/LlDetectedLinkNumber" target="_blank">llDetectedLinkNumber</a> to check for this; likewise you can use <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a> to determine which face was touched.</p>
-  <p>To find the third tangent vector, <a href="https://wiki.secondlife.com/w/index.php?title=LSL_Cross_Product&action=edit&redlink=1" target="_blank">cross</a> the <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchBinormal" target="_blank">binormal</a> with this vector.</p>
+  <p>To find the third tangent vector, <a href="https://wiki.secondlife.com/w/index.php?title=LSL_Cross_Product&amp;action=edit&amp;redlink=1" target="_blank">cross</a> the <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchBinormal" target="_blank">binormal</a> with this vector.</p>
   <h2>Caveats</h2>
   <ul>
     <li>If <b>index</b> is out of bounds the script continues to execute without an error message.</li>
     <li><a href="https://wiki.secondlife.com/wiki/TOUCH_INVALID_VECTOR" target="_blank">TOUCH_INVALID_VECTOR</a> is returned when...
     <ul>
-      <li>The avatar's viewer does not support face touch detection.
+      <li>The avatar&#39;s viewer does not support face touch detection.
       <ul>
         <li>To check if face touch detection is supported check the return of <a href="https://wiki.secondlife.com/wiki/LlDetectedTouchFace" target="_blank">llDetectedTouchFace</a>.</li>
       </ul>
@@ -175,7 +175,7 @@ end
   <h2>Deep Notes</h2>
   <p>History</p>
   <ul>
-    <li>Introduced in Viewer <a href="http://svn.secondlife.com/trac/linden/changeset/870?new_path=%2F#file14" target="_blank">SVN:870 r92872 Branch:Release&#32;Wednesday, 23 July 2008</a>, no server support, no viewer binary released.</li>
+    <li>Introduced in Viewer <a href="http://svn.secondlife.com/trac/linden/changeset/870?new_path=%2F#file14" target="_blank">SVN:870 r92872 Branch:Release&amp;#32;Wednesday, 23 July 2008</a>, no server support, no viewer binary released.</li>
     <li>Server support available on preview grid in Second Life Beta Server 1.24, client support in Preview Grid viewer 1.20.15 (93532)</li>
     <li>Date of Release Server <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Beta_Server/1.24#Release_Notes_for_Second_Life_Beta_Server_1.24.3_.28August_29th.2C_2008.29" target="_blank"> 29-08-2008 </a></li>
     <li>Date of Release Client <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.21" target="_blank"> 16-10-2008 </a></li>

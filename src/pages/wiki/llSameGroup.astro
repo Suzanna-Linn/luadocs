@@ -13,13 +13,14 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Returns TRUE if avatar ID is in the same region and has the same active group, otherwise FALSE.<br>Returns TRUE if the object or agent identified is in the same simulator and has the same active group as this object. Otherwise, returns FALSE.</p>
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) that is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if <b>uuid</b> and the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> the <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a> is in are of the same <a href="https://wiki.secondlife.com/wiki/Group" target="_blank">group</a>, otherwise <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
-          <td>ID</td>
-          <td></td>
+          <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/uuid" target="_blank">uuid</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&amp;#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
         </tr>
       </table>
     </div>
@@ -42,6 +43,225 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <p>This function compares the group-uuid of the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> containing the script to that of the group-uuid of what <b>uuid</b> describes.
+It answers these two questions:</p>
+  <ul>
+    <li>&quot;Is the script&#39;s prim in the same <a href="https://wiki.secondlife.com/wiki/Group" target="_blank">group</a> as <b>uuid</b>?&quot;</li>
+    <li>&quot;Is the group-uuid of the script&#39;s prim equal to <b>uuid</b>?&quot;</li>
+  </ul>
+  <h2>Specification</h2>
+  <p>The group of the prim the script is in is...</p>
+  <ul>
+    <li>The group the prim is set-to</li>
+    <li>The group the prim is deeded-to</li>
+    <li>The group the prim is otherwise <a href="https://wiki.secondlife.com/wiki/Owner" target="_blank">owned by</a></li>
+    <li>If no group information is set, the group-uuid used for this is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.</li>
+  </ul>
+  <p>The group of the <b>uuid</b> is...</p>
+  <ul>
+    <li>If <b>uuid</b> is a prim (known to the <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>)...
+    <ul>
+      <li>and it is an <a href="https://wiki.secondlife.com/wiki/Attachment" target="_blank">attachment</a>, the active group of the owner*</li>
+      <li>The group the prim is set-to</li>
+      <li>The group the prim is deeded-to</li>
+      <li>The group the prim is otherwise owned by</li>
+      <li>If no group information is set, the group-uuid used for this is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.</li>
+    </ul>
+  
+    </li>
+    <li>If <b>uuid</b> is an <a href="https://wiki.secondlife.com/wiki/Avatar" target="_blank">avatar</a> (known to the <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>)...
+    <ul>
+      <li>The active group of the avatar.</li>
+      <li>If no group information is set, the group-uuid used for this is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.</li>
+    </ul>
+  
+    </li>
+    <li>Otherwise, treat <b>uuid</b> AS the group-uuid.
+    <ul>
+      <li>This means that instead of doing &quot;Is the script&#39;s prim in the same group as <b>uuid</b>?&quot;, it becomes &quot;Is the group-uuid of the script&#39;s prim equal to <b>uuid</b>?&quot;</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <p><b>Note:</b> No group, prim, or avatar share the same <b>uuid</b>.</p>
+  <p>In pseudocode:</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer llSameGroup(key uuid){
+    key group = getGroupKey(llGetKey());
+    if(uuid == group)
+        return TRUE;
+    if(getGroupKey(uuid) == group)
+        return TRUE;
+    return FALSE;
+}`} lang="lsl" /></div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Not so obvious is that it returns <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is not set to a group (i.e. &quot;(none)&quot;) and either the <a href="https://wiki.secondlife.com/wiki/Avatar" target="_blank">AV</a> with the given <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> has no group active or the function is called with a <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+-- Gives inventory object only to agents with the same active group
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    local id = ll.DetectedKey(0)
+
+    local sameGroup = ll.SameGroup(id)
+    --      same as llDetectedGroup(i) (with llDetectedGroup, detected does not need to be in the sim)
+
+    if sameGroup ~= 0 then
+        local numberOfObjectsInPrim = ll.GetInventoryNumber(INVENTORY_OBJECT)
+
+        if numberOfObjectsInPrim ~= 0 then
+            ll.GiveInventory(id, ll.GetInventoryName(INVENTORY_OBJECT, 0))
+        end
+    else
+        ll.RegionSayTo(id, 0, "Wrong active group!")
+    end
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// Gives inventory object only to agents with the same active group
+
+default
+{
+    touch_start(integer total_number)
+    {
+        key id = llDetectedKey(0);
+
+        integer sameGroup = llSameGroup(id);
+//      same as llDetectedGroup(i) (with llDetectedGroup, detected does not need to be in the sim)
+
+        if (sameGroup)
+        {
+            integer numberOfObjectsInPrim = llGetInventoryNumber(INVENTORY_OBJECT);
+
+            if (numberOfObjectsInPrim)
+                llGiveInventory(id, llGetInventoryName(INVENTORY_OBJECT, 0));
+        }
+        else
+        {
+            llRegionSayTo(id, 0, "Wrong active group!");
+        }
+    }
+}`} lang="lsl" /></div>
+  <h2>Useful Snippets</h2>
+  <p>To determine if an avatar is an object&#39;s owner when deeded to group, you should use a function similar to that provided for <a href="https://wiki.secondlife.com/wiki/LlGetOwner#Useful_Snippets" target="_blank">llGetOwner</a>().</p>
+  <p>The following uses llSameGroup() to determine if a <a href="https://wiki.secondlife.com/wiki/Parcel" target="_blank">parcel</a> is <a href="https://wiki.secondlife.com/wiki/Rez" target="_blank">rezzable</a> based on the object&#39;s active group and parcel details. Useful for preventing unnecessary rez failure notices from various types of attached objects (e.g. guns, water/skywalk <a href="https://wiki.secondlife.com/wiki/HUD" target="_blank">HUDs</a>, etc).</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--[[
+  By Aryn Gellner
+  pos - position (in region coordinates) to check against.
+  * Additional Land Owner Test added by Ruthven Willenov, simplified by Strife
+]]
+local function is_rezzable(pos)
+    local parcel_flags = ll.GetParcelFlags(pos)
+    if bit32.btest(parcel_flags, PARCEL_FLAG_ALLOW_CREATE_OBJECTS) then
+        return true_t  --Anyone can rez. No further checks are needed.
+    end
+
+    --Ok, not just anyone can rez. Maybe they share an owner or the land allows for group rezzing.
+    --So let's get the parcel owner_id and group_id
+
+    local details = ll.GetParcelDetails(pos, {PARCEL_DETAILS_OWNER, PARCEL_DETAILS_GROUP})
+
+    if ll.List2Key(details, 0) == ll.GetOwner() then
+        return true  --Owner can always rez.
+    end
+
+    --Since what we are going to return is a boolean just return the result of the boolean expression.
+    return bit32.btest(parcel_flags, PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS) and (ll.SameGroup(ll.List2Key(details, 1)) ~= 0)
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`/*
+  By Aryn Gellner
+  pos - position (in region coordinates) to check against.
+  * Additional Land Owner Test added by Ruthven Willenov, simplified by Strife
+*/
+ 
+integer is_rezzable(vector pos)
+{
+    integer parcel_flags = llGetParcelFlags(pos);
+    if (parcel_flags & PARCEL_FLAG_ALLOW_CREATE_OBJECTS)
+    {
+        return true; //Anyone can rez. No further checks are needed.
+    }
+
+    //Ok, not just anyone can rez. Maybe they share an owner or the land allows for group rezzing.
+    //So let's get the parcel owner_id and group_id
+
+    list details = llGetParcelDetails(pos, [PARCEL_DETAILS_OWNER, PARCEL_DETAILS_GROUP]);
+
+    if (llList2Key(details, 0) == llGetOwner())
+    {
+        return TRUE; //Owner can always rez.
+    }
+
+    //Since what we are going to return is a boolean just return the result of the boolean expression.
+    return (parcel_flags & PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS) && llSameGroup(llList2Key(details, 1));
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <p>Child Prims</p>
+  <p>It is possible for the group of a child prim to differ from that of the root prim. To build such an object it must first be unlinked, the groups set, and then relinked. Rezzing an object resets the group of the object to that of the group that the user currently has activated. Changing the group of an object changes the group for the entire object. This may only be an artifact or manifestation of <a href="#VWR-5044" target="_blank">VWR-5044</a>.</p>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlDetectedGroup" target="_blank">llDetectedGroup</a></td>
+        <td>–</td>
+        <td>Used in conjunction with <a href="https://wiki.secondlife.com/wiki/Category:LSL_Detected" target="_blank">detection</a> events</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetAttachedList" target="_blank">llGetAttachedList</a></td>
+        <td>–</td>
+        <td>Together with <a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a> and <a href="https://wiki.secondlife.com/wiki/OBJECT_GROUP" target="_blank">OBJECT_GROUP</a>, it can be used to determine the active group of an avatar that is wearing at least one non-HUD attachment.</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSameGroup_Test" target="_blank">llSameGroup Test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llSameGroup( key uuid );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Do you belong or</p>
+<p>Are you alien, unknown</p>
+<p>To us, unwanted?</p></td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

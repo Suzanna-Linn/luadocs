@@ -53,7 +53,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>• integer</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">link</a></td>
         <td>–</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims&#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&#32;</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&amp;#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, &gt;1: child prims&amp;#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&amp;#32;</td>
         <td></td>
       </tr>
       <tr>
@@ -66,10 +66,10 @@ import DocsCode from '/src/components/DocsCode.astro';
     </tbody>
   </table>
   <h2>Specification</h2>
-  <p>Defines a particle system that sets the state of the <a href="https://wiki.secondlife.com/w/index.php?title=Particle_emitter&action=edit&redlink=1" target="_blank">particle emitter</a> within the <a href="https://wiki.secondlife.com/wiki/Primitive" target="_blank">prim</a> that contains the <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a>. Any other scripts, in the same prim, that call this function will modify the state of the same particle emitter. As such, the particle system defined by this function is a <a href="https://wiki.secondlife.com/w/index.php?title=Primitive_property&action=edit&redlink=1" target="_blank">prim property</a>, just like its size, shape, color, etc.</p>
-  <p>Each prim has only <b>one (1)</b> particle emitter, located at its <a href="https://wiki.secondlife.com/wiki/Geometric_center" target="_blank">geometric center</a>, and aligned along the prim's <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local</a> Z-axis, pointing in the positive Z direction.</p>
-  <p>This is the one of the only <a href="https://wiki.secondlife.com/wiki/Category:LSL_Particles" target="_blank">functions</a> which alters the state of the prim's particle emitter; thus, if you wish to change the emitter to a different state (i.e., emitting a different particle system entirely, or shut off the emitter completely), just call the function with the parameters of the new particle system you wish to render instead. Specifying an empty list (i.e., `llParticleSystem([])`; ) turns the emitter off.</p>
-  <p>Particles are essentially 2D [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Sprite_(computer_graphics" target="_blank">sprites</a>) and are always rendered facing the viewer's camera (except when PSYS_PART_RIBBON_MASK is enabled).</p>
+  <p>Defines a particle system that sets the state of the <a href="https://wiki.secondlife.com/w/index.php?title=Particle_emitter&amp;action=edit&amp;redlink=1" target="_blank">particle emitter</a> within the <a href="https://wiki.secondlife.com/wiki/Primitive" target="_blank">prim</a> that contains the <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a>. Any other scripts, in the same prim, that call this function will modify the state of the same particle emitter. As such, the particle system defined by this function is a <a href="https://wiki.secondlife.com/w/index.php?title=Primitive_property&amp;action=edit&amp;redlink=1" target="_blank">prim property</a>, just like its size, shape, color, etc.</p>
+  <p>Each prim has only <b>one (1)</b> particle emitter, located at its <a href="https://wiki.secondlife.com/wiki/Geometric_center" target="_blank">geometric center</a>, and aligned along the prim&#39;s <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local</a> Z-axis, pointing in the positive Z direction.</p>
+  <p>This is the one of the only <a href="https://wiki.secondlife.com/wiki/Category:LSL_Particles" target="_blank">functions</a> which alters the state of the prim&#39;s particle emitter; thus, if you wish to change the emitter to a different state (i.e., emitting a different particle system entirely, or shut off the emitter completely), just call the function with the parameters of the new particle system you wish to render instead. Specifying an empty list (i.e., `llParticleSystem([])`; ) turns the emitter off.</p>
+  <p>Particles are essentially 2D [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Sprite_(computer_graphics" target="_blank">sprites</a>) and are always rendered facing the viewer&#39;s camera (except when PSYS_PART_RIBBON_MASK is enabled).</p>
   <p>The rule / data values are defined below.</p>
   <table>
     <tbody>
@@ -127,7 +127,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td colspan="2">PSYS_PART_FLAGS</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flags</td>
-        <td>Various flags controlling the behavior of the particle system. The value may be specified as an integer in decimal or <a href="https://wiki.secondlife.com/w/index.php?title=Hexadecimal&action=edit&redlink=1" target="_blank">hex</a> format, or by ORing together (using the | operator) one or more of the following flag constants:</td>
+        <td>Various flags controlling the behavior of the particle system. The value may be specified as an integer in decimal or <a href="https://wiki.secondlife.com/w/index.php?title=Hexadecimal&amp;action=edit&amp;redlink=1" target="_blank">hex</a> format, or by ORing together (using the | operator) one or more of the following flag constants:</td>
         <td>0</td>
       </tr>
       <tr>
@@ -138,7 +138,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 <p>e</p>
 <p>s</b></p></td>
         <td colspan="2">PSYS_PART_BOUNCE_MASK</td>
-        <td>When set, specifies particles will bounce off a plane at the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> Z height of the emitter. On "bounce", each particle reverses its Z-velocity. Particles spawned below the plane will reflect to an equivalent distance above the plane.</td>
+        <td>When set, specifies particles will bounce off a plane at the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> Z height of the emitter. On &quot;bounce&quot;, each particle reverses its Z-velocity. Particles spawned below the plane will reflect to an equivalent distance above the plane.</td>
         <td>0x004</td>
       </tr>
       <tr>
@@ -153,27 +153,27 @@ import DocsCode from '/src/components/DocsCode.astro';
       </tr>
       <tr>
         <td colspan="2">PSYS_PART_FOLLOW_VELOCITY_MASK</td>
-        <td>When set, particles rotate to orient their "top" towards the direction of movement or emission. Otherwise, particles are oriented vertically as their textures would appear (top of texture at top, left at left).</td>
+        <td>When set, particles rotate to orient their &quot;top&quot; towards the direction of movement or emission. Otherwise, particles are oriented vertically as their textures would appear (top of texture at top, left at left).</td>
         <td>0x020</td>
       </tr>
       <tr>
         <td colspan="2">PSYS_PART_INTERP_COLOR_MASK</td>
-        <td>When set, particle color and alpha transition from their START settings to their END settings during the particle's lifetime. The transition is a smooth interpolation.</td>
+        <td>When set, particle color and alpha transition from their START settings to their END settings during the particle&#39;s lifetime. The transition is a smooth interpolation.</td>
         <td>0x001</td>
       </tr>
       <tr>
         <td colspan="2">PSYS_PART_INTERP_SCALE_MASK</td>
-        <td>When set, particle size/scale transitions from its START setting to its END setting during the particle's lifetime.</td>
+        <td>When set, particle size/scale transitions from its START setting to its END setting during the particle&#39;s lifetime.</td>
         <td>0x002</td>
       </tr>
       <tr>
         <td colspan="2">PSYS_PART_RIBBON_MASK</td>
-        <td>Joins a stream of particles together into a continuous strip. Particle textures are stretched (or squeezed) to join their right edges to their predecessor's left. Ribbon 'width' is controlled by the 'x' values of start and end scale. The 'y' values are used only for computing the maximum visibility distance of the particles, and the distance between particles controls the 'length' of each ribbon segment instead. Unlike other particle effects, ribbon segments are not rendered facing the viewer's camera. The Z axis of each new particle mimics the Z axis of the emitter prim. Ribbon segments will not render if they have no 'length' - this happens when particles move only 'up' or 'down' the local Z-axis of their emitter prim. PSYS_PART_FOLLOW_VELOCITY_MASK has no effect on ribbons. For a simple ribbon effect, try using the DROP pattern, TEXTURE_BLANK, ACCEL and/or WIND.</td>
+        <td>Joins a stream of particles together into a continuous strip. Particle textures are stretched (or squeezed) to join their right edges to their predecessor&#39;s left. Ribbon &#39;width&#39; is controlled by the &#39;x&#39; values of start and end scale. The &#39;y&#39; values are used only for computing the maximum visibility distance of the particles, and the distance between particles controls the &#39;length&#39; of each ribbon segment instead. Unlike other particle effects, ribbon segments are not rendered facing the viewer&#39;s camera. The Z axis of each new particle mimics the Z axis of the emitter prim. Ribbon segments will not render if they have no &#39;length&#39; - this happens when particles move only &#39;up&#39; or &#39;down&#39; the local Z-axis of their emitter prim. PSYS_PART_FOLLOW_VELOCITY_MASK has no effect on ribbons. For a simple ribbon effect, try using the DROP pattern, TEXTURE_BLANK, ACCEL and/or WIND.</td>
         <td>0x400</td>
       </tr>
       <tr>
         <td colspan="2">PSYS_PART_TARGET_LINEAR_MASK</td>
-        <td>When set, emitted particles move in a straight evenly-spaced line towards the target specified by the PSYS_SRC_TARGET_KEY rule. This option ignores all Non-DROP patterns and their dependent attributes (radius, burst speeds, angles, and omega). PSYS_SRC_ACCEL and PSYS_PART_WIND_MASK are ignored as well. Using PSYS_PART_BOUNCE_MASK while the target is 'below' the emitter will cause the linear particle stream to deflect upwards, terminating above the target.</td>
+        <td>When set, emitted particles move in a straight evenly-spaced line towards the target specified by the PSYS_SRC_TARGET_KEY rule. This option ignores all Non-DROP patterns and their dependent attributes (radius, burst speeds, angles, and omega). PSYS_SRC_ACCEL and PSYS_PART_WIND_MASK are ignored as well. Using PSYS_PART_BOUNCE_MASK while the target is &#39;below&#39; the emitter will cause the linear particle stream to deflect upwards, terminating above the target.</td>
         <td>0x080</td>
       </tr>
       <tr>
@@ -228,7 +228,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       </tr>
       <tr>
         <td colspan="2">PSYS_SRC_PATTERN_ANGLE</td>
-        <td>Sprays particles outward in a flat circular, semi-circular, arc or ray shaped areas, as defined by PSYS_SRC_ANGLE_BEGIN and PSYS_SRC_ANGLE_END. The circular pattern radiates outwards around the prim's local X axis line.</td>
+        <td>Sprays particles outward in a flat circular, semi-circular, arc or ray shaped areas, as defined by PSYS_SRC_ANGLE_BEGIN and PSYS_SRC_ANGLE_END. The circular pattern radiates outwards around the prim&#39;s local X axis line.</td>
         <td>0x04</td>
       </tr>
       <tr>
@@ -250,13 +250,13 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td colspan="2">PSYS_SRC_ANGLE_BEGIN</td>
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> angle_begin</td>
-        <td>Specifies a half angle, in radians, of a circular or spherical "dimple" or conic section (starting from the emitter facing) within which particles will NOT be emitted. Valid values are the same as for PSYS_SRC_ANGLE_END, though the effects are reversed accordingly. If the pattern is PSYS_SRC_PATTERN_ANGLE, the presentation is a 2D flat circular section. If PSYS_SRC_PATTERN_ANGLE_CONE or PSYS_SRC_PATTERN_ANGLE_CONE_EMPTY is used, the presentation is a 3D spherical section. Note that the value of this parameter and PSYS_SRC_ANGLE_END are internally re-ordered such that this parameter gets the smaller of the two values.</td>
+        <td>Specifies a half angle, in radians, of a circular or spherical &quot;dimple&quot; or conic section (starting from the emitter facing) within which particles will NOT be emitted. Valid values are the same as for PSYS_SRC_ANGLE_END, though the effects are reversed accordingly. If the pattern is PSYS_SRC_PATTERN_ANGLE, the presentation is a 2D flat circular section. If PSYS_SRC_PATTERN_ANGLE_CONE or PSYS_SRC_PATTERN_ANGLE_CONE_EMPTY is used, the presentation is a 3D spherical section. Note that the value of this parameter and PSYS_SRC_ANGLE_END are internally re-ordered such that this parameter gets the smaller of the two values.</td>
         <td>22</td>
       </tr>
       <tr>
         <td colspan="2">PSYS_SRC_ANGLE_END</td>
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> angle_end</td>
-        <td>Specifies a half angle, in radians, of a circular or spherical "dimple" or conic section (starting from the emitter facing) within which particles WILL be emitted. Valid values are 0.0, which will result in particles being emitted in a straight line in the direction of the emitter facing, to <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a>, which will result in particles being emitted in a full circular or spherical arc around the emitter, not including the "dimple" or conic section defined by PSYS_SRC_ANGLE_BEGIN. If the pattern is PSYS_SRC_PATTERN_ANGLE, the presentation is a 2D flat circular section. If PSYS_SRC_PATTERN_ANGLE_CONE or PSYS_SRC_PATTERN_ANGLE_CONE_EMPTY is used, the presentation is a 3D spherical section. Note that the value of this parameter and PSYS_SRC_ANGLE_BEGIN are internally re-ordered such that this parameter gets the larger of the two values.</td>
+        <td>Specifies a half angle, in radians, of a circular or spherical &quot;dimple&quot; or conic section (starting from the emitter facing) within which particles WILL be emitted. Valid values are 0.0, which will result in particles being emitted in a straight line in the direction of the emitter facing, to <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a>, which will result in particles being emitted in a full circular or spherical arc around the emitter, not including the &quot;dimple&quot; or conic section defined by PSYS_SRC_ANGLE_BEGIN. If the pattern is PSYS_SRC_PATTERN_ANGLE, the presentation is a 2D flat circular section. If PSYS_SRC_PATTERN_ANGLE_CONE or PSYS_SRC_PATTERN_ANGLE_CONE_EMPTY is used, the presentation is a 3D spherical section. Note that the value of this parameter and PSYS_SRC_ANGLE_BEGIN are internally re-ordered such that this parameter gets the larger of the two values.</td>
         <td>23</td>
       </tr>
       <tr>
@@ -268,7 +268,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td colspan="2">PSYS_SRC_OUTERANGLE</td>
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> angle_outer</td>
-        <td><b>DEPRECATED: Use PSYS_SRC_ANGLE_END instead.</b> Works similar to its replacement rule, except the edge of the section is aligned with the emitter facing, rather than the section's center.</td>
+        <td><b>DEPRECATED: Use PSYS_SRC_ANGLE_END instead.</b> Works similar to its replacement rule, except the edge of the section is aligned with the emitter facing, rather than the section&#39;s center.</td>
         <td>11</td>
       </tr>
       <tr>
@@ -307,19 +307,19 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td colspan="2">PSYS_PART_START_SCALE</td>
         <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> scale_start</td>
-        <td>Specifies the <a href="https://wiki.secondlife.com/w/index.php?title=Scale&action=edit&redlink=1" target="_blank">scale</a> or size of the particles upon emission. Valid values for each direction are 0.03125 to 4.0, in meters. The actual particle size is always a multiple of 0.03125. Smaller changes don't have any effect. Since particles are essentially 2D sprites, the Z component of the vector is ignored and can be set to 0.0.</td>
+        <td>Specifies the <a href="https://wiki.secondlife.com/w/index.php?title=Scale&amp;action=edit&amp;redlink=1" target="_blank">scale</a> or size of the particles upon emission. Valid values for each direction are 0.03125 to 4.0, in meters. The actual particle size is always a multiple of 0.03125. Smaller changes don&#39;t have any effect. Since particles are essentially 2D sprites, the Z component of the vector is ignored and can be set to 0.0.</td>
         <td>5</td>
       </tr>
       <tr>
         <td colspan="2">PSYS_PART_END_SCALE</td>
         <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> scale_end</td>
-        <td>Specifies the <a href="https://wiki.secondlife.com/w/index.php?title=Scale&action=edit&redlink=1" target="_blank">scale</a> or size the particles transition to during their lifetime. Only used if the PSYS_PART_INTERP_SCALE_MASK flag is set. Valid values are the same as PSYS_PART_START_SCALE.</td>
+        <td>Specifies the <a href="https://wiki.secondlife.com/w/index.php?title=Scale&amp;action=edit&amp;redlink=1" target="_blank">scale</a> or size the particles transition to during their lifetime. Only used if the PSYS_PART_INTERP_SCALE_MASK flag is set. Valid values are the same as PSYS_PART_START_SCALE.</td>
         <td>6</td>
       </tr>
       <tr>
         <td colspan="2">PSYS_SRC_TEXTURE</td>
         <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> texture</td>
-        <td>Specifies the name of a texture in the emitter prim's inventory to use for each particle. Alternatively, you may specify an asset key <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> for a texture. If using <a href="https://wiki.secondlife.com/wiki/LlLinkParticleSystem" target="_blank">llLinkParticleSystem</a> and texture is not a UUID, texture must be in the emitter prim (not necessarily with the script).</td>
+        <td>Specifies the name of a texture in the emitter prim&#39;s inventory to use for each particle. Alternatively, you may specify an asset key <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> for a texture. If using <a href="https://wiki.secondlife.com/wiki/LlLinkParticleSystem" target="_blank">llLinkParticleSystem</a> and texture is not a UUID, texture must be in the emitter prim (not necessarily with the script).</td>
         <td>12</td>
       </tr>
       <tr>
@@ -338,18 +338,18 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td colspan="5"><b>Particle Blending</b></td>
       </tr>
       <tr>
-        <td colspan="5"><b>Note:</b> The particle system blend parameters wrap directly to OpenGL's glBlendFunc. Detailed documentation for glBlendFunc, including formulas, can be found in the <a href="http://www.opengl.org/sdk/docs/man/html/glBlendFunc.xhtml" target="_blank">official glBlendFunc documentation</a></td>
+        <td colspan="5"><b>Note:</b> The particle system blend parameters wrap directly to OpenGL&#39;s glBlendFunc. Detailed documentation for glBlendFunc, including formulas, can be found in the <a href="http://www.opengl.org/sdk/docs/man/html/glBlendFunc.xhtml" target="_blank">official glBlendFunc documentation</a></td>
       </tr>
       <tr>
         <td colspan="2">PSYS_PART_BLEND_FUNC_SOURCE</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> bf_source</td>
-        <td>Specifies how blending function uses the incoming particle's color and alpha information to produce the rendered result. Defaults to PSYS_PART_BF_SOURCE_ALPHA.</td>
+        <td>Specifies how blending function uses the incoming particle&#39;s color and alpha information to produce the rendered result. Defaults to PSYS_PART_BF_SOURCE_ALPHA.</td>
         <td>24</td>
       </tr>
       <tr>
         <td colspan="2">PSYS_PART_BLEND_FUNC_DEST</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> bf_dest</td>
-        <td>Specifies how blending function uses the current framebuffer's color and alpha information to produce the rendered result. Defaults to PSYS_PART_BF_ONE_MINUS_SOURCE_ALPHA. To make particles blend with the background in a less opaque and more luminescent way use PSYS_PART_BF_ONE for dest and the default for source. Most other blending combinations will render the invisible/alpha portion of your particle texture, unless the invisible area of your texture is all black (or, in some cases, unless it is all white).</td>
+        <td>Specifies how blending function uses the current framebuffer&#39;s color and alpha information to produce the rendered result. Defaults to PSYS_PART_BF_ONE_MINUS_SOURCE_ALPHA. To make particles blend with the background in a less opaque and more luminescent way use PSYS_PART_BF_ONE for dest and the default for source. Most other blending combinations will render the invisible/alpha portion of your particle texture, unless the invisible area of your texture is all black (or, in some cases, unless it is all white).</td>
         <td>25</td>
       </tr>
       <tr>
@@ -416,13 +416,13 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td colspan="2">PSYS_SRC_BURST_RATE</td>
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> burst_sleep</td>
-        <td>Specifies the time interval, in seconds, between "bursts" of particles being emitted. Specifying a value of 0.0 will cause the emission of particles as fast as the viewer can do so.</td>
+        <td>Specifies the time interval, in seconds, between &quot;bursts&quot; of particles being emitted. Specifying a value of 0.0 will cause the emission of particles as fast as the viewer can do so.</td>
         <td>13</td>
       </tr>
       <tr>
         <td colspan="2">PSYS_SRC_BURST_PART_COUNT</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> burst_particle_count</td>
-        <td>Specifies the number of particles emitted in each "burst".</td>
+        <td>Specifies the number of particles emitted in each &quot;burst&quot;.</td>
         <td>15</td>
       </tr>
       <tr>
@@ -437,7 +437,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td colspan="2">PSYS_SRC_OMEGA</td>
         <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> omega</td>
-        <td>Sets how far to rotate the "pattern" after each particle burst. (Burst frequency is set with PSYS_SRC_BURST_RATE.) Omega values are approximately 'radians per burst' around the prim's global (not local) X,Y,Z axes. For precise and predictable pattern rotation, rotate the prim instead of using PSYS_SRC_OMEGA. Omega has no visible effect on drop, explode and certain specific angle and angle cone patterns, depending on prim orientation. Pattern rotation can be used with prim orientation and llTargetOmega() but won't produce consistent results. (<a href="#Caveats" target="_blank">caveat 2</a> and <a href="#Caveats" target="_blank">caveat 3</a>)</td>
+        <td>Sets how far to rotate the &quot;pattern&quot; after each particle burst. (Burst frequency is set with PSYS_SRC_BURST_RATE.) Omega values are approximately &#39;radians per burst&#39; around the prim&#39;s global (not local) X,Y,Z axes. For precise and predictable pattern rotation, rotate the prim instead of using PSYS_SRC_OMEGA. Omega has no visible effect on drop, explode and certain specific angle and angle cone patterns, depending on prim orientation. Pattern rotation can be used with prim orientation and llTargetOmega() but won&#39;t produce consistent results. (<a href="#Caveats" target="_blank">caveat 2</a> and <a href="#Caveats" target="_blank">caveat 3</a>)</td>
         <td>21</td>
       </tr>
       <tr>
@@ -456,10 +456,10 @@ import DocsCode from '/src/components/DocsCode.astro';
   </table>
   <h2>Caveats</h2>
   <ul>
-    <li>When using particle systems that have a non-zero emitter age (PSYS_SRC_MAX_AGE) setting, you may notice that the particle system may restart without any scripted trigger going off. This is due to a bug which causes the emitter to "reset" when any of the prim properties are updated or otherwise sent to the viewer. As a result, you may have to use a <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a> or a forced <a href="https://wiki.secondlife.com/wiki/LlSleep" target="_blank">sleep</a> and then clear the particle system once the age has expired. Debbie Trilling has posted a work-around here: <a href="https://forums-archive.secondlife.com/54/fa/260031/1.html#post1996465" target="_blank">https://forums-archive.secondlife.com/54/fa/260031/1.html#post1996465</a></li>
-    <li>The spin defined by PSYS_SRC_OMEGA is relative to the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> coordinate system, NOT the prim's <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local</a> coordinate system.</li>
-    <li>New non-zero vector values for PSYS_SRC_OMEGA will not re-align the emitter with the prim before they take effect. The viewer will continue rotating the emitter with the new omega values, starting from the last known orientation of the emitter. The emitter's current orientation is determined by the viewer, not the simulator, and two people looking at the same effect may see different results. To re-align the emitter with the prim, create an effect with PSYS_SRC_OMEGA set to <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> long enough for the viewer to have a chance to render it.</li>
-    <li>Particles moving towards a humanoid avatar, specified by PSYS_SRC_TARGET_KEY rule and setting the PSYS_PART_TARGET_POS_MASK flag, will end up at the geometric center of the avatar's bounding box which, unfortunately, make them appear to be striking the person in the groin area. If you want them to end up at another point on a target avatar, you instead have to place a target prim that is moved to the position where you wish them to end up, and use the key of that prim for the value of the PSYS_SRC_TARGET_KEY rule.</li>
+    <li>When using particle systems that have a non-zero emitter age (PSYS_SRC_MAX_AGE) setting, you may notice that the particle system may restart without any scripted trigger going off. This is due to a bug which causes the emitter to &quot;reset&quot; when any of the prim properties are updated or otherwise sent to the viewer. As a result, you may have to use a <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a> or a forced <a href="https://wiki.secondlife.com/wiki/LlSleep" target="_blank">sleep</a> and then clear the particle system once the age has expired. Debbie Trilling has posted a work-around here: <a href="https://forums-archive.secondlife.com/54/fa/260031/1.html#post1996465" target="_blank">https://forums-archive.secondlife.com/54/fa/260031/1.html#post1996465</a></li>
+    <li>The spin defined by PSYS_SRC_OMEGA is relative to the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> coordinate system, NOT the prim&#39;s <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local</a> coordinate system.</li>
+    <li>New non-zero vector values for PSYS_SRC_OMEGA will not re-align the emitter with the prim before they take effect. The viewer will continue rotating the emitter with the new omega values, starting from the last known orientation of the emitter. The emitter&#39;s current orientation is determined by the viewer, not the simulator, and two people looking at the same effect may see different results. To re-align the emitter with the prim, create an effect with PSYS_SRC_OMEGA set to <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> long enough for the viewer to have a chance to render it.</li>
+    <li>Particles moving towards a humanoid avatar, specified by PSYS_SRC_TARGET_KEY rule and setting the PSYS_PART_TARGET_POS_MASK flag, will end up at the geometric center of the avatar&#39;s bounding box which, unfortunately, make them appear to be striking the person in the groin area. If you want them to end up at another point on a target avatar, you instead have to place a target prim that is moved to the position where you wish them to end up, and use the key of that prim for the value of the PSYS_SRC_TARGET_KEY rule.</li>
     <li>The Second Life viewer uses optimizations in culling objects which are too small to see at certain distances. If your emitter is very small, and is culled due to distance, the particle system associated with it will not be rendered either.</li>
     <li>Particles will also be culled beyond a maximum distance depending on their own scale. If particles are desired to be visible from further away yet be visually smaller, a larger scale and a texture with empty padding space are needed. If using PSYS_PART_RIBBON_MASK, make sure the Y scale is set properly, as it is used for this calculation even the rendering of the ribbon particles themselves ignores it.</li>
     <li>When PSYS_PART_FOLLOW_VELOCITY_MASK is enabled, particles with zero velocity (e.g. generated by the DROP pattern, without acceleration, wind or target position following) are not rendered at all. Particles following their source via PSYS_PART_FOLLOW_SRC_MASK does not count as having a velocity, even if the source is moving.</li>
@@ -508,17 +508,17 @@ float RGBAtoAlpha(integer rgba) {
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
   <h3>Link Numbers</h3>
-  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
   <ul>
-    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
-    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is one.</li>
   </ul>
   <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
-  <p>Counting Prims & Avatars</p>
+  <p>Counting Prims &amp; Avatars</p>
   <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
   <ul>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+    <li>`[llGetNumberOfPrims](https://wiki.secondlife.com/wiki/LlGetNumberOfPrims)()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`[llGetObjectPrimCount](https://wiki.secondlife.com/wiki/LlGetObjectPrimCount)([llGetKey](https://wiki.secondlife.com/wiki/LlGetKey)())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
   </ul>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
     if ll.GetAttached() ~= 0 then  --Is it attached?
@@ -534,11 +534,11 @@ end
 }`} lang="lsl" /></div>
   <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
 Errata</p>
-  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset&#39;s <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
   <h3>Other Notes</h3>
   <ul>
-    <li>The default particle count for the client is normally set at 4096. That is the max particle count the client will render for ALL active particle systems within view range. Good particle system design is key to avoid "spamming" everyone with your particles, and starving out other people's particle systems. As such, if you are experiencing trouble getting your particle emitter to emit as many particles as you like, it may be the victim of particle starvation. Client/viewer lag (low frame rates) can also cause this issue, as particles are a rather low priority for rendering. The best solution for this is to move to a less laggy environment relatively free of other particle systems when designing and testing your own.</li>
-    <li>Once particles are emitted, their direction of motion can only be affected by PSYS_SRC_ACCEL, the PSYS_PART_TARGET_POS_MASK flag, or the PSYS_PART_FOLLOW_SRC_MASK flag. As such, there is no good way to create the "swirling vortex" effect (like the one used in the viewer to indicate an object talking, begin derezzed, or when an avatar leaves the sim/grid). The effect can be created with a moving particle source (E.G. An orbiting script.)</li>
+    <li>The default particle count for the client is normally set at 4096. That is the max particle count the client will render for ALL active particle systems within view range. Good particle system design is key to avoid &quot;spamming&quot; everyone with your particles, and starving out other people&#39;s particle systems. As such, if you are experiencing trouble getting your particle emitter to emit as many particles as you like, it may be the victim of particle starvation. Client/viewer lag (low frame rates) can also cause this issue, as particles are a rather low priority for rendering. The best solution for this is to move to a less laggy environment relatively free of other particle systems when designing and testing your own.</li>
+    <li>Once particles are emitted, their direction of motion can only be affected by PSYS_SRC_ACCEL, the PSYS_PART_TARGET_POS_MASK flag, or the PSYS_PART_FOLLOW_SRC_MASK flag. As such, there is no good way to create the &quot;swirling vortex&quot; effect (like the one used in the viewer to indicate an object talking, begin derezzed, or when an avatar leaves the sim/grid). The effect can be created with a moving particle source (E.G. An orbiting script.)</li>
     <li>Although the declared particle sizes are always in multiples of 0.03125 meters, PSYS_PART_INTERP_SCALE_MASK allows smooth transitions between the start and end values. This also applies to a size of <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>, e.g. scaling a particle from or to nothing.</li>
     <li><a href="https://wiki.secondlife.com/wiki/User:Talia_Tokugawa/concept/CrazyParticle" target="_blank">[Something Talia realised that blew her mind</a>], Documenting experiments with particles, including tutorial of how to do video particles, and how to (disputably) massively exceed the 8192 Limit in terms of how many particles SL can render at one time. (Whilst rendering video on particles is not new just (until now) undocumented, I am fairly confident in saying the method to exceed the particle limit is new.)</li>
   </ul>
@@ -576,10 +576,10 @@ Errata</p>
   </table>
   <h2>Deep Notes</h2>
   <h3>Missing 14</h3>
-  <p>There is a missing constant which would have the value 14, the underlying enumeration <a href="https://github.com/secondlife/viewer/blob/e45b615/indra/llmessage/llpartdata.h#L51" target="_blank">LLPSScriptFlags</a> has that as <a href="https://github.com/secondlife/viewer/blob/e45b615/indra/llmessage/llpartdata.h#L70" target="_blank">LLPS_SRC_BURST_DURATION</a>, the value is used nowhere else in the client source. This isn't surprising considering that the burst duration is dependent on the values of PSYS_SRC_BURST_PART_COUNT and PSYS_SRC_BURST_RATE.</p>
+  <p>There is a missing constant which would have the value 14, the underlying enumeration <a href="https://github.com/secondlife/viewer/blob/e45b615/indra/llmessage/llpartdata.h#L51" target="_blank">LLPSScriptFlags</a> has that as <a href="https://github.com/secondlife/viewer/blob/e45b615/indra/llmessage/llpartdata.h#L70" target="_blank">LLPS_SRC_BURST_DURATION</a>, the value is used nowhere else in the client source. This isn&#39;t surprising considering that the burst duration is dependent on the values of PSYS_SRC_BURST_PART_COUNT and PSYS_SRC_BURST_RATE.</p>
   <h3>Default texture</h3>
-  <p>At the time of writing, the default particle texture is actually loaded from the viewer's install directory and does not have its own UUID. The filepath is **Viewer\skins\default\textures\*pixiesmall.j2c***</p>
-  <p>One historically used UUID for this asset is `"168e6813-096e-07ea-97ae-fd416826f627"` as <a href="https://wiki.secondlife.com/wiki/User:Kizmut_Smit/ClientAssetKeys" target="_blank">listed here.</a></p>
+  <p>At the time of writing, the default particle texture is actually loaded from the viewer&#39;s install directory and does not have its own UUID. The filepath is **Viewer\skins\default\textures\*pixiesmall.j2c***</p>
+  <p>One historically used UUID for this asset is `&quot;168e6813-096e-07ea-97ae-fd416826f627&quot;` as <a href="https://wiki.secondlife.com/wiki/User:Kizmut_Smit/ClientAssetKeys" target="_blank">listed here.</a></p>
   <p>History</p>
   <ul>
     <li>Date of release llParticleSystem <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.13#Release_Notes_for_Second_Life_1.13.4.281.29_February_21.2C_2007" target="_blank"> 21-02-2007 </a> or <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.14" target="_blank"> 14-03-2007 </a></li>

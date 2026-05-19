@@ -27,7 +27,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
           <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&amp;#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -45,7 +45,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
           <td>Arc / arc</td>
-          <td>the max angle between the object's local X-axis and detectable objects, <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">0.0, [PI</a>]</td>
+          <td>the max angle between the object&#39;s local X-axis and detectable objects, <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">0.0, [PI</a>]</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -105,7 +105,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a></td>
         <td>0x2</td>
-        <td>Physical tasks. (Physical objects & agents)</td>
+        <td>Physical tasks. (Physical objects &amp; agents)</td>
         <td>Physical objects that are moving or objects containing an active script. Thus, it is using SL server resources now.</td>
       </tr>
       <tr>
@@ -123,7 +123,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/DAMAGEABLE" target="_blank">DAMAGEABLE</a></td>
         <td>0x20</td>
-        <td>Objects & agents that are able to process damage.</td>
+        <td>Objects &amp; agents that are able to process damage.</td>
         <td>Filter for objects in world that have a script with <a href="https://wiki.secondlife.com/wiki/On_damage" target="_blank">on_damage</a> or a <a href="https://wiki.secondlife.com/wiki/Final_damage" target="_blank">final_damage</a> event (able to process damage)</td>
       </tr>
     </tbody>
@@ -171,13 +171,13 @@ import DocsCode from '/src/components/DocsCode.astro';
   </table>
   <h2>Caveats</h2>
   <ul>
-    <li>When searching for an avatar but not by name, it doesn't matter which AGENT flag is used.</li>
+    <li>When searching for an avatar but not by name, it doesn&#39;t matter which AGENT flag is used.</li>
     <li>The repeat of the sensor event is adversely affected by <a href="https://wiki.secondlife.com/wiki/LlGetRegionTimeDilation" target="_blank">time dilation</a> (lag).</li>
-    <li>Sensors placed in the root prim of attachments will use the direction the avatar is facing as their forward vector. In mouselook, this means that it will be wherever the avatar is looking, while out of mouselook, this means whichever way the avatar is pointing. This does not include where the avatar's head is pointing, or what animation the avatar is doing, just the direction the avatar would move in if you walked forward. This is the case, regardless of where the object is attached.</li>
-    <li>Sensors placed in prims other than the root prim of an attachment will have their forward direction offset relative to the root prim's forward direction, e.g. a sensor in a prim whose +X direction is the reverse of the root +X will look backward.</li>
+    <li>Sensors placed in the root prim of attachments will use the direction the avatar is facing as their forward vector. In mouselook, this means that it will be wherever the avatar is looking, while out of mouselook, this means whichever way the avatar is pointing. This does not include where the avatar&#39;s head is pointing, or what animation the avatar is doing, just the direction the avatar would move in if you walked forward. This is the case, regardless of where the object is attached.</li>
+    <li>Sensors placed in prims other than the root prim of an attachment will have their forward direction offset relative to the root prim&#39;s forward direction, e.g. a sensor in a prim whose +X direction is the reverse of the root +X will look backward.</li>
     <li>Only the most recent <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a> event is queued. Previous sensor events are replaced.</li>
     <li>A repeating sensor does not persist across a state change.</li>
-    <li>llSensorRepeat can occasionally detect outside of it's specified range every few cycles when used near sim borders. <a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a> in a <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a> does not.</li>
+    <li>llSensorRepeat can occasionally detect outside of it&#39;s specified range every few cycles when used near sim borders. <a href="https://wiki.secondlife.com/wiki/LlSensor" target="_blank">llSensor</a> in a <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a> does not.</li>
     <li>Only one or zero llSensorRepeats can be active per script. If llSensorRepeat is called a second time without calling <a href="https://wiki.secondlife.com/wiki/LlSensorRemove" target="_blank">llSensorRemove</a>, the first llSensorRepeat is deactivated and the second one replaces it</li>
   </ul>
   <h2>Examples</h2>

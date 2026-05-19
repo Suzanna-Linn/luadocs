@@ -14,14 +14,14 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p>  <p>Get the media params for a particular <b>face</b> on a <b>link</b>ed prim, given the desired list of named <i>param</i>s.</p>
-  <p>Returns a <a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_List/parameters&action=edit&redlink=1" target="_blank">parameter list</a> (a <a href="https://wiki.secondlife.com/wiki/List" target="_blank">list</a>) of values in the order requested.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_List/parameters&amp;action=edit&amp;redlink=1" target="_blank">parameter list</a> (a <a href="https://wiki.secondlife.com/wiki/List" target="_blank">list</a>) of values in the order requested.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>LinkNumber / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">link</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims&#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&#32;</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&amp;#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, &gt;1: child prims&amp;#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&amp;#32;</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -96,26 +96,26 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_ALT_IMAGE_ENABLE" target="_blank"> [PRIM_MEDIA_ALT_IMAGE_ENABLE</a> ]</td>
         <td>0</td>
         <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
-        <td colspan="6">Gets the default image state (the image that the user sees before a piece of media is active) for the chosen face. The default image is specified by Second Life's server for that media type.
+        <td colspan="6">Gets the default image state (the image that the user sees before a piece of media is active) for the chosen face. The default image is specified by Second Life&#39;s server for that media type.
 <b>Note:</b> This flag is not currently implemented.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/PRIM_MEDIA_CONTROLS" target="_blank"> [PRIM_MEDIA_CONTROLS</a> ]</td>
         <td>1</td>
         <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> control ]</td>
-        <td colspan="6">Gets the style of controls. Can be either <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_STANDARD&action=edit&redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_STANDARD</a> or <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_MINI&action=edit&redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_MINI</a>.</td>
+        <td colspan="6">Gets the style of controls. Can be either <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_STANDARD&amp;action=edit&amp;redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_STANDARD</a> or <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_MINI&amp;action=edit&amp;redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_MINI</a>.</td>
       </tr>
       <tr>
         <th colspan="2">controls Flags</th>
         <th colspan="6">Description</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_STANDARD&action=edit&redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_STANDARD</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_STANDARD&amp;action=edit&amp;redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_STANDARD</a></td>
         <td>0</td>
         <td colspan="6">Standard web navigation controls.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_MINI&action=edit&redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_MINI</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_MEDIA_CONTROLS_MINI&amp;action=edit&amp;redlink=1" target="_blank">PRIM_MEDIA_CONTROLS_MINI</a></td>
         <td>1</td>
         <td colspan="6">Mini web navigation controls; does not include an address bar.</td>
       </tr>
@@ -250,17 +250,17 @@ end
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
   <h3>Link Numbers</h3>
-  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
   <ul>
-    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
-    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is one.</li>
   </ul>
   <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
-  <p>Counting Prims & Avatars</p>
+  <p>Counting Prims &amp; Avatars</p>
   <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
   <ul>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+    <li>`[llGetNumberOfPrims](https://wiki.secondlife.com/wiki/LlGetNumberOfPrims)()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`[llGetObjectPrimCount](https://wiki.secondlife.com/wiki/LlGetObjectPrimCount)([llGetKey](https://wiki.secondlife.com/wiki/LlGetKey)())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
   </ul>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
     if ll.GetAttached() ~= 0 then  --Is it attached?
@@ -276,7 +276,7 @@ end
 }`} lang="lsl" /></div>
   <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
 Errata</p>
-  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset&#39;s <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
   <h2>See Also</h2>
   <h3>Functions</h3>
   <table>

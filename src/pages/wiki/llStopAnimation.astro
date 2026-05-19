@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
           <td>Animation / anim</td>
-          <td>an animation in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of an animation&#32;or <a href="https://wiki.secondlife.com/wiki/Internal_Animations" target="_blank">built in animation</a> name</td>
+          <td>an animation in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&amp;#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&amp;#32;of an animation&amp;#32;or <a href="https://wiki.secondlife.com/wiki/Internal_Animations" target="_blank">built in animation</a> name</td>
         </tr>
       </table>
     </div>
@@ -59,12 +59,12 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>Do not depend upon the auto-grant status of permissions. <b>Always</b> use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event.
 If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRIGGER_ANIMATION" target="_blank">PERMISSION_TRIGGER_ANIMATION</a>, the script will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> and the operation fails (but the script continues to run).
 Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRIGGER_ANIMATION" target="_blank">PERMISSION_TRIGGER_ANIMATION</a> permission is granted there may be no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or if the script is reset.
-<i>For Viewer 3.6.7 and up:</i> If the object is <i>not</i> attached to the permission granter but <i>is</i> in the same region, then <b>Me>Movement>Stop Animating Me</b> will revoke both <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRIGGER_ANIMATION" target="_blank">PERMISSION_TRIGGER_ANIMATION</a> and <a href="https://wiki.secondlife.com/wiki/PERMISSION_OVERRIDE_ANIMATIONS" target="_blank">PERMISSION_OVERRIDE_ANIMATIONS</a> (other permissions will remain).</td>
+<i>For Viewer 3.6.7 and up:</i> If the object is <i>not</i> attached to the permission granter but <i>is</i> in the same region, then <b>Me&gt;Movement&gt;Stop Animating Me</b> will revoke both <a href="https://wiki.secondlife.com/wiki/PERMISSION_TRIGGER_ANIMATION" target="_blank">PERMISSION_TRIGGER_ANIMATION</a> and <a href="https://wiki.secondlife.com/wiki/PERMISSION_OVERRIDE_ANIMATIONS" target="_blank">PERMISSION_OVERRIDE_ANIMATIONS</a> (other permissions will remain).</td>
       </tr>
     </tbody>
   </table>
   <ul>
-    <li>If <b>anim</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not an animation then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>anim</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not an animation then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>anim</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>

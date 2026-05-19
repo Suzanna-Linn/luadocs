@@ -51,7 +51,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>Specification</h2>
-  <p>Deletes, or marks temp, an object that was previously rezzed by this script. The object's root prim must have been previously rezzed from a script within this object.
+  <p>Deletes, or marks temp, an object that was previously rezzed by this script. The object&#39;s root prim must have been previously rezzed from a script within this object.
 If the object is successfully deleted this function returns TRUE, if it fails for any reason it returns FALSE.</p>
   <table>
     <tbody>
@@ -61,35 +61,35 @@ If the object is successfully deleted this function returns TRUE, if it fails fo
         <th>Description</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=DEREZ_DIE&action=edit&redlink=1" target="_blank">DEREZ_DIE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=DEREZ_DIE&amp;action=edit&amp;redlink=1" target="_blank">DEREZ_DIE</a></td>
         <td>0</td>
         <td>Immediately delete the object.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=DEREZ_MAKE_TEMP&action=edit&redlink=1" target="_blank">DEREZ_MAKE_TEMP</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=DEREZ_MAKE_TEMP&amp;action=edit&amp;redlink=1" target="_blank">DEREZ_MAKE_TEMP</a></td>
         <td>1</td>
         <td>Mark the object as temporary so that the simulator will remove the object at a later time.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=DEREZ_TO_INVENTORY&action=edit&redlink=1" target="_blank">DEREZ_TO_INVENTORY</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=DEREZ_TO_INVENTORY&amp;action=edit&amp;redlink=1" target="_blank">DEREZ_TO_INVENTORY</a></td>
         <td>2</td>
-        <td>Returns the targeted object to derezzer's inventory and saves its current state.</td>
+        <td>Returns the targeted object to derezzer&#39;s inventory and saves its current state.</td>
       </tr>
     </tbody>
   </table>
   <h2>Caveats</h2>
   <ul>
-    <li>The targeted object's rezzer must be the same as the object hosting this script</li>
+    <li>The targeted object&#39;s rezzer must be the same as the object hosting this script</li>
     <li>The target must not be an attachment</li>
     <li>The target must be copyable</li>
-    <li>The target's owner must be the same as the script's owner.</li>
+    <li>The target&#39;s owner must be the same as the script&#39;s owner.</li>
     <li>When marking an object as temporary, the object must not contribute to the navmesh.</li>
     <li>When using DEREZ_TO_INVENTORY there are a few other restrictions:
     <ul>
       <li>The derezzer must not be an attachment.</li>
       <li>The derezzer must be modifiable.</li>
-      <li>The object in the derezzer's inventory must still exist.</li>
-      <li>The object in the derezzer's inventory must not be a coalesced object.</li>
+      <li>The object in the derezzer&#39;s inventory must still exist.</li>
+      <li>The object in the derezzer&#39;s inventory must not be a coalesced object.</li>
     </ul>
   
     </li>

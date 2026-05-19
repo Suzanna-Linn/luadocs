@@ -45,34 +45,34 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <p>To convert a list into a comma-separated string use <a href="https://wiki.secondlife.com/wiki/LlList2CSV" target="_blank">llList2CSV</a>.</p>
-  <p>Do not confuse this function with the <a href="https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png" target="_blank"><i></a>&#8201;<a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank">CSV</a> format, it is not</i> the CSV format.</p>
+  <p>Do not confuse this function with the <a href="https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png" target="_blank"><i></a>&amp;#8201;<a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank">CSV</a> format, it is not</i> the CSV format.</p>
   <h2>Specification</h2>
-  <h3>Vectors & Rotations</h3>
-  <p>Anything between "<" and ">" is considered a single value regardless of the existence of a comma between.</p>
+  <h3>Vectors &amp; Rotations</h3>
+  <p>Anything between &quot;&lt;&quot; and &quot;&gt;&quot; is considered a single value regardless of the existence of a comma between.</p>
   <p>This ensures that <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vectors</a> and <a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotations</a> get treated as a single value, with no additional cleanup needed afterward.</p>
-  <p>Note, though, that for every "<" there needs to be a corresponding ">" or it will consume the rest of the string. For example,</p>
+  <p>Note, though, that for every &quot;&lt;&quot; there needs to be a corresponding &quot;&gt;&quot; or it will consume the rest of the string. For example,</p>
   <table>
     <tbody>
       <tr>
         <td>•</td>
-        <td>&#32;`llCSV2List("<>,>,a")`</td>
+        <td>&amp;#32;`llCSV2List(&quot;&lt;&gt;,&gt;,a&quot;)`</td>
         <td>–</td>
-        <td>returns `["<>", ">", "a"]`</td>
-        <td>(Second ">" is isolated)</td>
+        <td>returns `[&quot;&lt;&gt;&quot;, &quot;&gt;&quot;, &quot;a&quot;]`</td>
+        <td>(Second &quot;&gt;&quot; is isolated)</td>
       </tr>
       <tr>
         <td>•</td>
-        <td>&#32;`llCSV2List("<<>,>,a")`</td>
+        <td>&amp;#32;`llCSV2List(&quot;&lt;&lt;&gt;,&gt;,a&quot;)`</td>
         <td>–</td>
-        <td>returns `["<<>,>", "a"]`</td>
+        <td>returns `[&quot;&lt;&lt;&gt;,&gt;&quot;, &quot;a&quot;]`</td>
         <td>(Regularly paired)</td>
       </tr>
       <tr>
         <td>•</td>
-        <td>&#32;`llCSV2List("<<<>,>,a")`</td>
+        <td>&amp;#32;`llCSV2List(&quot;&lt;&lt;&lt;&gt;,&gt;,a&quot;)`</td>
         <td>–</td>
-        <td>returns `["<<<>,>,a"]`</td>
-        <td>(Third "<" lost its opposite one)</td>
+        <td>returns `[&quot;&lt;&lt;&lt;&gt;,&gt;,a&quot;]`</td>
+        <td>(Third &quot;&lt;&quot; lost its opposite one)</td>
       </tr>
     </tbody>
   </table>
@@ -87,32 +87,32 @@ import DocsCode from '/src/components/DocsCode.astro';
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a></td>
-        <td>`(integer)<a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a>(mlist, mint)`</td>
+        <td>`(integer)[llList2String](https://wiki.secondlife.com/wiki/LlList2String)(mlist, mint)`</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlList2Integer" target="_blank">llList2Integer</a> does not support the hex format</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a></td>
-        <td>`(float)<a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a>(mlist, mint)`</td>
+        <td>`(float)[llList2String](https://wiki.secondlife.com/wiki/LlList2String)(mlist, mint)`</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlList2Float" target="_blank">llList2Float</a> does not support the scientific or hexadecimal notations</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a></td>
-        <td>`<a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a>(mlist, mint)`</td>
+        <td>`[llList2String](https://wiki.secondlife.com/wiki/LlList2String)(mlist, mint)`</td>
         <td>Always Safe</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a></td>
-        <td>`<a href="https://wiki.secondlife.com/wiki/LlList2Key" target="_blank">llList2Key</a>(mlist, mint)`</td>
+        <td>`[llList2Key](https://wiki.secondlife.com/wiki/LlList2Key)(mlist, mint)`</td>
         <td>Always Safe</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a></td>
-        <td>`(vector)<a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a>(mlist, mint)`</td>
+        <td>`(vector)[llList2String](https://wiki.secondlife.com/wiki/LlList2String)(mlist, mint)`</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlList2Vector" target="_blank">llList2Vector</a> will return a zero vector</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a></td>
-        <td>`(rotation)<a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a>(mlist, mint)`</td>
+        <td>`(rotation)[llList2String](https://wiki.secondlife.com/wiki/LlList2String)(mlist, mint)`</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlList2Rot" target="_blank">llList2Rot</a> will return a zero rotation</td>
       </tr>
     </tbody>
@@ -127,9 +127,9 @@ import DocsCode from '/src/components/DocsCode.astro';
 //not ["first "," second "," third"]`} lang="lsl" /></div>
   <h2>Caveats</h2>
   <ul>
-    <li>If a "<" does not have a matching ">", the remainder of the string will be a single value, even if the "<" is in the middle of the value, see <a href="#Vectors_&_Rotations" target="_blank">Vectors & Rotations</a> for further details.</li>
+    <li>If a &quot;&lt;&quot; does not have a matching &quot;&gt;&quot;, the remainder of the string will be a single value, even if the &quot;&lt;&quot; is in the middle of the value, see <a href="#Vectors_&amp;_Rotations" target="_blank">Vectors &amp; Rotations</a> for further details.</li>
     <li>All items in the returned list are strings.</li>
-    <li>If an empty string is parsed, the result will a list containing an empty string: [""] (not an empty list).</li>
+    <li>If an empty string is parsed, the result will a list containing an empty string: [&quot;&quot;] (not an empty list).</li>
     <li>When used with lists that are generated based off assets in inventory, llCSV2List should not be used, as inventory assets can contain commas as part of their names.</li>
   </ul>
   <h2>Examples</h2>
@@ -166,7 +166,7 @@ main()
     }
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
-  <p>To use separators other than commas (especially if you can't predict when a user might have sneaked a comma into data they supply the script), use <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a> instead, which allows you to specify separators other than commas. <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a> unfortunately does not support the special parsing required for handling rotations and vectors, nor does it consume leading and trailing whitespace.</p>
+  <p>To use separators other than commas (especially if you can&#39;t predict when a user might have sneaked a comma into data they supply the script), use <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a> instead, which allows you to specify separators other than commas. <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a> unfortunately does not support the special parsing required for handling rotations and vectors, nor does it consume leading and trailing whitespace.</p>
   <h2>See Also</h2>
   <h3>Functions</h3>
   <table>

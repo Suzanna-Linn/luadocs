@@ -21,7 +21,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
           <td>NotecardName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
-          <td>a notecard in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a notecard</td>
+          <td>a notecard in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&amp;#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&amp;#32;of a notecard</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
@@ -80,14 +80,14 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>Notecards are cached into a fixed-size buffer, with the oldest (least-recently read) notecard getting removed first. It is not safe to assume a notecard has been previously cached. Data for a previously cached notecard may be dropped from the cache at any time, especially on a busy server.</p>
   <h2>Caveats</h2>
   <ul>
-    <li>If <b>name</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a notecard then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a notecard then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>name</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
     </ul>
   
     </li>
-    <li>If <b>name</b> is a new empty notecard (never saved) then an error "Couldn't find notecard ~NAME~" (~NAME~ being the value of <b>name</b>) will be shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. This is because until a notecard is saved for the first time, it does not exist as an asset only as an inventory placeholder.
+    <li>If <b>name</b> is a new empty notecard (never saved) then an error &quot;Couldn&#39;t find notecard ~NAME~&quot; (~NAME~ being the value of <b>name</b>) will be shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. This is because until a notecard is saved for the first time, it does not exist as an asset only as an inventory placeholder.
     <ul>
       <li>If the notecard is <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a> you can check for this with <a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a> which will return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> in this case. However if notecard is not <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a>, there is no way to avoid the error message.</li>
     </ul>
@@ -128,7 +128,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>(?i)</th>
         <th>Makes search string case insensitive.</th>
         <th>This must be the first thing that appears in the search string.
-"(?i)apple" will match "apple", "APPLE", "ApPlE", and any other combination of upper and lower case characters.</th>
+&quot;(?i)apple&quot; will match &quot;apple&quot;, &quot;APPLE&quot;, &quot;ApPlE&quot;, and any other combination of upper and lower case characters.</th>
       </tr>
       <tr>
         <th>$</th>
@@ -239,48 +239,48 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>\d
 \D</th>
         <th>Any decimal digit.</th>
-        <th><b>\d</b> &#8594; [[:digit:]] or [0-9]
-<b>\D</b> &#8594; [^[:digit:]] or [^0-9]</th>
+        <th><b>\d</b> &amp;#8594; [[:digit:]] or [0-9]
+<b>\D</b> &amp;#8594; [^[:digit:]] or [^0-9]</th>
       </tr>
       <tr>
         <th>\l
 \L</th>
         <th>Any lower case character.</th>
-        <th><b>\l</b> &#8594; [[:lower:]] or [a-z]
-<b>\L</b> &#8594; [^[:lower:]] or [^a-z]</th>
+        <th><b>\l</b> &amp;#8594; [[:lower:]] or [a-z]
+<b>\L</b> &amp;#8594; [^[:lower:]] or [^a-z]</th>
       </tr>
       <tr>
         <th>\s
 \S</th>
         <th>Any whitespace character.</th>
-        <th><b>\s</b> &#8594; [[:space:]] or [ \t\r\n]
-<b>\S</b> &#8594; [^[:space:]] or [^ \t\r\n]</th>
+        <th><b>\s</b> &amp;#8594; [[:space:]] or [ \t\r\n]
+<b>\S</b> &amp;#8594; [^[:space:]] or [^ \t\r\n]</th>
       </tr>
       <tr>
         <th>\u
 \U</th>
         <th>Any upper case character.</th>
-        <th><b>\u</b> &#8594; [[:upper:]] or [A-Z]
-<b>\U</b> &#8594; [^[:upper:]] or [^A-Z]</th>
+        <th><b>\u</b> &amp;#8594; [[:upper:]] or [A-Z]
+<b>\U</b> &amp;#8594; [^[:upper:]] or [^A-Z]</th>
       </tr>
       <tr>
         <th>\w
 \W</th>
-        <th>Any "word" character.
+        <th>Any &quot;word&quot; character.
 Alphanumeric plus underscore</th>
-        <th><b>\w</b> &#8594; [[:upper:][:lower:][:digit:]_] or [A-Za-z0-9_]
-<b>\W</b> &#8594; [^[:upper:][:lower:][:digit:]_] or [^A-Za-z0-9_]</th>
+        <th><b>\w</b> &amp;#8594; [[:upper:][:lower:][:digit:]_] or [A-Za-z0-9_]
+<b>\W</b> &amp;#8594; [^[:upper:][:lower:][:digit:]_] or [^A-Za-z0-9_]</th>
       </tr>
       <tr>
         <td></td>
         <td colspan="2"><b>Word boundaries</b></td>
       </tr>
       <tr>
-        <th>\<</th>
+        <th>\&lt;</th>
         <th>Start of word.</th>
       </tr>
       <tr>
-        <th>\></th>
+        <th>\&gt;</th>
         <th>End of word</th>
       </tr>
       <tr>
@@ -292,7 +292,7 @@ Alphanumeric plus underscore</th>
         <th>Not a word boundary.</th>
       </tr>
       <tr>
-        <td colspan="3"><i><b>Note</b></i> LSL uses '\' as an escape character in strings. The escape characters above must be double escaped. So "\d" needs to be written in LSL as "\\d"
+        <td colspan="3"><i><b>Note</b></i> LSL uses &#39;\&#39; as an escape character in strings. The escape characters above must be double escaped. So &quot;\d&quot; needs to be written in LSL as &quot;\\d&quot;
 Please see <a href="https://wiki.secondlife.com/wiki/Category:LSL_String#Escape_Codes" target="_blank">LSL Strings, Escape Codes</a></td>
       </tr>
       <tr>
@@ -301,14 +301,14 @@ Please see <a href="https://wiki.secondlife.com/wiki/Category:LSL_String#Escape_
       <tr>
         <th>alnum</th>
         <th>Any alpha-numeric character.</th>
-        <th>[[:alnum:]] &#8594; [0-9a-zA-Z]
-[^[:alnum:]] &#8594; [^0-9a-zA-Z]</th>
+        <th>[[:alnum:]] &amp;#8594; [0-9a-zA-Z]
+[^[:alnum:]] &amp;#8594; [^0-9a-zA-Z]</th>
       </tr>
       <tr>
         <th>alpha</th>
         <th>Any alphabetic character.</th>
-        <th>[[:alpha:]] &#8594; [a-zA-Z]
-[^[:alpha:]] &#8594; [^a-zA-Z]</th>
+        <th>[[:alpha:]] &amp;#8594; [a-zA-Z]
+[^[:alpha:]] &amp;#8594; [^a-zA-Z]</th>
       </tr>
       <tr>
         <th>blank</th>
@@ -317,22 +317,22 @@ Please see <a href="https://wiki.secondlife.com/wiki/Category:LSL_String#Escape_
       <tr>
         <th>cntrl</th>
         <th>Any control character</th>
-        <th>[[:cntrl:]] &#8594; [\x01-\x31]
-[^[:cntrl:]] &#8594; [^\x01-\x31]</th>
+        <th>[[:cntrl:]] &amp;#8594; [\x01-\x31]
+[^[:cntrl:]] &amp;#8594; [^\x01-\x31]</th>
       </tr>
       <tr>
         <th>digit
 d</th>
         <th>Any decimal digit</th>
-        <th>[[:digit:]] &#8594; [0-9]
-[^[:digit:]] &#8594; [^0-9]</th>
+        <th>[[:digit:]] &amp;#8594; [0-9]
+[^[:digit:]] &amp;#8594; [^0-9]</th>
       </tr>
       <tr>
         <th>lower
 l</th>
         <th>Any lower case character.</th>
-        <th>[[:lower:]] &#8594; [a-z]
-[^[:lower:]] &#8594; [^a-z]</th>
+        <th>[[:lower:]] &amp;#8594; [a-z]
+[^[:lower:]] &amp;#8594; [^a-z]</th>
       </tr>
       <tr>
         <th>print</th>
@@ -351,21 +351,21 @@ s</th>
         <th>upper
 u</th>
         <th>Any upper case character.</th>
-        <th>[[:upper:]] &#8594; [A-Z]
-[^[:upper:]] &#8594; [^A-Z]</th>
+        <th>[[:upper:]] &amp;#8594; [A-Z]
+[^[:upper:]] &amp;#8594; [^A-Z]</th>
       </tr>
       <tr>
         <th>word
 w</th>
         <th>Any control character</th>
-        <th>[[:word:]] &#8594; [0-9a-zA-Z_]
-[^[:word:]] &#8594; [^0-9a-zA-Z_]</th>
+        <th>[[:word:]] &amp;#8594; [0-9a-zA-Z_]
+[^[:word:]] &amp;#8594; [^0-9a-zA-Z_]</th>
       </tr>
       <tr>
         <th>xdigit</th>
         <th>Any hexadecimal digit character</th>
-        <th>[[:xdigit:]] &#8594; [0-9a-fA-F]
-[^[:xdigit:]] &#8594; [^0-9a-fA-F]</th>
+        <th>[[:xdigit:]] &amp;#8594; [0-9a-fA-F]
+[^[:xdigit:]] &amp;#8594; [^0-9a-fA-F]</th>
       </tr>
     </tbody>
   </table>

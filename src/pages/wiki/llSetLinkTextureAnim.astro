@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>LinkNumber / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">link</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims&#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&#32;to effect</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&amp;#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, &gt;1: child prims&amp;#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&amp;#32;to effect</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -102,21 +102,21 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td>First</td>
         <td>`0`</td>
-        <td>`-<b>length</b>`</td>
+        <td>`-**length**`</td>
       </tr>
       <tr>
         <td>Last</td>
-        <td>`<b>length</b> - 1`</td>
+        <td>`**length** - 1`</td>
         <td>`-1`</td>
       </tr>
     </tbody>
   </table>
   <h3>Indexes</h3>
   <ul>
-    <li>Positive indexes count from the beginning, the first item being indexed as `0`, the last as `(<b>length</b> - 1)`.</li>
+    <li>Positive indexes count from the beginning, the first item being indexed as `0`, the last as `(**length** - 1)`.</li>
   </ul>
   <ul>
-    <li>Negative indexes count from the far end, the first item being indexed as `-<b>length</b>`, the last as `-1`.</li>
+    <li>Negative indexes count from the far end, the first item being indexed as `-**length**`, the last as `-1`.</li>
   </ul>
   <h3>Frames</h3>
   <p>Frames are sub-rectangles within the texture. A set of frames with 2 horizontal (<b>sizex</b>) and 3 vertical (<b>sizey</b>) means the overall texture is divided into 3 rows of 2 columns of images, each of which is a frame. llSetLinkTextureAnim will animate across these 6 starting with the top left image and going across and down, optionally repeating. If <a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a> is set the frames slide smoothly from one to the next, if off, each frame is displayed in turn centered on the face.</p>
@@ -226,12 +226,12 @@ import DocsCode from '/src/components/DocsCode.astro';
     </ul>
   
     </li>
-    <li>Different animation modes override some of the prim's texture parameters, but others can still be used:
+    <li>Different animation modes override some of the prim&#39;s texture parameters, but others can still be used:
     <ul>
       <li>Texture offsets are ignored in frame-based and <a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a> scrolling modes.
       <ul>
         <li>Repeats are ignored if <b>sizex</b> and <b>sizey</b> are not 0.</li>
-        <li>With either of the sizes set to 0, <a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a> scrolling will use the prim's texture repeats. In frame-based animation, there is no meaningful effect.</li>
+        <li>With either of the sizes set to 0, <a href="https://wiki.secondlife.com/wiki/SMOOTH" target="_blank">SMOOTH</a> scrolling will use the prim&#39;s texture repeats. In frame-based animation, there is no meaningful effect.</li>
       </ul>
     
       </li>
@@ -246,14 +246,14 @@ import DocsCode from '/src/components/DocsCode.astro';
   </ul>
   <h2>Examples</h2>
   <p>This slides a texture smoothly, along the horizontal U-axis, and loops it when it gets to the end.</p>
-  <p>For Blinn-Phong materials, the texture's rotation for each side affects the apparent motion. So if the texture is rotated 90 degrees by use of the edit box, the texture may not flow in the direction expected.</p>
+  <p>For Blinn-Phong materials, the texture&#39;s rotation for each side affects the apparent motion. So if the texture is rotated 90 degrees by use of the edit box, the texture may not flow in the direction expected.</p>
   <p>For PBR materials, the Blinn-Phong texture rotation for each side affects the apparent motion, and any Blinn-Phong transform component (for example the offsets argument of <a href="https://wiki.secondlife.com/wiki/PRIM_TEXTURE" target="_blank">PRIM_TEXTURE</a>) which is not animated will be applied to the PBR material as well. Thus, a GLTF material without a GLTF texture transform will animate identically to a Blinn-Phong material. If a GLTF texture transform (for example <a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_BASE_COLOR" target="_blank">PRIM_GLTF_BASE_COLOR</a>) is applied, it will be in addition to the Blinn-Phong transform and texture animation. This allows for more flexibility, however a more complex GLTF texture transform will not loop as easily.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetLinkTextureAnim(LINK_THIS, bit32.bor(ANIM_ON, SMOOTH, LOOP), ALL_SIDES, 1, 1, 1, 1, 1)`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetLinkTextureAnim(LINK_THIS, ANIM_ON | SMOOTH | LOOP , ALL_SIDES, 1, 1, 1, 1, 1);`} lang="lsl" /></div>
   <p>This slides a texture smoothly, along the horizontal U-axis, in the opposite direction</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetLinkTextureAnim(LINK_THIS, bit32.bor(ANIM_ON, SMOOTH, LOOP), ALL_SIDES, 1, 1, 1, 1, -1)`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetLinkTextureAnim(LINK_THIS, ANIM_ON | SMOOTH | LOOP , ALL_SIDES, 1, 1, 1, 1, -1);`} lang="lsl" /></div>
-  <p>This divides a texture into 64 "cells", 8 across, and 8 down, and flips through them, left to right, top to bottom. This is useful for cell animation.</p>
+  <p>This divides a texture into 64 &quot;cells&quot;, 8 across, and 8 down, and flips through them, left to right, top to bottom. This is useful for cell animation.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetLinkTextureAnim(LINK_THIS, bit32.bor(ANIM_ON, LOOP), ALL_SIDES, 8, 8, 0, 64, 6.4)`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetLinkTextureAnim(LINK_THIS, ANIM_ON | LOOP, ALL_SIDES, 8, 8, 0, 64, 6.4 );`} lang="lsl" /></div>
   <p>This rotates a texture counter-clockwise at 2 revolutions per second. Change the last value to -2*TWO_PI to rotate clockwise.</p>
@@ -267,17 +267,17 @@ import DocsCode from '/src/components/DocsCode.astro';
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetLinkTextureAnim(LINK_THIS, FALSE, ALL_SIDES, 0, 0, 0.0, 0.0, 1.0);`} lang="lsl" /></div>
   <h2>Notes</h2>
   <h3>Link Numbers</h3>
-  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
   <ul>
-    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
-    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is one.</li>
   </ul>
   <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
-  <p>Counting Prims & Avatars</p>
+  <p>Counting Prims &amp; Avatars</p>
   <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
   <ul>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+    <li>`[llGetNumberOfPrims](https://wiki.secondlife.com/wiki/LlGetNumberOfPrims)()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`[llGetObjectPrimCount](https://wiki.secondlife.com/wiki/LlGetObjectPrimCount)([llGetKey](https://wiki.secondlife.com/wiki/LlGetKey)())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
   </ul>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
     if ll.GetAttached() ~= 0 then  --Is it attached?
@@ -293,7 +293,7 @@ end
 }`} lang="lsl" /></div>
   <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
 Errata</p>
-  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset&#39;s <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
   <p>Texture animation is a property of the prim (i.e., you can remove the script that started the animation, and the prim will remember the settings anyway.)</p>
   <h2>See Also</h2>
   <h3>Functions</h3>

@@ -46,13 +46,13 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> is returned if <b>avatar</b> is not in the region or if it is not an avatar.</p>
   <h2>Caveats</h2>
   <ul>
-    <li>The returned vector is an estimate calculated from the avatar's current shape including shoes. x is a constant 0.45[[1]](#footnote_1), y is a constant 0.60[[2]](#footnote_2), z is the approximate total height of all avatar's bones, with an arbitrary amount added or subtracted based on the current shape's "Hover" setting. Reported height is constrained to the range 1.1 to 2.45 meters, and does not include animation or mesh bone offsets. [[3]](#footnote_3)
+    <li>The returned vector is an estimate calculated from the avatar&#39;s current shape including shoes. x is a constant 0.45[[1]](#footnote_1), y is a constant 0.60[[2]](#footnote_2), z is the approximate total height of all avatar&#39;s bones, with an arbitrary amount added or subtracted based on the current shape&#39;s &quot;Hover&quot; setting. Reported height is constrained to the range 1.1 to 2.45 meters, and does not include animation or mesh bone offsets. [[3]](#footnote_3)
     <ul>
       <li>Due to the shape Hover setting, and mesh and animation offsets, it is not possible to use this function to determine the rendered height of an avatar with any degree of confidence.</li>
     </ul>
   
     </li>
-    <li>As of Second Life Server 13.11.19.284082, the return value is the avatar's reported <a href="https://wiki.secondlife.com/wiki/LlGetBoundingBox" target="_blank">bounding box</a> - <0.1, 0.1, 0.2> when standing. (Avatar bounding boxes have historically been redefined with major physics upgrades.) An avatar's bounding box changes when an avatar sits, while llGetAgentSize is constant for as long as the shape does not change.</li>
+    <li>As of Second Life Server 13.11.19.284082, the return value is the avatar&#39;s reported <a href="https://wiki.secondlife.com/wiki/LlGetBoundingBox" target="_blank">bounding box</a> - &lt;0.1, 0.1, 0.2&gt; when standing. (Avatar bounding boxes have historically been redefined with major physics upgrades.) An avatar&#39;s bounding box changes when an avatar sits, while llGetAgentSize is constant for as long as the shape does not change.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -123,7 +123,7 @@ end`} lang="slua" /></div>
     //uuid is not an avatar in the region
 }`} lang="lsl" /></div>
   <ul>
-    <li>`DEFAULT_AGENT_HEIGHT` in <a href="https://github.com/secondlife/viewer/blob/0ca239e469b3/indra/llcommon/indra_constants.h#L96" target="_blank">indra/llcommon/indra_constants.h</a> is 1.9. This will be the z value if an avatar's shape has <a href="https://wiki.secondlife.com/wiki/Ruth" target="_blank">not loaded yet</a>. It is possible but extremely rare to see a fully loaded avatar with this exact size, so:</li>
+    <li>`DEFAULT_AGENT_HEIGHT` in <a href="https://github.com/secondlife/viewer/blob/0ca239e469b3/indra/llcommon/indra_constants.h#L96" target="_blank">indra/llcommon/indra_constants.h</a> is 1.9. This will be the z value if an avatar&#39;s shape has <a href="https://wiki.secondlife.com/wiki/Ruth" target="_blank">not loaded yet</a>. It is possible but extremely rare to see a fully loaded avatar with this exact size, so:</li>
   </ul>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local agentSize = ll.GetAgentSize(uuid)
 if agentSize.z == 1.9 then
@@ -207,8 +207,8 @@ function vector llGetAgentSize( key avatar );
       </tr>
       <tr>
         <td><p>For height (minus head)</p>
-<p>Or to tell if you're not there.</p>
-<p>Do not hope for "size".</p>
+<p>Or to tell if you&#39;re not there.</p>
+<p>Do not hope for &quot;size&quot;.</p>
 <p>I just wanted size.</p>
 <p>It gave me something useless.</p>
 <p>How hard can it be?</p></td>

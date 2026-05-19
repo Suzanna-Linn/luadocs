@@ -77,7 +77,7 @@ while (index < length)
     llSay(0, llList2String(mylist, index));
     ++index;
 }`} lang="lsl" /></div>
-  <p>The following example is to illustrate what not to do, it calculates the length in the "for" loop and is inefficient because the length gets recalculated at each pass through the loop. This should only ever be done if the list is in fact changing (in length) with each iteration of the loop[[1]](#footnote_1).</p>
+  <p>The following example is to illustrate what not to do, it calculates the length in the &quot;for&quot; loop and is inefficient because the length gets recalculated at each pass through the loop. This should only ever be done if the list is in fact changing (in length) with each iteration of the loop[[1]](#footnote_1).</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local index = 0  -- default is 0
 `} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer index;// default is 0
@@ -95,7 +95,7 @@ while (index < llGetListLength(mylist))
     </tbody>
   </table>
   <h3>LSO Optimizations</h3>
-  <p>A faster and lighter (in bytecode) way to determine the length of a list is to do a not-equals compare with a null list. This works because the list not-equals compare returns the difference between the lengths, meaning that it returns the same result as `llGetListLength()`, minus the overhead in bytecode, and performance penalty of calling a non-native function. Note: This optimization is much less beneficial time-wise in Mono as Mono's llGetListLength function is almost twice as fast, however the bytecode saving is still about 30 bytes.</p>
+  <p>A faster and lighter (in bytecode) way to determine the length of a list is to do a not-equals compare with a null list. This works because the list not-equals compare returns the difference between the lengths, meaning that it returns the same result as `llGetListLength()`, minus the overhead in bytecode, and performance penalty of calling a non-native function. Note: This optimization is much less beneficial time-wise in Mono as Mono&#39;s llGetListLength function is almost twice as fast, however the bytecode saving is still about 30 bytes.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local in_t = {}
 local len_in = #in_t
 local flen_in = (#in_t)
@@ -134,8 +134,8 @@ integer fneg_len_in = ([] != in);
   </table>
   <h2>Deep Notes</h2>
   <p>Source</p>
-  <p>'linden\indra\lscript\lscript_library\lscript_alloc.cpp' @ lsa_cmp_lists</p>
-  <p>'linden\indra\lscript\lscript_execute\lscript_execute.cpp' @ list_list_operation</p>
+  <p>&#39;linden\indra\lscript\lscript_library\lscript_alloc.cpp&#39; @ lsa_cmp_lists</p>
+  <p>&#39;linden\indra\lscript\lscript_execute\lscript_execute.cpp&#39; @ list_list_operation</p>
   <p>Footnotes</p>
   <ul>
     <li><b><a href="#fn_1" target="_blank">^</a></b> Recalculating the length is slow because the VM duplicates the entire list (including the values) when it is pushed on the stack (so it can be popped off the stack when the length is calculated).</li>

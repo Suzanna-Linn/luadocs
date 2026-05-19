@@ -25,16 +25,16 @@ import DocsCode from '/src/components/DocsCode.astro';
 <i>vector</i> position (optional via <a href="https://wiki.secondlife.com/wiki/KFM_TRANSLATION" target="_blank">KFM_TRANSLATION</a> and <a href="https://wiki.secondlife.com/wiki/KFM_DATA" target="_blank">KFM_DATA</a>)
 <i>rotation</i> orientation (optional via <a href="https://wiki.secondlife.com/wiki/KFM_ROTATION" target="_blank">KFM_ROTATION</a> and <a href="https://wiki.secondlife.com/wiki/KFM_DATA" target="_blank">KFM_DATA</a>)
 <i>float</i> time
-Each keyframe is interpreted <b>relative</b> to the previous transform of the object. Translation positions are relative to the grid and are not affected by the object's rotation. Time values must be 1/9s. or greater. For example, consider the following list of keyframes:</p>
+Each keyframe is interpreted <b>relative</b> to the previous transform of the object. Translation positions are relative to the grid and are not affected by the object&#39;s rotation. Time values must be 1/9s. or greater. For example, consider the following list of keyframes:</p>
 
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
 {vector(0, 0, 10), ZERO_ROTATION, 5, vector(0, 0, 0), ZERO_ROTATION, 5, vector(0, 0, -10), ZERO_ROTATION, 5}
 `} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
 [<0, 0, 10>, ZERO_ROTATION, 5, <0, 0, 0>, ZERO_ROTATION, 5, <0, 0, -10>, ZERO_ROTATION, 5]
 `} lang="lsl" /></div>
 
-</p>
+
 <p>This would cause the object to move up 10m over the course of 5s. It would then remain at the location for 5s before moving down 10m over the course of another 5s.
 An empty list will terminate any keyframed animation currently playing.</p></td>
         </tr>
@@ -157,7 +157,7 @@ An empty list will terminate any keyframed animation currently playing.</p></td>
     <li>Collisions with avatars affect the angular movement of the object and it may not reach the final rotation.</li>
     <li>This function can only be called on the root prim of a linkset.</li>
     <li>This function requires the linkset to use the Prim Equivalency system. However, it keyframed objects will not receive the dynamics penalty and can have a physics weight of up to 64.</li>
-    <li>Linear velocity greater than Second Life's maximum of 250 meters per second will produce an error on DEBUG_CHANNEL.</li>
+    <li>Linear velocity greater than Second Life&#39;s maximum of 250 meters per second will produce an error on DEBUG_CHANNEL.</li>
     <li>llSetKeyframedMotion is implemented in terms of frames and not real time. To avoid a drift from the expected positions and rotations, use times which are integer multiples of 1/45, e.g. 20.0/45.0, 40.0/45.0, 90.0/45.0, etc. <a href="http://community.secondlife.com/t5/LSL-Scripting/llSetKeyframedMotion-turning-a-corner/td-p/1225219" target="_blank">Forum Thread</a> KFM claims delta times must be larger than 0.1 seconds; in practice, however, delta times slightly over 0.1 will produce an error on DEBUG_CHANNEL. Testing shows a minimum delta time is about 6/45 (.13333) seconds.
     <ul>
       <li>Natural drift can still occur; for best results use <a href="https://wiki.secondlife.com/wiki/Moving_end" target="_blank">moving_end</a> to determine when the animation has ended and confirm the target position with <a href="https://wiki.secondlife.com/wiki/LlSetPos" target="_blank">llSetPos</a>. Or you can use <a href="https://wiki.secondlife.com/wiki/At_target" target="_blank">at_target</a> or <a href="https://wiki.secondlife.com/wiki/At_rot_target" target="_blank">at_rot_target</a>.</li>
@@ -173,7 +173,7 @@ An empty list will terminate any keyframed animation currently playing.</p></td>
   <p>A KFM object must use the new Prim Equivalency system in order to work. One of many ways to achieve this is to make sure the object uses Convex Hull for its physics shape. (Mainly new prims need a workaround like this. Mesh objects always use the new Prim Equivalency system.)</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetLinkPrimitiveParamsFast(LINK_THIS, {PRIM_PHYSICS_SHAPE_TYPE, PRIM_PHYSICS_SHAPE_CONVEX})`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetLinkPrimitiveParamsFast(LINK_THIS, [PRIM_PHYSICS_SHAPE_TYPE, PRIM_PHYSICS_SHAPE_CONVEX]);`} lang="lsl" /></div>
-  <p>This is a simple example of back-and-forth or "ping pong" motion, using only positions and time.</p>
+  <p>This is a simple example of back-and-forth or &quot;ping pong&quot; motion, using only positions and time.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetKeyframedMotion({vector(0.0, 0.0, 10.0), 5, vector(0.0, 0.0, -10.0), 5}, {KFM_DATA, KFM_TRANSLATION, KFM_MODE, KFM_PING_PONG})`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetKeyframedMotion([<0.0, 0.0, 10.0>, 5, <0.0, 0.0, -10.0>, 5], [KFM_DATA, KFM_TRANSLATION, KFM_MODE, KFM_PING_PONG]);`} lang="lsl" /></div>
   <p>This example includes position, rotation, and time.</p>
@@ -183,7 +183,7 @@ An empty list will terminate any keyframed animation currently playing.</p></td>
      <0.0, 0.0, -10.0>, llEuler2Rot(<270, 225, 360> * DEG_TO_RAD), 5],
     [KFM_MODE, KFM_REVERSE]);`} lang="lsl" /></div>
   <h3>Pause-Play</h3>
-  <p>If you need to update a KFM object's position, you will need to pause KFM and continue it afterwards.</p>
+  <p>If you need to update a KFM object&#39;s position, you will need to pause KFM and continue it afterwards.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetKeyframedMotion({}, {KFM_COMMAND, KFM_CMD_PAUSE})
 -- Modify prim positions here
 ll.SetKeyframedMotion({}, {KFM_COMMAND, KFM_CMD_PLAY})`} lang="slua" /></div>
@@ -280,7 +280,7 @@ default
     }
 }`} lang="lsl" /></div>
   <h3>Universal Hinged Motion in 8 Key Frames</h3>
-  <p>The script will turn a box prim around one edge parallel to the prim's Y-axis</p>
+  <p>The script will turn a box prim around one edge parallel to the prim&#39;s Y-axis</p>
   <p>The script will work for any prim orientation</p>
   <p>Note that the smallest accepted time per frame is 1/9S=0.11111111S and NOT 0.1S</p>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float angleEnd=PI_BY_TWO;
@@ -336,7 +336,7 @@ default
 }`} lang="lsl" /></div>
   <p>After editing prim position, rotation and/or size the script should be reset in order to update the motion</p>
   <h3>Continuous Spin</h3>
-  <p>The following example does the same thing as using llTargetOmega(<0.0,0.0,1.0>,PI,1.0) to make a prim rotate continuously around its Z-axis, assuming that the prim is set to convex hull and is non-physical.</p>
+  <p>The following example does the same thing as using llTargetOmega(&lt;0.0,0.0,1.0&gt;,PI,1.0) to make a prim rotate continuously around its Z-axis, assuming that the prim is set to convex hull and is non-physical.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local gON = false
 
 function LLEvents.touch_end(events)
@@ -392,8 +392,8 @@ default
   <p>Targeted coordinate systems: The Translation is in Global coordinates, the Rotation in Local coordinates</p>
   <ul>
     <li>Say: a move on the X-axis will move the object along the global, region X-axis no matter how the object is rotated</li>
-    <li>Say: a rotate around the X-axis will rotate the object around it's local, prim X-axis no matter the object's rotation</li>
-    <li>When the object is not rotated in the global system you won't notice the difference</li>
+    <li>Say: a rotate around the X-axis will rotate the object around it&#39;s local, prim X-axis no matter the object&#39;s rotation</li>
+    <li>When the object is not rotated in the global system you won&#39;t notice the difference</li>
   </ul>
   <h2>Deep Notes</h2>
   <p>History</p>

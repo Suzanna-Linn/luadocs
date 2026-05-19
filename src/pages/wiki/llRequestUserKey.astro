@@ -49,7 +49,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 </div>
   <h2>Caveats</h2>
   <ul>
-    <li>This function is throttled. The throttle is undocumented, but as of October 2018 the function appears to support bursts of up to 20 requests and sustained use at an average rate of 1.9 requests per second per owner, per region. (Meaning the throttle applies to all objects in the region with the same owner.) Once tripped, the function fails and says "Too many llRequestUserKey requests. Throttled until average falls." on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>This function is throttled. The throttle is undocumented, but as of October 2018 the function appears to support bursts of up to 20 requests and sustained use at an average rate of 1.9 requests per second per owner, per region. (Meaning the throttle applies to all objects in the region with the same owner.) Once tripped, the function fails and says &quot;Too many llRequestUserKey requests. Throttled until average falls.&quot; on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>This function will return a NULL_KEY for any agent that has yet to log on to the grid the function is used on.</li>
   </ul>
   <h2>Examples</h2>
@@ -83,7 +83,7 @@ default
    }
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
-  <p>Names are always provided in the form "First[ Last]" or "first[.last]" (first name with an optional last name.) If the last name is omitted a last name of "Resident" is assumed. Case is not considered when resolving agent names.</p>
+  <p>Names are always provided in the form &quot;First[ Last]&quot; or &quot;first[.last]&quot; (first name with an optional last name.) If the last name is omitted a last name of &quot;Resident&quot; is assumed. Case is not considered when resolving agent names.</p>
   <h2>See Also</h2>
   <h3>Functions</h3>
   <table>

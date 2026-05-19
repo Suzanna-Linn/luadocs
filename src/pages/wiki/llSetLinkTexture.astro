@@ -20,13 +20,13 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>LinkNumber / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/link" target="_blank">link</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims&#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&#32;</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&amp;#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, &gt;1: child prims&amp;#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&amp;#32;</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
           <td>Texture / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/texture" target="_blank">texture</a></td>
-          <td>a texture in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a texture</td>
+          <td>a texture in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&amp;#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&amp;#32;of a texture</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -101,7 +101,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>This function causes the script to sleep for 0.2 seconds.</li>
-    <li>If <b>texture</b> is missing from the prim's inventory or not <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full permissions</a> and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>texture</b> is missing from the prim&#39;s inventory or not <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full permissions</a> and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>texture</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
@@ -111,7 +111,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
   </ul>
   <h2>Examples</h2>
-  <p>Cover a link set in the texture "bark" (from the library)</p>
+  <p>Cover a link set in the texture &quot;bark&quot; (from the library)</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
     local detected = #events
     ll.SetLinkTexture(LINK_SET, "66bf4030-04f9-a808-43ab-b48b6aeb6456", ALL_SIDES)
@@ -126,7 +126,7 @@ end
 }`} lang="lsl" /></div>
   <h2>Useful Snippets</h2>
   <h3>SetLinkTextureFast</h3>
-  <p>This function doesn't have the 0.2 second delay. It's not very fast anyway though, but faster than <b>llSetLinkTexture</b>.</p>
+  <p>This function doesn&#39;t have the 0.2 second delay. It&#39;s not very fast anyway though, but faster than <b>llSetLinkTexture</b>.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 local function SetLinkTextureFast(link, texture, face)
@@ -174,17 +174,17 @@ end
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
   <h3>Link Numbers</h3>
-  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
   <ul>
-    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
-    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is one.</li>
   </ul>
   <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
-  <p>Counting Prims & Avatars</p>
+  <p>Counting Prims &amp; Avatars</p>
   <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
   <ul>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+    <li>`[llGetNumberOfPrims](https://wiki.secondlife.com/wiki/LlGetNumberOfPrims)()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`[llGetObjectPrimCount](https://wiki.secondlife.com/wiki/LlGetObjectPrimCount)([llGetKey](https://wiki.secondlife.com/wiki/LlGetKey)())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
   </ul>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
     if ll.GetAttached() ~= 0 then  --Is it attached?
@@ -200,7 +200,7 @@ end
 }`} lang="lsl" /></div>
   <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
 Errata</p>
-  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset&#39;s <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
   <h2>See Also</h2>
   <h3>Functions</h3>
   <table>

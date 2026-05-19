@@ -56,12 +56,12 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Action</th>
         <th>Category</th>
         <th>Granter</th>
-        <th>Automatically granted when&#8230;</th>
+        <th>Automatically granted when&amp;#8230;</th>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a></td>
         <td>0x2</td>
-        <td>take money from agent's account</td>
+        <td>take money from agent&#39;s account</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Money" target="_blank">Money</a></td>
         <td>Owner</td>
         <td></td>
@@ -69,7 +69,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_TAKE_CONTROLS" target="_blank">PERMISSION_TAKE_CONTROLS</a></td>
         <td>0x4</td>
-        <td>take agent's <a href="https://wiki.secondlife.com/wiki/Control" target="_blank">controls</a></td>
+        <td>take agent&#39;s <a href="https://wiki.secondlife.com/wiki/Control" target="_blank">controls</a></td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Controls" target="_blank">Control</a></td>
         <td>Anyone</td>
         <td>sat on, attached</td>
@@ -101,7 +101,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_TRACK_CAMERA" target="_blank">PERMISSION_TRACK_CAMERA</a></td>
         <td>0x400</td>
-        <td>track the agent's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Camera" target="_blank">camera</a> <a href="https://wiki.secondlife.com/wiki/Position" target="_blank">position</a> and <a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a></td>
+        <td>track the agent&#39;s <a href="https://wiki.secondlife.com/wiki/Category:LSL_Camera" target="_blank">camera</a> <a href="https://wiki.secondlife.com/wiki/Position" target="_blank">position</a> and <a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a></td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Camera" target="_blank">Camera</a></td>
         <td>Anyone</td>
         <td>sat on, attached</td>
@@ -109,7 +109,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target="_blank">PERMISSION_CONTROL_CAMERA</a></td>
         <td>0x800</td>
-        <td><p>control the agent's camera</p>
+        <td><p>control the agent&#39;s camera</p>
 <p>(<a href="https://wiki.secondlife.com/wiki/LlSetCameraParams_Test" target="_blank">must be sat on or attached; automatically revoked on stand or detach</a>)</p></td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Camera" target="_blank">Camera</a></td>
         <td>Anyone</td>
@@ -151,7 +151,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/PERMISSION_PRIVILEGED_LAND_ACCESS" target="_blank">PERMISSION_PRIVILEGED_LAND_ACCESS</a></td>
         <td>0x80000</td>
         <td>Grants the script privileged access to land parcel functions, such as parcel sale. Used by <a href="https://wiki.secondlife.com/wiki/LlSetParcelForSale" target="_blank">llSetParcelForSale</a>.</td>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_Land&action=edit&redlink=1" target="_blank">Land</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_Land&amp;action=edit&amp;redlink=1" target="_blank">Land</a></td>
         <td>Owner</td>
         <td></td>
       </tr>
@@ -160,22 +160,22 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>A dialog is presented to the agent to grant these permissions except when granted automatically as shown in the table above.</li>
-    <li>If object is attached to agent, "automatic" permissions are granted without notification upon request.</li>
+    <li>If object is attached to agent, &quot;automatic&quot; permissions are granted without notification upon request.</li>
     <li>Permissions persist across state changes.</li>
-    <li>Regardless of whether granting is automatic, you should always use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event. Granting permissions takes time, and you shouldn't assume it's completed until the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> handler gets invoked.</li>
-    <li>The menu-option "Stop Animating Me" will release certain permissions (PERMISSION_TRIGGER_ANIMATION and PERMISSION_OVERRIDE_ANIMATIONS), if the script which holds these permissions is in the same region as the agent, and the script is not attached to the permission granter.</li>
+    <li>Regardless of whether granting is automatic, you should always use the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event. Granting permissions takes time, and you shouldn&#39;t assume it&#39;s completed until the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> handler gets invoked.</li>
+    <li>The menu-option &quot;Stop Animating Me&quot; will release certain permissions (PERMISSION_TRIGGER_ANIMATION and PERMISSION_OVERRIDE_ANIMATIONS), if the script which holds these permissions is in the same region as the agent, and the script is not attached to the permission granter.</li>
     <li>Permissions do not accumulate.
     <ul>
       <li>If a permission was requested with a previous call to this function and granted, then in subsequent call was not requested, that permission is released (lost).</li>
       <li><p>To request two or more permissions at the same time, use the bitwise OR (|) operator, e.g.:</p>
-  <p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+  <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
   ll.RequestPermissions(AvatarID, bit32.bor(PERMISSION_TAKE_CONTROLS, PERMISSION_TRIGGER_ANIMATION))
   `} lang="slua" /></div>
   <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
   llRequestPermissions(AvatarID, PERMISSION_TAKE_CONTROLS | PERMISSION_TRIGGER_ANIMATION)
   `} lang="lsl" /></div>
   
-  </p></li>
+  </li>
     </ul>
   
     </li>
@@ -184,7 +184,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>Permissions are requested and granted separately for each script, even if they are located in the same object.</li>
     <li>It is currently not possible to request no permissions at all (see Issues below); as a workaround <a href="https://wiki.secondlife.com/wiki/LlResetScript" target="_blank">llResetScript</a> can be used.</li>
     <li>Scripts may hold permissions for only one agent at a time. To hold permissions for multiple agents you must use more than one script.</li>
-    <li>The result of granting permissions affects the return of <a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a> and <a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a> immediately, despite the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event being queued, or dropped if the object's event queue is full.</li>
+    <li>The result of granting permissions affects the return of <a href="https://wiki.secondlife.com/wiki/LlGetPermissions" target="_blank">llGetPermissions</a> and <a href="https://wiki.secondlife.com/wiki/LlGetPermissionsKey" target="_blank">llGetPermissionsKey</a> immediately, despite the <a href="https://wiki.secondlife.com/wiki/Run_time_permissions" target="_blank">run_time_permissions</a> event being queued, or dropped if the object&#39;s event queue is full.</li>
     <li>Permission request dialogs never time out.</li>
     <li>If a script makes two permission requests, whichever response is last is considered the granted permissions.</li>
     <li>The viewer limits permission requests from any agent to any other agent to 5 dialogs in 10 seconds.</li>

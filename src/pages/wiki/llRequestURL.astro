@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Requests one `HTTP://` [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/URL" target="_blank">URL</a> for use by this <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a>. The <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> is triggered with the result of the request.</p>
+      <p>  <p>Requests one `HTTP://` [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/URL" target="_blank">URL</a> for use by this <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a>. The <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a> is triggered with the result of the request.</p>
   <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) used for identifying the result of the request in the <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> <a href="https://wiki.secondlife.com/wiki/Event" target="_blank">event</a>.</p>
 </p>
     </div>
@@ -40,7 +40,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>HTTP-in is not on the usual <a href="https://wiki.secondlife.com/wiki/HTTP" target="_blank">HTTP</a> port number; the URL it provided in the <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">http_request</a> event includes the correct port number.</li>
-    <li>Your script (and any client that uses it) should not "validate" the provided URL; in particular, do not assume that it maps to any particular address, or is in any particular domain. These will change during the uplift of Second Life to the cloud, and may be more dynamic following that uplift<a href="#cite_note-1" target="_blank">&#91;1&#93;</a>.</li>
+    <li>Your script (and any client that uses it) should not &quot;validate&quot; the provided URL; in particular, do not assume that it maps to any particular address, or is in any particular domain. These will change during the uplift of Second Life to the cloud, and may be more dynamic following that uplift<a href="#cite_note-1" target="_blank">&amp;#91;1&amp;#93;</a>.</li>
     <li>Use of this function is <a href="https://wiki.secondlife.com/wiki/Limits" target="_blank">throttled</a>. Although it has no forced sleep time, too many requests (5-ish) in a short period will cause all further requests to be denied until the script stops requesting URLs for at least 1 second. Using an <a href="https://wiki.secondlife.com/wiki/LlSleep" target="_blank">llSleep</a> of 0.6 seconds or greater between each request will prevent you from being throttled.</li>
     <li>When a region is (re)started all <a href="https://wiki.secondlife.com/wiki/Http_request" target="_blank">HTTP server</a> URLs are automatically released and invalidated.
     <ul>
@@ -132,7 +132,7 @@ default
 		}
 	}
 }`} lang="lsl" /></div>
-  <p>It's important to keep in mind that if you request another URL, that the old one will not be released, it will remain active. The following script drives home this point.</p>
+  <p>It&#39;s important to keep in mind that if you request another URL, that the old one will not be released, it will remain active. The following script drives home this point.</p>
   <p>Try the following code ONLY if you can use all your URLs on your land.
 Removing the prim/script will release all URLs previous assigned.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- WARNING:
@@ -206,10 +206,10 @@ default
   <table>
     <tbody>
       <tr>
-        <td>Another comment on resilient programming: getting a global resource, an HTTP listener in this case, should always be considered an operation that can fail for transitory reasons (as well as permanent ones). In this case, LSL folds retryable and permanent errors into the same error status and there's no opportunity for a script writer to distinguish the two cases. But a reasonable way to handle this is sleeping with limited retries before failing hard in the LSL code.</td>
+        <td>Another comment on resilient programming: getting a global resource, an HTTP listener in this case, should always be considered an operation that can fail for transitory reasons (as well as permanent ones). In this case, LSL folds retryable and permanent errors into the same error status and there&#39;s no opportunity for a script writer to distinguish the two cases. But a reasonable way to handle this is sleeping with limited retries before failing hard in the LSL code.</td>
       </tr>
       <tr>
-        <td><a href="https://jira.secondlife.com/browse/BUG-3813?focusedCommentId=399955&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-399955" target="_blank">Monty Linden</a></td>
+        <td><a href="https://jira.secondlife.com/browse/BUG-3813?focusedCommentId=399955&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-399955" target="_blank">Monty Linden</a></td>
       </tr>
     </tbody>
   </table>

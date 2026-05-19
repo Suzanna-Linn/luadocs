@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
           <td>TargetID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/target" target="_blank">target</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;to pursue.</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&amp;#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&amp;#32;to pursue.</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
@@ -58,7 +58,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Default Value</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PURSUIT_OFFSET&action=edit&redlink=1" target="_blank">PURSUIT_OFFSET</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PURSUIT_OFFSET&amp;action=edit&amp;redlink=1" target="_blank">PURSUIT_OFFSET</a></td>
         <td>1</td>
         <td>Go to a position offset from the target.</td>
         <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
@@ -69,7 +69,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=REQUIRE_LINE_OF_SIGHT&action=edit&redlink=1" target="_blank">REQUIRE_LINE_OF_SIGHT</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=REQUIRE_LINE_OF_SIGHT&amp;action=edit&amp;redlink=1" target="_blank">REQUIRE_LINE_OF_SIGHT</a></td>
         <td>2</td>
         <td>Define whether the character needs a physical line-of-sight to give chase. When enabled, the character will not pick a new target position while there is a something solid between the character and the target object/agent.</td>
         <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
@@ -80,7 +80,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PURSUIT_FUZZ_FACTOR&action=edit&redlink=1" target="_blank">PURSUIT_FUZZ_FACTOR</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PURSUIT_FUZZ_FACTOR&amp;action=edit&amp;redlink=1" target="_blank">PURSUIT_FUZZ_FACTOR</a></td>
         <td>3</td>
         <td>Selects a random destination near the PURSUIT_OFFSET. The valid fuzz factor range is from 0 to 1, where 1 is most random. This option requires a nonzero PURSUIT_OFFSET.</td>
         <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
@@ -91,9 +91,9 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>0.0</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PURSUIT_INTERCEPT&action=edit&redlink=1" target="_blank">PURSUIT_INTERCEPT</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PURSUIT_INTERCEPT&amp;action=edit&amp;redlink=1" target="_blank">PURSUIT_INTERCEPT</a></td>
         <td>4</td>
-        <td>Define whether the character attempts to predict the target's future location.</td>
+        <td>Define whether the character attempts to predict the target&#39;s future location.</td>
         <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
 [PURSUIT_INTERCEPT, integer boolean]
 `} lang="lsl" /></div>
@@ -102,7 +102,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PURSUIT_GOAL_TOLERANCE&action=edit&redlink=1" target="_blank">PURSUIT_GOAL_TOLERANCE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PURSUIT_GOAL_TOLERANCE&amp;action=edit&amp;redlink=1" target="_blank">PURSUIT_GOAL_TOLERANCE</a></td>
         <td>5</td>
         <td>Defines approximately how close the character must be to the current goal to consider itself to be at the desired position. The valid range is from 0.25 to 10m.</td>
         <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`

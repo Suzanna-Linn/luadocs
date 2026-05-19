@@ -52,10 +52,10 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>Returns NaN when <b>base</b> is negative and <b>exponent</b> is not an integer (an imaginary result, `(<b>exponent</b> != (<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>)<b>exponent</b>) && (<b>base</b> < 0.0)`).</p>
+  <p>Returns NaN when <b>base</b> is negative and <b>exponent</b> is not an integer (an imaginary result, `(**exponent** != ([integer](https://wiki.secondlife.com/wiki/Integer))**exponent**) &amp;&amp; (**base** &lt; 0.0)`).</p>
   <h2>Caveats</h2>
   <ul>
-    <li>If <b>exponent</b> is a static integer and not a variable, llPow is dramatically slower than simple repeated multiplication, i.e. it's much faster to do `val = base<i>base</i>base` instead of `val = llPow(base, 3)`.</li>
+    <li>If <b>exponent</b> is a static integer and not a variable, llPow is dramatically slower than simple repeated multiplication, i.e. it&#39;s much faster to do `val = base*base*base` instead of `val = llPow(base, 3)`.</li>
     <li>Triggers a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Error/Math" target="_blank">Math Error</a> for imaginary results if not compiled in Mono.</li>
   </ul>
   <h2>Examples</h2>

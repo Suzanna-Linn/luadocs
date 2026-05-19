@@ -14,7 +14,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p>  <p>The integer constant OBJECT_ATTACHED_SLOTS_AVAILABLE has the value 35</p>
-  <p>This is a flag used with <a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a> to gets the avatar's available attachment slot count.</p>
+  <p>This is a flag used with <a href="https://wiki.secondlife.com/wiki/LlGetObjectDetails" target="_blank">llGetObjectDetails</a> to gets the avatar&#39;s available attachment slot count.</p>
   <p>If <b>id</b> is not an avatar, 0.0 is returned.</p>
 </p>
     </div>
@@ -50,7 +50,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_NAME" target="_blank">OBJECT_NAME</a></td>
         <td>1</td>
-        <td><p>Gets the prim's name.</p>
+        <td><p>Gets the prim&#39;s name.</p>
 <p>If <b>id</b> is an avatar, the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Legacy_Name" target="_blank">Legacy Name</a> is returned.</p></td>
         <td>max. 63 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
@@ -61,7 +61,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_DESC" target="_blank">OBJECT_DESC</a></td>
         <td>2</td>
-        <td><p>Gets the prim's description.</p>
+        <td><p>Gets the prim&#39;s description.</p>
 <p>If <b>id</b> is an avatar, an empty string is returned.</p></td>
         <td>max. 127 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> desc</td>
@@ -71,7 +71,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_POS" target="_blank">OBJECT_POS</a></td>
         <td>3</td>
-        <td><p>Gets the prim's position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>.</p>
+        <td><p>Gets the prim&#39;s position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>.</p>
 <p>If <b>id</b> is an avatar outside the region (see above), this position is relative to the region the script is <a href="https://wiki.secondlife.com/wiki/LlGetRegionName" target="_blank">running in</a>.</p></td>
         <td>max. 37 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
@@ -81,7 +81,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_ROT" target="_blank">OBJECT_ROT</a></td>
         <td>4</td>
-        <td>Gets the prim's rotation.</td>
+        <td>Gets the prim&#39;s rotation.</td>
         <td>max. 48 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
         <td><a href="https://wiki.secondlife.com/wiki/LlDetectedRot" target="_blank">llDetectedRot</a></td>
@@ -90,7 +90,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_VELOCITY" target="_blank">OBJECT_VELOCITY</a></td>
         <td>5</td>
-        <td>Gets the object's velocity.</td>
+        <td>Gets the object&#39;s velocity.</td>
         <td>36 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> vel</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlDetectedVel" target="_blank">llDetectedVel</a></td>
@@ -99,11 +99,11 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_OWNER" target="_blank">OBJECT_OWNER</a></td>
         <td>6</td>
-        <td><p>Gets an object's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> key.</p>
-<p>If <b>id</b> is an avatar, that avatar's key is returned (which is the same as <b>id</b>).</p>
+        <td><p>Gets an object&#39;s <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> key.</p>
+<p>If <b>id</b> is an avatar, that avatar&#39;s key is returned (which is the same as <b>id</b>).</p>
 <p>If <b>id</b> is group-owned, a <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned.</p></td>
         <td>36 characters</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> <a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_Key/owner&action=edit&redlink=1" target="_blank">owner</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> <a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_Key/owner&amp;action=edit&amp;redlink=1" target="_blank">owner</a></td>
         <td><a href="https://wiki.secondlife.com/wiki/LlDetectedOwner" target="_blank">llDetectedOwner</a>
 <a href="https://wiki.secondlife.com/wiki/LlGetOwnerKey" target="_blank">llGetOwnerKey</a></td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetOwner" target="_blank">llGetOwner</a></td>
@@ -111,8 +111,8 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_GROUP" target="_blank">OBJECT_GROUP</a></td>
         <td>7</td>
-        <td><p>Gets the prim's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a> key.</p>
-<p>If <b>id</b> is an avatar, a <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned, which means a workaround is required to get an avatar's active group.[[1]](#footnote_1)</p></td>
+        <td><p>Gets the prim&#39;s <a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a> key.</p>
+<p>If <b>id</b> is an avatar, a <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned, which means a workaround is required to get an avatar&#39;s active group.[[1]](#footnote_1)</p></td>
         <td>36 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> group</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">Group</a></td>
@@ -121,7 +121,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_CREATOR" target="_blank">OBJECT_CREATOR</a></td>
         <td>8</td>
-        <td><p>Gets the prim's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Creator" target="_blank">creator</a> key.</p>
+        <td><p>Gets the prim&#39;s <a href="https://wiki.secondlife.com/wiki/Category:LSL_Creator" target="_blank">creator</a> key.</p>
 <p>If <b>id</b> is an avatar, a <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned.</p></td>
         <td>36 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> creator</td>
@@ -213,7 +213,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_ROOT" target="_blank">OBJECT_ROOT</a></td>
         <td>18</td>
         <td><p>Gets the id of the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root prim</a> of the object requested.</p>
-<p>If <b>id</b> is an avatar, returns the id of the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root prim</a> of the <a href="https://wiki.secondlife.com/wiki/Link#Link_Set" target="_blank">linkset</a> the avatar is sitting on and linked to (or the avatar's own id if the avatar is not sitting on an object within the region).</p></td>
+<p>If <b>id</b> is an avatar, returns the id of the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root prim</a> of the <a href="https://wiki.secondlife.com/wiki/Link#Link_Set" target="_blank">linkset</a> the avatar is sitting on and linked to (or the avatar&#39;s own id if the avatar is not sitting on an object within the region).</p></td>
         <td>36 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> root</td>
         <td></td>
@@ -269,8 +269,8 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_RENDER_WEIGHT" target="_blank">OBJECT_RENDER_WEIGHT</a></td>
         <td>24</td>
-        <td><p>Gets the avatar's render weight.</p>
-<p>If <b>id</b> is an object, 0 is returned. If <b>id</b> is an avatar whose render weight is unknown to the simulator, -1 is returned. The maximum render weight reported by the server is 500000<a href="#cite_note-1" target="_blank">&#91;1&#93;</a>.</p></td>
+        <td><p>Gets the avatar&#39;s render weight.</p>
+<p>If <b>id</b> is an object, 0 is returned. If <b>id</b> is an avatar whose render weight is unknown to the simulator, -1 is returned. The maximum render weight reported by the server is 500000<a href="#cite_note-1" target="_blank">&amp;#91;1&amp;#93;</a>.</p></td>
         <td>max. 6 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> weight</td>
         <td><a href="https://wiki.secondlife.com/wiki/Avatar_Rendering_Cost" target="_blank">Avatar_Rendering_Cost</a></td>
@@ -280,7 +280,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_HOVER_HEIGHT" target="_blank">OBJECT_HOVER_HEIGHT</a></td>
         <td>25</td>
         <td><p>Gets the <a href="https://wiki.secondlife.com/wiki/Hover_Height" target="_blank">hover height</a> of the avatar.</p>
-<p>If <b>id</b> is not an avatar, 0.0 is returned. Normal values are in the range [-2.0, 2.0] with a default of 0.0. This value does <i>not</i> reflect the avatar shape's "Hover" slider, only the dynamic viewer setting.</p></td>
+<p>If <b>id</b> is not an avatar, 0.0 is returned. Normal values are in the range [-2.0, 2.0] with a default of 0.0. This value does <i>not</i> reflect the avatar shape&#39;s &quot;Hover&quot; slider, only the dynamic viewer setting.</p></td>
         <td>max. 9 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> height</td>
         <td></td>
@@ -289,7 +289,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_BODY_SHAPE_TYPE" target="_blank">OBJECT_BODY_SHAPE_TYPE</a></td>
         <td>26</td>
-        <td><p>Gets a float which describes the sex setting of the avatar's currently worn shape.</p>
+        <td><p>Gets a float which describes the sex setting of the avatar&#39;s currently worn shape.</p>
 <p>If <b>id</b> is not an avatar, -1.0 is returned.</p>
 <p>Normal operational values are in the range [0.0, 1.0].
 0.0 is standard female setting,
@@ -303,12 +303,12 @@ Intermediate values with visible differences are possible with manually crafted 
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_LAST_OWNER_ID" target="_blank">OBJECT_LAST_OWNER_ID</a></td>
         <td>27</td>
-        <td>Gets the UUID of the object's previous owner, if known.
+        <td>Gets the UUID of the object&#39;s previous owner, if known.
 For group-owned objects, this is the avatar that deeded the object.
 Returns <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> for avatars, or objects that were never transferred.
 A rezzed object taken back to inventory, then re-rezzed, will return its current owner key.</td>
         <td>36 characters</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> <a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_Key/owner&action=edit&redlink=1" target="_blank">last_owner</a></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> <a href="https://wiki.secondlife.com/w/index.php?title=Category:LSL_Key/owner&amp;action=edit&amp;redlink=1" target="_blank">last_owner</a></td>
         <td></td>
         <td></td>
       </tr>
@@ -324,7 +324,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_OMEGA" target="_blank">OBJECT_OMEGA</a></td>
         <td>29</td>
-        <td>Gets the object's rotational velocity (radians per second).</td>
+        <td>Gets the object&#39;s rotational velocity (radians per second).</td>
         <td>36 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> omega</td>
         <td></td>
@@ -333,7 +333,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_PRIM_COUNT" target="_blank">OBJECT_PRIM_COUNT</a></td>
         <td>30</td>
-        <td>Gets the object's prim count</td>
+        <td>Gets the object&#39;s prim count</td>
         <td>max. 3 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> count</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a></td>
@@ -342,7 +342,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_TOTAL_INVENTORY_COUNT" target="_blank">OBJECT_TOTAL_INVENTORY_COUNT</a></td>
         <td>31</td>
-        <td>Gets the object's total number of <a href="https://wiki.secondlife.com/wiki/LlGetInventoryNumber" target="_blank">inventory items</a>.</td>
+        <td>Gets the object&#39;s total number of <a href="https://wiki.secondlife.com/wiki/LlGetInventoryNumber" target="_blank">inventory items</a>.</td>
         <td>max. 10 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> count</td>
         <td></td>
@@ -350,7 +350,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
 <p>(<a href="https://wiki.secondlife.com/wiki/INVENTORY_ALL" target="_blank">INVENTORY_ALL</a>)</p></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_REZZER_KEY&action=edit&redlink=1" target="_blank">OBJECT_REZZER_KEY</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_REZZER_KEY&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_REZZER_KEY</a></td>
         <td>32</td>
         <td>Gets the key of the object that rezzed this object be it an object or an avatar.</td>
         <td>36 characters</td>
@@ -361,7 +361,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/OBJECT_GROUP_TAG" target="_blank">OBJECT_GROUP_TAG</a></td>
         <td>33</td>
-        <td><p>Gets the avatar's group tag text.</p>
+        <td><p>Gets the avatar&#39;s group tag text.</p>
 <p>If <b>id</b> is not an avatar, an empty string is returned.</p></td>
         <td>max. 20 bytes</td>
         <td><a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/text" target="_blank">text</a></td>
@@ -369,7 +369,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
         <td></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_TEMP_ATTACHED&action=edit&redlink=1" target="_blank">OBJECT_TEMP_ATTACHED</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_TEMP_ATTACHED&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_TEMP_ATTACHED</a></td>
         <td>34</td>
         <td>Gets the integer boolean detailing if the object is <a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">temporarily attached</a>.</td>
         <td>1 character</td>
@@ -380,7 +380,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
       <tr>
         <td>OBJECT_ATTACHED_SLOTS_AVAILABLE</td>
         <td>35</td>
-        <td><p>Gets the avatar's available attachment slot count.</p>
+        <td><p>Gets the avatar&#39;s available attachment slot count.</p>
 <p>If <b>id</b> is not an avatar, 0 is returned.</p></td>
         <td>max. 2 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> count</td>
@@ -388,9 +388,9 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
         <td></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_CREATION_TIME&action=edit&redlink=1" target="_blank">OBJECT_CREATION_TIME</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_CREATION_TIME&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_CREATION_TIME</a></td>
         <td>36</td>
-        <td><p>Gets the object's creation time. This time is established with raw material rezzing through the build menu and with mesh uploads.</p>
+        <td><p>Gets the object&#39;s creation time. This time is established with raw material rezzing through the build menu and with mesh uploads.</p>
 <p>This time is NOT established with inventory rezzes, scripted rezzes, object modifying, copying or transferring.</p>
 <p>If <b>id</b> is an avatar, an empty string is returned.</p></td>
         <td>max. 27 bytes</td>
@@ -409,7 +409,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
         <td></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_SIT_COUNT&action=edit&redlink=1" target="_blank">OBJECT_SIT_COUNT</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_SIT_COUNT&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_SIT_COUNT</a></td>
         <td>38</td>
         <td><p>Gets the total number of agents sitting on any links in the object.</p>
 <p>If <b>id</b> is an avatar, 0 is returned.</p></td>
@@ -419,18 +419,18 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
         <td></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_ANIMATED_COUNT&action=edit&redlink=1" target="_blank">OBJECT_ANIMATED_COUNT</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_ANIMATED_COUNT&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_ANIMATED_COUNT</a></td>
         <td>39</td>
-        <td>Gets the integer boolean detailing if the object's root is set to "Animated Mesh" or gets the total number of "Animated Mesh" attachments worn by an agent.</td>
+        <td>Gets the integer boolean detailing if the object&#39;s root is set to &quot;Animated Mesh&quot; or gets the total number of &quot;Animated Mesh&quot; attachments worn by an agent.</td>
         <td>max. 1 character</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> count</td>
         <td></td>
         <td></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_ANIMATED_SLOTS_AVAILABLE&action=edit&redlink=1" target="_blank">OBJECT_ANIMATED_SLOTS_AVAILABLE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_ANIMATED_SLOTS_AVAILABLE&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_ANIMATED_SLOTS_AVAILABLE</a></td>
         <td>40</td>
-        <td><p>Gets the avatar's available "Animated Mesh" attachment slot count.</p>
+        <td><p>Gets the avatar&#39;s available &quot;Animated Mesh&quot; attachment slot count.</p>
 <p>If <b>id</b> is not an avatar, 0 is returned.</p></td>
         <td>max. 2 characters</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> count</td>
@@ -438,7 +438,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
         <td></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_ACCOUNT_LEVEL&action=edit&redlink=1" target="_blank">OBJECT_ACCOUNT_LEVEL</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_ACCOUNT_LEVEL&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_ACCOUNT_LEVEL</a></td>
         <td>41</td>
         <td><p>Gets the account level of an avatar.</p>
 <p>If <b>id</b> is not an avatar, -1 is returned.
@@ -452,7 +452,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
         <td></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_MATERIAL&action=edit&redlink=1" target="_blank">OBJECT_MATERIAL</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_MATERIAL&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_MATERIAL</a></td>
         <td>42</td>
         <td>Retrieves the physics material set on this object. It returns an integer matching one of the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Prim/Materials" target="_blank">PRIM_MATERIAL_*</a> constants.</td>
         <td></td>
@@ -462,16 +462,16 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
 <p><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank">PRIM_MATERIAL</a></p></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_MASS&action=edit&redlink=1" target="_blank">OBJECT_MASS</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_MASS&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_MASS</a></td>
         <td>43</td>
-        <td>Gets the mass (in Kilograms) of this object's linkset.</td>
+        <td>Gets the mass (in Kilograms) of this object&#39;s linkset.</td>
         <td></td>
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> mass</td>
         <td></td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetMassMKS" target="_blank">llGetMassMKS</a></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_TEXT&action=edit&redlink=1" target="_blank">OBJECT_TEXT</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_TEXT&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_TEXT</a></td>
         <td>44</td>
         <td>Gets the floating text displayed above this object.</td>
         <td></td>
@@ -481,7 +481,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
 <p><a href="https://wiki.secondlife.com/wiki/PRIM_TEXT" target="_blank">PRIM_TEXT</a></p></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_REZ_TIME&action=edit&redlink=1" target="_blank">OBJECT_REZ_TIME</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_REZ_TIME&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_REZ_TIME</a></td>
         <td>45</td>
         <td>Retrieves the time that this object was rezzed.</td>
         <td></td>
@@ -490,16 +490,16 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
         <td></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_LINK_NUMBER&action=edit&redlink=1" target="_blank">OBJECT_LINK_NUMBER</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_LINK_NUMBER&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_LINK_NUMBER</a></td>
         <td>46</td>
-        <td>Get this object's index in the linkset.</td>
+        <td>Get this object&#39;s index in the linkset.</td>
         <td></td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> link_number</td>
         <td></td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_SCALE&action=edit&redlink=1" target="_blank">OBJECT_SCALE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_SCALE&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_SCALE</a></td>
         <td>47</td>
         <td>Get the size of this object.</td>
         <td></td>
@@ -508,7 +508,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
         <td><a href="https://wiki.secondlife.com/wiki/LlGetScale" target="_blank">llGetScale</a></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_TEXT_COLOR&action=edit&redlink=1" target="_blank">OBJECT_TEXT_COLOR</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_TEXT_COLOR&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_TEXT_COLOR</a></td>
         <td>48</td>
         <td>Gets the color of the floating text displayed above this object.</td>
         <td></td>
@@ -518,7 +518,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
 <p><a href="https://wiki.secondlife.com/wiki/PRIM_TEXT" target="_blank">PRIM_TEXT</a></p></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_TEXT_ALPHA&action=edit&redlink=1" target="_blank">OBJECT_TEXT_ALPHA</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_TEXT_ALPHA&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_TEXT_ALPHA</a></td>
         <td>49</td>
         <td>Gets the alpha value of the floating text displayed above this object.</td>
         <td></td>
@@ -559,7 +559,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
 <p><a href="https://wiki.secondlife.com/wiki/PRIM_DAMAGE" target="_blank">PRIM_DAMAGE</a></p></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_PERMS&action=edit&redlink=1" target="_blank">OBJECT_PERMS</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_PERMS&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_PERMS</a></td>
         <td>53</td>
         <td>Retrieves the permissions for this object as 5 integers.</td>
         <td></td>
@@ -568,7 +568,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
         <td><a href="https://wiki.secondlife.com/wiki/LlGetObjectPermMask" target="_blank">llGetObjectPermMask</a></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_PERMS_COMBINED&action=edit&redlink=1" target="_blank">OBJECT_PERMS_COMBINED</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=OBJECT_PERMS_COMBINED&amp;action=edit&amp;redlink=1" target="_blank">OBJECT_PERMS_COMBINED</a></td>
         <td>54</td>
         <td>Retrieves the permissions for this object combined with all of its inventory items as 5 integers.</td>
       </tr>
@@ -589,7 +589,7 @@ A rezzed object taken back to inventory, then re-rezzed, will return its current
   <h2>Deep Notes</h2>
   <p><a href="https://secondlife.canny.io/?search=OBJECT_ATTACHED_SLOTS_AVAILABLE" target="_blank">Search Canny for related Issues</a> Footnotes</p>
   <ul>
-    <li><b><a href="#fn_1" target="_blank">^</a></b> There are at least 3 JIRA's about OBJECT_GROUP and avatars, LL has refused all of them. Most recently on December 5th 2013 in <a href="https://jira.secondlife.com/browse/BUG-4654" target="_blank">BUG-4654</a>.</li>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> There are at least 3 JIRA&#39;s about OBJECT_GROUP and avatars, LL has refused all of them. Most recently on December 5th 2013 in <a href="https://jira.secondlife.com/browse/BUG-4654" target="_blank">BUG-4654</a>.</li>
     <li><b><a href="#fn_2" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
   </ul>
   <ul>

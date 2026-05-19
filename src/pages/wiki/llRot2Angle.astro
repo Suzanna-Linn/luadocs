@@ -49,7 +49,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>Use in conjunction with <a href="https://wiki.secondlife.com/wiki/LlRot2Axis" target="_blank">llRot2Axis</a>.</p>
   <p>To undo use <a href="https://wiki.secondlife.com/wiki/LlAxisAngle2Rot" target="_blank">llAxisAngle2Rot</a>.</p>
   <h2>Caveats</h2>
-  <p>This always returns a positive angle <= PI radians, that is, it is the unsigned minimum angle. A rotation of 3/2 PI radians (270 degrees) will return an angle of PI / 2 radians, not -PI / 2.</p>
+  <p>This always returns a positive angle &lt;= PI radians, that is, it is the unsigned minimum angle. A rotation of 3/2 PI radians (270 degrees) will return an angle of PI / 2 radians, not -PI / 2.</p>
   <h2>See Also</h2>
   <h3>Functions</h3>
   <table>
@@ -103,7 +103,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <table>
     <tbody>
       <tr>
-        <td><p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
 local function Rot2Angle(a)  --simple but turns out to not be very accurate.
     return 2.0 <i> ll.Sqrt((a.s </i> a.s) / (a.x <i> a.x + a.y </i> a.y + a.z <i> a.z + a.s </i> a.s))
 end
@@ -115,9 +115,9 @@ float Rot2Angle(rotation a)//simple but turns out to not be very accurate.
 }
 `} lang="lsl" /></div>
 
-</p>
 
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
 local function Rot2Angle(r)  --more complex implementation but more accurate, and reasonably fast.
     local s2 = r.s <i> r.s  -- square of the s-element
     local v2 = r.x </i> r.x + r.y <i> r.y + r.z </i> r.z  -- sum of the squares of the v-elements
@@ -151,7 +151,7 @@ float Rot2Angle(rotation r)//more complex implementation but more accurate, and 
 }//Written by Moon Metty & Miranda Umino. Minor optimizations by Strife Onizuka
 `} lang="lsl" /></div>
 
-</p></td>
+</td>
       </tr>
     </tbody>
   </table>

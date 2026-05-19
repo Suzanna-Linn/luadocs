@@ -44,7 +44,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>If <b>experience_id</b> is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>, then information about the script's experience is returned. In this situation, if the script isn't associated with an experience, an empty list is returned.</p>
+  <p>If <b>experience_id</b> is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>, then information about the script&#39;s experience is returned. In this situation, if the script isn&#39;t associated with an experience, an empty list is returned.</p>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
     local total_number = #events
@@ -79,7 +79,7 @@ end
   <p>For a script to be associated with an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>...</p>
   <ul>
     <li>It must be compiled with a client that is Experience aware,</li>
-    <li>The "Use Experience" checkbox must be checked,</li>
+    <li>The &quot;Use Experience&quot; checkbox must be checked,</li>
     <li>And one of the users Experience keys selected.</li>
   </ul>
   <table>
@@ -98,7 +98,7 @@ end
   <h2>Deep Notes</h2>
   <p>History</p>
   <ul>
-    <li><a href="https://jira.secondlife.com/browse/BUG-7048" target="_blank">BUG-7048</a> - llGetExperienceDetails returns 4 for <b>state</b> and "operation not permitted" for <b>state_message</b> while over mainland parcels that have the experience allowed.</li>
+    <li><a href="https://jira.secondlife.com/browse/BUG-7048" target="_blank">BUG-7048</a> - llGetExperienceDetails returns 4 for <b>state</b> and &quot;operation not permitted&quot; for <b>state_message</b> while over mainland parcels that have the experience allowed.</li>
   </ul>
   <table>
     <tbody>

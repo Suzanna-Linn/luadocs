@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Teleports an <b>agent</b> to a <b>landmark</b> stored in the object's inventory.</p>
+      <p>  <p>Teleports an <b>agent</b> to a <b>landmark</b> stored in the object&#39;s inventory.</p>
   <p>If <b>landmark</b> is an empty string, the avatar is teleported to the location <b>position</b> in the current region.</p>
   <p>If the destination is in the current region, the avatar will land facing <b>look_at</b> as a position within that region. Otherwise, <b>look_at</b> is treated as a unit direction.</p>
 </p>
@@ -22,13 +22,13 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
           <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/agent" target="_blank">agent</a></td>
-          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>&#32;(the avatar to teleport, must be the <a href="https://wiki.secondlife.com/wiki/LlGetOwner" target="_blank">owner</a>)</td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>&amp;#32;(the avatar to teleport, must be the <a href="https://wiki.secondlife.com/wiki/LlGetOwner" target="_blank">owner</a>)</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
           <td>LandmarkName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/landmark" target="_blank">landmark</a></td>
-          <td>a landmark in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or an empty string&#32;(for teleporting within the same region)</td>
+          <td>a landmark in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&amp;#32;or an empty string&amp;#32;(for teleporting within the same region)</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
@@ -68,12 +68,12 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&#32;and it must be granted by <b>agent</b>.</p>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&amp;#32;and it must be granted by <b>agent</b>.</p>
   <h2>Caveats</h2>
   <ul>
     <li>If <b>landmark</b> is not an empty string and...
     <ul>
-      <li><b>landmark</b> is missing from the prim's inventory or it is not a landmark then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+      <li><b>landmark</b> is missing from the prim&#39;s inventory or it is not a landmark then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     </ul>
   
     </li>
@@ -94,11 +94,11 @@ Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="
   <ul>
     <li><b>This function can only teleport the owner of the object</b> (unless part of an <a href="https://wiki.secondlife.com/wiki/Category:Experience_Tools" target="_blank">Experience</a>).</li>
     <li>Teleports are throttled (no more than 10 teleports within 15 seconds)</li>
-    <li>Does not work in scripts within attached temp objects　<a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">llAttachToAvatarTemp</a>.　Error Message is "Temporary attachments cannot request runtime permissions to teleport"</li>
+    <li>Does not work in scripts within attached temp objects　<a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">llAttachToAvatarTemp</a>.　Error Message is &quot;Temporary attachments cannot request runtime permissions to teleport&quot;</li>
     <li>Sitting avatars cannot be teleported using this function. You must <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">llUnSit</a> them first.</li>
-    <li>This function does not override a parcel's teleport settings, i.e. if the parcel has a landing zone enabled the avatar will be teleported there.</li>
+    <li>This function does not override a parcel&#39;s teleport settings, i.e. if the parcel has a landing zone enabled the avatar will be teleported there.</li>
     <li>If the script is part of an experience that the avatar has granted permission, then this function may teleport them without being the owner and it will override parcel teleport routing. See the example below.</li>
-    <li>When <b>look_at</b> is treated as a direction, a valid input should be `<llCos(angle), llSin(angle), 0.0>`.
+    <li>When <b>look_at</b> is treated as a direction, a valid input should be `&lt;llCos(angle), llSin(angle), 0.0&gt;`.
     <ul>
       <li>In other words, it should be a <b>unit vector</b> corresponding to the avatar turning <b>angle</b> radians from north.</li>
     </ul>
@@ -106,7 +106,7 @@ Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="
     </li>
   </ul>
   <h2>Examples</h2>
-  <p>Basic example with a landmark called <b>Destination</b> in the object's inventory:</p>
+  <p>Basic example with a landmark called <b>Destination</b> in the object&#39;s inventory:</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
     local num_detected = #events
     ll.RequestPermissions(ll.GetOwner(), PERMISSION_TELEPORT)
@@ -133,7 +133,7 @@ end
         }
     }
 }`} lang="lsl" /></div>
-  <p>Basic example without a landmark in the object's inventory, while facing the avatar towards the center of the region:</p>
+  <p>Basic example without a landmark in the object&#39;s inventory, while facing the avatar towards the center of the region:</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
     local num_detected = #events
     ll.RequestPermissions(ll.GetOwner(), PERMISSION_TELEPORT)
@@ -222,8 +222,8 @@ default
         llTeleportAgent(agent, "Landmark", ZERO_VECTOR, ZERO_VECTOR);
     }
 }`} lang="lsl" /></div>
-  <p>Below is an example of properly handling the <b>look_at</b> value based on whether the destination is the current region or a different one. This ensures that the avatar will always be facing the same <i>direction</i> regardless of whether they're teleporting within the region or to another one.</p>
-  <p>The script keeps track of the landmark's destination coordinate in the <b>state_entry</b> and <b>changed</b> events, which is later used to calculate the total distance of the teleport.</p>
+  <p>Below is an example of properly handling the <b>look_at</b> value based on whether the destination is the current region or a different one. This ensures that the avatar will always be facing the same <i>direction</i> regardless of whether they&#39;re teleporting within the region or to another one.</p>
+  <p>The script keeps track of the landmark&#39;s destination coordinate in the <b>state_entry</b> and <b>changed</b> events, which is later used to calculate the total distance of the teleport.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 local landmark = ""

@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
-          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;(z component is ignored)</td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&amp;#32;(z component is ignored)</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
@@ -57,7 +57,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </ul>
   <h2>Caveats</h2>
   <ul>
-    <li>If there is an Object Bonus for the region, the value returned may be more than the region's total limit.</li>
+    <li>If there is an Object Bonus for the region, the value returned may be more than the region&#39;s total limit.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)

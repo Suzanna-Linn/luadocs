@@ -13,21 +13,20 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Says Text on Channel.
-This chat method has a range of 20m radius.
-PUBLIC_CHANNEL is the public chat channel that all avatars see as chat text. DEBUG_CHANNEL is the script debug channel, and is also visible to nearby avatars. All other channels are are not sent to avatars, but may be used to communicate with scripts.</p>
+      <p>  <p>Says the text supplied in string <b>msg</b> on channel supplied in integer <b>channel</b>. The message can be heard 20m away, usually (see caveats)</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>Channel</td>
-          <td>Channel to use to say text on.</td>
+          <td>Channel / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/channel" target="_blank">channel</a></td>
+          <td>output <a href="https://wiki.secondlife.com/wiki/Category:LSL_Chat" target="_blank">chat</a> channel, any integer value</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
-          <td>Text</td>
-          <td>Text to say.</td>
+          <td>Text / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/msg" target="_blank">msg</a></td>
+          <td>message to be transmitted</td>
         </tr>
       </table>
     </div>
@@ -51,6 +50,192 @@ PUBLIC_CHANNEL is the public chat channel that all avatars see as chat text. DEB
     </div>
   </div>
 </div>
+  <table>
+    <tbody>
+      <tr>
+        <th colspan="2">Channel Constant</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a></td>
+        <td>0x7FFFFFFF</td>
+        <td>Chat channel reserved for script debugging and error messages, broadcasts to all nearby users.</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a></td>
+        <td>0x0</td>
+        <td>Chat channel that broadcasts to all nearby users. This channel is sometimes referred to as: open chat, local chat and public chat.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Messages sent on channel zero[[1]](#footnote_1) and <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> are throttled to a rate of &lt;200/10sec, per region, per owner/user.
+    <ul>
+      <li>Once the rate is exceeded, all following messages on channel zero or <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> will be dropped until the send rate is again below 200/10sec for the previous 10 sec. Dropped messages, despite being dropped still count against the limit.</li>
+    </ul>
+  
+    </li>
+    <li><b>msg</b> can only be heard within 20 meters of the speaking prim (rather than the root). This is contrary to how the event <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> works, where a <b>msg</b> can only be heard by any prim in the object if and only if the root prim is capable of hearing it.</li>
+    <li>Some simulators (mostly event sims or linden-owned ones) have `[llGetEnv](https://wiki.secondlife.com/wiki/LlGetEnv)(&quot;chat_range&quot;)` set to a value other than 20. On these sims:
+    <ul>
+      <li>`llSay(0, msg)` can be heard in a radius of `[llGetEnv](https://wiki.secondlife.com/wiki/LlGetEnv)(&quot;chat_range&quot;)`</li>
+      <li>`llSay(any_other_channel, msg)` can be heard in a radius of 20m</li>
+      <li>as of 2023-03-26, <a href="http://maps.secondlife.com/secondlife/Hippotropolis/67/188/28" target="_blank">Hippotropolis</a> (a linden meeting sim) has a chat range of 40m</li>
+    </ul>
+  
+    </li>
+    <li><b>msg</b> can be a maximum of 1024 bytes. This can convey 1024 ASCII characters, or 256-512 multibyte UTF-8 characters such as `á` (2 bytes), `ℋ` (3 bytes) or `🧡` (4 bytes).
+    <ul>
+      <li>If a multibyte character ends up on the 1024 byte boundary, it is discarded and not split into invalid bytes.</li>
+    </ul>
+  
+    </li>
+    <li>A prim can <b>not</b> hear itself, this to prevent problems with recursion. It can however hear other prims within the same object. Use <a href="https://wiki.secondlife.com/wiki/LlMessageLinked" target="_blank">llMessageLinked</a> instead for intra-prim messaging.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
+    ll.Say(0, "Hello, Avatar!")
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
+{
+    state_entry()
+    {
+        llSay(0, "Hello, Avatar!");
+    }
+}`} lang="lsl" /></div>
+  <p>To avoid making your object spam its neighborhood, use <a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a>, <a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a> or <a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a>.</p>
+  <h2>Notes</h2>
+  <ul>
+    <li>Channel 0 is the <a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a>. Everyone can hear chat transmitted on this channel. All other channels are private channels (not sent to users, with the exception of <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>).</li>
+    <li>Consider using <a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a>, <a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a>, or the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> for debugging purposes. If <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> is used as <b>channel</b>, the script will say <b>msg</b> to the Script Warning/Error window.
+    <ul>
+      <li>Note, however, that when using <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>, what <i>you</i> consider to be &#39;debugging messages&#39; will still be seen by others as <i>scripting errors</i> indicated by the floating &#39;script error&#39; icon.</li>
+    </ul>
+  
+    </li>
+    <li>If one object &#39;says&#39; something to another object (<i>e.g.</i>, a button that, when touched, turns on a lamp), it is a good idea to use a very negative channel, <i>e.g.</i>, `-5243212` but don&#39;t just use any number take a look at the <a href="https://wiki.secondlife.com/wiki/User-Defined_Protocols_%26_APIs" target="_blank">User-Defined Protocols &amp; APIs</a> and choose one that won&#39;t interfere with other protocols. If you are going to sell your script widely, please add it to the appropriate <a href="https://wiki.secondlife.com/wiki/LSL_Protocol#Known_negative_chat_channels" target="_blank">known chat channels list</a> so others won&#39;t interfere with your product (do keep in mind you should build your product so that it handles interference appropriately).</li>
+  </ul>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Say(-5243212, "turn on")`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSay(-5243212,"turn on");`} lang="lsl" /></div>
+  <p>From at least September 2016 (see <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/4.0.9.320038" target="_blank">Release Notes/Second Life Release/4.0.9.320038</a>), viewers have been able to chat on negative channels, although chat from viewers is <a href="https://jira.secondlife.com/browse/BUG-41541" target="_blank">limited to 254 characters</a>. (Chat from objects caps at 1024 bytes, whether the channel is negative or not). Negative channels were popular for script communications because the standard SL client was unable to chat directly on those channels (`/-xxxx message` would not chat `message` on channel `-xxxx`). The only way for a viewer to generate chat on negative channels prior to <a href="https://wiki.secondlife.com/wiki/LlTextBox" target="_blank">llTextBox</a> was to use <a href="https://wiki.secondlife.com/wiki/LlDialog" target="_blank">llDialog</a> which was limited to 24 bytes.</p>
+  <ul>
+    <li>Be aware that if you mistakenly use an integer bigger than the maximum or smaller than the minimum, SL will treat the literal number as a <b>float</b> and convert it implicitly to an out-of-range integer, resulting in `1`, <i>without</i> giving a script/syntax error (since this implicit conversion is legitimate). This means that all scripts listening to an out-of-range integer will be listening to channel 1 instead! (see also <a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a>).</li>
+    <li>Objects with all-whitespace names (e.g., a space or a series of spaces) will appear as &quot;(Unnamed)&quot; if they emit chat via llSay, although this behaviour may vary in third-party viewers.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a></td>
+        <td>–</td>
+        <td>Receives chat</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a></td>
+        <td>–</td>
+        <td>Ask for listen events</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a></td>
+        <td>–</td>
+        <td>Sends chat to the owner only (or to some other user only) to avoid spamming the <a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a></td>
+        <td>–</td>
+        <td>Sends chat to the owner only to avoid spamming the <a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSay" target="_blank">llRegionSay</a></td>
+        <td>–</td>
+        <td>Sends chat region wide</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRegionSayTo" target="_blank">llRegionSayTo</a></td>
+        <td>–</td>
+        <td>Sends chat region wide to a specific avatar, or their attachments, or to a rezzed object of known UUID</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">llShout</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 100 meters</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlWhisper" target="_blank">llWhisper</a></td>
+        <td>–</td>
+        <td>Sends chat limited to 10 meters</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Hello_Avatar" target="_blank">Hello Avatar</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Channel zero is also known as: <a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a>, open chat, local chat and public chat</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llSay( integer channel, string msg );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Oh say, can you see?</p>
+<p>Can you see what I say if</p>
+<p>You&#39;re not far away?</p></td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

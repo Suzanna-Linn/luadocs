@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
           <td>Opacity / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
-          <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+          <td>from 0.0 (clear) to 1.0 (solid) (0.0 &lt;= <b>alpha</b> &lt;= 1.0)</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -56,7 +56,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>llSetAlpha will have no visible effect on faces with a PBR material. To work on faces both with and without a PBR material, use one of these snippets:
     <ul>
       <li><p>invisible</p>
-  <p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+  <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
   
   
   
@@ -74,9 +74,9 @@ import DocsCode from '/src/components/DocsCode.astro';
   }
   `} lang="lsl" /></div>
   
-  </p></li>
+  </li>
       <li><p>visible</p>
-  <p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+  <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
   
   
   
@@ -94,7 +94,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   }
   `} lang="lsl" /></div>
   
-  </p></li>
+  </li>
     </ul>
   
     </li>
@@ -182,7 +182,7 @@ state cloaked
     }
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
-  <p>In practical terms, "alpha" means "transparency" or "visibility".</p>
+  <p>In practical terms, &quot;alpha&quot; means &quot;transparency&quot; or &quot;visibility&quot;.</p>
   <p>To be clear, llSetAlpha will only affect the prim that the script it is in. It will not affect any linked prims. To set the alpha state for those, use <a href="https://wiki.secondlife.com/wiki/LlSetLinkAlpha" target="_blank">llSetLinkAlpha</a></p>
   <h2>See Also</h2>
   <h3>Events</h3>
@@ -204,35 +204,35 @@ state cloaked
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetAlpha" target="_blank">llGetAlpha</a></td>
         <td>–</td>
-        <td>Gets the prim's alpha</td>
+        <td>Gets the prim&#39;s alpha</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetColor" target="_blank">llGetColor</a></td>
         <td>–</td>
-        <td>Gets the prim's color</td>
+        <td>Gets the prim&#39;s color</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlSetColor" target="_blank">llSetColor</a></td>
         <td>–</td>
-        <td>Sets the prim's color</td>
+        <td>Sets the prim&#39;s color</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkColor" target="_blank">llSetLinkColor</a></td>
         <td>–</td>
-        <td>Sets link's color</td>
+        <td>Sets link&#39;s color</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkAlpha" target="_blank">llSetLinkAlpha</a></td>
         <td>–</td>
-        <td>Sets link's alpha</td>
+        <td>Sets link&#39;s alpha</td>
         <td></td>
       </tr>
       <tr>

@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>Flag / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">add</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, If <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> it allows anyone, even if they don't have modify rights to a prim, regardless of whether they are the owner or not, to drop items into that prim, If <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>&#32;(default) inventory dropping can still be done, but it is restricted only to people with modify permissions to that prim</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, If <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> it allows anyone, even if they don&#39;t have modify rights to a prim, regardless of whether they are the owner or not, to drop items into that prim, If <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>&amp;#32;(default) inventory dropping can still be done, but it is restricted only to people with modify permissions to that prim</td>
         </tr>
       </table>
     </div>
@@ -42,31 +42,31 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>To actually do the dropping, you need to drag an item from your inventory and drop it onto the prim WHILE holding down your Ctrl key. If you've got everything right, then just before you release it, you will see the prim framed in red.</p>
+  <p>To actually do the dropping, you need to drag an item from your inventory and drop it onto the prim WHILE holding down your Ctrl key. If you&#39;ve got everything right, then just before you release it, you will see the prim framed in red.</p>
   <p>Ownership of the dropped inventory item changes to the owner of the prim. Next owner permissions kick in on the item that was dropped in. Non-transfer items cannot be dropped into a prim owned by someone else.</p>
-  <p>An application might be a public "suggestion box" that you want to let people drop notecards into.</p>
+  <p>An application might be a public &quot;suggestion box&quot; that you want to let people drop notecards into.</p>
   <h2>Caveats</h2>
   <ul>
     <li>In a link set llAllowInventoryDrop must be executed from a script within the root prim or it fails silently.</li>
-    <li>Scripts are an exception to what is allowed to be dropped in. If a user without modify permissions to a prim attempts to drop a script into it, the inventory addition is rejected and the prim shouts (sic -- shouts, not says) "Not permitted to edit this!" This is for obvious security reasons. If you own the prim and have mod rights to it, you can drop a script in. Friends who have mod rights to your stuff can also drop scripts in.</li>
-    <li>Will not work if, under the Object tab on the prim, "Locked" is ticked.</li>
+    <li>Scripts are an exception to what is allowed to be dropped in. If a user without modify permissions to a prim attempts to drop a script into it, the inventory addition is rejected and the prim shouts (sic -- shouts, not says) &quot;Not permitted to edit this!&quot; This is for obvious security reasons. If you own the prim and have mod rights to it, you can drop a script in. Friends who have mod rights to your stuff can also drop scripts in.</li>
+    <li>Will not work if, under the Object tab on the prim, &quot;Locked&quot; is ticked.</li>
     <li>Bear in mind when dropping a texture into a prim to be sure (a) that you see a red box framing the target prim, and (b) not to release the Ctrl button until you are sure that the texture is actually inside the box. If you see a white frame instead, or release Ctrl too soon, the texture will instead be applied to the prim face that you were on.</li>
-    <li>There is no way to tell who dropped the item in. If you really need to know, consider making the user touch the prim first to turn the llAllowInventoryDrop on, and then grab the user's information from the touch event, and then set it back to FALSE through a timer.</li>
+    <li>There is no way to tell who dropped the item in. If you really need to know, consider making the user touch the prim first to turn the llAllowInventoryDrop on, and then grab the user&#39;s information from the touch event, and then set it back to FALSE through a timer.</li>
     <li>Nor is there any way based on just llAllowInventoryDrop to tell <i>what</i> the user dropped in. See <a href="https://wiki.secondlife.com/wiki/WhoAddedWhat" target="_blank">WhoAddedWhat</a> script to handle that.</li>
     <li>Ordinary end-users may face challenges when confronted with actually performing the drag and drop. See the section below.</li>
     <li>People with modify rights to your (modifiable) stuff can do this anyway, as can you, even without the presence of llAllowInventoryDrop.</li>
-    <li>Even if you own the prim, but don't have modify rights to it, you cannot drop anything at all into it, ever, unless the creator put in it an llAllowInventoryDrop(TRUE) first before passing it to you.</li>
-    <li>If you have a prim that you don't have mod rights to, but that the creator did set an llAllowInventoryDrop(TRUE) in, that even though you can drop stuff in, you will never be able to delete it! You can however move it to your inventory.</li>
+    <li>Even if you own the prim, but don&#39;t have modify rights to it, you cannot drop anything at all into it, ever, unless the creator put in it an llAllowInventoryDrop(TRUE) first before passing it to you.</li>
+    <li>If you have a prim that you don&#39;t have mod rights to, but that the creator did set an llAllowInventoryDrop(TRUE) in, that even though you can drop stuff in, you will never be able to delete it! You can however move it to your inventory.</li>
   </ul>
   <p>llAllowInventoryDrop and Everyday Users</p>
   <ul>
     <li>If you want someone to drag and drop notecards into a suggestion box, say, or whatever, you have to both invite them to do so, and explain how to do it (the holding down of the Ctrl key being essential to communicate.)</li>
   </ul>
   <ul>
-    <li>A fair bit of fine motor skill is required to do this. Someone who doesn't have this, either because of failing or unsteady hands, or using a trackpad on a laptop in an awkward seated position, may not be able to perform this operation accurately.</li>
+    <li>A fair bit of fine motor skill is required to do this. Someone who doesn&#39;t have this, either because of failing or unsteady hands, or using a trackpad on a laptop in an awkward seated position, may not be able to perform this operation accurately.</li>
   </ul>
   <ul>
-    <li>If you sell a user something such as, say, a gift box, which you instruct them to fill via inventory drag and drop, bear in mind that there is often many a slip betwixt inventory and prim, and the user may by mistake (in this example) drag the gifts in question into a piece of the bow instead, and then panic when s/he doesn't see them in the main part of the giftbox. (Remember: if they have mod rights to the prim, they can drag and drop stuff into any part of the prim, regardless of whether there is an llAllowInventoryDrop in it or not.) You may wish to suggest instead that the user right-click the prim, choose open, and drag and drop stuff onto the "Open" Object Contents window -- a much larger, safer target.</li>
+    <li>If you sell a user something such as, say, a gift box, which you instruct them to fill via inventory drag and drop, bear in mind that there is often many a slip betwixt inventory and prim, and the user may by mistake (in this example) drag the gifts in question into a piece of the bow instead, and then panic when s/he doesn&#39;t see them in the main part of the giftbox. (Remember: if they have mod rights to the prim, they can drag and drop stuff into any part of the prim, regardless of whether there is an llAllowInventoryDrop in it or not.) You may wish to suggest instead that the user right-click the prim, choose open, and drag and drop stuff onto the &quot;Open&quot; Object Contents window -- a much larger, safer target.</li>
   </ul>
   <h2>Examples</h2>
   <p>When llAllowInventoryDrop is set to TRUE, and an item is successfully dropped BY SOMEONE WITHOUT MODIFY PERMISSIONS, the event that occurs is <a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a> with the <a href="https://wiki.secondlife.com/wiki/CHANGED_ALLOWED_DROP" target="_blank">CHANGED_ALLOWED_DROP</a> bit set.</p>
@@ -88,7 +88,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     if (change & (CHANGED_ALLOWED_DROP | CHANGED_INVENTORY))
         llSay(PUBLIC_CHANNEL, "yeppers, inventory changed somehow.");
 }`} lang="lsl" /></div>
-  <p>The following example is a bit elaborate. It illustrates alternating AllowInventoryDrop off and on. (This is likely not something you would actually do unless you really wanted to play with users' minds.)</p>
+  <p>The following example is a bit elaborate. It illustrates alternating AllowInventoryDrop off and on. (This is likely not something you would actually do unless you really wanted to play with users&#39; minds.)</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 local allow = false

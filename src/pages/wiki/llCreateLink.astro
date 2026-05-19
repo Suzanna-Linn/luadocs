@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Attempt to link the script's object with <b>target</b>.</p>
+      <p>  <p>Attempt to link the script&#39;s object with <b>target</b>.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -26,7 +26,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>Parent / parent</td>
-          <td>If <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>, then <b>target</b> becomes the root. If <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, then the script's object becomes the root.</td>
+          <td>If <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>, then <b>target</b> becomes the root. If <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, then the script&#39;s object becomes the root.</td>
         </tr>
       </table>
     </div>
@@ -53,11 +53,11 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_CHANGE_LINKS" target="_blank">PERMISSION_CHANGE_LINKS</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&#32;and it must be granted by the owner.</p>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_CHANGE_LINKS" target="_blank">PERMISSION_CHANGE_LINKS</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&amp;#32;and it must be granted by the owner.</p>
   <p><b>target</b> must be modifiable and have the same owner.</p>
   <p>This object must also be modifiable.</p>
   <h2>Specification</h2>
-  <p>The prims for the child object (<b>target</b> if <b>parent</b> is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, script's object if <b>parent</b> is <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>) are inserted into the parent object's link set starting at link number 2. For example, if the link order for the parent object is A1, A2, A3 and the link order of the child object is B1, B2, B3, then the link order of the resulting object will be A1, B1, B2, B3, A2, A3.</p>
+  <p>The prims for the child object (<b>target</b> if <b>parent</b> is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, script&#39;s object if <b>parent</b> is <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>) are inserted into the parent object&#39;s link set starting at link number 2. For example, if the link order for the parent object is A1, A2, A3 and the link order of the child object is B1, B2, B3, then the link order of the resulting object will be A1, B1, B2, B3, A2, A3.</p>
   <h2>Caveats</h2>
   <ul>
     <li>This function causes the script to sleep for 0.1 seconds.</li>

@@ -402,7 +402,7 @@ default
         <th>(?i)</th>
         <th>Makes search string case insensitive.</th>
         <th>This must be the first thing that appears in the search string.
-"(?i)apple" will match "apple", "APPLE", "ApPlE", and any other combination of upper and lower case characters.</th>
+&quot;(?i)apple&quot; will match &quot;apple&quot;, &quot;APPLE&quot;, &quot;ApPlE&quot;, and any other combination of upper and lower case characters.</th>
       </tr>
       <tr>
         <th>$</th>
@@ -513,48 +513,48 @@ default
         <th>\d
 \D</th>
         <th>Any decimal digit.</th>
-        <th><b>\d</b> &#8594; [[:digit:]] or [0-9]
-<b>\D</b> &#8594; [^[:digit:]] or [^0-9]</th>
+        <th><b>\d</b> &amp;#8594; [[:digit:]] or [0-9]
+<b>\D</b> &amp;#8594; [^[:digit:]] or [^0-9]</th>
       </tr>
       <tr>
         <th>\l
 \L</th>
         <th>Any lower case character.</th>
-        <th><b>\l</b> &#8594; [[:lower:]] or [a-z]
-<b>\L</b> &#8594; [^[:lower:]] or [^a-z]</th>
+        <th><b>\l</b> &amp;#8594; [[:lower:]] or [a-z]
+<b>\L</b> &amp;#8594; [^[:lower:]] or [^a-z]</th>
       </tr>
       <tr>
         <th>\s
 \S</th>
         <th>Any whitespace character.</th>
-        <th><b>\s</b> &#8594; [[:space:]] or [ \t\r\n]
-<b>\S</b> &#8594; [^[:space:]] or [^ \t\r\n]</th>
+        <th><b>\s</b> &amp;#8594; [[:space:]] or [ \t\r\n]
+<b>\S</b> &amp;#8594; [^[:space:]] or [^ \t\r\n]</th>
       </tr>
       <tr>
         <th>\u
 \U</th>
         <th>Any upper case character.</th>
-        <th><b>\u</b> &#8594; [[:upper:]] or [A-Z]
-<b>\U</b> &#8594; [^[:upper:]] or [^A-Z]</th>
+        <th><b>\u</b> &amp;#8594; [[:upper:]] or [A-Z]
+<b>\U</b> &amp;#8594; [^[:upper:]] or [^A-Z]</th>
       </tr>
       <tr>
         <th>\w
 \W</th>
-        <th>Any "word" character.
+        <th>Any &quot;word&quot; character.
 Alphanumeric plus underscore</th>
-        <th><b>\w</b> &#8594; [[:upper:][:lower:][:digit:]_] or [A-Za-z0-9_]
-<b>\W</b> &#8594; [^[:upper:][:lower:][:digit:]_] or [^A-Za-z0-9_]</th>
+        <th><b>\w</b> &amp;#8594; [[:upper:][:lower:][:digit:]_] or [A-Za-z0-9_]
+<b>\W</b> &amp;#8594; [^[:upper:][:lower:][:digit:]_] or [^A-Za-z0-9_]</th>
       </tr>
       <tr>
         <td></td>
         <td colspan="2"><b>Word boundaries</b></td>
       </tr>
       <tr>
-        <th>\<</th>
+        <th>\&lt;</th>
         <th>Start of word.</th>
       </tr>
       <tr>
-        <th>\></th>
+        <th>\&gt;</th>
         <th>End of word</th>
       </tr>
       <tr>
@@ -566,7 +566,7 @@ Alphanumeric plus underscore</th>
         <th>Not a word boundary.</th>
       </tr>
       <tr>
-        <td colspan="3"><i><b>Note</b></i> LSL uses '\' as an escape character in strings. The escape characters above must be double escaped. So "\d" needs to be written in LSL as "\\d"
+        <td colspan="3"><i><b>Note</b></i> LSL uses &#39;\&#39; as an escape character in strings. The escape characters above must be double escaped. So &quot;\d&quot; needs to be written in LSL as &quot;\\d&quot;
 Please see <a href="https://wiki.secondlife.com/wiki/Category:LSL_String#Escape_Codes" target="_blank">LSL Strings, Escape Codes</a></td>
       </tr>
       <tr>
@@ -575,14 +575,14 @@ Please see <a href="https://wiki.secondlife.com/wiki/Category:LSL_String#Escape_
       <tr>
         <th>alnum</th>
         <th>Any alpha-numeric character.</th>
-        <th>[[:alnum:]] &#8594; [0-9a-zA-Z]
-[^[:alnum:]] &#8594; [^0-9a-zA-Z]</th>
+        <th>[[:alnum:]] &amp;#8594; [0-9a-zA-Z]
+[^[:alnum:]] &amp;#8594; [^0-9a-zA-Z]</th>
       </tr>
       <tr>
         <th>alpha</th>
         <th>Any alphabetic character.</th>
-        <th>[[:alpha:]] &#8594; [a-zA-Z]
-[^[:alpha:]] &#8594; [^a-zA-Z]</th>
+        <th>[[:alpha:]] &amp;#8594; [a-zA-Z]
+[^[:alpha:]] &amp;#8594; [^a-zA-Z]</th>
       </tr>
       <tr>
         <th>blank</th>
@@ -591,22 +591,22 @@ Please see <a href="https://wiki.secondlife.com/wiki/Category:LSL_String#Escape_
       <tr>
         <th>cntrl</th>
         <th>Any control character</th>
-        <th>[[:cntrl:]] &#8594; [\x01-\x31]
-[^[:cntrl:]] &#8594; [^\x01-\x31]</th>
+        <th>[[:cntrl:]] &amp;#8594; [\x01-\x31]
+[^[:cntrl:]] &amp;#8594; [^\x01-\x31]</th>
       </tr>
       <tr>
         <th>digit
 d</th>
         <th>Any decimal digit</th>
-        <th>[[:digit:]] &#8594; [0-9]
-[^[:digit:]] &#8594; [^0-9]</th>
+        <th>[[:digit:]] &amp;#8594; [0-9]
+[^[:digit:]] &amp;#8594; [^0-9]</th>
       </tr>
       <tr>
         <th>lower
 l</th>
         <th>Any lower case character.</th>
-        <th>[[:lower:]] &#8594; [a-z]
-[^[:lower:]] &#8594; [^a-z]</th>
+        <th>[[:lower:]] &amp;#8594; [a-z]
+[^[:lower:]] &amp;#8594; [^a-z]</th>
       </tr>
       <tr>
         <th>print</th>
@@ -625,21 +625,21 @@ s</th>
         <th>upper
 u</th>
         <th>Any upper case character.</th>
-        <th>[[:upper:]] &#8594; [A-Z]
-[^[:upper:]] &#8594; [^A-Z]</th>
+        <th>[[:upper:]] &amp;#8594; [A-Z]
+[^[:upper:]] &amp;#8594; [^A-Z]</th>
       </tr>
       <tr>
         <th>word
 w</th>
         <th>Any control character</th>
-        <th>[[:word:]] &#8594; [0-9a-zA-Z_]
-[^[:word:]] &#8594; [^0-9a-zA-Z_]</th>
+        <th>[[:word:]] &amp;#8594; [0-9a-zA-Z_]
+[^[:word:]] &amp;#8594; [^0-9a-zA-Z_]</th>
       </tr>
       <tr>
         <th>xdigit</th>
         <th>Any hexadecimal digit character</th>
-        <th>[[:xdigit:]] &#8594; [0-9a-fA-F]
-[^[:xdigit:]] &#8594; [^0-9a-fA-F]</th>
+        <th>[[:xdigit:]] &amp;#8594; [0-9a-fA-F]
+[^[:xdigit:]] &amp;#8594; [^0-9a-fA-F]</th>
       </tr>
     </tbody>
   </table>

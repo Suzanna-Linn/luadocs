@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Returns a string that is the escaped/encoded version of <b>url</b>, replacing spaces with `"%20"` etc. The function will escape any character not in [a-zA-Z0-9] to `"%xx"` where `"xx"` is the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Hexadecimal" target="_blank">hexadecimal</a> value of the character in [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Byte" target="_blank">byte</a> form.</p>
+      <p>  <p>Returns a string that is the escaped/encoded version of <b>url</b>, replacing spaces with `&quot;%20&quot;` etc. The function will escape any character not in [a-zA-Z0-9] to `&quot;%xx&quot;` where `&quot;xx&quot;` is the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Hexadecimal" target="_blank">hexadecimal</a> value of the character in [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Byte" target="_blank">byte</a> form.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -43,7 +43,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>To clarify, numbers and ASCII7 alphabetical characters are NOT escaped. If a character requires more then one byte in [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Byte" target="_blank">byte</a> form then it returns multiple `"%xx"` sequences chained together.</p>
+  <p>To clarify, numbers and ASCII7 alphabetical characters are NOT escaped. If a character requires more then one byte in [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Byte" target="_blank">byte</a> form then it returns multiple `&quot;%xx&quot;` sequences chained together.</p>
   <p>This function is similar to functions (e.g. <a href="http://php.net/manual/en/function.rawurlencode.php" target="_blank">rawurlencode</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">encodeURIComponent</a>) found in many other languages:</p>
   <table>
     <tbody>
@@ -66,7 +66,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </tbody>
   </table>
   <h2>Caveats</h2>
-  <p>The function is not appropriate for escaping a <b>url</b> all at once, because the `":"` after the protocol, and all of the `"/"` characters delimiting the various parts, will be escaped. Instead, build the <b>url</b> in parts; escaping parts of the path and query string arguments as needed.</p>
+  <p>The function is not appropriate for escaping a <b>url</b> all at once, because the `&quot;:&quot;` after the protocol, and all of the `&quot;/&quot;` characters delimiting the various parts, will be escaped. Instead, build the <b>url</b> in parts; escaping parts of the path and query string arguments as needed.</p>
   <p>Sample URL: <a href="https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322/foo/bar?arg=gra" target="_blank">https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322/foo/bar?arg=gra</a></p>
   <table>
     <tbody>
@@ -83,7 +83,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>/foo/bar</td>
       </tr>
       <tr>
-        <td>query string past the first "?" in the URL</td>
+        <td>query string past the first &quot;?&quot; in the URL</td>
         <td>arg=gra</td>
       </tr>
     </tbody>
@@ -137,7 +137,7 @@ default
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
   <ul>
-    <li>The SL viewer pretty prints URLs when converting them to clickable links in chat and dialogs. To confirm that a URL was escaped as intended, right-click the URL and copy, then paste to inspect it in the chat bar; or wrap it between "<nolink>...</nolink>"; or examine your chat log in an external editor; or display the string with an alternative function like <a href="https://wiki.secondlife.com/wiki/LlSetText" target="_blank">llSetText</a>.</li>
+    <li>The SL viewer pretty prints URLs when converting them to clickable links in chat and dialogs. To confirm that a URL was escaped as intended, right-click the URL and copy, then paste to inspect it in the chat bar; or wrap it between &quot;&lt;nolink&gt;...&lt;/nolink&gt;&quot;; or examine your chat log in an external editor; or display the string with an alternative function like <a href="https://wiki.secondlife.com/wiki/LlSetText" target="_blank">llSetText</a>.</li>
   </ul>
   <h2>See Also</h2>
   <h3>Functions</h3>

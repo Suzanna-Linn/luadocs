@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Copy script <b>name</b> into <b>target</b> and set to <b>running</b> with a <b>start_param</b> only if <b>target</b>'s <a href="https://wiki.secondlife.com/wiki/LlSetRemoteScriptAccessPin" target="_blank">pin</a> matches <b>pin</b></p>
+      <p>  <p>Copy script <b>name</b> into <b>target</b> and set to <b>running</b> with a <b>start_param</b> only if <b>target</b>&#39;s <a href="https://wiki.secondlife.com/wiki/LlSetRemoteScriptAccessPin" target="_blank">pin</a> matches <b>pin</b></p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -77,8 +77,8 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>If <b>name</b> permissions do not allow copy, the transfer fails and an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>target</b> is not in the same region an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>When scripts are copied or moved between inventories, their state does not survive the transfer. Memory, event queue and execution position are all discarded.</li>
-    <li>If <b>name</b> is missing from the prim's inventory or it is not a script then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
-    <li>If <b>name</b> is present in the <b>target</b> prim's inventory then it is silently replaced.</li>
+    <li>If <b>name</b> is missing from the prim&#39;s inventory or it is not a script then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is present in the <b>target</b> prim&#39;s inventory then it is silently replaced.</li>
     <li><b>start_param</b> only lasts until the script is reset.</li>
     <li>Only the owner of an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Attachment" target="_blank">attachment</a> can modify it while it is being worn.
     <ul>
@@ -87,8 +87,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   
     </li>
     <li>If <b>target</b> is owned by a different user and modify permission has been granted to the script owner via <a href="http://community.secondlife.com/t5/tkb/articleprintpage/tkb-id/English_KB@tkb/article-id/215" target="_blank">Edit, delete, or take my objects</a>, the script owner must be connected to the sim for this function to succeed.</li>
-    <li>If <b>pin</b> fails to match, the error "Task ~Prim~ trying to illegally load script onto task ~Other_Prim~!" is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. "~Prim~" and "~Other_Prim~" are substituted with the applicable prim names.</li>
-    <li>If <b>target</b> is the script's parent (`<b>target</b> == <a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>()`) then "Unable to add item!" is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>pin</b> fails to match, the error &quot;Task ~Prim~ trying to illegally load script onto task ~Other_Prim~!&quot; is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. &quot;~Prim~&quot; and &quot;~Other_Prim~&quot; are substituted with the applicable prim names.</li>
+    <li>If <b>target</b> is the script&#39;s parent (`**target** == [llGetKey](https://wiki.secondlife.com/wiki/LlGetKey)()`) then &quot;Unable to add item!&quot; is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If the object containing this script is deeded to a group, then script <b>name</b> needs transfer permissions; even if <b>target</b> is deeded to the same group.</li>
     <li>When the script is set to run (with <b>running</b>, the running checkbox or <a href="https://wiki.secondlife.com/wiki/LlSetScriptState" target="_blank">llSetScriptState</a>) <a href="https://wiki.secondlife.com/wiki/State_entry" target="_blank">state_entry</a> will be queued.</li>
   </ul>

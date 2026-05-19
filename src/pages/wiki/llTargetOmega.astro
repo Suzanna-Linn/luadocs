@@ -13,26 +13,26 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Attempt to spin at SpinRate with strength Gain on Axis.
-A spin rate of 0.0 cancels the spin. This function always works in object-local coordinates.</p>
+      <p>  <p>Rotates the object/prim around <b>axis</b> at a rate of `**spinrate** * [llVecMag](https://wiki.secondlife.com/wiki/LlVecMag)(**axis**)` in radians per second with strength <b>gain</b>.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
-          <td>Axis</td>
-          <td></td>
+          <td>Axis / axis</td>
+          <td>arbitrary axis to rotate the object around</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
-          <td>SpinRate</td>
-          <td></td>
+          <td>SpinRate / spinrate</td>
+          <td>rate of rotation in radians per second</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
-          <td>Gain</td>
-          <td></td>
+          <td>Gain / gain</td>
+          <td>also modulates the final spinrate and disables the rotation behavior if zero</td>
         </tr>
       </table>
     </div>
@@ -55,6 +55,230 @@ A spin rate of 0.0 cancels the spin. This function always works in object-local 
     </div>
   </div>
 </div>
+  <h2>Specification</h2>
+  <h3>Physics</h3>
+  <ul>
+    <li>If the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is <a href="https://wiki.secondlife.com/wiki/Physical" target="_blank">physical</a> and the <a href="https://wiki.secondlife.com/wiki/Script" target="_blank">script</a> is <a href="https://wiki.secondlife.com/wiki/Attachment" target="_blank">attached</a> to the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root prim</a>, then the physical representation is updated regularly. The <a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a> experienced by the <a href="https://wiki.secondlife.com/wiki/User" target="_blank">user</a> <b>can</b> be detected or queried by script.</li>
+    <li>If the object is physical and the script attached to the root prim, the axis of rotation is given by the parameter <b>axis</b> and contains the center of mass <a href="https://wiki.secondlife.com/wiki/LlGetCenterOfMass" target="_blank">llGetCenterOfMass</a>. The <b>axis</b> parameter gives the direction of the axis of rotation. If the center of the object is not the center of mass, the center of the object &quot;orbits&quot; around the center of mass.</li>
+    <li>If the object is physical and the script attached to a child prim: the same, but it&#39;s the center of mass of the <i>child</i> prim which will be used.</li>
+    <li>If the object is not physical or the script is attached to a child prim, then the effect is entirely client-side. Only a script within the object itself can detect this by reading the <a href="https://wiki.secondlife.com/wiki/PRIM_OMEGA" target="_blank">PRIM_OMEGA</a> parameters.</li>
+    <li>If the object is not physical and the script is attached to a root prim, the axis of rotation is given by the parameter <b>axis</b> and contains the center of the object (center of root prim).</li>
+    <li>If the object is not physical and the script is attached to a child prim: the same, but in this case, it will use the center of the child prim.</li>
+  </ul>
+  <h3>Link Sets</h3>
+  <ul>
+    <li>If the script is attached to the root prim, the entire object rotates around the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> <b>axis</b>.
+    <ul>
+      <li>If the object is attached, then it rotates around the attachment <b>axis</b>.</li>
+    </ul>
+  
+    </li>
+    <li>If the script is attached to a child prim, the prim rotates around the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local</a> <b>axis</b>.
+    <ul>
+      <li>A child prim can rotate around its own <b>axis</b> while the entire object rotates around another <b>axis</b>.</li>
+    </ul>
+  
+    </li>
+  </ul>
+  <h2>Caveats</h2>
+  <ul>
+    <li>If the object is not physical, then the rotation is only a client side effect, and it will collide as non-moving geometry.</li>
+    <li>If the function does not appear to be working, make sure that that <b>Advanced &gt; Network &gt; Velocity Interpolate Objects</b> (viewer 1.x) or <b>Develop &gt; Network &gt; Velocity Interpolate Objects</b> (viewer 2.x) is enabled.</li>
+    <li>As of server version 2025-09-03.17442317385, this prim property is maintained when copying in-world.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--rotates the x axis once per second,
+--  rotates the y axis 3 times per second, 
+--  rotates the z axis once every two seconds.
+--  combined the rate is about 3.20156 revolutions per second
+
+ll.TargetOmega(vector(1.0, 3.0, 0.5), TWO_PI, 1.0)`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//rotates the x axis once per second,
+//  rotates the y axis 3 times per second, 
+//  rotates the z axis once every two seconds.
+//  combined the rate is about 3.20156 revolutions per second
+
+llTargetOmega(<1.0,3.0,0.5>,TWO_PI,1.0);`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Rotates very slowly around a sphere's local X axis .... Good for making a globe that rotates around a tilted axis
+
+local function main()
+    ll.TargetOmega(vector(1.0, 0.0, 0.0) * ll.GetRot(), 0.1, 0.01)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Rotates very slowly around a sphere's local X axis .... Good for making a globe that rotates around a tilted axis
+
+default
+{
+    state_entry()
+    {
+       llTargetOmega(<1.0,0.0,0.0>*llGetRot(),0.1,0.01);
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Rotates very slowly around a cylinder's local or global Z axis
+-- .... Good for making a propeller that rotates regardless of initial orientation.
+
+local function main()
+    ll.TargetOmega(ll.Rot2Up(ll.GetLocalRot()), PI, 1.0)
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//Rotates very slowly around a cylinder's local or global Z axis
+ // .... Good for making a propeller that rotates regardless of initial orientation.
+
+default
+{
+    state_entry()
+    {
+       llTargetOmega(llRot2Up(llGetLocalRot()), PI, 1.0);
+    }
+}`} lang="lsl" /></div>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--To make an object return to its initial rotation when target omega stops, first make the object
+--   rotate both client side and server side. Then, when you stop llTargetOmega, reset server side rotation.
+--   Here's one way to do it.
+
+local iOn = false
+local iStep = 0
+
+function LLEvents.touch_start(events)
+    local total_number = #events
+    iOn = not iOn
+    if iOn then
+        ll.TargetOmega(vector(0.0, 0.0, 1.0), PI / 8, 1.0)  -- Start rotating client side with llTargetOmega
+        ll.SetTimerEvent(1.0)  --Start timer to rotate server side
+    else
+        ll.TargetOmega(vector(0.0, 0.0, 1.0), 0.0, 0.0)  --Stop client side rotation
+        ll.SetTimerEvent(0.0)  --Stop timer and thus server side rotation
+        ll.SetRot(ZERO_ROTATION)  --Set server side rotation to <0.0,0.0,0.0>
+        iStep = 0
+    end
+end
+
+function LLEvents.timer()
+    ll.SetRot(ll.AxisAngle2Rot(vector(0.0, 0.0, 1.0), (function() iStep += 1 return iStep end)() * PI / 8))  -- Rotate at the same speed as llTargetOmega
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//To make an object return to its initial rotation when target omega stops, first make the object
+//   rotate both client side and server side. Then, when you stop llTargetOmega, reset server side rotation.
+//   Here's one way to do it.
+
+integer iOn;
+integer iStep;
+
+default
+{
+    touch_start(integer total_number)
+    {
+        iOn = !iOn;
+        if (iOn)
+        {
+            llTargetOmega(<0.0,0.0,1.0>, PI/8, 1.0); // Start rotating client side with llTargetOmega
+            llSetTimerEvent(1.0);  //Start timer to rotate server side
+        }
+        else
+        {
+            llTargetOmega(<0.0,0.0,1.0>, 0.0, 0.0); //Stop client side rotation
+            llSetTimerEvent(0.0);   //Stop timer and thus server side rotation
+            llSetRot(ZERO_ROTATION);    //Set server side rotation to <0.0,0.0,0.0>
+            iStep = 0;
+        }
+    }
+    
+    timer()
+    {
+        llSetRot(llAxisAngle2Rot(<0.0,0.0,1.0> ,++iStep *PI/8));  // Rotate at the same speed as llTargetOmega
+    }
+}`} lang="lsl" /></div>
+  <h2>Notes</h2>
+  <ul>
+    <li>Use <a href="https://wiki.secondlife.com/wiki/LlVecNorm" target="_blank">llVecNorm</a> on <b>axis</b> so that <b>spinrate</b> actually represents the rate of rotation.</li>
+    <li>Set the gain to zero to disable and remove the rotation behavior, e.g. `llTargetOmega([ZERO_VECTOR](https://wiki.secondlife.com/wiki/ZERO_VECTOR), 0, 0)`;
+    <ul>
+      <li>When rotating stops, the object will keep its final orientation, which is only a client side effect. The final orientation observed by other viewers will be different, and new viewers (after omega has been stopped) will see the object in its real (pre-omega) orientation.</li>
+      <li>A <b>spinrate</b> of 0 with a non-zero <b>gain</b> causes the object to try to stop all spin, rather than simply clearing a previous `llTargetOmega()` call.</li>
+    </ul>
+  
+    </li>
+    <li>If there are other forces applied to a prim together with `llTargetOmega()` (like using <a href="https://wiki.secondlife.com/wiki/LlSetForce" target="_blank">llSetForce</a> to make the object float), use `llTargetOmega(-[llGetOmega](https://wiki.secondlife.com/wiki/LlGetOmega)(), 0., 1.)` to cancel spin. Note that the <b>gain</b> must be non-zero, but not necessarily 1.</li>
+  </ul>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Fwd" target="_blank">llRot2Fwd</a></td>
+        <td>–</td>
+        <td>Gets the orientation of the local x-axis relative to <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Global" target="_blank">the earth</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Left" target="_blank">llRot2Left</a></td>
+        <td>–</td>
+        <td>Gets the orientation of the local y-axis relative to <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Global" target="_blank">the earth</a></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Up" target="_blank">llRot2Up</a></td>
+        <td>–</td>
+        <td>Gets the orientation of the local z-axis relative to <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Global" target="_blank">the earth</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>History</p>
+  <ul>
+    <li>llTargetOmega Added in <a href="http://secondlife.wikia.com/wiki/Version_0.2.0" target="_blank">SL 0.2.0</a>[[1]](#footnote_1)</li>
+  </ul>
+  <h3>Tests</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlTargetOmega_test" target="_blank">llTargetOmega test</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Footnotes</p>
+  <ul>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Early release notes were not very accurate or thorough, they sometimes included information about features added in previous releases or failed to include information about features added in that release.</li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function void llTargetOmega( vector axis, float spinrate, float gain );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+      <tr>
+        <th>Haiku</th>
+      </tr>
+      <tr>
+        <td><p>Life&#39;s a carousel:</p>
+<p>Whirling colors, spinning fate.</p>
+<p>A grand illusion.</p></td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

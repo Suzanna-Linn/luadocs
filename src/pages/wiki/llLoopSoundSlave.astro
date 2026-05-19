@@ -20,13 +20,13 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
           <td>Sound / sound</td>
-          <td>a sound in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a sound</td>
+          <td>a sound in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&amp;#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&amp;#32;of a sound</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
           <td>Volume / volume</td>
-          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 <&#61; <b>volume</b> <&#61; 1.0`)</td>
+          <td>between 0.0 (silent) and 1.0 (loud) (`0.0 &lt;&amp;#61; **volume** &lt;&amp;#61; 1.0`)</td>
         </tr>
       </table>
     </div>
@@ -50,7 +50,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 </div>
   <h2>Caveats</h2>
   <ul>
-    <li>If <b>sound</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a sound then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>sound</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a sound then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>sound</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>

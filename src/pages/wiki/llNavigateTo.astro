@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td>Location / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
-          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;for the character to navigate to.</td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&amp;#32;for the character to navigate to.</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
@@ -71,7 +71,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <ul>
     <li>Must use llCreateCharacter first or the function will fail with a viewer error.</li>
     <li>Vertical positions specified for any vectors should be chosen to be as close as possible to the actual height of the surface requested. Large difference between the provided vertical position and the actual terrain/object will result in failure of the behavior.</li>
-    <li>If you want to chase an agent or object as per the example below, it's much more elegant and less sim resource intensive to use <a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a> instead.</li>
+    <li>If you want to chase an agent or object as per the example below, it&#39;s much more elegant and less sim resource intensive to use <a href="https://wiki.secondlife.com/wiki/LlPursue" target="_blank">llPursue</a> instead.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -131,11 +131,11 @@ default
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
   <ul>
-    <li>FORCE_DIRECT_PATH can be used to rescue characters that have somehow fallen off the navigable zone as it doesn't use the navmesh.</li>
+    <li>FORCE_DIRECT_PATH can be used to rescue characters that have somehow fallen off the navigable zone as it doesn&#39;t use the navmesh.</li>
   </ul>
   <p>(Needs verification.)</p>
   <ul>
-    <li>The position vector can be set outside the current region by using extended range region coordinates: e.g., to go to the SE corner of the region to the East of the current one, you could llNavigateTo(<0.0, 512.0, 0.0>, []);</li>
+    <li>The position vector can be set outside the current region by using extended range region coordinates: e.g., to go to the SE corner of the region to the East of the current one, you could llNavigateTo(&lt;0.0, 512.0, 0.0&gt;, []);</li>
   </ul>
   <h2>See Also</h2>
   <h3>Events</h3>

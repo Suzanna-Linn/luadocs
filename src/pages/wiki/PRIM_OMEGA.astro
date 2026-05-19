@@ -34,7 +34,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>llSetPrimitiveParams</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">&#32;PRIM_OMEGA,&#32;[vector</a> axis, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> spinrate, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> gain ] </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">&amp;#32;PRIM_OMEGA,&amp;#32;[vector</a> axis, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> spinrate, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> gain ] </b></p>
   <table>
     <tbody>
       <tr>
@@ -60,7 +60,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       </tr>
     </tbody>
   </table>
-  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> &amp; <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
   <h2>llGetPrimitiveParams</h2>
   <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_OMEGA ]); </b></p>
   <p>Returns the <a href="https://wiki.secondlife.com/wiki/List" target="_blank">list</a> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> [vector</a> axis, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> spinrate, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> gain ]</p>
@@ -92,8 +92,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>PRIM_OMEGA on nonphysical objects, and child prims of physical objects, is only a client side effect; the object or prim will collide as non-moving geometry.</li>
-    <li>PRIM_OMEGA cannot be used on avatars sitting on the object. It will emit the error message "PRIM_OMEGA disallowed on agent".</li>
-    <li>If PRIM_OMEGA does not appear to be working, make sure that that Develop > Network > Velocity Interpolate Objects is enabled on the viewer.</li>
+    <li>PRIM_OMEGA cannot be used on avatars sitting on the object. It will emit the error message &quot;PRIM_OMEGA disallowed on agent&quot;.</li>
+    <li>If PRIM_OMEGA does not appear to be working, make sure that that Develop &gt; Network &gt; Velocity Interpolate Objects is enabled on the viewer.</li>
     <li>In the parameters returned by `llGetPrimitiveParams([PRIM_OMEGA])`, the vector is normalized, and the spinrate is multiplied by the magnitude of the original vector.</li>
   </ul>
   <h2>Related Articles</h2>

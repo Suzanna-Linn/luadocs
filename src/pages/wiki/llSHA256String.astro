@@ -13,12 +13,13 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Returns a string of 64 hex characters that is the SHA256 security hash of text.</p>
+      <p>  <p>Returns a string of 64 hex characters that is the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/SHA-2" target="_blank">SHA-256</a> security hash of <b>src</b>.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
-          <td>text</td>
+          <td>text / src</td>
           <td></td>
         </tr>
       </table>
@@ -42,6 +43,64 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <h2>Specification</h2>
+  <p>LSL strings are stored in the UTF-8 format.</p>
+  <h2>Caveats</h2>
+  <p>There&#39;s no way to input a zero-byte value into this function, nor any byte value from 128-255, therefore it&#39;s currently broken for many purposes (like HMAC-SHA1). The reason is because LSL strings cannot have a unicode null character (U+0000) in them, and LSL has no escape code for the null character (many programming languages use \0 but LSL does not have this feature). llEscapeURL(&quot;%00&quot;) yields an empty string. As well, inside this function, each character with a Unicode integer value over U+0127 / 007F are dealt with in UTF-8 fashion: in the hex values, 0xC2 is prepended to the byte value (hence 0x0080-0x00FF become 0xC280-0xC2FF inside the llSHA256String() routine).</p>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Say(0, ll.SHA256String("Hello, Avatar!"))  -- returns 3a9f9d2e4360319a62139d19bd425c16fb8439b832d74d5221ca75b54c35b4f2`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSay(0, llSHA256String("Hello, Avatar!")); // returns 3a9f9d2e4360319a62139d19bd425c16fb8439b832d74d5221ca75b54c35b4f2`} lang="lsl" /></div>
+  <p>Linux Example</p>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`$ echo -n 'Hello, Avatar!' | openssl sha256
+3a9f9d2e4360319a62139d19bd425c16fb8439b832d74d5221ca75b54c35b4f2`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlMD5String" target="_blank">llMD5String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlSHA1String" target="_blank">llSHA1String</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/SHA-2" target="_blank">SHA-2</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>Prior to this, the only way to get the SHA-256 hash was to use the LSL SHA-256 port: <a href="https://wiki.secondlife.com/wiki/SHA-2" target="_blank">SHA-2</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function string llSHA256String( string src );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

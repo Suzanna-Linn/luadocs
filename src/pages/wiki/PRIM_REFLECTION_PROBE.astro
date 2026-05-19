@@ -16,7 +16,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <p>  <p>The integer constant PRIM_REFLECTION_PROBE has the value 44</p>
   <p>PRIM_REFLECTION_PROBE is used to change the reflection probe configuration of the prim.</p>
   <p>A reflection probe is a volume used for image-based lighting (IBL). It takes an image of its surroundings and uses it as the basis for reflection effects (shiny surfaces) and ambiance effects (light bouncing).</p>
-  <p>Typically, the viewer automatically places reflection probes. Prim-based probes enable artists to provide hints to the render engine to improve the quality of image based lighting. Only objects in the probe's influence volume are affected.</p>
+  <p>Typically, the viewer automatically places reflection probes. Prim-based probes enable artists to provide hints to the render engine to improve the quality of image based lighting. Only objects in the probe&#39;s influence volume are affected.</p>
   <p>Lighting is most accurate when the edges of a probe volume are near the geometry that appears in reflections. For example, objects inside a room with a box shaped reflection probe that hugs the walls, floor, and ceiling would show accurate reflections and ambient lighting from the walls of the room.</p>
 </p>
     </div>
@@ -37,7 +37,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>llSetPrimitiveParams</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_REFLECTION_PROBE,&#32;[integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> ambiance, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> clip_distance, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flags ] </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&amp;#32;PRIM_REFLECTION_PROBE,&amp;#32;[integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> ambiance, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> clip_distance, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flags ] </b></p>
   <table>
     <tbody>
       <tr>
@@ -58,7 +58,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>• float</td>
         <td>clip_distance</td>
         <td>–</td>
-        <td>Ranges from 0.0 to 1024.0. Is the minimum distance from the probe's center where the surroundings are included for imaging.</td>
+        <td>Ranges from 0.0 to 1024.0. Is the minimum distance from the probe&#39;s center where the surroundings are included for imaging.</td>
         <td></td>
       </tr>
       <tr>
@@ -70,7 +70,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       </tr>
     </tbody>
   </table>
-  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></p>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> &amp; <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> &amp; <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></p>
   <h2>llGetPrimitiveParams</h2>
   <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([ PRIM_REFLECTION_PROBE ]); </b></p>
   <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> ambiance, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> clip_distance, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flags ]</p>
@@ -94,7 +94,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>• float</td>
         <td>clip_distance</td>
         <td>–</td>
-        <td>Ranges from 0.0 to 1024.0. Is the minimum distance from the probe's center where the surroundings are included for imaging.</td>
+        <td>Ranges from 0.0 to 1024.0. Is the minimum distance from the probe&#39;s center where the surroundings are included for imaging.</td>
         <td></td>
       </tr>
       <tr>
@@ -196,7 +196,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </tbody>
   </table>
   <h2>Examples</h2>
-  <p>Increase the prim's reflection probe ambiance when an agent is detected in the sensor range of the prim. Decrease the probe ambiance when an agent is no longer detected.</p>
+  <p>Increase the prim&#39;s reflection probe ambiance when an agent is detected in the sensor range of the prim. Decrease the probe ambiance when an agent is no longer detected.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local probe_enabled = true
 local probe_no_agent_ambiance = 0.0
 local probe_agent_ambiance = 1.0

@@ -46,8 +46,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>The prim description is <a href="https://wiki.secondlife.com/wiki/Limit" target="_blank">limited</a> to 127 <a href="https://wiki.secondlife.com/wiki/Bytes" target="_blank">bytes</a>; any string longer then that will be truncated. This truncation does not always happen when the attribute is set or read.</li>
-    <li>The prim description may only contain printable ASCII characters (code points 32-126), except the pipe character '&#124;', which is not permitted for historical reasons.[[1]](#footnote_1) All other characters will be replaced with one '?' character per illegal UTF-8 byte.</li>
-    <li>Note that when people have "Hover Tips on All Objects" selected in the viewer's "View" menu, they'll see the object description pop-up for any object under their mouse pointer. For that reason, it is good practice to only set human-friendly information in the description, e.g. keys and such.</li>
+    <li>The prim description may only contain printable ASCII characters (code points 32-126), except the pipe character &#39;&amp;#124;&#39;, which is not permitted for historical reasons.[[1]](#footnote_1) All other characters will be replaced with one &#39;?&#39; character per illegal UTF-8 byte.</li>
+    <li>Note that when people have &quot;Hover Tips on All Objects&quot; selected in the viewer&#39;s &quot;View&quot; menu, they&#39;ll see the object description pop-up for any object under their mouse pointer. For that reason, it is good practice to only set human-friendly information in the description, e.g. keys and such.</li>
     <li>When an attached object is detached, changes made by script to the name and description (of the root prim) of the attachment will be lost. While the object is attached the name and description can be changed but it will not be reflected in inventory. This caveat does <i>not</i> apply to child prims.</li>
     <li>Changing the object description does not trigger a <a href="https://wiki.secondlife.com/wiki/Changed" target="_blank">changed</a> event.</li>
   </ul>
@@ -55,8 +55,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <table>
     <tbody>
       <tr>
-        <th><b>Set this prim's description</b></th>
-        <th><b>Set the root prim's description</b></th>
+        <th><b>Set this prim&#39;s description</b></th>
+        <th><b>Set the root prim&#39;s description</b></th>
       </tr>
       <tr>
         <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`

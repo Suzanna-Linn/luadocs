@@ -13,7 +13,10 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Messages from the region to the COMBAT_CHANNEL will all be from this ID. Scripts may filter llListen calls on this ID to receive only system generated combat log messages.</p>
+      <p>  <p>The string constant COMBAT_LOG_ID has the value &quot;45e0fcfa-2268-4490-a51c-3e51bdfe80d1&quot;</p>
+  <p>Messages from the region to the <a href="https://wiki.secondlife.com/wiki/Combat_Log" target="_blank">combat log</a> will all be from this ID.</p>
+  <p>Scripts may filter <a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a> calls on this ID to receive only system generated combat log messages.</p>
+</p>
     </div>
 
     <div class="dash-col">
@@ -27,6 +30,81 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/COMBAT_CHANNEL" target="_blank">COMBAT_CHANNEL</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlListen" target="_blank">llListen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Events</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Articles</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Combat_Log" target="_blank">Combat Log</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Combat2" target="_blank">Combat2</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=COMBAT_LOG_ID" target="_blank">Search Canny for related Issues</a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+COMBAT_LOG_ID = uuid("45e0fcfa-2268-4490-a51c-3e51bdfe80d1")  --Key used to identify system generated combat log messages.
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+string COMBAT_LOG_ID = "45e0fcfa-2268-4490-a51c-3e51bdfe80d1";//Key used to identify system generated combat log messages.
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

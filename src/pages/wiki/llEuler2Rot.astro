@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Returns a rotation representation of the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Euler_Angles" target="_blank">Euler Angles</a> <b>v</b>.</p>
+      <p>  <p>Returns a rotation representation of the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Euler_Angles" target="_blank">Euler Angles</a> <b>v</b>.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -46,7 +46,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>Specification</h2>
-  <p>The <a href="https://wiki.secondlife.com/wiki/Category:LSL_Euler" target="_blank">Euler</a> angle vector (in radians) is converted to a rotation by doing the rotations around the 3 axes in Z, Y, X order. So `llEuler2Rot(<1.0, 2.0, 3.0> * <a href="https://wiki.secondlife.com/wiki/DEG_TO_RAD" target="_blank">DEG_TO_RAD</a>)` generates a rotation by first rotating 3 degrees around the global Z axis, then rotating the result around the global Y axis, and finally rotating that 1 degree around the global X axis.</p>
+  <p>The <a href="https://wiki.secondlife.com/wiki/Category:LSL_Euler" target="_blank">Euler</a> angle vector (in radians) is converted to a rotation by doing the rotations around the 3 axes in Z, Y, X order. So `llEuler2Rot(&lt;1.0, 2.0, 3.0&gt; * [DEG_TO_RAD](https://wiki.secondlife.com/wiki/DEG_TO_RAD))` generates a rotation by first rotating 3 degrees around the global Z axis, then rotating the result around the global Y axis, and finally rotating that 1 degree around the global X axis.</p>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
     local input = vector(73.0, -63.0, 20.0) * DEG_TO_RAD
@@ -86,7 +86,7 @@ rotation k = <0.0, 0.0, llSin(v.z), llCos(v.z)> * <0.0, llSin(v.y), 0.0, llCos(v
     <tbody>
       <tr>
         <td>•</td>
-        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Euler_Angles" target="_blank">Euler Angles</a></td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Euler_Angles" target="_blank">Euler Angles</a></td>
         <td></td>
         <td></td>
         <td></td>

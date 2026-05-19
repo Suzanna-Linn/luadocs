@@ -39,19 +39,19 @@ import DocsCode from '/src/components/DocsCode.astro';
 </div>
   <h2>Caveats</h2>
   <ul>
-    <li>If a prim <a href="https://wiki.secondlife.com/wiki/Face" target="_blank">face</a> has <a href="https://wiki.secondlife.com/wiki/Navigating_Shared_Media" target="_blank">Shared Media</a> enabled and the avatar's viewer supports this feature, LSL scripts will not detect touches on that face. Touches from older clients will be detected.</li>
-    <li>The default behavior is: If you have a multi-prim object and the root has a touch_start handler AND one or more child prims has a touch_start handler, the root prim's handler will be called when it (the root) or a child without a handler is touched. If you touch a child prim that has a touch_start handler, it will receive the event and the root prim will not.
+    <li>If a prim <a href="https://wiki.secondlife.com/wiki/Face" target="_blank">face</a> has <a href="https://wiki.secondlife.com/wiki/Navigating_Shared_Media" target="_blank">Shared Media</a> enabled and the avatar&#39;s viewer supports this feature, LSL scripts will not detect touches on that face. Touches from older clients will be detected.</li>
+    <li>The default behavior is: If you have a multi-prim object and the root has a touch_start handler AND one or more child prims has a touch_start handler, the root prim&#39;s handler will be called when it (the root) or a child without a handler is touched. If you touch a child prim that has a touch_start handler, it will receive the event and the root prim will not.
     <ul>
-      <li>This behavior can be configured with <a href="https://wiki.secondlife.com/wiki/LlPassTouches" target="_blank">llPassTouches</a>. After configuring a prim's touch-passing behavior you can delete the script that configured the prim.</li>
+      <li>This behavior can be configured with <a href="https://wiki.secondlife.com/wiki/LlPassTouches" target="_blank">llPassTouches</a>. After configuring a prim&#39;s touch-passing behavior you can delete the script that configured the prim.</li>
     </ul>
   
     </li>
-    <li>Rigged mesh attachments do not support touch events, this is because you can steer your avatar/camera by click dragging your avatar body which is what the rigged mesh replaces. The only way to get a touch event on a rigged mesh attachment is via the right click context menu and clicking the "Touch" button.</li>
+    <li>Rigged mesh attachments do not support touch events, this is because you can steer your avatar/camera by click dragging your avatar body which is what the rigged mesh replaces. The only way to get a touch event on a rigged mesh attachment is via the right click context menu and clicking the &quot;Touch&quot; button.</li>
     <li><a href="https://feedback.secondlife.com/scripting-bugs/p/touch-start-only-triggers-on-the-second-touch-if-touch-is-already-active" target="_blank">Due to a known issue</a>, if a resident is already touching a scripted object, touch_start runs only every other time that other residents touch it.</li>
   </ul>
   <h2>Examples</h2>
   <p>You can use index 0 through (`num_detected`-1) with the various llDetected... functions to handle simultaneous touches at once.</p>
-  <p>For most purposes, it's usually enough to handle just with the first toucher e.g. <a href="https://wiki.secondlife.com/wiki/LlDetectedKey" target="_blank">llDetectedKey</a>(0). It is rare (but not impossible) for `num_detected` to be greater than 1.</p>
+  <p>For most purposes, it&#39;s usually enough to handle just with the first toucher e.g. <a href="https://wiki.secondlife.com/wiki/LlDetectedKey" target="_blank">llDetectedKey</a>(0). It is rare (but not impossible) for `num_detected` to be greater than 1.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 function LLEvents.touch_start(events)

@@ -38,7 +38,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <ul>
     <li>In a single prim object LINK_ROOT will not refer to the root prim!
     <ul>
-      <li>If your script needs to work in single and multiprim objects, instead of `LINK_ROOT`, use either `(<a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a>() != 0)` or `(!!<a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">llGetLinkNumber</a>())`</li>
+      <li>If your script needs to work in single and multiprim objects, instead of `LINK_ROOT`, use either `([llGetLinkNumber](https://wiki.secondlife.com/wiki/LlGetLinkNumber)() != 0)` or `(!![llGetLinkNumber](https://wiki.secondlife.com/wiki/LlGetLinkNumber)())`</li>
       <li>Alternatively, <a href="https://wiki.secondlife.com/wiki/LINK_THIS" target="_blank">LINK_THIS</a> works in both single-prim and multiprim objects, assuming the script is inside the root prim and only needs to refer to itself.</li>
     </ul>
   

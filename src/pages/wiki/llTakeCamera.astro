@@ -14,14 +14,13 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p class="deprecated-text"">Deprecated:  use ll.SetCameraParams</p>
-      <p>  <p>This function is recognized by the compiler, but was never implemented in Second Life.</p>
-</p>
+      <p>Deprecated: Use llSetCameraParams instead.</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
-          <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/avatar" target="_blank">avatar</a></td>
-          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+          <td>AvatarID</td>
+          <td></td>
         </tr>
       </table>
     </div>
@@ -46,25 +45,6 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <h2>Caveats</h2>
-  <ul>
-    <li>This function has been deprecated, please use <a href="https://wiki.secondlife.com/wiki/LlSetCameraParams" target="_blank">llSetCameraParams</a> instead.</li>
-  </ul>
-  <h2>Deep Notes</h2>
-  <table>
-    <tbody>
-      <tr>
-        <th>Signature</th>
-      </tr>
-      <tr>
-        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
-function void llTakeCamera( key avatar );
-`} lang="lsl" /></div>
-
-</td>
-      </tr>
-    </tbody>
-  </table>
 
 </DocsLayout>
       

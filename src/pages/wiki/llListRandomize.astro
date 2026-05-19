@@ -52,8 +52,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>This function supports <a href="https://wiki.secondlife.com/wiki/List#Strided_lists" target="_blank">Strided Lists</a>.</p>
   <h2>Specification</h2>
   <p>When you want to randomize the position of every list element, specify a stride of 1. This is perhaps the setting most used.</p>
-  <p>If the stride is not a factor of the list length, the <b>src</b> list is returned. In other words, `llGetListLength(<b>src</b>) % stride` must be 0.</p>
-  <p>Conceptually, the algorithm selects `llGetListLength(<b>src</b>) / stride` buckets, and then for each bucket swaps in the contents with another bucket.</p>
+  <p>If the stride is not a factor of the list length, the <b>src</b> list is returned. In other words, `llGetListLength(**src**) % stride` must be 0.</p>
+  <p>Conceptually, the algorithm selects `llGetListLength(**src**) / stride` buckets, and then for each bucket swaps in the contents with another bucket.</p>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local dice = {"2", "4", "1", "6", "3", "5"}
 
@@ -80,19 +80,19 @@ local list_random = ll.ListRandomize(list01, 2)`} lang="slua" /></div>
 list list_random = llListRandomize(list01, 2);`} lang="lsl" /></div>
   <p>list_random could be:</p>
   <ul>
-    <li>["Cold", "pizza", "in", "the", "early", "morning"]</li>
-    <li>["Cold", "pizza", "early", "morning", "in", "the"]</li>
-    <li>["in", "the", "Cold", "pizza", "early", "morning"]</li>
-    <li>["in", "the", "early", "morning", "Cold", "pizza"]</li>
-    <li>["early", "morning", "Cold", "pizza", "in", "the"]</li>
-    <li>["early", "morning", "in", "the", "Cold", "pizza"]</li>
+    <li>[&quot;Cold&quot;, &quot;pizza&quot;, &quot;in&quot;, &quot;the&quot;, &quot;early&quot;, &quot;morning&quot;]</li>
+    <li>[&quot;Cold&quot;, &quot;pizza&quot;, &quot;early&quot;, &quot;morning&quot;, &quot;in&quot;, &quot;the&quot;]</li>
+    <li>[&quot;in&quot;, &quot;the&quot;, &quot;Cold&quot;, &quot;pizza&quot;, &quot;early&quot;, &quot;morning&quot;]</li>
+    <li>[&quot;in&quot;, &quot;the&quot;, &quot;early&quot;, &quot;morning&quot;, &quot;Cold&quot;, &quot;pizza&quot;]</li>
+    <li>[&quot;early&quot;, &quot;morning&quot;, &quot;Cold&quot;, &quot;pizza&quot;, &quot;in&quot;, &quot;the&quot;]</li>
+    <li>[&quot;early&quot;, &quot;morning&quot;, &quot;in&quot;, &quot;the&quot;, &quot;Cold&quot;, &quot;pizza&quot;]</li>
   </ul>
   <p>Notice that two adjacent elements from the original list are always kept together, because the stride of 2 was specified.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local list_random = ll.ListRandomize(list01, 6)`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list list_random = llListRandomize(list01, 6);`} lang="lsl" /></div>
   <p>list_random in this instance is the original list, exactly in the order it already was, because we told it to keep every set of six elements together, and there are only six elements in the list.</p>
   <h2>Notes</h2>
-  <p>Bear in mind that the source list will remain unchanged. Instead, a new list will be produced. So, it's important that you capture this with a variable (unless you are acting directly on the results.)</p>
+  <p>Bear in mind that the source list will remain unchanged. Instead, a new list will be produced. So, it&#39;s important that you capture this with a variable (unless you are acting directly on the results.)</p>
   <h2>See Also</h2>
   <h3>Functions</h3>
   <table>
@@ -115,7 +115,7 @@ list list_random = llListRandomize(list01, 2);`} lang="lsl" /></div>
   </table>
   <h2>Deep Notes</h2>
   <p>Source</p>
-  <p>lsa_randomize(): 'linden\indra\lscript\lscript_library\lscript_alloc.cpp'</p>
+  <p>lsa_randomize(): &#39;linden\indra\lscript\lscript_library\lscript_alloc.cpp&#39;</p>
   <table>
     <tbody>
       <tr>

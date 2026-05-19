@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Creates a pathfinding entity, known as a "character", from the object containing the script. Required to activate use of pathfinding functions.</p>
+      <p>  <p>Creates a pathfinding entity, known as a &quot;character&quot;, from the object containing the script. Required to activate use of pathfinding functions.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -42,7 +42,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>By default, the character's shape will be an upright capsule approximately the size of the linkset, adjustable via the options list. The linkset must use the land impact accounting system introduced with the mesh project.
+  <p>By default, the character&#39;s shape will be an upright capsule approximately the size of the linkset, adjustable via the options list. The linkset must use the land impact accounting system introduced with the mesh project.
 If called on an existing character, all unspecified parameters other than character size will revert to their defaults (if not specified, character size will not change). This is STRONGLY preferred over calling <a href="https://wiki.secondlife.com/wiki/LlDeleteCharacter" target="_blank">llDeleteCharacter</a>() followed by llCreateCharacter() as it is much, much less taxing on the server.</p>
   <table>
     <tbody>
@@ -85,10 +85,10 @@ If the value is less than twice the <b>radius</b> plus 0.1m, it will be set to t
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/TRAVERSAL_TYPE" target="_blank">TRAVERSAL_TYPE</a></td>
         <td>7</td>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_SLOW</a></td>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_FAST</a>, <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_SLOW</a>, <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_NONE&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_NONE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&amp;action=edit&amp;redlink=1" target="_blank">TRAVERSAL_TYPE_SLOW</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&amp;action=edit&amp;redlink=1" target="_blank">TRAVERSAL_TYPE_FAST</a>, <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&amp;action=edit&amp;redlink=1" target="_blank">TRAVERSAL_TYPE_SLOW</a>, <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_NONE&amp;action=edit&amp;redlink=1" target="_blank">TRAVERSAL_TYPE_NONE</a></td>
         <td>Controls the speed at which characters moves on terrain that is less than 100% walkable will move faster (e.g., a cat crossing a street) or slower (e.g., a car driving in a swamp).
-To use <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">_FAST</a> or <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&action=edit&redlink=1" target="_blank">_SLOW</a>, you must specify a <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a>.</td>
+To use <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&amp;action=edit&amp;redlink=1" target="_blank">_FAST</a> or <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_SLOW&amp;action=edit&amp;redlink=1" target="_blank">_SLOW</a>, you must specify a <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a>.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a></td>
@@ -100,45 +100,45 @@ To use <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAS
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_AVOIDANCE_MODE" target="_blank">CHARACTER_AVOIDANCE_MODE</a></td>
         <td>5</td>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&action=edit&redlink=1" target="_blank">AVOID_CHARACTERS</a> | <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_DYNAMIC_OBSTACLES&action=edit&redlink=1" target="_blank">AVOID_DYNAMIC_OBSTACLES</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&amp;action=edit&amp;redlink=1" target="_blank">AVOID_CHARACTERS</a> | <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_DYNAMIC_OBSTACLES&amp;action=edit&amp;redlink=1" target="_blank">AVOID_DYNAMIC_OBSTACLES</a></td>
         <td><p>Combinable Flags:</p>
-<p><a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&action=edit&redlink=1" target="_blank">AVOID_CHARACTERS</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_DYNAMIC_OBSTACLES&action=edit&redlink=1" target="_blank">AVOID_DYNAMIC_OBSTACLES</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_NONE&action=edit&redlink=1" target="_blank">AVOID_NONE</a></p></td>
-        <td>Allows you to specify that a character should not try to avoid other characters, should not try to avoid dynamic obstacles (relatively fast moving objects and avatars), or both. This is framed in the positive sense (`<a href="https://wiki.secondlife.com/wiki/CHARACTER_AVOIDANCE_MODE" target="_blank">[CHARACTER_AVOIDANCE_MODE</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&action=edit&redlink=1" target="_blank">AVOID_CHARACTERS</a>]` would create a character that avoided other characters but not agents or moving vehicles). Setting this parameter to <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_NONE&action=edit&redlink=1" target="_blank">AVOID_NONE</a> causes the character to not avoid either category.</td>
+<p><a href="https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&amp;action=edit&amp;redlink=1" target="_blank">AVOID_CHARACTERS</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_DYNAMIC_OBSTACLES&amp;action=edit&amp;redlink=1" target="_blank">AVOID_DYNAMIC_OBSTACLES</a>, <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_NONE&amp;action=edit&amp;redlink=1" target="_blank">AVOID_NONE</a></p></td>
+        <td>Allows you to specify that a character should not try to avoid other characters, should not try to avoid dynamic obstacles (relatively fast moving objects and avatars), or both. This is framed in the positive sense (`[[CHARACTER_AVOIDANCE_MODE](https://wiki.secondlife.com/wiki/CHARACTER_AVOIDANCE_MODE), [AVOID_CHARACTERS](https://wiki.secondlife.com/w/index.php?title=AVOID_CHARACTERS&amp;action=edit&amp;redlink=1)]` would create a character that avoided other characters but not agents or moving vehicles). Setting this parameter to <a href="https://wiki.secondlife.com/w/index.php?title=AVOID_NONE&amp;action=edit&amp;redlink=1" target="_blank">AVOID_NONE</a> causes the character to not avoid either category.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_ACCEL" target="_blank">CHARACTER_MAX_ACCEL</a></td>
         <td>8</td>
         <td>20</td>
         <td>[0.5, 40.0]</td>
-        <td>The character's maximum acceleration rate.</td>
+        <td>The character&#39;s maximum acceleration rate.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_DECEL" target="_blank">CHARACTER_MAX_DECEL</a></td>
         <td>9</td>
         <td>30</td>
         <td>[0.5, 60.0]</td>
-        <td>The character's maximum deceleration rate.</td>
+        <td>The character&#39;s maximum deceleration rate.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_TURN_SPEED" target="_blank">CHARACTER_DESIRED_TURN_SPEED</a></td>
         <td>12</td>
         <td>6</td>
         <td>[0.02, 40.0]</td>
-        <td>The character's maximum speed while turning--note that this is only loosely enforced (i.e., a character may turn at higher speeds under certain conditions)</td>
+        <td>The character&#39;s maximum speed while turning--note that this is only loosely enforced (i.e., a character may turn at higher speeds under certain conditions)</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_TURN_RADIUS" target="_blank">CHARACTER_MAX_TURN_RADIUS</a></td>
         <td>10</td>
         <td>1.25</td>
         <td>[0.1, 10.0]</td>
-        <td>The character's turn radius when traveling at <a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_TURN_SPEED" target="_blank">CHARACTER_DESIRED_TURN_SPEED</a></td>
+        <td>The character&#39;s turn radius when traveling at <a href="https://wiki.secondlife.com/wiki/CHARACTER_DESIRED_TURN_SPEED" target="_blank">CHARACTER_DESIRED_TURN_SPEED</a></td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_SPEED" target="_blank">CHARACTER_MAX_SPEED</a></td>
         <td>13</td>
         <td>20</td>
         <td>[1, 40.0]</td>
-        <td>The character's maximum speed. Affects speed when avoiding dynamic obstacles and when traversing low-walkability objects in <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&action=edit&redlink=1" target="_blank">TRAVERSAL_TYPE_FAST</a> mode.</td>
+        <td>The character&#39;s maximum speed. Affects speed when avoiding dynamic obstacles and when traversing low-walkability objects in <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAST&amp;action=edit&amp;redlink=1" target="_blank">TRAVERSAL_TYPE_FAST</a> mode.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CHARACTER_ACCOUNT_FOR_SKIPPED_FRAMES" target="_blank">CHARACTER_ACCOUNT_FOR_SKIPPED_FRAMES</a></td>
@@ -152,7 +152,7 @@ To use <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAS
         <td>15</td>
         <td>Depends<a href="#ct-caveat" target="_blank">*</a></td>
         <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> or <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a></td>
-        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> matches traditional behavior. If set to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, treat the parcel boundaries as one-way obstacles (will re-enter but can't leave on it's own).</td>
+        <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> matches traditional behavior. If set to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, treat the parcel boundaries as one-way obstacles (will re-enter but can&#39;t leave on it&#39;s own).</td>
       </tr>
     </tbody>
   </table>
@@ -167,20 +167,20 @@ To use <a href="https://wiki.secondlife.com/w/index.php?title=TRAVERSAL_TYPE_FAS
     <li>If we have multiple scripts containing llCreateCharacter in the same object nothing untoward happens.</li>
     <li>If multiple scripts use conflicting path functions in the same object (different prims or the same prim) one will take precedence randomly (apparently).</li>
     <li><a href="https://wiki.secondlife.com/wiki/CHARACTER_MAX_SPEED" target="_blank">CHARACTER_MAX_SPEED</a> - See <a href="https://jira.secondlife.com/browse/PATHBUG-42" target="_blank">PATHBUG-42</a> - In testing, we have found a desired speed of 10m/s to be plenty fast most uses and that higher speeds may produce unexpected results (particularly when navigating tight spaces or making sharp turns). March 15, 2012</li>
-    <li><a href="https://wiki.secondlife.com/w/index.php?title=CHARACTER_MAX_ANGULAR_ACCEL&action=edit&redlink=1" target="_blank">CHARACTER_MAX_ANGULAR_ACCEL</a> min = 1.5708</li>
-    <li>The character's shape is a capsule (cylinder with spherical ends) with a length (from tip to tip) and a circular cross section of some radius. These two size parameters are what is controlled by the <a href="https://wiki.secondlife.com/wiki/CHARACTER_LENGTH" target="_blank">CHARACTER_LENGTH</a> and <a href="https://wiki.secondlife.com/wiki/CHARACTER_RADIUS" target="_blank">CHARACTER_RADIUS</a> params respectively.</li>
-    <li>Note that the character's true "length" cannot be smaller than twice the radius plus 0.1m; however, you're welcome to specify a value lower than that (but more than zero) -- the script shouldn't complain.</li>
+    <li><a href="https://wiki.secondlife.com/w/index.php?title=CHARACTER_MAX_ANGULAR_ACCEL&amp;action=edit&amp;redlink=1" target="_blank">CHARACTER_MAX_ANGULAR_ACCEL</a> min = 1.5708</li>
+    <li>The character&#39;s shape is a capsule (cylinder with spherical ends) with a length (from tip to tip) and a circular cross section of some radius. These two size parameters are what is controlled by the <a href="https://wiki.secondlife.com/wiki/CHARACTER_LENGTH" target="_blank">CHARACTER_LENGTH</a> and <a href="https://wiki.secondlife.com/wiki/CHARACTER_RADIUS" target="_blank">CHARACTER_RADIUS</a> params respectively.</li>
+    <li>Note that the character&#39;s true &quot;length&quot; cannot be smaller than twice the radius plus 0.1m; however, you&#39;re welcome to specify a value lower than that (but more than zero) -- the script shouldn&#39;t complain.</li>
     <li>The capsule is usually oriented vertically. Use <a href="https://wiki.secondlife.com/wiki/CHARACTER_ORIENTATION" target="_blank">[CHARACTER_ORIENTATION</a>, <a href="https://wiki.secondlife.com/wiki/HORIZONTAL" target="_blank">HORIZONTAL</a>] if you need your character to be horizontal.
     <ul>
       <li>Use a vertical capsule whenever possible; horizontal capsules may become stuck more easily than vertical capsules.</li>
     </ul>
   
     </li>
-    <li>Removing the script from a prim will not stop pathing behavior, in the same way that particles and hover text remain. However, if the character encounters an error state, it will be unable to recover since there is no original script to get error handling from. Removing scripts from actively used characters is NOT recommended. To stop a pathing command use `<a href="https://wiki.secondlife.com/wiki/LlExecCharacterCmd" target="_blank">llExecCharacterCmd</a>(<a href="https://wiki.secondlife.com/w/index.php?title=CHARACTER_CMD_STOP&action=edit&redlink=1" target="_blank">CHARACTER_CMD_STOP</a>, [])`.</li>
-    <li>The root prim's position determines the characters height above the surface; if your character sinks under the surface or is too high above it adjust the relative position of the root prim to the rest of the linkset (or create a new root prim, which you might texture invisible, to control your character's apparent height).</li>
+    <li>Removing the script from a prim will not stop pathing behavior, in the same way that particles and hover text remain. However, if the character encounters an error state, it will be unable to recover since there is no original script to get error handling from. Removing scripts from actively used characters is NOT recommended. To stop a pathing command use `[llExecCharacterCmd](https://wiki.secondlife.com/wiki/LlExecCharacterCmd)([CHARACTER_CMD_STOP](https://wiki.secondlife.com/w/index.php?title=CHARACTER_CMD_STOP&amp;action=edit&amp;redlink=1), [])`.</li>
+    <li>The root prim&#39;s position determines the characters height above the surface; if your character sinks under the surface or is too high above it adjust the relative position of the root prim to the rest of the linkset (or create a new root prim, which you might texture invisible, to control your character&#39;s apparent height).</li>
     <li>The default value of <a href="https://wiki.secondlife.com/wiki/CHARACTER_STAY_WITHIN_PARCEL" target="_blank">CHARACTER_STAY_WITHIN_PARCEL</a> depends on the <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a>.
     <ul>
-      <li>If <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a> is set to anything other than <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_NONE" target="_blank">CHARACTER_TYPE_NONE</a>, then <a href="https://wiki.secondlife.com/wiki/CHARACTER_STAY_WITHIN_PARCEL" target="_blank">CHARACTER_STAY_WITHIN_PARCEL</a> will default to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, so always explicitly set <a href="https://wiki.secondlife.com/wiki/CHARACTER_STAY_WITHIN_PARCEL" target="_blank">CHARACTER_STAY_WITHIN_PARCEL</a> to <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> if you don't want the character to stop at parcel borders.</li>
+      <li>If <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE" target="_blank">CHARACTER_TYPE</a> is set to anything other than <a href="https://wiki.secondlife.com/wiki/CHARACTER_TYPE_NONE" target="_blank">CHARACTER_TYPE_NONE</a>, then <a href="https://wiki.secondlife.com/wiki/CHARACTER_STAY_WITHIN_PARCEL" target="_blank">CHARACTER_STAY_WITHIN_PARCEL</a> will default to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a>, so always explicitly set <a href="https://wiki.secondlife.com/wiki/CHARACTER_STAY_WITHIN_PARCEL" target="_blank">CHARACTER_STAY_WITHIN_PARCEL</a> to <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> if you don&#39;t want the character to stop at parcel borders.</li>
     </ul>
   
     </li>

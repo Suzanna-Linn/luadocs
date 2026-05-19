@@ -118,9 +118,9 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_OFFSET" target="_blank">CAMERA_FOCUS_OFFSET</a></td>
         <td>1</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> <a href="https://wiki.secondlife.com/w/index.php?title=Meter&action=edit&redlink=1" target="_blank">meters</a></td>
-        <td><0.0,0.0,0.0></td>
-        <td><-10,-10,-10> to <10,10,10></td>
+        <td><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> <a href="https://wiki.secondlife.com/w/index.php?title=Meter&amp;action=edit&amp;redlink=1" target="_blank">meters</a></td>
+        <td>&lt;0.0,0.0,0.0&gt;</td>
+        <td>&lt;-10,-10,-10&gt; to &lt;10,10,10&gt;</td>
         <td>Adjusts the camera focus <a href="https://wiki.secondlife.com/wiki/Position" target="_blank">position</a> relative to the target.</td>
       </tr>
       <tr>
@@ -129,7 +129,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> meters</td>
         <td>1.0</td>
         <td>0 to 4</td>
-        <td>Sets the radius of a sphere around the camera's target position within which its focus is not affected by target motion.</td>
+        <td>Sets the radius of a sphere around the camera&#39;s target position within which its focus is not affected by target motion.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CAMERA_PITCH" target="_blank">CAMERA_PITCH</a></td>
@@ -137,7 +137,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> degrees</td>
         <td>0.0</td>
         <td>-45 to 80</td>
-        <td>Adjusts the angular amount that the camera aims straight ahead vs. straight down, maintaining the same distance; analogous to 'incidence'."</td>
+        <td>Adjusts the angular amount that the camera aims straight ahead vs. straight down, maintaining the same distance; analogous to &#39;incidence&#39;.&quot;</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CAMERA_POSITION" target="_blank">CAMERA_POSITION</a></td>
@@ -153,7 +153,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> seconds</td>
         <td>0.1</td>
         <td>0 to 3</td>
-        <td>How much the camera lags as it tries to move towards its 'ideal' position.</td>
+        <td>How much the camera lags as it tries to move towards its &#39;ideal&#39; position.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/CAMERA_POSITION_LOCKED" target="_blank">CAMERA_POSITION_LOCKED</a></td>
@@ -169,7 +169,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> meters</td>
         <td>1.0</td>
         <td>0 to 4</td>
-        <td>Sets the radius of a sphere around the camera's ideal position within which it is not affected by target motion.</td>
+        <td>Sets the radius of a sphere around the camera&#39;s ideal position within which it is not affected by target motion.</td>
       </tr>
     </tbody>
   </table>
@@ -189,11 +189,11 @@ The <a href="https://wiki.secondlife.com/wiki/PERMISSION_CONTROL_CAMERA" target=
   <ul>
     <li>Camera control currently (server 1.38) only supported for attachments and objects on which you are sitting. An attempt otherwise will result in an error being shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>Scripted camera parameters are overriden for agents who are in <a href="https://wiki.secondlife.com/wiki/Flycam" target="_blank">Free Camera mode</a> <i>(Alt + Click)</i>. <b>No error is returned if this is the case</b>; however when the agent returns to regular camera mode, their camera will go to the scripted camera position.</li>
-    <li>When <a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS" target="_blank">CAMERA_FOCUS</a> is not defined, it is advised that <a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_THRESHOLD" target="_blank">CAMERA_FOCUS_THRESHOLD</a> is set to 0.0 - this is because when left at it's default value, it may prevent the camera from focusing on the correct point, instead focusing just to the side of the intended point.</li>
+    <li>When <a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS" target="_blank">CAMERA_FOCUS</a> is not defined, it is advised that <a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_THRESHOLD" target="_blank">CAMERA_FOCUS_THRESHOLD</a> is set to 0.0 - this is because when left at it&#39;s default value, it may prevent the camera from focusing on the correct point, instead focusing just to the side of the intended point.</li>
     <li>A <a href="https://wiki.secondlife.com/wiki/CAMERA_FOCUS_OFFSET" target="_blank">CAMERA_FOCUS_OFFSET</a> of <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a> will always look at the same position as returned by llGetPos() for the avatar
     <ul>
-      <li>When seated, this is also the position of "Avatar Center" when hover height is 0</li>
-      <li>When standing, this has a shape-dependent z-offset from "Avatar Center". (currently investigating <a href="https://wiki.secondlife.com/wiki/User:Tapple_Gao" target="_blank">Tapple Gao</a> (<a href="https://wiki.secondlife.com/wiki/User_talk:Tapple_Gao" target="_blank">talk</a>))</li>
+      <li>When seated, this is also the position of &quot;Avatar Center&quot; when hover height is 0</li>
+      <li>When standing, this has a shape-dependent z-offset from &quot;Avatar Center&quot;. (currently investigating <a href="https://wiki.secondlife.com/wiki/User:Tapple_Gao" target="_blank">Tapple Gao</a> (<a href="https://wiki.secondlife.com/wiki/User_talk:Tapple_Gao" target="_blank">talk</a>))</li>
     </ul>
   
     </li>

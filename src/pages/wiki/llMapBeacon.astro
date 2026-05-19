@@ -57,7 +57,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>Specification</h2>
-  <p>Requests that a user's viewer set a beacon in the world and optionally opens the world map centered on the specified location.</p>
+  <p>Requests that a user&#39;s viewer set a beacon in the world and optionally opens the world map centered on the specified location.</p>
   <table>
     <tbody>
       <tr>
@@ -66,7 +66,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th colspan="6">Description</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=BEACON_MAP&action=edit&redlink=1" target="_blank"> [BEACON_MAP</a> ]</td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=BEACON_MAP&amp;action=edit&amp;redlink=1" target="_blank"> [BEACON_MAP</a> ]</td>
         <td>1</td>
         <td colspan="2"><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> BEACON_MAP, [integer</a> open_map, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> focus_map ]</td>
         <td colspan="6"><p>Requests viewer world map behavior. If the first parameter is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> the viewer should open the world map. If the second parameter is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> this function also requests that the map should receive focus.</p>
@@ -98,7 +98,7 @@ end
   <ul>
     <li><b>pos</b> will work with <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">Region</a> coordinates not inside <b>simname</b>. (like those returned by <a href="https://wiki.secondlife.com/wiki/LlRequestInventoryData" target="_blank">llRequestInventoryData</a>)</li>
     <li>if called from non <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> events, it only works for the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a>.</li>
-    <li>if called from touch, it may only work for the first or last touch in the event queue (example: num_touched > 1)</li>
+    <li>if called from touch, it may only work for the first or last touch in the event queue (example: num_touched &gt; 1)</li>
     <li>if called inside an <a href="https://wiki.secondlife.com/wiki/Attachment" target="_blank">attachment</a>, it only works for the owner.</li>
   </ul>
   <h2>See Also</h2>

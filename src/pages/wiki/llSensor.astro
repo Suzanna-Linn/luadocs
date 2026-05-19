@@ -27,7 +27,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
           <td>ID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&amp;#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -45,7 +45,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
           <td>Arc / arc</td>
-          <td>the max angle between the object's local X-axis and detectable objects, <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">0.0, [PI</a>]</td>
+          <td>the max angle between the object&#39;s local X-axis and detectable objects, <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">0.0, [PI</a>]</td>
         </tr>
       </table>
     </div>
@@ -99,7 +99,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/ACTIVE" target="_blank">ACTIVE</a></td>
         <td>0x2</td>
-        <td>Physical tasks. (Physical objects & agents)</td>
+        <td>Physical tasks. (Physical objects &amp; agents)</td>
         <td>Physical objects that are moving or objects containing an active script. Thus, it is using SL server resources now.</td>
       </tr>
       <tr>
@@ -117,7 +117,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/DAMAGEABLE" target="_blank">DAMAGEABLE</a></td>
         <td>0x20</td>
-        <td>Objects & agents that are able to process damage.</td>
+        <td>Objects &amp; agents that are able to process damage.</td>
         <td>Filter for objects in world that have a script with <a href="https://wiki.secondlife.com/wiki/On_damage" target="_blank">on_damage</a> or a <a href="https://wiki.secondlife.com/wiki/Final_damage" target="_blank">final_damage</a> event (able to process damage)</td>
       </tr>
     </tbody>
@@ -165,32 +165,32 @@ import DocsCode from '/src/components/DocsCode.astro';
   </table>
   <h2>Caveats</h2>
   <ul>
-    <li>When searching for an avatar but not by name, it doesn't matter which AGENT flag is used.</li>
+    <li>When searching for an avatar but not by name, it doesn&#39;t matter which AGENT flag is used.</li>
     <li>AGENT, PASSIVE and ACTIVE behave inclusively. SCRIPTED is <b>not</b> inclusive and will exclude non-scripted targets (like avatars) from the detected set.</li>
     <li>Objects do not detect themselves, and attachments cannot detect their wearers (this includes HUD attachments).</li>
     <li>Attachments cannot be detected by llSensor.</li>
     <li>For an object to be detected, the center of its root prim (the same point it would report with <a href="https://wiki.secondlife.com/wiki/LlGetRootPosition" target="_blank">llGetRootPosition</a>) must be within the sensor beam.</li>
-    <li>For an agent to be detected, a point near the pelvis must be inside the sensor beam (the same as llGetRootPosition would report in a script attached to that avatar). This point is indicated by red crosshairs when Advanced>Character>Display Agent Target is turned on.
+    <li>For an agent to be detected, a point near the pelvis must be inside the sensor beam (the same as llGetRootPosition would report in a script attached to that avatar). This point is indicated by red crosshairs when Advanced&gt;Character&gt;Display Agent Target is turned on.
     <ul>
       <li>If the agent is sitting on an object, the root prim of the sat upon object becomes a second sensor target for the agent (but not if the avatar is outside the sensor arc, see <a href="https://jira.secondlife.com/browse/SVC-5145" target="_blank">SVC-5145</a>).</li>
     </ul>
   
     </li>
-    <li>Sensors placed in the root prim of attachments will use the direction the avatar is facing as their forward vector. In mouselook, this means that it will be wherever the avatar is looking, while out of mouselook, this means whichever way the avatar is pointing. This does not include where the avatar's head is pointing, or what animation the avatar is doing, just the direction the avatar would move in if you walked forward. This is the case, regardless of where the object is attached.</li>
-    <li>Sensors placed in prims other than the root prim of an attachment will have their forward direction offset relative to the root prim's forward direction, e.g. a sensor in a prim whose +X direction is the reverse of the root +X will look backward.</li>
+    <li>Sensors placed in the root prim of attachments will use the direction the avatar is facing as their forward vector. In mouselook, this means that it will be wherever the avatar is looking, while out of mouselook, this means whichever way the avatar is pointing. This does not include where the avatar&#39;s head is pointing, or what animation the avatar is doing, just the direction the avatar would move in if you walked forward. This is the case, regardless of where the object is attached.</li>
+    <li>Sensors placed in prims other than the root prim of an attachment will have their forward direction offset relative to the root prim&#39;s forward direction, e.g. a sensor in a prim whose +X direction is the reverse of the root +X will look backward.</li>
     <li>llSensor does not detect objects or agents across region boundaries</li>
     <li>If <b>type</b> is zero, the sensor will silently fail, neither <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a> or <a href="https://wiki.secondlife.com/wiki/No_sensor" target="_blank">no_sensor</a> will be triggered.</li>
     <li>Only 32 objects will be scanned each time. (Increased from 16 with Release 2024-03-18.8333615376 on Tuesday, March 19, 2024)</li>
-    <li>DAMAGEABLE is a filter flag; it cannot be used on its own. It must be combined with at least one other flag. For example, AGENT &#124; ACTIVE &#124; PASSIVE &#124; DAMAGEABLE will return all damageable agents and objects, whether physical or not.</li>
+    <li>DAMAGEABLE is a filter flag; it cannot be used on its own. It must be combined with at least one other flag. For example, AGENT &amp;#124; ACTIVE &amp;#124; PASSIVE &amp;#124; DAMAGEABLE will return all damageable agents and objects, whether physical or not.</li>
   </ul>
   <h2>Examples</h2>
-  <p>This sensor scans a 45 degree cone about the x-axis (<a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a>/2 or <a href="https://wiki.secondlife.com/wiki/PI_BY_TWO" target="_blank">PI_BY_TWO</a> scans a hemisphere; <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a> is a spherical scan). Also it will only match an agent with the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a> "Governor Linden".</p>
+  <p>This sensor scans a 45 degree cone about the x-axis (<a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a>/2 or <a href="https://wiki.secondlife.com/wiki/PI_BY_TWO" target="_blank">PI_BY_TWO</a> scans a hemisphere; <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a> is a spherical scan). Also it will only match an agent with the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">legacy name</a> &quot;Governor Linden&quot;.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Sensor("Governor Linden", NULL_KEY, AGENT_BY_LEGACY_NAME, 96.0, PI / 4)`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSensor( "Governor Linden", NULL_KEY, AGENT_BY_LEGACY_NAME, 96.0, PI/4 );`} lang="lsl" /></div>
   <p>This sensor detects all prims and agents with a given name within 15m of the sensor. (AGENT, PASSIVE and ACTIVE behave inclusively. SCRIPTED is not inclusive and will exclude non-scripted targets (like avatars) from the detected set.)</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.Sensor("", NULL_KEY, bit32.bor(AGENT, PASSIVE, ACTIVE), 15.0, PI)`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSensor( "", NULL_KEY, ( AGENT | PASSIVE | ACTIVE ), 15.0, PI );`} lang="lsl" /></div>
-  <p>Basic example script that when touched executes a sensor scan of agents. When the sensor event is processed it spits out messages to the owner of each detected agents' name.</p>
+  <p>Basic example script that when touched executes a sensor scan of agents. When the sensor event is processed it spits out messages to the owner of each detected agents&#39; name.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 function LLEvents.touch_start(events)
@@ -229,7 +229,7 @@ end
       </tr>
     </tbody>
   </table>
-  <p>Loops & Repetition</p>
+  <p>Loops &amp; Repetition</p>
   <p>Using llSensor in a <a href="https://wiki.secondlife.com/wiki/For" target="_blank">for</a> loop is a beginners mistake, as events will not interrupt each other (the sensor event will not interrupt whatever event is currently being executed). To perform repeat sensor sweeps, <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a> is the better solution. While it is possible to call llSensor from a <a href="https://wiki.secondlife.com/wiki/Timer" target="_blank">timer</a> event, it is less efficient to do so; there is a limit to the number of events that can be processed in a second and using the timer just to call llSensor will result in your script getting less timeslice.</p>
   <h2>See Also</h2>
   <h3>Events</h3>
@@ -297,7 +297,7 @@ function void llSensor( string name, key id, integer type, float radius, float a
       <tr>
         <td><p>The hounds are straining.</p>
 <p>Elusive quarry sighted.</p>
-<p>The game's afoot!</p></td>
+<p>The game&#39;s afoot!</p></td>
       </tr>
     </tbody>
   </table>

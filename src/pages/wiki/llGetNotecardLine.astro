@@ -21,7 +21,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
           <td>NotecardName / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/name" target="_blank">name</a></td>
-          <td>a notecard in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a notecard</td>
+          <td>a notecard in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&amp;#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&amp;#32;of a notecard</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -58,14 +58,14 @@ import DocsCode from '/src/components/DocsCode.astro';
   <ul>
     <li>This function causes the script to sleep for 0.1 seconds.</li>
     <li>If <b>line</b> is out of bounds the script continues to execute without an error message.</li>
-    <li>If <b>name</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a notecard then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a notecard then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>name</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
     </ul>
   
     </li>
-    <li>If <b>name</b> is a new empty notecard (never saved) then an error "Couldn't find notecard ~NAME~" (~NAME~ being the value of <b>name</b>) will be shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. This is because until a notecard is saved for the first time, it does not exist as an asset only as an inventory placeholder.
+    <li>If <b>name</b> is a new empty notecard (never saved) then an error &quot;Couldn&#39;t find notecard ~NAME~&quot; (~NAME~ being the value of <b>name</b>) will be shouted on the <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. This is because until a notecard is saved for the first time, it does not exist as an asset only as an inventory placeholder.
     <ul>
       <li>If the notecard is <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a> you can check for this with <a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a> which will return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> in this case. However if notecard is not <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full-perms</a>, there is no way to avoid the error message.</li>
     </ul>

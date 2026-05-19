@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>If the script is owned by an agent, <a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a> may be granted by the owner. If the script is owned by a group, this permission may be granted by an agent belonging to the group's "Owners" role.</p>
+      <p>  <p>If the script is owned by an agent, <a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a> may be granted by the owner. If the script is owned by a group, this permission may be granted by an agent belonging to the group&#39;s &quot;Owners&quot; role.</p>
   <p>Returns an integer that is the number of objects successfully returned to their owners or an <a href="#Error_Flags" target="_blank">ERR_*</a> flag.</p>
 </p>
       <table class="param-table" id="parameters">
@@ -131,7 +131,7 @@ If the script lacks the permission <a href="https://wiki.secondlife.com/wiki/PER
 Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a> permission is granted there is no way to revoke it except from inside the script (for example, with a new <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a> call) or the script is reset or deleted.
 While anyone may grant <a href="https://wiki.secondlife.com/wiki/PERMISSION_RETURN_OBJECTS" target="_blank">PERMISSION_RETURN_OBJECTS</a> this function will only work properly if one of the following is true:
 The land is owned by the prim owner and this permission has been granted by the land owner.
-The land is group owned and this permission has been granted by a group member filling the group "Owners" role.</td>
+The land is group owned and this permission has been granted by a group member filling the group &quot;Owners&quot; role.</td>
       </tr>
     </tbody>
   </table>
@@ -145,7 +145,7 @@ The land is group owned and this permission has been granted by a group member f
     </li>
   </ul>
   <h2>Notes</h2>
-  <p>For group-owned land you may want to explicitly code a group owner's key into the script as there is no way to determine if a user is a group owner.</p>
+  <p>For group-owned land you may want to explicitly code a group owner&#39;s key into the script as there is no way to determine if a user is a group owner.</p>
   <h2>See Also</h2>
   <h3>Events</h3>
   <table>

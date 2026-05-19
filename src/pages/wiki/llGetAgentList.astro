@@ -14,7 +14,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p>  <p>Requests a <a href="https://wiki.secondlife.com/wiki/List" target="_blank">list</a> of <a href="https://wiki.secondlife.com/wiki/Agent" target="_blank">agents</a> currently in the <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>, limited by the <b>scope</b> parameter.</p>
-  <p>Returns a list `<a href="https://wiki.secondlife.com/wiki/Key" target="_blank">[key</a> id0, <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> id1, ..., <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> idn]` or `<a href="https://wiki.secondlife.com/wiki/String" target="_blank">[string</a> error_msg]` - returns avatar <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">keys</a> for all agents in the region limited to the area(s) specified by scope</p>
+  <p>Returns a list `[[key](https://wiki.secondlife.com/wiki/Key) id0, [key](https://wiki.secondlife.com/wiki/Key) id1, ..., [key](https://wiki.secondlife.com/wiki/Key) idn]` or `[[string](https://wiki.secondlife.com/wiki/String) error_msg]` - returns avatar <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">keys</a> for all agents in the region limited to the area(s) specified by scope</p>
   <p>• integer</p>
   <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/scope" target="_blank">scope</a></p>
   <p>–</p>
@@ -63,14 +63,14 @@ import DocsCode from '/src/components/DocsCode.astro';
   <ul>
     <li>There is no guaranteed understandable order or randomness to the list returned.</li>
     <li>Will only return up to 100 agents.</li>
-    <li>Ghosts, agents that leave behind a corrupted presence and agents in <a href="https://wiki.secondlife.com/wiki/God_Mode" target="_blank">God Mode</a> depending on the level will have NULL_KEY returned instead of their real key with llGetAgentList(). There is also an issue with a certain type of ghosted agent still returning a key too. Perhaps check each key against <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a>() to verify if they're really in the sim or not; none of the above anomalies affect <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a>().</li>
+    <li>Ghosts, agents that leave behind a corrupted presence and agents in <a href="https://wiki.secondlife.com/wiki/God_Mode" target="_blank">God Mode</a> depending on the level will have NULL_KEY returned instead of their real key with llGetAgentList(). There is also an issue with a certain type of ghosted agent still returning a key too. Perhaps check each key against <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a>() to verify if they&#39;re really in the sim or not; none of the above anomalies affect <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a>().</li>
   </ul>
   <h2>Examples</h2>
   <table>
     <tbody>
       <tr>
         <td></td>
-        <td><b>Important:</b> To check if an avatar is in the same sim, please check whether <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a> does NOT return <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>. It's much faster and easier than calling llGetAgentList and running through the list to compare a given key with each list item.</td>
+        <td><b>Important:</b> To check if an avatar is in the same sim, please check whether <a href="https://wiki.secondlife.com/wiki/LlGetAgentSize" target="_blank">llGetAgentSize</a> does NOT return <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>. It&#39;s much faster and easier than calling llGetAgentList and running through the list to compare a given key with each list item.</td>
       </tr>
     </tbody>
   </table>
@@ -78,7 +78,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <tbody>
       <tr>
         <td></td>
-        <td><b>Important:</b> As of now, this function does not have a delimiter for its option list. This means, the function MIGHT return up to a hundred avatar keys. You'll need a lot of free memory to be able to store those keys, be warned of possible <a href="https://wiki.secondlife.com/wiki/STACK_HEAP_COLLISION_ERROR" target="_blank">STACK_HEAP_COLLISION_ERRORs</a>.</td>
+        <td><b>Important:</b> As of now, this function does not have a delimiter for its option list. This means, the function MIGHT return up to a hundred avatar keys. You&#39;ll need a lot of free memory to be able to store those keys, be warned of possible <a href="https://wiki.secondlife.com/wiki/STACK_HEAP_COLLISION_ERROR" target="_blank">STACK_HEAP_COLLISION_ERRORs</a>.</td>
       </tr>
     </tbody>
   </table>

@@ -26,7 +26,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
-          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;to place the object</td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&amp;#32;to place the object</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
@@ -72,20 +72,20 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>This function causes the script to sleep for 0.1 seconds.</li>
-    <li>If <b>inventory</b> is missing from the prim's inventory or it is not an object then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>inventory</b> is missing from the prim&#39;s inventory or it is not an object then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>Silently fails to rez <b>inventory</b> if <b>position</b> is more than 10 meters away from the prim trying to rez <b>inventory</b>. (Note: the max distance is actually 10.0 + llVecMag(llGetScale()/2))</li>
     <li>If the object is unattached and the owner of the object does not have copy permission on <b>inventory</b>, the object will no longer be present in inventory after it is rezzed (so another attempt to rez (the same object) will fail); if the owner does have copy permission, then a copy is rezzed, and the original <b>inventory</b> remains in inventory.</li>
-    <li>If the object is attached and the owner of the object does not have copy permission on <b>inventory</b>, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>: "Cannot rez no copy objects from an attached object."</li>
-    <li>Silently fails if you don't have offline building rights on the land. To have the right, your objects needs to <i>either</i>:
+    <li>If the object is attached and the owner of the object does not have copy permission on <b>inventory</b>, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>: &quot;Cannot rez no copy objects from an attached object.&quot;</li>
+    <li>Silently fails if you don&#39;t have offline building rights on the land. To have the right, your objects needs to <i>either</i>:
     <ul>
       <li>Be on land you own yourself.</li>
       <li>Be on land where anyone is allowed to build, e.g. a sandbox.</li>
       <li>Be deeded to the group that owns the land.</li>
-      <li>Be set to the same group that owns the land and the land have the parcel flag 'allow group to build' set.</li>
+      <li>Be set to the same group that owns the land and the land have the parcel flag &#39;allow group to build&#39; set.</li>
     </ul>
   
     </li>
-    <li>The group role "Always allow 'Create Objects'" will only work to override this when you are online, in the region, or have a child agent in the region. See the issues under Deep Notes for more information.</li>
+    <li>The group role &quot;Always allow &#39;Create Objects&#39;&quot; will only work to override this when you are online, in the region, or have a child agent in the region. See the issues under Deep Notes for more information.</li>
     <li>See <a href="https://wiki.secondlife.com/wiki/Object_rez" target="_blank">object_rez</a> for examples on how to establish communications between the rezzing object and the new prim.</li>
   </ul>
   <h2>Examples</h2>

@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Set the sit location for the prim. The sit location is relative to the prim's position and rotation.</p>
+      <p>  <p>Set the sit location for the prim. The sit location is relative to the prim&#39;s position and rotation.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -49,13 +49,13 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>If <b>offset</b> == <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank"><0.0, 0.0, 0.0></a> then the sit target is removed.</p>
+  <p>If <b>offset</b> == <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">&lt;0.0, 0.0, 0.0&gt;</a> then the sit target is removed.</p>
   <h2>Specification</h2>
-  <p>llSitTarget sets the position for the Agent Target (Advanced -> Character -> View Agent Target). The position of the target is based on <b>rot</b> and the <b>offset</b>[[1]](#footnote_1).</p>
+  <p>llSitTarget sets the position for the Agent Target (Advanced -&gt; Character -&gt; View Agent Target). The position of the target is based on <b>rot</b> and the <b>offset</b>[[1]](#footnote_1).</p>
   <h2>Caveats</h2>
   <ul>
     <li>Once a sit target is removed <a href="https://wiki.secondlife.com/wiki/LlAvatarOnSitTarget" target="_blank">llAvatarOnSitTarget</a> will only return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.</li>
-    <li>Removing or deactivating the script that sets the sit target will not remove the prim's sit target.
+    <li>Removing or deactivating the script that sets the sit target will not remove the prim&#39;s sit target.
     <ul>
       <li>Sit target is a prim property and not dependent on a script for its continued existence.</li>
     </ul>
@@ -69,16 +69,16 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>Shift-copying a prim with a sit target, without a script that will set the sit target again, will not keep the sit target on the copy. (The copy is in the original location when shift-copying.)</li>
     <li>There is no way to remove the Sit option from the menu.
     <ul>
-      <li>It will appear to be removed if the <a href="https://wiki.secondlife.com/wiki/LlSetSitText" target="_blank">llSetSitText</a> is set to a space " " or similar transparent string.</li>
+      <li>It will appear to be removed if the <a href="https://wiki.secondlife.com/wiki/LlSetSitText" target="_blank">llSetSitText</a> is set to a space &quot; &quot; or similar transparent string.</li>
     </ul>
   
     </li>
     <li>Attachments cannot be sat upon (see <a href="https://jira.secondlife.com/browse/SVC-6100" target="_blank">SVC-6100</a> to vote for such a feature).</li>
     <li><b>rot</b> affects the position of the sit target in a buggy way.
     <ul>
-      <li>To correct for the <i>rot</i> bug, simply subtract <0,0,0.4> from the position when <i>rot</i> is zero. See example below.</li>
+      <li>To correct for the <i>rot</i> bug, simply subtract &lt;0,0,0.4&gt; from the position when <i>rot</i> is zero. See example below.</li>
       <li><a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> is a more difficult work-around.</li>
-      <li>Animations are relative to the Agent Target, but the Agent Target isn't described by the animation.</li>
+      <li>Animations are relative to the Agent Target, but the Agent Target isn&#39;t described by the animation.</li>
     </ul>
   
     </li>
@@ -301,7 +301,7 @@ end  --Written by Strife Onizuka, size adjustment provided by Talarus Luan
   <h2>Deep Notes</h2>
   <p>Footnotes</p>
   <ul>
-    <li><b><a href="#fn_1" target="_blank">^</a></b> It is widely considered that the <b>rot</b> should not affect the position, unfortunately the sit target code is a [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Lava_flow_(programming" target="_blank">lava-flow</a>). ~ <a href="https://jira.secondlife.com/browse/SVC-2277" target="_blank">SVC-2277</a></li>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> It is widely considered that the <b>rot</b> should not affect the position, unfortunately the sit target code is a [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Lava_flow_(programming" target="_blank">lava-flow</a>). ~ <a href="https://jira.secondlife.com/browse/SVC-2277" target="_blank">SVC-2277</a></li>
     <li><b><a href="#fn_2" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
   </ul>
   <table>

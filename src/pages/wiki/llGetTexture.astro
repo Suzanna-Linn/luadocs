@@ -45,13 +45,13 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function returns the value for face zero.</p>
-  <p>If the texture is in the prim's inventory, the return value is the inventory name, otherwise the returned value is the texture <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>.</p>
+  <p>If the texture is in the prim&#39;s inventory, the return value is the inventory name, otherwise the returned value is the texture <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>.</p>
   <h2>Caveats</h2>
   <ul>
     <li>If <b>face</b> indicates a face that does not exist the return is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a></li>
-    <li><a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned when the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> does not have <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full permissions</a> to the object and the texture is not in the prim's inventory.</li>
-    <li>The white texture from the texture picker is "<a href="https://wiki.secondlife.com/wiki/TEXTURE_BLANK" target="_blank">5748decc-f629-461c-9a36-a35a221fe21f</a>"</li>
-    <li>The default texture (plywood) is "<a href="https://wiki.secondlife.com/wiki/TEXTURE_PLYWOOD" target="_blank">89556747-24cb-43ed-920b-47caed15465f</a>"</li>
+    <li><a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> is returned when the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> does not have <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full permissions</a> to the object and the texture is not in the prim&#39;s inventory.</li>
+    <li>The white texture from the texture picker is &quot;<a href="https://wiki.secondlife.com/wiki/TEXTURE_BLANK" target="_blank">5748decc-f629-461c-9a36-a35a221fe21f</a>&quot;</li>
+    <li>The default texture (plywood) is &quot;<a href="https://wiki.secondlife.com/wiki/TEXTURE_PLYWOOD" target="_blank">89556747-24cb-43ed-920b-47caed15465f</a>&quot;</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Tells (on chat) the texture keys / texture names on 6 sides
@@ -102,7 +102,7 @@ default
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkTexture" target="_blank">llSetLinkTexture</a></td>
         <td>–</td>
-        <td>Sets link's texture</td>
+        <td>Sets link&#39;s texture</td>
         <td></td>
       </tr>
       <tr>
@@ -117,7 +117,7 @@ default
   <h2>Deep Notes</h2>
   <p>History</p>
   <ul>
-    <li>On 5/15/2005 (give or take a day) llGetTexture was changed to check the host object's permissions and if inadequate return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.
+    <li>On 5/15/2005 (give or take a day) llGetTexture was changed to check the host object&#39;s permissions and if inadequate return <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a>.
     <ul>
       <li><a href="http://forums-archive.secondlife.com/54/a1/47066/1.html" target="_blank">http://forums-archive.secondlife.com/54/a1/47066/1.html</a></li>
       <li><a href="http://forums-archive.secondlife.com/54/09/33388/1.html" target="_blank">http://forums-archive.secondlife.com/54/09/33388/1.html</a></li>

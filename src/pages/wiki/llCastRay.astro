@@ -66,8 +66,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Specification</h2>
   <p>status_code</p>
   <p><b>status_code</b> is a number tacked onto the end of the strided list to give you extra information about the ray cast.</p>
-  <p>If the cast succeeded, it will be >=0 and will indicate the number of hits.</p>
-  <p>If the ray cast failed (which should only happen right now if the simulator performance is running low), you'll get a negative status code. <a href="https://wiki.secondlife.com/wiki/RCERR_SIM_PERF_LOW" target="_blank">RCERR_SIM_PERF_LOW</a> will be used as the status code if the overall physics time in the simulator is too high to perform raycasts. The idea is that you will know to try your cast again in a few frames.</p>
+  <p>If the cast succeeded, it will be &gt;=0 and will indicate the number of hits.</p>
+  <p>If the ray cast failed (which should only happen right now if the simulator performance is running low), you&#39;ll get a negative status code. <a href="https://wiki.secondlife.com/wiki/RCERR_SIM_PERF_LOW" target="_blank">RCERR_SIM_PERF_LOW</a> will be used as the status code if the overall physics time in the simulator is too high to perform raycasts. The idea is that you will know to try your cast again in a few frames.</p>
   <table>
     <tbody>
       <tr>
@@ -97,8 +97,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><b>Tips for Efficient Raycasts:</b></p>
   <ul>
     <li>Keep the max number of hits returned as small as possible</li>
-    <li>Set as many <a href="https://wiki.secondlife.com/wiki/RC_REJECT_TYPES" target="_blank">RC_REJECT_TYPES</a> as possible (of factors you can control, this will likely have the largest impact). For example, if you only want to know where the nearest agent is along a ray, use `<a href="https://wiki.secondlife.com/wiki/RC_REJECT_LAND" target="_blank">RC_REJECT_LAND</a> | <a href="https://wiki.secondlife.com/wiki/RC_REJECT_PHYSICAL" target="_blank">RC_REJECT_PHYSICAL</a> | <a href="https://wiki.secondlife.com/wiki/RC_REJECT_NONPHYSICAL" target="_blank">RC_REJECT_NONPHYSICAL</a>`</li>
-    <li>When possible, avoid raycasting through piles of prims and avoid raycasting against concave physics objects (anything with cut, hollow, twist, and so on, and any mesh object that has no decomposition and has physics type "prim"). Obviously this can't always be avoided, so some casts may take significantly longer than others. Plan for that with robust scripts that handle <a href="https://wiki.secondlife.com/wiki/RCERR_CAST_TIME_EXCEEDED" target="_blank">RCERR_CAST_TIME_EXCEEDED</a> responsibly, namely by sleeping briefly after the call and waiting for a few frames to go by before trying again.</li>
+    <li>Set as many <a href="https://wiki.secondlife.com/wiki/RC_REJECT_TYPES" target="_blank">RC_REJECT_TYPES</a> as possible (of factors you can control, this will likely have the largest impact). For example, if you only want to know where the nearest agent is along a ray, use `[RC_REJECT_LAND](https://wiki.secondlife.com/wiki/RC_REJECT_LAND) | [RC_REJECT_PHYSICAL](https://wiki.secondlife.com/wiki/RC_REJECT_PHYSICAL) | [RC_REJECT_NONPHYSICAL](https://wiki.secondlife.com/wiki/RC_REJECT_NONPHYSICAL)`</li>
+    <li>When possible, avoid raycasting through piles of prims and avoid raycasting against concave physics objects (anything with cut, hollow, twist, and so on, and any mesh object that has no decomposition and has physics type &quot;prim&quot;). Obviously this can&#39;t always be avoided, so some casts may take significantly longer than others. Plan for that with robust scripts that handle <a href="https://wiki.secondlife.com/wiki/RCERR_CAST_TIME_EXCEEDED" target="_blank">RCERR_CAST_TIME_EXCEEDED</a> responsibly, namely by sleeping briefly after the call and waiting for a few frames to go by before trying again.</li>
   </ul>
   <p>options parameter</p>
   <table>
@@ -152,22 +152,22 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/RC_REJECT_AGENTS" target="_blank">RC_REJECT_AGENTS</a></td>
         <td>1</td>
-        <td>Avatars won't be detected.</td>
+        <td>Avatars won&#39;t be detected.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/RC_REJECT_PHYSICAL" target="_blank">RC_REJECT_PHYSICAL</a></td>
         <td>2</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Physical" target="_blank">Physical</a> objects won't be detected.</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Physical" target="_blank">Physical</a> objects won&#39;t be detected.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/RC_REJECT_NONPHYSICAL" target="_blank">RC_REJECT_NONPHYSICAL</a></td>
         <td>4</td>
-        <td>The opposite of the above flag. Objects without physics won't be detected. For phantom objects, see <a href="https://wiki.secondlife.com/wiki/RC_DETECT_PHANTOM" target="_blank">RC_DETECT_PHANTOM</a>.</td>
+        <td>The opposite of the above flag. Objects without physics won&#39;t be detected. For phantom objects, see <a href="https://wiki.secondlife.com/wiki/RC_DETECT_PHANTOM" target="_blank">RC_DETECT_PHANTOM</a>.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/RC_REJECT_LAND" target="_blank">RC_REJECT_LAND</a></td>
         <td>8</td>
-        <td>Land won't be detected. This refers to actual <a href="https://wiki.secondlife.com/wiki/LlGround" target="_blank">ground</a> only.</td>
+        <td>Land won&#39;t be detected. This refers to actual <a href="https://wiki.secondlife.com/wiki/LlGround" target="_blank">ground</a> only.</td>
       </tr>
     </tbody>
   </table>
@@ -190,7 +190,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/RC_GET_ROOT_KEY" target="_blank">RC_GET_ROOT_KEY</a></td>
         <td>2</td>
-        <td>The hit <b>uuid</b> will be replaced by the object's root instead of any child.</td>
+        <td>The hit <b>uuid</b> will be replaced by the object&#39;s root instead of any child.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/RC_GET_LINK_NUM" target="_blank">RC_GET_LINK_NUM</a></td>
@@ -202,19 +202,19 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>Depending upon the value of <b>flags</b> (provided via <a href="#RC_DATA_FLAGS" target="_blank">RC_DATA_FLAGS</a>), the number and types of values in the strides will vary. See <a href="#RC_DATA_FLAGS" target="_blank">RC_DATA_FLAGS</a> for details.</li>
-    <li><a href="https://wiki.secondlife.com/wiki/LlGetRot" target="_blank">llGetRot</a> will not return an avatar's exact visual rotation because the viewer doesn't update the avatar's rotation under a threshold (see <a href="https://jira.secondlife.com/browse/VWR-1331" target="_blank">VWR-1331</a>). To get an avatar's exact looking direction while in mouselook, use <a href="https://wiki.secondlife.com/wiki/LlGetCameraRot" target="_blank">llGetCameraRot</a> instead.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/LlGetRot" target="_blank">llGetRot</a> will not return an avatar&#39;s exact visual rotation because the viewer doesn&#39;t update the avatar&#39;s rotation under a threshold (see <a href="https://jira.secondlife.com/browse/VWR-1331" target="_blank">VWR-1331</a>). To get an avatar&#39;s exact looking direction while in mouselook, use <a href="https://wiki.secondlife.com/wiki/LlGetCameraRot" target="_blank">llGetCameraRot</a> instead.</li>
     <li>llCastRay will not detect prims having no physics shape (<a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_TYPE" target="_blank">PRIM_PHYSICS_SHAPE_TYPE</a> = <a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_NONE" target="_blank">PRIM_PHYSICS_SHAPE_NONE</a>).</li>
     <li>llCastRay will not detect a prim if the line starts inside the prim. This makes it safe to use the prim position as the start location.</li>
     <li>llCastRay can detect the prim the script is in, if the start location is outside the prim.</li>
     <li>The result of this function has been noted to be <b>unreliable when the end point is out-of-bounds</b> (Occasionally returns status code 0 regardless of amount of objects hit). (See <a href="https://community.secondlife.com/forums/topic/486603-llcastray-returning-zero-hits-seemingly-at-random/" target="_blank">this forum post</a>)
     <ul>
-      <li>The random failures seem to happen if the ray begins or ends more than 8 meters outside of current region bounds. Changes in only the ray's angle, or only in its position, may change the result. The result does not change if the exact same ray is cast again.</li>
+      <li>The random failures seem to happen if the ray begins or ends more than 8 meters outside of current region bounds. Changes in only the ray&#39;s angle, or only in its position, may change the result. The result does not change if the exact same ray is cast again.</li>
     </ul>
   
     </li>
   </ul>
   <h2>Examples</h2>
-  <p>This basic example will cast a ray from the center of the object, 10 meters forward, depending on the object's rotation.</p>
+  <p>This basic example will cast a ray from the center of the object, 10 meters forward, depending on the object&#39;s rotation.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)
     local total_number = #events
     local start = ll.GetPos()
@@ -235,7 +235,7 @@ end
         llOwnerSay(llList2CSV(data));
     }
 }`} lang="lsl" /></div>
-  <p>This is an example attachment that casts a ray based on the owner's camera in mouselook. It has many applications for things like weapons, scripted interactions with the world (like allowing a HUD to display information about things the user is looking at), etc.</p>
+  <p>This is an example attachment that casts a ray based on the owner&#39;s camera in mouselook. It has many applications for things like weapons, scripted interactions with the world (like allowing a HUD to display information about things the user is looking at), etc.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 local gTargetChan = -9934917
@@ -313,7 +313,7 @@ default
         }
     }            
 }`} lang="lsl" /></div>
-  <p>This example handles the caveat about rays extending outside of region bounds by calculating the point where the ray intersects with the region's edge.</p>
+  <p>This example handles the caveat about rays extending outside of region bounds by calculating the point where the ray intersects with the region&#39;s edge.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetRegionEdge(start, dir)
     local scaleGuess = 0
     local scaleFactor = 4095.99
@@ -467,7 +467,7 @@ default
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
   <p>Use <a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a> to see what the output looks like when you try a new set of flags.</p>
-  <p>To quickly get the status code use `<a href="https://wiki.secondlife.com/wiki/LlList2Integer" target="_blank">llList2Integer</a>(result, -1)`.</p>
+  <p>To quickly get the status code use `[llList2Integer](https://wiki.secondlife.com/wiki/LlList2Integer)(result, -1)`.</p>
   <p><b>Ideas for uses</b>:</p>
   <ul>
     <li><b>Weapons</b> - Raycasts are the traditional tool used in game development for simulating projectile weapons. They are orders of magnitude more efficient than rezzing a prim and launching it from a weapon.</li>

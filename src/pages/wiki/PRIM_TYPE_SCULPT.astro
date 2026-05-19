@@ -35,21 +35,21 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>PRIM_TYPE</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank"> [PRIM_TYPE</a>, PRIM_TYPE_SCULPT,&#32;<a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> map, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> type ] </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank"> [PRIM_TYPE</a>, PRIM_TYPE_SCULPT,&amp;#32;<a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> map, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> type ] </b></p>
   <table>
     <tbody>
       <tr>
         <td>• string</td>
         <td>map</td>
         <td>–</td>
-        <td>a texture in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a texture</td>
+        <td>a texture in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&amp;#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&amp;#32;of a texture</td>
         <td></td>
       </tr>
       <tr>
         <td>• integer</td>
         <td>type</td>
         <td>–</td>
-        <td>PRIM_SCULPT_TYPE_<i> flag with optional additional PRIM_SCULPT_FLAG_</i> flags OR'ed on</td>
+        <td>PRIM_SCULPT_TYPE_<i> flag with optional additional PRIM_SCULPT_FLAG_</i> flags OR&#39;ed on</td>
         <td></td>
       </tr>
     </tbody>
@@ -67,7 +67,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_SPHERE" target="_blank">PRIM_SCULPT_TYPE_SPHERE</a></td>
         <td>1</td>
         <td>Sphere</td>
-        <td colspan="3">Converge top & bottom, stitch left side to right</td>
+        <td colspan="3">Converge top &amp; bottom, stitch left side to right</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_TORUS" target="_blank">PRIM_SCULPT_TYPE_TORUS</a></td>
@@ -94,7 +94,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td colspan="3">See: <a href="https://wiki.secondlife.com/wiki/Mesh" target="_blank">Mesh</a></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SCULPT_FLAG_ZZZZZZZZ&action=edit&redlink=1" target="_blank">PRIM_SCULPT_FLAG_ZZZZZZZZ</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SCULPT_FLAG_ZZZZZZZZ&amp;action=edit&amp;redlink=1" target="_blank">PRIM_SCULPT_FLAG_ZZZZZZZZ</a></td>
         <td>63</td>
         <td colspan="6"></td>
       </tr>
@@ -121,8 +121,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_MASK" target="_blank">PRIM_SCULPT_TYPE_MASK</a> can be used to filter out the PRIM_SCULPT_FLAG_<i> flags from the <b>type</b> to determine the PRIM_SCULPT_TYPE_</i> flag. The main application of this would be when using <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>.</p>
   <h2>Caveats</h2>
   <ul>
-    <li>The value of <b>map</b> is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> when the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> does not have <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full permissions</a> to the object and the map asset is not in the prim's inventory.</li>
-    <li>If <b>map</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>The value of <b>map</b> is <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> when the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a> does not have <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">full permissions</a> to the object and the map asset is not in the prim&#39;s inventory.</li>
+    <li>If <b>map</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>map</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
@@ -249,8 +249,8 @@ default
   <h2>Deep Notes</h2>
   <p>History</p>
   <ul>
-    <li><a href="http://svn.secondlife.com/trac/linden/changeset/1053?new_path=%2F" target="_blank">SVN:1053 r94734 Branch:trunk&#32;Tuesday, 19 August 2008</a> - PRIM_SCULPT_FLAG_* syntax merged into the Trunk. Support for syntax slated for Client 1.21.0</li>
-    <li><a href="http://svn.secondlife.com/trac/linden/changeset/758?new_path=%2F" target="_blank">SVN:758 r91966 Branch:featurettes-5&#32;Thursday, 10 July 2008</a> - Introduction of PRIM_SCULPT_FLAG_* extended syntax.</li>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/1053?new_path=%2F" target="_blank">SVN:1053 r94734 Branch:trunk&amp;#32;Tuesday, 19 August 2008</a> - PRIM_SCULPT_FLAG_* syntax merged into the Trunk. Support for syntax slated for Client 1.21.0</li>
+    <li><a href="http://svn.secondlife.com/trac/linden/changeset/758?new_path=%2F" target="_blank">SVN:758 r91966 Branch:featurettes-5&amp;#32;Thursday, 10 July 2008</a> - Introduction of PRIM_SCULPT_FLAG_* extended syntax.</li>
   </ul>
   <p><a href="https://secondlife.canny.io/?search=PRIM_TYPE_SCULPT" target="_blank">Search Canny for related Issues</a></p>
   <table>

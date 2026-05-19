@@ -45,12 +45,12 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>Specification</h2>
-  <p>This function is available for nonphysical root prims and all child prims. It has no effect on the root prim if the object is physical. It has no effect for "static objects" as type of <a href="https://wiki.secondlife.com/wiki/Pathfinding" target="_blank">pathfinding</a></p>
+  <p>This function is available for nonphysical root prims and all child prims. It has no effect on the root prim if the object is physical. It has no effect for &quot;static objects&quot; as type of <a href="https://wiki.secondlife.com/wiki/Pathfinding" target="_blank">pathfinding</a></p>
   <h2>Caveats</h2>
   <ul>
     <li>This function causes the script to sleep for 0.2 seconds.</li>
-    <li>If the prim is attached, then this function offsets the rotation by the avatar's rotation.</li>
-    <li>If the prim is not the root prim it is offset by the root's rotation.
+    <li>If the prim is attached, then this function offsets the rotation by the avatar&#39;s rotation.</li>
+    <li>If the prim is not the root prim it is offset by the root&#39;s rotation.
     <ul>
       <li>If you are trying to set the rotation of a child prim relative to the root prim then divide the rotation by the root rotation.</li>
       <li>If you are trying to set the rotation of a child prim to a global rotation then you need to divide the global rotation by the root rotation <b>twice</b>.</li>
@@ -60,15 +60,15 @@ import DocsCode from '/src/components/DocsCode.astro';
   
     </li>
     <li>For small rotation changes, there is an update threshold depending on the time duration between changes. It does not appear to be limited to the 6deg rule any longer.</li>
-    <li>For "static objects" (type of <a href="https://wiki.secondlife.com/wiki/Pathfinding" target="_blank">pathfinding</a>), the script fails with the error in debug channel:
+    <li>For &quot;static objects&quot; (type of <a href="https://wiki.secondlife.com/wiki/Pathfinding" target="_blank">pathfinding</a>), the script fails with the error in debug channel:
     <ul>
-      <li>"Unable to set prim rotation: object contributes to the navmesh."</li>
+      <li>&quot;Unable to set prim rotation: object contributes to the navmesh.&quot;</li>
     </ul>
   
     </li>
   </ul>
   <h2>Examples</h2>
-  <p>Drop this script in the root prim of an object to have it rotate in 1 degree increments. Note that it won't work on child prims if the root is rotated.</p>
+  <p>Drop this script in the root prim of an object to have it rotate in 1 degree increments. Note that it won&#39;t work on child prims if the root is rotated.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local rot_xyzq = ZERO_ROTATION
 
 local function main()
@@ -100,7 +100,7 @@ default
         llSetRot(llGetRot()*rot_xyzq); //Do the Rotation...
     }
 }`} lang="lsl" /></div>
-  <p>Drop this one in a child prim to have it rotate around the world's Y axis in 1 degree increments. It won't work in the root if it is rotated.</p>
+  <p>Drop this one in a child prim to have it rotate around the world&#39;s Y axis in 1 degree increments. It won&#39;t work in the root if it is rotated.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local rot_xyzq = ZERO_ROTATION
 
 local function main()

@@ -37,14 +37,14 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>Specification</h2>
-  <p>Time dilation is a method the server uses to cope with simulator lag. Physics and script generated lag can result in time dilation. Time dilation slows script time & execution. When time dilation is zero script execution halts.</p>
+  <p>Time dilation is a method the server uses to cope with simulator lag. Physics and script generated lag can result in time dilation. Time dilation slows script time &amp; execution. When time dilation is zero script execution halts.</p>
   <p>Affects</p>
   <ul>
     <li>Intervals of <a href="https://wiki.secondlife.com/wiki/Sensor" target="_blank">sensor</a> events queued as a result of <a href="https://wiki.secondlife.com/wiki/LlSensorRepeat" target="_blank">llSensorRepeat</a>.</li>
   </ul>
   <h2>Caveats</h2>
   <ul>
-    <li><a href="http://community.secondlife.com/t5/Second-Life-Server/Region-Idling-FAQ/m-p/1535497" target="_blank">Region idling</a> lowers a region's framerate when no avatars are currently on or looking into the region. Scripts measuring time dilation with llGetRegionTimeDilation may report significant time dilation if the region is <a href="https://wiki.secondlife.com/wiki/LlGetEnv" target="_blank">idle</a>.</li>
+    <li><a href="http://community.secondlife.com/t5/Second-Life-Server/Region-Idling-FAQ/m-p/1535497" target="_blank">Region idling</a> lowers a region&#39;s framerate when no avatars are currently on or looking into the region. Scripts measuring time dilation with llGetRegionTimeDilation may report significant time dilation if the region is <a href="https://wiki.secondlife.com/wiki/LlGetEnv" target="_blank">idle</a>.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat

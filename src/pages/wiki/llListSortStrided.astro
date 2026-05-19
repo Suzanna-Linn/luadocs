@@ -91,11 +91,11 @@ llListSortStrided([1, "C", 3, "A", 2, "B"], 2, 1, TRUE) // returns [3, "A", 2, "
   <h2>Caveats</h2>
   <ul>
     <li>It uses the same unoptimized selection sort algorithm as llListSort, which is an algorithm with a Big O of N². A <a href="https://wiki.secondlife.com/wiki/JIRA" target="_blank">JIRA</a> issue exists to improve this function, <a href="https://jira.secondlife.com/browse/SVC-2988" target="_blank">SVC-2988</a>.</li>
-    <li>Originally the wiki stated that non-zero values for the "ascending" parameter would produce an ascending sort. That was incorrect. For this function, the value must be exactly 1 (or TRUE) for an ascending sort.</li>
+    <li>Originally the wiki stated that non-zero values for the &quot;ascending&quot; parameter would produce an ascending sort. That was incorrect. For this function, the value must be exactly 1 (or TRUE) for an ascending sort.</li>
     <li><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">Vectors</a> are sorted by magnitude. <a href="https://jira.secondlife.com/browse/SVC-5643" target="_blank">SVC-5643</a></li>
     <li><a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">Rotations</a> are not sorted in any meaningful order. If a list containing only rotations is sorted in ascending order, it will be returned unchanged.</li>
     <li><p>For descending sort, if there are mixed types, the final order is deterministic (the same input will always produce the same output) but it can be completely useless.</p>
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 
 
@@ -105,12 +105,12 @@ ll.ListSortStrided({2, "B", "C", 3, 1, "A"}, 1, 0, false)  -- returns ["A", 3, 1
 llListSortStrided([2, "B", "C", 3, 1, "A"], 1, 0, FALSE) // returns ["A", 3, 1, "C", "B", 2]
 `} lang="lsl" /></div>
 
-</p>
+
 <p>If there are no mixed types, however, the descending sort works just fine.</p></li>
     <li>When the stride is greater than 1, if the list length is not a multiple of the stride, the list will be returned unchanged.</li>
     <li>stride_index must be less than stride and greater than or equal to -stride, otherwise an empty list is returned.</li>
     <li><p>When strings contain numbers, the numbers are still sorted left-to-right like any other character, which may not necessarily match numeric order:</p>
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 
 
@@ -120,9 +120,9 @@ ll.ListSortStrided({"127", "3", "25"}, 1, 0, true)  -- returns ["127", "25", "3"
 llListSortStrided(["127", "3", "25"], 1, 0, TRUE) // returns ["127", "25", "3"] because the 1 in 127 is before the 2 in 25 which is before the 3
 `} lang="lsl" /></div>
 
-</p>
+
 <p>To sort them in numeric order, numbers in strings can be padded with zeros:</p>
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 
 
@@ -132,14 +132,14 @@ ll.ListSortStrided({"127", "003", "025"}, 1, 0, true)  -- returns ["003", "025",
 llListSortStrided(["127", "003", "025"], 1, 0, TRUE) // returns ["003", "025", "127"]
 `} lang="lsl" /></div>
 
-</p>
+
     <ul>
-      <li>This order differs from the order of items in a prim's inventory, which is "natural order" (e.g "New Script 2" is sorted before "New Script 11").</li>
+      <li>This order differs from the order of items in a prim&#39;s inventory, which is &quot;natural order&quot; (e.g &quot;New Script 2&quot; is sorted before &quot;New Script 11&quot;).</li>
     </ul>
   
     </li>
     <li><p>The sorting algorithm is not <a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability" target="_blank">stable</a>. Thus you cannot use 2 sorts on different columns to sort by multiple keys:</p>
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 
 local function main()  -- THIS DOES NOT WORK AS A MULTI-KEY SORT
@@ -163,11 +163,11 @@ default { state_entry() { // THIS DOES NOT WORK AS A MULTI-KEY SORT
 } }
 `} lang="lsl" /></div>
 
-</p>
+
 <p>This gives the following output (errors bolded):</p>
     <ul>
-      <li>partialSort = [1,"a",0,"a",<b>0,</b>"b",<b>1,</b>"b",<b>1,</b>"c",<b>0,</b>"c"]</li>
-      <li>fullSort = [0,"a",0,"b",0,"c",1,<b>"b",</b>1,<b>"c",</b>1,<b>"a"</b>]</li>
+      <li>partialSort = [1,&quot;a&quot;,0,&quot;a&quot;,<b>0,</b>&quot;b&quot;,<b>1,</b>&quot;b&quot;,<b>1,</b>&quot;c&quot;,<b>0,</b>&quot;c&quot;]</li>
+      <li>fullSort = [0,&quot;a&quot;,0,&quot;b&quot;,0,&quot;c&quot;,1,<b>&quot;b&quot;,</b>1,<b>&quot;c&quot;,</b>1,<b>&quot;a&quot;</b>]</li>
     </ul>
   
     </li>
@@ -214,7 +214,7 @@ default
 
     }
 }`} lang="lsl" /></div>
-  <p>llListSort and llListSortStrided really only works on items of the same type. It will work on lists that hold diverse data types -- to be clear, it won't blow up your script -- but the results returned are usually meaningless.</p>
+  <p>llListSort and llListSortStrided really only works on items of the same type. It will work on lists that hold diverse data types -- to be clear, it won&#39;t blow up your script -- but the results returned are usually meaningless.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 local mylist = {"brown", vector(0.000000, 0.000000, 0.000000), "house", 17.005, 100, "cat", vector(3.000000, 3.000000, 3.000000), 39}
@@ -237,7 +237,7 @@ llSay(0, llList2CSV(tmplist));`} lang="lsl" /></div>
   <p>returns in chat:</p>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`39, <3.000000, 3.000000, 3.000000>, cat, 100, 17.004999, house, <0.000000, 0.000000, 0.000000>, brown`} lang="lsl" /></div>
   <h3>Utilizing the Results</h3>
-  <p>It's important to note that the source list that you are sorting will remain unchanged. Instead, a new, sorted list will be produced. So, it's important that you capture this with a variable (unless you are acting directly on the results.)</p>
+  <p>It&#39;s important to note that the source list that you are sorting will remain unchanged. Instead, a new, sorted list will be produced. So, it&#39;s important that you capture this with a variable (unless you are acting directly on the results.)</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 ll.ListSortStrided(myList, 1, 0, true)  -- You've wasted cpu time; you didn't capture the results
@@ -251,12 +251,12 @@ list newlist = llListSortStrided(myList, 1, 0, TRUE);// Okay. You've captured th
 
 llSay(0,llList2CSV(llListSortStrided(myList, 1, 0, TRUE))); // No need to capture, using the results right away.`} lang="lsl" /></div>
   <h3><b>Stride</b> parameter</h3>
-  <p>Most times, you will want to set "integer stride" to 1 (0 also works) to tell it to sort each item in the list on its own basis. (If you are working with a strided list, though, see the special section below on sorting strides.)</p>
+  <p>Most times, you will want to set &quot;integer stride&quot; to 1 (0 also works) to tell it to sort each item in the list on its own basis. (If you are working with a strided list, though, see the special section below on sorting strides.)</p>
   <h3>Sort Order</h3>
-  <p>Setting the parameter "integer ascending" to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> returns a sorted list that is in ascending order.</p>
-  <p>For example: ["Apples", "Bananas", "Oranges"]</p>
-  <p>Setting the parameter "integer ascending" to <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> returns a sorted list that is in descending order.</p>
-  <p>For example: ["Oranges", "Bananas", "Apples"]</p>
+  <p>Setting the parameter &quot;integer ascending&quot; to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> returns a sorted list that is in ascending order.</p>
+  <p>For example: [&quot;Apples&quot;, &quot;Bananas&quot;, &quot;Oranges&quot;]</p>
+  <p>Setting the parameter &quot;integer ascending&quot; to <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> returns a sorted list that is in descending order.</p>
+  <p>For example: [&quot;Oranges&quot;, &quot;Bananas&quot;, &quot;Apples&quot;]</p>
   <h3>Sorting Strided Lists</h3>
   <p>If you have a <a href="https://wiki.secondlife.com/wiki/List#Strided_lists" target="_blank">strided list</a>, in which you are keeping related pieces of data together in chunks, letting each list element sort on its own basis would be disastrous.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local demographics = {"John Adams", "male", "2007-06-22", "Shirley Bassey", "female", "2005-11-02", "Matt Damon", "male", "2008-05-19"}
@@ -272,7 +272,7 @@ local tmplist_1 = ll.ListSortStrided(demographics, 1, 0, true)
 //tmplist_1 == ["2005-11-02", "2007-06-22", "2008-05-19", "John Adams", "Matt Damon", "Shirley Bassey", "female", "male", "male"]
 //The strides have been destroyed, the sorted data is now useless`} lang="lsl" /></div>
   <p>Good Example</p>
-  <p>Instead, because you have the data grouped (aka "strided") in sets of 3, you need to do this:</p>
+  <p>Instead, because you have the data grouped (aka &quot;strided&quot;) in sets of 3, you need to do this:</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 local tmplist_2 = ll.ListSortStrided(demographics, 3, 0, true)

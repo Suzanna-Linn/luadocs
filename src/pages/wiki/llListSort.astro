@@ -80,40 +80,40 @@ llListSort(["2ae", "ah5", "1ag", "aa6", "3ac", "ad7", "ab8", "4af", "ai9"], 1, T
   <h2>Caveats</h2>
   <ul>
     <li>It uses an unoptimized selection sort algorithm, which is an algorithm with a Big O of N². A <a href="https://wiki.secondlife.com/wiki/JIRA" target="_blank">JIRA</a> issue exists to improve this function, <a href="https://jira.secondlife.com/browse/SVC-2988" target="_blank">SVC-2988</a>.</li>
-    <li>Originally the wiki stated that non-zero values for the "ascending" parameter would produce an ascending sort. That was incorrect. For this function, the value must be exactly 1 (or TRUE) for an ascending sort.</li>
+    <li>Originally the wiki stated that non-zero values for the &quot;ascending&quot; parameter would produce an ascending sort. That was incorrect. For this function, the value must be exactly 1 (or TRUE) for an ascending sort.</li>
     <li><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">Vectors</a> are sorted by magnitude. <a href="https://jira.secondlife.com/browse/SVC-5643" target="_blank">SVC-5643</a></li>
     <li><a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">Rotations</a> are not sorted in any meaningful order. If a list containing only rotations is sorted in ascending order, it will be returned unchanged.</li>
     <li><p>For descending sort, if there are mixed types, the final order is deterministic (the same input will always produce the same output) but it can be completely useless.</p>
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
 ll.ListSort({2, "B", "C", 3, 1, "A"}, 1, false)  -- returns ["A", 3, 1, "C", "B", 2]
 `} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
 llListSort([2, "B", "C", 3, 1, "A"], 1, FALSE) // returns ["A", 3, 1, "C", "B", 2]
 `} lang="lsl" /></div>
 
-</p>
+
 <p>If there are no mixed types, however, the descending sort works just fine.</p></li>
     <li>When the stride is greater than 1, if the list length is not a multiple of the stride, the list will be returned unchanged.</li>
     <li><p>When strings contain numbers, the numbers are still sorted left-to-right like any other character, which may not necessarily match numeric order:</p>
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
 ll.ListSort({"127", "3", "25"}, 1, true)  -- returns ["127", "25", "3"] because the 1 in 127 is before the 2 in 25 which is before the 3
 `} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
 llListSort(["127", "3", "25"], 1, TRUE) // returns ["127", "25", "3"] because the 1 in 127 is before the 2 in 25 which is before the 3
 `} lang="lsl" /></div>
 
-</p>
+
 <p>To sort them in numeric order, numbers in strings can be padded with zeros:</p>
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
 ll.ListSort({"127", "003", "025"}, 1, true)  -- returns ["003", "025", "127"]
 `} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
 llListSort(["127", "003", "025"], 1, TRUE) // returns ["003", "025", "127"]
 `} lang="lsl" /></div>
 
-</p>
+
     <ul>
-      <li>This order differs from the order of items in a prim's inventory, which is "natural order" (e.g "New Script 2" is sorted before "New Script 11").</li>
+      <li>This order differs from the order of items in a prim&#39;s inventory, which is &quot;natural order&quot; (e.g &quot;New Script 2&quot; is sorted before &quot;New Script 11&quot;).</li>
     </ul>
   
     </li>
@@ -143,10 +143,10 @@ default
     }
 }`} lang="lsl" /></div>
   <h3>Video Tutorial</h3>
-  <p><videoflash type="youtube">BNIUHnpeUQs|640|385</videoflash></p>
+  <p>&lt;videoflash type=&quot;youtube&quot;&gt;BNIUHnpeUQs|640|385&lt;/videoflash&gt;</p>
   <h2>Notes</h2>
   <h3>Data Types</h3>
-  <p>llListSort really only works on items of the same type. It will work on lists that hold diverse data types -- to be clear, it won't blow up your script -- but the results returned are usually meaningless.</p>
+  <p>llListSort really only works on items of the same type. It will work on lists that hold diverse data types -- to be clear, it won&#39;t blow up your script -- but the results returned are usually meaningless.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local mylist = {"brown", vector(0.000000, 0.000000, 0.000000), "house", 17.005, 100, "cat", vector(3.000000, 3.000000, 3.000000), 39}
 local tmplist = ll.ListSort(mylist, 1, true)
 ll.Say(0, ll.List2CSV(tmplist))`} lang="slua" /></div>
@@ -165,7 +165,7 @@ llSay(0, llList2CSV(tmplist));`} lang="lsl" /></div>
   <p>returns in chat:</p>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`39, <3.000000, 3.000000, 3.000000>, cat, 100, 17.004999, house, <0.000000, 0.000000, 0.000000>, brown`} lang="lsl" /></div>
   <h3>Utilizing the Results</h3>
-  <p>It's important to note that the source list that you are sorting will remain unchanged. Instead, a new, sorted list will be produced. So, it's important that you capture this with a variable (unless you are acting directly on the results.)</p>
+  <p>It&#39;s important to note that the source list that you are sorting will remain unchanged. Instead, a new, sorted list will be produced. So, it&#39;s important that you capture this with a variable (unless you are acting directly on the results.)</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.ListSort(myList, 1, true)  -- You've wasted cpu time; you didn't capture the results
 
 local newlist = ll.ListSort(myList, 1, true)  -- Okay. You've captured the results.
@@ -177,12 +177,12 @@ list newlist = llListSort(myList, 1, TRUE);// Okay. You've captured the results.
 
 llSay(0,llList2CSV(llListSort(myList, 1, TRUE))); // No need to capture, using the results right away.`} lang="lsl" /></div>
   <h3><b>Stride</b> parameter</h3>
-  <p>Most times, you will want to set "integer stride" to 1 (0 also works) to tell it to sort each item in the list on its own basis. (If you are working with a strided list, though, see the special section below on sorting strides.)</p>
+  <p>Most times, you will want to set &quot;integer stride&quot; to 1 (0 also works) to tell it to sort each item in the list on its own basis. (If you are working with a strided list, though, see the special section below on sorting strides.)</p>
   <h3>Sort Order</h3>
-  <p>Setting the parameter "integer ascending" to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> returns a sorted list that is in ascending order.</p>
-  <p>For example: ["Apples", "Bananas", "Oranges"]</p>
-  <p>Setting the parameter "integer ascending" to <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> returns a sorted list that is in descending order.</p>
-  <p>For example: ["Oranges", "Bananas", "Apples"]</p>
+  <p>Setting the parameter &quot;integer ascending&quot; to <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> returns a sorted list that is in ascending order.</p>
+  <p>For example: [&quot;Apples&quot;, &quot;Bananas&quot;, &quot;Oranges&quot;]</p>
+  <p>Setting the parameter &quot;integer ascending&quot; to <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> returns a sorted list that is in descending order.</p>
+  <p>For example: [&quot;Oranges&quot;, &quot;Bananas&quot;, &quot;Apples&quot;]</p>
   <h3>Sorting Strided Lists</h3>
   <p>If you have a <a href="https://wiki.secondlife.com/wiki/List#Strided_lists" target="_blank">strided list</a>, in which you are keeping related pieces of data together in chunks, letting each list element sort on its own basis would be disastrous.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local demographics = {"John Adams", "male", "2007-06-22", "Shirley Bassey", "female", "2005-11-02", "Matt Damon", "male", "2008-05-19"}
@@ -196,12 +196,12 @@ llSay(0,llList2CSV(llListSort(myList, 1, TRUE))); // No need to capture, using t
 //tmplist_1 == ["2005-11-02", "2007-06-22", "2008-05-19", "John Adams", "Matt Damon", "Shirley Bassey", "female", "male", "male"]
 //The strides have been destroyed, the sorted data is now useless`} lang="lsl" /></div>
   <p>Good Example</p>
-  <p>Instead, because you have the data grouped (aka "strided") in sets of 3, you need to do this:</p>
+  <p>Instead, because you have the data grouped (aka &quot;strided&quot;) in sets of 3, you need to do this:</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local tmplist_2 = ll.ListSort(demographics, 3, true)
 --templist_2 = ["John Adams", "male", "2007-06-22", "Matt Damon", "male", "2008-05-19", "Shirley Bassey", "female", "2005-11-02"]`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`list tmplist_2 = llListSort(demographics, 3, TRUE);
 //templist_2 = ["John Adams", "male", "2007-06-22", "Matt Damon", "male", "2008-05-19", "Shirley Bassey", "female", "2005-11-02"]`} lang="lsl" /></div>
-  <p>When storing data in strided lists, it's often worth it down the road to take a moment at the outset to think about how you are most likely to want to sort them, if ever the need arose. Remember, you can only sort on the first element in each group of elements. If you think you're mostly likely to want to sort on gender (to use the above list example), you should make gender the first element in the data grouping.</p>
+  <p>When storing data in strided lists, it&#39;s often worth it down the road to take a moment at the outset to think about how you are most likely to want to sort them, if ever the need arose. Remember, you can only sort on the first element in each group of elements. If you think you&#39;re mostly likely to want to sort on gender (to use the above list example), you should make gender the first element in the data grouping.</p>
   <h2>See Also</h2>
   <h3>Functions</h3>
   <table>

@@ -37,10 +37,10 @@ import DocsCode from '/src/components/DocsCode.astro';
 </div>
   <h2>Caveats</h2>
   <ul>
-    <li>When called from the root of an attachment, returns the wearer's region position. To see the position used, enable <b>Develop>Avatar>Display Agent Target</b> and use the red crosshair. If the avatar is sitting on an object, the red crosshair may be hidden by the white one, in the same position.</li>
+    <li>When called from the root of an attachment, returns the wearer&#39;s region position. To see the position used, enable <b>Develop&gt;Avatar&gt;Display Agent Target</b> and use the red crosshair. If the avatar is sitting on an object, the red crosshair may be hidden by the white one, in the same position.</li>
   </ul>
   <ul>
-    <li>When called in an attachment's child prim, the position given is again relative to the <i>avatar's</i> root position and rotation, but with the offset from the root prim added. Visually, the reported position will only be correct if the object's root is attached to <a href="https://wiki.secondlife.com/wiki/ATTACH_AVATAR_CENTER" target="_blank">ATTACH_AVATAR_CENTER</a>, at <a href="https://wiki.secondlife.com/wiki/ZERO_ROTATION" target="_blank">ZERO_ROTATION</a> and <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>. Moving the attachment's root or changing the attachment point will not affect the reported position. Avatar animation is invisible to the simulator, so it also does not affect the reported position.</li>
+    <li>When called in an attachment&#39;s child prim, the position given is again relative to the <i>avatar&#39;s</i> root position and rotation, but with the offset from the root prim added. Visually, the reported position will only be correct if the object&#39;s root is attached to <a href="https://wiki.secondlife.com/wiki/ATTACH_AVATAR_CENTER" target="_blank">ATTACH_AVATAR_CENTER</a>, at <a href="https://wiki.secondlife.com/wiki/ZERO_ROTATION" target="_blank">ZERO_ROTATION</a> and <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>. Moving the attachment&#39;s root or changing the attachment point will not affect the reported position. Avatar animation is invisible to the simulator, so it also does not affect the reported position.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)

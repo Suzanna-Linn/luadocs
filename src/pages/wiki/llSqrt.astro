@@ -14,14 +14,14 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.sqrt because Double precision; fastcall.</span></p>
-      <p>  <p>Returns a float that is the square root of <b>val</b>.</p>
-</p>
+      <p>Returns the square root of Value.
+Triggers a math runtime error for imaginary results (if Value < 0.0).</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
-          <td>Value / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/val" target="_blank">val</a></td>
-          <td>positive number (val >= 0.0)</td>
+          <td>Value</td>
+          <td></td>
         </tr>
       </table>
     </div>
@@ -46,88 +46,6 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>For imaginary results (val < 0.0), a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Error/Math" target="_blank">Math Error</a> is triggered under LSO , or 'NaN' (Not A Number) is returned under Mono</p>
-  <h2>Caveats</h2>
-  <ul>
-    <li>Crashes the script if passed a negative number.</li>
-  </ul>
-  <h2>Examples</h2>
-<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
-    local num1 = ll.Frand(100.0)
-
-    ll.OwnerSay("The square root of " .. tostring(num1) .. " is " .. tostring(ll.Sqrt(num1)))
-end
-
-main()
-`} lang="slua" /></div>
-<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
-{
-  state_entry()
-  {
-    float num1 = llFrand(100.0);
-
-    llOwnerSay("The square root of " + (string)num1 + " is " + (string)llSqrt(num1));
-  }
-}`} lang="lsl" /></div>
-  <h2>Notes</h2>
-  <ul>
-    <li>If you need the square root of two, you can use the constant <a href="https://wiki.secondlife.com/wiki/SQRT2" target="_blank">SQRT2</a>.</li>
-    <li>Other roots can be computed by <a href="https://wiki.secondlife.com/wiki/LlPow" target="_blank">llPow</a>(<b>val</b>, 1.0/<b>root</b>).</li>
-  </ul>
-  <h2>See Also</h2>
-  <h3>Functions</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlLog" target="_blank">llLog</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlLog10" target="_blank">llLog10</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlPow" target="_blank">llPow</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Deep Notes</h2>
-  <table>
-    <tbody>
-      <tr>
-        <th>Signature</th>
-      </tr>
-      <tr>
-        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
-function float llSqrt( float val );
-`} lang="lsl" /></div>
-
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <table>
-    <tbody>
-      <tr>
-        <th>Haiku</th>
-      </tr>
-      <tr>
-        <td><p>Gleaming in the sun</p>
-<p>the water gun lays broken.</p>
-<p>It's SQuare RooT not SQuiRT.</p></td>
-      </tr>
-    </tbody>
-  </table>
 
 </DocsLayout>
       

@@ -51,7 +51,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>The name of this function is actually a misnomer as LSL color is actually in <a href="https://www.color.org/chardata/rgb/BT709.xalter" target="_blank">Rec.709</a> space, not <a href="https://www.color.org/chardata/rgb/srgb.xalter" target="_blank">sRGB</a> space. While they are very similar, the gamma value for sRGB is approx. 2.2, whereas the gamma value for Rec.709 is approx. 2.4.</li>
-    <li>Scripting for PBR-enabled viewers: If you enter color vectors manually, using the viewer's color picker, enter them as sRGB values. The color picker automatically converts them internally to Linear RGB, so someone using a PBR-enabled viewer will see them correctly. When you apply color vectors directly with a script, however, you must apply sRGB to Blinn-Phong textured faces and Linear RGB to PBR materials.</li>
+    <li>Scripting for PBR-enabled viewers: If you enter color vectors manually, using the viewer&#39;s color picker, enter them as sRGB values. The color picker automatically converts them internally to Linear RGB, so someone using a PBR-enabled viewer will see them correctly. When you apply color vectors directly with a script, however, you must apply sRGB to Blinn-Phong textured faces and Linear RGB to PBR materials.</li>
   </ul>
   <h2>See Also</h2>
   <h3>Functions</h3>

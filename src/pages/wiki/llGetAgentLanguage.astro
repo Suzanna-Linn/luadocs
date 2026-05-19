@@ -50,91 +50,91 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Description</th>
       </tr>
       <tr>
-        <td>"en"</td>
+        <td>&quot;en&quot;</td>
         <td>English</td>
       </tr>
       <tr>
-        <td>"az"</td>
+        <td>&quot;az&quot;</td>
         <td>Azerbaycanca (Azerbaijani)</td>
       </tr>
       <tr>
-        <td>"da"</td>
+        <td>&quot;da&quot;</td>
         <td>Dansk (Danish)</td>
       </tr>
       <tr>
-        <td>"de"</td>
+        <td>&quot;de&quot;</td>
         <td>Deutsch (German)</td>
       </tr>
       <tr>
-        <td>"es"</td>
+        <td>&quot;es&quot;</td>
         <td>Español (Spanish)</td>
       </tr>
       <tr>
-        <td>"fr"</td>
+        <td>&quot;fr&quot;</td>
         <td>Français (French)</td>
       </tr>
       <tr>
-        <td>"it"</td>
+        <td>&quot;it&quot;</td>
         <td>Italiano (Italian)</td>
       </tr>
       <tr>
-        <td>"hu"</td>
+        <td>&quot;hu&quot;</td>
         <td>Magyar (Hungarian)</td>
       </tr>
       <tr>
-        <td>"nl"</td>
+        <td>&quot;nl&quot;</td>
         <td>Nederlands (Dutch)</td>
       </tr>
       <tr>
-        <td>"pl"</td>
+        <td>&quot;pl&quot;</td>
         <td>Polski (Polish)</td>
       </tr>
       <tr>
-        <td>"pt"</td>
+        <td>&quot;pt&quot;</td>
         <td>Portugués (Portuguese)</td>
       </tr>
       <tr>
-        <td>"ru"</td>
+        <td>&quot;ru&quot;</td>
         <td>Русский (Russian)</td>
       </tr>
       <tr>
-        <td>"tr"</td>
+        <td>&quot;tr&quot;</td>
         <td>Türkçe (Turkish)</td>
       </tr>
       <tr>
-        <td>"uk"</td>
+        <td>&quot;uk&quot;</td>
         <td>Українська (Ukrainian)</td>
       </tr>
       <tr>
-        <td>"zh"</td>
+        <td>&quot;zh&quot;</td>
         <td>中文 (简体) (Chinese)</td>
       </tr>
       <tr>
-        <td>"ja"</td>
+        <td>&quot;ja&quot;</td>
         <td>日本語 (Japanese)</td>
       </tr>
       <tr>
-        <td>"ko"</td>
+        <td>&quot;ko&quot;</td>
         <td>한국어 (Korean)</td>
       </tr>
     </tbody>
   </table>
-  <p>If the viewer is set to "System Default" the possible return may not be in this list. See <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">List of ISO 639-1 codes</a> for reference.</p>
+  <p>If the viewer is set to &quot;System Default&quot; the possible return may not be in this list. See <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">List of ISO 639-1 codes</a> for reference.</p>
   <p>The value can also be modified by directly editing the settings.xml file or with debug settings. So the value returned by llGetAgentLanguage may not be an ISO 639-1 value at all.</p>
   <h2>Caveats</h2>
   <ul>
-    <li>If the user has "Share language with objects" disabled then this function returns an empty string.</li>
+    <li>If the user has &quot;Share language with objects&quot; disabled then this function returns an empty string.</li>
     <li>During a 1-5 seconds period after which an agent is logging in, this function will return an empty string as well, until the viewer sends the data to the simulator.</li>
     <li>Users may prefer to see the client interface in a language that is not their native language, and some may prefer to use objects in the native language of the creator, or dislike low-quality translations. Consider providing a manual language override when it is appropriate.</li>
     <li>New language/variant values may be added later. Scripts may need to be prepared for unexpected values.</li>
-    <li>If the viewer is set to "System Default" the possible return may be outside the list given above. see <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">List of ISO 639-1 codes</a> for reference.</li>
-    <li>Viewers can specify other arbitrary language strings with the 'InstallLanguage' debug setting. For example, launching the viewer with "--set InstallLanguage american" results this function returning 'american' for the avatar. <a href="https://jira.secondlife.com/browse/VWR-12222" target="_blank">VWR-12222</a>
+    <li>If the viewer is set to &quot;System Default&quot; the possible return may be outside the list given above. see <a href="http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">List of ISO 639-1 codes</a> for reference.</li>
+    <li>Viewers can specify other arbitrary language strings with the &#39;InstallLanguage&#39; debug setting. For example, launching the viewer with &quot;--set InstallLanguage american&quot; results this function returning &#39;american&#39; for the avatar. <a href="https://jira.secondlife.com/browse/VWR-12222" target="_blank">VWR-12222</a>
     <ul>
       <li>If the viewer supplies a multiline value, the simulator will only accept the first line and ignore all others. <a href="https://jira.secondlife.com/browse/SVC-5503" target="_blank">SVC-5503</a></li>
     </ul>
   
     </li>
-    <li>Older viewers may return "en-us" instead of "en".</li>
+    <li>Older viewers may return &quot;en-us&quot; instead of &quot;en&quot;.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -213,7 +213,7 @@ end
   <h2>Deep Notes</h2>
   <p>History</p>
   <ul>
-    <li>Introduced in <a href="http://svn.secondlife.com/trac/linden/changeset/568?new_path=%2F#file33" target="_blank">SVN:568 r88085 Branch:Release&#32;Wednesday, 21 May 2008</a></li>
+    <li>Introduced in <a href="http://svn.secondlife.com/trac/linden/changeset/568?new_path=%2F#file33" target="_blank">SVN:568 r88085 Branch:Release&amp;#32;Wednesday, 21 May 2008</a></li>
     <li>Modified to only return the first line with <a href="https://jira.secondlife.com/browse/SVC-5503" target="_blank">SVC-5503</a></li>
     <li>Date of Release <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.21" target="_blank"> 16-10-2008 </a></li>
   </ul>

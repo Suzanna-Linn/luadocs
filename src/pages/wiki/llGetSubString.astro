@@ -55,7 +55,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p><b>start</b> & <b>end</b> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
+  <p><b>start</b> &amp; <b>end</b> support <a href="https://wiki.secondlife.com/wiki/Category:LSL_Negative_Index" target="_blank">negative indexes</a>.</p>
   <h2>Specification</h2>
   <table>
     <tbody>
@@ -86,7 +86,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>If either <b>start</b> or <b>end</b> are out of bounds the script continues to execute without an error message.</li>
-    <li><b>start</b> & <b>end</b> will form an <a href="#exclusion_range" target="_blank">exclusion range</a> when <b>start</b> is past <b>end</b> (Approximately: <b>start</b> > <b>end</b>).</li>
+    <li><b>start</b> &amp; <b>end</b> will form an <a href="#exclusion_range" target="_blank">exclusion range</a> when <b>start</b> is past <b>end</b> (Approximately: <b>start</b> &gt; <b>end</b>).</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -178,11 +178,11 @@ default
     }
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
-  <h3>Ranges & Indexes</h3>
+  <h3>Ranges &amp; Indexes</h3>
   <p>The easiest way to explain how ranges work is to make all indexes positive. Negative indexes are just a way of counting from the tail end instead of the beginning, all negative indexes have a corresponding equivalent positive index (assuming they are in range). Positive indexes past length (after the last index), or negative indexes past the beginning (before the first index) are valid and the effects are predictable and reliable: the entries are treated as if they were there but were removed just before output.</p>
   <ul>
-    <li>If <b>start</b> <= <b>end</b> then the range operated on starts at <b>start</b> and ends at <b>end</b>. [<b>start</b>, <b>end</b>]</li>
-    <li>Exclusion range: If <b>start</b> > <b>end</b> then the range operated on starts at <b>0</b> and goes to <b>end</b> and then starts again at <b>start</b> and goes to <b>-1</b>. [<b>0</b>, <b>end</b>] + [<b>start</b>, <b>-1</b>]
+    <li>If <b>start</b> &lt;= <b>end</b> then the range operated on starts at <b>start</b> and ends at <b>end</b>. [<b>start</b>, <b>end</b>]</li>
+    <li>Exclusion range: If <b>start</b> &gt; <b>end</b> then the range operated on starts at <b>0</b> and goes to <b>end</b> and then starts again at <b>start</b> and goes to <b>-1</b>. [<b>0</b>, <b>end</b>] + [<b>start</b>, <b>-1</b>]
     <ul>
       <li>If <b>end</b> is a negative index past the beginning, then the operating range would be [<b>start</b>, <b>-1</b>].</li>
       <li>If <b>end</b> is a positive index past the end, then the operating range would be [<b>0</b>, <b>end</b>].</li>
@@ -273,7 +273,7 @@ But can a bee be said to be
 Or not to be an entire bee
 When half the bee is not a bee
 Due to some ancient injury?</p>
-<p>If it's not obvious, my twisted mind tried to explain, using analogies, that part of a string extracted from a string is, indeed, a string too; half a string is also a string. Unless you make a serious mistake, that is.
+<p>If it&#39;s not obvious, my twisted mind tried to explain, using analogies, that part of a string extracted from a string is, indeed, a string too; half a string is also a string. Unless you make a serious mistake, that is.
 — <a href="https://wiki.secondlife.com/wiki/User:Gwyneth_Llewelyn" target="_blank">Gwyneth Llewelyn</a> (<a href="https://wiki.secondlife.com/wiki/User_talk:Gwyneth_Llewelyn" target="_blank">talk</a>) 07:55, 15 October 2023 (PDT)</p></td>
       </tr>
     </tbody>

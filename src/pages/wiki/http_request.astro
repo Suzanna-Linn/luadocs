@@ -26,7 +26,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
           <td>HTTPMethod / method</td>
-          <td>`"GET"`, `"POST"`, `"PUT"`, `"DELETE"`, <a href="https://wiki.secondlife.com/wiki/URL_REQUEST_GRANTED" target="_blank">URL_REQUEST_GRANTED</a>, <a href="https://wiki.secondlife.com/wiki/URL_REQUEST_DENIED" target="_blank">URL_REQUEST_DENIED</a></td>
+          <td>`&quot;GET&quot;`, `&quot;POST&quot;`, `&quot;PUT&quot;`, `&quot;DELETE&quot;`, <a href="https://wiki.secondlife.com/wiki/URL_REQUEST_GRANTED" target="_blank">URL_REQUEST_GRANTED</a>, <a href="https://wiki.secondlife.com/wiki/URL_REQUEST_DENIED" target="_blank">URL_REQUEST_DENIED</a></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string</span></td>
@@ -61,15 +61,15 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>headers (accessed with <a href="https://wiki.secondlife.com/wiki/LlGetHTTPHeader" target="_blank">llGetHTTPHeader</a>) are limited to 255 bytes.</li>
     <li>There is a limit of 64 pending http_request
     <ul>
-      <li>Be mindful of the event queue (64) in general as well. http_request events may be discarded if your script's queue is filled by other events, such as incoming <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> messages.</li>
+      <li>Be mindful of the event queue (64) in general as well. http_request events may be discarded if your script&#39;s queue is filled by other events, such as incoming <a href="https://wiki.secondlife.com/wiki/Listen" target="_blank">listen</a> messages.</li>
     </ul>
   
     </li>
-    <li><b>body</b> is not sent with the request unless the method is set to `"POST"`, `"PUT"`, or <a href="https://wiki.secondlife.com/wiki/URL_REQUEST_GRANTED" target="_blank">URL_REQUEST_GRANTED</a>.</li>
+    <li><b>body</b> is not sent with the request unless the method is set to `&quot;POST&quot;`, `&quot;PUT&quot;`, or <a href="https://wiki.secondlife.com/wiki/URL_REQUEST_GRANTED" target="_blank">URL_REQUEST_GRANTED</a>.</li>
     <li>Requests may fail with a <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#5xx_Server_Error" target="_blank">503 status code</a> for at least two possible reasons:
     <ul>
-      <li>if the returned body is `ERROR: The requested URL could not be retrieved`, and `(111) Connection refused`, the problem will normally last only a few minutes - this is th nightly maint & log rotation. It does reliably impact object to object HTTP at that time, and quite probably may impact object to/from web around the same time. The interruption in service is fairly brief, and the precise timing may vary as LL adjust their nightly maint processes, or due to server load.</li>
-      <li>this response can also happen if too many requests are received by scripts in the region owned by the same owner. In this case, a Retry-After header is returned with a number of seconds to wait before retrying. Note that if you have many requestors, some of them may have to wait longer. A good general strategy is to wait the suggested number of seconds (possibly with a little randomness added in) before retrying, and if that fails increase how long you wait by multiplying by a small number before retrying again. If all your requestors follow some method like this, eventually they'll get through.</li>
+      <li>if the returned body is `ERROR: The requested URL could not be retrieved`, and `(111) Connection refused`, the problem will normally last only a few minutes - this is th nightly maint &amp; log rotation. It does reliably impact object to object HTTP at that time, and quite probably may impact object to/from web around the same time. The interruption in service is fairly brief, and the precise timing may vary as LL adjust their nightly maint processes, or due to server load.</li>
+      <li>this response can also happen if too many requests are received by scripts in the region owned by the same owner. In this case, a Retry-After header is returned with a number of seconds to wait before retrying. Note that if you have many requestors, some of them may have to wait longer. A good general strategy is to wait the suggested number of seconds (possibly with a little randomness added in) before retrying, and if that fails increase how long you wait by multiplying by a small number before retrying again. If all your requestors follow some method like this, eventually they&#39;ll get through.</li>
     </ul>
   
     </li>
@@ -322,7 +322,7 @@ default
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetHTTPHeader" target="_blank">llGetHTTPHeader</a></td>
         <td>–</td>
-        <td>Returns the requested HTTP header's value</td>
+        <td>Returns the requested HTTP header&#39;s value</td>
         <td></td>
       </tr>
       <tr>

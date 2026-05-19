@@ -57,7 +57,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><b>id</b> is often used as a second string field (in LSL the <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> type is implemented as a <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> with just custom operators). <a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">Typecasting</a> between <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> and <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a> types has no effect on the data contained. The sizes of <b>str</b> and <b>id</b> are only limited by available script memory.</p>
   <h2>Caveats</h2>
   <ul>
-    <li>64 link_message events can queue, past that, they are silently dropped! Don't do too much in the event if they might be coming in fast.</li>
+    <li>64 link_message events can queue, past that, they are silently dropped! Don&#39;t do too much in the event if they might be coming in fast.</li>
     <li><b>sender_num</b> does not reflect how a message was sent, there is no way to know if it was sent with a LINK_* flag or the <a href="https://wiki.secondlife.com/wiki/LlGetLinkNumber" target="_blank">specific link number</a>.</li>
     <li>If <b>str</b> and <b>id</b> are bigger than available memory the script will crash with a Stack-Heap Collision.</li>
   </ul>

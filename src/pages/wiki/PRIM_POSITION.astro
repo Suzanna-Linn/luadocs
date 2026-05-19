@@ -14,7 +14,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p>  <p>The integer constant PRIM_POSITION has the value 6</p>
-  <p>PRIM_POSITION is used to get or set the prim's position.</p>
+  <p>PRIM_POSITION is used to get or set the prim&#39;s position.</p>
 </p>
     </div>
 
@@ -34,7 +34,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>llSetPrimitiveParams</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">&#32;...,&#32;PRIM_POSITION,&#32;[vector</a> position,&#32;... ]); </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">&amp;#32;...,&amp;#32;PRIM_POSITION,&amp;#32;[vector</a> position,&amp;#32;... ]); </b></p>
   <table>
     <tbody>
       <tr>
@@ -61,7 +61,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       <li>Moving the prim the avatar sat upon does not move the avatar.</li>
       <li>Moving an avatar does not move the prim they sat upon.</li>
       <li>Sit-target coordinates do not easily map to prim coordinates, use <a href="https://wiki.secondlife.com/wiki/LlSitTarget#Useful_Snippets" target="_blank">UpdateSitTarget</a>.</li>
-      <li>If you have explicitally set your object as "static obstacle" for pathfinding , the function will fail with the error in the debug channel : "Unable to set prim position or scale: object contributes to the navmesh."</li>
+      <li>If you have explicitally set your object as &quot;static obstacle&quot; for pathfinding , the function will fail with the error in the debug channel : &quot;Unable to set prim position or scale: object contributes to the navmesh.&quot;</li>
       <li>If <b>position</b> is greater than 54 meters away from the center, the repositioning will silently fail.</li>
     </ul>
   
@@ -76,7 +76,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetLinkPrimitiveParams(ll.GetNumberOfPrims(), {PRIM_POSITION, vector(x, y, z)})`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetLinkPrimitiveParams(llGetNumberOfPrims(), [PRIM_POSITION, <x,y,z>]);`} lang="lsl" /></div>
   <h2>llGetPrimitiveParams</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([&#32;...,&#32;PRIM_POSITION,&#32;... ]); </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>([&amp;#32;...,&amp;#32;PRIM_POSITION,&amp;#32;... ]); </b></p>
   <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> [vector</a> position ]</p>
   <table>
     <tbody>

@@ -13,6 +13,9 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
+      <p>  <p>The integer constant PARCEL_FLAG_ALLOW_FLY has the value 0x1</p>
+  <p>This is a flag used with <a href="https://wiki.secondlife.com/wiki/LlGetParcelFlags" target="_blank">llGetParcelFlags</a> to check if flying is allowed on the parcel.</p>
+</p>
     </div>
 
     <div class="dash-col">
@@ -30,6 +33,129 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <h2>Related Articles</h2>
+  <h3>Constants</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>Flag</th>
+        <th>Value</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>PARCEL_FLAG_ALLOW_FLY</td>
+        <td>0x00000001</td>
+        <td>find if a parcel allows flying</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_SCRIPTS" target="_blank">PARCEL_FLAG_ALLOW_SCRIPTS</a></td>
+        <td>0x00000002</td>
+        <td>find if a parcel allows outside scripts</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_LANDMARK" target="_blank">PARCEL_FLAG_ALLOW_LANDMARK</a></td>
+        <td>0x00000008</td>
+        <td>find if a parcel allows landmarks to be created</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_TERRAFORM" target="_blank">PARCEL_FLAG_ALLOW_TERRAFORM</a></td>
+        <td>0x00000010</td>
+        <td>find if a parcel allows anyone to terraform the land</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_DAMAGE" target="_blank">PARCEL_FLAG_ALLOW_DAMAGE</a></td>
+        <td>0x00000020</td>
+        <td>find if a parcel allows damage</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_CREATE_OBJECTS" target="_blank">PARCEL_FLAG_ALLOW_CREATE_OBJECTS</a></td>
+        <td>0x00000040</td>
+        <td>find if a parcel allows anyone to create objects</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_USE_ACCESS_GROUP" target="_blank">PARCEL_FLAG_USE_ACCESS_GROUP</a></td>
+        <td>0x00000100</td>
+        <td>find if a parcel limits access to a group</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_USE_ACCESS_LIST" target="_blank">PARCEL_FLAG_USE_ACCESS_LIST</a></td>
+        <td>0x00000200</td>
+        <td>find if a parcel limits access to a list of residents</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_USE_BAN_LIST" target="_blank">PARCEL_FLAG_USE_BAN_LIST</a></td>
+        <td>0x00000400</td>
+        <td>find if a parcel uses a ban list, including restricting access based on payment info</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_USE_LAND_PASS_LIST" target="_blank">PARCEL_FLAG_USE_LAND_PASS_LIST</a></td>
+        <td>0x00000800</td>
+        <td>find if a parcel allows passes to be purchased</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_LOCAL_SOUND_ONLY" target="_blank">PARCEL_FLAG_LOCAL_SOUND_ONLY</a></td>
+        <td>0x00008000</td>
+        <td>find if a parcel restricts spatialized sound to the parcel</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_RESTRICT_PUSHOBJECT" target="_blank">PARCEL_FLAG_RESTRICT_PUSHOBJECT</a></td>
+        <td>0x00200000</td>
+        <td>find if a parcel restricts <a href="https://wiki.secondlife.com/wiki/LlPushObject" target="_blank">llPushObject</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_GROUP_SCRIPTS" target="_blank">PARCEL_FLAG_ALLOW_GROUP_SCRIPTS</a></td>
+        <td>0x02000000</td>
+        <td>find if a parcel allows scripts owned by group</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS" target="_blank">PARCEL_FLAG_ALLOW_CREATE_GROUP_OBJECTS</a></td>
+        <td>0x04000000</td>
+        <td>find if a parcel allows object creation by group members or objects</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_ALL_OBJECT_ENTRY" target="_blank">PARCEL_FLAG_ALLOW_ALL_OBJECT_ENTRY</a></td>
+        <td>0x08000000</td>
+        <td>find if a parcel allows all objects to enter a parcel</td>
+      </tr>
+      <tr>
+        <td><a href="https://wiki.secondlife.com/wiki/PARCEL_FLAG_ALLOW_GROUP_OBJECT_ENTRY" target="_blank">PARCEL_FLAG_ALLOW_GROUP_OBJECT_ENTRY</a></td>
+        <td>0x10000000</td>
+        <td>find if a parcel only allows group (and owner) objects to enter the parcel</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetParcelFlags" target="_blank">llGetParcelFlags</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p><a href="https://secondlife.canny.io/?search=PARCEL_FLAG_ALLOW_FLY" target="_blank">Search Canny for related Issues</a> Source</p>
+  <p><a href="https://github.com/secondlife/viewer/blob/master/indra/llinventory/llparcelflags.h#L38" target="_blank">viewer - indra/llinventory/llparcelflags.h </a></p>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+PARCEL_FLAG_ALLOW_FLY = 0x1
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+integer PARCEL_FLAG_ALLOW_FLY = 0x1;
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

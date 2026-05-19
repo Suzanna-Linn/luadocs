@@ -49,12 +49,12 @@ If <b>id</b> is not the UUID of an avatar, the <a href="https://wiki.secondlife.
   <h2>Caveats</h2>
   <ul>
     <li><p>If you merely wish to show the agent username in the viewer window, it may be more straightforward to use <a href="https://wiki.secondlife.com/wiki/Viewer_URI_Name_Space" target="_blank">Viewer URI Name Space</a> and avoid a dataserver event, e.g.:</p>
-<p><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
 llSay(0, "secondlife:///app/agent/" + (string)id + "/username");
 `} lang="lsl" /></div>
 
-</p></li>
-    <li>This function is throttled. The throttle is undocumented, but as of October 2018 the function appears to support bursts of up to 20 requests and sustained use at an average rate of 1.9 requests per second per owner, per region. (Meaning the throttle applies to all objects in the region with the same owner.) Once tripped, the function fails and says "Too many llRequestUsername requests. Throttled until average falls." on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+</li>
+    <li>This function is throttled. The throttle is undocumented, but as of October 2018 the function appears to support bursts of up to 20 requests and sustained use at an average rate of 1.9 requests per second per owner, per region. (Meaning the throttle applies to all objects in the region with the same owner.) Once tripped, the function fails and says &quot;Too many llRequestUsername requests. Throttled until average falls.&quot; on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local owner_name_query = NULL_KEY

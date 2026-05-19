@@ -54,9 +54,9 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>Only works in attachments and <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics-enabled</a> objects.</li>
-    <li>When slowly moving to a lower Z value, beware of <a href="https://jira.secondlife.com/browse/SVC-2441" target="_blank">SVC-2441</a> - the sim will incorrectly move the object down faster than it should. That is, if you try moving to llGetPos() + <10, 10, -10>, you can end up at .z-10 several meters before getting to .x-10 and .y-10. There is a demo object in the JIRA which shows this effect.</li>
+    <li>When slowly moving to a lower Z value, beware of <a href="https://jira.secondlife.com/browse/SVC-2441" target="_blank">SVC-2441</a> - the sim will incorrectly move the object down faster than it should. That is, if you try moving to llGetPos() + &lt;10, 10, -10&gt;, you can end up at .z-10 several meters before getting to .x-10 and .y-10. There is a demo object in the JIRA which shows this effect.</li>
     <li>A llMoveToTarget call seems to persist even if physics is turned off. This is a useful trick on sluggish sims where the object can drop a bit between the call to enable physics and the call to llMoveToTarget - just do the llMoveToTarget before setting the object to physical.</li>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlVecDist" target="_blank">llVecDist</a>(<a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">llGetPos</a>(), <b>target</b>)` must be <i>less than</i> 65, or no movement will occur.</li>
+    <li>`[llVecDist](https://wiki.secondlife.com/wiki/LlVecDist)([llGetPos](https://wiki.secondlife.com/wiki/LlGetPos)(), **target**)` must be <i>less than</i> 65, or no movement will occur.</li>
     <li>Calling llMoveToTarget with a <b>tau</b> of 0.0 or less will silently fail, and do nothing. The smallest functional <b>tau</b> is 0.044444444 (two physics frames, 2/45).</li>
   </ul>
   <h2>Examples</h2>

@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Sets the prim's name according to the <b>name</b> parameter.</p>
+      <p>  <p>Sets the prim&#39;s name according to the <b>name</b> parameter.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -47,15 +47,15 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>The name is limited to 63 characters. Longer prim names are cut short.</li>
-    <li>Names can only consist of the 95 printable characters found in the <a href="http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters" target="_blank">ASCII-7</a> (non-extended) character set, with the exception of the vertical bar/pipe ("|") character.
+    <li>Names can only consist of the 95 printable characters found in the <a href="http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters" target="_blank">ASCII-7</a> (non-extended) character set, with the exception of the vertical bar/pipe (&quot;|&quot;) character.
     <ul>
-      <li>Invalid characters in the range 1 to 31, as well as the pipe character (124) are replaced with a question mark ("?").</li>
+      <li>Invalid characters in the range 1 to 31, as well as the pipe character (124) are replaced with a question mark (&quot;?&quot;).</li>
       <li>Other invalid characters in the range 128 and above are replaced with two or more question marks, depending on how many bytes their UTF-8 representation requires.</li>
-      <li>Objects with all-whitespace names (e.g., a space or a series of spaces) will appear as "(Unnamed)" if they emit chat via <a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a>, <a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a>, <a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a>, etc., although this behaviour may vary in third-party viewers.</li>
+      <li>Objects with all-whitespace names (e.g., a space or a series of spaces) will appear as &quot;(Unnamed)&quot; if they emit chat via <a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">llSay</a>, <a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a>, <a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a>, etc., although this behaviour may vary in third-party viewers.</li>
     </ul>
   
     </li>
-    <li>While an object is attached, the script cannot change the name of the object as it appears in the user's inventory.[[1]](#footnote_1)
+    <li>While an object is attached, the script cannot change the name of the object as it appears in the user&#39;s inventory.[[1]](#footnote_1)
     <ul>
       <li>Changes to the name of the root prim (with llSetObjectName for example) will not be saved to inventory; when the attachment is detached (to inventory, not dropped) this name change is discarded and the name in inventory is used instead.</li>
       <li>When attachment is dropped (to the ground) and taking it into inventory, the inventory item will have the new name (not the old).</li>
@@ -69,8 +69,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <table>
     <tbody>
       <tr>
-        <th><b>Set this prim's name</b></th>
-        <th><b>Set the root prim's name</b></th>
+        <th><b>Set this prim&#39;s name</b></th>
+        <th><b>Set the root prim&#39;s name</b></th>
       </tr>
       <tr>
         <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
@@ -199,7 +199,7 @@ integer isValidObjectName(string name)
   <h2>Deep Notes</h2>
   <p>Footnotes</p>
   <ul>
-    <li><b><a href="#fn_1" target="_blank">^</a></b> Whether or not this is a bug is still debated, regardless LL has said they will not fix it. This behavior was first recognized as a pain point in <a href="http://forums-archive.secondlife.com/255/ab/84853/1.html" target="_blank">2006</a> and only confirmed to be lava-flowed <a href="https://jira.secondlife.com/browse/SVC-3429?focusedCommentId=267372&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-267372" target="_blank">more recently (2011)</a>.</li>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Whether or not this is a bug is still debated, regardless LL has said they will not fix it. This behavior was first recognized as a pain point in <a href="http://forums-archive.secondlife.com/255/ab/84853/1.html" target="_blank">2006</a> and only confirmed to be lava-flowed <a href="https://jira.secondlife.com/browse/SVC-3429?focusedCommentId=267372&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-267372" target="_blank">more recently (2011)</a>.</li>
   </ul>
   <table>
     <tbody>

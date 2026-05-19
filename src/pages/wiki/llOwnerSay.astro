@@ -14,7 +14,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use print</span></p>
-      <p>  <p>Says <b>msg</b> to the object's owner only, if the owner is currently in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>.</p>
+      <p>  <p>Says <b>msg</b> to the object&#39;s owner only, if the owner is currently in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -49,8 +49,8 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>If <b>msg</b> is longer than 1024 bytes, it will be truncated to 1024 bytes. This can convey 1024 ASCII characters, or fewer if non-ASCII are present.</li>
     <li>Silently fails ~45 seconds after the owner leaves the region the object is in.</li>
     <li>Silently fails when the object to which the script is attached is <a href="https://wiki.secondlife.com/wiki/Deed" target="_blank">deeded</a> to a group.</li>
-    <li>Some viewers do not display llOwnerSay text when <b>msg</b> is empty ("").</li>
-    <li>Produces swirly particle effects for the owner (who sees the message) but these effects do not appear to be visible to other avatars (who don't).</li>
+    <li>Some viewers do not display llOwnerSay text when <b>msg</b> is empty (&quot;&quot;).</li>
+    <li>Produces swirly particle effects for the owner (who sees the message) but these effects do not appear to be visible to other avatars (who don&#39;t).</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`function LLEvents.touch_start(events)

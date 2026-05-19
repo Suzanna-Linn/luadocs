@@ -14,7 +14,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p>  <p>The integer constant PRIM_DESC has the value 28</p>
-  <p>Used to get or set the prim's description.</p>
+  <p>Used to get or set the prim&#39;s description.</p>
 </p>
     </div>
 
@@ -34,7 +34,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>llSetPrimitiveParams</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/String" target="_blank">&#32;PRIM_DESC,&#32;[string</a> description ]); </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/String" target="_blank">&amp;#32;PRIM_DESC,&amp;#32;[string</a> description ]); </b></p>
   <table>
     <tbody>
       <tr>
@@ -65,8 +65,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>The prim description is <a href="https://wiki.secondlife.com/wiki/Limit" target="_blank">limited</a> to 127 <a href="https://wiki.secondlife.com/wiki/Bytes" target="_blank">bytes</a>; any string longer then that will be truncated. This truncation does not always happen when the attribute is set or read.</li>
-    <li>The prim description may only contain printable ASCII characters (code points 32-126), except the pipe character '&#124;', which is not permitted for historical reasons.[[1]](#footnote_1) All other characters will be replaced with one '?' character per illegal UTF-8 byte.</li>
-    <li>Note that when people have "Hover Tips on All Objects" selected in the viewer's "View" menu, they'll see the object description pop-up for any object under their mouse pointer. For that reason, it is good practice to only set human-friendly information in the description, e.g. keys and such.</li>
+    <li>The prim description may only contain printable ASCII characters (code points 32-126), except the pipe character &#39;&amp;#124;&#39;, which is not permitted for historical reasons.[[1]](#footnote_1) All other characters will be replaced with one &#39;?&#39; character per illegal UTF-8 byte.</li>
+    <li>Note that when people have &quot;Hover Tips on All Objects&quot; selected in the viewer&#39;s &quot;View&quot; menu, they&#39;ll see the object description pop-up for any object under their mouse pointer. For that reason, it is good practice to only set human-friendly information in the description, e.g. keys and such.</li>
     <li>When an attached object is detached, changes made by script to the name and description (of the root prim) of the attachment will be lost. While the object is attached the name and description can be changed but it will not be reflected in inventory. This caveat does <i>not</i> apply to child prims.</li>
   </ul>
   <h2>Related Articles</h2>

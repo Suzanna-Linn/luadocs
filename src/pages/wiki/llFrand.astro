@@ -44,7 +44,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>When converting the float to an integer, be sure to use an integer typecast `(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>)` and <i>not</i> one of the rounding functions (<a href="https://wiki.secondlife.com/wiki/LlRound" target="_blank">llRound</a>, <a href="https://wiki.secondlife.com/wiki/LlFloor" target="_blank">llFloor</a>, <a href="https://wiki.secondlife.com/wiki/LlCeil" target="_blank">llCeil</a>). The integer typecast is the only method guaranteed not to skew the distribution of integer values.</p>
+  <p>When converting the float to an integer, be sure to use an integer typecast `([integer](https://wiki.secondlife.com/wiki/Integer))` and <i>not</i> one of the rounding functions (<a href="https://wiki.secondlife.com/wiki/LlRound" target="_blank">llRound</a>, <a href="https://wiki.secondlife.com/wiki/LlFloor" target="_blank">llFloor</a>, <a href="https://wiki.secondlife.com/wiki/LlCeil" target="_blank">llCeil</a>). The integer typecast is the only method guaranteed not to skew the distribution of integer values.</p>
   <h2>Caveats</h2>
   <ul>
     <li>The random number generator is not a source of entropy.
@@ -54,7 +54,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   
     </li>
     <li>It should be remembered that when passing llFrand an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> as the <b>mag</b>, it will be implicitly <a href="https://wiki.secondlife.com/wiki/Typecast" target="_blank">typecast</a> to a <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a>.</li>
-    <li>Many integers outside the range [-224, +224] can not be represented in a float (this is an inherent limitation of the float type); for example, outside that range no odd integers will appear. For that reason, when converting the resulting float to integer, it is impossible to generate more than 224+1 uniformly distributed values, and it's also impossible to generate more than 9*223+1 or about 75 million different integers in total. Two llFrand calls may be needed to obtain the desired integer range; see examples below.</li>
+    <li>Many integers outside the range [-224, +224] can not be represented in a float (this is an inherent limitation of the float type); for example, outside that range no odd integers will appear. For that reason, when converting the resulting float to integer, it is impossible to generate more than 224+1 uniformly distributed values, and it&#39;s also impossible to generate more than 9*223+1 or about 75 million different integers in total. Two llFrand calls may be needed to obtain the desired integer range; see examples below.</li>
   </ul>
   <h2>Examples</h2>
   <table>

@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Start an asynchronous transaction to request the number of keys with the script's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>.</p>
+      <p>  <p>Start an asynchronous transaction to request the number of keys with the script&#39;s <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>.</p>
   <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) that can be used to identify the corresponding <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event to determine if this command succeeded or failed and the results.</p>
 </p>
     </div>
@@ -47,11 +47,11 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>The <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> callback parameters are:</p>
   <ul>
     <li>A key containing the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> returned from llKeyCountKeyValue</li>
-    <li>A string containing a comma-delimited list (<b>cdl</b>). `llDumpList2String(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> <b>success</b> ] + <b>components</b>);`
+    <li>A string containing a comma-delimited list (<b>cdl</b>). `llDumpList2String([ [integer](https://wiki.secondlife.com/wiki/Integer) **success** ] + **components**);`
     <ul>
       <li><b>components</b> vary depending upon success or failure of request.</li>
-      <li>Failure: `<b>cdl</b> = <a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> 0, [integer</a> <b>error</b>],",")`</li>
-      <li>Success: `<b>cdl</b> = <a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> 1, [integer</a> <b>pairs</b> ],",")`</li>
+      <li>Failure: `**cdl** = [llDumpList2String](https://wiki.secondlife.com/wiki/LlDumpList2String)([ 0, [integer](https://wiki.secondlife.com/wiki/Integer) **error**],&quot;,&quot;)`</li>
+      <li>Success: `**cdl** = [llDumpList2String](https://wiki.secondlife.com/wiki/LlDumpList2String)([ 1, [integer](https://wiki.secondlife.com/wiki/Integer) **pairs** ],&quot;,&quot;)`</li>
     </ul>
   
     </li>
@@ -143,7 +143,7 @@ default
   <p>For a script to be associated with an <a href="https://wiki.secondlife.com/wiki/Category:LSL_Experience" target="_blank">Experience</a>...</p>
   <ul>
     <li>It must be compiled with a client that is Experience aware,</li>
-    <li>The "Use Experience" checkbox must be checked,</li>
+    <li>The &quot;Use Experience&quot; checkbox must be checked,</li>
     <li>And one of the users Experience keys selected.</li>
   </ul>
   <table>

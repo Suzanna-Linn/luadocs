@@ -47,10 +47,10 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>The bounding box is for the entire link set, not just the requested prim.</p>
   <p>Returns an empty list (`[]`) if <b>object</b> is not found.</p>
   <h2>Specification</h2>
-  <p>The physical representation of an object is made up of the shape of the prims and avatars seated upon it. The bounding box is the smallest possible cuboid which can contain the physical representation of the object and have its faces aligned to the object's local axes.</p>
+  <p>The physical representation of an object is made up of the shape of the prims and avatars seated upon it. The bounding box is the smallest possible cuboid which can contain the physical representation of the object and have its faces aligned to the object&#39;s local axes.</p>
   <h2>Caveats</h2>
   <ul>
-    <li>Regardless if <b>object</b> is a non-root prim, the bounding box of the object is returned. This also applies if <b>object</b> is an agent sitting on an object - the bounding box of the sat-upon object (including the agent's shape) is returned.</li>
+    <li>Regardless if <b>object</b> is a non-root prim, the bounding box of the object is returned. This also applies if <b>object</b> is an agent sitting on an object - the bounding box of the sat-upon object (including the agent&#39;s shape) is returned.</li>
     <li>The bounding box is determined by the physics models, not the visual representation.
     <ul>
       <li>A child prim with its physics mode set to none will not affect the bounding box.</li>

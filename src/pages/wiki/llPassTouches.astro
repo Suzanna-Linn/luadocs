@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>Pass / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/pass" target="_blank">pass</a></td>
-          <td>PASS_* flag&#32;</td>
+          <td>PASS_* flag&amp;#32;</td>
         </tr>
       </table>
     </div>
@@ -121,7 +121,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </tbody>
   </table>
   <h2>Deep Notes</h2>
-  <p><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> & <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> vs. PASS_* flags</p>
+  <p><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> &amp; <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> vs. PASS_* flags</p>
   <p>Prior to Server Version 1.40.2, <b>pass</b> was couched in terms of being a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> and the only meaningful values were 0 and 1. The best practice at that time was to use the integer constants <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> and <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>. The design of this function left much to be desired. The problem was that while <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> always caused all Touches to be passed along to the the root, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> would only not pass Touches if there the prim had a script that handled a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> event. This meant to fully utilize this function the prim must contain a script that handled <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> events! With the release of Server Version 1.40.2, the PASS_* flags were introduced and the subtype of the <b>pass</b> was changed. Specifically the introduction of <a href="https://wiki.secondlife.com/wiki/PASS_NEVER" target="_blank">PASS_NEVER</a> solved this problem, allowing content creators to eliminate scripts that were only in the object to tweak the passing of <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> events.</p>
   <p>History</p>
   <ul>

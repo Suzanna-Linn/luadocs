@@ -65,7 +65,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </table>
   <h2>Caveats</h2>
   <ul>
-    <li>Messages sent on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> are throttled to a rate of <200/10sec, per region, per owner/user.
+    <li>Messages sent on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> are throttled to a rate of &lt;200/10sec, per region, per owner/user.
     <ul>
       <li>Once the rate is exceeded, all following messages on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> will be dropped until the send rate is again below 200/10sec for the previous 10 sec. Dropped messages, despite being dropped still count against the limit.</li>
     </ul>
@@ -91,7 +91,7 @@ main()
 }`} lang="lsl" /></div>
   <p>To avoid making your object spam its neighborhood, use <a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a> or <a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a>.</p>
   <h2>Notes</h2>
-  <p>If one object 'says' something to another object (e.g., a button that, when touched,
+  <p>If one object &#39;says&#39; something to another object (e.g., a button that, when touched,
 turns on a lamp), consider a very negative channel, e.g.,</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.RegionSay(-5243212, "turn on")`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llRegionSay(-5243212,"turn on");`} lang="lsl" /></div>

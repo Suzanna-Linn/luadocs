@@ -51,11 +51,11 @@ import DocsCode from '/src/components/DocsCode.astro';
 </div>
   <h2>Caveats</h2>
   <ul>
-    <li>If <b>name</b> is missing from the prim's inventory or it is not a script then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is missing from the prim&#39;s inventory or it is not a script then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>Cannot be used to restart a script that has encountered a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Error" target="_blank">run-time error</a>.</li>
     <li>Cannot be used to start a script that has been added via <a href="https://wiki.secondlife.com/wiki/LlGiveInventory" target="_blank">llGiveInventory</a>. Scripts sent via <a href="https://wiki.secondlife.com/wiki/LlRemoteLoadScriptPin" target="_blank">llRemoteLoadScriptPin</a>, and which have the running state set FALSE by that command, may be started.</li>
     <li>The script appears to stop when its time slice ends, not sooner. If a script tries to stop itself then some LSL code following the llSetScriptState call may be executed before the script stops.</li>
-    <li>If a script is paused by llSetScriptState and is then either re-rezzed, in a region during a restart, or moved into a different region, the script's memory is reset.</li>
+    <li>If a script is paused by llSetScriptState and is then either re-rezzed, in a region during a restart, or moved into a different region, the script&#39;s memory is reset.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--Stops the Script, at some non-deterministic time later, until invoked with TRUE, in another script

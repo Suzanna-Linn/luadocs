@@ -13,12 +13,15 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Attempts to resize the entire object by ScalingFactor, maintaining the size-position ratios of the prims.<br><br>Resizing is subject to prim scale limits and linkability limits. This function can not resize the object if the linkset is physical, a pathfinding character, in a keyframed motion, or if resizing would cause the parcel to overflow.<br>Returns a boolean (an integer) TRUE if it succeeds, FALSE if it fails.</p>
+      <p>  <p>Attempts to resize the entire object by <b>scaling_factor</b>, maintaining the size-position ratios of the prims.</p>
+  <p>Resizing is subject to prim scale limits and linkability limits. This function can not resize the object if the linkset is physical, a pathfinding character, in a keyframed motion, or if resizing would cause the parcel to overflow.</p>
+  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if it succeeds, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> if it fails.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
-          <td>ScalingFactor</td>
+          <td>ScalingFactor / scaling_factor</td>
           <td>The multiplier to be used with the prim sizes and their local positions.</td>
         </tr>
       </table>
@@ -42,6 +45,205 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <h2>Caveats</h2>
+  <ul>
+    <li>Due to floating point precision issues (often, sqrt(x*x) != x), avoid rescaling by the values returned by <a href="https://wiki.secondlife.com/wiki/LlGetMinScaleFactor" target="_blank">llGetMinScaleFactor</a> and <a href="https://wiki.secondlife.com/wiki/LlGetMaxScaleFactor" target="_blank">llGetMaxScaleFactor</a>. To guarantee successful rescaling, use values slightly within the limits returned by those functions.</li>
+  </ul>
+  <h2>Examples</h2>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+--  Touching this script causes the object to double or halve in size.
+
+local growing = false
+
+local function main()
+    ll.Say(PUBLIC_CHANNEL, "Touch to toggle scale.")
+end
+
+function LLEvents.touch_start(events)
+    local num_detected = #events
+    growing = not growing
+
+    local min_factor = ll.GetMinScaleFactor()
+    local max_factor = ll.GetMaxScaleFactor()
+
+    ll.Say(PUBLIC_CHANNEL, "min_scale_factor = " .. tostring(min_factor) .. "\nmax_scale_factor = " .. tostring(max_factor))
+
+    local success = 0
+
+    if growing then
+        success = ll.ScaleByFactor(2.0)
+    else
+        success = ll.ScaleByFactor(0.5)
+    end
+
+    if not (success ~= 0) then
+        ll.Say(PUBLIC_CHANNEL, "Scaling failed!")
+    end
+end
+
+main()
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  Touching this script causes the object to double or halve in size.
+
+integer growing;
+
+default
+{
+    state_entry()
+    {
+        llSay(PUBLIC_CHANNEL, "Touch to toggle scale.");
+    }
+
+    touch_start(integer num_detected)
+    {
+        growing = !growing;
+
+        float min_factor = llGetMinScaleFactor();
+        float max_factor = llGetMaxScaleFactor();
+
+        llSay(PUBLIC_CHANNEL, "min_scale_factor = " + (string)min_factor
+                            + "\nmax_scale_factor = " + (string)max_factor);
+
+        integer success;
+
+        if (growing) success = llScaleByFactor(2.0);
+        else         success = llScaleByFactor(0.5);
+
+        if (!success) llSay(PUBLIC_CHANNEL, "Scaling failed!");
+    }
+}`} lang="lsl" /></div>
+  <h2>See Also</h2>
+  <h3>Functions</h3>
+  <table>
+    <tbody>
+      <tr>
+        <td>•</td>
+        <td>llScaleByFactor</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetMaxScaleFactor" target="_blank">llGetMaxScaleFactor</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>•</td>
+        <td><a href="https://wiki.secondlife.com/wiki/LlGetMinScaleFactor" target="_blank">llGetMinScaleFactor</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Deep Notes</h2>
+  <p>This function is roughly equivalent to the following:</p>
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+
+local function VectorAbsStatistics(flag, a)
+    return ll.ListStatistics(flag, {ll.Fabs(a.x), ll.Fabs(a.y), ll.Fabs(a.z)})
+end
+
+local function ScaleByFactor(scale)
+    local root = ll.GetScale() * scale
+
+    if VectorAbsStatistics(LIST_STAT_MAX, root) > 64 or VectorAbsStatistics(LIST_STAT_MIN, root) < 0.01 or scale <= 0 then
+        return ERR_MALFORMED_PARAMS
+    end
+
+    local prims = ll.GetNumberOfPrims()
+    local set = {PRIM_LINK_TARGET, if prims > 1 then 1 else 0, PRIM_SIZE, root}
+
+    if prims > 1 then
+        local get = {}
+        local count = prims
+        repeat
+            get = ll.ListInsertList(get, {PRIM_LINK_TARGET, count, PRIM_SIZE, PRIM_POS_LOCAL}, #get)
+        until not (((function() count -= 1 return count end)() ~= 0))
+        get = ll.GetPrimitiveParams(get)
+        count = 0
+        repeat
+            local size = ll.List2Vector(get, (function() count += 1 return count end)()) * scale
+            local pos = ll.List2Vector(get, (function() count += 1 return count end)()) * scale
+
+            if VectorAbsStatistics(LIST_STAT_MAX, size) > 64 or VectorAbsStatistics(LIST_STAT_MIN, size) < 0.01 or VectorAbsStatistics(LIST_STAT_MAX, pos) > 54 then
+                return ERR_MALFORMED_PARAMS
+            end
+
+            set = ll.ListInsertList(set, {PRIM_LINK_TARGET, prims, PRIM_POS_LOCAL, pos, PRIM_SIZE, size}, #set)
+        until not ((function() prims -= 1 return prims end)() > 1)
+    end
+    ll.SetPrimitiveParams(set)
+    return true
+end
+`} lang="slua" /></div>
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float VectorAbsStatistics(integer flag, vector a){
+    return llListStatistics(flag, [llFabs(a.x), llFabs(a.y), llFabs(a.z)]);
+}
+
+integer ScaleByFactor(float scale) {
+    vector root = llGetScale() * scale;
+
+    if (VectorAbsStatistics(LIST_STAT_MAX, root) > 64
+        || VectorAbsStatistics(LIST_STAT_MIN, root) < 0.01
+        || scale <= 0)
+    {
+        return ERR_MALFORMED_PARAMS;
+    }
+
+    integer prims = llGetNumberOfPrims();
+    list set = [PRIM_LINK_TARGET, prims > 1, PRIM_SIZE, root];
+
+    if (prims > 1) {
+        list get = [];
+        integer count = prims;
+        do {
+            get += [PRIM_LINK_TARGET, count, PRIM_SIZE, PRIM_POS_LOCAL];
+        } while(--count);
+        get = llGetPrimitiveParams(get);
+        count = 0;
+        do {
+            vector size = llList2Vector(get, ++count) * scale;
+            vector pos  = llList2Vector(get, ++count) * scale;
+
+            if (VectorAbsStatistics(LIST_STAT_MAX, size) > 64
+                || VectorAbsStatistics(LIST_STAT_MIN, size) < 0.01
+                || VectorAbsStatistics(LIST_STAT_MAX, pos) > 54 )
+            {
+                return ERR_MALFORMED_PARAMS;
+            }
+
+            set += [PRIM_LINK_TARGET, prims,
+                        PRIM_POS_LOCAL, pos,
+                        PRIM_SIZE, size];
+        } while(--prims > 1);
+    }
+    llSetPrimitiveParams(set);
+    return TRUE;
+}`} lang="lsl" /></div>
+  <p>History</p>
+  <ul>
+    <li>Mentioned in <a href="https://wiki.secondlife.com/wiki/Simulator_User_Group/Transcripts/2013.12.10" target="_blank">Simulator_User_Group/Transcripts/2013.12.10</a></li>
+    <li>Mentioned in <a href="https://wiki.secondlife.com/wiki/Simulator_User_Group/Transcripts/2013.12.17" target="_blank">Simulator_User_Group/Transcripts/2013.12.17</a></li>
+  </ul>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llScaleByFactor( float scaling_factor );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

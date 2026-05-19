@@ -194,7 +194,7 @@ default
   <p>Best Practices</p>
   <p>As a cryptographic technique, XOR is weak and there are several attacks that can be leveraged to determine the XOR inputs. Depending upon how the secrets are used cracking a single message could expose the input secrets, resulting in the derived algorithm being broken.</p>
   <p>Keep your secrets secret. Use a seeded trap door function to shake up the bits of the secret before using with the XOR and change the seed often.</p>
-  <p>Do not XOR a value by two differing length values without knowing the implications. It may seem like a good idea but what it actually does is link the fields. While it will give you a longer key value (the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Least_Common_Multiple" target="_blank">Least Common Multiple</a> in length), the fields will be linked such that there are really only as many fields as the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Greatest_Common_Divisor" target="_blank">Greatest Common Divisor</a>. The number of unique fields determines the theoretical maximum number of keys an attacker has to try.</p>
+  <p>Do not XOR a value by two differing length values without knowing the implications. It may seem like a good idea but what it actually does is link the fields. While it will give you a longer key value (the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Least_Common_Multiple" target="_blank">Least Common Multiple</a> in length), the fields will be linked such that there are really only as many fields as the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Greatest_Common_Divisor" target="_blank">Greatest Common Divisor</a>. The number of unique fields determines the theoretical maximum number of keys an attacker has to try.</p>
   <p>Unique_Key_Fields = Greatest_Common_Divisor(lengths_of_keys) * number_of_keys</p>
   <p>Attack Vectors</p>
   <p>First thing you need to know is that XOR is limited poly-alphabetic cipher. The attack vectors that work for poly-alphabetic ciphers work for XOR.</p>
@@ -207,7 +207,7 @@ default
   <h3>How to decode with php</h3>
   <p>PHP script can be found in <a href="http://lslwiki.net/lslwiki/wakka.php?wakka=llXorBase64StringsCorrect" target="_blank">LSL Wiki</a>.
 An older version of the code can be found here: <a href="https://wiki.secondlife.com/wiki/User:SignpostMarv_Martin/LSL2/llXorBase64StringsCorrect" target="_blank">llXorBase64StringsCorrect in PHP</a>.</p>
-  <p>Implementation of SignpostMarv's decoder in PHP.</p>
+  <p>Implementation of SignpostMarv&#39;s decoder in PHP.</p>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`<?php
 /* 
  * Description: Implementation of SignpostMarv's php base64 decoder.

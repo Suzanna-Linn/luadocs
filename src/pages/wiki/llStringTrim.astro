@@ -77,7 +77,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>Whenever you are accepting unstructured input from a user -- whether via chat or via a notecard -- it is a good idea to always full trim it:</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.StringTrim("User input", STRING_TRIM)`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llStringTrim("User input", STRING_TRIM);`} lang="lsl" /></div>
-  <p>This example returns the number of leading and trailing 'white space' characters on a string that were removed (not particularly useful but shows how to use the function).</p>
+  <p>This example returns the number of leading and trailing &#39;white space&#39; characters on a string that were removed (not particularly useful but shows how to use the function).</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
     ll.Listen(4, "", ll.GetOwner(), "")
 end
@@ -132,10 +132,10 @@ main()
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
   <ul>
-    <li>The exact set of characters stripped are 0x09 (tab), line feed (0x0a, "\n"), vertical tab (0x0b), form feed (0x0c), carriage return (0x0d) and space (0x20, " ").
+    <li>The exact set of characters stripped are 0x09 (tab), line feed (0x0a, &quot;\n&quot;), vertical tab (0x0b), form feed (0x0c), carriage return (0x0d) and space (0x20, &quot; &quot;).
     <ul>
       <li>Only line feed and space function as true whitespace within SL, the others will produce some manner of a printable character.</li>
-      <li>The "\t" escape code doesn't actually represent the tab character, but several spaces instead.</li>
+      <li>The &quot;\t&quot; escape code doesn&#39;t actually represent the tab character, but several spaces instead.</li>
       <li>Other whitespace characters defined in Unicode, such as non-breaking space (0xa0) or specific-width spaces in the 0x2000 range are not stripped.</li>
     </ul>
   

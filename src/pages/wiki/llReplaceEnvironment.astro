@@ -22,13 +22,13 @@ In most cases errors are reported as a return value from the function (see table
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
-          <td>The position in the region of the parcel that will receive the new environment. To change the entire region use <-1, -1, -1>. The z component of the vector is ignored.</td>
+          <td>The position in the region of the parcel that will receive the new environment. To change the entire region use &lt;-1, -1, -1&gt;. The z component of the vector is ignored.</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
           <td>environment</td>
-          <td>The name of an environmental setting in the object's inventory or the asset ID for an environment. NULL_KEY or empty string to remove the environment.</td>
+          <td>The name of an environmental setting in the object&#39;s inventory or the asset ID for an environment. NULL_KEY or empty string to remove the environment.</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -104,9 +104,9 @@ In most cases errors are reported as a return value from the function (see table
   <ul>
     <li>An environment set locally on the viewer will override any environment set from this function.</li>
     <li>A parameter override set by <a href="https://wiki.secondlife.com/wiki/LlSetEnvironment" target="_blank">llSetEnvironment</a> will be preserved after the environment is replaced by this function. Call <a href="https://wiki.secondlife.com/wiki/LlSetEnvironment" target="_blank">llSetEnvironment</a> with an empty list parameter to clear any straggling overrides.</li>
-    <li>The environment specified by this function is applied asynchronously, as the simulator must download the environment asset before applying it. This means that <a href="https://wiki.secondlife.com/wiki/LlGetEnvironment" target="_blank">llGetEnvironment</a> will not immediately reflect the new environment's parameters, although the delay is typically quite small.</li>
+    <li>The environment specified by this function is applied asynchronously, as the simulator must download the environment asset before applying it. This means that <a href="https://wiki.secondlife.com/wiki/LlGetEnvironment" target="_blank">llGetEnvironment</a> will not immediately reflect the new environment&#39;s parameters, although the delay is typically quite small.</li>
     <li>If a UUID is passed as the environment parameter and that UUID does not specify an environment setting or one can not be constructed, the function will return success (1) but will post a message to the debug channel.</li>
-    <li>If the parcel is group-owned, the script must either be deeded to the group, or the script owner must have "Modify environment settings and day cycle" group ability <b>and</b> have an active agent in the sim.</li>
+    <li>If the parcel is group-owned, the script must either be deeded to the group, or the script owner must have &quot;Modify environment settings and day cycle&quot; group ability <b>and</b> have an active agent in the sim.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  Will set the entire region to the "Tropicalia" EEP from the Linden inventory when touched. 

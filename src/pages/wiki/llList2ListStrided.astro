@@ -94,7 +94,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>If either <b>start</b> or <b>end</b> are out of bounds the script continues to execute without an error message.</li>
-    <li><b>start</b> & <b>end</b> will not form an <a href="#exclusion_range" target="_blank">exclusion range</a> when <b>start</b> is past <b>end</b> (Approximately: <b>start</b> > <b>end</b>), instead it will act as if <b>start</b> was zero & <b>end</b> was -1.</li>
+    <li><b>start</b> &amp; <b>end</b> will not form an <a href="#exclusion_range" target="_blank">exclusion range</a> when <b>start</b> is past <b>end</b> (Approximately: <b>start</b> &gt; <b>end</b>), instead it will act as if <b>start</b> was zero &amp; <b>end</b> was -1.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -159,11 +159,11 @@ default
     }
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
-  <h3>Ranges & Indexes</h3>
+  <h3>Ranges &amp; Indexes</h3>
   <p>The easiest way to explain how ranges work is to make all indexes positive. Negative indexes are just a way of counting from the tail end instead of the beginning, all negative indexes have a corresponding equivalent positive index (assuming they are in range). Positive indexes past length (after the last index), or negative indexes past the beginning (before the first index) are valid and the effects are predictable and reliable: the entries are treated as if they were there but were removed just before output.</p>
   <ul>
-    <li>If <b>start</b> <= <b>end</b> then the range operated on starts at <b>start</b> and ends at <b>end</b>. [<b>start</b>, <b>end</b>]</li>
-    <li>Exclusion range: If <b>start</b> > <b>end</b> then the range operated on starts at <b>0</b> and goes to <b>end</b> and then starts again at <b>start</b> and goes to <b>-1</b>. [<b>0</b>, <b>end</b>] + [<b>start</b>, <b>-1</b>]
+    <li>If <b>start</b> &lt;= <b>end</b> then the range operated on starts at <b>start</b> and ends at <b>end</b>. [<b>start</b>, <b>end</b>]</li>
+    <li>Exclusion range: If <b>start</b> &gt; <b>end</b> then the range operated on starts at <b>0</b> and goes to <b>end</b> and then starts again at <b>start</b> and goes to <b>-1</b>. [<b>0</b>, <b>end</b>] + [<b>start</b>, <b>-1</b>]
     <ul>
       <li>If <b>end</b> is a negative index past the beginning, then the operating range would be [<b>start</b>, <b>-1</b>].</li>
       <li>If <b>end</b> is a positive index past the end, then the operating range would be [<b>0</b>, <b>end</b>].</li>
@@ -222,7 +222,7 @@ function list llList2ListStrided( list src, integer start, integer end, integer 
       </tr>
       <tr>
         <td><p>Ah, the strided list.</p>
-<p>C had structs in the '70s.</p>
+<p>C had structs in the &#39;70s.</p>
 <p>Someday, we will, too...</p></td>
       </tr>
     </tbody>

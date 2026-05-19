@@ -13,13 +13,13 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Returns a vector the rotation axis represented by <b>rot</b></p>
-</p>
+      <p>Returns the rotation axis represented by Rotation.
+Returns the axis represented by the Rotation.</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
-          <td>Rotation / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/rot" target="_blank">rot</a></td>
+          <td>Rotation</td>
           <td></td>
         </tr>
       </table>
@@ -47,84 +47,6 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>Use in conjunction with <a href="https://wiki.secondlife.com/wiki/LlRot2Angle" target="_blank">llRot2Angle</a>.</p>
-  <p>To undo use <a href="https://wiki.secondlife.com/wiki/LlAxisAngle2Rot" target="_blank">llAxisAngle2Rot</a> or <a href="https://wiki.secondlife.com/wiki/LlAxes2Rot" target="_blank">llAxes2Rot</a>.</p>
-  <h2>See Also</h2>
-  <h3>Functions</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Angle" target="_blank">llRot2Angle</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlAxisAngle2Rot" target="_blank">llAxisAngle2Rot</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Left" target="_blank">llRot2Left</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Fwd" target="_blank">llRot2Fwd</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlRot2Up" target="_blank">llRot2Up</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3>Articles</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Slerp" target="_blank">Slerp</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Deep Notes</h2>
-<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llRot2Axis(rotation a) {
-    if(a.s < 0)
-        return -llVecNorm(<a.x, a.y, a.z>);
-    return llVecNorm(<a.x, a.y, a.z>)
-}`} lang="lsl" /></div>
-<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector llRot2Axis(rotation a) {
-    return llVecNorm(<a.x, a.y, a.z>) * (1 | -(a.s < 0));
-}`} lang="lsl" /></div>
-  <table>
-    <tbody>
-      <tr>
-        <th>Signature</th>
-      </tr>
-      <tr>
-        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
-function vector llRot2Axis( rotation rot );
-`} lang="lsl" /></div>
-
-</td>
-      </tr>
-    </tbody>
-  </table>
 
 </DocsLayout>
       

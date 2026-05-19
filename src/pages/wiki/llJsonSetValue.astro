@@ -16,12 +16,12 @@ import DocsCode from '/src/components/DocsCode.astro';
       <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use lljson.encode because Also, the indices are zero-based.</span></p>
       <p>  <p>Returns, if successful, a new <a href="http://json.org" target="_blank">JSON</a> text <i>string</i> which is <b>json</b> with the value indicated by the <b>specifiers</b> list set to <b>value</b>.</p>
   <p>If unsuccessful (usually because of specifying an out of bounds array index) it returns <a href="https://wiki.secondlife.com/wiki/JSON_INVALID" target="_blank">JSON_INVALID</a>.</p>
-  <p>An "out of bounds array index" is defined to be any Integer <b>specifiers</b> greater than the length of an existing array at that level within the Json text or greater than 0 (zero) at a level an array doesn't exist.</p>
-  <p>A special <b>specifiers</b>, <a href="https://wiki.secondlife.com/wiki/JSON_APPEND" target="_blank">JSON_APPEND</a>, is accepted which appends the <b>value</b> to the end of the array at the <b>specifiers</b> level. Care should be taken- if that level is not an array, the existing Value there will be overwritten and replaced with an array containing <b>value</b> at it's first (0) index.</p>
+  <p>An &quot;out of bounds array index&quot; is defined to be any Integer <b>specifiers</b> greater than the length of an existing array at that level within the Json text or greater than 0 (zero) at a level an array doesn&#39;t exist.</p>
+  <p>A special <b>specifiers</b>, <a href="https://wiki.secondlife.com/wiki/JSON_APPEND" target="_blank">JSON_APPEND</a>, is accepted which appends the <b>value</b> to the end of the array at the <b>specifiers</b> level. Care should be taken- if that level is not an array, the existing Value there will be overwritten and replaced with an array containing <b>value</b> at it&#39;s first (0) index.</p>
   <p>Contrary to <a href="https://wiki.secondlife.com/wiki/List" target="_blank">lists</a> and <a href="https://wiki.secondlife.com/wiki/String" target="_blank">strings</a>, negative indexing of Json arrays is <b>not</b> supported.</p>
-  <p>If an existing "Key" is <b>specifiers</b> at that level, its Value will be overwritten by <b>value</b> unless <b>value</b> is the magic value <a href="https://wiki.secondlife.com/wiki/JSON_DELETE" target="_blank">JSON_DELETE</a>. If a value does not exist at <b>specifiers</b>, a new Key:Value pair will be formed within the Json object.</p>
+  <p>If an existing &quot;Key&quot; is <b>specifiers</b> at that level, its Value will be overwritten by <b>value</b> unless <b>value</b> is the magic value <a href="https://wiki.secondlife.com/wiki/JSON_DELETE" target="_blank">JSON_DELETE</a>. If a value does not exist at <b>specifiers</b>, a new Key:Value pair will be formed within the Json object.</p>
   <p>To delete an existing value at <b>specifiers</b>, use <a href="https://wiki.secondlife.com/wiki/JSON_DELETE" target="_blank">JSON_DELETE</a> as the <b>value</b>. Note it will not prune empty objects or arrays at higher levels.</p>
-  <p>If <b>value</b> is <a href="https://wiki.secondlife.com/wiki/JSON_TRUE" target="_blank">JSON_TRUE</a>, <a href="https://wiki.secondlife.com/wiki/JSON_FALSE" target="_blank">JSON_FALSE</a> or <a href="https://wiki.secondlife.com/wiki/JSON_NULL" target="_blank">JSON_NULL</a>, the Value set will be the bare words 'true', 'false' or 'null', respectively, at the <b>specifiers</b> location within <b>json</b>.</p>
+  <p>If <b>value</b> is <a href="https://wiki.secondlife.com/wiki/JSON_TRUE" target="_blank">JSON_TRUE</a>, <a href="https://wiki.secondlife.com/wiki/JSON_FALSE" target="_blank">JSON_FALSE</a> or <a href="https://wiki.secondlife.com/wiki/JSON_NULL" target="_blank">JSON_NULL</a>, the Value set will be the bare words &#39;true&#39;, &#39;false&#39; or &#39;null&#39;, respectively, at the <b>specifiers</b> location within <b>json</b>.</p>
   <p>Returns a string</p>
 </p>
       <table class="param-table" id="parameters">
@@ -434,7 +434,7 @@ default
         run_json_test(TEST_STRING_JSON);
     }
 }`} lang="lsl" /></div>
-  <p>Double-quotes in string values are escaped. The following script inserts literal `string \"with\" quote` instead of `string "with" quotes` as the JSON value.</p>
+  <p>Double-quotes in string values are escaped. The following script inserts literal `string \&quot;with\&quot; quote` instead of `string &quot;with&quot; quotes` as the JSON value.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
     local test = "[\"a\"]"
     local add = "string \"with\" quotes"

@@ -49,14 +49,14 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>Instantaneous impulse. <a href="https://wiki.secondlife.com/wiki/LlSetForce" target="_blank">llSetForce</a> has continuous push. "Instantaneous" seems to mean a one second impulse.</p>
+  <p>Instantaneous impulse. <a href="https://wiki.secondlife.com/wiki/LlSetForce" target="_blank">llSetForce</a> has continuous push. &quot;Instantaneous&quot; seems to mean a one second impulse.</p>
   <p>This function actually expects <b>momentum</b> to be expressed in **Lindograms * meters per second**.</p>
   <p>See below for an example script to accelerate an object to a specific velocity. (Alternately, use <a href="https://wiki.secondlife.com/wiki/LlSetVelocity" target="_blank">llSetVelocity</a>)</p>
   <h2>Caveats</h2>
   <ul>
     <li>Only works in <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics-enabled</a> objects.</li>
     <li>Sets an initial momentum on the object applied to the center of Mass . Momentum is the mass*velocity needed to get an initial movement of velocity if the object is not affected by other forces ( such as gravity )</li>
-    <li>The <a href="https://wiki.secondlife.com/wiki/LlVecMag" target="_blank">magnitude</a> of <b>momentum</b> may be scaled back by the object's available energy. For heavy objects , the cap of momentum will be momentum = 20000 . ( and not 20 as told previously ). For fast objects , the velocity will be capped to 202 meters/second ( and so the momentum will reflect this cap )</li>
+    <li>The <a href="https://wiki.secondlife.com/wiki/LlVecMag" target="_blank">magnitude</a> of <b>momentum</b> may be scaled back by the object&#39;s available energy. For heavy objects , the cap of momentum will be momentum = 20000 . ( and not 20 as told previously ). For fast objects , the velocity will be capped to 202 meters/second ( and so the momentum will reflect this cap )</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -308,8 +308,8 @@ default
   <p>Unpredictability</p>
   <p>Taken from <a href="https://wiki.secondlife.com/wiki/Simulator_User_Group/Transcripts/2012.10.05" target="_blank">Simulator User Group/Transcripts/2012.10.05</a></p>
   <p>[16:24] <b>Andrew Linden</b>: the llApplyImpulse() is even more unpredictable</p>
-  <p>[16:24] <b>Andrew Linden</b>: because it uses the legacy script "energy budget"</p>
-  <p>[16:25] <b>Andrew Linden</b>: which will attenuate the results if the scripted object doesn't have enough "energy" to execute the impulse that it wants</p>
+  <p>[16:24] <b>Andrew Linden</b>: because it uses the legacy script &quot;energy budget&quot;</p>
+  <p>[16:25] <b>Andrew Linden</b>: which will attenuate the results if the scripted object doesn&#39;t have enough &quot;energy&quot; to execute the impulse that it wants</p>
   <p>[16:25] <b>Andrew Linden</b>: also, that llApplyImpulse() has great griefing potential</p>
   <p>[16:25] <b>Andrew Linden</b>: so we hobbled it a long time ago with a very high energy consumption rate</p>
   <table>

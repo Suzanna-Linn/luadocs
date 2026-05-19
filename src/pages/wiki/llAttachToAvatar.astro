@@ -47,7 +47,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&#32;and it must be granted by the owner.</p>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&amp;#32;and it must be granted by the owner.</p>
   <p>If <b>attach_point</b> is zero, then the object attaches to the attach point it was most recently attached to.</p>
   <table>
     <tbody>
@@ -404,7 +404,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Comment</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=ATTACH_ANY_HUD&action=edit&redlink=1" target="_blank">ATTACH_ANY_HUD</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=ATTACH_ANY_HUD&amp;action=edit&amp;redlink=1" target="_blank">ATTACH_ANY_HUD</a></td>
         <td>-1</td>
         <td>A special constant representing all HUD attachment points when filtering.</td>
       </tr>
@@ -427,11 +427,11 @@ Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_b
   <ul>
     <li>Attach points can be occupied by multiple attachments.[[1]](#footnote_1)
     <ul>
-      <li>This was not always the case, previously if <b>attach_point</b> was occupied, the existing object was detached and the new attachment took it's place.</li>
+      <li>This was not always the case, previously if <b>attach_point</b> was occupied, the existing object was detached and the new attachment took it&#39;s place.</li>
     </ul>
   
     </li>
-    <li>Objects attached to the head (and any attachment position within the head) will not be visible in First Person view (aka <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">Mouselook</a>) if "show attachments in mouselook" is disable.</li>
+    <li>Objects attached to the head (and any attachment position within the head) will not be visible in First Person view (aka <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">Mouselook</a>) if &quot;show attachments in mouselook&quot; is disable.</li>
     <li>If <b>attach_point</b> is zero but the object was never previously attached, it defaults to the right hand (<a href="https://wiki.secondlife.com/wiki/ATTACH_RHAND" target="_blank">ATTACH_RHAND</a>).</li>
     <li>If the object is already attached the function fails silently, regardless if the <b>attach_point</b> is a different <a href="https://wiki.secondlife.com/wiki/LlGetAttached" target="_blank">attach point</a>. -- <a href="https://wiki.secondlife.com/wiki/Template:Issues/SCR-137" target="_blank">SCR-137</a></li>
   </ul>
@@ -605,7 +605,7 @@ function void llAttachToAvatar( integer attach_point );
         <th>Haiku</th>
       </tr>
       <tr>
-        <td><p>Embrace me. I'm yours</p>
+        <td><p>Embrace me. I&#39;m yours</p>
 <p>Forever. Even detached</p>
 <p>To inventory.</p></td>
       </tr>

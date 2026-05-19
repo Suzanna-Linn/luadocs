@@ -62,8 +62,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>The index of the first entry in the list is 0</p>
   <p>An expansion of llListFindList which adds an instance parameter to select the nth match to test parameter.</p>
   <p>llListFindListNext(src, test, 0); is functionally equivalent to llListFindList(src, test);</p>
-  <p>Given a list like [ 'Resident', 'Alexia', 'Resident', 'Bob', 'Resident', 'Steve', 'Resident', 'Evil' ]
-using a test of [ 'Resident' ] and an instance of 0, 1, 2, 3 would return indices of 0, 2, 4, and 6 respectively.
+  <p>Given a list like [ &#39;Resident&#39;, &#39;Alexia&#39;, &#39;Resident&#39;, &#39;Bob&#39;, &#39;Resident&#39;, &#39;Steve&#39;, &#39;Resident&#39;, &#39;Evil&#39; ]
+using a test of [ &#39;Resident&#39; ] and an instance of 0, 1, 2, 3 would return indices of 0, 2, 4, and 6 respectively.
 Selecting the 4th or greater instance will not be found and will return -1.</p>
   <p>Reverse indexing is also supported. Using an instance of -1, -2, -3, -4 would respectively return 6, 4, 2, 0
 And -5 and lower would again return -1</p>
@@ -72,11 +72,11 @@ And -5 and lower would again return -1</p>
   <ul>
     <li>Strict type matching and case sensitivity is enforced.
     <ul>
-      <li>"1" != 1</li>
-      <li>"1.0" != 1.0</li>
+      <li>&quot;1&quot; != 1</li>
+      <li>&quot;1.0&quot; != 1.0</li>
       <li>1 != 1.0</li>
-      <li>"a822ff2b-ff02-461d-b45d-dcd10a2de0c2" != (key)"a822ff2b-ff02-461d-b45d-dcd10a2de0c2"</li>
-      <li>"Justice" != "justice"</li>
+      <li>&quot;a822ff2b-ff02-461d-b45d-dcd10a2de0c2&quot; != (key)&quot;a822ff2b-ff02-461d-b45d-dcd10a2de0c2&quot;</li>
+      <li>&quot;Justice&quot; != &quot;justice&quot;</li>
     </ul>
   
     </li>

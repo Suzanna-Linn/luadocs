@@ -80,8 +80,8 @@ integer Base64ToInt24(string value)
   <p>If you are looking for full Unicode translation, not just ASCII7 see: <a href="https://wiki.secondlife.com/wiki/Combined_Library#Unicode_Integer_to_UTF8" target="_blank">Combined_Library</a></p>
   <h2>Notes</h2>
   <ul>
-    <li>Only the first 6 of the 8 characters returned are needed to decoded it back into an integer. The padding "==" can be safely removed for storage.</li>
-    <li>"Big-endian" refers to the fact that the most significant, i.e. highest byte of the integer is processed first: the first characters in the returned Base64 string correspond to this byte, and the last characters correspond to the least significant byte.
+    <li>Only the first 6 of the 8 characters returned are needed to decoded it back into an integer. The padding &quot;==&quot; can be safely removed for storage.</li>
+    <li>&quot;Big-endian&quot; refers to the fact that the most significant, i.e. highest byte of the integer is processed first: the first characters in the returned Base64 string correspond to this byte, and the last characters correspond to the least significant byte.
     <ul>
       <li>Combined with bit-shifting, removing characters from the Base64 string allows more efficient packing of small values. See <a href="https://wiki.secondlife.com/wiki/LlBase64ToInteger#Caveats" target="_blank">llBase64ToInteger caveats</a> for specifics.</li>
     </ul>

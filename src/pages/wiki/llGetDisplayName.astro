@@ -46,21 +46,21 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><b>id</b> must specify a valid avatar key, present in or otherwise known to the sim in which the script is running, otherwise an empty string is returned. This function will still return a valid display name if the avatar is a child agent of the sim (i.e., in an adjacent sim, but presently able to see into the one the script is in), or for a short period after the avatar leaves the sim (specifically, when the client completely disconnects from the sim, either as a main or child agent).</p>
   <h2>Caveats</h2>
   <ul>
-    <li>To get around the "avatar must be present" limitation, you can use the <a href="https://wiki.secondlife.com/wiki/LlRequestDisplayName" target="_blank">llRequestDisplayName</a> function and the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event to obtain the avatar's display name from a key (this is slower).</li>
-    <li>There is no opposite function (<a href="https://wiki.secondlife.com/w/index.php?title=LlDisplayName2Key&action=edit&redlink=1" target="_blank">llDisplayName2Key</a>) available since display names are non-unique.</li>
-    <li>Either of `???` or `""` is returned if the region is unable to return display names. This can happen even if display names are enabled on the region, especially the first time a given key is checked. At least one retry may be advisable. Do not rely on this function to verify avatar presence.</li>
-    <li>It is possible for `Loading...` to be returned if called before the region has had a chance to resolve the agent's display name.
+    <li>To get around the &quot;avatar must be present&quot; limitation, you can use the <a href="https://wiki.secondlife.com/wiki/LlRequestDisplayName" target="_blank">llRequestDisplayName</a> function and the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event to obtain the avatar&#39;s display name from a key (this is slower).</li>
+    <li>There is no opposite function (<a href="https://wiki.secondlife.com/w/index.php?title=LlDisplayName2Key&amp;action=edit&amp;redlink=1" target="_blank">llDisplayName2Key</a>) available since display names are non-unique.</li>
+    <li>Either of `???` or `&quot;&quot;` is returned if the region is unable to return display names. This can happen even if display names are enabled on the region, especially the first time a given key is checked. At least one retry may be advisable. Do not rely on this function to verify avatar presence.</li>
+    <li>It is possible for `Loading...` to be returned if called before the region has had a chance to resolve the agent&#39;s display name.
     <ul>
       <li>Do <i>not</i> retry failed attempts indefinitely in a loop. In a few cases, a display name or username will not be returned for as long as the avatar is in the region.</li>
     </ul>
   
     </li>
     <li><p>If you merely wish to show the agent display name in the viewer window, it may be more straightforward to use <a href="https://wiki.secondlife.com/wiki/Viewer_URI_Name_Space" target="_blank">Viewer URI Name Space</a>, e.g.:</p>
-<p><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
 llSay(0, "secondlife:///app/agent/" + (string)id + "/displayname");
 `} lang="lsl" /></div>
 
-</p></li>
+</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -137,9 +137,9 @@ function string llGetDisplayName( key id );
         <th>Haiku</th>
       </tr>
       <tr>
-        <td><p>Hi! My name's Jerome,</p>
+        <td><p>Hi! My name&#39;s Jerome,</p>
 <p>But you can call me Alice.</p>
-<p>Don't tell my mother.</p></td>
+<p>Don&#39;t tell my mother.</p></td>
       </tr>
     </tbody>
   </table>

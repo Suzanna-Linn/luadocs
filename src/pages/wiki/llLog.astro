@@ -14,8 +14,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use math.log because Double precision; fastcall.</span></p>
-      <p>  <p>Returns a float that is the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/natural_logarithm" target="_blank">natural logarithm</a> of <b>val</b>.</p>
-  <p>If <b>val</b> <= 0 return 0.0 instead.</p>
+      <p>  <p>Returns a float that is the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/natural_logarithm" target="_blank">natural logarithm</a> of <b>val</b>.</p>
+  <p>If <b>val</b> &lt;= 0 return 0.0 instead.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -91,7 +91,7 @@ default
   <p>There are only two log functions llLog and <a href="https://wiki.secondlife.com/wiki/LlLog10" target="_blank">llLog10</a>. Errors introduced as a result of floating-point arithmetic are most noticable when working with logarithms. llLog should be used instead of <a href="https://wiki.secondlife.com/wiki/LlLog10" target="_blank">llLog10</a> when converting the base of the logarithm.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local LogBaseN = ll.Log(value) / ll.Log(Base)  --This technique introduces errors but is the only way`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`float LogBaseN = llLog(value) / llLog(Base); //This technique introduces errors but is the only way`} lang="lsl" /></div>
-  <p>If Base is a constant, your script will run faster if you calculate it's log and divide by that constant instead.</p>
+  <p>If Base is a constant, your script will run faster if you calculate it&#39;s log and divide by that constant instead.</p>
   <table>
     <tbody>
       <tr>
@@ -168,7 +168,7 @@ default
     <tbody>
       <tr>
         <td>•</td>
-        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Natural_logarithm" target="_blank">Natural logarithm</a></td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Natural_logarithm" target="_blank">Natural logarithm</a></td>
         <td></td>
         <td></td>
         <td></td>

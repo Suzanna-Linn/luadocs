@@ -26,7 +26,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>Water / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">water</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> then hover above water too (or below if <b>height</b> is negative), if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> ignore water like it isn't there</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Boolean" target="_blank">boolean</a>, if <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> then hover above water too (or below if <b>height</b> is negative), if <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> ignore water like it isn&#39;t there</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -60,7 +60,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>Only works in <a href="https://wiki.secondlife.com/wiki/STATUS_PHYSICS" target="_blank">physics-enabled</a> objects.</li>
-    <li>Do not rely on built-in limits. In the past, the difference between the object's initial position and the hover height was limited to 64 meters. Under SL Server 1.26.2 the limit is 4096 meters above the ground level.</li>
+    <li>Do not rely on built-in limits. In the past, the difference between the object&#39;s initial position and the hover height was limited to 64 meters. Under SL Server 1.26.2 the limit is 4096 meters above the ground level.</li>
     <li>This is not a prim property; stopping or resetting the script stops llSetHoverHeight; same with the similar <a href="https://wiki.secondlife.com/wiki/LlGroundRepel" target="_blank">llGroundRepel</a></li>
     <li>If the object tries to go above the height (like, walking up a prim ramp), llSetHoverHeight will pull it back down, unlike the similar <a href="https://wiki.secondlife.com/wiki/LlGroundRepel" target="_blank">llGroundRepel</a></li>
   </ul>

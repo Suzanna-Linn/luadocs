@@ -13,13 +13,14 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>Returns TRUE if Position is over public land, sandbox land, land that doesn't allow everyone to edit and build, or land that doesn't allow outside scripts.<br>Returns true if the position is over public land, land that doesn't allow everyone to edit and build, or land that doesn't allow outside scripts.</p>
+      <p>  <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) that is <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if <b>pos</b> is over public land, sandbox land, land that doesn&#39;t allow everyone to edit and build, or land that doesn&#39;t allow outside scripts.</p>
+</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
-          <td>Position</td>
-          <td></td>
+          <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a></td>
         </tr>
       </table>
     </div>
@@ -43,6 +44,22 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
+  <p>The usefulness of this function is limited as it does not give the reason why the script would be in danger. <a href="https://wiki.secondlife.com/wiki/LlGetParcelFlags" target="_blank">llGetParcelFlags</a> on the other hand can be used in much the same way and gives more detailed information.</p>
+  <h2>Deep Notes</h2>
+  <table>
+    <tbody>
+      <tr>
+        <th>Signature</th>
+      </tr>
+      <tr>
+        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
+function integer llScriptDanger( vector pos );
+`} lang="lsl" /></div>
+
+</td>
+      </tr>
+    </tbody>
+  </table>
 
 </DocsLayout>
       

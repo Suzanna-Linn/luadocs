@@ -13,19 +13,19 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Sets the vehicle vector parameter <b>param</b> to <b>vec</b>.</p>
-</p>
+      <p>Sets a vehicle vector parameter.
+Valid parameters can be found in the wiki documentation.</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>ParameterName / param</td>
-          <td>VEHICLE_* flag</td>
+          <td>ParameterName</td>
+          <td></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
-          <td>ParameterValue / vec</td>
+          <td>ParameterValue</td>
           <td></td>
         </tr>
       </table>
@@ -48,91 +48,6 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <table>
-    <tbody>
-      <tr>
-        <th>Constant</th>
-        <th></th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_ANGULAR_FRICTION_TIMESCALE" target="_blank">VEHICLE_ANGULAR_FRICTION_TIMESCALE</a></td>
-        <td>17</td>
-        <td>vector of timescales for exponential decay of angular velocity about the three vehicle axes</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_ANGULAR_MOTOR_DIRECTION" target="_blank">VEHICLE_ANGULAR_MOTOR_DIRECTION</a></td>
-        <td>19</td>
-        <td>angular velocity that the vehicle will try to achieve</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_LINEAR_FRICTION_TIMESCALE" target="_blank">VEHICLE_LINEAR_FRICTION_TIMESCALE</a></td>
-        <td>16</td>
-        <td>vector of timescales for exponential decay of linear velocity along the three vehicle axes</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_LINEAR_MOTOR_DIRECTION" target="_blank">VEHICLE_LINEAR_MOTOR_DIRECTION</a></td>
-        <td>18</td>
-        <td>linear velocity that the vehicle will try to achieve</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_LINEAR_MOTOR_OFFSET" target="_blank">VEHICLE_LINEAR_MOTOR_OFFSET</a></td>
-        <td>20</td>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=Offset&action=edit&redlink=1" target="_blank">offset</a> from the <a href="https://wiki.secondlife.com/wiki/LlGetCenterOfMass" target="_blank">center of mass</a> of the vehicle where the linear motor is applied.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Notes</h2>
-  <ul>
-    <li><a href="https://wiki.secondlife.com/wiki/VEHICLE_ANGULAR_MOTOR_DIRECTION" target="_blank">VEHICLE_ANGULAR_MOTOR_DIRECTION</a> may conflict with any active <a href="https://wiki.secondlife.com/wiki/LlTargetOmega" target="_blank">llTargetOmega</a> set in the root prim and prevent vehicle turns. Call llTargetOmega with a gain of 0 to disable it.</li>
-  </ul>
-  <h2>See Also</h2>
-  <h3>Functions</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlSetVehicleRotationParam" target="_blank">llSetVehicleRotationParam</a></td>
-        <td>–</td>
-        <td>Sets a vehicle rotation parameter</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlSetVehicleFloatParam" target="_blank">llSetVehicleFloatParam</a></td>
-        <td>–</td>
-        <td>Sets a vehicle float parameter</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3>Articles</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Linden_Vehicle_Tutorial" target="_blank">Linden Vehicle Tutorial</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Deep Notes</h2>
-  <table>
-    <tbody>
-      <tr>
-        <th>Signature</th>
-      </tr>
-      <tr>
-        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
-function void llSetVehicleVectorParam( integer param, vector vec );
-`} lang="lsl" /></div>
-
-</td>
-      </tr>
-    </tbody>
-  </table>
 
 </DocsLayout>
       

@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Requests data about the item <b>name</b> in the prim's inventory. When data is available the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event will be raised.</p>
+      <p>  <p>Requests data about the item <b>name</b> in the prim&#39;s inventory. When data is available the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event will be raised.</p>
   <p>Returns the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Key/handle" target="_blank">handle</a> (a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>) that is used to identify the <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> event when it is raised.</p>
 </p>
       <table class="param-table" id="parameters">
@@ -48,26 +48,26 @@ import DocsCode from '/src/components/DocsCode.astro';
   <table>
     <tbody>
       <tr>
-        <th colspan="2"><b>name</b>'s Inventory Type</th>
+        <th colspan="2"><b>name</b>&#39;s Inventory Type</th>
         <th><a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a></th>
         <th>Description</th>
       </tr>
       <tr>
         <td colspan="2">Landmark</td>
         <td>(<a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a>)</td>
-        <td colspan="4">The vector <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">data</a> received by <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> is a global position <i>as an offset</i> from the current region's origin (<0,0,0>). To obtain the absolute <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Global" target="_blank">global</a> position of a landmark, add <a href="https://wiki.secondlife.com/wiki/LlGetRegionCorner" target="_blank">llGetRegionCorner</a>() to the vector.</td>
+        <td colspan="4">The vector <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">data</a> received by <a href="https://wiki.secondlife.com/wiki/Dataserver" target="_blank">dataserver</a> is a global position <i>as an offset</i> from the current region&#39;s origin (&lt;0,0,0&gt;). To obtain the absolute <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Global" target="_blank">global</a> position of a landmark, add <a href="https://wiki.secondlife.com/wiki/LlGetRegionCorner" target="_blank">llGetRegionCorner</a>() to the vector.</td>
       </tr>
     </tbody>
   </table>
   <h2>Caveats</h2>
   <ul>
     <li>This function causes the script to sleep for 1.0 seconds.</li>
-    <li>If <b>name</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>name</b> is missing from the prim&#39;s inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>This function only returns data for landmark items in inventory. Other item types are not supported.</li>
-    <li>The vector returned from landmarks is the distance in meters of the landmark's location relative to <0,0,0> in the region in which the script is running.
+    <li>The vector returned from landmarks is the distance in meters of the landmark&#39;s location relative to &lt;0,0,0&gt; in the region in which the script is running.
     <ul>
-      <li>For a landmark pointing to a location in the current region, that's the same as a region coordinate; however, when used with a landmark pointing to a different region the vector's x and y values can be quite large (and/or negative).</li>
-      <li>The vector is suitable for use in calculating a global coordinate (as above) or a landmark's distance from the object containing the script in the current region or across the entire Second Life grid.</li>
+      <li>For a landmark pointing to a location in the current region, that&#39;s the same as a region coordinate; however, when used with a landmark pointing to a different region the vector&#39;s x and y values can be quite large (and/or negative).</li>
+      <li>The vector is suitable for use in calculating a global coordinate (as above) or a landmark&#39;s distance from the object containing the script in the current region or across the entire Second Life grid.</li>
     </ul>
   
     </li>

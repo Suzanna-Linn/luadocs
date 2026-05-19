@@ -13,10 +13,10 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>The string constant NULL_KEY has the value "00000000-0000-0000-0000-000000000000"</p>
+      <p>  <p>The string constant NULL_KEY has the value &quot;00000000-0000-0000-0000-000000000000&quot;</p>
   <p><b>NULL_KEY is a <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a>.</b> However it is only really useful as a <a href="https://wiki.secondlife.com/wiki/Key" target="_blank">key</a>.</p>
   <p>For <a href="https://wiki.secondlife.com/wiki/Category:LSL_Conditional" target="_blank">Conditional</a> tests, NULL_KEY evaluates to <b>TRUE</b> like other strings.</p>
-  <p>For list search (like <a href="https://wiki.secondlife.com/wiki/LlListFindList" target="_blank">llListFindList</a>), NULL_KEY won't match null keys whose type is <b>key</b> without typecasting.</p>
+  <p>For list search (like <a href="https://wiki.secondlife.com/wiki/LlListFindList" target="_blank">llListFindList</a>), NULL_KEY won&#39;t match null keys whose type is <b>key</b> without typecasting.</p>
 </p>
     </div>
 
@@ -163,7 +163,7 @@ main()
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
   <p>Like any <a href="https://wiki.secondlife.com/wiki/LSO" target="_blank">LSO</a> string constants longer then 3 characters and used in multiple places in the code, they should be stored in a global variable. The result will be a considerable memory savings. This does not apply to scripts compiled with <a href="https://wiki.secondlife.com/wiki/Mono" target="_blank">Mono</a>. See <a href="https://wiki.secondlife.com/wiki/LSL_Constants_vs_Globals" target="_blank">LSL Constants vs Globals</a> for more information about this and examples.</p>
-  <p>In most situations NULL_KEY isn't needed; an empty string ("") will suffice. To take advantage of this certain practices have to be avoided. In many applications keys are checked against NULL_KEY to determine if they are valid; this is bad practice.</p>
+  <p>In most situations NULL_KEY isn&#39;t needed; an empty string (&quot;&quot;) will suffice. To take advantage of this certain practices have to be avoided. In many applications keys are checked against NULL_KEY to determine if they are valid; this is bad practice.</p>
   <p>LSL makes it easy to check if a key is valid. Simply use the key as the parameter for a conditional.</p>
   <p>That is, instead of `if(uuid != NULL_KEY)`, use `if(uuid)`. `if(uuid)` will only return <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if it is a valid key that is also not a null key.</p>
   <h2>Deep Notes</h2>

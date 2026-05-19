@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Use to add or remove agents from the estate's agent access or ban lists or groups from the estate's group access list.</p>
+      <p>  <p>Use to add or remove agents from the estate&#39;s agent access or ban lists or groups from the estate&#39;s group access list.</p>
   <p>Returns a <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">boolean</a> (an <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a>) <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> if the call was successful; <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> if throttled, invalid action, invalid or null id or object owner is not allowed to manage the estate.</p>
 </p>
       <table class="param-table" id="parameters">
@@ -60,32 +60,32 @@ import DocsCode from '/src/components/DocsCode.astro';
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_ALLOWED_AGENT_ADD" target="_blank">ESTATE_ACCESS_ALLOWED_AGENT_ADD</a></td>
         <td>0x4</td>
-        <td>Add the agent to this estate's Allowed Residents list.</td>
+        <td>Add the agent to this estate&#39;s Allowed Residents list.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_ALLOWED_AGENT_REMOVE" target="_blank">ESTATE_ACCESS_ALLOWED_AGENT_REMOVE</a></td>
         <td>0x8</td>
-        <td>Remove the agent from this estate's Allowed Residents list.</td>
+        <td>Remove the agent from this estate&#39;s Allowed Residents list.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_ALLOWED_GROUP_ADD" target="_blank">ESTATE_ACCESS_ALLOWED_GROUP_ADD</a></td>
         <td>0x10</td>
-        <td>Add the group to this estate's Allowed groups list.</td>
+        <td>Add the group to this estate&#39;s Allowed groups list.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_ALLOWED_GROUP_REMOVE" target="_blank">ESTATE_ACCESS_ALLOWED_GROUP_REMOVE</a></td>
         <td>0x20</td>
-        <td>Remove the group from this estate's Allowed groups list.</td>
+        <td>Remove the group from this estate&#39;s Allowed groups list.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_BANNED_AGENT_ADD" target="_blank">ESTATE_ACCESS_BANNED_AGENT_ADD</a></td>
         <td>0x40</td>
-        <td>Add the agent to this estate's Banned residents list.</td>
+        <td>Add the agent to this estate&#39;s Banned residents list.</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/ESTATE_ACCESS_BANNED_AGENT_REMOVE" target="_blank">ESTATE_ACCESS_BANNED_AGENT_REMOVE</a></td>
         <td>0x80</td>
-        <td>Remove the agent from this estate's Banned residents list.</td>
+        <td>Remove the agent from this estate&#39;s Banned residents list.</td>
       </tr>
     </tbody>
   </table>
@@ -95,13 +95,13 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a> will be returned...
     <ul>
       <li>if throttled,</li>
-      <li>if object owner doesn't have power to perform <b>action</b>,</li>
+      <li>if object owner doesn&#39;t have power to perform <b>action</b>,</li>
       <li>if <b>avatar</b> is invalid or null</li>
     </ul>
   
     </li>
-    <li>If used on <a href="https://wiki.secondlife.com/wiki/Mainland" target="_blank">mainland</a> the message "llManageEstateAccess does not work on mainland" is <a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">shouted</a> on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
-    <li>If the object owner is not allowed to manage the estate the message "llManageEstateAccess object owner must manage estate." is <a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">shouted</a> on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. -- <a href="https://jira.secondlife.com/browse/SRC-233" target="_blank">SRC-233</a></li>
+    <li>If used on <a href="https://wiki.secondlife.com/wiki/Mainland" target="_blank">mainland</a> the message &quot;llManageEstateAccess does not work on mainland&quot; is <a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">shouted</a> on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If the object owner is not allowed to manage the estate the message &quot;llManageEstateAccess object owner must manage estate.&quot; is <a href="https://wiki.secondlife.com/wiki/LlShout" target="_blank">shouted</a> on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. -- <a href="https://jira.secondlife.com/browse/SRC-233" target="_blank">SRC-233</a></li>
     <li>If a legit estate manager tries to exceed the max number of entries in the list the call will return <a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> but the operation be truncated at the limit.</li>
   </ul>
   <h2>See Also</h2>

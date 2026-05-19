@@ -57,12 +57,12 @@ import DocsCode from '/src/components/DocsCode.astro';
 </div>
   <h2>Specification</h2>
   <p>The behavior is identical to that for <a href="https://wiki.secondlife.com/wiki/LlParseString2List" target="_blank">llParseString2List</a>, except blank strings found in the list are kept. This is useful when parsing a list that contains values that can be null or empty (and subsequently removing the nulls would upset the distribution of data and the element indexes).</p>
-  <p>llParseStringKeepNulls("", ["~"], []) will return [""]</p>
+  <p>llParseStringKeepNulls(&quot;&quot;, [&quot;~&quot;], []) will return [&quot;&quot;]</p>
   <h2>Caveats</h2>
   <ul>
     <li>Only the first 8 <b>separators</b> and first 8 <b>spacers</b> will be used any extras will be ignored.</li>
     <li>All <b>separators</b> and <b>spacers</b> must be strings, all other types will be ignored.</li>
-    <li><b>separators</b> take precedent over <b>spacers</b>. The string is parsed from start to finish, each position is compared against the <b>separators</b> then <b>spacers</b> before moving onto the next position. The first match is the one that is returned. Using the list ["A", "AB"] will always act with "A" and never "AB".</li>
+    <li><b>separators</b> take precedent over <b>spacers</b>. The string is parsed from start to finish, each position is compared against the <b>separators</b> then <b>spacers</b> before moving onto the next position. The first match is the one that is returned. Using the list [&quot;A&quot;, &quot;AB&quot;] will always act with &quot;A&quot; and never &quot;AB&quot;.</li>
     <li>Duplicate or irrelevant <b>separators</b> or <b>spacers</b> count towards the limits and slow down parsing.</li>
     <li>All entries in the return are typed as string. Use explicit typecasting on <a href="https://wiki.secondlife.com/wiki/LlList2String" target="_blank">llList2String</a> to convert the values into other types. Do not rely upon the implicit typecasting of the other llList2* functions (as they typically return a default value).</li>
     <li>Remember to capture the result of the operation with a variable, unless you are planning to act directly on the results.</li>

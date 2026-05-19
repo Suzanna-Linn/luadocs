@@ -33,7 +33,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td>Direction / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/look_at" target="_blank">look_at</a></td>
-          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a>&#32;(not used)</td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a>&amp;#32;(not used)</td>
         </tr>
       </table>
     </div>
@@ -124,7 +124,7 @@ default
   <ul>
     <li><b>pos</b> will work with <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">Region</a> coordinates not inside <b>simname</b>. (like those returned by <a href="https://wiki.secondlife.com/wiki/LlRequestInventoryData" target="_blank">llRequestInventoryData</a>)</li>
     <li>if called from non <a href="https://wiki.secondlife.com/wiki/Category:LSL_Touch" target="_blank">touch</a> events, it only works for the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a>.</li>
-    <li>if called from touch, it may only work for the first or last touch in the event queue (example: num_touched > 1)</li>
+    <li>if called from touch, it may only work for the first or last touch in the event queue (example: num_touched &gt; 1)</li>
     <li>if called inside an <a href="https://wiki.secondlife.com/wiki/Attachment" target="_blank">attachment</a>, it only works for the owner.</li>
   </ul>
   <h2>See Also</h2>

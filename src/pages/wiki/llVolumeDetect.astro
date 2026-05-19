@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>DetectEnabled / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/boolean" target="_blank">detect</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>&#32;(default) disables</td>
+          <td><a href="https://wiki.secondlife.com/wiki/TRUE" target="_blank">TRUE</a> enables, <a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank">FALSE</a>&amp;#32;(default) disables</td>
         </tr>
       </table>
     </div>
@@ -81,7 +81,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>If the volume detecting object is <i>not</i> physical, it can only detect physical objects and avatars. If the object <i>is</i> physical, it can detect its collisions with static and <a href="https://wiki.secondlife.com/wiki/LlSetKeyframedMotion" target="_blank">keyframed motion</a> objects as well.</li>
   </ul>
   <h3>Attachments</h3>
-  <p><b>Note:</b> Attachments are not included in the avatar's bounding box. <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">Collision events</a> received by attachments are collisions the avatar is having with the world, not collisions the attachment is having. Nothing actually can collide with an attachment[[1]](#footnote_1).</p>
+  <p><b>Note:</b> Attachments are not included in the avatar&#39;s bounding box. <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">Collision events</a> received by attachments are collisions the avatar is having with the world, not collisions the attachment is having. Nothing actually can collide with an attachment[[1]](#footnote_1).</p>
   <ul>
     <li>It is meaningless to enabled on attachments. Attachments cannot collide with anything.</li>
     <li>Attachments do not receive collision events for avatar collisions with VolumeDetect objects.

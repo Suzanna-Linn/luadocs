@@ -13,8 +13,8 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Returns a string with the timestamp that the item was added to the prim's inventory.</p>
-  <p>The time is in the UTC time zone in the format "YYYY-MM-DDThh:mm:ssZ"</p>
+      <p>  <p>Returns a string with the timestamp that the item was added to the prim&#39;s inventory.</p>
+  <p>The time is in the UTC time zone in the format &quot;YYYY-MM-DDThh:mm:ssZ&quot;</p>
   <p>Appears to be accurate to seconds.</p>
 </p>
       <table class="param-table" id="parameters">
@@ -47,9 +47,9 @@ import DocsCode from '/src/components/DocsCode.astro';
 </div>
   <h2>Caveats</h2>
   <ul>
-    <li>If <b>item</b> is missing from the prim's inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>item</b> is missing from the prim&#39;s inventory then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>This function currently returns an ISO timestamp that is missing milliseconds. It is recommended that you code your applications in preparation of millisecond support being added at a later date.</li>
-    <li>Using <a href="https://wiki.secondlife.com/wiki/LlListSort" target="_blank">llListSort</a> to sort a list of timestamps that both include and exclude milliseconds will have undesired results. ".000000" will first have to be inserted into timestamps missing milliseconds.</li>
+    <li>Using <a href="https://wiki.secondlife.com/wiki/LlListSort" target="_blank">llListSort</a> to sort a list of timestamps that both include and exclude milliseconds will have undesired results. &quot;.000000&quot; will first have to be inserted into timestamps missing milliseconds.</li>
     <li>Changing the contents of a script or notecard (or recompiling a script) does not change its acquire time.</li>
   </ul>
   <h2>Examples</h2>
@@ -100,14 +100,14 @@ main()
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryCreator" target="_blank">llGetInventoryCreator</a></td>
         <td>–</td>
-        <td>Returns the inventory item's creator</td>
+        <td>Returns the inventory item&#39;s creator</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryName" target="_blank">llGetInventoryName</a></td>
         <td>–</td>
-        <td>Returns the inventory item's name</td>
+        <td>Returns the inventory item&#39;s name</td>
         <td></td>
       </tr>
       <tr>
@@ -128,14 +128,14 @@ main()
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryPermMask" target="_blank">llGetInventoryPermMask</a></td>
         <td>–</td>
-        <td>Returns the inventory item's permissions</td>
+        <td>Returns the inventory item&#39;s permissions</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetInventoryKey" target="_blank">llGetInventoryKey</a></td>
         <td>–</td>
-        <td>Returns the inventory item's <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> (if full perm)</td>
+        <td>Returns the inventory item&#39;s <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> (if full perm)</td>
         <td></td>
       </tr>
     </tbody>

@@ -53,10 +53,10 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <p><b>axis</b> need not be <a href="https://wiki.secondlife.com/wiki/LlVecNorm" target="_blank">normalized</a>, only the direction is important.</p>
-  <p><b>angle</b> need to be between the value 0<angle<PI (higher values than PI lead to 2*PI-angle)
+  <p><b>angle</b> need to be between the value 0&lt;angle&lt;PI (higher values than PI lead to 2*PI-angle)
 , because a rotation is not really a rotation (it is more of a rigid motion/mirroring)
 ,the final destination is the rotation.
-(in other words: it doesn't matter wether you rotate left by 90 degrees or right by 270 degrees it will return the same rotation)</p>
+(in other words: it doesn&#39;t matter wether you rotate left by 90 degrees or right by 270 degrees it will return the same rotation)</p>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
     local axis = vector(0.0, 0.0, 1.0)

@@ -13,14 +13,14 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Returns a vector that is the Euler representation (roll, pitch, yaw) of <b>quat</b>, with each component expressed in radians.</p>
-</p>
+      <p>Returns the Euler representation (roll, pitch, yaw) of Rotation.
+Returns the Euler Angle representation of the Rotation.</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>rotation</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>rotation</span></td>
-          <td>Rotation / quat</td>
-          <td>Any valid rotation</td>
+          <td>Rotation</td>
+          <td></td>
         </tr>
       </table>
     </div>
@@ -45,159 +45,6 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <h2>Specification</h2>
-  <p>The <a href="https://wiki.secondlife.com/wiki/Category:LSL_Euler" target="_blank">Euler</a> angle vector (in radians) is converted from a rotation by doing the rotations around the 3 axes in Z, Y, X order.</p>
-  <h2>Caveats</h2>
-  <ul>
-    <li>Angles greater than <a href="https://wiki.secondlife.com/wiki/PI" target="_blank">PI</a> radians (180 degrees) are returned as negative angles.</li>
-  </ul>
-  <h2>Examples</h2>
-<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
-    local input = ll.GetRot()
-    ll.Say(0, "The Rot2Euler of " .. tostring(input) .. " is: " .. tostring(ll.Rot2Euler(input)))
-end
-
-main()
-`} lang="slua" /></div>
-<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`default
-{
-    state_entry()
-    {
-        rotation input = llGetRot();
-        llSay(0, "The Rot2Euler of " + (string)input + " is: " + (string) llRot2Euler(input) );
-    }
-}`} lang="lsl" /></div>
-<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- This script rotates a prim by 15 degrees each time the prim is touched
-
--- While not the best way of achieving the result,
--- this script demonstrates the use of llRot2Euler and llEuler2Rot
--- and the use of more human-friendly degrees rather than radians
-
-function LLEvents.touch_start(events)
-    local total_number = #events
-    -- Get the object's current rotation as a quarternion
-    local rot = ll.GetRot()
-    -- Convert the rotation to a euler with roll, pitch, and yaw in radians
-    local euler = ll.Rot2Euler(rot)
-    -- convert the angles from radians to degrees
-    euler *= RAD_TO_DEG
-    -- Add 15 degrees on the Z axis        
-    euler += vector(0, 0, 15)
-    -- Say the current euler values in degrees
-    ll.Say(0, tostring(euler))
-    -- convert degrees back to radians
-    euler *= DEG_TO_RAD
-    -- Convert the euler back to a rotation quarternion
-    rot = ll.Euler2Rot(euler)
-    -- Apply the updated rotation to the prim   
-    ll.SetRot(rot)
-end
-`} lang="slua" /></div>
-<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// This script rotates a prim by 15 degrees each time the prim is touched
-
-// While not the best way of achieving the result,
-// this script demonstrates the use of llRot2Euler and llEuler2Rot
-// and the use of more human-friendly degrees rather than radians
-
-default
-{
-    touch_start(integer total_number)
-    {
-        // Get the object's current rotation as a quarternion
-        rotation rot = llGetRot();
-        // Convert the rotation to a euler with roll, pitch, and yaw in radians
-        vector euler = llRot2Euler(rot);
-        // convert the angles from radians to degrees
-        euler *= RAD_TO_DEG;
-        // Add 15 degrees on the Z axis        
-        euler += <0, 0, 15>;
-        // Say the current euler values in degrees
-        llSay(0, (string) euler);         
-        // convert degrees back to radians
-        euler *= DEG_TO_RAD;
-        // Convert the euler back to a rotation quarternion
-        rot =  llEuler2Rot (euler);
-        // Apply the updated rotation to the prim   
-        llSetRot( rot ); 
-    }
-}`} lang="lsl" /></div>
-  <h2>See Also</h2>
-  <h3>Functions</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlEuler2Rot" target="_blank">llEuler2Rot</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3>Articles</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Euler_Angles" target="_blank">Euler Angles</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Deep Notes</h2>
-  <h3>Reference Implementation</h3>
-<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function uRot2Euler(rot)
-    local ret = ZERO_VECTOR
-    local temp = ZERO_VECTOR
-
-    --x-axis
-    temp = vector(0, 0, 1) * rot
-    ret = vector(ll.Atan2(temp.z, temp.y) - PI / 2, ret.y, ret.z)
-    rot = rot / ll.Euler2Rot(vector(ret.x, 0, 0))
-    --y-axis
-    temp = vector(0, 0, 1) * rot
-    ret = vector(ret.x, -ll.Atan2(temp.z, temp.x) + PI / 2, ret.z)
-    rot = rot / ll.Euler2Rot(vector(0, ret.y, 0))
-    --z-axis
-    temp = vector(1, 0, 0) * rot
-    ret = vector(ret.x, ret.y, ll.Atan2(temp.y, temp.x))
-    return ret
-end
-`} lang="slua" /></div>
-<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`vector uRot2Euler(rotation rot)
-{
-        vector ret;
-        vector temp;
-
-        //x-axis
-        temp = <0,0,1>*rot;
-        ret.x = llAtan2(temp.z,temp.y)-PI/2;
-        rot = rot/llEuler2Rot(<ret.x,0,0>);
-        //y-axis
-        temp = <0,0,1>*rot;
-        ret.y = -llAtan2(temp.z,temp.x)+PI/2;
-        rot = rot/llEuler2Rot(<0,ret.y,0>);
-        //z-axis
-        temp = <1,0,0>*rot;
-        ret.z = llAtan2(temp.y,temp.x);
-        return ret;
-}`} lang="lsl" /></div>
-  <table>
-    <tbody>
-      <tr>
-        <th>Signature</th>
-      </tr>
-      <tr>
-        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
-function vector llRot2Euler( rotation quat );
-`} lang="lsl" /></div>
-
-</td>
-      </tr>
-    </tbody>
-  </table>
 
 </DocsLayout>
       

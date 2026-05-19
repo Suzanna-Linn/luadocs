@@ -49,8 +49,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   <ul>
     <li>If <b>str</b> contains fewer than 6 characters, any incomplete least-significant bytes of the integer are set to 0.
     <ul>
-      <li>For example, the Base64 value `"qqqqqq=="` corresponds to the hexadecimal value `0xAAAAAAAA`. If the padding "=" characters and the last "q" are dropped, there are 5*6=30 bits remaining and those can form only 3 full bytes (24 bits). The result is `0xAAAAAA00`.</li>
-      <li>The Base64 value `"qqqq"` has 4*6=24 bits available, which is enough for the same 3 full bytes. The result is also `0xAAAAAA00`.</li>
+      <li>For example, the Base64 value `&quot;qqqqqq==&quot;` corresponds to the hexadecimal value `0xAAAAAAAA`. If the padding &quot;=&quot; characters and the last &quot;q&quot; are dropped, there are 5*6=30 bits remaining and those can form only 3 full bytes (24 bits). The result is `0xAAAAAA00`.</li>
+      <li>The Base64 value `&quot;qqqq&quot;` has 4*6=24 bits available, which is enough for the same 3 full bytes. The result is also `0xAAAAAA00`.</li>
       <li>Similarly, 3-character Base64 has 18 bits, enough for 2 bytes, and 2-character Base64 has 12 bits, enough for one byte.</li>
       <li>Finally, single-character Base64 has only 6 bits and thus no complete bytes, and the result is always zero.</li>
     </ul>

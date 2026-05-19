@@ -55,7 +55,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>The entire message (including the address, subject and other miscellaneous fields) can't be longer than 4096 bytes combined.</p>
+  <p>The entire message (including the address, subject and other miscellaneous fields) can&#39;t be longer than 4096 bytes combined.</p>
   <h2>Specification</h2>
   <p>The <b>message</b> is prefixed with information about the <a href="https://wiki.secondlife.com/wiki/Primitive" target="_blank">prim</a> sending the email.</p>
   <table>
@@ -91,23 +91,23 @@ The real message starts here.
   <h2>Caveats</h2>
   <ul>
     <li>This function causes the script to sleep for 20.0 seconds.</li>
-    <li>If you're sending to the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a>, prefer the <a href="https://wiki.secondlife.com/wiki/LlTargetedEmail" target="_blank">llTargetedEmail</a> method.</li>
+    <li>If you&#39;re sending to the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Owner" target="_blank">owner</a>, prefer the <a href="https://wiki.secondlife.com/wiki/LlTargetedEmail" target="_blank">llTargetedEmail</a> method.</li>
     <li>There is a limit to the number of email messages an object can send in a given amount of time.</li>
-    <li>There is a limit of 500 messages from a single <a href="https://wiki.secondlife.com/wiki/Agent" target="_blank">agent</a>'s objects in a one-hour period.</li>
+    <li>There is a limit of 500 messages from a single <a href="https://wiki.secondlife.com/wiki/Agent" target="_blank">agent</a>&#39;s objects in a one-hour period.</li>
     <li>The 4096-byte size limit includes the subject line and automatically added text. The practical maximum body size is approximately 3600 bytes.</li>
-    <li>(Sept-2008) The Email Throttle was modified slightly, Per <a href="https://wiki.secondlife.com/w/index.php?title=User:Prospero_Linden&action=edit&redlink=1" target="_blank">Prospero Linden</a>'s comments:</li>
+    <li>(Sept-2008) The Email Throttle was modified slightly, Per <a href="https://wiki.secondlife.com/w/index.php?title=User:Prospero_Linden&amp;action=edit&amp;redlink=1" target="_blank">Prospero Linden</a>&#39;s comments:</li>
   </ul>
   <table>
     <tbody>
       <tr>
-        <td>"there has long been a throttle that makes a single script sleep for 20 seconds after sending an email. The new throttle is per user... some were using many, many different <a href="https://wiki.secondlife.com/wiki/Scripts" target="_blank">scripts</a> to send spam. (the new throttle applies) when the destination is outside of Second Life. I know that messages within the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a> were not throttled (beyond the 20-second delay), and I <i>believe</i> that messages between different <a href="https://wiki.secondlife.com/wiki/Simulator" target="_blank">sims</a> were not throttled (between the 20-second delay)."</td>
+        <td>&quot;there has long been a throttle that makes a single script sleep for 20 seconds after sending an email. The new throttle is per user... some were using many, many different <a href="https://wiki.secondlife.com/wiki/Scripts" target="_blank">scripts</a> to send spam. (the new throttle applies) when the destination is outside of Second Life. I know that messages within the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a> were not throttled (beyond the 20-second delay), and I <i>believe</i> that messages between different <a href="https://wiki.secondlife.com/wiki/Simulator" target="_blank">sims</a> were not throttled (between the 20-second delay).&quot;</td>
       </tr>
     </tbody>
   </table>
   <ul>
-    <li>Due to the bug <a href="https://jira.secondlife.com/browse/SVC-23" target="_blank">SVC-23</a> (present since 2005), objects may stop receiving emails completely until either the region is restarted or the object crosses a region boundary (resetting the script doesn't help). Emails sent may eventually be received after a restart/region-cross. Hence, don't rely on this function for reliable inter-region messaging.</li>
-    <li>Due to bug <a href="https://jira.secondlife.com/browse/BUG-229767" target="_blank">BUG-229767</a>, an object's email queue can still become suspended until the object crosses a region border (neither a region restart nor a script reset helps). First analysis has revealed a potential workaround, by implementing a delay of about 30 seconds before first trying to send email to a freshly rezzed script - apparently registering the <a href="https://wiki.secondlife.com/wiki/Email" target="_blank">email(...)</a> event handler can take quite some time, and emails arriving prior to said registry process is what gets the entire queue stuck. Official Linden Lab response still pending.</li>
-    <li>Due to the bug <a href="https://jira.secondlife.com/browse/SVC-391" target="_blank">SVC-391</a>, llEmail will silently fail (no mail will arrive) when [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/ASCII" target="_blank">non-ASCII</a> characters are present in the subject. However, non-ASCII characters in the message body will be replaced by "?".</li>
+    <li>Due to the bug <a href="https://jira.secondlife.com/browse/SVC-23" target="_blank">SVC-23</a> (present since 2005), objects may stop receiving emails completely until either the region is restarted or the object crosses a region boundary (resetting the script doesn&#39;t help). Emails sent may eventually be received after a restart/region-cross. Hence, don&#39;t rely on this function for reliable inter-region messaging.</li>
+    <li>Due to bug <a href="https://jira.secondlife.com/browse/BUG-229767" target="_blank">BUG-229767</a>, an object&#39;s email queue can still become suspended until the object crosses a region border (neither a region restart nor a script reset helps). First analysis has revealed a potential workaround, by implementing a delay of about 30 seconds before first trying to send email to a freshly rezzed script - apparently registering the <a href="https://wiki.secondlife.com/wiki/Email" target="_blank">email(...)</a> event handler can take quite some time, and emails arriving prior to said registry process is what gets the entire queue stuck. Official Linden Lab response still pending.</li>
+    <li>Due to the bug <a href="https://jira.secondlife.com/browse/SVC-391" target="_blank">SVC-391</a>, llEmail will silently fail (no mail will arrive) when [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/ASCII" target="_blank">non-ASCII</a> characters are present in the subject. However, non-ASCII characters in the message body will be replaced by &quot;?&quot;.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -163,8 +163,8 @@ vector position = (vector) ("<" + llList2String(llParseString2List(message, ["Lo
     <li>Because of the long delay on this function, it is often called from a second script triggered by <a href="https://wiki.secondlife.com/wiki/Link_message" target="_blank">link_message</a>.</li>
     <li>If you are sending email to a prim within Second Life, its address is <i>[key]</i>@lsl.secondlife.com
     <ul>
-      <li>Which means if the key returned by <a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a> is "a2e76fcd-9360-4f6d-a924-000000000003", then its email address is "a2e76fcd-9360-4f6d-a924-000000000003@lsl.secondlife.com".</li>
-      <li>Agents do not have fixed email addresses, use <a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a> or <a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a><a href="#cite_note-1" target="_blank">&#91;1&#93;</a>.</li>
+      <li>Which means if the key returned by <a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a> is &quot;a2e76fcd-9360-4f6d-a924-000000000003&quot;, then its email address is &quot;a2e76fcd-9360-4f6d-a924-000000000003@lsl.secondlife.com&quot;.</li>
+      <li>Agents do not have fixed email addresses, use <a href="https://wiki.secondlife.com/wiki/LlInstantMessage" target="_blank">llInstantMessage</a> or <a href="https://wiki.secondlife.com/wiki/LlOwnerSay" target="_blank">llOwnerSay</a><a href="#cite_note-1" target="_blank">&amp;#91;1&amp;#93;</a>.</li>
     </ul>
   
     </li>
@@ -178,7 +178,7 @@ vector position = (vector) ("<" + llList2String(llParseString2List(message, ["Lo
         <td>• string</td>
         <td>time</td>
         <td>–</td>
-        <td>When the message was sent, in the `(string)<a href="https://wiki.secondlife.com/wiki/LlGetUnixTime" target="_blank">llGetUnixTime</a>` format</td>
+        <td>When the message was sent, in the `(string)[llGetUnixTime](https://wiki.secondlife.com/wiki/LlGetUnixTime)` format</td>
         <td></td>
       </tr>
       <tr>
@@ -211,7 +211,7 @@ vector position = (vector) ("<" + llList2String(llParseString2List(message, ["Lo
       </tr>
     </tbody>
   </table>
-  <p>When receiving a message sent with llEmail it helps to separate the message from the prefixed header. The header and original message body are separated by "\n\n"</p>
+  <p>When receiving a message sent with llEmail it helps to separate the message from the prefixed header. The header and original message body are separated by &quot;\n\n&quot;</p>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`integer divide = llSubStringIndex(message, "\n\n");
 string header = llDeleteSubString(message, divide, -1);
 message = llDeleteSubString(message, 0, divide + 1);`} lang="lsl" /></div>
@@ -368,7 +368,7 @@ main()
   <table>
     <tbody>
       <tr>
-        <td>• <a href="https://osiris.lindenlab.com/mediawiki/index.php/Email_Test" target="_blank">internal test</a><a href="#cite_note-2" target="_blank">&#91;2&#93;</a></td>
+        <td>• <a href="https://osiris.lindenlab.com/mediawiki/index.php/Email_Test" target="_blank">internal test</a><a href="#cite_note-2" target="_blank">&amp;#91;2&amp;#93;</a></td>
         <td></td>
         <td></td>
         <td></td>

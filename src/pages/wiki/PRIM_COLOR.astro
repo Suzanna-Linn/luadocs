@@ -14,7 +14,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p>  <p>The integer constant PRIM_COLOR has the value 18</p>
-  <p>Used to get or set the <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> color and alpha of a prim's face.</p>
+  <p>Used to get or set the <a href="https://wiki.secondlife.com/wiki/PBR_Materials#Nomenclature_changes" target="_blank">Blinn-Phong</a> color and alpha of a prim&#39;s face.</p>
 </p>
     </div>
 
@@ -34,7 +34,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>llSetPrimitiveParams</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&#32;PRIM_COLOR,&#32;[integer</a> face, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha ] </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">&amp;#32;PRIM_COLOR,&amp;#32;[integer</a> face, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha ] </b></p>
   <table>
     <tbody>
       <tr>
@@ -48,21 +48,21 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>• vector</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
         <td>–</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB &lt;R, G, B&gt; (&lt;0.0, 0.0, 0.0&gt; &amp;#61; black, &lt;1.0, 1.0, 1.0&gt; &amp;#61; white)</td>
         <td></td>
       </tr>
       <tr>
         <td>• float</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
         <td>–</td>
-        <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+        <td>from 0.0 (clear) to 1.0 (solid) (0.0 &lt;= <b>alpha</b> &lt;= 1.0)</td>
         <td></td>
       </tr>
     </tbody>
   </table>
-  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> &amp; <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a></p>
   <h2>llGetPrimitiveParams</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_COLOR,&#32;[integer</a> face ]); </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a>(<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_COLOR,&amp;#32;[integer</a> face ]); </b></p>
   <p>Returns the <a href="https://wiki.secondlife.com/wiki/List" target="_blank">list</a> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> [vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha ]</p>
   <p>If <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> is used, the returned list contains each color and alpha values in order per face.</p>
   <table>
@@ -78,14 +78,14 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>• vector</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
         <td>–</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB &lt;R, G, B&gt; (&lt;0.0, 0.0, 0.0&gt; &amp;#61; black, &lt;1.0, 1.0, 1.0&gt; &amp;#61; white)</td>
         <td></td>
       </tr>
       <tr>
         <td>• float</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
         <td>–</td>
-        <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+        <td>from 0.0 (clear) to 1.0 (solid) (0.0 &lt;= <b>alpha</b> &lt;= 1.0)</td>
         <td></td>
       </tr>
     </tbody>
@@ -162,71 +162,71 @@ import DocsCode from '/src/components/DocsCode.astro';
       </tr>
       <tr>
         <td>NAVY</td>
-        <td>`<0.000, 0.122, 0.247>`</td>
+        <td>`&lt;0.000, 0.122, 0.247&gt;`</td>
       </tr>
       <tr>
         <td>BLUE</td>
-        <td>`<0.000, 0.455, 0.851>`</td>
+        <td>`&lt;0.000, 0.455, 0.851&gt;`</td>
       </tr>
       <tr>
         <td>AQUA</td>
-        <td>`<0.498, 0.859, 1.000>`</td>
+        <td>`&lt;0.498, 0.859, 1.000&gt;`</td>
       </tr>
       <tr>
         <td>TEAL</td>
-        <td>`<0.224, 0.800, 0.800>`</td>
+        <td>`&lt;0.224, 0.800, 0.800&gt;`</td>
       </tr>
       <tr>
         <td>OLIVE</td>
-        <td>`<0.239, 0.600, 0.439>`</td>
+        <td>`&lt;0.239, 0.600, 0.439&gt;`</td>
       </tr>
       <tr>
         <td>GREEN</td>
-        <td>`<0.180, 0.800, 0.251>`</td>
+        <td>`&lt;0.180, 0.800, 0.251&gt;`</td>
       </tr>
       <tr>
         <td>LIME</td>
-        <td>`<0.004, 1.000, 0.439>`</td>
+        <td>`&lt;0.004, 1.000, 0.439&gt;`</td>
       </tr>
       <tr>
         <td>YELLOW</td>
-        <td>`<1.000, 0.863, 0.000>`</td>
+        <td>`&lt;1.000, 0.863, 0.000&gt;`</td>
       </tr>
       <tr>
         <td>ORANGE</td>
-        <td>`<1.000, 0.522, 0.106>`</td>
+        <td>`&lt;1.000, 0.522, 0.106&gt;`</td>
       </tr>
       <tr>
         <td>RED</td>
-        <td>`<1.000, 0.255, 0.212>`</td>
+        <td>`&lt;1.000, 0.255, 0.212&gt;`</td>
       </tr>
       <tr>
         <td>MAROON</td>
-        <td>`<0.522, 0.078, 0.294>`</td>
+        <td>`&lt;0.522, 0.078, 0.294&gt;`</td>
       </tr>
       <tr>
         <td>FUCHSIA</td>
-        <td>`<0.941, 0.071, 0.745>`</td>
+        <td>`&lt;0.941, 0.071, 0.745&gt;`</td>
       </tr>
       <tr>
         <td>PURPLE</td>
-        <td>`<0.694, 0.051, 0.788>`</td>
+        <td>`&lt;0.694, 0.051, 0.788&gt;`</td>
       </tr>
       <tr>
         <td>WHITE</td>
-        <td>`<1.000, 1.000, 1.000>`</td>
+        <td>`&lt;1.000, 1.000, 1.000&gt;`</td>
       </tr>
       <tr>
         <td>SILVER</td>
-        <td>`<0.867, 0.867, 0.867>`</td>
+        <td>`&lt;0.867, 0.867, 0.867&gt;`</td>
       </tr>
       <tr>
         <td>GRAY</td>
-        <td>`<0.667, 0.667, 0.667>`</td>
+        <td>`&lt;0.667, 0.667, 0.667&gt;`</td>
       </tr>
       <tr>
         <td>BLACK</td>
-        <td>`<0.067, 0.067, 0.067>`</td>
+        <td>`&lt;0.067, 0.067, 0.067&gt;`</td>
       </tr>
     </tbody>
   </table>

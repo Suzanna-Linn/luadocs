@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Shows a dialog box on <b>avatar</b>'s screen with the text <b>message</b>. It contains a text box for input, any text that is entered is <a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">said</a> by <b>avatar</b> on <b>channel</b> when the "Submit" button is clicked.</p>
+      <p>  <p>Shows a dialog box on <b>avatar</b>&#39;s screen with the text <b>message</b>. It contains a text box for input, any text that is entered is <a href="https://wiki.secondlife.com/wiki/LlSay" target="_blank">said</a> by <b>avatar</b> on <b>channel</b> when the &quot;Submit&quot; button is clicked.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -78,30 +78,30 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>This function causes the script to sleep for 1.0 seconds.</li>
-    <li>Not supported in official Linden Lab viewers prior to version 2.4, and some <a href="https://wiki.secondlife.com/wiki/Third_Party_Viewer_Directory" target="_blank">TPVs</a> may not support it. Unsupported viewers will display a dialog box with a single option of "!!llTextBox!!".</li>
+    <li>Not supported in official Linden Lab viewers prior to version 2.4, and some <a href="https://wiki.secondlife.com/wiki/Third_Party_Viewer_Directory" target="_blank">TPVs</a> may not support it. Unsupported viewers will display a dialog box with a single option of &quot;!!llTextBox!!&quot;.</li>
     <li>There is no way by script to kill a text box.</li>
-    <li>There is no way for the script to detect if the user clicked the small "ignore" button (no chat is generated as a result of pressing this button).</li>
-    <li>If the listening prim is out of the 20 meter range of the sending prim when the "Submit" button is pressed, it will not be able to hear the response.
+    <li>There is no way for the script to detect if the user clicked the small &quot;ignore&quot; button (no chat is generated as a result of pressing this button).</li>
+    <li>If the listening prim is out of the 20 meter range of the sending prim when the &quot;Submit&quot; button is pressed, it will not be able to hear the response.
     <ul>
       <li>This limitation affects attachments too if the wearer moves more than 20 meters from where the listener is located.</li>
     </ul>
   
     </li>
     <li>The textbox input is limited to 250 bytes (characters). This can be a problem for larger text input; if the input can be over 250 characters, you will have to accept it through chat.</li>
-    <li>There is an undocumented throttle on llTextBox requests. Exceeding it will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> until the "average" falls.</li>
+    <li>There is an undocumented throttle on llTextBox requests. Exceeding it will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a> until the &quot;average&quot; falls.</li>
   </ul>
   <h3>message limits</h3>
   <ul>
     <li>If it exceeds 7 (Viewer 3) or 8 (Viewer 1) lines a scroll bar will appear.</li>
     <li><p><b>message</b> must be less than 512 bytes and not empty. Otherwise, it will shout an error on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. One easy way to create an empty message is to use a line feed, as in</p>
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
 ll.TextBox(avatar_key, " \n", dialog_channel)
 `} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
 llTextBox(avatar_key," \n",dialog_channel);
 `} lang="lsl" /></div>
 
-</p></li>
+</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -137,10 +137,10 @@ default
         llSay(0, "You wrote: " + message);
     }
 }`} lang="lsl" /></div>
-  <p>If the user hits Enter ↵ before clicking the `"Submit"` button, there will be a final carriage return in the message. In the rare event that this could be a problem, it is easily removed:</p>
+  <p>If the user hits Enter ↵ before clicking the `&quot;Submit&quot;` button, there will be a final carriage return in the message. In the rare event that this could be a problem, it is easily removed:</p>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`message = llStringTrim(message,STRING_TRIM);`} lang="lsl" /></div>
   <h2>Notes</h2>
-  <p>Instead of mouse clicking: "Submit", you can use keyboard keys: press Tab ⇆ and then Enter ↵</p>
+  <p>Instead of mouse clicking: &quot;Submit&quot;, you can use keyboard keys: press Tab ⇆ and then Enter ↵</p>
   <h2>See Also</h2>
   <h3>Events</h3>
   <table>
@@ -203,11 +203,11 @@ default
   </table>
   <h2>Deep Notes</h2>
   <p>History</p>
-  <p>Introduced in <a href="http://svn.secondlife.com/trac/linden/changeset/568?new_path=%2F#file33" target="_blank">SVN:568 r88085 Trunk&#32;Wednesday, 21 May 2008</a></p>
+  <p>Introduced in <a href="http://svn.secondlife.com/trac/linden/changeset/568?new_path=%2F#file33" target="_blank">SVN:568 r88085 Trunk&amp;#32;Wednesday, 21 May 2008</a></p>
   <p>Source</p>
   <p><a href="https://github.com/secondlife/indra/llcommon/lllslconstants.h/blob/master/viewer#L189" target="_blank">indra/llcommon/lllslconstants.h - viewer </a>
-<cpp>// llTextBox() magic token string - yes this is a hack. sue me.
-const std::string TEXTBOX_MAGIC_TOKEN = "!!llTextBox!!";</cpp></p>
+&lt;cpp&gt;// llTextBox() magic token string - yes this is a hack. sue me.
+const std::string TEXTBOX_MAGIC_TOKEN = &quot;!!llTextBox!!&quot;;&lt;/cpp&gt;</p>
   <p>Footnotes</p>
   <ul>
     <li><b><a href="#fn_1" target="_blank">^</a></b> Channel zero is also known as: <a href="https://wiki.secondlife.com/wiki/PUBLIC_CHANNEL" target="_blank">PUBLIC_CHANNEL</a>, open chat, local chat and public chat</li>

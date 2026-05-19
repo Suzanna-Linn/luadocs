@@ -13,14 +13,14 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Enabled the specified vehicle <b>flags</b></p>
-</p>
+      <p>Enables the vehicle flags specified in the Flags bitmask.
+Valid parameters can be found in the wiki documentation.</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>Flags / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/bit_mask" target="_blank">flags</a></td>
-          <td>mask of VEHICLE_FLAG_* flags</td>
+          <td>Flags</td>
+          <td></td>
         </tr>
       </table>
     </div>
@@ -42,115 +42,6 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <table>
-    <tbody>
-      <tr>
-        <th>Flags</th>
-        <th></th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_NO_DEFLECTION_UP" target="_blank">VEHICLE_FLAG_NO_DEFLECTION_UP</a></td>
-        <td>0x001</td>
-        <td>This flag prevents linear deflection parallel to world z-axis. This is useful for preventing ground vehicles with large linear deflection, like [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Bumper_car" target="_blank">bumper cars</a>, from climbing their linear deflection into the sky.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_LIMIT_ROLL_ONLY" target="_blank">VEHICLE_FLAG_LIMIT_ROLL_ONLY</a></td>
-        <td>0x002</td>
-        <td>For vehicles with vertical attractor that want to be able to climb/dive, for instance, airplanes that want to use the banking feature.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_HOVER_WATER_ONLY" target="_blank">VEHICLE_FLAG_HOVER_WATER_ONLY</a></td>
-        <td>0x004</td>
-        <td>Ignore terrain height when hovering.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_HOVER_TERRAIN_ONLY" target="_blank">VEHICLE_FLAG_HOVER_TERRAIN_ONLY</a></td>
-        <td>0x008</td>
-        <td>Ignore water height when hovering.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_HOVER_GLOBAL_HEIGHT" target="_blank">VEHICLE_FLAG_HOVER_GLOBAL_HEIGHT</a></td>
-        <td>0x010</td>
-        <td>Hover at global height instead of height above ground or water.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_HOVER_UP_ONLY" target="_blank">VEHICLE_FLAG_HOVER_UP_ONLY</a></td>
-        <td>0x020</td>
-        <td>Hover doesn't push down. Use this flag for hovering vehicles that should be able to jump above their hover height.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_LIMIT_MOTOR_UP" target="_blank">VEHICLE_FLAG_LIMIT_MOTOR_UP</a></td>
-        <td>0x040</td>
-        <td>Prevents ground vehicles from motoring into the sky. This flag has a subtle effect when used with conjunction with banking: the strength of the banking will decay when the vehicle no longer experiences collisions. The decay timescale is the same as <a href="https://wiki.secondlife.com/wiki/VEHICLE_BANKING_TIMESCALE" target="_blank">VEHICLE_BANKING_TIMESCALE</a>. This is to help prevent ground vehicles from steering when they are in mid jump.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_MOUSELOOK_STEER" target="_blank">VEHICLE_FLAG_MOUSELOOK_STEER</a></td>
-        <td>0x080</td>
-        <td>Steer the vehicle using the mouse. Use this flag to make the angular motor try to make the vehicle turn such that its local x-axis points in the same direction as the client-side camera.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_MOUSELOOK_BANK" target="_blank">VEHICLE_FLAG_MOUSELOOK_BANK</a></td>
-        <td>0x100</td>
-        <td>Same as above, but relies on banking. It remaps left-right motions of the client camera (also known as "yaw") to rotations about the vehicle's local x-axis.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_CAMERA_DECOUPLED" target="_blank">VEHICLE_FLAG_CAMERA_DECOUPLED</a></td>
-        <td>0x200</td>
-        <td>Makes <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">mouselook</a> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Camera" target="_blank">camera</a> rotate independently of the vehicle. By default the client mouselook camera will rotate about with the vehicle, however when this flag is set the camera direction is independent of the vehicle's rotation.</td>
-      </tr>
-      <tr>
-        <td><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_BLOCK_INTERFERENCE" target="_blank">VEHICLE_FLAG_BLOCK_INTERFERENCE</a></td>
-        <td>0x400</td>
-        <td>Prevents attachments worn by the vehicle's passengers from pushing the vehicle via <a href="https://wiki.secondlife.com/wiki/LlPushObject" target="_blank">llPushObject</a> and similar functions.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Caveats</h2>
-  <ul>
-    <li>Some vehicle flags may remain enabled after script reset. Use <a href="https://wiki.secondlife.com/wiki/LlRemoveVehicleFlags" target="_blank">llRemoveVehicleFlags</a> to disable any flags that would interfere with the correct functioning of your vehicle.</li>
-    <li><a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_MOUSELOOK_STEER" target="_blank">VEHICLE_FLAG_MOUSELOOK_STEER</a> and <a href="https://wiki.secondlife.com/wiki/VEHICLE_FLAG_MOUSELOOK_BANK" target="_blank">VEHICLE_FLAG_MOUSELOOK_BANK</a> only turn the vehicle up to the current <a href="https://wiki.secondlife.com/wiki/VEHICLE_ANGULAR_MOTOR_DIRECTION" target="_blank">VEHICLE_ANGULAR_MOTOR_DIRECTION</a>; If VEHICLE_ANGULAR_MOTOR_DIRECTION is set to <a href="https://wiki.secondlife.com/wiki/ZERO_VECTOR" target="_blank">ZERO_VECTOR</a>, then the vehicle will not turn.</li>
-  </ul>
-  <h2>See Also</h2>
-  <h3>Functions</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlRemoveVehicleFlags" target="_blank">llRemoveVehicleFlags</a></td>
-        <td>–</td>
-        <td>Remove vehicle flags</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3>Articles</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Linden_Vehicle_Tutorial" target="_blank">Linden Vehicle Tutorial</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Deep Notes</h2>
-  <table>
-    <tbody>
-      <tr>
-        <th>Signature</th>
-      </tr>
-      <tr>
-        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
-function void llSetVehicleFlags( integer flags );
-`} lang="lsl" /></div>
-
-</td>
-      </tr>
-    </tbody>
-  </table>
 
 </DocsLayout>
       

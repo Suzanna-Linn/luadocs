@@ -38,7 +38,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>Returns an accurate facing for Avatars seated or in mouselook, but only a rough direction otherwise when called from an attached prim.</li>
-    <li>When a seated avatar is in mouselook, its rotation is affected by the camera's rotation. There is no way to get the actual rotation of an avatar while seated in mouselook.</li>
+    <li>When a seated avatar is in mouselook, its rotation is affected by the camera&#39;s rotation. There is no way to get the actual rotation of an avatar while seated in mouselook.</li>
     <li>This function incorrectly (but usefully) returns the avatars region rotation when called in an attachment, use the following instead:</li>
   </ul>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
@@ -75,7 +75,7 @@ main()
   }
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
-  <p>In an attached object, returns region rotation of avatar NOT of the object's root prim. See <a href="https://wiki.secondlife.com/wiki/Rotation#Single_or_Root_Prims_vs_Linked_Prims_vs_Attachments" target="_blank">special cases of rotation</a>.</p>
+  <p>In an attached object, returns region rotation of avatar NOT of the object&#39;s root prim. See <a href="https://wiki.secondlife.com/wiki/Rotation#Single_or_Root_Prims_vs_Linked_Prims_vs_Attachments" target="_blank">special cases of rotation</a>.</p>
   <h2>See Also</h2>
   <h3>Functions</h3>
   <table>

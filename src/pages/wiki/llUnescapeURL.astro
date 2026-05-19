@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Returns a string that is an unescaped/unencoded version of <b>url</b>, replacing `"%20"` with spaces etc.</p>
+      <p>  <p>Returns a string that is an unescaped/unencoded version of <b>url</b>, replacing `&quot;%20&quot;` with spaces etc.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -66,13 +66,13 @@ import DocsCode from '/src/components/DocsCode.astro';
   </table>
   <h2>Caveats</h2>
   <ul>
-    <li>The [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Hexadecimal" target="_blank">hexadecimal</a> encoded representation of [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Byte" target="_blank">byte</a> encoding is the only supported means of access to non ASCII7 characters (Unicode characters).
+    <li>The [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Hexadecimal" target="_blank">hexadecimal</a> encoded representation of [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a> [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Byte" target="_blank">byte</a> encoding is the only supported means of access to non ASCII7 characters (Unicode characters).
     <ul>
-      <li>Decoding of Unicode as `"%u####"` is not supported.</li>
+      <li>Decoding of Unicode as `&quot;%u####&quot;` is not supported.</li>
     </ul>
   
     </li>
-    <li>The `"+"` character is not decoded as a space.</li>
+    <li>The `&quot;+&quot;` character is not decoded as a space.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local str = "http://wiki.secondlife.com/wiki/LSL Portal"

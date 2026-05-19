@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Creates or updates an unprotected <b>name:value</b> pair from the linkset's datastore.</p>
+      <p>  <p>Creates or updates an unprotected <b>name:value</b> pair from the linkset&#39;s datastore.</p>
   <p>Returns an integer success or failure code.</p>
 </p>
       <table class="param-table" id="parameters">
@@ -60,7 +60,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Untitled Section</h2>
   <h3>llLinksetDataWriteProtected</h3>
   <p><b> <a href="https://wiki.secondlife.com/wiki/Category:LSL_Functions" target="_blank">Function</a>: <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> </b>llLinksetDataWriteProtected<b>( <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> name, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> value, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> pass );</b></p>
-  <p>Creates or updates a protected <b>name:value</b> pair from the linkset's datastore. Further attempts to read, write or update the <b>name:value</b> pair must use the protected versions of those functions and must supply the same string that was used in <b>pass</b>.</p>
+  <p>Creates or updates a protected <b>name:value</b> pair from the linkset&#39;s datastore. Further attempts to read, write or update the <b>name:value</b> pair must use the protected versions of those functions and must supply the same string that was used in <b>pass</b>.</p>
   <p>Returns an integer success or failure code.</p>
   <table>
     <tbody>
@@ -100,32 +100,32 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Description</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_OK&action=edit&redlink=1" target="_blank">LINKSETDATA_OK</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_OK&amp;action=edit&amp;redlink=1" target="_blank">LINKSETDATA_OK</a></td>
         <td>0</td>
         <td>The <b>name:value</b> pair was written to the datastore.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_EMEMORY&action=edit&redlink=1" target="_blank">LINKSETDATA_EMEMORY</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_EMEMORY&amp;action=edit&amp;redlink=1" target="_blank">LINKSETDATA_EMEMORY</a></td>
         <td>1</td>
         <td>A <b>name:value</b> pair was too large to write to the linkset datastore.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_ENOKEY&action=edit&redlink=1" target="_blank">LINKSETDATA_ENOKEY</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_ENOKEY&amp;action=edit&amp;redlink=1" target="_blank">LINKSETDATA_ENOKEY</a></td>
         <td>2</td>
         <td>The name supplied to llLinksetDataWrite was empty.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_EPROTECTED&action=edit&redlink=1" target="_blank">LINKSETDATA_EPROTECTED</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_EPROTECTED&amp;action=edit&amp;redlink=1" target="_blank">LINKSETDATA_EPROTECTED</a></td>
         <td>3</td>
-        <td>The <b>name:value</b> pair has been protected from overwrite in the linkset's datastore.</td>
+        <td>The <b>name:value</b> pair has been protected from overwrite in the linkset&#39;s datastore.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_NOTFOUND&action=edit&redlink=1" target="_blank">LINKSETDATA_NOTFOUND</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_NOTFOUND&amp;action=edit&amp;redlink=1" target="_blank">LINKSETDATA_NOTFOUND</a></td>
         <td>4</td>
-        <td>The named key could not be found in the linkset's datastore when attempting to delete it.</td>
+        <td>The named key could not be found in the linkset&#39;s datastore when attempting to delete it.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_NOUPDATE&action=edit&redlink=1" target="_blank">LINKSETDATA_NOUPDATE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=LINKSETDATA_NOUPDATE&amp;action=edit&amp;redlink=1" target="_blank">LINKSETDATA_NOUPDATE</a></td>
         <td>5</td>
         <td>The <b>name:value</b> stored in the linkset was not changed by the write operation because the value stored matches the value written.</td>
       </tr>
@@ -133,7 +133,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </table>
   <h2>Caveats</h2>
   <ul>
-    <li>Events are only fired if the linkset's datastore is changed.
+    <li>Events are only fired if the linkset&#39;s datastore is changed.
     <ul>
       <li>Rewriting an existing value to a <b>name:value</b> pair returns LINKSETDATA_NOUPDATE.</li>
       <li>Writing an empty string to a nonexistent name in the datastore returns LINKSETDATA_NOTFOUND.</li>

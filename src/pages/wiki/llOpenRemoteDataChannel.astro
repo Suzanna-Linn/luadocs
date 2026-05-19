@@ -50,11 +50,11 @@ import DocsCode from '/src/components/DocsCode.astro';
     </li>
     <li>Any channel that is not used for 14 days will be cleaned up.
     <ul>
-      <li>May be advisable to somewhat regularly (before expected use or on a regular schedule) check that the channel is good and hasn't changed by calling llOpenRemoteDataChannel and comparing to the previous channel.</li>
+      <li>May be advisable to somewhat regularly (before expected use or on a regular schedule) check that the channel is good and hasn&#39;t changed by calling llOpenRemoteDataChannel and comparing to the previous channel.</li>
     </ul>
   
     </li>
-    <li>Note: XML-RPC requests often time-out due to the front-end server being overloaded. LL has continued to upgrade the server hardware periodically, but it has remained unreliable. LL developers have advised that the XML-RPC design isn't scalable (due to the single server bottle-neck) and that the service is "deprecated". They suggest using <a href="https://wiki.secondlife.com/wiki/HTTP_Polling" target="_blank">HTTP Polling</a> as an alternative. If an XML-RPC request does time-out the script's remote_data event may or may not be triggered (and any script response is lost).</li>
+    <li>Note: XML-RPC requests often time-out due to the front-end server being overloaded. LL has continued to upgrade the server hardware periodically, but it has remained unreliable. LL developers have advised that the XML-RPC design isn&#39;t scalable (due to the single server bottle-neck) and that the service is &quot;deprecated&quot;. They suggest using <a href="https://wiki.secondlife.com/wiki/HTTP_Polling" target="_blank">HTTP Polling</a> as an alternative. If an XML-RPC request does time-out the script&#39;s remote_data event may or may not be triggered (and any script response is lost).</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()

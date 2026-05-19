@@ -34,7 +34,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>llSetPrimitiveParams</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_TEXGEN,&#32;[integer</a> face, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> mode ] </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_TEXGEN,&amp;#32;[integer</a> face, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> mode ] </b></p>
   <table>
     <tbody>
       <tr>
@@ -53,10 +53,10 @@ import DocsCode from '/src/components/DocsCode.astro';
       </tr>
     </tbody>
   </table>
-  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>, <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></p>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a>, <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> &amp; <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a></p>
   <p>Caveats</p>
   <ul>
-    <li>If <b>texture</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>texture</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>texture</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
@@ -68,7 +68,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>The PRIM_TEXGEN silently fails if its <b>face</b> value indicates a face that does not exist.</li>
   </ul>
   <h2>llGetPrimitiveParams</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_TEXGEN,&#32;[integer</a> face ] </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_TEXGEN,&amp;#32;[integer</a> face ] </b></p>
   <p>Returns the list <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> mode ]</p>
   <table>
     <tbody>
@@ -88,7 +88,7 @@ import DocsCode from '/src/components/DocsCode.astro';
       </tr>
     </tbody>
   </table>
-  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a> & <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></p>
+  <p>When used with <a href="https://wiki.secondlife.com/wiki/LlGetPrimitiveParams" target="_blank">llGetPrimitiveParams</a> &amp; <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a></p>
   <p>Caveats</p>
   <ul>
     <li>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the PRIM_TEXGEN works on all sides.</li>

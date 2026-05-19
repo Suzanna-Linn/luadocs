@@ -14,7 +14,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p class="deprecated-text"><span class="lua-section"><span class="tag lua-tag">Lua</span>Deprecated:  use vector.magnitude because It's a fastcall.</span></p>
-      <p>  <p>Returns a float that is the magnitude of the vector (the undirected non-negative distance from <b>vec</b> to <0.0, 0.0, 0.0>).</p>
+      <p>  <p>Returns a float that is the magnitude of the vector (the undirected non-negative distance from <b>vec</b> to &lt;0.0, 0.0, 0.0&gt;).</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -66,14 +66,14 @@ main()
   <ul>
     <li>Mathematically the formula for vector magnitude is
     <ul>
-      <li>`<a href="https://wiki.secondlife.com/wiki/LlSqrt" target="_blank">llSqrt</a>(vec.x <i> vec.x + vec.y </i> vec.y + vec.z * vec.z)`</li>
+      <li>`[llSqrt](https://wiki.secondlife.com/wiki/LlSqrt)(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z)`</li>
     </ul>
   
     </li>
     <li>Knowing this, there are ways to circumvent llVecMag for more efficient code.
     <ul>
-      <li>vec*vec < 16.0 is over twice as fast as llVecMag(vec) < 4.0.</li>
-      <li>vec<i>vec < (dist</i>dist) is about twice as fast as llVecMag(vec) < dist.</li>
+      <li>vec*vec &lt; 16.0 is over twice as fast as llVecMag(vec) &lt; 4.0.</li>
+      <li>vec<i>vec &lt; (dist</i>dist) is about twice as fast as llVecMag(vec) &lt; dist.</li>
       <li>This can work in many other ways, too, with other comparisons.</li>
     </ul>
   

@@ -64,7 +64,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>The minimum value for <b>strength</b> seems to be 0.0445 for the function to have any effect.</li>
   </ul>
   <h2>Examples</h2>
-  <p>Point the prim's positive y axis (<i><0.0, 1.0, 0.0></i>) towards a position on the sim</p>
+  <p>Point the prim&#39;s positive y axis (<i>&lt;0.0, 1.0, 0.0&gt;</i>) towards a position on the sim</p>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//-- where vPosTarget is the global position of the object you want to "look" at
 llRotLookAt( llRotBetween( <0.0,1.0,0.0>, llVecNorm( vPosTarget - llGetPos() ) ), 1.0, 0.4 ); // Point +Y axis towards vPosTarget`} lang="lsl" /></div>
   <ul>

@@ -27,7 +27,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>Amount / amount</td>
-          <td>number of L$, must be greater than zero, (<b>amount</b> > 0)</td>
+          <td>number of L$, must be greater than zero, (<b>amount</b> &gt; 0)</td>
         </tr>
       </table>
     </div>
@@ -54,8 +54,8 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&#32;and it must be granted by the owner.</p>
-  <p>If you aren't going to use the return value or the resulting <a href="https://wiki.secondlife.com/wiki/Transaction_result" target="_blank">transaction_result</a> event consider using <a href="https://wiki.secondlife.com/wiki/LlGiveMoney" target="_blank">llGiveMoney</a> instead of this function.</p>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&amp;#32;and it must be granted by the owner.</p>
+  <p>If you aren&#39;t going to use the return value or the resulting <a href="https://wiki.secondlife.com/wiki/Transaction_result" target="_blank">transaction_result</a> event consider using <a href="https://wiki.secondlife.com/wiki/LlGiveMoney" target="_blank">llGiveMoney</a> instead of this function.</p>
   <h2>Caveats</h2>
   <table>
     <tbody>
@@ -76,7 +76,7 @@ Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_bl
     <li>Use is limited to 30 payments in a 30 second interval for all scripts owned by that resident on a region. Sustained overage will produce a script error and halt payments while the rate remains excessive. Historically, faster payments have failed intermittently.</li>
     <li>Once a script has the <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a> permission it can empty an account of L$.
     <ul>
-      <li>Fraud & theft are both <a href="https://lindenlab.com" target="_blank">Linden Lab</a> violations and crimes. Misuse this function and you risk being banned and legal action. In addition LL may freeze the accounts of anyone the money is transferred to and restore it to it's rightful owners. This may involve retrieving it from third party exchanges and accounts on those exchanges being frozen. The system is not designed to be friendly towards fraud.</li>
+      <li>Fraud &amp; theft are both <a href="https://lindenlab.com" target="_blank">Linden Lab</a> violations and crimes. Misuse this function and you risk being banned and legal action. In addition LL may freeze the accounts of anyone the money is transferred to and restore it to it&#39;s rightful owners. This may involve retrieving it from third party exchanges and accounts on those exchanges being frozen. The system is not designed to be friendly towards fraud.</li>
     </ul>
   
     </li>

@@ -44,16 +44,16 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>More precisely the values are separated with a comma and a space (", ").</p>
-  <p>This function's functionality is equivalent to `<a href="https://wiki.secondlife.com/wiki/LlDumpList2String" target="_blank">llDumpList2String</a>(<b>src</b>, ", ");`</p>
-  <p>The result of this function is more or less the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank">CSV</a> format, but it does not conform in all its details.</p>
+  <p>More precisely the values are separated with a comma and a space (&quot;, &quot;).</p>
+  <p>This function&#39;s functionality is equivalent to `[llDumpList2String](https://wiki.secondlife.com/wiki/LlDumpList2String)(**src**, &quot;, &quot;);`</p>
+  <p>The result of this function is more or less the [](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank">CSV</a> format, but it does not conform in all its details.</p>
   <p>To reverse the process use <a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a>. But see the Caveat.</p>
   <h2>Caveats</h2>
   <ul>
-    <li><a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a> will not reverse the process if there are commas or oddly matched angle brackets (<b><</b> and <b>></b>) in any of the original strings. For details see the article <a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a>.
+    <li><a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a> will not reverse the process if there are commas or oddly matched angle brackets (<b>&lt;</b> and <b>&gt;</b>) in any of the original strings. For details see the article <a href="https://wiki.secondlife.com/wiki/LlCSV2List" target="_blank">llCSV2List</a>.
     <ul>
       <li>One way around this is to first use <a href="https://wiki.secondlife.com/wiki/LlEscapeURL" target="_blank">llEscapeURL</a> on any user-supplied strings before adding them to the list. <a href="https://wiki.secondlife.com/wiki/LlUnescapeURL" target="_blank">llUnescapeURL</a> will reverse <a href="https://wiki.secondlife.com/wiki/LlEscapeURL" target="_blank">llEscapeURL</a>.</li>
-      <li>If your strings may contain commas but not unmatched angle brackets you can wrap your strings with angle brackets (< and >) like you would use double quotes around the string and then use <a href="https://wiki.secondlife.com/wiki/LlGetSubString" target="_blank">llGetSubString</a> with START at 1 and END at -2 to remove them.</li>
+      <li>If your strings may contain commas but not unmatched angle brackets you can wrap your strings with angle brackets (&lt; and &gt;) like you would use double quotes around the string and then use <a href="https://wiki.secondlife.com/wiki/LlGetSubString" target="_blank">llGetSubString</a> with START at 1 and END at -2 to remove them.</li>
     </ul>
   
     </li>

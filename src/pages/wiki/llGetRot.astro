@@ -13,7 +13,7 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Returns a rotation that is the prim's rotation relative to the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a>'s axes.</p>
+      <p>  <p>Returns a rotation that is the prim&#39;s rotation relative to the <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a>&#39;s axes.</p>
 </p>
     </div>
 
@@ -40,7 +40,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>llGetRot incorrectly reports the avatars rotation when called from the root of an attached object, use <a href="https://wiki.secondlife.com/wiki/LlGetLocalRot" target="_blank">llGetLocalRot</a> for root prims, instead
     <ul>
       <li>llGetRot will return an accurate facing for Avatars seated or in mouselook, but only a rough direction otherwise when called from an attached prim.</li>
-      <li>When called in an attachment's child prim, the reported rotation will only be visually correct if the object's root is attached to <a href="https://wiki.secondlife.com/wiki/ATTACH_AVATAR_CENTER" target="_blank">ATTACH_AVATAR_CENTER</a>, at <a href="https://wiki.secondlife.com/wiki/ZERO_ROTATION" target="_blank">ZERO_ROTATION</a>. Moving the attachment's root or changing the attachment point will not affect the reported rotation. Avatar animation is invisible to the simulator, so it also does not affect the reported rotation. Also see <a href="https://wiki.secondlife.com/wiki/Rotation#Single_or_Root_Prims_vs_Linked_Prims_vs_Attachments" target="_blank">Single or Root Prims vs Linked Prims vs Attachments</a>.</li>
+      <li>When called in an attachment&#39;s child prim, the reported rotation will only be visually correct if the object&#39;s root is attached to <a href="https://wiki.secondlife.com/wiki/ATTACH_AVATAR_CENTER" target="_blank">ATTACH_AVATAR_CENTER</a>, at <a href="https://wiki.secondlife.com/wiki/ZERO_ROTATION" target="_blank">ZERO_ROTATION</a>. Moving the attachment&#39;s root or changing the attachment point will not affect the reported rotation. Avatar animation is invisible to the simulator, so it also does not affect the reported rotation. Also see <a href="https://wiki.secondlife.com/wiki/Rotation#Single_or_Root_Prims_vs_Linked_Prims_vs_Attachments" target="_blank">Single or Root Prims vs Linked Prims vs Attachments</a>.</li>
     </ul>
   
     </li>

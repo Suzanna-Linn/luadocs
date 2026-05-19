@@ -43,15 +43,15 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>Specification</h2>
-  <p>When money is paid to the prim, the money is given to the object's owner.</p>
-  <p>If the object is owned by or deeded to a group it is divvied up amongst the group members immediately (which is why groups can't grant <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a>). Only members of a role that has the "Accounting/Pay group liabilities and receive group dividends" attribute will receive money.</p>
-  <p>Don't forget to turn on the pay-behavior of the prims/objects involved.</p>
+  <p>When money is paid to the prim, the money is given to the object&#39;s owner.</p>
+  <p>If the object is owned by or deeded to a group it is divvied up amongst the group members immediately (which is why groups can&#39;t grant <a href="https://wiki.secondlife.com/wiki/PERMISSION_DEBIT" target="_blank">PERMISSION_DEBIT</a>). Only members of a role that has the &quot;Accounting/Pay group liabilities and receive group dividends&quot; attribute will receive money.</p>
+  <p>Don&#39;t forget to turn on the pay-behavior of the prims/objects involved.</p>
   <p>The pay buttons should be configured in most applications where money is being transfered (<a href="https://wiki.secondlife.com/wiki/LlSetPayPrice" target="_blank">llSetPayPrice</a>), it makes paying money to the object easier.</p>
   <h2>Caveats</h2>
   <ul>
     <li>This event cannot be triggered by a call to <a href="https://wiki.secondlife.com/wiki/LlGiveMoney" target="_blank">llGiveMoney</a> because <a href="https://wiki.secondlife.com/wiki/LlGiveMoney" target="_blank">llGiveMoney</a> cannot be used by one object to pay another object.</li>
     <li>Money cannot be paid to an attachment.</li>
-    <li><b>Money() does not check if it is running on the Testing Grid!</b> If you are writing a vendor that does networking, be sure to check that it was not payed aditi grid by doing `if(llSubStringIndex(llGetEnv("simulator_hostname"), ".aditi.") == -1)` or by checking if <a href="https://wiki.secondlife.com/wiki/LlHTTPRequest" target="_blank">llHTTPRequest</a>'s `X-SecondLife-Shard` header does not equal "Testing".</li>
+    <li><b>Money() does not check if it is running on the Testing Grid!</b> If you are writing a vendor that does networking, be sure to check that it was not payed aditi grid by doing `if(llSubStringIndex(llGetEnv(&quot;simulator_hostname&quot;), &quot;.aditi.&quot;) == -1)` or by checking if <a href="https://wiki.secondlife.com/wiki/LlHTTPRequest" target="_blank">llHTTPRequest</a>&#39;s `X-SecondLife-Shard` header does not equal &quot;Testing&quot;.</li>
   </ul>
   <h2>Examples</h2>
   <p>This example shows the simplest tip-jar and shows how little code is needed to receive unverified amounts of money.</p>

@@ -14,7 +14,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p class="deprecated-text"">Deprecated:  use ll.SetLinkPrimitiveParamsFast</p>
-      <p>  <p>Sets the prim's parameters according to <b>rules</b>.</p>
+      <p>  <p>Sets the prim&#39;s parameters according to <b>rules</b>.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
@@ -59,7 +59,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>• integer</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">link</a></td>
         <td>–</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims&#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&#32;</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&amp;#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, &gt;1: child prims&amp;#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&amp;#32;</td>
         <td></td>
       </tr>
       <tr>
@@ -82,7 +82,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td>• integer</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/link" target="_blank">link</a></td>
         <td>–</td>
-        <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, >1: child prims&#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&#32;</td>
+        <td><a href="https://wiki.secondlife.com/wiki/Link" target="_blank">Link</a> number (0: unlinked,&amp;#32;1: <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim, &gt;1: child prims&amp;#32;and seated avatars) or a `LINK_*` <a href="https://wiki.secondlife.com/wiki/Flag" target="_blank">flag</a>&amp;#32;</td>
         <td></td>
       </tr>
       <tr>
@@ -97,7 +97,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>This function is fast compared to the above variations, not other LSL functions.</p>
   <p>Caveats</p>
   <ul>
-    <li>Sometimes llSetLinkPrimitiveParamsFast is <i>too fast</i>, i.e. the function returns and the next line of code executes & returns before the update has been processed, resulting in the updates being out of order. In most situations, there is no difference in behavior but sometimes there is. In those cases, you need to use <a href="#llSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> or <a href="#llSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a>.
+    <li>Sometimes llSetLinkPrimitiveParamsFast is <i>too fast</i>, i.e. the function returns and the next line of code executes &amp; returns before the update has been processed, resulting in the updates being out of order. In most situations, there is no difference in behavior but sometimes there is. In those cases, you need to use <a href="#llSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> or <a href="#llSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a>.
     <ul>
       <li>This occurs because the <a href="#llSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a> payload is being executed asynchronously, while <a href="#llSetPrimitiveParams" target="_blank">llSetPrimitiveParams</a> and <a href="#llSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> payloads are executed synchronously (or the delay makes it appear synchronous).</li>
     </ul>
@@ -151,79 +151,79 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>Usage</p>
   <p><a href="#PRIM_NAME" target="_blank">PRIM_NAME</a></p>
   <p>27</p>
-  <p>Sets the prim's name.</p>
+  <p>Sets the prim&#39;s name.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_NAME" target="_blank"> [PRIM_NAME</a>, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> name ]</p>
   <p><a href="#PRIM_DESC" target="_blank">PRIM_DESC</a></p>
   <p>28</p>
-  <p>Sets the prim's description.</p>
+  <p>Sets the prim&#39;s description.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_DESC" target="_blank"> [PRIM_DESC</a>, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> description ]</p>
   <p><a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a></p>
   <p>9</p>
-  <p>Sets the prim's shape.</p>
+  <p>Sets the prim&#39;s shape.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank"> [PRIM_TYPE</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flag ] + <a href="#PRIM_TYPE_flag_parameters" target="_blank">flag_parameters</a></p>
   <p><a href="#PRIM_SLICE" target="_blank">PRIM_SLICE</a></p>
   <p>35</p>
-  <p>Sets the prim's slice (a shape attribute).</p>
+  <p>Sets the prim&#39;s slice (a shape attribute).</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_SLICE" target="_blank"> [PRIM_SLICE</a>, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> slice ]</p>
   <p><a href="#PRIM_PHYSICS_SHAPE_TYPE" target="_blank">PRIM_PHYSICS_SHAPE_TYPE</a></p>
   <p>30</p>
-  <p>Sets the prim's physics shape type.</p>
+  <p>Sets the prim&#39;s physics shape type.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_TYPE" target="_blank"> [PRIM_PHYSICS_SHAPE_TYPE</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> type ]</p>
   <p><a href="#PRIM_MATERIAL" target="_blank">PRIM_MATERIAL</a></p>
   <p>2</p>
-  <p>Sets the prim's material.</p>
+  <p>Sets the prim&#39;s material.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank"> [PRIM_MATERIAL</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flag ]</p>
   <p><a href="#PRIM_PHYSICS" target="_blank">PRIM_PHYSICS</a></p>
   <p>3</p>
-  <p>Sets the object's physics status.</p>
+  <p>Sets the object&#39;s physics status.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS" target="_blank"> [PRIM_PHYSICS</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> boolean ]</p>
   <p><a href="#PRIM_TEMP_ON_REZ" target="_blank">PRIM_TEMP_ON_REZ</a></p>
   <p>4</p>
-  <p>Sets the object's <a href="https://wiki.secondlife.com/wiki/Category:LSL_Temporary" target="_blank">temporary</a> attribute.</p>
+  <p>Sets the object&#39;s <a href="https://wiki.secondlife.com/wiki/Category:LSL_Temporary" target="_blank">temporary</a> attribute.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_TEMP_ON_REZ" target="_blank"> [PRIM_TEMP_ON_REZ</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> boolean ]</p>
   <p><a href="#PRIM_PHANTOM" target="_blank">PRIM_PHANTOM</a></p>
   <p>5</p>
-  <p>Sets the object's phantom status.</p>
+  <p>Sets the object&#39;s phantom status.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_PHANTOM" target="_blank"> [PRIM_PHANTOM</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> boolean ]</p>
   <p><a href="#PRIM_POSITION" target="_blank">PRIM_POSITION</a></p>
   <p>6</p>
-  <p>Sets the prim's position.</p>
+  <p>Sets the prim&#39;s position.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_POSITION" target="_blank"> [PRIM_POSITION</a>, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> position ]</p>
   <p><a href="#PRIM_POS_LOCAL" target="_blank">PRIM_POS_LOCAL</a></p>
   <p>33</p>
-  <p>Sets the prim's local position.</p>
+  <p>Sets the prim&#39;s local position.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_POS_LOCAL" target="_blank"> [PRIM_POS_LOCAL</a>, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> position ]</p>
   <p><a href="#PRIM_ROTATION" target="_blank">PRIM_ROTATION</a></p>
   <p>8</p>
-  <p>Sets the prim's global rotation.</p>
+  <p>Sets the prim&#39;s global rotation.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_ROTATION" target="_blank"> [PRIM_ROTATION</a>, <a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a> rot ]</p>
   <p><a href="#PRIM_ROT_LOCAL" target="_blank">PRIM_ROT_LOCAL</a></p>
   <p>29</p>
-  <p>Sets the prim's local rotation.</p>
+  <p>Sets the prim&#39;s local rotation.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_ROT_LOCAL/ja" target="_blank"> [PRIM_ROT_LOCAL</a>, <a href="https://wiki.secondlife.com/wiki/Rotation" target="_blank">rotation</a> rot ]</p>
   <p><a href="#PRIM_SIZE" target="_blank">PRIM_SIZE</a></p>
   <p>7</p>
-  <p>Sets the prim's size.</p>
+  <p>Sets the prim&#39;s size.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_SIZE" target="_blank"> [PRIM_SIZE</a>, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> size ]</p>
   <p><a href="#PRIM_TEXTURE" target="_blank">PRIM_TEXTURE</a></p>
   <p>17</p>
-  <p>Sets the prim's texture attributes.</p>
+  <p>Sets the prim&#39;s texture attributes.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_TEXTURE" target="_blank"> [PRIM_TEXTURE</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians ]</p>
   <p><a href="#PRIM_RENDER_MATERIAL" target="_blank">PRIM_RENDER_MATERIAL</a></p>
   <p>49</p>
-  <p>Sets the prim's render_material. Setting this param will also clear most <a href="#PRIM_GLTF_BASE_COLOR" target="_blank">PRIM_GLTF_*</a> properties on the face, with the exceptions of repeats, offsets, and rotation_in_radians</p>
+  <p>Sets the prim&#39;s render_material. Setting this param will also clear most <a href="#PRIM_GLTF_BASE_COLOR" target="_blank">PRIM_GLTF_*</a> properties on the face, with the exceptions of repeats, offsets, and rotation_in_radians</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_RENDER_MATERIAL" target="_blank"> [PRIM_RENDER_MATERIAL</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> render_material ]</p>
   <p><a href="#PRIM_TEXT" target="_blank">PRIM_TEXT</a></p>
   <p>26</p>
-  <p>Sets the prim's floating text.</p>
+  <p>Sets the prim&#39;s floating text.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_TEXT" target="_blank"> [PRIM_TEXT</a>, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> text, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha ]</p>
   <p><a href="#PRIM_COLOR" target="_blank">PRIM_COLOR</a></p>
   <p>18</p>
-  <p>Sets the face's color.</p>
+  <p>Sets the face&#39;s color.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_COLOR" target="_blank"> [PRIM_COLOR</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha ]</p>
   <p><a href="#PRIM_BUMP_SHINY" target="_blank">PRIM_BUMP_SHINY</a></p>
   <p>19</p>
-  <p>Sets the face's shiny & bump.</p>
+  <p>Sets the face&#39;s shiny &amp; bump.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_BUMP_SHINY" target="_blank"> [PRIM_BUMP_SHINY</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> shiny, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> bump ]</p>
   <p><a href="#PRIM_POINT_LIGHT" target="_blank">PRIM_POINT_LIGHT</a></p>
   <p>23</p>
@@ -235,7 +235,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_REFLECTION_PROBE" target="_blank"> [PRIM_REFLECTION_PROBE</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> ambiance, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> clip_distance, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flags ]</p>
   <p><a href="#PRIM_FULLBRIGHT" target="_blank">PRIM_FULLBRIGHT</a></p>
   <p>20</p>
-  <p>Sets the face's full bright flag.</p>
+  <p>Sets the face&#39;s full bright flag.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_FULLBRIGHT" target="_blank"> [PRIM_FULLBRIGHT</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> boolean ]</p>
   <p><a href="#PRIM_FLEXIBLE" target="_blank">PRIM_FLEXIBLE</a></p>
   <p>21</p>
@@ -243,27 +243,27 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_FLEXIBLE" target="_blank"> [PRIM_FLEXIBLE</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> softness, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> gravity, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> friction, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> wind, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> tension, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> force ]</p>
   <p><a href="#PRIM_TEXGEN" target="_blank">PRIM_TEXGEN</a></p>
   <p>22</p>
-  <p>Sets the face's texture mode.</p>
+  <p>Sets the face&#39;s texture mode.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN" target="_blank"> [PRIM_TEXGEN</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> type ]</p>
   <p><a href="#PRIM_GLOW" target="_blank">PRIM_GLOW</a></p>
   <p>25</p>
-  <p>Sets the face's glow attribute.</p>
+  <p>Sets the face&#39;s glow attribute.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_GLOW" target="_blank"> [PRIM_GLOW</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> intensity ]</p>
   <p><a href="#PRIM_OMEGA" target="_blank">PRIM_OMEGA</a></p>
   <p>32</p>
-  <p>Sets the prim's spin to the specified axis and rate.</p>
+  <p>Sets the prim&#39;s spin to the specified axis and rate.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_OMEGA" target="_blank"> [PRIM_OMEGA</a>, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> axis, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> spinrate, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> gain ]</p>
   <p><a href="#PRIM_NORMAL" target="_blank">PRIM_NORMAL</a></p>
   <p>37</p>
-  <p>Sets the prim's normal map attributes.</p>
+  <p>Sets the prim&#39;s normal map attributes.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_NORMAL" target="_blank"> [PRIM_NORMAL</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians ]</p>
   <p><a href="#PRIM_SPECULAR" target="_blank">PRIM_SPECULAR</a></p>
   <p>36</p>
-  <p>Sets the prim's specular map attributes.</p>
+  <p>Sets the prim&#39;s specular map attributes.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_SPECULAR" target="_blank"> [PRIM_SPECULAR</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> glossiness, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> environment ]</p>
   <p><a href="#PRIM_ALPHA_MODE" target="_blank">PRIM_ALPHA_MODE</a></p>
   <p>38</p>
-  <p>Sets the prim's diffuse texture alpha rendering mode attributes.</p>
+  <p>Sets the prim&#39;s diffuse texture alpha rendering mode attributes.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_ALPHA_MODE" target="_blank"> [PRIM_ALPHA_MODE</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> alpha_mode, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> mask_cutoff ]</p>
   <p><a href="#PRIM_LINK_TARGET" target="_blank">PRIM_LINK_TARGET</a></p>
   <p>34</p>
@@ -271,11 +271,11 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_LINK_TARGET" target="_blank"> [PRIM_LINK_TARGET</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> link_target ]</p>
   <p><a href="#PRIM_CAST_SHADOWS" target="_blank">PRIM_CAST_SHADOWS</a></p>
   <p>24</p>
-  <p>Sets the prim's cast shadow attribute. (<b>DEPRECATED</b>)</p>
+  <p>Sets the prim&#39;s cast shadow attribute. (<b>DEPRECATED</b>)</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_CAST_SHADOWS" target="_blank"> [PRIM_CAST_SHADOWS</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> boolean ]</p>
   <p><a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>[[2]](#footnote_2)</p>
   <p>1</p>
-  <p>Sets the prim's shape (legacy mode, <b>DEPRECATED</b>).</p>
+  <p>Sets the prim&#39;s shape (legacy mode, <b>DEPRECATED</b>).</p>
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> 1, [integer</a> flag ] + <a href="#PRIM_TYPE_LEGACY_flag_parameters" target="_blank">flag_parameters</a></p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_ALLOW_UNSIT" target="_blank">PRIM_ALLOW_UNSIT</a></p>
   <p>39</p>
@@ -375,13 +375,13 @@ import DocsCode from '/src/components/DocsCode.astro';
   </table>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_BASE_COLOR" target="_blank">PRIM_GLTF_BASE_COLOR</a></p>
   <p>48</p>
-  <p>Sets the prim's GLTF Material Base Color map attributes.</p>
-  <p>This parameter's arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
+  <p>Sets the prim&#39;s GLTF Material Base Color map attributes.</p>
+  <p>This parameter&#39;s arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
   <table>
     <tbody>
       <tr>
         <td>⚠️</td>
-        <td><b>Warning:</b> Setting an argument to the empty string ("") will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string ("") will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
+        <td><b>Warning:</b> Setting an argument to the empty string (&quot;&quot;) will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string (&quot;&quot;) will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
       </tr>
     </tbody>
   </table>
@@ -412,46 +412,46 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_GLTF_BASE_COLOR, [integer</a> face, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> linear_color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> gltf_alpha_mode, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha_mask_cutoff, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> double_sided ]</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_NORMAL" target="_blank">PRIM_GLTF_NORMAL</a></p>
   <p>45</p>
-  <p>Sets the prim's GLTF Material Normal map attributes.</p>
-  <p>This parameter's arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
+  <p>Sets the prim&#39;s GLTF Material Normal map attributes.</p>
+  <p>This parameter&#39;s arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
   <table>
     <tbody>
       <tr>
         <td>⚠️</td>
-        <td><b>Warning:</b> Setting an argument to the empty string ("") will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string ("") will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
+        <td><b>Warning:</b> Setting an argument to the empty string (&quot;&quot;) will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string (&quot;&quot;) will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
       </tr>
     </tbody>
   </table>
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_GLTF_NORMAL, [integer</a> face, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians ]</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_METALLIC_ROUGHNESS" target="_blank">PRIM_GLTF_METALLIC_ROUGHNESS</a></p>
   <p>47</p>
-  <p>Sets the prim's GLTF ORM map attributes (Occlusion, Roughness, Metallic).</p>
-  <p>This parameter's arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
+  <p>Sets the prim&#39;s GLTF ORM map attributes (Occlusion, Roughness, Metallic).</p>
+  <p>This parameter&#39;s arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
   <table>
     <tbody>
       <tr>
         <td>⚠️</td>
-        <td><b>Warning:</b> Setting an argument to the empty string ("") will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string ("") will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
+        <td><b>Warning:</b> Setting an argument to the empty string (&quot;&quot;) will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string (&quot;&quot;) will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
       </tr>
     </tbody>
   </table>
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_GLTF_METALLIC_ROUGHNESS, [integer</a> face, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> metallic_factor, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> roughness_factor ]</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_EMISSIVE" target="_blank">PRIM_GLTF_EMISSIVE</a></p>
   <p>46</p>
-  <p>Sets the prim's GLTF Material Emissive map attributes.</p>
-  <p>This parameter's arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
+  <p>Sets the prim&#39;s GLTF Material Emissive map attributes.</p>
+  <p>This parameter&#39;s arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
   <table>
     <tbody>
       <tr>
         <td>⚠️</td>
-        <td><b>Warning:</b> Setting an argument to the empty string ("") will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string ("") will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
+        <td><b>Warning:</b> Setting an argument to the empty string (&quot;&quot;) will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string (&quot;&quot;) will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
       </tr>
     </tbody>
   </table>
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> PRIM_GLTF_EMISSIVE, [integer</a> face, <a href="https://wiki.secondlife.com/wiki/String" target="_blank">string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> linear_emissive_tint ]</p>
-  <p><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SIT_FLAGS&action=edit&redlink=1" target="_blank">PRIM_SIT_FLAGS</a></p>
+  <p><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SIT_FLAGS&amp;action=edit&amp;redlink=1" target="_blank">PRIM_SIT_FLAGS</a></p>
   <p>50</p>
-  <p>Sets the flags on the prim's sit target</p>
+  <p>Sets the flags on the prim&#39;s sit target</p>
   <table>
     <tbody>
       <tr>
@@ -460,27 +460,27 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Description</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_SIT_TARGET&action=edit&redlink=1" target="_blank">SIT_FLAG_SIT_TARGET</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_SIT_TARGET&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_SIT_TARGET</a></td>
         <td>0x1</td>
-        <td>Read-only flag to indicate whether the link has a sit target. Use <a href="https://wiki.secondlife.com/wiki/LlSitTarget" target="_blank">llSitTarget</a>, <a href="https://wiki.secondlife.com/wiki/LlLinkSitTarget" target="_blank">llLinkSitTarget</a>, or <a href="https://wiki.secondlife.com/wiki/PRIM_SIT_TARGET" target="_blank">PRIM_SIT_TARGET</a> to disable or enable this flag. Use <a href="https://wiki.secondlife.com/wiki/LlGetLinkSitFlags" target="_blank">llGetLinkSitFlags</a>, or <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a> with <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SIT_FLAGS&action=edit&redlink=1" target="_blank">PRIM_SIT_FLAGS</a> to read this flag.</td>
+        <td>Read-only flag to indicate whether the link has a sit target. Use <a href="https://wiki.secondlife.com/wiki/LlSitTarget" target="_blank">llSitTarget</a>, <a href="https://wiki.secondlife.com/wiki/LlLinkSitTarget" target="_blank">llLinkSitTarget</a>, or <a href="https://wiki.secondlife.com/wiki/PRIM_SIT_TARGET" target="_blank">PRIM_SIT_TARGET</a> to disable or enable this flag. Use <a href="https://wiki.secondlife.com/wiki/LlGetLinkSitFlags" target="_blank">llGetLinkSitFlags</a>, or <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a> with <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SIT_FLAGS&amp;action=edit&amp;redlink=1" target="_blank">PRIM_SIT_FLAGS</a> to read this flag.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_ALLOW_UNSIT&action=edit&redlink=1" target="_blank">SIT_FLAG_ALLOW_UNSIT</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_ALLOW_UNSIT&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_ALLOW_UNSIT</a></td>
         <td>0x2</td>
         <td>Allow an avatar to manually unsit from a sit target. Only applies to agents who had been seated via an LSL script. See <a href="https://wiki.secondlife.com/wiki/LlSitOnLink" target="_blank">llSitOnLink</a>.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_SCRIPTED_ONLY&action=edit&redlink=1" target="_blank">SIT_FLAG_SCRIPTED_ONLY</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_SCRIPTED_ONLY&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_SCRIPTED_ONLY</a></td>
         <td>0x4</td>
         <td>Only allow scripted sits on this sit target.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_NO_COLLIDE&action=edit&redlink=1" target="_blank">SIT_FLAG_NO_COLLIDE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_NO_COLLIDE&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_NO_COLLIDE</a></td>
         <td>0x10</td>
-        <td>Disable the avatar's collision volume when they are seated on this sit target.</td>
+        <td>Disable the avatar&#39;s collision volume when they are seated on this sit target.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_NO_DAMAGE&action=edit&redlink=1" target="_blank">SIT_FLAG_NO_DAMAGE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_NO_DAMAGE&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_NO_DAMAGE</a></td>
         <td>0x20</td>
         <td>Do not distribute damage to agents sitting on this sit target.</td>
       </tr>
@@ -590,7 +590,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_SPHERE" target="_blank">PRIM_SCULPT_TYPE_SPHERE</a></td>
         <td>1</td>
         <td>Sphere</td>
-        <td colspan="3">Converge top & bottom, stitch left side to right</td>
+        <td colspan="3">Converge top &amp; bottom, stitch left side to right</td>
       </tr>
       <tr>
         <td><a href="https://wiki.secondlife.com/wiki/PRIM_SCULPT_TYPE_TORUS" target="_blank">PRIM_SCULPT_TYPE_TORUS</a></td>
@@ -617,7 +617,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <td colspan="3">See: <a href="https://wiki.secondlife.com/wiki/Mesh" target="_blank">Mesh</a></td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SCULPT_FLAG_ZZZZZZZZ&action=edit&redlink=1" target="_blank">PRIM_SCULPT_FLAG_ZZZZZZZZ</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SCULPT_FLAG_ZZZZZZZZ&amp;action=edit&amp;redlink=1" target="_blank">PRIM_SCULPT_FLAG_ZZZZZZZZ</a></td>
         <td>63</td>
         <td colspan="6"></td>
       </tr>
@@ -644,11 +644,11 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_SLICE" target="_blank"> [PRIM_SLICE</a> ]</p>
   <p>35</p>
   <p><a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> [vector</a> slice ]</p>
-  <p>Sets the prim's slice (a shape attribute).</p>
+  <p>Sets the prim&#39;s slice (a shape attribute).</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_TYPE" target="_blank"> [PRIM_PHYSICS_SHAPE_TYPE</a> ]</p>
   <p>30</p>
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> type ]</p>
-  <p>Sets the prim's physics shape type.</p>
+  <p>Sets the prim&#39;s physics shape type.</p>
   <p><b>type</b> Flags</p>
   <p>V</p>
   <p>Description</p>
@@ -659,20 +659,20 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>default for all non-mesh prims</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_CONVEX" target="_blank">PRIM_PHYSICS_SHAPE_CONVEX</a></p>
   <p>2</p>
-  <p>Use the convex hull formulas for generating the prim's physics-shape</p>
+  <p>Use the convex hull formulas for generating the prim&#39;s physics-shape</p>
   <p>default for all mesh prims</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_PHYSICS_SHAPE_NONE" target="_blank">PRIM_PHYSICS_SHAPE_NONE</a></p>
   <p>1</p>
-  <p>The prim will not contribute to the object's physics-shape</p>
+  <p>The prim will not contribute to the object&#39;s physics-shape</p>
   <p><i>This cannot be applied to the root prim or avatars.</i></p>
-  <p>This prim has no physics representation at all. Like <a href="https://wiki.secondlife.com/wiki/Phantom" target="_blank">phantom</a> objects, it will not collide with avatars or other objects. <i>Unlike</i> phantom prims, it will also pass freely through the terrain when the parent object is physical. Like <a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">volume detect</a> it doesn't collide with terrain. <i>Unlike</i> volume detect, it will not register <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">collision</a> events.</p>
+  <p>This prim has no physics representation at all. Like <a href="https://wiki.secondlife.com/wiki/Phantom" target="_blank">phantom</a> objects, it will not collide with avatars or other objects. <i>Unlike</i> phantom prims, it will also pass freely through the terrain when the parent object is physical. Like <a href="https://wiki.secondlife.com/wiki/LlVolumeDetect" target="_blank">volume detect</a> it doesn&#39;t collide with terrain. <i>Unlike</i> volume detect, it will not register <a href="https://wiki.secondlife.com/wiki/Category:LSL_Collision" target="_blank">collision</a> events.</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL" target="_blank"> [PRIM_MATERIAL</a> ]</p>
   <p>2</p>
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> material ]</p>
-  <p>Sets the prim's material. The material determines the default <a href="https://wiki.secondlife.com/wiki/LlCollisionSound" target="_blank">collision sound</a>, <a href="https://wiki.secondlife.com/wiki/LlCollisionSprite" target="_blank">sprite</a>, <a href="https://wiki.secondlife.com/wiki/LlSetPhysicsMaterial" target="_blank"><b>friction</b> coefficient and <b>restitution</b> coefficient</a>.</p>
+  <p>Sets the prim&#39;s material. The material determines the default <a href="https://wiki.secondlife.com/wiki/LlCollisionSound" target="_blank">collision sound</a>, <a href="https://wiki.secondlife.com/wiki/LlCollisionSprite" target="_blank">sprite</a>, <a href="https://wiki.secondlife.com/wiki/LlSetPhysicsMaterial" target="_blank"><b>friction</b> coefficient and <b>restitution</b> coefficient</a>.</p>
   <p>material Flags</p>
   <p>Description</p>
-  <p><a href="https://wiki.secondlife.com/w/index.php?title=FRICTION&action=edit&redlink=1" target="_blank">Friction</a></p>
+  <p><a href="https://wiki.secondlife.com/w/index.php?title=FRICTION&amp;action=edit&amp;redlink=1" target="_blank">Friction</a></p>
   <p><a href="https://wiki.secondlife.com/wiki/RESTITUTION" target="_blank">Restitution</a></p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_MATERIAL_STONE" target="_blank">PRIM_MATERIAL_STONE</a></p>
   <p>0</p>
@@ -809,7 +809,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_BUMP_SHINY" target="_blank"> [PRIM_BUMP_SHINY</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face ]</p>
   <p>19</p>
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> shiny, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> bump ]</p>
-  <p>shiny & bump Flags</p>
+  <p>shiny &amp; bump Flags</p>
   <p>Description</p>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_SHINY_NONE" target="_blank">PRIM_SHINY_NONE</a></p>
   <p>0</p>
@@ -901,7 +901,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_REFLECTION_PROBE" target="_blank"> [PRIM_REFLECTION_PROBE</a> ]</p>
   <p>44</p>
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> ambiance, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> clip_distance, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> flags ]</p>
-  <p>Sets the prim's reflection probe parameters.</p>
+  <p>Sets the prim&#39;s reflection probe parameters.</p>
   <p><b>type</b> Flags</p>
   <p>V</p>
   <p>Description</p>
@@ -1064,12 +1064,12 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>48</p>
   <p><a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> color, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> gltf_alpha_mode, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> alpha_mask_cutoff, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> double_sided ]</p>
   <p>linear_color param accepts color in Linear space - use <a href="https://wiki.secondlife.com/wiki/LlsRGB2Linear" target="_blank">llsRGB2Linear</a> to convert regular LSL color into Linear space.</p>
-  <p>This parameter's arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
+  <p>This parameter&#39;s arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
   <table>
     <tbody>
       <tr>
         <td>⚠️</td>
-        <td><b>Warning:</b> Setting an argument to the empty string ("") will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string ("") will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
+        <td><b>Warning:</b> Setting an argument to the empty string (&quot;&quot;) will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string (&quot;&quot;) will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
       </tr>
     </tbody>
   </table>
@@ -1100,24 +1100,24 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_NORMAL" target="_blank"> [PRIM_GLTF_NORMAL</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face ]</p>
   <p>45</p>
   <p><a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians ]</p>
-  <p>This parameter's arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
+  <p>This parameter&#39;s arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
   <table>
     <tbody>
       <tr>
         <td>⚠️</td>
-        <td><b>Warning:</b> Setting an argument to the empty string ("") will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string ("") will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
+        <td><b>Warning:</b> Setting an argument to the empty string (&quot;&quot;) will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string (&quot;&quot;) will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
       </tr>
     </tbody>
   </table>
   <p><a href="https://wiki.secondlife.com/wiki/PRIM_GLTF_METALLIC_ROUGHNESS" target="_blank"> [PRIM_GLTF_METALLIC_ROUGHNESS</a>, <a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> face ]</p>
   <p>47</p>
   <p><a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> metallic_factor, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> roughness_factor ]</p>
-  <p>This parameter's arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
+  <p>This parameter&#39;s arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
   <table>
     <tbody>
       <tr>
         <td>⚠️</td>
-        <td><b>Warning:</b> Setting an argument to the empty string ("") will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string ("") will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
+        <td><b>Warning:</b> Setting an argument to the empty string (&quot;&quot;) will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string (&quot;&quot;) will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
       </tr>
     </tbody>
   </table>
@@ -1125,16 +1125,16 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>46</p>
   <p><a href="https://wiki.secondlife.com/wiki/String" target="_blank"> [string</a> texture, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> repeats, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> offsets, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> rotation_in_radians, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> emissive_tint ]</p>
   <p>emissive_tint param accepts color in Linear space - use <a href="https://wiki.secondlife.com/wiki/LlsRGB2Linear" target="_blank">llsRGB2Linear</a> to convert regular LSL color into Linear space.</p>
-  <p>This parameter's arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
+  <p>This parameter&#39;s arguments are <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF overrides</a>.</p>
   <table>
     <tbody>
       <tr>
         <td>⚠️</td>
-        <td><b>Warning:</b> Setting an argument to the empty string ("") will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string ("") will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
+        <td><b>Warning:</b> Setting an argument to the empty string (&quot;&quot;) will clear the respective override. <b>GLTF texture transforms are always overrides, so setting them to the empty string (&quot;&quot;) will clear them.</b> See <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides#Examples" target="_blank">this example</a> for a workaround. The SL team is <a href="https://feedback.secondlife.com/" target="_blank">open to feedback</a> on LSL improvements for GLTF.</td>
       </tr>
     </tbody>
   </table>
-  <p><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SIT_FLAGS&action=edit&redlink=1" target="_blank"> [PRIM_SIT_FLAGS</a> ]</p>
+  <p><a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SIT_FLAGS&amp;action=edit&amp;redlink=1" target="_blank"> [PRIM_SIT_FLAGS</a> ]</p>
   <p>50</p>
   <p><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> flags ]</p>
   <p>Gets the sit flags currently set on this prim.</p>
@@ -1146,27 +1146,27 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Description</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_SIT_TARGET&action=edit&redlink=1" target="_blank">SIT_FLAG_SIT_TARGET</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_SIT_TARGET&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_SIT_TARGET</a></td>
         <td>0x1</td>
-        <td>Read-only flag to indicate whether the link has a sit target. Use <a href="https://wiki.secondlife.com/wiki/LlSitTarget" target="_blank">llSitTarget</a>, <a href="https://wiki.secondlife.com/wiki/LlLinkSitTarget" target="_blank">llLinkSitTarget</a>, or <a href="https://wiki.secondlife.com/wiki/PRIM_SIT_TARGET" target="_blank">PRIM_SIT_TARGET</a> to disable or enable this flag. Use <a href="https://wiki.secondlife.com/wiki/LlGetLinkSitFlags" target="_blank">llGetLinkSitFlags</a>, or <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a> with <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SIT_FLAGS&action=edit&redlink=1" target="_blank">PRIM_SIT_FLAGS</a> to read this flag.</td>
+        <td>Read-only flag to indicate whether the link has a sit target. Use <a href="https://wiki.secondlife.com/wiki/LlSitTarget" target="_blank">llSitTarget</a>, <a href="https://wiki.secondlife.com/wiki/LlLinkSitTarget" target="_blank">llLinkSitTarget</a>, or <a href="https://wiki.secondlife.com/wiki/PRIM_SIT_TARGET" target="_blank">PRIM_SIT_TARGET</a> to disable or enable this flag. Use <a href="https://wiki.secondlife.com/wiki/LlGetLinkSitFlags" target="_blank">llGetLinkSitFlags</a>, or <a href="https://wiki.secondlife.com/wiki/LlGetLinkPrimitiveParams" target="_blank">llGetLinkPrimitiveParams</a> with <a href="https://wiki.secondlife.com/w/index.php?title=PRIM_SIT_FLAGS&amp;action=edit&amp;redlink=1" target="_blank">PRIM_SIT_FLAGS</a> to read this flag.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_ALLOW_UNSIT&action=edit&redlink=1" target="_blank">SIT_FLAG_ALLOW_UNSIT</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_ALLOW_UNSIT&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_ALLOW_UNSIT</a></td>
         <td>0x2</td>
         <td>Allow an avatar to manually unsit from a sit target. Only applies to agents who had been seated via an LSL script. See <a href="https://wiki.secondlife.com/wiki/LlSitOnLink" target="_blank">llSitOnLink</a>.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_SCRIPTED_ONLY&action=edit&redlink=1" target="_blank">SIT_FLAG_SCRIPTED_ONLY</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_SCRIPTED_ONLY&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_SCRIPTED_ONLY</a></td>
         <td>0x4</td>
         <td>Only allow scripted sits on this sit target.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_NO_COLLIDE&action=edit&redlink=1" target="_blank">SIT_FLAG_NO_COLLIDE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_NO_COLLIDE&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_NO_COLLIDE</a></td>
         <td>0x10</td>
-        <td>Disable the avatar's collision volume when they are seated on this sit target.</td>
+        <td>Disable the avatar&#39;s collision volume when they are seated on this sit target.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_NO_DAMAGE&action=edit&redlink=1" target="_blank">SIT_FLAG_NO_DAMAGE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=SIT_FLAG_NO_DAMAGE&amp;action=edit&amp;redlink=1" target="_blank">SIT_FLAG_NO_DAMAGE</a></td>
         <td>0x20</td>
         <td>Do not distribute damage to agents sitting on this sit target.</td>
       </tr>
@@ -1183,19 +1183,19 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>The prim description is <a href="https://wiki.secondlife.com/wiki/Limit" target="_blank">limited</a> to 127 <a href="https://wiki.secondlife.com/wiki/Bytes" target="_blank">bytes</a>; any string longer then that will be truncated. This truncation does not always happen when the attribute is set or read.</li>
-    <li>The prim description may only contain printable ASCII characters (code points 32-126), except the pipe character '&#124;', which is not permitted for historical reasons.[[3]](#footnote_3) All other characters will be replaced with one '?' character per illegal UTF-8 byte.</li>
-    <li>Note that when people have "Hover Tips on All Objects" selected in the viewer's "View" menu, they'll see the object description pop-up for any object under their mouse pointer. For that reason, it is good practice to only set human-friendly information in the description, e.g. keys and such.</li>
+    <li>The prim description may only contain printable ASCII characters (code points 32-126), except the pipe character &#39;&amp;#124;&#39;, which is not permitted for historical reasons.[[3]](#footnote_3) All other characters will be replaced with one &#39;?&#39; character per illegal UTF-8 byte.</li>
+    <li>Note that when people have &quot;Hover Tips on All Objects&quot; selected in the viewer&#39;s &quot;View&quot; menu, they&#39;ll see the object description pop-up for any object under their mouse pointer. For that reason, it is good practice to only set human-friendly information in the description, e.g. keys and such.</li>
     <li>When an attached object is detached, changes made by script to the name and description (of the root prim) of the attachment will be lost. While the object is attached the name and description can be changed but it will not be reflected in inventory. This caveat does <i>not</i> apply to child prims.</li>
-    <li>If <b>texture</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>texture</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>texture</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
     </ul>
   
     </li>
-    <li><b>repeats</b> is not only used to set the number of repeats but the sign of the individual components is also used to set the "Flip" attribute.</li>
+    <li><b>repeats</b> is not only used to set the number of repeats but the sign of the individual components is also used to set the &quot;Flip&quot; attribute.</li>
     <li>In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_DEFAULT" target="_blank">default</a> <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN" target="_blank">texture mapping</a> <b>mode</b> the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXTURE" target="_blank">texture</a> <b>repeats</b> units are in texture repeats per face. In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_PLANAR" target="_blank">planar</a> texture mapping mode the texture <b>repeats</b> units are in texture repeats per half meter. This is in contrast to the in-world editing tool, in which the planar texture scaling units are repeats per meter.</li>
-    <li>If <b>render_material</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a material then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>render_material</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a material then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>render_material</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
@@ -1207,7 +1207,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>Do not rely on <a href="https://wiki.secondlife.com/wiki/Category:LSL_Floating_Text" target="_blank">Floating Text</a> as a storage medium; it is neither secure nor finalized.
     <ul>
       <li>Floating text has been altered in past server updates, breaking existing content; future changes may occur.</li>
-      <li>Even "invisible"[[4]](#footnote_4) floating text is transmitted to the client.
+      <li>Even &quot;invisible&quot;[[4]](#footnote_4) floating text is transmitted to the client.
       <ul>
         <li>It can be viewed by anyone with a client that is capable of rendering text that is supposed to be invisible.</li>
         <li>The network packets that contain the text can be sniffed and the text read.</li>
@@ -1234,7 +1234,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <li>Moving the prim the avatar sat upon does not move the avatar.</li>
         <li>Moving an avatar does not move the prim they sat upon.</li>
         <li>Sit-target coordinates do not easily map to prim coordinates, use <a href="https://wiki.secondlife.com/wiki/LlSitTarget#Useful_Snippets" target="_blank">UpdateSitTarget</a>.</li>
-        <li>If you have explicitally set your object as "static obstacle" for pathfinding , the function will fail with the error in the debug channel : "Unable to set prim position or scale: object contributes to the navmesh."</li>
+        <li>If you have explicitally set your object as &quot;static obstacle&quot; for pathfinding , the function will fail with the error in the debug channel : &quot;Unable to set prim position or scale: object contributes to the navmesh.&quot;</li>
         <li>If <b>position</b> is greater than 54 meters away from the center, the repositioning will silently fail.</li>
       </ul>
     
@@ -1243,29 +1243,29 @@ import DocsCode from '/src/components/DocsCode.astro';
   
     </li>
     <li><a href="https://wiki.secondlife.com/wiki/PRIM_OMEGA" target="_blank">PRIM_OMEGA</a> on nonphysical objects, and child prims of physical objects, is only a client side effect; the object or prim will collide as non-moving geometry.</li>
-    <li><a href="https://wiki.secondlife.com/wiki/PRIM_OMEGA" target="_blank">PRIM_OMEGA</a> cannot be used on avatars sitting on the object. It will emit the error message "PRIM_OMEGA disallowed on agent".</li>
-    <li>If <a href="https://wiki.secondlife.com/wiki/PRIM_OMEGA" target="_blank">PRIM_OMEGA</a> does not appear to be working, make sure that that Develop > Network > Velocity Interpolate Objects is enabled on the viewer.</li>
+    <li><a href="https://wiki.secondlife.com/wiki/PRIM_OMEGA" target="_blank">PRIM_OMEGA</a> cannot be used on avatars sitting on the object. It will emit the error message &quot;PRIM_OMEGA disallowed on agent&quot;.</li>
+    <li>If <a href="https://wiki.secondlife.com/wiki/PRIM_OMEGA" target="_blank">PRIM_OMEGA</a> does not appear to be working, make sure that that Develop &gt; Network &gt; Velocity Interpolate Objects is enabled on the viewer.</li>
     <li>In the parameters returned by `llGetPrimitiveParams([PRIM_OMEGA])`, the vector is normalized, and the spinrate is multiplied by the magnitude of the original vector.</li>
-    <li>If <b>texture</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>texture</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>texture</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
     </ul>
   
     </li>
-    <li><b>repeats</b> is not only used to set the number of repeats but the sign of the individual components is also used to set the "Flip" attribute.</li>
+    <li><b>repeats</b> is not only used to set the number of repeats but the sign of the individual components is also used to set the &quot;Flip&quot; attribute.</li>
     <li><b>offsets</b> and <b>rotation_in_radians</b> are limited to positive values only, unlike <a href="https://wiki.secondlife.com/wiki/PRIM_TEXTURE" target="_blank">PRIM_TEXTURE</a> and <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF Overrides</a>. To convert a negative offset to positive, add 1, and to convert a negative rotation to positive, add <a href="https://wiki.secondlife.com/wiki/TWO_PI" target="_blank">TWO_PI</a>.</li>
     <li>To clear the normal map parameters from the face (and possibly remove the material), set <b>texture</b> to <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> (the other parameters must be supplied in this case but will be ignored).</li>
     <li>Note that whenever any face in a linkset contains a material (i.e. has a non-default <a href="https://wiki.secondlife.com/wiki/PRIM_NORMAL" target="_blank">PRIM_NORMAL</a>, <a href="https://wiki.secondlife.com/wiki/PRIM_SPECULAR" target="_blank">PRIM_SPECULAR</a>, or <a href="https://wiki.secondlife.com/wiki/PRIM_ALPHA_MODE" target="_blank">PRIM_ALPHA_MODE</a>), the linkset will use the <a href="http://community.secondlife.com/t5/English-Knowledge-Base/Calculating-land-impact/ta-p/974163" target="_blank">new accounting system</a>.</li>
     <li>In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_DEFAULT" target="_blank">default</a> <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN" target="_blank">texture mapping</a> <b>mode</b> the <a href="https://wiki.secondlife.com/wiki/PRIM_NORMAL" target="_blank">texture</a> <b>repeats</b> units are in texture repeats per face. In the <a href="https://wiki.secondlife.com/wiki/PRIM_TEXGEN_PLANAR" target="_blank">planar</a> texture mapping mode the texture <b>repeats</b> units are in texture repeats per half meter. This is in contrast to the in-world editing tool, in which the planar texture scaling units are repeats per meter.</li>
-    <li>If <b>texture</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>texture</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a texture then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>texture</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>
     </ul>
   
     </li>
-    <li><b>repeats</b> is not only used to set the number of repeats but the sign of the individual components is also used to set the "Flip" attribute.</li>
+    <li><b>repeats</b> is not only used to set the number of repeats but the sign of the individual components is also used to set the &quot;Flip&quot; attribute.</li>
     <li><b>offsets</b> and <b>rotation_in_radians</b> are limited to positive values only, unlike <a href="https://wiki.secondlife.com/wiki/PRIM_TEXTURE" target="_blank">PRIM_TEXTURE</a> and <a href="https://wiki.secondlife.com/wiki/GLTF_Overrides" target="_blank">GLTF Overrides</a>. To convert a negative offset to positive, add 1, and to convert a negative rotation to positive, add <a href="https://wiki.secondlife.com/wiki/TWO_PI" target="_blank">TWO_PI</a>.</li>
     <li>To clear the specular map parameters from the face (and possibly remove the material), set <b>texture</b> to <a href="https://wiki.secondlife.com/wiki/NULL_KEY" target="_blank">NULL_KEY</a> (the other parameters must be supplied in this case but will be ignored).</li>
     <li>Note that whenever any face in a linkset contains a material (i.e. has a non-default <a href="https://wiki.secondlife.com/wiki/PRIM_NORMAL" target="_blank">PRIM_NORMAL</a>, <a href="https://wiki.secondlife.com/wiki/PRIM_SPECULAR" target="_blank">PRIM_SPECULAR</a>, or <a href="https://wiki.secondlife.com/wiki/PRIM_ALPHA_MODE" target="_blank">PRIM_ALPHA_MODE</a>), the linkset will use the <a href="http://community.secondlife.com/t5/English-Knowledge-Base/Calculating-land-impact/ta-p/974163" target="_blank">new accounting system</a>.</li>
@@ -1304,7 +1304,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <tbody>
       <tr>
         <td></td>
-        <td><b>Important:</b> When wanting to change the alpha value of a face, please consider using <a href="https://wiki.secondlife.com/wiki/LlSetLinkAlpha" target="_blank">llSetLinkAlpha</a>(integer link, float alpha, integer face); instead of <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a>(integer link, <a href="https://wiki.secondlife.com/wiki/PRIM_COLOR" target="_blank"> [PRIM_COLOR</a>, integer face, vector color, float alpha ]);, that way you don't have to mess with the color settings. Also don't expect <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a> being faster than <a href="https://wiki.secondlife.com/wiki/LlSetText" target="_blank">llSetText</a> when setting a float text property within a loop like at "% loading" status bars. Measurements showed llSetText being 3-4 times faster. That also might applies for similar functions.</td>
+        <td><b>Important:</b> When wanting to change the alpha value of a face, please consider using <a href="https://wiki.secondlife.com/wiki/LlSetLinkAlpha" target="_blank">llSetLinkAlpha</a>(integer link, float alpha, integer face); instead of <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a>(integer link, <a href="https://wiki.secondlife.com/wiki/PRIM_COLOR" target="_blank"> [PRIM_COLOR</a>, integer face, vector color, float alpha ]);, that way you don&#39;t have to mess with the color settings. Also don&#39;t expect <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParamsFast" target="_blank">llSetLinkPrimitiveParamsFast</a> being faster than <a href="https://wiki.secondlife.com/wiki/LlSetText" target="_blank">llSetText</a> when setting a float text property within a loop like at &quot;% loading&quot; status bars. Measurements showed llSetText being 3-4 times faster. That also might applies for similar functions.</td>
       </tr>
     </tbody>
   </table>
@@ -1338,7 +1338,7 @@ default
                 PRIM_FULLBRIGHT, ALL_SIDES, TRUE]);
     }
 }`} lang="lsl" /></div>
-  <p>A simple script which moves all child prims .25m forward on the root's Z axis, when touched.</p>
+  <p>A simple script which moves all child prims .25m forward on the root&#39;s Z axis, when touched.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 function LLEvents.touch_start(events)
@@ -1645,17 +1645,17 @@ llSetLinkPrimitiveParamsFast(linknumber, [
     PRIM_ROT_LOCAL, rot*llList2Rot(llGetLinkPrimitiveParams(!!llGetLinkNumber(), [PRIM_ROT_LOCAL]), 0)]);`} lang="lsl" /></div>
   <h2>Notes</h2>
   <h3>Link Numbers</h3>
-  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
+  <p>Each prim that makes up an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> has an address, a link number. To access a specific <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number must be known. In addition to <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> having link numbers, avatars seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> do as well.</p>
   <ul>
-    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is zero.</li>
-    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>'s link number is one.</li>
+    <li>If an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> consists of only one <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>, and there are no avatars seated upon it, the (<a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a>) <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is zero.</li>
+    <li>However, if the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> is made up of multiple prims or there is an avatar seated upon the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, the <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a>&#39;s link number is one.</li>
   </ul>
   <p>When an avatar sits on an <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>, it is added to the end of the link set and will have the largest link number. In addition to this, while an avatar is seated upon an object, the object is unable to link or unlink prims without <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">unseating</a> all avatars first.</p>
-  <p>Counting Prims & Avatars</p>
+  <p>Counting Prims &amp; Avatars</p>
   <p>There are two functions of interest when trying to find the number of prims and avatars on an object.</p>
   <ul>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a>()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
-    <li>`<a href="https://wiki.secondlife.com/wiki/LlGetObjectPrimCount" target="_blank">llGetObjectPrimCount</a>(<a href="https://wiki.secondlife.com/wiki/LlGetKey" target="_blank">llGetKey</a>())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
+    <li>`[llGetNumberOfPrims](https://wiki.secondlife.com/wiki/LlGetNumberOfPrims)()` - Returns the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> and seated avatars.</li>
+    <li>`[llGetObjectPrimCount](https://wiki.secondlife.com/wiki/LlGetObjectPrimCount)([llGetKey](https://wiki.secondlife.com/wiki/LlGetKey)())` - Returns only the number of <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prims</a> in the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> but will return zero for attachments.</li>
   </ul>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function GetPrimCount()  --always returns only the number of prims
     if ll.GetAttached() ~= 0 then  --Is it attached?
@@ -1671,7 +1671,7 @@ end
 }`} lang="lsl" /></div>
   <p>See <a href="https://wiki.secondlife.com/wiki/LlGetNumberOfPrims" target="_blank">llGetNumberOfPrims</a> for more about counting prims and avatars.
 Errata</p>
-  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset's <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
+  <p>If a script located in a <a href="https://wiki.secondlife.com/wiki/Link#Child_Prim" target="_blank">child</a> prim erroneously attempts to access link 0, it will get or set the property of the linkset&#39;s <a href="https://wiki.secondlife.com/wiki/Link#Root_Prim" target="_blank">root</a> prim. This bug (<a href="https://jira.secondlife.com/browse/BUG-5049" target="_blank">BUG-5049</a>) is preserved for broken legacy scripts.</p>
   <p>The old PRIM_TYPE interface (labeled PRIM_TYPE_LEGACY), while technically retired, can still be used.</p>
   <h3><a href="https://wiki.secondlife.com/wiki/PRIM_POSITION" target="_blank">PRIM_POSITION</a></h3>
   <p>Avatars sitting on the object can be moved with <a href="https://wiki.secondlife.com/wiki/LlSetLinkPrimitiveParams" target="_blank">llSetLinkPrimitiveParams</a> and <a href="https://wiki.secondlife.com/wiki/PRIM_POSITION" target="_blank">PRIM_POSITION</a>. This was originally a mis-feature but according to <a href="http://jira.secondlife.com/browse/SVC-3408?focusedCommentId=88574#action_88574" target="_blank">Andrew Linden</a> LL has decided to support it.</p>
@@ -1860,7 +1860,7 @@ Errata</p>
         <th>NA</th>
       </tr>
       <tr>
-        <th>Client < 1.11</th>
+        <th>Client &lt; 1.11</th>
         <th>[0, 1]</th>
         <th>0.0</th>
         <th>1.0</th>
@@ -1869,7 +1869,7 @@ Errata</p>
     </tbody>
   </table>
   <p>top_size Explained</p>
-  <p>When the original <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface was retired (<a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>, <a href="http://secondlife.wikia.com/wiki/Version_1.5" target="_blank">SL 1.5</a>), the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface did not yet support tapering of the bottom of the prim, this feature wasn't added until <a href="http://secondlife.wikia.com/wiki/Version_1.11" target="_blank">SL 1.11</a> (two years later). Instead of retiring the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> when it was added, the range of <b>top_size</b> was enlarged; meanwhile in the client they redefined the parameter and it's values. This redefinition and range enlargement resulted in two interfaces that did the same thing but achieved it through different values. Meanwhile <a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>'s interface was not updated to support tapering of the bottom of the prim. Consequently all three interfaces have different ranges, making for a rather nasty caveat.</p>
+  <p>When the original <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface was retired (<a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>, <a href="http://secondlife.wikia.com/wiki/Version_1.5" target="_blank">SL 1.5</a>), the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface did not yet support tapering of the bottom of the prim, this feature wasn&#39;t added until <a href="http://secondlife.wikia.com/wiki/Version_1.11" target="_blank">SL 1.11</a> (two years later). Instead of retiring the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> when it was added, the range of <b>top_size</b> was enlarged; meanwhile in the client they redefined the parameter and it&#39;s values. This redefinition and range enlargement resulted in two interfaces that did the same thing but achieved it through different values. Meanwhile <a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>&#39;s interface was not updated to support tapering of the bottom of the prim. Consequently all three interfaces have different ranges, making for a rather nasty caveat.</p>
   <p>History</p>
   <ul>
     <li>Date of release llSetLinkPrimitiveParams <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.13#Release_Notes_for_Second_Life_1.13.4.281.29_February_21.2C_2007" target="_blank"> 21-02-2007 </a> or <a href="https://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Release/1.14" target="_blank"> 14-03-2007 </a></li>
@@ -1878,9 +1878,9 @@ Errata</p>
   <p>Footnotes</p>
   <ul>
     <li><b><a href="#fn_1" target="_blank">^</a></b> LINK_ROOT does not work on single <a href="https://wiki.secondlife.com/wiki/Prim" target="_blank">prim</a> <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">objects</a>. Unless there is an avatar sitting on the <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a>.</li>
-    <li><b><a href="#fn_2" target="_blank">^</a></b> When LL deprecated this flag they stripped it of it's name, however they did not remove the functionality. To aid in documenting the functionality, the value was given a new name in the documentation only. That is why PRIM_TYPE_LEGACY is not recognized by the compiler.</li>
+    <li><b><a href="#fn_2" target="_blank">^</a></b> When LL deprecated this flag they stripped it of it&#39;s name, however they did not remove the functionality. To aid in documenting the functionality, the value was given a new name in the documentation only. That is why PRIM_TYPE_LEGACY is not recognized by the compiler.</li>
     <li><b><a href="#fn_3" target="_blank">^</a></b> The pipe character historically has been used to separate fields in the serialized version of inventory and possibly other internal fields for prim parameters.</li>
-    <li><b><a href="#fn_4" target="_blank">^</a></b> Floating text with an <b>alpha</b> set to 0.0 is rendered "invisible"</li>
+    <li><b><a href="#fn_4" target="_blank">^</a></b> Floating text with an <b>alpha</b> set to 0.0 is rendered &quot;invisible&quot;</li>
     <li><b><a href="#fn_5" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
   </ul>
   <table>

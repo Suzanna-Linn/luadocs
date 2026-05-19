@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td>Color / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB &lt;R, G, B&gt; (&lt;0.0, 0.0, 0.0&gt; &amp;#61; black, &lt;1.0, 1.0, 1.0&gt; &amp;#61; white)</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -55,13 +55,13 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>Example:</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll.SetColor(vector(r, g, b), ALL_SIDES)`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`llSetColor(<r, g, b>, ALL_SIDES);`} lang="lsl" /></div>
-  <p><b>r, g, b</b>: values for red, green, blue ranging from <0.0, 0.0, 0.0> (black) to <1.0, 1.0, 1.0> (white)</p>
+  <p><b>r, g, b</b>: values for red, green, blue ranging from &lt;0.0, 0.0, 0.0&gt; (black) to &lt;1.0, 1.0, 1.0&gt; (white)</p>
   <p>To continue reading see: <a href="https://wiki.secondlife.com/wiki/LlSetColor/Newbie_Notes" target="_blank">Newbie Notes</a></p>
   <h2>Caveats</h2>
   <ul>
     <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
     <li><p>llSetColor will have no visible effect on faces with a PBR material. To work on faces both with and without a PBR material, use this snippet:</p>
-<p><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
+<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat
 
 
 
@@ -79,7 +79,7 @@ if (llIsLinkGLTFMaterial(LINK_THIS, ALL_SIDES)) {
 }
 `} lang="lsl" /></div>
 
-</p></li>
+</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local face = -1
@@ -120,87 +120,87 @@ default
       <tr>
         <td>NAVY</td>
         <td>#001f3f</td>
-        <td>`<0.000, 0.122, 0.247>`</td>
+        <td>`&lt;0.000, 0.122, 0.247&gt;`</td>
       </tr>
       <tr>
         <td>BLUE</td>
         <td>#0074d9</td>
-        <td>`<0.000, 0.455, 0.851>`</td>
+        <td>`&lt;0.000, 0.455, 0.851&gt;`</td>
       </tr>
       <tr>
         <td>AQUA</td>
         <td>#7fdbff</td>
-        <td>`<0.498, 0.859, 1.000>`</td>
+        <td>`&lt;0.498, 0.859, 1.000&gt;`</td>
       </tr>
       <tr>
         <td>TEAL</td>
         <td>#39cccc</td>
-        <td>`<0.224, 0.800, 0.800>`</td>
+        <td>`&lt;0.224, 0.800, 0.800&gt;`</td>
       </tr>
       <tr>
         <td>OLIVE</td>
         <td>#3d9970</td>
-        <td>`<0.239, 0.600, 0.439>`</td>
+        <td>`&lt;0.239, 0.600, 0.439&gt;`</td>
       </tr>
       <tr>
         <td>GREEN</td>
         <td>#2ecc40</td>
-        <td>`<0.180, 0.800, 0.251>`</td>
+        <td>`&lt;0.180, 0.800, 0.251&gt;`</td>
       </tr>
       <tr>
         <td>LIME</td>
         <td>#01ff70</td>
-        <td>`<0.004, 1.000, 0.439>`</td>
+        <td>`&lt;0.004, 1.000, 0.439&gt;`</td>
       </tr>
       <tr>
         <td>YELLOW</td>
         <td>#ffdc00</td>
-        <td>`<1.000, 0.863, 0.000>`</td>
+        <td>`&lt;1.000, 0.863, 0.000&gt;`</td>
       </tr>
       <tr>
         <td>ORANGE</td>
         <td>#ff851b</td>
-        <td>`<1.000, 0.522, 0.106>`</td>
+        <td>`&lt;1.000, 0.522, 0.106&gt;`</td>
       </tr>
       <tr>
         <td>RED</td>
         <td>#ff4136</td>
-        <td>`<1.000, 0.255, 0.212>`</td>
+        <td>`&lt;1.000, 0.255, 0.212&gt;`</td>
       </tr>
       <tr>
         <td>MAROON</td>
         <td>#85144b</td>
-        <td>`<0.522, 0.078, 0.294>`</td>
+        <td>`&lt;0.522, 0.078, 0.294&gt;`</td>
       </tr>
       <tr>
         <td>FUCHSIA</td>
         <td>#f012be</td>
-        <td>`<0.941, 0.071, 0.745>`</td>
+        <td>`&lt;0.941, 0.071, 0.745&gt;`</td>
       </tr>
       <tr>
         <td>PURPLE</td>
         <td>#b10dc9</td>
-        <td>`<0.694, 0.051, 0.788>`</td>
+        <td>`&lt;0.694, 0.051, 0.788&gt;`</td>
       </tr>
       <tr>
         <td>WHITE</td>
         <td>#ffffff</td>
-        <td>`<1.000, 1.000, 1.000>`</td>
+        <td>`&lt;1.000, 1.000, 1.000&gt;`</td>
       </tr>
       <tr>
         <td>SILVER</td>
         <td>#dddddd</td>
-        <td>`<0.867, 0.867, 0.867>`</td>
+        <td>`&lt;0.867, 0.867, 0.867&gt;`</td>
       </tr>
       <tr>
         <td>GRAY</td>
         <td>#aaaaaa</td>
-        <td>`<0.667, 0.667, 0.667>`</td>
+        <td>`&lt;0.667, 0.667, 0.667&gt;`</td>
       </tr>
       <tr>
         <td>BLACK</td>
         <td>#111111</td>
-        <td>`<0.067, 0.067, 0.067>`</td>
+        <td>`&lt;0.067, 0.067, 0.067&gt;`</td>
       </tr>
     </tbody>
   </table>
@@ -224,35 +224,35 @@ default
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetAlpha" target="_blank">llGetAlpha</a></td>
         <td>–</td>
-        <td>Gets the prim's alpha</td>
+        <td>Gets the prim&#39;s alpha</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlSetAlpha" target="_blank">llSetAlpha</a></td>
         <td>–</td>
-        <td>Sets the prim's alpha</td>
+        <td>Sets the prim&#39;s alpha</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetColor" target="_blank">llGetColor</a></td>
         <td>–</td>
-        <td>Gets the prim's color</td>
+        <td>Gets the prim&#39;s color</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkColor" target="_blank">llSetLinkColor</a></td>
         <td>–</td>
-        <td>Sets link's color</td>
+        <td>Sets link&#39;s color</td>
         <td></td>
       </tr>
       <tr>
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlSetLinkAlpha" target="_blank">llSetLinkAlpha</a></td>
         <td>–</td>
-        <td>Sets link's alpha</td>
+        <td>Sets link&#39;s alpha</td>
         <td></td>
       </tr>
       <tr>

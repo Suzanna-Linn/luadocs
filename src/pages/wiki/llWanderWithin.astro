@@ -64,7 +64,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Description</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=WANDER_PAUSE_AT_WAYPOINTS&action=edit&redlink=1" target="_blank"> [WANDER_PAUSE_AT_WAYPOINTS</a> ]</td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=WANDER_PAUSE_AT_WAYPOINTS&amp;action=edit&amp;redlink=1" target="_blank"> [WANDER_PAUSE_AT_WAYPOINTS</a> ]</td>
         <td>0</td>
         <td><a href="https://wiki.secondlife.com/wiki/Integer" target="_blank"> [integer</a> boolean ]</td>
         <td><a href="https://wiki.secondlife.com/wiki/FALSE" target="_blank"> [FALSE</a> ]</td>
@@ -74,17 +74,17 @@ import DocsCode from '/src/components/DocsCode.astro';
   </table>
   <h2>Caveats</h2>
   <ul>
-    <li>Must use <a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a> or script won't compile.</li>
-    <li>Wander area is a rough area based on the specified origin, to a specified scale on each axis. So, if `<20, 10, 2>` is specified the object will wander within 20m along the world x-axis, 10m along the world y-axis, and 2m along the world z-axis.
+    <li>Must use <a href="https://wiki.secondlife.com/wiki/LlCreateCharacter" target="_blank">llCreateCharacter</a> or script won&#39;t compile.</li>
+    <li>Wander area is a rough area based on the specified origin, to a specified scale on each axis. So, if `&lt;20, 10, 2&gt;` is specified the object will wander within 20m along the world x-axis, 10m along the world y-axis, and 2m along the world z-axis.
     <ul>
       <li>if <b>dist</b> has any dimension less than 1.0, an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>. <b>Scale too small. All dimensions must be at least 1.0.</b></li>
     </ul>
   
     </li>
-    <li>When <a href="https://wiki.secondlife.com/w/index.php?title=WANDER_PAUSE_AT_WAYPOINTS&action=edit&redlink=1" target="_blank">WANDER_PAUSE_AT_WAYPOINTS</a> is enabled, <a href="https://wiki.secondlife.com/w/index.php?title=PU_GOAL_REACHED&action=edit&redlink=1" target="_blank">PU_GOAL_REACHED</a> and <a href="https://wiki.secondlife.com/w/index.php?title=PU_SLOWDOWN_DISTANCE_REACHED&action=edit&redlink=1" target="_blank">PU_SLOWDOWN_DISTANCE_REACHED</a> <a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a> events will be trigged when approaching each waypoint. When this flag is disabled, the aforementioned path_update events will not be triggered when arriving at waypoints.</li>
+    <li>When <a href="https://wiki.secondlife.com/w/index.php?title=WANDER_PAUSE_AT_WAYPOINTS&amp;action=edit&amp;redlink=1" target="_blank">WANDER_PAUSE_AT_WAYPOINTS</a> is enabled, <a href="https://wiki.secondlife.com/w/index.php?title=PU_GOAL_REACHED&amp;action=edit&amp;redlink=1" target="_blank">PU_GOAL_REACHED</a> and <a href="https://wiki.secondlife.com/w/index.php?title=PU_SLOWDOWN_DISTANCE_REACHED&amp;action=edit&amp;redlink=1" target="_blank">PU_SLOWDOWN_DISTANCE_REACHED</a> <a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path_update</a> events will be trigged when approaching each waypoint. When this flag is disabled, the aforementioned path_update events will not be triggered when arriving at waypoints.</li>
     <li>Wander area can be limited to a smaller area by introducing obstacles such as walls.</li>
     <li>Vertical positions specified for any vectors should be chosen to be as close as possible to the actual height of the terrain requested. Large difference between the provided vertical position and the actual terrain/object will result in failure of the behavior.</li>
-    <li>As for all pathfinding behaviors, DO NOT rely on the detailed implementation here. The wander distance is just a rough estimate. We may change the exact shape on a whim. For fun. Or because it seems better that way. Or to ensure that you aren't relying on the detailed implementation. Don't make this another <a href="https://jira.secondlife.com/browse/PATHBUG-69" target="_blank">PATHBUG-69</a>. :)</li>
+    <li>As for all pathfinding behaviors, DO NOT rely on the detailed implementation here. The wander distance is just a rough estimate. We may change the exact shape on a whim. For fun. Or because it seems better that way. Or to ensure that you aren&#39;t relying on the detailed implementation. Don&#39;t make this another <a href="https://jira.secondlife.com/browse/PATHBUG-69" target="_blank">PATHBUG-69</a>. :)</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()

@@ -48,7 +48,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_blank">PERMISSION_ATTACH</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>.</p>
-  <p>It should be noted that when an object is attached temporarily, a user cannot 'take' or 'drop' the object that is attached to them.</p>
+  <p>It should be noted that when an object is attached temporarily, a user cannot &#39;take&#39; or &#39;drop&#39; the object that is attached to them.</p>
   <p>The user does not have to be the owner of the object in advance; this function transfers ownership automatically (the usual permissions required to transfer objects apply).</p>
   <p>If <b>attach_point</b> is zero, then the object attaches to the attach point it was most recently attached to.</p>
   <table>
@@ -406,7 +406,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Comment</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=ATTACH_ANY_HUD&action=edit&redlink=1" target="_blank">ATTACH_ANY_HUD</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=ATTACH_ANY_HUD&amp;action=edit&amp;redlink=1" target="_blank">ATTACH_ANY_HUD</a></td>
         <td>-1</td>
         <td>A special constant representing all HUD attachment points when filtering.</td>
       </tr>
@@ -434,14 +434,14 @@ Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_ATTACH" target="_b
     </li>
     <li>The attach step is not guaranteed to succeed, and this function should not be relied on as a security measure. Use the same permission and script precautions you would use with conventional inventory transfers.</li>
     <li>If you use llAttachToAvatarTemp in an object that you do not have permission to transfer, the function will fail with a script error <i>No permission to transfer</i>, even if you are trying to attach it to yourself.</li>
-    <li>Temporary attachments cannot request the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a>, the following error will be returned: <i>"Temporary attachments cannot request runtime permissions to teleport"</i></li>
+    <li>Temporary attachments cannot request the permission <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a>, the following error will be returned: <i>&quot;Temporary attachments cannot request runtime permissions to teleport&quot;</i></li>
     <li>Attach points can be occupied by multiple attachments.[[1]](#footnote_1)
     <ul>
-      <li>This was not always the case, previously if <b>attach_point</b> was occupied, the existing object was detached and the new attachment took it's place.</li>
+      <li>This was not always the case, previously if <b>attach_point</b> was occupied, the existing object was detached and the new attachment took it&#39;s place.</li>
     </ul>
   
     </li>
-    <li>Objects attached to the head (and any attachment position within the head) will not be visible in First Person view (aka <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">Mouselook</a>) if "show attachments in mouselook" is disabled.</li>
+    <li>Objects attached to the head (and any attachment position within the head) will not be visible in First Person view (aka <a href="https://wiki.secondlife.com/wiki/Mouselook" target="_blank">Mouselook</a>) if &quot;show attachments in mouselook&quot; is disabled.</li>
     <li>If <b>attach_point</b> is zero but the object was never previously attached, it defaults to the right hand (<a href="https://wiki.secondlife.com/wiki/ATTACH_RHAND" target="_blank">ATTACH_RHAND</a>).</li>
     <li>If the object is already attached the function fails silently, regardless of the <b>attach_point</b> being a different <a href="https://wiki.secondlife.com/wiki/Category:LSL_Integer/attach_point" target="_blank">attach point</a>.</li>
     <li>If attached via a Land Scope <a href="https://wiki.secondlife.com/wiki/Category:Experience_Tools" target="_blank">Experience</a> script, the object will be force-detached by the server if the owner enters a parcel that does not have the Experience allowed.</li>
@@ -815,7 +815,7 @@ function void llAttachToAvatarTemp( integer attach_point );
         <th>Haiku</th>
       </tr>
       <tr>
-        <td><p>Embrace me. I'm yours</p>
+        <td><p>Embrace me. I&#39;m yours</p>
 <p>If only for a short time</p>
 <p>Rejected, we part.</p></td>
       </tr>

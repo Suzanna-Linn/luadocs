@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td>Source / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/position" target="_blank">position</a></td>
-          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;from which to flee.</td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&amp;#32;from which to flee.</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -56,9 +56,9 @@ import DocsCode from '/src/components/DocsCode.astro';
 </div>
   <h2>Caveats</h2>
   <ul>
-    <li>Must use llCreateCharacter or script won't compile.</li>
+    <li>Must use llCreateCharacter or script won&#39;t compile.</li>
     <li>The <b>position</b> to flee from must be near the nav mesh; otherwise, this behavior will fail and trigger <a href="https://wiki.secondlife.com/wiki/Path_update" target="_blank">path update</a> with PU_FAILURE_INVALID_GOAL.</li>
-    <li>If you want to avoid an agent or object as per the example below, it's much more elegant and less sim resource intensive to use <a href="https://wiki.secondlife.com/wiki/LlEvade" target="_blank">llEvade</a> instead.</li>
+    <li>If you want to avoid an agent or object as per the example below, it&#39;s much more elegant and less sim resource intensive to use <a href="https://wiki.secondlife.com/wiki/LlEvade" target="_blank">llEvade</a> instead.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`ll = llcompat

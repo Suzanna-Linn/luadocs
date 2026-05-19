@@ -13,14 +13,14 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Sets the <b>material</b> of this prim's <b>face</b>. This function will clear most <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams#PRIM_GLTF_BASE_COLOR" target="_blank">PRIM_GLTF_*</a> properties on the face, with the exceptions of repeats, offsets, and rotation_in_radians.</p>
+      <p>  <p>Sets the <b>material</b> of this prim&#39;s <b>face</b>. This function will clear most <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams#PRIM_GLTF_BASE_COLOR" target="_blank">PRIM_GLTF_*</a> properties on the face, with the exceptions of repeats, offsets, and rotation_in_radians.</p>
 </p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>string|uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>string</span></td>
           <td>Material / material</td>
-          <td>a material in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&#32;of a material</td>
+          <td>a material in the <a href="https://wiki.secondlife.com/wiki/Category:LSL_Inventory" target="_blank">inventory</a> of the prim this script is in&amp;#32;or a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a>&amp;#32;of a material</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
@@ -55,7 +55,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <ul>
     <li>This function causes the script to sleep for 0.2 seconds.</li>
     <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
-    <li>If <b>material</b> is missing from the prim's inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a material then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
+    <li>If <b>material</b> is missing from the prim&#39;s inventory and it is not a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> or it is not a material then an error is shouted on <a href="https://wiki.secondlife.com/wiki/DEBUG_CHANNEL" target="_blank">DEBUG_CHANNEL</a>.</li>
     <li>If <b>material</b> is a <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> then there are no new <a href="https://wiki.secondlife.com/wiki/Category:LSL_Permissions/Asset" target="_blank">asset permissions</a> consequences for the object.
     <ul>
       <li>The resulting object develops no new usage restrictions that might have occurred if the asset had been placed in the prims inventory.</li>

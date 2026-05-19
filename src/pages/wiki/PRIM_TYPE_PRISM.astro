@@ -34,7 +34,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   </div>
 </div>
   <h2>PRIM_TYPE</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank"> [PRIM_TYPE</a>, PRIM_TYPE_PRISM,&#32;<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear ] </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/PRIM_TYPE" target="_blank"> [PRIM_TYPE</a>, PRIM_TYPE_PRISM,&amp;#32;<a href="https://wiki.secondlife.com/wiki/Integer" target="_blank">integer</a> hole_shape, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear ] </b></p>
   <table>
     <tbody>
       <tr>
@@ -108,7 +108,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </tbody>
   </table>
   <h2>PRIM_TYPE_LEGACY</h2>
-  <p><b> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> 1, PRIM_TYPE_PRISM,&#32;[vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear ] </b></p>
+  <p><b> <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank"> 1, PRIM_TYPE_PRISM,&amp;#32;[vector</a> cut, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> hollow, <a href="https://wiki.secondlife.com/wiki/Float" target="_blank">float</a> twist, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_size, <a href="https://wiki.secondlife.com/wiki/Vector" target="_blank">vector</a> top_shear ] </b></p>
   <table>
     <tbody>
       <tr>
@@ -263,7 +263,7 @@ ll.SetPrimitiveParams({PRIM_TYPE, PRIM_TYPE_PRISM, PRIM_HOLE_DEFAULT, vector(0.0
         <th>NA</th>
       </tr>
       <tr>
-        <th>Client < 1.11</th>
+        <th>Client &lt; 1.11</th>
         <th>[0, 1]</th>
         <th>0.0</th>
         <th>1.0</th>
@@ -272,7 +272,7 @@ ll.SetPrimitiveParams({PRIM_TYPE, PRIM_TYPE_PRISM, PRIM_HOLE_DEFAULT, vector(0.0
     </tbody>
   </table>
   <p>top_size Explained</p>
-  <p>When the original <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface was retired (<a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>, <a href="http://secondlife.wikia.com/wiki/Version_1.5" target="_blank">SL 1.5</a>), the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface did not yet support tapering of the bottom of the prim, this feature wasn't added until <a href="http://secondlife.wikia.com/wiki/Version_1.11" target="_blank">SL 1.11</a> (two years later). Instead of retiring the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> when it was added, the range of <b>top_size</b> was enlarged; meanwhile in the client they redefined the parameter and it's values. This redefinition and range enlargement resulted in two interfaces that did the same thing but achieved it through different values. Meanwhile <a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>'s interface was not updated to support tapering of the bottom of the prim. Consequently all three interfaces have different ranges, making for a rather nasty caveat.</p>
+  <p>When the original <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface was retired (<a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>, <a href="http://secondlife.wikia.com/wiki/Version_1.5" target="_blank">SL 1.5</a>), the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> interface did not yet support tapering of the bottom of the prim, this feature wasn&#39;t added until <a href="http://secondlife.wikia.com/wiki/Version_1.11" target="_blank">SL 1.11</a> (two years later). Instead of retiring the new <a href="#PRIM_TYPE" target="_blank">PRIM_TYPE</a> when it was added, the range of <b>top_size</b> was enlarged; meanwhile in the client they redefined the parameter and it&#39;s values. This redefinition and range enlargement resulted in two interfaces that did the same thing but achieved it through different values. Meanwhile <a href="#PRIM_TYPE_LEGACY" target="_blank">PRIM_TYPE_LEGACY</a>&#39;s interface was not updated to support tapering of the bottom of the prim. Consequently all three interfaces have different ranges, making for a rather nasty caveat.</p>
   <p><a href="https://secondlife.canny.io/?search=PRIM_TYPE_PRISM" target="_blank">Search Canny for related Issues</a> Footnotes</p>
   <ul>
     <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>

@@ -26,13 +26,13 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td>Color / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/color" target="_blank">color</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB <R, G, B> (<0.0, 0.0, 0.0> &#61; black, <1.0, 1.0, 1.0> &#61; white)</td>
+          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Color" target="_blank">color</a> in RGB &lt;R, G, B&gt; (&lt;0.0, 0.0, 0.0&gt; &amp;#61; black, &lt;1.0, 1.0, 1.0&gt; &amp;#61; white)</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
           <td>Opacity / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/alpha" target="_blank">alpha</a></td>
-          <td>from 0.0 (clear) to 1.0 (solid) (0.0 <= <b>alpha</b> <= 1.0)</td>
+          <td>from 0.0 (clear) to 1.0 (solid) (0.0 &lt;= <b>alpha</b> &lt;= 1.0)</td>
         </tr>
       </table>
     </div>
@@ -62,7 +62,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>Do not rely on <a href="https://wiki.secondlife.com/wiki/Category:LSL_Floating_Text" target="_blank">Floating Text</a> as a storage medium; it is neither secure nor finalized.
     <ul>
       <li>Floating text has been altered in past server updates, breaking existing content; future changes may occur.</li>
-      <li>Even "invisible"[[1]](#footnote_1) floating text is transmitted to the client.
+      <li>Even &quot;invisible&quot;[[1]](#footnote_1) floating text is transmitted to the client.
       <ul>
         <li>It can be viewed by anyone with a client that is capable of rendering text that is supposed to be invisible.</li>
         <li>The network packets that contain the text can be sniffed and the text read.</li>
@@ -81,13 +81,13 @@ import DocsCode from '/src/components/DocsCode.astro';
     </ul>
   
     </li>
-    <li>Removing the script or deactivating it <b>will not remove</b> a prim's <b>text</b> property. Floating <b>text</b> is not dependent on a script for its continued existence but only when wanting to change it.</li>
-    <li>To remove a prim's <b>text</b>, use the following:</li>
+    <li>Removing the script or deactivating it <b>will not remove</b> a prim&#39;s <b>text</b> property. Floating <b>text</b> is not dependent on a script for its continued existence but only when wanting to change it.</li>
+    <li>To remove a prim&#39;s <b>text</b>, use the following:</li>
   </ul>
   <table>
     <tbody>
       <tr>
-        <th><b>Preferred method to remove a prim's floating </b>text****</th>
+        <th><b>Preferred method to remove a prim&#39;s floating </b>text****</th>
         <th><b>Second method does the same effect-wise.</b></th>
       </tr>
       <tr>
@@ -155,10 +155,10 @@ vector COLOR_WHITE = <1.0, 1.0, 1.0>;
     </tbody>
   </table>
   <ul>
-    <li><b>Measurements showed a high impact of process time when doing numerous iterations in a while loop</b>. For approx. 65 thousand iterations the process times are ca. 5 seconds without floating text, 24 seconds with llSetText and 96 seconds when using <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams#llSetLinkPrimitiveParamsFast" target="_blank">llSetPrimitiveParams#llSetLinkPrimitiveParamsFast</a> in combination with <a href="https://wiki.secondlife.com/wiki/PRIM_TEXT" target="_blank">PRIM_TEXT</a>. Thats why you are <b>not advised</b> to make excessive use of changing a prim's <b>text</b> within such iterations.</li>
+    <li><b>Measurements showed a high impact of process time when doing numerous iterations in a while loop</b>. For approx. 65 thousand iterations the process times are ca. 5 seconds without floating text, 24 seconds with llSetText and 96 seconds when using <a href="https://wiki.secondlife.com/wiki/LlSetPrimitiveParams#llSetLinkPrimitiveParamsFast" target="_blank">llSetPrimitiveParams#llSetLinkPrimitiveParamsFast</a> in combination with <a href="https://wiki.secondlife.com/wiki/PRIM_TEXT" target="_blank">PRIM_TEXT</a>. Thats why you are <b>not advised</b> to make excessive use of changing a prim&#39;s <b>text</b> within such iterations.</li>
   </ul>
   <h2>Examples</h2>
-  <p>Example of how llSetText could be used to show prim's name in green <b>text</b>:</p>
+  <p>Example of how llSetText could be used to show prim&#39;s name in green <b>text</b>:</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
     local COLOR_GREEN = vector(0.0, 1.0, 0.0)
     local OPAQUE = 1.0
@@ -186,16 +186,16 @@ main()
         llRemoveInventory(llGetScriptName());
     }
 }`} lang="lsl" /></div>
-  <p>By default the floating <b>text</b> will appear on a single line. However, it can be spread over multiple lines by using a line break `"\n"` (read <a href="https://wiki.secondlife.com/wiki/SplitLine" target="_blank">SplitLine</a> in section 'See Also').</p>
+  <p>By default the floating <b>text</b> will appear on a single line. However, it can be spread over multiple lines by using a line break `&quot;\n&quot;` (read <a href="https://wiki.secondlife.com/wiki/SplitLine" target="_blank">SplitLine</a> in section &#39;See Also&#39;).</p>
   <h3>String escape codes:</h3>
   <p>LSL has four <a href="https://wiki.secondlife.com/wiki/String#Escape_Codes" target="_blank">string escape codes</a>:</p>
   <ul>
     <li>`\n` for a new line</li>
     <li>`\\` for a backslash</li>
     <li>`\t` for a tab</li>
-    <li>`\"` for a double-quote</li>
+    <li>`\&quot;` for a double-quote</li>
   </ul>
-  <h3>Color & Alpha</h3>
+  <h3>Color &amp; Alpha</h3>
   <table>
     <tbody>
       <tr>
@@ -204,75 +204,75 @@ main()
       </tr>
       <tr>
         <td>NAVY</td>
-        <td>`<0.000, 0.122, 0.247>`</td>
+        <td>`&lt;0.000, 0.122, 0.247&gt;`</td>
       </tr>
       <tr>
         <td>BLUE</td>
-        <td>`<0.000, 0.455, 0.851>`</td>
+        <td>`&lt;0.000, 0.455, 0.851&gt;`</td>
       </tr>
       <tr>
         <td>AQUA</td>
-        <td>`<0.498, 0.859, 1.000>`</td>
+        <td>`&lt;0.498, 0.859, 1.000&gt;`</td>
       </tr>
       <tr>
         <td>TEAL</td>
-        <td>`<0.224, 0.800, 0.800>`</td>
+        <td>`&lt;0.224, 0.800, 0.800&gt;`</td>
       </tr>
       <tr>
         <td>OLIVE</td>
-        <td>`<0.239, 0.600, 0.439>`</td>
+        <td>`&lt;0.239, 0.600, 0.439&gt;`</td>
       </tr>
       <tr>
         <td>GREEN</td>
-        <td>`<0.180, 0.800, 0.251>`</td>
+        <td>`&lt;0.180, 0.800, 0.251&gt;`</td>
       </tr>
       <tr>
         <td>LIME</td>
-        <td>`<0.004, 1.000, 0.439>`</td>
+        <td>`&lt;0.004, 1.000, 0.439&gt;`</td>
       </tr>
       <tr>
         <td>YELLOW</td>
-        <td>`<1.000, 0.863, 0.000>`</td>
+        <td>`&lt;1.000, 0.863, 0.000&gt;`</td>
       </tr>
       <tr>
         <td>ORANGE</td>
-        <td>`<1.000, 0.522, 0.106>`</td>
+        <td>`&lt;1.000, 0.522, 0.106&gt;`</td>
       </tr>
       <tr>
         <td>RED</td>
-        <td>`<1.000, 0.255, 0.212>`</td>
+        <td>`&lt;1.000, 0.255, 0.212&gt;`</td>
       </tr>
       <tr>
         <td>MAROON</td>
-        <td>`<0.522, 0.078, 0.294>`</td>
+        <td>`&lt;0.522, 0.078, 0.294&gt;`</td>
       </tr>
       <tr>
         <td>FUCHSIA</td>
-        <td>`<0.941, 0.071, 0.745>`</td>
+        <td>`&lt;0.941, 0.071, 0.745&gt;`</td>
       </tr>
       <tr>
         <td>PURPLE</td>
-        <td>`<0.694, 0.051, 0.788>`</td>
+        <td>`&lt;0.694, 0.051, 0.788&gt;`</td>
       </tr>
       <tr>
         <td>WHITE</td>
-        <td>`<1.000, 1.000, 1.000>`</td>
+        <td>`&lt;1.000, 1.000, 1.000&gt;`</td>
       </tr>
       <tr>
         <td>SILVER</td>
-        <td>`<0.867, 0.867, 0.867>`</td>
+        <td>`&lt;0.867, 0.867, 0.867&gt;`</td>
       </tr>
       <tr>
         <td>GRAY</td>
-        <td>`<0.667, 0.667, 0.667>`</td>
+        <td>`&lt;0.667, 0.667, 0.667&gt;`</td>
       </tr>
       <tr>
         <td>BLACK</td>
-        <td>`<0.000, 0.000, 0.000>`</td>
+        <td>`&lt;0.000, 0.000, 0.000&gt;`</td>
       </tr>
     </tbody>
   </table>
-  <p>The x, y & z <a href="https://wiki.secondlife.com/wiki/Vector#Components" target="_blank">components of the vector</a> are used to represent red, green, and blue respectively. The range is different from traditional RGB, instead of being 0 -> 255, LSL uses 0 -> 1. `<1.0, 1.0, 1.0>` represents "white" and `<0.0, 0.0, 0.0>` represents "black":</p>
+  <p>The x, y &amp; z <a href="https://wiki.secondlife.com/wiki/Vector#Components" target="_blank">components of the vector</a> are used to represent red, green, and blue respectively. The range is different from traditional RGB, instead of being 0 -&gt; 255, LSL uses 0 -&gt; 1. `&lt;1.0, 1.0, 1.0&gt;` represents &quot;white&quot; and `&lt;0.0, 0.0, 0.0&gt;` represents &quot;black&quot;:</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`--  white & opaque
 ll.SetText("I am white", vector(1.0, 1.0, 1.0), 1.0)`} lang="slua" /></div>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`//  white & opaque
@@ -422,10 +422,10 @@ default
     }
 }`} lang="lsl" /></div>
   <h2>Notes</h2>
-  <p>To actually display text on a prim, see <a href="https://wiki.secondlife.com/wiki/XyzzyText" target="_blank">XyzzyText</a>, or consider using parcel prim <a href="https://wiki.secondlife.com/wiki/Category:LSL_Media" target="_blank">Media</a> options (useful only if you have control over the land's media settings.)</p>
-  <p>The function displays <b>text</b> that hover over the prim's center, the prim position. The height over the center is proportional to the prim's Z-dimension exclusively</p>
+  <p>To actually display text on a prim, see <a href="https://wiki.secondlife.com/wiki/XyzzyText" target="_blank">XyzzyText</a>, or consider using parcel prim <a href="https://wiki.secondlife.com/wiki/Category:LSL_Media" target="_blank">Media</a> options (useful only if you have control over the land&#39;s media settings.)</p>
+  <p>The function displays <b>text</b> that hover over the prim&#39;s center, the prim position. The height over the center is proportional to the prim&#39;s Z-dimension exclusively</p>
   <ul>
-    <li>It doesn't matter how the prim is rotated, so if Z is smaller than X and Y the <b>text</b> may be seen <b>on</b> the prim</li>
+    <li>It doesn&#39;t matter how the prim is rotated, so if Z is smaller than X and Y the <b>text</b> may be seen <b>on</b> the prim</li>
   </ul>
   <h2>See Also</h2>
   <h3>Constants</h3>
@@ -468,7 +468,7 @@ default
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Examples" target="_blank">Examples</a>: <a href="https://wiki.secondlife.com/wiki/SplitLine" target="_blank">SplitLine</a></td>
         <td>–</td>
-        <td>Insert 'new line' escape codes at certain positions of a string</td>
+        <td>Insert &#39;new line&#39; escape codes at certain positions of a string</td>
         <td></td>
       </tr>
       <tr>
@@ -490,7 +490,7 @@ default
   <h2>Deep Notes</h2>
   <p>Footnotes</p>
   <ul>
-    <li><b><a href="#fn_1" target="_blank">^</a></b> Floating text with an <b>alpha</b> set to 0.0 is rendered "invisible"</li>
+    <li><b><a href="#fn_1" target="_blank">^</a></b> Floating text with an <b>alpha</b> set to 0.0 is rendered &quot;invisible&quot;</li>
   </ul>
   <table>
     <tbody>

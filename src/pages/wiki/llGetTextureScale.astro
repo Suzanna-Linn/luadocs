@@ -49,7 +49,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>In the default texture mapping mode the scale units are in texture repeats per face. In the planar texture mapping mode the scale units are in texture repeats per half meter. This is in contrast to the in-world editing tool, in which the planar texture scaling units are repeats per meter.</p>
   <h2>Caveats</h2>
   <ul>
-    <li>If <b>face</b> indicates a face that does not exist the return is <1.0, 1.0, 0.0></li>
+    <li>If <b>face</b> indicates a face that does not exist the return is &lt;1.0, 1.0, 0.0&gt;</li>
     <li>ALL_SIDES seems to return the scale of the <i>first</i> face, not an average or other function of all the faces. It acts much like if it were called with `face=0`.</li>
   </ul>
   <h2>Examples</h2>

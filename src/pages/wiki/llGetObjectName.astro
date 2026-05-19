@@ -39,14 +39,14 @@ import DocsCode from '/src/components/DocsCode.astro';
   <h2>Caveats</h2>
   <ul>
     <li>The prim name is limited to 63 bytes, any string longer than that will be truncated. This truncation does not always happen when the attribute is set or read.</li>
-    <li>This function may return "(Waiting)" sometimes. See: <a href="#Notes" target="_blank">#Notes</a></li>
+    <li>This function may return &quot;(Waiting)&quot; sometimes. See: <a href="#Notes" target="_blank">#Notes</a></li>
   </ul>
   <h2>Examples</h2>
   <table>
     <tbody>
       <tr>
-        <th><b>Get this prim's name</b></th>
-        <th><b>Get the root prim's name</b></th>
+        <th><b>Get this prim&#39;s name</b></th>
+        <th><b>Get the root prim&#39;s name</b></th>
       </tr>
       <tr>
         <td><div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`
@@ -96,10 +96,10 @@ default
     </tbody>
   </table>
   <h2>Notes</h2>
-  <p>Erroneous "(Waiting)"</p>
-  <p>Presumably the function queries the asset server for a predetermined time and returns "(Waiting)" if that elapses.
+  <p>Erroneous &quot;(Waiting)&quot;</p>
+  <p>Presumably the function queries the asset server for a predetermined time and returns &quot;(Waiting)&quot; if that elapses.
 It then silently proceeds to the next instruction.
-A work around therefore, might be to test object name is not "(Waiting)" after calling llGetObjectName.</p>
+A work around therefore, might be to test object name is not &quot;(Waiting)&quot; after calling llGetObjectName.</p>
   <h2>See Also</h2>
   <h3>Functions</h3>
   <table>

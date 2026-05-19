@@ -75,7 +75,7 @@ main()
 // The (Float)absolute value of -4.5 is: 4.500000`} lang="lsl" /></div>
   <h2>Notes</h2>
   <ul>
-    <li>Using `<b>val</b>-2<i><b>val</b></i>(<b>val</b><0)` is roughly 60% faster than llFabs as it avoids a function call, though it produces NaN if given an infinite value and (correctly) returns 0.0 instead of -0.0 when taking the absolute value of negative zero.</li>
+    <li>Using `**val**-2***val***(**val**&lt;0)` is roughly 60% faster than llFabs as it avoids a function call, though it produces NaN if given an infinite value and (correctly) returns 0.0 instead of -0.0 when taking the absolute value of negative zero.</li>
   </ul>
   <h2>See Also</h2>
   <h3>Functions</h3>
@@ -95,7 +95,7 @@ main()
     <tbody>
       <tr>
         <td>•</td>
-        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/Absolute_value" target="_blank">Absolute value</a></td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/Absolute_value" target="_blank">Absolute value</a></td>
         <td></td>
         <td></td>
         <td></td>
@@ -125,7 +125,7 @@ function float llFabs( float val );
       <tr>
         <td><p>Even with all your little bits intact,</p>
 <p>down to the final point</p>
-<p>it's still size that matters.</p></td>
+<p>it&#39;s still size that matters.</p></td>
       </tr>
     </tbody>
   </table>

@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td>Position / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/pos" target="_blank">pos</a></td>
-          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> or <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a> depending upon the situation&#32;(see <i><a href="#Specification" target="_blank">#Specification</a></i>).</td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region</a> or <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Local" target="_blank">local coordinates</a> depending upon the situation&amp;#32;(see <i><a href="#Specification" target="_blank">#Specification</a></i>).</td>
         </tr>
       </table>
     </div>
@@ -78,9 +78,9 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>This function causes the script to sleep for 0.2 seconds.</li>
     <li>Because of the intermixing of local and regional coordinates with this function, when a prims position is wanted it is best to use <a href="https://wiki.secondlife.com/wiki/LlGetLocalPos" target="_blank">llGetLocalPos</a>.</li>
     <li>This function does not work in the root prim of physical objects. Use a physical function like <a href="https://wiki.secondlife.com/wiki/LlMoveToTarget" target="_blank">llMoveToTarget</a> instead.</li>
-    <li>If you have explicitally set your object as "static obstacle" for pathfinding , the function will fail with the error in the debug channel:
+    <li>If you have explicitally set your object as &quot;static obstacle&quot; for pathfinding , the function will fail with the error in the debug channel:
     <ul>
-      <li>"Unable to set prim position or scale: object contributes to the navmesh."</li>
+      <li>&quot;Unable to set prim position or scale: object contributes to the navmesh.&quot;</li>
     </ul>
   
     </li>
@@ -138,7 +138,7 @@ llSetLocalPos(vector offset)
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetLocalPos" target="_blank">llGetLocalPos</a></td>
         <td>–</td>
-        <td>Returns the prim's local position if it is attached or non-root (otherwise it returns the global position)</td>
+        <td>Returns the prim&#39;s local position if it is attached or non-root (otherwise it returns the global position)</td>
         <td></td>
       </tr>
       <tr>
@@ -152,7 +152,7 @@ llSetLocalPos(vector offset)
         <td>•</td>
         <td><a href="https://wiki.secondlife.com/wiki/LlGetPos" target="_blank">llGetPos</a></td>
         <td>–</td>
-        <td>Returns the prim's global position, even if it is attached or non-root</td>
+        <td>Returns the prim&#39;s global position, even if it is attached or non-root</td>
         <td></td>
       </tr>
     </tbody>

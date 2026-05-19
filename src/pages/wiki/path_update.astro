@@ -20,7 +20,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
           <td>Type / type</td>
-          <td>A `PU_*`, it's the path event type</td>
+          <td>A `PU_*`, it&#39;s the path event type</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>{`{any}`}</span></td>
@@ -50,67 +50,67 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>Description</th>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_SLOWDOWN_DISTANCE_REACHED&action=edit&redlink=1" target="_blank">PU_SLOWDOWN_DISTANCE_REACHED</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_SLOWDOWN_DISTANCE_REACHED&amp;action=edit&amp;redlink=1" target="_blank">PU_SLOWDOWN_DISTANCE_REACHED</a></td>
         <td>0x00</td>
         <td>Character is near current goal.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_GOAL_REACHED&action=edit&redlink=1" target="_blank">PU_GOAL_REACHED</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_GOAL_REACHED&amp;action=edit&amp;redlink=1" target="_blank">PU_GOAL_REACHED</a></td>
         <td>0x01</td>
         <td>Character has reached the goal and will stop or choose a new goal (if wandering).</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_START&action=edit&redlink=1" target="_blank">PU_FAILURE_INVALID_START</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_START&amp;action=edit&amp;redlink=1" target="_blank">PU_FAILURE_INVALID_START</a></td>
         <td>0x02</td>
         <td>Character cannot navigate from the current location - e.g., the character is off the navmesh or too high above it.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_GOAL&action=edit&redlink=1" target="_blank">PU_FAILURE_INVALID_GOAL</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_GOAL&amp;action=edit&amp;redlink=1" target="_blank">PU_FAILURE_INVALID_GOAL</a></td>
         <td>0x03</td>
         <td>Goal is not on the navmesh and cannot be reached.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_UNREACHABLE&action=edit&redlink=1" target="_blank">PU_FAILURE_UNREACHABLE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_UNREACHABLE&amp;action=edit&amp;redlink=1" target="_blank">PU_FAILURE_UNREACHABLE</a></td>
         <td>0x04</td>
         <td>Goal is no longer reachable for some reason - e.g., an obstacle blocks the path.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_TARGET_GONE&action=edit&redlink=1" target="_blank">PU_FAILURE_TARGET_GONE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_TARGET_GONE&amp;action=edit&amp;redlink=1" target="_blank">PU_FAILURE_TARGET_GONE</a></td>
         <td>0x05</td>
         <td>Target (for llPursue or llEvade) can no longer be tracked - e.g., it left the region or is an avatar that is now more than about 30m outside the region.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_NO_VALID_DESTINATION&action=edit&redlink=1" target="_blank">PU_FAILURE_NO_VALID_DESTINATION</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_NO_VALID_DESTINATION&amp;action=edit&amp;redlink=1" target="_blank">PU_FAILURE_NO_VALID_DESTINATION</a></td>
         <td>0x06</td>
-        <td>There's no good place for the character to go - e.g., it is patrolling and all the patrol points are now unreachable.</td>
+        <td>There&#39;s no good place for the character to go - e.g., it is patrolling and all the patrol points are now unreachable.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_EVADE_HIDDEN&action=edit&redlink=1" target="_blank">PU_EVADE_HIDDEN</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_EVADE_HIDDEN&amp;action=edit&amp;redlink=1" target="_blank">PU_EVADE_HIDDEN</a></td>
         <td>0x07</td>
         <td>Triggered when an llEvade character thinks it has hidden from its pursuer.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_EVADE_SPOTTED&action=edit&redlink=1" target="_blank">PU_EVADE_SPOTTED</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_EVADE_SPOTTED&amp;action=edit&amp;redlink=1" target="_blank">PU_EVADE_SPOTTED</a></td>
         <td>0x08</td>
         <td>Triggered when an llEvade character switches from hiding to running</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_NO_NAVMESH&action=edit&redlink=1" target="_blank">PU_FAILURE_NO_NAVMESH</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_NO_NAVMESH&amp;action=edit&amp;redlink=1" target="_blank">PU_FAILURE_NO_NAVMESH</a></td>
         <td>0x09</td>
         <td>This is a fatal error reported to a character when there is no navmesh for the region. This usually indicates a server failure and users should file a bug report and include the time and region in which they received this message.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED&action=edit&redlink=1" target="_blank">PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED&amp;action=edit&amp;redlink=1" target="_blank">PU_FAILURE_DYNAMIC_PATHFINDING_DISABLED</a></td>
         <td>0x0A</td>
-        <td>Triggered when a character enters a region with dynamic pathfinding disabled. Dynamic pathfinding can be toggled by estate managers via the 'dynamic_pathfinding' option in the Region Debug Console.</td>
+        <td>Triggered when a character enters a region with dynamic pathfinding disabled. Dynamic pathfinding can be toggled by estate managers via the &#39;dynamic_pathfinding&#39; option in the Region Debug Console.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_PARCEL_UNREACHABLE&action=edit&redlink=1" target="_blank">PU_FAILURE_PARCEL_UNREACHABLE</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_PARCEL_UNREACHABLE&amp;action=edit&amp;redlink=1" target="_blank">PU_FAILURE_PARCEL_UNREACHABLE</a></td>
         <td>0x0B</td>
         <td>Triggered when a character failed to enter a parcel because it is not allowed to enter, e.g. because the parcel is already full or because object entry was disabled after the navmesh was baked.</td>
       </tr>
       <tr>
-        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_OTHER&action=edit&redlink=1" target="_blank">PU_FAILURE_OTHER</a></td>
+        <td><a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_OTHER&amp;action=edit&amp;redlink=1" target="_blank">PU_FAILURE_OTHER</a></td>
         <td>0xF4240</td>
         <td>Other failure.</td>
       </tr>
@@ -118,8 +118,8 @@ import DocsCode from '/src/components/DocsCode.astro';
   </table>
   <h2>Caveats</h2>
   <ul>
-    <li>Note that if wandering, the "stop" (`<a href="https://wiki.secondlife.com/w/index.php?title=PU_GOAL_REACHED&action=edit&redlink=1" target="_blank">PU_GOAL_REACHED</a>`) type may never occur as a new goal may be chosen when near (`<a href="https://wiki.secondlife.com/w/index.php?title=PU_SLOWDOWN_DISTANCE_REACHED&action=edit&redlink=1" target="_blank">PU_SLOWDOWN_DISTANCE_REACHED</a>`) the previous goal.</li>
-    <li>When the character cannot navigate from the current position (`<a href="https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_START&action=edit&redlink=1" target="_blank">PU_FAILURE_INVALID_START</a>`) <a href="https://wiki.secondlife.com/wiki/LlNavigateTo" target="_blank">llNavigateTo</a> with the `<a href="https://wiki.secondlife.com/wiki/FORCE_DIRECT_PATH" target="_blank">FORCE_DIRECT_PATH</a>` option may be helpful.</li>
+    <li>Note that if wandering, the &quot;stop&quot; (`[PU_GOAL_REACHED](https://wiki.secondlife.com/w/index.php?title=PU_GOAL_REACHED&amp;action=edit&amp;redlink=1)`) type may never occur as a new goal may be chosen when near (`[PU_SLOWDOWN_DISTANCE_REACHED](https://wiki.secondlife.com/w/index.php?title=PU_SLOWDOWN_DISTANCE_REACHED&amp;action=edit&amp;redlink=1)`) the previous goal.</li>
+    <li>When the character cannot navigate from the current position (`[PU_FAILURE_INVALID_START](https://wiki.secondlife.com/w/index.php?title=PU_FAILURE_INVALID_START&amp;action=edit&amp;redlink=1)`) <a href="https://wiki.secondlife.com/wiki/LlNavigateTo" target="_blank">llNavigateTo</a> with the `[FORCE_DIRECT_PATH](https://wiki.secondlife.com/wiki/FORCE_DIRECT_PATH)` option may be helpful.</li>
   </ul>
   <h2>Examples</h2>
 <div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`create_wandering_character()

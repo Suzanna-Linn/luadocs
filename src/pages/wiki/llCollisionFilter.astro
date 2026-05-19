@@ -26,7 +26,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
           <td>ObjectID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/id" target="_blank">id</a></td>
-          <td>filter by&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
+          <td>filter by&amp;#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Group" target="_blank">group</a>,&amp;#32;<a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar" target="_blank">avatar</a> or <a href="https://wiki.secondlife.com/wiki/Object" target="_blank">object</a> <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>boolean</span></td>
@@ -77,27 +77,27 @@ If <b>id</b> is an invalid key or a <a href="https://wiki.secondlife.com/wiki/NU
   <ul>
     <li>Stop filtering:</li>
   </ul>
-  <p>`llCollisionFilter("", NULL_KEY, TRUE);`</p>
+  <p>`llCollisionFilter(&quot;&quot;, NULL_KEY, TRUE);`</p>
   <ul>
     <li>Filter out all collisions:</li>
   </ul>
-  <p>`llCollisionFilter("", NULL_KEY, FALSE);`</p>
-  <p>This script, placed in a wearable object, detects a collision when the person wearing it collides with an object named "Post":</p>
+  <p>`llCollisionFilter(&quot;&quot;, NULL_KEY, FALSE);`</p>
+  <p>This script, placed in a wearable object, detects a collision when the person wearing it collides with an object named &quot;Post&quot;:</p>
   <ul>
     <li>1st instance :</li>
   </ul>
-  <p>an object named "Post" has several child prims named "Object" .
-The prim named "Post" hits the scripted object or scripted prim , the collision will be detected</p>
+  <p>an object named &quot;Post&quot; has several child prims named &quot;Object&quot; .
+The prim named &quot;Post&quot; hits the scripted object or scripted prim , the collision will be detected</p>
   <ul>
     <li>2nd instance :</li>
   </ul>
-  <p>an object named "Post" has several child prims named "Object" .
-A child prim named "Object" hits the scripted object or scripted prim, the collision will be detected</p>
+  <p>an object named &quot;Post&quot; has several child prims named &quot;Object&quot; .
+A child prim named &quot;Object&quot; hits the scripted object or scripted prim, the collision will be detected</p>
   <ul>
     <li>3rd instance :</li>
   </ul>
-  <p>an object named "Object" has several child prims named "Post" .
-A prim named "Post" hits the scripted object or scripted prim, the collision will not be detected</p>
+  <p>an object named &quot;Object&quot; has several child prims named &quot;Post&quot; .
+A prim named &quot;Post&quot; hits the scripted object or scripted prim, the collision will not be detected</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local function main()
     ll.CollisionFilter("Post", "", true)
 end

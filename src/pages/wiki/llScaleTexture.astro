@@ -13,26 +13,25 @@ import DocsCode from '/src/components/DocsCode.astro';
 
   <div class="dashboard-body">
     <div class="dash-col">
-      <p>  <p>Sets the texture <b>u</b> & <b>v</b> scales for the chosen <b>face</b>.</p>
-</p>
+      <p>Sets the diffuse texture Horizontal and Vertical repeats on Face of the prim the script is attached to.<br>If Face == ALL_SIDES, all sides are set in one call.<br>Negative values for horizontal and vertical will flip the texture.</p>
       <table class="param-table" id="parameters">
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
-          <td>Horizontal / u</td>
-          <td>horizontal (x) scale in the interval [-100.0, 100.0]</td>
+          <td>Horizontal</td>
+          <td></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>float</span></td>
-          <td>Vertical / v</td>
-          <td>vertical (y) scale in the interval [-100.0, 100.0]</td>
+          <td>Vertical</td>
+          <td></td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>number</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>integer</span></td>
-          <td>Face / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/face" target="_blank">face</a></td>
-          <td><a href="https://wiki.secondlife.com/wiki/Category:LSL_Face" target="_blank">face</a> number or <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a></td>
+          <td>Face</td>
+          <td></td>
         </tr>
       </table>
     </div>
@@ -56,117 +55,6 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>If <b>face</b> is <a href="https://wiki.secondlife.com/wiki/ALL_SIDES" target="_blank">ALL_SIDES</a> then the function works on all sides.</p>
-  <h2>Specification</h2>
-  <p>In the default texture mapping mode the scale units are in texture repeats per face. In the planar texture mapping mode the scale units are in texture repeats per half meter. This is in contrast to the in-world editing tool, in which the planar texture scaling units are repeats per meter.</p>
-  <h2>Caveats</h2>
-  <ul>
-    <li>This function causes the script to sleep for 0.2 seconds.</li>
-    <li>The function silently fails if its <b>face</b> value indicates a face that does not exist.</li>
-  </ul>
-  <h2>Examples</h2>
-<div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`-- WARNING:
---      llScaleTexture has a delay of 200 miliseconds
---      that means every time the function is called within a script it'll take 0.2 seconds
---      for example the script below would take about 1.2 seconds....that's REALLY SLOW !!!
---
---      To work around that delay use the following instead:
---
---
---      llSetLinkPrimitiveParamsFast(integer link,
---          [PRIM_TEXTURE, integer face, string texture, vector repeats, vector offsets, float rotation_in_radians]);
-
--- *******************************************************************************************************************
-
---Scales the textures on 6 sides
-local scale = 0
-
-local function main()
-    local index = 0
-    while index < 7 do
-        scale += 0.1
-        ll.ScaleTexture(tonumber(scale), tonumber(scale), index)
-
-        index += 1
-    end
-end
-
-main()
-`} lang="slua" /></div>
-<div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`// WARNING:
-//      llScaleTexture has a delay of 200 miliseconds
-//      that means every time the function is called within a script it'll take 0.2 seconds
-//      for example the script below would take about 1.2 seconds....that's REALLY SLOW !!!
-//
-//      To work around that delay use the following instead:
-//
-//
-//      llSetLinkPrimitiveParamsFast(integer link,
-//          [PRIM_TEXTURE, integer face, string texture, vector repeats, vector offsets, float rotation_in_radians]);
-
-
-// *******************************************************************************************************************
-
-
-
-//Scales the textures on 6 sides
-float scale;
-
-default
-{
-    state_entry()
-    {
-        integer index;
-        while (index < 7)
-        {
-            scale += 0.1;
-            llScaleTexture((float)scale, (float)scale, index);
-
-            ++index;
-        }
-    }
-}
-
-// output:
-//      face 0 >> 0.1
-//      face 1 >> 0.2
-//      face 2 >> 0.3
-//      face 3 >> 0.4
-//      face 4 >> 0.5
-//      face 5 >> 0.6
-//      face 6 >> 0.7`} lang="lsl" /></div>
-  <h2>See Also</h2>
-  <h3>Functions</h3>
-  <table>
-    <tbody>
-      <tr>
-        <td>•</td>
-        <td><a href="https://wiki.secondlife.com/wiki/LlGetTextureScale" target="_blank">llGetTextureScale</a></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h2>Deep Notes</h2>
-  <p>Footnotes</p>
-  <ul>
-    <li><b><a href="#fn_1" target="_blank">^</a></b> The ranges in this article are written in <a href="http://en.wikipedia.org/wiki/Interval_(mathematics" target="_blank">Interval Notation</a>#Notations_for_intervals).</li>
-  </ul>
-  <table>
-    <tbody>
-      <tr>
-        <th>Signature</th>
-      </tr>
-      <tr>
-        <td><div class="lsl-block"><span class="tag lsl-tag">LSL</span><DocsCode code={`
-function void llScaleTexture( float u, float v, integer face );
-`} lang="lsl" /></div>
-
-</td>
-      </tr>
-    </tbody>
-  </table>
 
 </DocsLayout>
       

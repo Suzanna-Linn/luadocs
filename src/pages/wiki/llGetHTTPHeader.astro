@@ -62,22 +62,22 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>example</th>
       </tr>
       <tr>
-        <td>"x-script-url"</td>
+        <td>&quot;x-script-url&quot;</td>
         <td>The base url, as originally received from <a href="https://wiki.secondlife.com/wiki/LlRequestURL" target="_blank">llRequestURL</a>/<a href="https://wiki.secondlife.com/wiki/LlRequestSecureURL" target="_blank">llRequestSecureURL</a></td>
         <td>https://sim3015.aditi.lindenlab.com:12043/cap/a7717681-2c04-e4ac-35e3-1f01c9861322</td>
       </tr>
       <tr>
-        <td>"x-path-info"</td>
+        <td>&quot;x-path-info&quot;</td>
         <td>Any trailing path information from the requested url</td>
         <td>/foo/bar</td>
       </tr>
       <tr>
-        <td>"x-query-string"</td>
-        <td>Any query arguments, the text past the first "?" in the url</td>
+        <td>&quot;x-query-string&quot;</td>
+        <td>Any query arguments, the text past the first &quot;?&quot; in the url</td>
         <td>arg=gra</td>
       </tr>
       <tr>
-        <td>"x-remote-ip"</td>
+        <td>&quot;x-remote-ip&quot;</td>
         <td>IP address of the host that made the request</td>
         <td></td>
       </tr>
@@ -92,7 +92,7 @@ import DocsCode from '/src/components/DocsCode.astro';
         <th>example</th>
       </tr>
       <tr>
-        <td>"user-agent"</td>
+        <td>&quot;user-agent&quot;</td>
         <td>The user-agent header as reported by the requester</td>
         <td></td>
       </tr>
@@ -122,10 +122,10 @@ import DocsCode from '/src/components/DocsCode.astro';
   <p>The message should be forwarded to the server, even if it has a cached version of the data.</p>
   <p>no-cache</p>
   <p>x-secondlife-shard</p>
-  <p>The environment the object is in. "Production" is the main grid and "Testing" is the preview grid</p>
+  <p>The environment the object is in. &quot;Production&quot; is the main grid and &quot;Testing&quot; is the preview grid</p>
   <p>Production</p>
   <p>x-secondlife-region</p>
-  <p>The name of the region the object is in, along with the global coordinates of the region's south-west corner</p>
+  <p>The name of the region the object is in, along with the global coordinates of the region&#39;s south-west corner</p>
   <p>Jin Ho (264448, 233984)</p>
   <p>x-secondlife-owner-name</p>
   <p><a href="https://wiki.secondlife.com/wiki/Category:LSL_Avatar/Name" target="_blank">Legacy name</a> of the owner of the object</p>
@@ -170,7 +170,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <tbody>
       <tr>
         <td></td>
-        <td><b>Tip:</b> Certain server environments (CGI) place headers into variables by capitalizing the entire name, replacing dashes with underscores, and prefixing the name with "HTTP_", e.g. "x-secondlife-object-name" becomes "HTTP_X_SECONDLIFE_OBJECT_NAME". This depends solely on the HTTP server used to process the request and cannot be controlled via LSL.</td>
+        <td><b>Tip:</b> Certain server environments (CGI) place headers into variables by capitalizing the entire name, replacing dashes with underscores, and prefixing the name with &quot;HTTP_&quot;, e.g. &quot;x-secondlife-object-name&quot; becomes &quot;HTTP_X_SECONDLIFE_OBJECT_NAME&quot;. This depends solely on the HTTP server used to process the request and cannot be controlled via LSL.</td>
       </tr>
     </tbody>
   </table>
@@ -178,7 +178,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <tbody>
       <tr>
         <td>⚠️</td>
-        <td><b>Warning:</b> <a href="https://datatracker.ietf.org/doc/html/rfc2616#section-4.2" target="_blank">RFC 2616 § 4.2</a> defines HTTP header field names as case-insensitive. The capitalization of header field names shown above is not guaranteed; for example, "X-SecondLife-Object-Name" may be received as "X-Secondlife-Object-Name". See <a href="https://jira.secondlife.com/browse/BUG-5094" target="_blank">BUG-5094</a> for an instance of ISPs recapitalizing headers. This behavior was also observed when testing in 2026.</td>
+        <td><b>Warning:</b> <a href="https://datatracker.ietf.org/doc/html/rfc2616#section-4.2" target="_blank">RFC 2616 § 4.2</a> defines HTTP header field names as case-insensitive. The capitalization of header field names shown above is not guaranteed; for example, &quot;X-SecondLife-Object-Name&quot; may be received as &quot;X-Secondlife-Object-Name&quot;. See <a href="https://jira.secondlife.com/browse/BUG-5094" target="_blank">BUG-5094</a> for an instance of ISPs recapitalizing headers. This behavior was also observed when testing in 2026.</td>
       </tr>
     </tbody>
   </table>
@@ -189,7 +189,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     <li>Custom headers are not supported, only the headers listed in the specification are supported.</li>
     <li>LSL is not a CGI environment
     <ul>
-      <li>"Content-Type" is an example of a normal header name, in a CGI environment the name would be "HTTP_CONTENT_TYPE".</li>
+      <li>&quot;Content-Type&quot; is an example of a normal header name, in a CGI environment the name would be &quot;HTTP_CONTENT_TYPE&quot;.</li>
     </ul>
   
     </li>
@@ -375,7 +375,7 @@ default
       </tr>
       <tr>
         <td>•</td>
-        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&#8201;<a href="https://en.wikipedia.org/wiki/List_of_HTTP_headers" target="_blank">Wikipedia:List of HTTP headers</a></td>
+        <td>[](https://wiki.secondlife.com/wiki/File:Wikipedia-16px.png)&amp;#8201;<a href="https://en.wikipedia.org/wiki/List_of_HTTP_headers" target="_blank">Wikipedia:List of HTTP headers</a></td>
         <td></td>
         <td></td>
         <td></td>

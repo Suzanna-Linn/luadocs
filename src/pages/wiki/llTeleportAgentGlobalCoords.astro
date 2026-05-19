@@ -14,7 +14,7 @@ import DocsCode from '/src/components/DocsCode.astro';
   <div class="dashboard-body">
     <div class="dash-col">
       <p>  <p>Teleports an <b>agent</b> to <b>region_coordinates</b> within a region specified by <b>global_coordinates</b>.</p>
-  <p>A region's global coordinates can be retrieved using `<a href="https://wiki.secondlife.com/wiki/LlRequestSimulatorData" target="_blank">llRequestSimulatorData</a>("region name", DATA_SIM_POS)`</p>
+  <p>A region&#39;s global coordinates can be retrieved using `[llRequestSimulatorData](https://wiki.secondlife.com/wiki/LlRequestSimulatorData)(&quot;region name&quot;, DATA_SIM_POS)`</p>
   <p>If the destination is in the current region, the avatar will land facing <b>look_at</b> as a position within that region. Otherwise, <b>look_at</b> is treated as a unit direction.</p>
 </p>
       <table class="param-table" id="parameters">
@@ -22,7 +22,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>uuid</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>key</span></td>
           <td>AvatarID / <a href="https://wiki.secondlife.com/wiki/Category:LSL_Parameters/agent" target="_blank">agent</a></td>
-          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>&#32;(the avatar to teleport, must be the owner)</td>
+          <td>avatar <a href="https://wiki.secondlife.com/wiki/UUID" target="_blank">UUID</a> that is in the same <a href="https://wiki.secondlife.com/wiki/Region" target="_blank">region</a>&amp;#32;(the avatar to teleport, must be the owner)</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
@@ -34,7 +34,7 @@ import DocsCode from '/src/components/DocsCode.astro';
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
           <td><span class="lsl-section"><span class="tag lsl-tag">LSL</span>vector</span></td>
           <td>RegionPosition / region_coordinates</td>
-          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&#32;where the avatar should land.</td>
+          <td>position in <a href="https://wiki.secondlife.com/wiki/Viewer_coordinate_frames#Region" target="_blank">region coordinates</a>&amp;#32;where the avatar should land.</td>
         </tr>
         <tr>
           <td><span class="lua-section"><span class="tag lua-tag">Lua</span>vector</span></td>
@@ -68,7 +68,7 @@ import DocsCode from '/src/components/DocsCode.astro';
     </div>
   </div>
 </div>
-  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&#32;and it must be granted by <b>agent</b>.</p>
+  <p>To run this function the script must request the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="_blank">PERMISSION_TELEPORT</a> permission with <a href="https://wiki.secondlife.com/wiki/LlRequestPermissions" target="_blank">llRequestPermissions</a>&amp;#32;and it must be granted by <b>agent</b>.</p>
   <p>The combination of <a href="https://wiki.secondlife.com/wiki/LlRequestSimulatorData" target="_blank">llRequestSimulatorData</a> and llTeleportAgentGlobalCoords allows agents to be teleported to regions by region name.</p>
   <h2>Caveats</h2>
   <table>
@@ -89,9 +89,9 @@ Once the <a href="https://wiki.secondlife.com/wiki/PERMISSION_TELEPORT" target="
     <li>Teleports are throttled</li>
     <li>This function cannot be used in a script in an object attached using <a href="https://wiki.secondlife.com/wiki/LlAttachToAvatarTemp" target="_blank">llAttachToAvatarTemp</a>.</li>
     <li>Sitting avatars cannot be teleported using this function. You must <a href="https://wiki.secondlife.com/wiki/LlUnSit" target="_blank">llUnSit</a> them first.</li>
-    <li>This function does not override a parcel's teleport settings, i.e. if the parcel has a landing zone enabled the avatar will be teleported there.</li>
+    <li>This function does not override a parcel&#39;s teleport settings, i.e. if the parcel has a landing zone enabled the avatar will be teleported there.</li>
     <li>If the script is part of an experience that the avatar has granted permission, then this function may teleport them without being the owner and it will override parcel teleport routing.</li>
-    <li>When <b>look_at</b> treated treated as a direction, a valid input should be `<llCos(angle), llSin(angle), 0.0>`.
+    <li>When <b>look_at</b> treated treated as a direction, a valid input should be `&lt;llCos(angle), llSin(angle), 0.0&gt;`.
     <ul>
       <li>In other words, it should be a <b>unit vector</b> corresponding to the avatar turning <b>angle</b> radians from north.</li>
     </ul>
@@ -130,8 +130,8 @@ end
         }
     }
 }`} lang="lsl" /></div>
-  <p>Similar to the above, but also keeps track of current global coordinate and adjusts the <b>look_at</b> value based on whether the destination is the current region or a different one. This ensures that the avatar will always be facing the same direction regardless of whether they're teleporting within the region or to another one.</p>
-  <p>The script keeps track of the current region's global coordinate in <b>state_entry</b> and <b>changed</b> events, which is later used to check whether the destination has the same global coordinates.</p>
+  <p>Similar to the above, but also keeps track of current global coordinate and adjusts the <b>look_at</b> value based on whether the destination is the current region or a different one. This ensures that the avatar will always be facing the same direction regardless of whether they&#39;re teleporting within the region or to another one.</p>
+  <p>The script keeps track of the current region&#39;s global coordinate in <b>state_entry</b> and <b>changed</b> events, which is later used to check whether the destination has the same global coordinates.</p>
 <div class="lua-block"><span class="tag lua-tag">Lua</span><DocsCode code={`local current_region = ZERO_VECTOR
 
 local function main()
